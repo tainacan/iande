@@ -1,0 +1,23 @@
+{
+  "name": "iande-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/percebe/iande-plugin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/percebe/iande-plugin/issues"
+  },
+  "homepage": "https://gitlab.com/percebe/iande-plugin#readme",
+  "devDependencies": {
+    "laravel-mix": "^5.0.4"
+  }
+}
