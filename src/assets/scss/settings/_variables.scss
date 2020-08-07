@@ -3,6 +3,7 @@ $secondary-color-base: #1E2E55 !default;
 $tertiary-color-base: #7DB6C5 !default;
 $background-color-base: white !default;
 $light-color-base: #F5F5F5 !default;
+$gray-color-base: #999999 !default;
 $text-color-base: #666666 !default;
 
 $primary-color: var(--iande-primary-color);
@@ -10,6 +11,7 @@ $secondary-color: var(--iande-secondary-color);
 $tertiary-color: var(--iande-tertiary-color);
 $background-color: var(--iande-background-color);
 $light-color: var(--iande-light-color);
+$gray-color: var(--iande-gray-color);
 $text-color: var(--iande-text-color);
 
 :root {
@@ -18,5 +20,6 @@ $text-color: var(--iande-text-color);
     --iande-tertiary-color: #{$tertiary-color-base};
     --iande-background-color: #{$background-color-base};
     --iande-light-color: #{$light-color-base};
+    --iande-gray-color: #{$gray-color-base};
     --iande-text-color: #{$text-color-base};
 }
