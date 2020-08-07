@@ -46,7 +46,7 @@ class User extends Controller
      */
     function endpoint_is_logged_in()
     {
-        $logged_in = is_user_logged_in();
+        $logged_in = \is_user_logged_in();
 
         $this->success($logged_in);
     }
@@ -87,16 +87,16 @@ class User extends Controller
             $this->error(__('Informe a senha', 'iande'));
         }
 
-        do_action('iande.login_before', $params);
+        \do_action('iande.login_before', $params);
 
         $user = wp_signon(['user_login' => $params['email'], 'user_password' => $params['password']]);
         if ($user instanceof \WP_User) {
-            do_action('iande.login_success', $user);
+            \do_action('iande.login_success', $user);
 
             $user = $this->parse_user($user);
             $this->success($user);
         } else {
-            do_action('iande.login_fail', $params);
+            \do_action('iande.login_fail', $params);
 
             $this->error(__('Credenciais inválidas', 'iande'), 401);
         }

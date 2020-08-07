@@ -85,7 +85,7 @@ abstract class Controller
     {
         $error_message = $error_message ?: __('This action requires authentication');
 
-        if (!is_user_logged_in()) {
+        if (!\is_user_logged_in()) {
             if (\wp_is_json_request()) {
                 $this->error($error_message);
             } else {
