@@ -110,6 +110,7 @@ Os *slots* são criados a partir dos horários e da duração das visitas. Ver h
 - `/iande/user/get_logged_in` - retorna o usuário logado
 - `/iande/user/login` **{email,password}** - tenta fazer o login do usuário
 - `/iande/user/logout` - desloga o usuário
+- `/iande/user/create` **{first_name,last_name,phone,email,password}** - tenta criar o usuário com os dados informados. Após a criação o usuário é autenticado.
   
 ## Api de hooks para extensões
 
@@ -119,6 +120,8 @@ Os *slots* são criados a partir dos horários e da duração das visitas. Ver h
 - `iande.login_before` **(array $params)** - executado antes da tentativa de login
 - `iande.login_success` **(WP_User $user)** - executado após login bem-sucedido
 - `iande.login_fail` **(array $params)** - executado após login mal-sucedido
+- `iande.before_create_user` **(array $params)**
+- `iande.after_create_user` **(array $params)**
 
 ### filtros
 - `iande.parse_user` **($parsed_user, WP_User $user)** - filtra o valor parseado do usuário

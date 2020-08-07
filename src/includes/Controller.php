@@ -116,7 +116,7 @@ abstract class Controller
      * @param integer $http_status_code status da resposta http. default: 400
      * @return void
      */
-    protected function error(string $data, int $http_status_code = 400)
+    protected function error($data, int $http_status_code = 400)
     {
         if ($http_status_code == 200) {
             throw new \Exception('error status could not be 200');

@@ -112,4 +112,57 @@ class User extends Controller
         \wp_logout();
         $this->success(true);
     }
+
+    /**
+     * Cria um novo usuário.
+     *
+     * @param array $params
+     * 
+     * @action iande.before_create_user
+     * @action iande.after_create_user
+     * @action iande.login_success
+     * 
+     * @return void
+     */
+    function endpoint_create(array $params = [])
+    {
+        foreach (['first_name', 'last_name', 'email', 'phone', 'password'] as $field) {
+            if (empty($params[$field])) {
+                $this->error(__('Todos os campos são obrigatórios', 'iande'));
+            }
+        }
+
+        if (strlen($params['password']) < 6) {
+            $this->error(__('Já senha deve ter no mínimo seis caracteres', 'iande'));
+        }
+
+        if (\get_user_by('email', $params['email'])) {
+            $this->error(__('Já existe um usuário com este endereço de email', 'iande'));
+        }
+
+        \do_action('iande.before_create_user', $params);
+
+        $new_user_id = \wp_insert_user([
+            'user_login' => $params['email'],
+            'user_email' => $params['email'],
+            'user_pass' => $params['password'],
+            'first_name' => $params['first_name'],
+            'last_name' => $params['last_name'],
+            'display_name' => $params['first_name'] . ' ' . $params['last_name']
+        ]);
+
+        if ($new_user_id instanceof \WP_Error) {
+            $this->error($new_user_id->get_error_messages());
+        }
+
+        \add_user_meta($new_user_id, 'phone', $params['phone']);
+
+        \do_action('iande.after_create_user', $new_user_id);
+
+        $user = \wp_signon(['user_login' => $params['email'], 'user_password' => $params['password']]);
+
+        \do_action('iande.login_success', $user);
+
+        $this->success($this->parse_user($user));
+    }
 }
