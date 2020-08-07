@@ -23,11 +23,15 @@
   },
   "homepage": "https://gitlab.com/percebe/iande-plugin#readme",
   "devDependencies": {
+    "cross-env": "*",
     "laravel-mix": "^5.0.4",
     "resolve-url-loader": "^3.1.0",
     "sass": "^1.26.10",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11",
-    "cross-env": "*"
+    "vue-template-compiler": "^2.6.11"
+  },
+  "dependencies": {
+    "bent": "^7.3.9",
+    "vue": "^2.6.11"
   }
 }

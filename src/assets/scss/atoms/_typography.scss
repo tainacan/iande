@@ -1,0 +1,7 @@
+@use '../settings/variables' as var;
+
+#iande-app {
+    .text-secondary {
+        color: var.$secondary-color;
+    }
+}
