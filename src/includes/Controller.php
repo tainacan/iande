@@ -60,7 +60,7 @@ abstract class Controller
         }
 
         $controller = $this->get_slug();
-        $params = \apply_filter("iande.route.{$controller}/{$action}.params", $params);
+        $params = \apply_filters("iande.route.{$controller}/{$action}.params", $params);
 
         \do_action("iande.route.{$controller}/{$action}", $params);
 
