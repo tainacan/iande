@@ -76,7 +76,9 @@ function action__template_redirects()
 
     enqueue_assets();
 
-    $params = $_POST ?: $_GET;
-    
+    if (!($params = (array) json_decode(file_get_contents('php://input')))) {
+        $params = $_POST ?: $_GET;
+    }
+
     $controller->call($action, $params);
 }
