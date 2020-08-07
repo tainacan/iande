@@ -136,6 +136,10 @@ class User extends Controller
             $this->error(__('Já senha deve ter no mínimo seis caracteres', 'iande'));
         }
 
+        if (!filter_var($params['email'], FILTER_VALIDATE_EMAIL)) {
+            $this->error(__('O endereço de email informado não é um endereço de emaill válido', 'iande'));
+        }
+
         if (\get_user_by('email', $params['email'])) {
             $this->error(__('Já existe um usuário com este endereço de email', 'iande'));
         }
