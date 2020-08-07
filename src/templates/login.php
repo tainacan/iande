@@ -1,6 +1,7 @@
-<?php
-get_header();
+<?php get_header(); ?>
 
-echo "LOGIN";
+<div id="iande-app">
+    <app-login-page institution="Museu Afro Brasil"></app-login-page>
+</div>
 
-get_footer();
+<?php get_footer(); ?>
