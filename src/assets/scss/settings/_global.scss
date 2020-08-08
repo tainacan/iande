@@ -1,14 +1,8 @@
-@use './variables' as var;
-
-:root {
+.iande {
+    background-color: var(--iande-background-color);
+    color: var(--iande-text-color);
     font-size: 16px;
     line-height: 1.375;
-}
-
-#iande-app {
-    background-color: var.$background-color;
-    color: var.$text-color;
-    font-size: 16px;
     padding: 30px 20px;
 
     .container {
@@ -16,24 +10,24 @@
         width: 100%;
 
         &.narrow {
-            max-width: 30rem;
+            max-width: 50ex;
         }
     }
 
     h1 {
-        color: var.$primary-color;
-        font-size: 2.5rem;
+        color: var(--iande-primary-color);
+        font-size: 2.5em;
         font-weight: normal;
         margin: 0 0 1em;
         text-align: center;
     }
 
     .slogan {
-        font-size: 1.25rem;
+        font-size: 1.25em;
         text-align: center;
     }
 
     p {
-        font-size: 1rem;
+        font-size: 1em;
     }
 }

@@ -1,7 +1,6 @@
 @use './settings/variables';
 @use './settings/global';
-
-@use './atoms/typography';
+@use './settings/atoms';
 
 @use './layouts/form';
 @use './layouts/stack';

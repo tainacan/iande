@@ -1,6 +1,4 @@
-@use '../settings/variables' as var;
-
-#iande-app .form {
+.iande .form {
     .grid {
         display: grid;
         grid-gap: 20px;
@@ -13,24 +11,24 @@
     }
 
     .label {
-        color: var.$secondary-color;
-        font-size: 1rem;
+        color: var(--iande-secondary-color);
+        font-size: 1em;
         font-weight: bold;
     }
 
     .input {
-        border: 1px solid var.$primary-color;
-        border-radius: 10px;
+        border: 1px solid var(--iande-primary-color);
+        border-radius: var(--iande-border-radius);
         display: block;
-        font-size: 1rem;
+        font-size: 1em;
         height: fit-content;
         padding: 15px 20px;
     }
 
     .link {
-        color: var.$gray-color;
+        color: var(--iande-medium-color);
         display: block;
-        font-size: 0.875rem;
+        font-size: 0.875em;
         text-align: right;
         text-decoration: underline;
 
@@ -40,11 +38,11 @@
     }
 
     .button {
-        color: var.$secondary-color;
-        border: 1px solid var.$primary-color;
-        border-radius: 10px;
+        color: var(--iande-secondary-color);
+        border: 1px solid var(--iande-primary-color);
+        border-radius: var(--iande-border-radius);
         display: block;
-        font-size: 1rem;
+        font-size: 1em;
         font-weight: bold;
         padding: 15px 20px;
         text-align: center;
@@ -52,7 +50,7 @@
         width: 100%;
 
         &.solid {
-            background-color: var.$primary-color;
+            background-color: var(--iande-primary-color);
         }
 
         &.outline {
