@@ -81,7 +81,7 @@
             async createUser () {
                 this.formError = ''
                 this.$v.$touch()
-                if (!this.$v.invalid) {
+                if (!this.$v.$invalid) {
                     try {
                         const user = await api.post('user/create', {
                             email: this.email,
