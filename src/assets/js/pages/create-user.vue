@@ -37,9 +37,9 @@
 <script>
     import { email, minLength, required, sameAs } from 'vuelidate/lib/validators'
 
-    import StepsIndicator from '../components/StepsIndicator'
-    import ValidatedMaskedInput from '../components/ValidatedMaskedInput'
-    import ValidatedInput from '../components/ValidatedInput'
+    import StepsIndicator from '../components/StepsIndicator.vue'
+    import ValidatedMaskedInput from '../components/ValidatedMaskedInput.vue'
+    import ValidatedInput from '../components/ValidatedInput.vue'
     import api from '../utils/api'
     import { phone } from '../utils/validators'
 

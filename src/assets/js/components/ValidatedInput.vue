@@ -1,16 +1,19 @@
 <template>
     <div>
         <input v-bind="inputAttrs" @input="$emit('update:value', $event.target.value)">
-        <div class="form-error" :id="errorId" v-if="validations.$error">
-            <span v-if="validations.required === false">Campo obrigatório</span>
-        </div>
+        <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
     </div>
 </template>
 
 <script>
+    import FormError from './FormError.vue'
+
     export default {
         name: 'ValidatedInput',
         inheritAttrs: false,
+        components: {
+            FormError,
+        },
         model: {
             prop: 'value',
             event: 'update:value'

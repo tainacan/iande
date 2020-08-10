@@ -36,8 +36,8 @@
 <script>
     import { required } from 'vuelidate/lib/validators'
 
-    import StepsIndicator from '../components/StepsIndicator'
-    import ValidatedInput from '../components/ValidatedInput'
+    import StepsIndicator from '../components/StepsIndicator.vue'
+    import ValidatedInput from '../components/ValidatedInput.vue'
     import api from '../utils/api'
 
     export default {

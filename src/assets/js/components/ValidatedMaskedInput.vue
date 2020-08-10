@@ -1,15 +1,19 @@
 <template>
     <div>
         <MaskedInput :mask="mask" :masked="false" v-bind="inputAttrs" @input="$emit('update:value', $event)"/>
+        <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
     </div>
 </template>
 
 <script>
     import { TheMask } from 'vue-the-mask'
 
+    import FormError from './FormError.vue'
+
     export default {
         name: 'ValidatedMaskedInput',
         components: {
+            FormError,
             MaskedInput: TheMask,
         },
         inheritAttrs: false,
