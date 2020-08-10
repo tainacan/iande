@@ -4,6 +4,8 @@ import Vuex from 'vuex'
 
 import createStore from './store'
 
+import './utils/icons'
+
 // Lazy-loading candidates
 import CreateUserPage from './pages/create-user.vue'
 import LoginPage from './pages/login.vue'
