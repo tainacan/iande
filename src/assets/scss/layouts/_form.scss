@@ -23,6 +23,12 @@
         font-size: 1em;
         height: fit-content;
         padding: 15px 20px;
+        width: 100%;
+    }
+
+    .form-error {
+        color: var(--iande-error-color);
+        font-size: 0.875em;
     }
 
     .link {

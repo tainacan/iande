@@ -1,5 +1,5 @@
 <template>
-    <div class="container stack-lg narrow">
+    <article class="container stack-lg narrow">
         <h1>Boas vindas!</h1>
         <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ institution }}.</p>
         <p>Para agendar uma visita é simples. Basta você se logar e informar os dados solicitados nas 3 etapas a seguir:</p>
@@ -8,27 +8,32 @@
             <div>
                 <div class="label">Faça login para começar:</div>
                 <div class="grid">
-                    <input class="input" type="text" placeholder="email" aria-label="E-mail" v-model="email">
+                    <ValidatedInput id="email" type="text" placeholder="email" aria-label="E-mail" v-model="email" :validations="$v.email"/>
                     <div>
-                        <input class="input" type="password" placeholder="senha" aria-label="Senha" v-model="password">
+                        <ValidatedInput id="password" type="password" placeholder="senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
                         <a class="link" href="#">Não lembro a senha</a>
                     </div>
                 </div>
             </div>
             <div class="stack-md">
                 <button class="button solid" type="submit">Fazer login</button>
-                <a class="button outline" href="#">Criar login</a>
+                <a class="button outline" href="../create">Criar login</a>
             </div>
         </form>
-    </div>
+    </article>
 </template>
 
 <script>
     import { required } from 'vuelidate/lib/validators'
 
+    import ValidatedInput from '../components/ValidatedInput'
     import api from '../utils/api'
 
     export default {
+        name: 'LoginPage',
+        components: {
+            ValidatedInput,
+        },
         props: {
             institution: { type: String, required: true },
         },
@@ -44,11 +49,18 @@
         },
         methods: {
             async login () {
-                const x = await api.post('user/login', {
-                    email: this.email,
-                    password: this.password
-                })
-                console.log(x)
+                try {
+                    this.$v.$touch()
+                    if (!this.$v.$invalid) {
+                        const user = await api.post('user/login', {
+                            email: this.email,
+                            password: this.password
+                        })
+                        this.$store.set('user/user', user)
+                    }
+                } catch (err) {
+                    console.error(err)
+                }
             }
         }
     }

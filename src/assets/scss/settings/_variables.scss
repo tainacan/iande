@@ -7,6 +7,7 @@ $background-color: white !default;
 $light-color: #F5F5F5 !default;
 $medium-color: #999999 !default;
 $text-color: #666666 !default;
+$error-color: #d44950 !default;
 
 :root {
     --iande-border-radius: #{$border-radius};
@@ -18,4 +19,5 @@ $text-color: #666666 !default;
     --iande-light-color: #{$light-color};
     --iande-medium-color: #{$medium-color};
     --iande-text-color: #{$text-color};
+    --iande-error-color: #{$error-color};
 }

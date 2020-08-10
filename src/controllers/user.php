@@ -10,9 +10,9 @@ class User extends Controller
      * Parsea o usuário para retorno na api
      *
      * @param \WP_User $user
-     * 
+     *
      * @filter iande.parse_user
-     * 
+     *
      * @return void
      */
     protected function parse_user(\WP_User $user)
@@ -37,6 +37,17 @@ class User extends Controller
     function view_login(array $params = [])
     {
         $this->render('login');
+    }
+
+    /**
+     * Renderiza a página de criação de usuários
+     *
+     * @param array $params
+     * @return void
+     */
+    function view_create(array $params = [])
+    {
+        $this->render('create-user');
     }
 
     /**
@@ -69,11 +80,11 @@ class User extends Controller
      * Tenta fazer o login do usuário
      *
      * @param array $params
-     * 
+     *
      * @action iande.login_before
      * @action iande.login_success
      * @action iande.login_fail
-     * 
+     *
      * @return void
      */
     function endpoint_login(array $params = [])
@@ -117,11 +128,11 @@ class User extends Controller
      * Cria um novo usuário.
      *
      * @param array $params
-     * 
+     *
      * @action iande.before_create_user
      * @action iande.after_create_user
      * @action iande.login_success
-     * 
+     *
      * @return void
      */
     function endpoint_create(array $params = [])
