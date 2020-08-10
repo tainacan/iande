@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input class="input" :class="[inputClass, validations.$error && 'invalid']" :id="id" :name="id" :value="value" :aria-describedby="errorId" v-bind="$attrs" @input="$emit('update:value', $event.target.value)">
+        <input v-bind="inputAttrs" @input="$emit('update:value', $event.target.value)">
         <div class="form-error" :id="errorId" v-if="validations.$error">
             <span v-if="validations.required === false">Campo obrigatório</span>
         </div>
@@ -24,6 +24,16 @@
         computed: {
             errorId () {
                 return `${this.id}__error`
+            },
+            inputAttrs () {
+                return {
+                    ...this.$attrs,
+                    'aria-describedby': this.errorId,
+                    class: ['input', this.inputClass, this.validations.$error && 'invalid'],
+                    id: this.id,
+                    name: this.id,
+                    value: this.value,
+                }
             }
         }
     }
