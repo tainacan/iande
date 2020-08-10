@@ -6,7 +6,7 @@
             <p>Para agendar uma visita é simples. Basta você se logar e informar os dados solicitados nas 3 etapas a seguir:</p>
         </div>
 
-        <StepsIndicator step="0"/>
+        <StepsIndicator :step="0"/>
 
         <div class="container stack-lg narrow">
             <p>Após a confirmação, você receberá um email com o resumo sobre o agendamento. Vamos lá?</p>
