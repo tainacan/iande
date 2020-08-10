@@ -22,6 +22,9 @@
                     </div>
                 </div>
                 <div class="stack-md">
+                    <div class="form-error" v-if="formError">
+                        <span>{{ formError }}</span>
+                    </div>
                     <button class="button solid" type="submit">Fazer login</button>
                     <a class="button outline" href="../create">Criar login</a>
                 </div>
@@ -49,6 +52,7 @@
         data () {
             return {
                 email: '',
+                formError: '',
                 password: '',
             }
         },
@@ -58,6 +62,7 @@
         },
         methods: {
             async login () {
+                this.formError = ''
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
                     try {
@@ -67,7 +72,7 @@
                         })
                         this.$store.set('user/user', user)
                     } catch (err) {
-                        console.error(err)
+                        this.formError = err
                     }
                 }
             }

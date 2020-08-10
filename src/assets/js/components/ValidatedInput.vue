@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input class="input" :class="inputClass" :id="id" :name="id" :value="value" :aria-describedby="errorId" v-bind="$attrs" @input="$emit('update:value', $event.target.value)">
+        <input class="input" :class="[inputClass, validations.$error && 'invalid']" :id="id" :name="id" :value="value" :aria-describedby="errorId" v-bind="$attrs" @input="$emit('update:value', $event.target.value)">
         <div class="form-error" :id="errorId" v-if="validations.$error">
             <span v-if="validations.required === false">Campo obrigatório</span>
         </div>

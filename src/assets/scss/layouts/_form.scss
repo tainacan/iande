@@ -24,11 +24,16 @@
         height: fit-content;
         padding: 15px 20px;
         width: 100%;
+
+        &.invalid {
+            border-color: var(--iande-error-color);
+        }
     }
 
     .form-error {
         color: var(--iande-error-color);
         font-size: 0.875em;
+        text-align: center;
     }
 
     .link {
