@@ -1,6 +1,6 @@
 .iande .steps-indicator {
     background-color: var(--iande-light-color);
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 
     &__row {
         display: flex;
@@ -46,5 +46,5 @@
 }
 
 .iande * + .steps-indicator {
-    margin-top: 20px;
+    margin-top: 40px;
 }
