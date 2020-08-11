@@ -90,7 +90,8 @@
                             password: this.password,
                             phone: this.phone
                         })
-                        this.$store.set('user/user', user)
+                        await this.$store.set('user/user', user)
+                        window.location.assign('../../appointment/create')
                     } catch (err) {
                         this.formError = err
                     }

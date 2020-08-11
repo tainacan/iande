@@ -1,12 +1,16 @@
 import { make } from 'vuex-pathify'
 
-const state = {
-    current: {
+function newAppointment() {
+    return {
         date: '',
         hour: '',
         name: '',
         objective: '',
     }
+}
+
+const state = {
+    current: newAppointment()
 }
 
 export default {
