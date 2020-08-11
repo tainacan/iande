@@ -1,6 +1,6 @@
 <template>
     <article>
-        <div class="container stack-lg narrow">
+        <div class="iande-container narrow iande-stack stack-lg">
             <h1>Boas vindas!</h1>
             <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ institution }}.</p>
             <p>Para agendar uma visita é simples. Basta você se logar e informar os dados solicitados nas 3 etapas a seguir:</p>
@@ -8,12 +8,12 @@
 
         <StepsIndicator :step="0"/>
 
-        <div class="container stack-lg narrow">
+        <div class="iande-container narrow iande-stack stack-lg">
             <p>Ao fim da etapa 3 você, receberá um email com resumo e informações importantes do agendamento. Vamos lá?</p>
-            <form class="form stack-lg" @submit.prevent="createUser">
+            <form class="iande-form iande-stack stack-lg" @submit.prevent="createUser">
                 <div>
-                    <div class="label">Faça login para começar:</div>
-                    <div class="grid">
+                    <div class="iande-label">Faça login para começar:</div>
+                    <div class="iande-form-grid">
                         <ValidatedInput id="firstName" type="text" placeholder="nome" aria-label="Primeiro nome" v-model="firstName" :validations="$v.firstName"/>
                         <ValidatedInput id="lastName" type="text" placeholder="sobrenome" aria-label="Sobrenome" v-model="lastName" :validations="$v.lastName"/>
                         <ValidatedInput id="email" type="email" placeholder="email" aria-label="E-mail" v-model="email" :validations="$v.email"/>
@@ -22,12 +22,12 @@
                         <ValidatedInput id="confirmPassword" type="password" placeholder="confirmar senha" aria-label="Confirmar senha" v-model="confirmPassword" :validations="$v.confirmPassword"/>
                     </div>
                 </div>
-                <div class="stack-md">
-                    <div class="form-error" v-if="formError">
+                <div class="iande-stack stack-md">
+                    <div class="iande-form-error" v-if="formError">
                         <span>{{ formError }}</span>
                     </div>
-                    <button class="button solid" type="submit">Criar login</button>
-                    <a class="button outline" href="../login">Já tenho login</a>
+                    <button class="iande-button solid" type="submit">Criar login</button>
+                    <a class="iande-button outline" href="../login">Já tenho login</a>
                 </div>
             </form>
         </div>

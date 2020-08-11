@@ -1,5 +1,5 @@
 <template>
-    <div class="form-error" :id="id" v-if="validations.$error">
+    <div class="iande-form-error" :id="id" v-if="validations.$error">
         <span v-if="validations.required === false">Campo obrigatório</span>
         <span v-else-if="validations.samePassword === false">Senhas não batem</span>
         <span v-else-if="validations.email === false">E-mail inválido</span>

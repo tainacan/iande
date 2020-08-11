@@ -1,19 +1,19 @@
-.iande .stack {
-    &-sm {
+.iande-stack {
+    &.stack-sm {
         & > * + * {
             margin-bottom: 0;
             margin-top: 10px;
         }
     }
 
-    &-md {
+    &.stack-md {
         & > * + * {
             margin-bottom: 0;
             margin-top: 20px;
         }
     }
 
-    &-lg {
+    &.stack-lg {
         & > * + * {
             margin-bottom: 0;
             margin-top: 40px;
