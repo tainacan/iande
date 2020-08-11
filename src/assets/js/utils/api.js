@@ -1,7 +1,7 @@
 const baseUrl = `${window.location.origin}/iande/`
 
 async function client (method, url, body = null, headers = {}) {
-    const resource = baseUrl + url
+    const resource = url.startsWith('http') ? url : `${baseUrl}${url}`
     const request = body
         ? { method, body: JSON.stringify(body), headers: { ...headers, 'Content-Type': 'application/json' } }
         : { method, headers }
