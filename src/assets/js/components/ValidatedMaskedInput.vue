@@ -36,7 +36,7 @@
                 return {
                     ...this.$attrs,
                     'aria-describedby': this.errorId,
-                    class: ['input', this.inputClass, this.validations.$error && 'invalid'],
+                    class: ['iande-input', this.inputClass, this.validations.$error && 'invalid'],
                     id: this.id,
                     name: this.id,
                     value: this.value,
