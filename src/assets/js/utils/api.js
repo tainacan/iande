@@ -3,7 +3,7 @@ const baseUrl = `${window.location.origin}/iande/`
 async function client (method, url, body = null, headers = {}) {
     const resource = baseUrl + url
     const request = body
-        ? { method, body: JSON.stringify(body), headers: { ...headers, 'content-type': 'application/json' } }
+        ? { method, body: JSON.stringify(body), headers: { ...headers, 'Content-Type': 'application/json' } }
         : { method, headers }
     const response = await window.fetch(resource, request)
     const data = await response.json()
