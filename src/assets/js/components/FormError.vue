@@ -2,8 +2,10 @@
     <div class="iande-form-error" :id="id" v-if="validations.$error">
         <span v-if="validations.required === false">Campo obrigatório</span>
         <span v-else-if="validations.samePassword === false">Senhas não batem</span>
+        <span v-else-if="validations.date === false">Data inválida</span>
         <span v-else-if="validations.email === false">E-mail inválido</span>
         <span v-else-if="validations.phone === false">Telefone inválido</span>
+        <span v-else-if="validations.time === false">Horário inválido</span>
         <span v-else-if="validations.minLength === false">Campo tem que ter pelo menos {{ validations.$params.minLength.min }} caracteres</span>
     </div>
 </template>

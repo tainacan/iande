@@ -1,5 +1,5 @@
 .iande-steps {
-    background-color: var(--iande-light-color);
+    background-color: var(--iande-lighter-color);
     margin-bottom: 40px;
 
     &__row {
@@ -38,7 +38,7 @@
 
         &.active {
             .steps-indicator__step-number {
-                background-color: var(--iande-light-color);
+                background-color: var(--iande-lighter-color);
                 color: var(--iande-tertiary-color);
             }
         }

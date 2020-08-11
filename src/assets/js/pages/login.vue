@@ -25,7 +25,7 @@
                     <div class="iande-form-error" v-if="formError">
                         <span>{{ formError }}</span>
                     </div>
-                    <button class="iande-button solid" type="submit">Fazer login</button>
+                    <button class="iande-button primary" type="submit">Fazer login</button>
                     <a class="iande-button outline" href="../create">Criar login</a>
                 </div>
             </form>
