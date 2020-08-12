@@ -6,6 +6,7 @@
             <form class="iande-form iande-stack stack-lg" @submit.prevent="saveStep">
                 <VisitDate v-if="screen === 1"/>
                 <ResponsiblePerson v-else-if="screen === 2"/>
+                <GroupNature v-else-if="screen === 3"/>
 
                 <div class="iande-form-grid">
                     <button class="iande-button solid" type="button" v-if="screen > 1" @click="screen -= 1">
@@ -29,12 +30,14 @@
     import StepsIndicator from '../components/StepsIndicator.vue'
 
     // Lazy-loading candidates
+    import GroupNature from '../components/GroupNature.vue'
     import ResponsiblePerson from '../components/ResponsiblePerson.vue'
     import VisitDate from '../components/VisitDate.vue'
 
     export default {
         name: 'CreateAppointmentPage',
         components: {
+            GroupNature,
             Icon: FontAwesomeIcon,
             ResponsiblePerson,
             StepsIndicator,
