@@ -22,9 +22,9 @@
 
 <script>
     import { required } from 'vuelidate/lib/validators'
+    import { sync } from 'vuex-pathify'
 
     import Input from './Input.vue'
-    import { syncMany } from '../utils'
     import { date, time } from '../utils/validators'
 
     export default {
@@ -33,7 +33,7 @@
             Input,
         },
         computed: {
-            ...syncMany('appointments/current@*', ['date', 'hour', 'name', 'objective'])
+            ...sync('appointments/current@', ['date', 'hour', 'name', 'objective'])
         },
         validations: {
             date: { date, required },
