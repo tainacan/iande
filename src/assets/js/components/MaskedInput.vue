@@ -26,7 +26,7 @@
             inputClass: { type: String, default: null },
             mask: { type: [Array, String], required: true },
             value: { type: null, required: true },
-            validations: { type: Object, default: () => {} }
+            validations: { type: Object, required: true }
         },
         computed: {
             errorId () {

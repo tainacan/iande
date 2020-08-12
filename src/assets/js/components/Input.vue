@@ -22,7 +22,7 @@
             id: { type: String, required: true },
             inputClass: { type: String, default: null },
             value: { type: null, required: true },
-            validations: { type: Object, default: () => {} }
+            validations: { type: Object, required: true }
         },
         computed: {
             errorId () {
