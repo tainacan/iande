@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="iande-radio-group" :id="id" :class="fieldClass" role="radiogroup" :aria-describedby="errorId">
-            <label class="iande-radio" v-for="option of options" :key="option[0]">
+            <label class="iande-radio" v-for="option of options" :key="option[1]">
                 <input type="radio" :name="id" :value="option[0]" :checked="value" @change="$emit('update:value', option[0])">
                 <span>{{ option[1] }}</span>
             </label>

@@ -1,0 +1,44 @@
+<template>
+    <div>
+        <select class="iande-input" :id="id" :class="fieldClass" :aria-describedby="errorId" v-model="model" @input="event">
+            <option :value="null" disabled v-if="empty && options.length === 0">{{ empty }}</option>
+            <option :value="null" disabled v-else-if="value === null">{{ placeholder }}</option>
+            <option v-for="option of options" :key="option[0]" :value="option[0]">
+                {{ option[1] }}
+            </option>
+        </select>
+        <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
+    </div>
+</template>
+
+<script>
+    import CustomField from './mixins/CustomField'
+
+    export default {
+        name: 'Select',
+        mixins: [CustomField],
+        props: {
+            empty: { type: String, default: null },
+            options: { type: Array, required: true },
+            placeholder: { type: String, default: 'Escolha uma opção' },
+        },
+        computed: {
+            classes () {
+                return ['iande-input', this.fieldClass, this.validations.$error && 'invalid']
+            },
+            model: {
+                get () {
+                    return this.value
+                },
+                set (value) {
+                    this.$emit('update:value', value)
+                }
+            }
+        },
+        methods: {
+            event (e) {
+                console.log(e)
+            }
+        }
+    }
+</script>

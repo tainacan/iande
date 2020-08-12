@@ -6,6 +6,10 @@ function newAppointment() {
         hour: '',
         name: '',
         objective: '',
+        responsible_first_name: '',
+        responsible_last_name: '',
+        responsible_email: '',
+        responsible_phone: '',
     }
 }
 
