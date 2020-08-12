@@ -37,6 +37,26 @@
         }
     }
 
+    .iande-radio-group {
+        display: flex;
+        flex-wrap: wrap;
+
+        @media screen and (max-width: 600px) {
+            flex-direction: column;
+        }
+    }
+
+    .iande-radio {
+        align-items: center;
+        display: flex;
+        margin: 10px 20px 0 0;
+
+        input {
+            margin: 0 7.5px 0 0;
+            transform: scale(1.25);
+        }
+    }
+
     .iande-form-error {
         color: var(--iande-error-color);
         font-size: 0.875em;
