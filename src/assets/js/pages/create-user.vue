@@ -14,12 +14,12 @@
                 <div>
                     <div class="iande-label">Faça login para começar:</div>
                     <div class="iande-form-grid">
-                        <Input id="firstName" type="text" placeholder="nome" aria-label="Primeiro nome" v-model="firstName" :validations="$v.firstName"/>
-                        <Input id="lastName" type="text" placeholder="sobrenome" aria-label="Sobrenome" v-model="lastName" :validations="$v.lastName"/>
-                        <Input id="email" type="email" placeholder="email" aria-label="E-mail" v-model="email" :validations="$v.email"/>
-                        <MaskedInput id="phone" type="tel" :mask="phoneMask" placeholder="DDD + telefone" aria-label="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
+                        <Input id="firstName" type="text" placeholder="Nome" aria-label="Primeiro nome" v-model="firstName" :validations="$v.firstName"/>
+                        <Input id="lastName" type="text" placeholder="Sobrenome" aria-label="Sobrenome" v-model="lastName" :validations="$v.lastName"/>
+                        <Input id="email" type="email" placeholder="E-mail" aria-label="E-mail" v-model="email" :validations="$v.email"/>
+                        <MaskedInput id="phone" type="tel" :mask="phoneMask" placeholder="DDD + Telefone" aria-label="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
                         <Input id="password" type="password" placeholder="senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
-                        <Input id="confirmPassword" type="password" placeholder="confirmar senha" aria-label="Confirmar senha" v-model="confirmPassword" :validations="$v.confirmPassword"/>
+                        <Input id="confirmPassword" type="password" placeholder="Confirmar senha" aria-label="Confirmar senha" v-model="confirmPassword" :validations="$v.confirmPassword"/>
                     </div>
                 </div>
                 <div class="iande-stack stack-md">

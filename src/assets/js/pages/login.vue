@@ -14,9 +14,9 @@
                 <div>
                     <div class="iande-label">Faça login para começar:</div>
                     <div class="iande-form-grid">
-                        <Input id="email" type="text" placeholder="email" aria-label="E-mail" v-model="email" :validations="$v.email"/>
+                        <Input id="email" type="text" placeholder="E-mail" aria-label="E-mail" v-model="email" :validations="$v.email"/>
                         <div>
-                            <Input id="password" type="password" placeholder="senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
+                            <Input id="password" type="password" placeholder="Senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
                             <a class="iande-form-link" href="#">Não lembro a senha</a>
                         </div>
                     </div>

@@ -20,7 +20,7 @@
         props: {
             empty: { type: String, default: null },
             options: { type: Array, required: true },
-            placeholder: { type: String, default: 'Escolha uma opção' },
+            placeholder: { type: String, default: 'Selecione uma das opções' },
         },
         computed: {
             classes () {
