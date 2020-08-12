@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="iande-radio-group" :id="id" :class="inputClass" role="radiogroup" :aria-describedby="errorId">
+        <div class="iande-radio-group" :id="id" :class="fieldClass" role="radiogroup" :aria-describedby="errorId">
             <label class="iande-radio" v-for="option of options" :key="option[0]">
                 <input type="radio" :name="id" :value="option[0]" :checked="value" @change="$emit('update:value', option[0])">
                 <span>{{ option[1] }}</span>
@@ -11,29 +11,13 @@
 </template>
 
 <script>
-    import FormError from './FormError.vue'
+    import CustomField from './mixins/CustomField'
 
     export default {
         name: 'RadioGroup',
-        inheritAttrs: false,
-        components: {
-            FormError,
-        },
-        model: {
-            prop: 'value',
-            event: 'update:value'
-        },
+        mixins: [CustomField],
         props: {
-            id: { type: String, required: true },
-            inputClass: { type: String, default: null },
             options: { type: Array, required: true },
-            value: { type: null, required: true },
-            validations: { type: Object, required: true }
-        },
-        computed: {
-            errorId () {
-                return `${this.id}__error`
-            }
         }
     }
 </script>

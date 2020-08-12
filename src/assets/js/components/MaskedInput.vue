@@ -8,35 +8,24 @@
 <script>
     import { TheMask } from 'vue-the-mask'
 
-    import FormError from './FormError.vue'
+    import CustomField from './mixins/CustomField'
 
     export default {
         name: 'MaskedInput',
         components: {
-            FormError,
             TheMask,
         },
+        mixins: [CustomField],
         inheritAttrs: false,
-        model: {
-            prop: 'value',
-            event: 'update:value'
-        },
         props: {
-            id: { type: String, required: true },
-            inputClass: { type: String, default: null },
             mask: { type: [Array, String], required: true },
-            value: { type: null, required: true },
-            validations: { type: Object, required: true }
         },
         computed: {
-            errorId () {
-                return `${this.id}__error`
-            },
             inputAttrs () {
                 return {
                     ...this.$attrs,
                     'aria-describedby': this.errorId,
-                    class: ['iande-input', this.inputClass, this.validations.$error && 'invalid'],
+                    class: ['iande-input', this.fieldClass, this.validations.$error && 'invalid'],
                     id: this.id,
                     name: this.id,
                     value: this.value,
