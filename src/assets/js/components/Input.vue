@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input v-bind="inputAttrs" @input="$emit('update:value', $event.target.value)">
+        <input v-bind="inputAttrs" v-model="modelValue">
         <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
     </div>
 </template>
@@ -20,7 +20,6 @@
                     class: ['iande-input', this.fieldClass, this.validations.$error && 'invalid'],
                     id: this.id,
                     name: this.id,
-                    value: this.value,
                 }
             }
         }

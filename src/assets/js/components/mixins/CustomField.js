@@ -17,6 +17,14 @@ export default {
     computed: {
         errorId () {
             return `${this.id}__error`
+        },
+        modelValue: {
+            get () {
+                return this.value
+            },
+            set (value) {
+                this.$emit('update:value', value)
+            }
         }
     }
 }

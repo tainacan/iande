@@ -1,6 +1,6 @@
 <template>
     <div>
-        <select class="iande-input" :id="id" :class="fieldClass" :aria-describedby="errorId" v-model="model" @input="event">
+        <select class="iande-input" :id="id" :class="fieldClass" :aria-describedby="errorId" v-model="modelValue">
             <option :value="null" disabled v-if="empty && options.length === 0">{{ empty }}</option>
             <option :value="null" disabled v-else-if="value === null">{{ placeholder }}</option>
             <option v-for="option of options" :key="option[0]" :value="option[0]">
@@ -26,19 +26,6 @@
             classes () {
                 return ['iande-input', this.fieldClass, this.validations.$error && 'invalid']
             },
-            model: {
-                get () {
-                    return this.value
-                },
-                set (value) {
-                    this.$emit('update:value', value)
-                }
-            }
-        },
-        methods: {
-            event (e) {
-                console.log(e)
-            }
         }
     }
 </script>
