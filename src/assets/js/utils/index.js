@@ -9,9 +9,9 @@ export function constant (value) {
 export function syncMany (path, keys) {
     let entries
     if (Array.isArray(keys)) {
-        entries = keys.map(key => [key, sync(path + key)])
+        entries = keys.map(key => [key, sync(path.replace('*', key))])
     } else {
-        entries = Object.entries(keys).map(([key, value]) => [key, sync(path + value)])
+        entries = Object.entries(keys).map(([key, value]) => [key, sync(path.replace('*', value))])
     }
     return Object.fromEntries(entries)
 }
