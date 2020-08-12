@@ -25,6 +25,7 @@
     import { sync } from 'vuex-pathify'
 
     import ValidatedInput from './ValidatedInput.vue'
+    import { syncMany } from '../utils'
     import { date, time } from '../utils/validators'
 
     export default {
@@ -33,10 +34,7 @@
             ValidatedInput,
         },
         computed: {
-            date: sync('appointments/current@date'),
-            hour: sync('appointments/current@hour'),
-            name: sync('appointments/current@name'),
-            objective: sync('appointments/current@objective'),
+            ...sync('appointments/current@', ['date', 'hour', 'name', 'objective'])
         },
         validations: {
             date: { date, required },

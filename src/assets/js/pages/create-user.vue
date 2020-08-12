@@ -40,7 +40,7 @@
     import StepsIndicator from '../components/StepsIndicator.vue'
     import ValidatedMaskedInput from '../components/ValidatedMaskedInput.vue'
     import ValidatedInput from '../components/ValidatedInput.vue'
-    import api from '../utils/api'
+    import { api, constant } from '../utils'
     import { phone } from '../utils/validators'
 
     export default {
@@ -65,9 +65,7 @@
             }
         },
         computed: {
-            phoneMask() {
-                return ['(##) ####-####', '(##) #####-####']
-            }
+            phoneMask: constant(['(##) ####-####', '(##) #####-####'])
         },
         validations: {
             confirmPassword: { required, minLength: minLength(6), samePassword: sameAs('password') },
