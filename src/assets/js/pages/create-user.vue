@@ -1,5 +1,5 @@
 <template>
-    <article>
+    <article id="iande-login">
         <div class="iande-container narrow iande-stack stack-lg">
             <h1>Boas vindas!</h1>
             <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ institution }}.</p>

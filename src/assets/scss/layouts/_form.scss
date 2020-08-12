@@ -24,7 +24,7 @@
     }
 
     .iande-input {
-        border: 1px solid var(--iande-primary-color);
+        border: 2px solid var(--iande-light-color);
         border-radius: var(--iande-border-radius);
         display: block;
         font-size: 1em;
@@ -44,7 +44,7 @@
     }
 
     .iande-form-link {
-        color: var(--iande-medium-color);
+        color: var(--iande-secondary-color);
         display: block;
         font-size: 0.875em;
         text-align: right;
