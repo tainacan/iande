@@ -4,9 +4,7 @@
 
         <div class="iande-container narrow iande-stack stack-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="saveStep">
-                <keep-alive>
-                    <VisitDate v-if="screen === 1"/>
-                </keep-alive>
+                <VisitDate v-if="screen === 1"/>
 
                 <div class="iande-form-grid">
                     <button class="iande-button solid" type="button" v-if="screen > 1" @click="screen -= 1">
