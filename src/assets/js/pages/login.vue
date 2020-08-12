@@ -14,9 +14,9 @@
                 <div>
                     <div class="iande-label">Faça login para começar:</div>
                     <div class="iande-form-grid">
-                        <ValidatedInput id="email" type="text" placeholder="email" aria-label="E-mail" v-model="email" :validations="$v.email"/>
+                        <Input id="email" type="text" placeholder="email" aria-label="E-mail" v-model="email" :validations="$v.email"/>
                         <div>
-                            <ValidatedInput id="password" type="password" placeholder="senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
+                            <Input id="password" type="password" placeholder="senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
                             <a class="iande-form-link" href="#">Não lembro a senha</a>
                         </div>
                     </div>
@@ -36,15 +36,15 @@
 <script>
     import { required } from 'vuelidate/lib/validators'
 
+    import Input from '../components/Input.vue'
     import StepsIndicator from '../components/StepsIndicator.vue'
-    import ValidatedInput from '../components/ValidatedInput.vue'
     import{ api } from '../utils'
 
     export default {
         name: 'LoginPage',
         components: {
+            Input,
             StepsIndicator,
-            ValidatedInput,
         },
         props: {
             institution: { type: String, required: true },

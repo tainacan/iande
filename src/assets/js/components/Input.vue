@@ -1,22 +1,19 @@
 <template>
     <div>
-        <MaskedInput :mask="mask" :masked="false" v-bind="inputAttrs" @input="$emit('update:value', $event)"/>
+        <input v-bind="inputAttrs" @input="$emit('update:value', $event.target.value)">
         <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
     </div>
 </template>
 
 <script>
-    import { TheMask } from 'vue-the-mask'
-
     import FormError from './FormError.vue'
 
     export default {
-        name: 'ValidatedMaskedInput',
+        name: 'Input',
+        inheritAttrs: false,
         components: {
             FormError,
-            MaskedInput: TheMask,
         },
-        inheritAttrs: false,
         model: {
             prop: 'value',
             event: 'update:value'
@@ -24,7 +21,6 @@
         props: {
             id: { type: String, required: true },
             inputClass: { type: String, default: null },
-            mask: { type: [Array, String], required: true },
             value: { type: null, required: true },
             validations: { type: Object, default: () => {} }
         },
