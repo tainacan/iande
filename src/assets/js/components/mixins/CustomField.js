@@ -22,8 +22,8 @@ export default {
             get () {
                 return this.value
             },
-            set (value) {
-                this.$emit('update:value', value)
+            set (newValue) {
+                this.$emit('update:value', newValue)
             }
         }
     }
