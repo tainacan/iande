@@ -1,5 +1,5 @@
 <template>
-    <article>
+    <article id="iande-login">
         <div class="iande-container narrow iande-stack stack-lg">
             <h1>Boas vindas!</h1>
             <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ institution }}.</p>
@@ -14,12 +14,12 @@
                 <div>
                     <div class="iande-label">Faça login para começar:</div>
                     <div class="iande-form-grid">
-                        <ValidatedInput id="firstName" type="text" placeholder="nome" aria-label="Primeiro nome" v-model="firstName" :validations="$v.firstName"/>
-                        <ValidatedInput id="lastName" type="text" placeholder="sobrenome" aria-label="Sobrenome" v-model="lastName" :validations="$v.lastName"/>
-                        <ValidatedInput id="email" type="email" placeholder="email" aria-label="E-mail" v-model="email" :validations="$v.email"/>
-                        <ValidatedMaskedInput id="phone" type="tel" :mask="phoneMask" placeholder="DDD + telefone" aria-label="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
-                        <ValidatedInput id="password" type="password" placeholder="senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
-                        <ValidatedInput id="confirmPassword" type="password" placeholder="confirmar senha" aria-label="Confirmar senha" v-model="confirmPassword" :validations="$v.confirmPassword"/>
+                        <Input id="firstName" type="text" placeholder="Nome" aria-label="Primeiro nome" v-model="firstName" :validations="$v.firstName"/>
+                        <Input id="lastName" type="text" placeholder="Sobrenome" aria-label="Sobrenome" v-model="lastName" :validations="$v.lastName"/>
+                        <Input id="email" type="email" placeholder="E-mail" aria-label="E-mail" v-model="email" :validations="$v.email"/>
+                        <MaskedInput id="phone" type="tel" :mask="phoneMask" placeholder="DDD + Telefone" aria-label="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
+                        <Input id="password" type="password" placeholder="senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
+                        <Input id="confirmPassword" type="password" placeholder="Confirmar senha" aria-label="Confirmar senha" v-model="confirmPassword" :validations="$v.confirmPassword"/>
                     </div>
                 </div>
                 <div class="iande-stack stack-md">
@@ -37,18 +37,18 @@
 <script>
     import { email, minLength, required, sameAs } from 'vuelidate/lib/validators'
 
+    import Input from '../components/Input.vue'
+    import MaskedInput from '../components/MaskedInput.vue'
     import StepsIndicator from '../components/StepsIndicator.vue'
-    import ValidatedMaskedInput from '../components/ValidatedMaskedInput.vue'
-    import ValidatedInput from '../components/ValidatedInput.vue'
-    import api from '../utils/api'
+    import { api, constant } from '../utils'
     import { phone } from '../utils/validators'
 
     export default {
         name: 'CreateUserPage',
         components: {
+            Input,
+            MaskedInput,
             StepsIndicator,
-            ValidatedMaskedInput,
-            ValidatedInput,
         },
         props: {
             institution: { type: String, required: true },
@@ -65,9 +65,7 @@
             }
         },
         computed: {
-            phoneMask() {
-                return ['(##) ####-####', '(##) #####-####']
-            }
+            phoneMask: constant(['(##) ####-####', '(##) #####-####'])
         },
         validations: {
             confirmPassword: { required, minLength: minLength(6), samePassword: sameAs('password') },

@@ -17,6 +17,8 @@
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+    import { constant } from '../utils'
+
     export default {
         name: 'StepsIndicator',
         components: {
@@ -26,9 +28,7 @@
             step: { type: Number, default: 0 }
         },
         computed: {
-            stepLabels () {
-                return ['Reserva', 'Detalhes', 'Confirmação']
-            }
+            stepLabels: constant(['Reserva', 'Detalhes', 'Confirmação'])
         }
     }
 </script>
