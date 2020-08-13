@@ -5,6 +5,10 @@ import createPersistedState from 'vuex-persistedstate'
 import appointments from './appointments'
 import user from './user'
 
+const persistence = createPersistedState({
+    paths: ['user.user']
+})
+
 export default function createStore() {
     return new Vuex.Store({
         modules: {
@@ -12,7 +16,7 @@ export default function createStore() {
             user,
         },
         plugins: [
-            createPersistedState(),
+            persistence,
             pathify.plugin,
         ]
     })
