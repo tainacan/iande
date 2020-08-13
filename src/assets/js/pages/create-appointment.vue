@@ -3,15 +3,19 @@
         <StepsIndicator :step="1"/>
 
         <div class="iande-container narrow iande-stack stack-lg">
-            <form class="iande-form iande-stack stack-lg" @submit.prevent="saveStep">
-                <VisitDate v-if="screen === 1"/>
-                <ResponsiblePerson v-else-if="screen === 2"/>
-                <GroupNature v-else-if="screen === 3"/>
+            <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
+                <VisitDate ref="form" v-if="screen === 1"/>
+                <ResponsiblePerson ref="form" v-else-if="screen === 2"/>
+                <GroupNature ref="form" v-else-if="screen === 3"/>
+
+                <div class="iande-form-error" v-if="formError">
+                    <span>{{ formError }}</span>
+                </div>
 
                 <div class="iande-form-grid">
-                    <button class="iande-button solid" type="button" v-if="screen > 1" @click="screen -= 1">
+                    <button class="iande-button solid" type="button" v-if="screen > 1" @click="setScreen(screen - 1)">
                         <Icon icon="angle-left"/>
-                        Voltar
+                        {{ screen <= 4 ? 'Voltar' : 'Salvar instituição' }}
                     </button>
                     <div v-else></div>
                     <button class="iande-button primary" type="submit">
@@ -45,18 +49,32 @@
         },
         data () {
             return {
+                formError: '',
                 screen: 1
             }
         },
         methods: {
-            saveStep () {
+            isFormValid () {
+                const formComponent = this.$refs.form
+                formComponent.$v.$touch()
+                return !formComponent.$v.$invalid
+            },
+            nextStep () {
                 if (this.screen <= 4) {
-                    this.screen++
+                    this.setScreen(this.screen + 1)
+                } else {
+                    this.saveAppointment()
                 }
             },
+            saveAppointment () {
+                // TODO
+            },
             setScreen (num) {
-                this.screen = num
-            }
+                this.formError = ''
+                if (this.isFormValid()) {
+                    this.screen = num
+                }
+            },
         }
     }
 </script>
