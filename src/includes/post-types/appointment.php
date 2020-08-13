@@ -60,7 +60,7 @@ function register_post_type_appointment()
  * Retorna a definição dos metadados do post type `appointment`
  *
  * @filter iande.appointment_metadata_definition
- * 
+ *
  * @return array
  */
 function get_appointment_metadata_definition()
@@ -104,7 +104,19 @@ function get_appointment_metadata_definition()
                     return __("Formato de data inválido", 'iande');
                 }
             }
-        ]
+        ],
+        'hour' => (object) [
+            'type' => 'string',
+            'required' => __('O horário é obrigatório', 'iande'),
+            'validation' => function ($value) {
+                $d = \DateTime::createFromFormat('H:i', $value);
+                if ($d && $d->format('H:i') === $value) {
+                    return true;
+                } else {
+                    return __("Formato de horário inválido", 'iande');
+                }
+            }
+        ],
     ];
 
     $metadata_definition = \apply_filters('iande.appointment_metadata_definition', $metadata_definition);
