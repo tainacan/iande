@@ -6,6 +6,10 @@
             <label class="iande-label" for="nature">Natureza do grupo</label>
             <Select id="nature" v-model="nature" :validations="$v.nature" :options="natureOptions"/>
         </div>
+        <div v-if="nature">
+            <label class="iande-label" for="institution">Instituição responsável pela visita</label>
+            <Select id="institution" v-model="institution" :validations="$v.institution" empty="Você ainda não possui instituições cadastradas ⚠️" :options="[]"/>
+        </div>
     </div>
 </template>
 
@@ -21,6 +25,11 @@
         components: {
             Select
         },
+        data () {
+            return {
+                institution: null
+            }
+        },
         computed: {
             ...sync('appointments/current@', [
                 'nature',
@@ -31,6 +40,7 @@
             ])
         },
         validations: {
+            institution: { required },
             nature: { required },
         }
     }
