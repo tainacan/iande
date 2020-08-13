@@ -30,6 +30,7 @@
 
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+    import { get } from 'vuex-pathify'
 
     import StepsIndicator from '../components/StepsIndicator.vue'
 
@@ -52,6 +53,9 @@
                 formError: '',
                 screen: 1
             }
+        },
+        computed: {
+            fields: get('appointments/filteredFields')
         },
         methods: {
             isFormValid () {
