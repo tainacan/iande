@@ -30,9 +30,10 @@
 
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-    import { get } from 'vuex-pathify'
+    import { get, sync } from 'vuex-pathify'
 
     import StepsIndicator from '../components/StepsIndicator.vue'
+    import { api } from '../utils'
 
     // Lazy-loading candidates
     import GroupNature from '../components/GroupNature.vue'
@@ -55,6 +56,7 @@
             }
         },
         computed: {
+            appointmentId: sync('appointments/current@ID'),
             fields: get('appointments/filteredFields')
         },
         methods: {
@@ -73,10 +75,17 @@
             saveAppointment () {
                 // TODO
             },
-            setScreen (num) {
+            async setScreen (num) {
                 this.formError = ''
                 if (this.isFormValid()) {
-                    this.screen = num
+                    try {
+                        const verb = this.fields.ID ? 'update' : 'create'
+                        const result = await api.post(`appointment/${verb}`, this.fields)
+                        this.appointmentId = result.ID
+                        this.screen = num
+                    } catch (err) {
+                        this.formError = err
+                    }
                 }
             },
         }
