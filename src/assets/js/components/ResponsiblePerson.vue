@@ -43,7 +43,7 @@
         data () {
             return {
                 isContact: null,
-                role: null,
+                role: '',
             }
         },
         computed: {

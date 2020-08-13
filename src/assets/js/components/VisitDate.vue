@@ -3,7 +3,7 @@
         <h1>Reserve sua visita</h1>
         <div>
             <label class="iande-label" for="objective">Qual o objetivo da visita?</label>
-            <Input id="objective" type="text" v-model="objective" :validations="$v.objective"/>
+            <Select id="objective" v-model="objective" :validations="$v.objective" :options="[]"/>
         </div>
         <div>
             <label class="iande-label" for="name">Dê um nome para sua visita<span class="iande-label__optional">(opcional)</span></label>
@@ -25,12 +25,14 @@
     import { sync } from 'vuex-pathify'
 
     import Input from './Input.vue'
+    import Select from './Select.vue'
     import { date, time } from '../utils/validators'
 
     export default {
         name: 'VisitDate',
         components: {
             Input,
+            Select,
         },
         computed: {
             ...sync('appointments/current@', ['date', 'hour', 'name', 'objective'])
@@ -39,7 +41,7 @@
             date: { date, required },
             hour: { required, time },
             name: { required },
-            objective: { },
+            objective: { required },
         }
     }
 </script>
