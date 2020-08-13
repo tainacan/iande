@@ -4,6 +4,7 @@ function newAppointment() {
     return {
         date: '',
         hour: '',
+        ID: null,
         name: '',
         nature: '',
         purpose: '',
