@@ -2,8 +2,8 @@
     <div class="iande-stack stack-lg">
         <h1>Reserve sua visita</h1>
         <div>
-            <label class="iande-label" for="objective">Qual o objetivo da visita?</label>
-            <Select id="objective" v-model="objective" :validations="$v.objective" :options="[]"/>
+            <label class="iande-label" for="purpose">Qual o objetivo da visita?</label>
+            <Select id="purpose" v-model="purpose" :validations="$v.purpose" :options="[]"/>
         </div>
         <div>
             <label class="iande-label" for="name">Dê um nome para sua visita<span class="iande-label__optional">(opcional)</span></label>
@@ -35,13 +35,13 @@
             Select,
         },
         computed: {
-            ...sync('appointments/current@', ['date', 'hour', 'name', 'objective'])
+            ...sync('appointments/current@', ['date', 'hour', 'name', 'purpose'])
         },
         validations: {
             date: { date, required },
             hour: { required, time },
             name: { },
-            objective: { required },
+            purpose: { required },
         }
     }
 </script>

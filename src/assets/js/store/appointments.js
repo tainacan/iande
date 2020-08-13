@@ -6,7 +6,7 @@ function newAppointment() {
         hour: '',
         name: '',
         nature: '',
-        objective: '',
+        purpose: '',
         responsible_first_name: '',
         responsible_last_name: '',
         responsible_email: '',
