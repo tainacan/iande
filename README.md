@@ -56,15 +56,15 @@ Os *slots* são criados a partir dos horários e da duração das visitas. Ver h
     ```
 
 ### Post Types
-- **agendamento** - Post Type Agendamento
+- **appointment** - Post Type Agendamento
 
   por ser opcional, o nome da visita não pode ser o *post_title*. definir o nome do *post_title* como `"{nome-responsavel} - {nome-grupo} - {data} {horário}"` 
   
   metadados:
 
-  - **objetivo**: `select`
-  - **nome**: `string` (opcional)
-  - **data**: `date`
+  - **purpose**: `select`
+  - **name**: `string` (opcional)
+  - **date**: `date`
   - **horário**: `time`
   - **responsavel_nome**: `string`
   - **responsavel_sobrenome**: `string`
@@ -121,9 +121,14 @@ Os *slots* são criados a partir dos horários e da duração das visitas. Ver h
 - `iande.login_success` **(WP_User $user)** - executado após login bem-sucedido
 - `iande.login_fail` **(array $params)** - executado após login mal-sucedido
 - `iande.before_create_user` **(array $params)**
-- `iande.after_create_user` **(array $params)**
+- `iande.after_create_user` **(int $new_user_id)**
+- `iande.before_create_appointment` **(array $params)**
+- `iande.after_create_appointment` **(int $appointment_id, object $appointment)**
+- `iande.before_update_appointment` **(array $params)**
+- `iande.after_update_appointment` **(int $appointment_id, object $appointment)**
 
 ### filtros
 - `iande.parse_user` **($parsed_user, WP_User $user)** - filtra o valor parseado do usuário
 - `iande.route.{controller}/{action}.params` **($params)** - filtra os parâmetros passados para a view ou endpoint
+- `iande.appointment_metadata_definition` **(array $$metadata_definition)**
   

@@ -9,7 +9,8 @@ use Controller;
  *
  * @return void
  */
-function set_404(){
+function set_404()
+{
     global $wp_query;
     $wp_query->set_404();
     \status_header(404);
@@ -45,7 +46,7 @@ function action__template_redirects()
 {
     $controller_name = \get_query_var('iande_controller');
     $action = \get_query_var('iande_action');
-    
+
     if (!$action || !$controller_name) {
         return;
     }
@@ -54,7 +55,7 @@ function action__template_redirects()
 
     $controller_filename = IANDE_BASEPATH . 'controllers/' . strtolower($controller_name) . '.php';
     $controller_class = 'Iande\\' . ucfirst($controller_name);
-    
+
     if (file_exists($controller_filename)) {
         require_once $controller_filename;
     } else {

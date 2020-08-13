@@ -13,7 +13,7 @@ class User extends Controller
      *
      * @filter iande.parse_user
      *
-     * @return void
+     * @return object
      */
     protected function parse_user(\WP_User $user)
     {
