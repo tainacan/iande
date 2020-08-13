@@ -1,8 +1,8 @@
 <template>
     <div>
         <select class="iande-input" :id="id" :class="fieldClass" :aria-describedby="errorId" v-model="modelValue">
+            <option :value="null" disabled v-if="value === null">{{ placeholder }}</option>
             <option :value="null" disabled v-if="empty && options.length === 0">{{ empty }}</option>
-            <option :value="null" disabled v-else-if="value === null">{{ placeholder }}</option>
             <option v-for="option of options" :key="option[0]" :value="option[0]">
                 {{ option[1] }}
             </option>
