@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="iande-field">
         <input v-bind="inputAttrs" v-model="modelValue">
         <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
     </div>

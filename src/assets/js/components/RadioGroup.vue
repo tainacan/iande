@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="iande-field">
         <div class="iande-radio-group" :id="id" :class="fieldClass" role="radiogroup" :aria-describedby="errorId">
             <label class="iande-radio" v-for="option of options" :key="option[1]">
                 <input type="radio" :name="id" :value="option[0]" v-model="modelValue">

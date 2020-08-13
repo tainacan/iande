@@ -60,8 +60,12 @@
 
     .iande-form-error {
         color: var(--iande-error-color);
-        font-size: 0.875em;
-        text-align: center;
+    }
+
+    .iande-field {
+        .iande-form-error {
+            font-size: 0.875em;
+        }
     }
 
     .iande-form-link {

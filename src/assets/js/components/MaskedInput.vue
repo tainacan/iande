@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="iande-field">
         <TheMask :mask="mask" :masked="false" v-bind="inputAttrs" v-model="modelValue"/>
         <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
     </div>
