@@ -40,7 +40,7 @@
         validations: {
             date: { date, required },
             hour: { required, time },
-            name: { required },
+            name: { },
             objective: { required },
         }
     }
