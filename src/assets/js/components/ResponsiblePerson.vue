@@ -2,10 +2,10 @@
     <div class="iande-stack stack-lg">
         <h1>Pessoa Responsável</h1>
         <div>
-            <label class="iande-label" for="is-contact">Você é o contato responsável pela visita?</label>
-            <RadioGroup id="is-contact" v-model="isContact" :validations="$v.isContact" :options="binaryOptions"/>
+            <label class="iande-label" for="isContact">Você é o contato responsável pela visita?</label>
+            <RadioGroup id="isContact" v-model="isContact" :validations="$v.isContact" :options="binaryOptions"/>
         </div>
-        <div>
+        <div v-show="!isContact">
             <div class="iande-label">Informe o contato da pessoa responsável</div>
             <div class="iande-form-grid">
                 <Input id="firstName" type="text" placeholder="Nome" aria-label="Primeiro nome" v-model="firstName" :validations="$v.firstName"/>
@@ -16,7 +16,7 @@
         </div>
         <div>
             <label class="iande-label" for="role">Informe sua relação com a instituição de ensino</label>
-            <Select id="role" v-model="role" :validations="$v.role" :options="{}" />
+            <Select id="role" v-model="role" :validations="$v.role" :options="roleOptions" />
         </div>
     </div>
 </template>
@@ -54,7 +54,15 @@
                 phone: 'responsible_phone',
             }),
             binaryOptions: constant({ 'Sim': true, 'Não': false }),
-            phoneMask: constant(['(##) ####-####', '(##) #####-####'])
+            phoneMask: constant(['(##) ####-####', '(##) #####-####']),
+            roleOptions: constant([
+                'professor',
+                'orientador',
+                'coordenador',
+                'diretor',
+                'guia de turismo',
+                'outros'
+            ]),
         },
         validations: {
             firstName: { required },
