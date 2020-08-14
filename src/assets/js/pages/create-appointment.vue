@@ -59,6 +59,19 @@
             appointmentId: sync('appointments/current@ID'),
             fields: get('appointments/filteredFields')
         },
+        async beforeMount () {
+            const qs = new URLSearchParams(window.location.search)
+            if (qs.has('id')) {
+                try {
+                    const appointment = await api.post('appointment/get', {
+                        ID: Number(qs.get('id'))
+                    })
+                    this.$store.set('appointments/current', appointment)
+                } catch (err) {
+                    this.formError = err
+                }
+            }
+        },
         methods: {
             isFormValid () {
                 const formComponent = this.$refs.form

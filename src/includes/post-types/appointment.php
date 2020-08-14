@@ -75,8 +75,18 @@ function get_appointment_metadata_definition()
         'Promover uma atividade de lazer'
     ];
 
+    $default_role_options = [
+        'professor',
+        'orientador',
+        'coordenador',
+        'diretor',
+        'guia de turismo',
+        'outros'
+    ];
+
     // @todo colocar em página de configuração
     $purpose_options = get_option('iande_appointment_purposes', $default_purpose_options);
+    $role_options = get_option('iande_appointment_responsible_roles', $default_role_options);
 
     $metadata_definition = [
         'purpose' => (object) [
@@ -125,6 +135,53 @@ function get_appointment_metadata_definition()
                 }
             }
         ],
+        'responsible_first_name' => (object) [
+            'type' => 'string',
+            'required' => __('O nome do responsável é obrigatório', 'iande'),
+            'validation' => function ($value) {
+                return true;
+            }
+        ],
+        'responsible_last_name' => (object) [
+            'type' => 'string',
+            'required' => __('O sobrenome do responsável é obrigatório', 'iande'),
+            'validation' => function ($value) {
+                return true;
+            }
+        ],
+        'responsible_email' => (object) [
+            'type' => 'string',
+            'required' => __('O e-mail do responsável é obrigatório', 'iande'),
+            'validation' => function ($value) {
+                if (empty(filter_var($value, FILTER_VALIDATE_EMAIL))) {
+                    return __('Formato de e-mail do responsável inválido', 'iande');
+                } else {
+                    return true;
+                }
+            }
+        ],
+        'responsible_phone' => (object) [
+            'type' => 'string',
+            'required' => __('O telefone do responsável é obrigatório', 'iande'),
+            'validation' => function ($value) {
+                if (empty(preg_match('/^\d{10,11}$/', $value))) {
+                    return __('Formato de telefone do responsável inválido', 'iande');
+                } else {
+                    return true;
+                }
+            }
+        ],
+        'responsible_role' => (object) [
+            'type' => 'string',
+            'required' => __('A relação com a instituição é obrigatória', 'iande'),
+            'validation' => function ($value) use ($role_options) {
+                if (in_array($value, $role_options)) {
+                    return true;
+                } else {
+                    return __('Relação com instituição inválida', 'iande');
+                }
+            }
+        ]
     ];
 
     $metadata_definition = \apply_filters('iande.appointment_metadata_definition', $metadata_definition);
