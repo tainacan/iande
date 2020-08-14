@@ -69,7 +69,7 @@ function get_institution_metadata_definition()
     $metadata_definition = [
         'name' => (object) [
             'type' => 'string',
-            'required' => false,
+            'required' => true,
             'validation' => function ($value) {
                 if (strlen(trim($value)) >= 2) {
                     return true;
@@ -89,18 +89,116 @@ function get_institution_metadata_definition()
                 }
             }
         ],
-
-        // Perfil
-        // Telefone
-        // Email
-        // CEP
-        // Endereco
-        // Numero
-        // Complemento
-        // Bairro
-        // UF
-        // Cidade
-
+        'profile' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                if (is_string($value) && !is_numeric($value)) {
+                    return true;
+                } else {
+                    return __('O perfil informado não é um perfil válido', 'iande');
+                }
+            }
+        ],
+        'phone' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                if (is_numeric($value)) {
+                    return true;
+                } else {
+                    return __('O número informado não é um telefone válido', 'iande');
+                }
+            }
+        ],
+        'email' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                if (is_email($value)) {
+                    return true;
+                } else {
+                    return __('O e-mail informado não é um e-mail válido', 'iande');
+                }
+            }
+        ],
+        'zip_code' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                if (strlen(trim($value)) == 8 && is_numeric($value)) {
+                    return true;
+                } else {
+                    return __('O CEP informado não é válido', 'iande');
+                }
+            }
+        ],
+        'address' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                if (strlen(trim($value)) >= 2) {
+                    return true;
+                } else {
+                    return __('O endereço informado não é válido', 'iande');
+                }
+            }
+        ],
+        'address_number' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                if (is_string($value)) {
+                    return true;
+                } else {
+                    return __('O número informado não é válido', 'iande');
+                }
+            }
+        ],
+        'complement' => (object) [
+            'type' => 'string',
+            'required' => false,
+            'validation' => function ($value) {
+                if (strlen(trim($value)) >= 2) {
+                    return true;
+                } else {
+                    return __('O complemento informado não é válido', 'iande');
+                }
+            }
+        ],
+        'district' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                if (strlen(trim($value)) >= 2) {
+                    return true;
+                } else {
+                    return __('O bairro informado não é válido', 'iande');
+                }
+            }
+        ],
+        'state' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                if (strlen(trim($value)) == 2) {
+                    return true;
+                } else {
+                    return __('O estado informado não é válido', 'iande');
+                }
+            }
+        ],
+        'city' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                if (strlen(trim($value)) >= 2) {
+                    return true;
+                } else {
+                    return __('A cidade informada não é válida', 'iande');
+                }
+            }
+        ]
     ];
 
     $metadata_definition = \apply_filters('iande.institution_metadata_definition', $metadata_definition);
