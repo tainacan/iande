@@ -65,7 +65,15 @@ function register_post_type_appointment()
  */
 function get_appointment_metadata_definition()
 {
-    $default_purpose_options = __("Objetivo 1\nObjetivo 2", 'iande');
+    $default_purpose_options = [
+        'Ilustrar os conteúdos que estou trabalhando com esse grupo',
+        'Complementar o processo educacional realizado pela instituição de origem do grupo',
+        'Possibilitar ao grupo o acesso/conhecimento à exposições e museus',
+        'Promover o aprendizado sobre os temas da exposição/museu',
+        'Iniciar a exploração/descoberta de um novo tema',
+        'Desenvolver a cultura geral do grupo',
+        'Promover uma atividade de lazer'
+    ];
 
     // @todo colocar em página de configuração
     $purpose_options = get_option('iande_appointment_purposes', $default_purpose_options);

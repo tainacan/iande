@@ -8,7 +8,7 @@
         </div>
         <div v-if="nature">
             <label class="iande-label" for="institution">Instituição responsável pela visita</label>
-            <Select id="institution" v-model="institution" :validations="$v.institution" empty="Você ainda não possui instituições cadastradas ⚠️" :options="[]"/>
+            <Select id="institution" v-model="institution" :validations="$v.institution" empty="Você ainda não possui instituições cadastradas ⚠️" :options="{}"/>
         </div>
     </div>
 </template>
@@ -34,10 +34,10 @@
             ...sync('appointments/current@', [
                 'nature',
             ]),
-            natureOptions: constant([
-                ['institucional', 'Grupo Institucional'],
-                ['outro', 'Outros Grupos']
-            ])
+            natureOptions: constant({
+                'Grupo Institucional': 'institucional',
+                'Outro': 'outro'
+            })
         },
         validations: {
             institution: { required },

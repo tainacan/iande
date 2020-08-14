@@ -1,9 +1,9 @@
 <template>
     <div class="iande-field">
         <div class="iande-radio-group" :id="id" :class="fieldClass" role="radiogroup" :aria-describedby="errorId">
-            <label class="iande-radio" v-for="option of options" :key="option[1]">
-                <input type="radio" :name="id" :value="option[0]" v-model="modelValue">
-                <span>{{ option[1] }}</span>
+            <label class="iande-radio" v-for="(option, label) of normalizedOptions" :key="label">
+                <input type="radio" :name="id" :value="option" v-model="modelValue">
+                <span>{{ label }}</span>
             </label>
         </div>
         <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
@@ -17,7 +17,16 @@
         name: 'RadioGroup',
         mixins: [CustomField],
         props: {
-            options: { type: Array, required: true },
+            options: { type: [Array, Object], required: true },
+        },
+        computed: {
+            normalizedOptions () {
+                if (Array.isArray(this.options)) {
+                    return Object.fromEntries(this.options.map(option => [option, option]))
+                } else {
+                    return this.options
+                }
+            }
         }
     }
 </script>

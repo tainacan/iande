@@ -16,7 +16,7 @@
         </div>
         <div>
             <label class="iande-label" for="role">Informe sua relação com a instituição de ensino</label>
-            <Select id="role" v-model="role" :validations="$v.role" :options="[]" />
+            <Select id="role" v-model="role" :validations="$v.role" :options="{}" />
         </div>
     </div>
 </template>
@@ -53,7 +53,7 @@
                 lastName: 'responsible_last_name',
                 phone: 'responsible_phone',
             }),
-            binaryOptions: constant([[true, 'Sim'], [false, 'Não']]),
+            binaryOptions: constant({ 'Sim': true, 'Não': false }),
             phoneMask: constant(['(##) ####-####', '(##) #####-####'])
         },
         validations: {

@@ -3,7 +3,7 @@
         <h1>Reserve sua visita</h1>
         <div>
             <label class="iande-label" for="purpose">Qual o objetivo da visita?</label>
-            <Select id="purpose" v-model="purpose" :validations="$v.purpose" :options="[]"/>
+            <Select id="purpose" v-model="purpose" :validations="$v.purpose" :options="purposeOptions"/>
         </div>
         <div>
             <label class="iande-label" for="name">Dê um nome para sua visita<span class="iande-label__optional">(opcional)</span></label>
@@ -26,6 +26,7 @@
 
     import Input from './Input.vue'
     import Select from './Select.vue'
+    import { constant } from '../utils'
     import { date, time } from '../utils/validators'
 
     export default {
@@ -35,7 +36,16 @@
             Select,
         },
         computed: {
-            ...sync('appointments/current@', ['date', 'hour', 'name', 'purpose'])
+            ...sync('appointments/current@', ['date', 'hour', 'name', 'purpose']),
+            purposeOptions: constant([
+                'Ilustrar os conteúdos que estou trabalhando com esse grupo',
+                'Complementar o processo educacional realizado pela instituição de origem do grupo',
+                'Possibilitar ao grupo o acesso/conhecimento à exposições e museus',
+                'Promover o aprendizado sobre os temas da exposição/museu',
+                'Iniciar a exploração/descoberta de um novo tema',
+                'Desenvolver a cultura geral do grupo',
+                'Promover uma atividade de lazer'
+            ])
         },
         validations: {
             date: { date, required },
