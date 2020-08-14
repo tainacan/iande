@@ -23,6 +23,15 @@ class User extends Controller
 
         $parsed_user->roles = $user->roles;
 
+        if ($user->__isset('first_name') && !empty($user->__get('first_name')))
+            $parsed_user->first_name = $user->__get('first_name');
+
+        if ($user->__isset('last_name') && !empty($user->__get('last_name')))
+        $parsed_user->last_name = $user->__get('last_name');
+        
+        if ($user->__isset('phone') && !empty($user->__get('phone')))
+            $parsed_user->phone = $user->__get('phone');
+
         $parsed_user = \apply_filters('iande.parse_user', $parsed_user, $user);
 
         return $parsed_user;
