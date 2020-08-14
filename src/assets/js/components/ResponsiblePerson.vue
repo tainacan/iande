@@ -23,7 +23,7 @@
 
 <script>
     import { email, required } from 'vuelidate/lib/validators'
-    import { sync } from 'vuex-pathify'
+    import { get, sync } from 'vuex-pathify'
 
     import Input from '../components/Input.vue'
     import MaskedInput from '../components/MaskedInput.vue'
@@ -43,7 +43,6 @@
         data () {
             return {
                 isContact: null,
-                role: '',
             }
         },
         computed: {
@@ -52,6 +51,7 @@
                 email: 'responsible_email',
                 lastName: 'responsible_last_name',
                 phone: 'responsible_phone',
+                role: 'responsible_role',
             }),
             binaryOptions: constant({ 'Sim': true, 'Não': false }),
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
@@ -63,6 +63,7 @@
                 'guia de turismo',
                 'outros'
             ]),
+            user: get('user/user')
         },
         validations: {
             firstName: { required },
@@ -71,7 +72,21 @@
             lastName: { required },
             phone: { required, phone },
             role: { required },
+        },
+        watch: {
+            isContact () {
+                if (this.isContact) {
+                    this.firstName = this.user.first_name
+                    this.lastName = this.user.last_name
+                    this.email = this.user.user_email
+                    this.phone = this.user.phone
+                } else {
+                    this.firstName = ''
+                    this.lastName = ''
+                    this.email = ''
+                    this.phone = ''
+                }
+            }
         }
-
     }
 </script>

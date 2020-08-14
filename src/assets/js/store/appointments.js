@@ -12,6 +12,7 @@ function newAppointment() {
         responsible_last_name: '',
         responsible_email: '',
         responsible_phone: '',
+        responsible_role: '',
     }
 }
 
