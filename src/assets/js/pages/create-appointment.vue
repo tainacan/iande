@@ -61,10 +61,10 @@
         },
         async beforeMount () {
             const qs = new URLSearchParams(window.location.search)
-            if (qs.has('id')) {
+            if (qs.has('ID')) {
                 try {
-                    const appointment = await api.post('appointment/get', {
-                        ID: Number(qs.get('id'))
+                    const appointment = await api.get('appointment/get', {
+                        ID: Number(qs.get('ID'))
                     })
                     this.$store.set('appointments/current', appointment)
                 } catch (err) {
