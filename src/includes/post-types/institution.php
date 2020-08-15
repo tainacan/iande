@@ -144,6 +144,15 @@ function register_metabox_institution()
 function get_institution_metadata_definition()
 {
 
+    $default_institution_profiles_option = [
+        'Modelo de perfil 1',
+        'Modelo de perfil 2',
+        'Modelo de perfil 3'
+    ];
+
+    // @todo colocar em página de configuração
+    $institution_profiles_option = get_option('iande_institution_profiles', $default_institution_profiles_option);
+
     $metadata_definition = [
         'name' => (object) [
             'type' => 'string',
@@ -171,12 +180,17 @@ function get_institution_metadata_definition()
             'type' => 'string',
             'required' => true,
             'validation' => function ($value) {
-                if (is_string($value) && !is_numeric($value)) {
+                if (is_string($value) || is_array($value)) {
                     return true;
                 } else {
-                    return __('O perfil informado não é um perfil válido', 'iande');
+                    return __($value);
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label'   => 'Perfil',
+                'type'    => 'select',
+                'options' => $institution_profiles_option
+            ]
         ],
         'phone' => (object) [
             'type' => 'string',
