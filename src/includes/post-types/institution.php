@@ -284,7 +284,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O complemento informado não é válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Complemento', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'district' => (object) [
             'type' => 'string',
