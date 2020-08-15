@@ -6,7 +6,7 @@
             <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
                 <VisitDate ref="form" v-if="screen === 1"/>
                 <ResponsiblePerson ref="form" v-else-if="screen === 2"/>
-                <GroupNature ref="form" v-else-if="screen === 3"/>
+                <GroupNature ref="form" v-else-if="screen === 3" @add-institution="setScreen(4)"/>
 
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ formError }}</span>
