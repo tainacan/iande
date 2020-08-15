@@ -73,6 +73,13 @@
             phone: { required, phone },
             role: { required },
         },
+        created () {
+            if (this.firstName && this.lastName && this.email && this.phone) {
+                this.isContact = true
+            } else {
+                this.isContact = false
+            }
+        },
         watch: {
             isContact () {
                 if (this.isContact) {
