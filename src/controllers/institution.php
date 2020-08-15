@@ -124,6 +124,48 @@ class Institution extends Controller
     }
 
     /**
+     * Retorna todas instituições do usuário
+     * 
+     * @return void
+     */
+    function endpoint_list()
+    {
+        
+        $this->require_authentication();
+
+        $user_id = \get_current_user_id();
+
+        $args = array(
+            'author'         =>  $user_id,
+            'post_type'      => 'institution',
+            'post_status'    => ['publish', 'draft'],
+            'posts_per_page' => 9999
+        );
+
+        $institutions = get_posts($args);
+        
+        if (empty($institutions)) {
+            return; // 404
+        }
+
+        $parsed_institutions = [];
+
+        foreach ($institutions as $key => $institution) {
+            $parsed_institutions[] = $this->get_parsed_institution($institution->ID);
+        }
+        
+        $parsed_institutions = array_filter($parsed_institutions);
+
+        if (empty($parsed_institutions)) {
+            return; // 404
+        }
+
+        $this->success($parsed_institutions);
+    }
+
+
+
+    /**
      * Verifica se o usuário tem permissão para ver a instituição
      * Se não tiver permissão retorna o erro na API
      *
