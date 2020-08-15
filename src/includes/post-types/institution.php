@@ -3,6 +3,7 @@
 namespace Iande;
 
 add_action('init', 'Iande\\register_post_type_institution');
+add_action('init', 'Iande\\register_metabox_institution');
 
 /**
  * Registra o Post Type Institution
@@ -40,7 +41,7 @@ function register_post_type_institution()
         'hierarchical'       => false,
         'menu_position'      => null,
         'menu_icon'          => 'dashicons-building',
-        'supports'           => ['title', 'author', 'custom-fields']
+        'supports'           => ['title', 'author', /* 'custom-fields' */]
     ];
 
     register_post_type('institution', $institution_args);
@@ -53,6 +54,83 @@ function register_post_type_institution()
     foreach ($metadata_definition as $key => $definition) {
         register_post_meta('institution', $key, ['type' => $definition->type]);
     }
+}
+
+/**
+ * Registra os metaboxes da instituição
+ * 
+ * @filter iande.institution_metabox_fields
+ * 
+ * @return void
+ */
+function register_metabox_institution()
+{
+
+    /* Registra os metaboxes do post type institution */
+
+    $metadata_definition = get_institution_metadata_definition();
+
+    $fields = [];
+    $institution_metabox = '';
+
+    foreach ($metadata_definition as $key => $definition) {
+
+        if (isset($definition->metabox)) {
+
+            $institution_metabox = new \Iande_Metabox(
+                'institution', // Slug/ID do Metabox (obrigatório)
+                'Informações da Instituição', // Nome do Metabox  (obrigatório)
+                'institution', // Slug do Post Type, sendo possível enviar apenas um valor ou um array com vários (opcional)
+                'normal', // Contexto (opções: normal, advanced, ou side) (opcional)
+                'high' // Prioridade (opções: high, core, default ou low) (opcional)
+            );
+
+            $label       = '';
+            $type        = '';
+            $default     = '';
+            $description = '';
+            $options     = [];
+            $attributes  = [];
+
+            if (isset($definition->metabox->label))
+                $label = $definition->metabox->label;
+
+            if (isset($definition->metabox->type))
+                $type = $definition->metabox->type;
+
+            if (isset($definition->metabox->default))
+                $default = $definition->metabox->default;
+
+            if (isset($definition->metabox->description))
+                $description = $definition->metabox->description;
+
+            if (isset($definition->metabox->options))
+                $options = $definition->metabox->options;
+
+            if (isset($definition->metabox->attributes))
+                $attributes = $definition->metabox->attributes;
+
+            $fields[] = [
+                'id'          => $key,
+                'label'       => $label,
+                'type'        => $type,
+                'default'     => $default,
+                'description' => $description,
+                'options'     => $options,
+                'attributes'  => $attributes
+            ];
+
+        }
+        
+    }
+
+    $fields = \apply_filters('iande.institution_metabox_fields', $fields);
+
+    if(is_object($institution_metabox))
+        $institution_metabox->set_fields($fields);
+    
+    return $institution_metabox;
+
 }
 
 
