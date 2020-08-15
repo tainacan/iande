@@ -18,7 +18,7 @@
     import { sync } from 'vuex-pathify'
 
     import Select from '../components/Select.vue'
-    import { constant } from '../utils'
+    import { api, constant } from '../utils'
 
     export default {
         name: 'GroupNature',
@@ -27,7 +27,8 @@
         },
         data () {
             return {
-                institution: null
+                institution: null,
+                institutions: []
             }
         },
         computed: {
@@ -42,6 +43,10 @@
         validations: {
             institution: { required },
             nature: { required },
+        },
+        async created () {
+            const institutions = await api.get('institution/list')
+            this.institutions = institutions
         }
     }
 </script>
