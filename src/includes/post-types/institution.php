@@ -239,7 +239,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O CEP informado não é válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('CEP', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'address' => (object) [
             'type' => 'string',
