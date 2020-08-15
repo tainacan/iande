@@ -178,7 +178,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O número informado não é um CNPJ válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('CNPJ', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'profile' => (object) [
             'type' => 'string',
@@ -205,7 +209,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O número informado não é um telefone válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Telefone', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'email' => (object) [
             'type' => 'string',
@@ -216,7 +224,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O e-mail informado não é um e-mail válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('E-mail', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'zip_code' => (object) [
             'type' => 'string',
@@ -227,7 +239,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O CEP informado não é válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('CEP', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'address' => (object) [
             'type' => 'string',
