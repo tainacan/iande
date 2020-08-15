@@ -18,7 +18,7 @@ class Institution extends Controller
     }
 
     /**
-     * Cria uma nova instituicao
+     * Cria uma nova instituição
      * 
      * @param array $params 
      * 
@@ -55,7 +55,7 @@ class Institution extends Controller
     }
 
     /**
-     * Atualiza a instituio
+     * Atualiza a instituição
      *
      * @param array $params
      * 
@@ -94,7 +94,7 @@ class Institution extends Controller
     }
 
     /**
-     * Retorna uma instituicao pelo id
+     * Retorna uma instituição pelo id
      *
      * @param array $params
      * 
@@ -169,7 +169,7 @@ class Institution extends Controller
         $metadata_definition = get_institution_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
-            // validação de campo obrigatórios
+            // validação de campos obrigatórios
             if ($definition->required && empty($params[$key])) {
                 if ($validate_missing_requirements) {
                     $this->error($definition->required);
@@ -219,7 +219,7 @@ class Institution extends Controller
     }
 
     /**
-     * Retorna um agendamento parseado
+     * Retorna uma instituição parseado
      *
      * @param integer $institution_id
      * @return object
