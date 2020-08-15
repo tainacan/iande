@@ -209,7 +209,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O número informado não é um telefone válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Telefone', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'email' => (object) [
             'type' => 'string',
