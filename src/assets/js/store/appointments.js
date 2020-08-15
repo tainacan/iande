@@ -17,7 +17,8 @@ function newAppointment() {
 }
 
 const state = {
-    current: newAppointment()
+    current: newAppointment(),
+    list: []
 }
 
 export default {

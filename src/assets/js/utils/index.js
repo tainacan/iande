@@ -1,9 +1,9 @@
 import { sync } from 'vuex-pathify'
 
-import api from './api'
+import api, { searchParams } from './api'
 
 export function constant (value) {
     return () => value
 }
 
-export { api }
+export { api, searchParams }

@@ -1,8 +1,8 @@
 <template>
     <div class="iande-field">
         <select :id="id" :class="classes" :aria-describedby="errorId" v-model="modelValue">
-            <option :value="value" disabled v-if="value === '' || value === null">{{ placeholder }}</option>
-            <option :value="null" disabled v-if="empty && options.length === 0">{{ empty }}</option>
+            <option :value="nullValue" disabled v-if="value === nullValue">{{ placeholder }}</option>
+            <option :value="nullValue" disabled v-if="empty && optionsLength === 0">{{ empty }}</option>
             <option v-for="(option, label) of normalizedOptions" :key="label" :value="option">
                 {{ label }}
             </option>
@@ -31,6 +31,19 @@
                     return Object.fromEntries(this.options.map(option => [option, option]))
                 } else {
                     return this.options
+                }
+            },
+            nullValue () {
+                if (!this.value && this.value !== null) {
+                    return this.value
+                }
+                return null
+            },
+            optionsLength () {
+                if (Array.isArray(this.options)) {
+                    return this.options.length
+                } else {
+                    return Object.keys(this.options).length
                 }
             }
         }

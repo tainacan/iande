@@ -1,6 +1,6 @@
 const baseUrl = `${window.location.origin}/iande/`
 
-function params (object) {
+export function searchParams (object) {
     const search = new URLSearchParams()
     for (const [key, value] of Object.entries(object)) {
         if (Array.isArray(value)) {
@@ -14,7 +14,7 @@ function params (object) {
     return search
 }
 
-async function client (method, relativeUrl, body = null, headers = {}) {
+async function client (method, relativeUrl, body, headers) {
     const url = relativeUrl.startsWith('http') ? new URL(relativeUrl) : new URL(relativeUrl, baseUrl)
     if (body instanceof URLSearchParams) {
         for (const [key, value] of body.entries()) {
@@ -34,10 +34,10 @@ async function client (method, relativeUrl, body = null, headers = {}) {
 }
 
 export default {
-    get (url, body, headers) {
-        return client('GET', url, params(body), headers)
+    get (url, body = {}, headers = {}) {
+        return client('GET', url, searchParams(body), headers)
     },
-    post (url, body, headers) {
+    post (url, body = null, headers = {}) {
         return client('POST', url, body, headers)
     }
 }

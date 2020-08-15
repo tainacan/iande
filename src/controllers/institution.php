@@ -19,13 +19,13 @@ class Institution extends Controller
 
     /**
      * Cria uma nova instituição
-     * 
-     * @param array $params 
-     * 
+     *
+     * @param array $params
+     *
      * @action iande.before_create_institution
      * @action iande.after_create_institution
-     * 
-     * @return void 
+     *
+     * @return void
      */
     function endpoint_create(array $params = [])
     {
@@ -58,10 +58,10 @@ class Institution extends Controller
      * Atualiza a instituição
      *
      * @param array $params
-     * 
+     *
      * @action iande.before_update_institution
      * @action iande.after_update_institution
-     * 
+     *
      * @return void
      */
     function endpoint_update(array $params = []) {
@@ -97,7 +97,7 @@ class Institution extends Controller
      * Retorna uma instituição pelo id
      *
      * @param array $params
-     * 
+     *
      * @return void
      */
     function endpoint_get(array $params = [])
@@ -125,12 +125,12 @@ class Institution extends Controller
 
     /**
      * Retorna todas instituições do usuário
-     * 
+     *
      * @return void
      */
     function endpoint_list()
     {
-        
+
         $this->require_authentication();
 
         $user_id = \get_current_user_id();
@@ -143,9 +143,9 @@ class Institution extends Controller
         );
 
         $institutions = get_posts($args);
-        
+
         if (empty($institutions)) {
-            return; // 404
+            return $this->success([]);
         }
 
         $parsed_institutions = [];
@@ -153,11 +153,11 @@ class Institution extends Controller
         foreach ($institutions as $key => $institution) {
             $parsed_institutions[] = $this->get_parsed_institution($institution->ID);
         }
-        
+
         $parsed_institutions = array_filter($parsed_institutions);
 
         if (empty($parsed_institutions)) {
-            return; // 404
+            return $this->success([]);
         }
 
         $this->success($parsed_institutions);
@@ -170,10 +170,10 @@ class Institution extends Controller
      * Se não tiver permissão retorna o erro na API
      *
      * @param WP_Post|object $institution
-     * 
+     *
      * @todo aplicar o current_user_can (https://developer.wordpress.org/reference/functions/current_user_can/)
      *       para que considere a validação do role do usuário, por exemplo adminstradores devem conseguir ver
-     * 
+     *
      * @return void
      */
     function check_user_permission ($institution){
@@ -236,9 +236,9 @@ class Institution extends Controller
      *
      * @param \WP_Post $institution
      * @param array $metadata
-     * 
-     * @filter iande.institution 
-     * 
+     *
+     * @filter iande.institution
+     *
      * @return object
      */
     function parse_institution(\WP_Post $institution, array $metadata = [])
