@@ -85,6 +85,7 @@ function get_appointment_metadata_definition()
     ];
 
     // @todo colocar em página de configuração
+    $nature_options = ['institutional', 'other'];
     $purpose_options = get_option('iande_appointment_purposes', $default_purpose_options);
     $role_options = get_option('iande_appointment_responsible_roles', $default_role_options);
 
@@ -179,6 +180,17 @@ function get_appointment_metadata_definition()
                     return true;
                 } else {
                     return __('Relação com instituição inválida', 'iande');
+                }
+            }
+        ],
+        'group_nature' => (object) [
+            'type' => 'string',
+            'required' => __('A natureza do grupo é obrigatória', 'iande'),
+            'validation' => function ($value) use ($nature_options) {
+                if (in_array($nature_options, $value)) {
+                    return true;
+                } else {
+                    return __('Natureza do grupo inválida', 'iande');
                 }
             }
         ]
