@@ -124,6 +124,46 @@ class Appointment extends Controller
     }
 
     /**
+     * Retorna todos agendamentos do usuário
+     *
+     * @return void
+     */
+    function endpoint_list()
+    {
+
+        $this->require_authentication();
+
+        $user_id = \get_current_user_id();
+
+        $args = array(
+            'author'         =>  $user_id,
+            'post_type'      => 'appointment',
+            'post_status'    => ['publish', /* 'draft' */],
+            'posts_per_page' => 9999
+        );
+
+        $appointments = get_posts($args);
+
+        if (empty($appointments)) {
+            return $this->success([]);
+        }
+
+        $parsed_appointments = [];
+
+        foreach ($appointments as $key => $appointment) {
+            $parsed_appointments[] = $this->get_parsed_appointment($appointment->ID);
+        }
+
+        $parsed_appointments = array_filter($parsed_appointments);
+
+        if (empty($parsed_appointments)) {
+            return $this->success([]);
+        }
+
+        $this->success($parsed_appointments);
+    }
+
+    /**
      * Verifica se o usuário tem permissão para ver o agendamento
      * Se não tiver permissão retorna o erro na API
      *
