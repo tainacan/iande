@@ -254,7 +254,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O endereço informado não é válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Endereço', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'address_number' => (object) [
             'type' => 'string',
