@@ -224,7 +224,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O e-mail informado não é um e-mail válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('E-mail', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'zip_code' => (object) [
             'type' => 'string',
