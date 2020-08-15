@@ -40,7 +40,7 @@ function register_post_type_institution()
         'hierarchical'       => false,
         'menu_position'      => null,
         'menu_icon'          => 'dashicons-building',
-        'supports'           => ['title', 'author', /* 'custom-fields' */]
+        'supports'           => ['title', 'author', 'custom-fields']
     ];
 
     register_post_type('institution', $institution_args);

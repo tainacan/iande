@@ -31,6 +31,7 @@ define('IANDE_BASEURL', plugins_url('', __FILE__) . '/');
 define('IANDE_DISTURL', IANDE_BASEURL  . 'dist/');
 
 require 'includes/post-types.php';
+require 'includes/meta-boxes/class-metabox.php';
 require 'includes/roles.php';
 require 'includes/assets.php';
 require 'includes/templates.php';
