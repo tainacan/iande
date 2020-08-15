@@ -269,7 +269,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O número informado não é válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Número', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'complement' => (object) [
             'type' => 'string',
