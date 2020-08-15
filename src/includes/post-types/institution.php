@@ -299,7 +299,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O bairro informado não é válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Bairro', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'state' => (object) [
             'type' => 'string',
@@ -310,7 +314,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O estado informado não é válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Estado', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'city' => (object) [
             'type' => 'string',
@@ -321,7 +329,12 @@ function get_institution_metadata_definition()
                 } else {
                     return __('A cidade informada não é válida', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Cidade', 'iande'),
+                'type'  => 'text',
+            ]
+
         ]
     ];
 
