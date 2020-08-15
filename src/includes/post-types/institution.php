@@ -163,7 +163,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O nome informado é muito curto', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Nome', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'cnpj' => (object) [
             'type' => 'string',
