@@ -28,13 +28,13 @@
         data () {
             return {
                 institution: null,
-                institutions: []
             }
         },
         computed: {
             ...sync('appointments/current@', [
                 'nature',
             ]),
+            institutions: sync('institutions/list'),
             natureOptions: constant({
                 'Grupo Institucional': 'institucional',
                 'Outro': 'outro'
@@ -45,8 +45,10 @@
             nature: { required },
         },
         async created () {
-            const institutions = await api.get('institution/list')
-            this.institutions = institutions
+            if (!this.institutions) {
+                const institutions = await api.get('institution/list')
+                this.institutions = institutions
+            }
         }
     }
 </script>
