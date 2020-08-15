@@ -48,8 +48,8 @@
             },
             institutions: sync('institutions/list'),
             natureOptions: constant({
-                'Grupo Institucional': 'institucional',
-                'Outro': 'outro'
+                'Grupo Institucional': 'institutional',
+                'Outro': 'other'
             })
         },
         validations: {
