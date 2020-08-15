@@ -178,7 +178,11 @@ function get_institution_metadata_definition()
                 } else {
                     return __('O número informado não é um CNPJ válido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('CNPJ', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'profile' => (object) [
             'type' => 'string',
