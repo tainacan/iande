@@ -138,7 +138,7 @@ class Institution extends Controller
         $args = array(
             'author'         =>  $user_id,
             'post_type'      => 'institution',
-            'post_status'    => ['publish', 'draft'],
+            'post_status'    => ['publish', /* 'draft' */],
             'posts_per_page' => 9999
         );
 
