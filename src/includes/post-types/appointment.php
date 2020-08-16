@@ -3,6 +3,7 @@
 namespace Iande;
 
 add_action('init', 'Iande\\register_post_type_appointment');
+add_action('init', 'Iande\\register_metabox_appointment');
 
 /**
  * Registra o Post Type Appointment
@@ -55,6 +56,79 @@ function register_post_type_appointment()
     }
 }
 
+/**
+ * Registra os metaboxes do agendamento
+ * 
+ * @filter iande.appointment_metabox_fields
+ * 
+ * @return void
+ */
+function register_metabox_appointment()
+{
+
+    /* Registra os metaboxes do post type appointment */
+
+    $metadata_definition = get_appointment_metadata_definition();
+
+    $fields = [];
+    $appointment_metabox = '';
+
+    foreach ($metadata_definition as $key => $definition) {
+
+        if (isset($definition->metabox)) {
+
+            $appointment_metabox = new \Iande_Metabox(
+                'appointment', // Slug/ID do Metabox (obrigatório)
+                'Informações da Instituição', // Nome do Metabox  (obrigatório)
+                'appointment', // Slug do Post Type, sendo possível enviar apenas um valor ou um array com vários (opcional)
+                'normal', // Contexto (opções: normal, advanced, ou side) (opcional)
+                'high' // Prioridade (opções: high, core, default ou low) (opcional)
+            );
+
+            $label       = '';
+            $type        = '';
+            $default     = '';
+            $description = '';
+            $options     = [];
+            $attributes  = [];
+
+            if (isset($definition->metabox->label))
+                $label = $definition->metabox->label;
+
+            if (isset($definition->metabox->type))
+                $type = $definition->metabox->type;
+
+            if (isset($definition->metabox->default))
+                $default = $definition->metabox->default;
+
+            if (isset($definition->metabox->description))
+                $description = $definition->metabox->description;
+
+            if (isset($definition->metabox->options))
+                $options = $definition->metabox->options;
+
+            if (isset($definition->metabox->attributes))
+                $attributes = $definition->metabox->attributes;
+
+            $fields[] = [
+                'id'          => $key,
+                'label'       => $label,
+                'type'        => $type,
+                'default'     => $default,
+                'description' => $description,
+                'options'     => $options,
+                'attributes'  => $attributes
+            ];
+        }
+    }
+
+    $fields = \apply_filters('iande.appointment_metabox_fields', $fields);
+
+    if (is_object($appointment_metabox))
+        $appointment_metabox->set_fields($fields);
+
+    return $appointment_metabox;
+}
 
 /**
  * Retorna a definição dos metadados do post type `appointment`
@@ -99,7 +173,12 @@ function get_appointment_metadata_definition()
                 } else {
                     return __('Objetivo inválido', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label'   => 'Perfil',
+                'type'    => 'select',
+                'options' => $purpose_options
+            ]
         ],
         'name' => (object) [
             'type' => 'string',
@@ -110,7 +189,11 @@ function get_appointment_metadata_definition()
                 } else {
                     return __('O nome informado é muito curto', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Nome', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'date' => (object) [
             'type' => 'string',
@@ -122,7 +205,11 @@ function get_appointment_metadata_definition()
                 } else {
                     return __("Formato de data inválido", 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Data', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'hour' => (object) [
             'type' => 'string',
@@ -134,21 +221,33 @@ function get_appointment_metadata_definition()
                 } else {
                     return __("Formato de horário inválido", 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Hora', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'responsible_first_name' => (object) [
             'type' => 'string',
             'required' => __('O nome do responsável é obrigatório', 'iande'),
             'validation' => function ($value) {
                 return true;
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Nome do responsável', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'responsible_last_name' => (object) [
             'type' => 'string',
             'required' => __('O sobrenome do responsável é obrigatório', 'iande'),
             'validation' => function ($value) {
                 return true;
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Sobrenome do responsável', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'responsible_email' => (object) [
             'type' => 'string',
@@ -159,7 +258,11 @@ function get_appointment_metadata_definition()
                 } else {
                     return true;
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('E-mail do responsável', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'responsible_phone' => (object) [
             'type' => 'string',
@@ -170,7 +273,11 @@ function get_appointment_metadata_definition()
                 } else {
                     return true;
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label' => __('Telefone do responsável', 'iande'),
+                'type'  => 'text',
+            ]
         ],
         'responsible_role' => (object) [
             'type' => 'string',
@@ -181,7 +288,12 @@ function get_appointment_metadata_definition()
                 } else {
                     return __('Relação com instituição inválida', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label'   => __('Relação do responsável com a instituição', 'iande'),
+                'type'    => 'select',
+                'options' => $role_options
+            ]
         ],
         'group_nature' => (object) [
             'type' => 'string',
@@ -192,7 +304,12 @@ function get_appointment_metadata_definition()
                 } else {
                     return __('Natureza do grupo inválida', 'iande');
                 }
-            }
+            },
+            'metabox' => (object) [
+                'label'   => __('Natureza do grupo', 'iande'),
+                'type'    => 'select',
+                'options' => $nature_options
+            ]
         ]
     ];
 
