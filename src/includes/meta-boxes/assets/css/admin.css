@@ -1,3 +1,90 @@
+/* =Form general styles.
+-------------------------------------------------------------- */
+.iande-form-table.form-table.iande-form-table {
+    overflow: hidden;
+}
+.iande-form-table .form-table--each-line {
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+}
+@media ( min-width: 768px ) {
+    .iande-form-table .form-table--each-line {
+        margin-bottom: 15px;
+    }
+    .iande-form-table .form-table--each-line.w75 {
+        width: 75%;
+    }
+    .iande-form-table .form-table--each-line.w50 {
+        width: 50%;
+    }
+    .iande-form-table .form-table--each-line.w33 {
+        width: 33.333333%;
+    }
+    .iande-form-table .form-table--each-line.w25 {
+        width: 25%;
+    }
+}
+
+/* Label */
+.iande-form-table .form-table--each-line .label {
+    margin: 5px 12px -1px 12px;
+}
+.iande-form-table .form-table--each-line .label label {
+    background: #f0efef;
+    border-radius: 50px;
+    color: #1E2E55;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px 10px;
+    position: relative;
+    z-index: 9;
+}
+
+/* Text inputs */
+.iande-form-table .form-table--each-line .input input {
+    border: 2px solid #cacaca;
+    border-radius: 8px;
+    padding: 5px 15px;
+    width: calc(100% - 15px);
+}
+.iande-form-table .form-table--each-line .input input:focus {
+    border-color: #A8DBBC;
+    box-shadow: 0 0 0 1px #A8DBBC;
+    outline: 2px solid transparent;
+}
+
+/* Selects */
+.iande-form-table .form-table--each-line select {
+    border: 2px solid #cacaca;
+    border-radius: 8px;
+    padding: 5px 15px;
+    width: calc(100% - 15px);
+}
+.iande-form-table .form-table--each-line .input select:focus,
+.iande-form-table .form-table--each-line .input select:hover {
+    border-color: #A8DBBC;
+    box-shadow: 0 0 0 1px #A8DBBC;
+    color: #32373c;
+    outline: 2px solid transparent;
+}
+@media (max-width: 782px) {
+    .iande-form-table .form-table--each-line select {
+        height: 46px;
+    }
+}
+
+/* Description */
+.iande-form-table .form-table--each-line .description {
+    color: #666666;
+    display: block;
+    font-size: 12px;
+    font-style: italic;
+    max-width: calc(100% - 20px);
+    padding: 5px;
+}
+
+
 /* =Gallery styles.
 -------------------------------------------------------------- */
 
@@ -29,11 +116,6 @@
 .iande-gallery-images .wc-metabox-sortable-placeholder {
 	border: 4px dashed #ddd;
 }
-
-.iande-form-table .description {
-	display: block;
-}
-
 
 /* =Image upload
 -------------------------------------------------------------- */

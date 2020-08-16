@@ -43,7 +43,7 @@ class Iande_Metabox {
 		// Load scripts.
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 
-		//Check if $post_type is an array. If not, makes it one.
+		// Check if $post_type is an array. If not, makes it one.
 		if( !is_array($post_type) ){
 			$post_type = array( $post_type );
 		}
@@ -149,7 +149,6 @@ class Iande_Metabox {
     /**
 	 * Check if index add_column is true
 	 *
-	 *
 	 * @return bool Field type
 	 */
     protected function check_field_is_column() {
@@ -173,38 +172,41 @@ class Iande_Metabox {
 		// Use nonce for verification.
 		wp_nonce_field( basename( __FILE__ ), $this->nonce );
 
-		$post_id = $post->ID;
-
+        $post_id = $post->ID;
+        
 		do_action( 'iande_metabox_header_' . $this->id, $post_id );
 
-		echo apply_filters( 'iande_metabox_container_before_' . $this->id, '<table class="form-table iande-form-table">' );
+		echo apply_filters( 'iande_metabox_container_before_' . $this->id, '<div class="form-table iande-form-table">' );
 
 		foreach ( $this->fields as $field ) {
-			echo apply_filters( 'iande_metabox_wrap_before_' . $this->id, '<tr valign="top">', $field );
+
+            $size = (isset($field['size']) && !empty($field['size'])) ? 'w'. $field['size'] : '';
+
+			echo apply_filters( 'iande_metabox_wrap_before_' . $this->id, '<div class="form-table--each-line ' . $size . '">', $field );
 
 			if ( 'title' == $field['type'] ) {
-				$title = sprintf( '<th colspan="2"><strong>%s</strong></th>', $field['label'] );
+				$title = sprintf('<div class="label--title"><strong>%s</strong></div>', $field['label'] );
 			} elseif ( 'separator' == $field['type'] ) {
-				$title = sprintf( '<td colspan="2"><span id="iande-metabox-separator-%s" class="iande-metabox-separator"></span></td>', $field['id'] );
+				$title = sprintf('<div class="label--separator"><span id="iande-metabox-separator-%s" class="iande-metabox-separator"></span></div>', $field['id'] );
 			} else {
-				$title = sprintf( '<th><label for="%s">%s</label></th>', $field['id'], $field['label'] );
+				$title = sprintf( '<div class="label"><label for="%s">%s</label></div>', $field['id'], $field['label'] );
 			}
 
 			echo apply_filters( 'iande_metabox_field_title_' . $this->id, $title, $field );
 
-			echo apply_filters( 'iande_metabox_field_before_' . $field['id'], '<td>', $field );
+			echo apply_filters( 'iande_metabox_field_before_' . $field['id'], '<div class="input">', $field );
 			$this->process_fields( $field, $post_id );
 
-			if ( isset( $field['description'] ) ) {
+			if ( isset( $field['description'] )  && !empty( $field['description'] ) ) {
 				echo sprintf( '<span class="description">%s</span>', $field['description'] );
 			}
 
-			echo apply_filters( 'iande_metabox_field_after_' . $field['id'], '</td>', $field );
+			echo apply_filters( 'iande_metabox_field_after_' . $field['id'], '</div>', $field );
 
-			echo apply_filters( 'iande_metabox_wrap_after_' . $this->id, '</tr>', $field );
+			echo apply_filters( 'iande_metabox_wrap_after_' . $this->id, '</div>', $field );
 		}
 
-		echo apply_filters( 'iande_metabox_container_after_' . $this->id, '</table>' );
+		echo apply_filters( 'iande_metabox_container_after_' . $this->id, '</div>' );
 
 		do_action( 'iande_metabox_footer_' . $this->id, $post_id );
 

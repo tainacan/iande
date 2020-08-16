@@ -91,6 +91,7 @@ function register_metabox_institution()
             $description = '';
             $options     = [];
             $attributes  = [];
+            $size        = '';
 
             if (isset($definition->metabox->label))
                 $label = $definition->metabox->label;
@@ -110,6 +111,9 @@ function register_metabox_institution()
             if (isset($definition->metabox->attributes))
                 $attributes = $definition->metabox->attributes;
 
+            if (isset($definition->metabox->size))
+                $size = $definition->metabox->size;
+
             $fields[] = [
                 'id'          => $key,
                 'label'       => $label,
@@ -117,7 +121,8 @@ function register_metabox_institution()
                 'default'     => $default,
                 'description' => $description,
                 'options'     => $options,
-                'attributes'  => $attributes
+                'attributes'  => $attributes,
+                'size'        => $size
             ];
 
         }
@@ -132,7 +137,6 @@ function register_metabox_institution()
     return $institution_metabox;
 
 }
-
 
 /**
  * Retorna a definição dos metadados do post type `institution`
@@ -167,6 +171,7 @@ function get_institution_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Nome', 'iande'),
                 'type'  => 'text',
+                'size'  => '50' // 75%, 50%, 33%, 25%, default 100%
             ]
         ],
         'cnpj' => (object) [
@@ -182,6 +187,7 @@ function get_institution_metadata_definition()
             'metabox' => (object) [
                 'label' => __('CNPJ', 'iande'),
                 'type'  => 'text',
+                'size'  => '50'
             ]
         ],
         'profile' => (object) [
@@ -197,7 +203,8 @@ function get_institution_metadata_definition()
             'metabox' => (object) [
                 'label'   => 'Perfil',
                 'type'    => 'select',
-                'options' => $institution_profiles_option
+                'options' => $institution_profiles_option,
+                'size'  => '50'
             ]
         ],
         'phone' => (object) [
@@ -213,6 +220,7 @@ function get_institution_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Telefone', 'iande'),
                 'type'  => 'text',
+                'size'  => '50'
             ]
         ],
         'email' => (object) [
@@ -228,6 +236,7 @@ function get_institution_metadata_definition()
             'metabox' => (object) [
                 'label' => __('E-mail', 'iande'),
                 'type'  => 'text',
+                'size'  => '50'
             ]
         ],
         'zip_code' => (object) [
@@ -243,6 +252,7 @@ function get_institution_metadata_definition()
             'metabox' => (object) [
                 'label' => __('CEP', 'iande'),
                 'type'  => 'text',
+                'size'  => '50'
             ]
         ],
         'address' => (object) [
@@ -258,6 +268,7 @@ function get_institution_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Endereço', 'iande'),
                 'type'  => 'text',
+                'size'  => '75'
             ]
         ],
         'address_number' => (object) [
@@ -273,6 +284,7 @@ function get_institution_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Número', 'iande'),
                 'type'  => 'text',
+                'size'  => '25'
             ]
         ],
         'complement' => (object) [
@@ -288,6 +300,8 @@ function get_institution_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Complemento', 'iande'),
                 'type'  => 'text',
+                'description' => 'Vamos ver aqui como fica uma descrição para os campos',
+                'size'  => '50'
             ]
         ],
         'district' => (object) [
@@ -303,21 +317,7 @@ function get_institution_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Bairro', 'iande'),
                 'type'  => 'text',
-            ]
-        ],
-        'state' => (object) [
-            'type' => 'string',
-            'required' => true,
-            'validation' => function ($value) {
-                if (strlen(trim($value)) == 2) {
-                    return true;
-                } else {
-                    return __('O estado informado não é válido', 'iande');
-                }
-            },
-            'metabox' => (object) [
-                'label' => __('Estado', 'iande'),
-                'type'  => 'text',
+                'size'  => '50'
             ]
         ],
         'city' => (object) [
@@ -333,8 +333,26 @@ function get_institution_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Cidade', 'iande'),
                 'type'  => 'text',
+                'size'  => '75'
             ]
 
+        ],
+        'state' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                if (strlen(trim($value)) == 2) {
+                    return true;
+                } else {
+                    return __('O estado informado não é válido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'label' => __('Estado', 'iande'),
+                'type'  => 'text',
+                'description' => 'Vamos ver aqui como fica uma descrição para os campos',
+                'size'  => '25'
+            ]
         ]
     ];
 

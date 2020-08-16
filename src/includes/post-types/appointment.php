@@ -91,6 +91,7 @@ function register_metabox_appointment()
             $description = '';
             $options     = [];
             $attributes  = [];
+            $size        = '';
 
             if (isset($definition->metabox->label))
                 $label = $definition->metabox->label;
@@ -110,6 +111,9 @@ function register_metabox_appointment()
             if (isset($definition->metabox->attributes))
                 $attributes = $definition->metabox->attributes;
 
+            if (isset($definition->metabox->size))
+                $size = $definition->metabox->size;
+
             $fields[] = [
                 'id'          => $key,
                 'label'       => $label,
@@ -117,7 +121,8 @@ function register_metabox_appointment()
                 'default'     => $default,
                 'description' => $description,
                 'options'     => $options,
-                'attributes'  => $attributes
+                'attributes'  => $attributes,
+                'size'        => $size
             ];
         }
     }
@@ -177,7 +182,8 @@ function get_appointment_metadata_definition()
             'metabox' => (object) [
                 'label'   => 'Perfil',
                 'type'    => 'select',
-                'options' => $purpose_options
+                'options' => $purpose_options,
+                'size'    => '50' // 75%, 50%, 33%, 25%, default 100%
             ]
         ],
         'name' => (object) [
@@ -193,6 +199,7 @@ function get_appointment_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Nome', 'iande'),
                 'type'  => 'text',
+                'size'  => '50'
             ]
         ],
         'date' => (object) [
@@ -209,6 +216,7 @@ function get_appointment_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Data', 'iande'),
                 'type'  => 'text',
+                'size'  => '50'
             ]
         ],
         'hour' => (object) [
@@ -225,6 +233,7 @@ function get_appointment_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Hora', 'iande'),
                 'type'  => 'text',
+                'size'  => '50'
             ]
         ],
         'responsible_first_name' => (object) [
@@ -236,6 +245,7 @@ function get_appointment_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Nome do responsável', 'iande'),
                 'type'  => 'text',
+                'size'  => '50'
             ]
         ],
         'responsible_last_name' => (object) [
@@ -247,6 +257,7 @@ function get_appointment_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Sobrenome do responsável', 'iande'),
                 'type'  => 'text',
+                'size'  => '50'
             ]
         ],
         'responsible_email' => (object) [
@@ -262,6 +273,7 @@ function get_appointment_metadata_definition()
             'metabox' => (object) [
                 'label' => __('E-mail do responsável', 'iande'),
                 'type'  => 'text',
+                'size'  => '50'
             ]
         ],
         'responsible_phone' => (object) [
@@ -277,6 +289,7 @@ function get_appointment_metadata_definition()
             'metabox' => (object) [
                 'label' => __('Telefone do responsável', 'iande'),
                 'type'  => 'text',
+                'size'  => '50'
             ]
         ],
         'responsible_role' => (object) [
@@ -292,7 +305,8 @@ function get_appointment_metadata_definition()
             'metabox' => (object) [
                 'label'   => __('Relação do responsável com a instituição', 'iande'),
                 'type'    => 'select',
-                'options' => $role_options
+                'options' => $role_options,
+                'size'    => '50'
             ]
         ],
         'group_nature' => (object) [
@@ -308,7 +322,8 @@ function get_appointment_metadata_definition()
             'metabox' => (object) [
                 'label'   => __('Natureza do grupo', 'iande'),
                 'type'    => 'select',
-                'options' => $nature_options
+                'options' => $nature_options,
+                'size'    => '50'
             ]
         ]
     ];
