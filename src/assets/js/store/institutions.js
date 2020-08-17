@@ -2,7 +2,19 @@ import { make } from 'vuex-pathify'
 
 function newInstitution () {
     return {
-        ID: null
+        address: '',
+        address_number: '',
+        city: '',
+        cnpj: '',
+        complement: '',
+        district: '',
+        email: '',
+        ID: null,
+        name: '',
+        phone: '',
+        profile: '',
+        state: '',
+        zip_code: ''
     }
 }
 

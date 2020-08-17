@@ -1,6 +1,10 @@
 import validateDate from 'validate-date'
 import { helpers } from 'vuelidate/lib/validators'
 
+export const cep = helpers.regex('cep', /^\d{8}$/)
+
+export const cnpj = helpers.regex('cnpj', /^\d{14}$/)
+
 export function date (value) {
     if (!value) {
         return true
