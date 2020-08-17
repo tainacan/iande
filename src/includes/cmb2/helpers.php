@@ -82,3 +82,11 @@ function iande_add_js_for_repeatable_titles_to_footer()
     </script>
 <?php
 }
+
+function teste_option() {
+    $option = iande_get_option( 'institution_profile' );
+    echo '<pre>';
+    var_dump( $option );
+    echo '</pre>';
+}
+//add_action( 'wp_footer', 'teste_option' );

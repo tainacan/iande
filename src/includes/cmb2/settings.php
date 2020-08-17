@@ -1,7 +1,5 @@
 <?php
 
-require 'helpers.php';
-
 add_action('cmb2_admin_init', 'iande_register_theme_options_metabox');
 
 function iande_register_theme_options_metabox()
