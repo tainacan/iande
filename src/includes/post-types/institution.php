@@ -149,9 +149,16 @@ function get_institution_metadata_definition()
 {
 
     $default_institution_profiles_option = [
-        'Modelo de perfil 1',
-        'Modelo de perfil 2',
-        'Modelo de perfil 3'
+        'Escola estadual',
+        'Escola municipal',
+        'Escola federal',
+        'Escola privada',
+        'Universidade pública',
+        'Universidade/faculdade privada',
+        'ONG',
+        'Agência de turismo',
+        'Empresa',
+        'Outros'
     ];
 
     // @todo colocar em página de configuração
