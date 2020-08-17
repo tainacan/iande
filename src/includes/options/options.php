@@ -21,44 +21,56 @@ function iande_plugin_options() {
         )
     );
     $iande_plugin_options->set_fields(
-        array(
-            'iande_general' => array(
+        [
+            'iande_general' => [
                 'tab'   => 'iande_general',
                 'title' => __('Section Example', 'iande'),
-                'fields' => array(
-                    array(
-                        'id' => 'field1',
-                        'label' => __('Field 1', 'iande'),
-                        'type' => 'text',
-                        'default' => 'Hello world',
+                'fields' => [
+                    [
+                        'id'          => 'field1',
+                        'label'       => __('Field 1', 'iande'),
+                        'type'        => 'text',
+                        'default'     => 'Hello world',
                         'description' => __('Descrition Example', 'iande')
-                    ),
-                    array(
-                        'id' => 'field2',
-                        'label' => __('Field 2', 'iande'),
-                        'type' => 'text'
-                    )
-                )
-            ),
-            'iande_appointments' => array(
+                    ]
+                ]
+            ],
+            'iande_appointments' => [
                 'tab'   => 'iande_appointments',
-                'title' => __('Section Example', 'iande'),
-                'fields' => array(
-                    array(
-                        'id' => 'field1',
-                        'label' => __('Field 1', 'iande'),
-                        'type' => 'text',
-                        'default' => 'Hello world',
-                        'description' => __('Descrition Example', 'iande')
-                    ),
-                    array(
-                        'id' => 'field2',
-                        'label' => __('Field 2', 'iande'),
-                        'type' => 'text'
-                    )
-                )
-            ),
-        )
+                'title' => __('Disponibilidade dos Agendamentos', 'iande'),
+                'fields' => [
+                    [
+                        'id'          => 'duration',
+                        'label'       => __('Duração', 'iande'),
+                        'type'        => 'input',
+                        'default'     => '30',
+                        'description' => __('Duração em minutos para as visitas', 'iande'),
+                        'attributes'  => [
+                            'type' => 'number'
+                        ]
+                    ],
+                    [
+                        'id'          => 'group_size',
+                        'label'       => __('Pessoas por grupo', 'iande'),
+                        'type'        => 'input',
+                        'description' => __('Número máximo de pessoas por grupo', 'iande'),
+                        'attributes'  => [
+                            'type' => 'number'
+                        ]
+                    ],
+                    [
+                        'id'          => 'group_slot',
+                        'label'       => __('Grupos por horário', 'iande'),
+                        'type'        => 'input',
+                        'description' => __('Número máximo de grupos para cada horário', 'iande'),
+                        'attributes'  => [
+                            'type' => 'number'
+                        ]
+                    ],
+                    /* @todo field schedules */
+                ]
+            ],
+        ]
     );
 
 }
