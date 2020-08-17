@@ -45,7 +45,7 @@ function iande_register_theme_options_metabox()
 /**
  * Expõe as configuracoes do plugin no frontend
  */
-add_action('init', 'iande_institution_settings');
+add_action('wp_enqueue_scripts', 'iande_institution_settings');
 
 function iande_institution_settings()
 {
