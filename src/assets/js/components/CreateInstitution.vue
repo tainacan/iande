@@ -1,29 +1,150 @@
 <template>
-    <div class="iande-stack stack-lg">
+    <div id="iande-create-institution" class="iande-stack stack-lg">
         <h1>Sobre a instituição</h1>
         <p>Aqui você deve cadastrar dados referentes a instituição responsável pela visita. Cada instituição cadastrada ficará salva no seu perfil. Deste modo você poderá criar novas visitas com mais agilidade e menos campos para preencher.</p>
         <div>
             <label class="iande-label" for="name">Nome da instituição</label>
             <Input id="name" type="text" placeholder="Nome oficial da instituição" v-model="name" :validations="$v.name"/>
         </div>
+        <div>
+            <label class="iande-label" for="cnpj">CNPJ da instituição</label>
+            <MaskedInput id="cnpj" type="text" :mask="cnpjMask" placeholder="Digite o CNPJ da instituição" v-model="cnpj" :validations="$v.cnpj"/>
+        </div>
+        <div>
+            <label class="iande-label" for="profile">Perfil da instituição</label>
+            <Select id="profile" placeholder="Selecione o perfil da instituição" v-model="profile" :validations="$v.profile" :options="profileOptions"/>
+        </div>
+        <div>
+            <label for="phone" class="iande-label">Telefone</label>
+            <MaskedInput id="phone" type="tel" :mask="phoneMask" placeholder="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
+        </div>
+        <div>
+            <label for="email" class="iande-label">E-mail</label>
+            <Input id="email" type="email" placeholder="E-mail de contato da instituição" v-model="email" :validations="$v.email"/>
+        </div>
+        <div>
+            <label for="zipCode" class="iande-label">CEP</label>
+            <MaskedInput id="zipCode" type="text" :mask="cepMask" v-model="zipCode" :validations="$v.zipCode"/>
+            <a class="iande-form-link" href="http://www.buscacep.correios.com.br/sistemas/buscacep/" target="_blank">Descobrir CEP</a>
+        </div>
+        <div>
+            <label for="address" class="iande-label">Endereço</label>
+            <Input id="address" type="text" placeholder="Ex.: Avenida Brasil" v-model="address" :validations="$v.address"/>
+        </div>
+        <div class="iande-form-grid">
+            <div>
+                <label for="addressNumber" class="iande-label">Número</label>
+                <Input id="addressNumber" type="text" v-model="addressNumber" :validations="$v.addressNumber"/>
+            </div>
+            <div>
+                <label for="addressComplement" class="iande-label">Complemento</label>
+                <Input id="addressComplement" type="text" placeholder="Ex.: Apto 12" v-model="addressComplement" :validations="$v.addressComplement"/>
+            </div>
+        </div>
+        <div>
+            <label for="district" class="iande-label">Bairro</label>
+            <Input id="district" type="text" v-model="district" :validations="$v.district"/>
+        </div>
+        <div class="iande-form-grid one-two">
+            <div>
+                <label for="state" class="iande-label">UF</label>
+                <Select id="state" v-model="state" :validations="$v.state" :options="stateOptions"/>
+            </div>
+            <div>
+                <label for="city" class="iande-label">Cidade</label>
+                <Select id="city" v-model="city" :validations="$v.city" :options="cityOptions"/>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+    import { email, required } from 'vuelidate/lib/validators'
+    import { sync } from 'vuex-pathify'
+
     import Input from './Input.vue'
+    import MaskedInput from './MaskedInput.vue'
+    import Select from './Select.vue'
+    import { constant, sortBy } from '../utils'
+    import { cep, cnpj, phone } from '../utils/validators'
+
+    // Lazy-loading candidates
+    import '../utils/ibge'
 
     export default {
         name: 'CreateInstitution',
         components: {
             Input,
+            MaskedInput,
+            Select
         },
-        data () {
-            return {
-                name: ''
-            }
+        computed: {
+            ...sync('institutions/current@', {
+                address: 'address',
+                addressComplement: 'complement',
+                addressNumber: 'address_number',
+                city: 'city',
+                cnpj: 'cnpj',
+                district: 'district',
+                email: 'email',
+                name: 'name',
+                phone: 'phone',
+                profile: 'profile',
+                state: 'state',
+                zipCode: 'zip_code'
+            }),
+            cepMask: constant('#####-###'),
+            cityOptions () {
+                if (!this.state) {
+                    return []
+                }
+                const entries = Object.entries(window.municipios)
+                    .filter(([sigla]) => sigla.startsWith(this.state))
+                    .map(([sigla, nome]) => [nome, sigla])
+                    .sort(sortBy(municipio => municipio[1]))
+                return Object.fromEntries(entries)
+            },
+            cnpjMask: constant('##.###.###/####-##'),
+            phoneMask: constant(['(##) ####-####', '(##) #####-####']),
+            profileOptions: constant([
+                'Escola estadual',
+                'Escola municipal',
+                'Escola federal',
+                'Escola privada',
+                'Universidade pública',
+                'Universidade/faculdade privada',
+                'ONG',
+                'Agência de turismo',
+                'Empresa',
+                'Outros'
+            ]),
+            stateOptions () {
+                const entries = Object.keys(window.estados)
+                    .map(estado => [estado, estado])
+                    .sort(sortBy(estado => estado[0]))
+                return Object.fromEntries(entries)
+            },
         },
         validations: {
-            name: { },
+            address: { required },
+            addressComplement: { },
+            addressNumber: { required },
+            city: { required },
+            cnpj: { required, cnpj },
+            district: { required },
+            email: { required, email },
+            name: { required },
+            phone: { required, phone },
+            profile: { required },
+            state: { required },
+            zipCode: { required, cep }
+        },
+        watch: {
+            state () {
+                if (!this.city.startsWith(this.state)) {
+                    this.city = ''
+                }
+            }
         }
     }
 </script>

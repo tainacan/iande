@@ -1,0 +1,16 @@
+#iande-create-institution {
+    .iande-form-grid {
+        grid-gap: 40px 30px;
+        grid-template-columns: 1fr 1fr;
+
+        &.one-two {
+            grid-template-columns: 1fr 2fr;
+        }
+
+        @media screen and (max-width: 600px) {
+            &, &.one-two {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+}
