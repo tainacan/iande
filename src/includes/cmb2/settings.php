@@ -41,3 +41,29 @@ function iande_register_theme_options_metabox()
 
     
 }
+
+/**
+ * Expõe as configuracoes do plugin no frontend
+ */
+add_action('wp_enqueue_scripts', 'iande_institution_settings');
+
+function iande_institution_settings()
+{
+
+    /**
+     * Expõe os perfis para instituições no frontend
+     */
+    $profiles = iande_get_option('institution_profile');
+
+    if ( is_array($profiles) && !empty($profiles) ) {
+        
+        // Localize profiles.
+        wp_localize_script(
+            'iande',
+            'IandeAdminSettings',
+            $profiles
+        );
+
+    }
+
+}
