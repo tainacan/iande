@@ -60,7 +60,7 @@ function iande_institution_settings()
         // Localize profiles.
         wp_localize_script(
             'iande',
-            'IandeAdminSettings',
+            'IandeSettings',
             $profiles
         );
 
