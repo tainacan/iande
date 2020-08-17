@@ -54,7 +54,6 @@ function iande_institution_settings()
      */
     $profiles = iande_get_option('institution_profile', []);
 
-    // Localize profiles.
     wp_localize_script(
         'iande',
         'IandeSettings',
