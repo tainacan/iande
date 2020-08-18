@@ -31,7 +31,6 @@ function iande_register_theme_options_metabox()
         'type'    => 'title',
         'desc'    => __('Gerencie abaixo os perfis disponíveis para as instituições', 'iande')
     ]);
-
     $iande_main_options->add_field([
         'name'       => __('Perfil', 'iande'),
         'id'         => 'institution_profile',
@@ -45,10 +44,22 @@ function iande_register_theme_options_metabox()
         'type'    => 'title',
         'desc'    => __('Gerencie abaixo as escolaridades disponíveis para as instituições', 'iande')
     ]);
-
     $iande_main_options->add_field([
         'name'       => __('Escolaridade', 'iande'),
         'id'         => 'institution_schooling',
+        'type'       => 'text',
+        'repeatable' => true,
+    ]);
+
+    $iande_main_options->add_field([
+        'name'    => __('Relação do Responsável com a Instituição', 'iande'),
+        'id'      => 'iande_responsible_role_title',
+        'type'    => 'title',
+        'desc'    => __('Gerencie abaixo as relações disponíveis para as instituições', 'iande')
+    ]);
+    $iande_main_options->add_field([
+        'name'       => __('Relação do Responsável com a Instituição', 'iande'),
+        'id'         => 'institution_responsible_role',
         'type'       => 'text',
         'repeatable' => true,
     ]);
@@ -57,29 +68,23 @@ function iande_register_theme_options_metabox()
 }
 
 /**
- * Expõe as configuracoes do plugin no frontend
+ * Expõe as configuracoes/dados no frontend
  */
 add_action('wp_enqueue_scripts', 'iande_institution_settings');
 
-function iande_institution_settings()
-{
+function iande_institution_settings() {
 
-    /**
-     * Expõe o nome do site no frontend
-     */
-    $site_name = get_bloginfo( 'name' );
-    
-    /**
-     * Expõe os perfis para instituições no frontend
-     */
-    $profiles = iande_get_option('institution_profile', []);
+    $site_name        = get_bloginfo( 'name' );
+    $profiles         = iande_get_option('institution_profile', []);
+    $responsible_role = iande_get_option('institution_responsible_role', []);
 
     wp_localize_script(
         'iande',
         'IandeSettings',
         [
-            'site_name' => $site_name,
-            'profiles' => $profiles
+            'site_name'        => $site_name,
+            'profiles'         => $profiles,
+            'responsible_role' => $responsible_role
         ]
     );
 }
