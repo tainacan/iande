@@ -169,6 +169,13 @@ function get_appointment_metadata_definition()
     $role_options = get_option('iande_appointment_responsible_roles', $default_role_options);
 
     $metadata_definition = [
+        'step' => (object) [
+            'type' => 'string',
+            'validation' => function ($value) {
+                // TODO
+                return true;
+            }
+        ],
         'purpose' => (object) [
             'type' => 'string',
             'required' => __("O objetivo é obrigatório", 'iande'),

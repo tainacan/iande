@@ -47,6 +47,8 @@ class Appointment extends Controller
 
         $this->set_appointment_metadata($appointment_id, $params);
 
+        \update_post_meta($appointment_id, 'step', 1);
+
         $appointment = $this->get_parsed_appointment($appointment_id);
 
         \do_action('iande.after_create_appointment', $appointment_id, $appointment);
