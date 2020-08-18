@@ -106,11 +106,21 @@ Os *slots* são criados a partir dos horários e da duração das visitas. Ver h
 
 
 ## Endpoints
+
+### users
 - `/iande/user/is_logged_in` - verfica se o usuário está logado
 - `/iande/user/get_logged_in` - retorna o usuário logado
 - `/iande/user/login` **{email,password}** - tenta fazer o login do usuário
 - `/iande/user/logout` - desloga o usuário
 - `/iande/user/create` **{first_name,last_name,phone,email,password}** - tenta criar o usuário com os dados informados. Após a criação o usuário é autenticado.
+
+### institution
+- `/iande/institution/list` - lista todas instituições do usuário logado
+
+### appointments
+- `/iande/appointment/list` - lista todos agendamentos do usuário logado
+- `/iande/appointment/advance_step` **{ID}** - tenta mudar o agendamento de step (em andamento)
+
   
 ## Api de hooks para extensões
 
