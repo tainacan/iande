@@ -188,28 +188,13 @@ class Appointment extends Controller
 
         $step = get_post_meta($params['ID'], 'step', true);
 
-        $metadata_definition = get_appointment_metadata_definition();
-
-        $validate = false;
-
-        foreach ($metadata_definition as $key => $definition) {
-
-            if ($definition->required) {
-                $metadata = get_post_meta( $params['ID'], $key, true );
-                if (empty($metadata)) {
-                    $this->error(__('O agendamento não pode avançar ainda', 'iande'));
-                } else {
-                    $validate = true;
-                }
+        if ($this->check_metadata_appointment($params['ID'])) {
+            if ($step == '2') {
+                update_post_meta($params['ID'], 'step', '1', $step);
+                $this->success(__('O agendamento passou para o próximo passo', 'iande'));
+            } else {
+                $this->success(__('Nenhuma alteração', 'iande'));
             }
-            
-        }
-
-        if ( $validate && $step == '1' ) {
-            update_post_meta($params['ID'], 'step', '2', $step);
-            $this->success(__('O agendamento passou para o próximo step', 'iande'));
-        } else {
-            $this->success(__('Nenhuma ação', 'iande'));
         }
 
     }
@@ -278,6 +263,30 @@ class Appointment extends Controller
                 }
             }
         }
+    }
+
+    /**
+     * Verifica se todos os campos obrigatórios do agendamento estão preenchidos
+     * 
+     * @param integer $appointment_id
+     * @return void
+     */
+    function check_metadata_appointment($appointment_id) {
+
+        $metadata_definition = get_appointment_metadata_definition();
+
+        foreach ($metadata_definition as $key => $definition) {
+
+            if ($definition->required) {
+                $metadata = get_post_meta($id, $key, true);
+                if (empty($metadata)) {
+                    $this->error($definition->required);
+                }
+            }
+        }
+
+        return true;
+
     }
 
     /**
