@@ -39,7 +39,7 @@ class Institution extends Controller
             'post_type' => 'institution',
             'post_author' => get_current_user_id(),
             'post_title' => '',
-            'post_status' => 'draft'
+            'post_status' => 'publish'
         ];
 
 
