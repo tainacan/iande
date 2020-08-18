@@ -59,10 +59,9 @@
             }
         },
         computed: {
+            appointment: sync('appointments/current'),
             appointmentId: sync('appointments/current@ID'),
             appointmentInstitution: sync('appointments/current@institution'),
-            resetAppointment: call('appointments/reset'),
-            resetInstitution: call('institutions/reset'),
             fields: get('appointments/filteredFields'),
         },
         async beforeMount () {
@@ -72,7 +71,7 @@
                     const appointment = await api.get('appointment/get', {
                         ID: Number(qs.get('ID'))
                     })
-                    this.$store.set('appointments/current', appointment)
+                    this.appointment = { ...this.appointment, ...appointment }
                 } catch (err) {
                     this.formError = err
                 }
@@ -87,12 +86,14 @@
             async nextStep () {
                 if (this.screen === 4) {
                     await this.saveInstitution()
-                } else if (this.screen === 3 && this.appointmentInstitution != null) {
+                } else if (this.screen === 3 && this.appointment.institution != null) {
                     await this.saveAppointment()
                 } else {
                     this.setScreen(this.screen + 1)
                 }
             },
+            resetAppointment: call('appointments/reset'),
+            resetInstitution: call('institutions/reset'),
             async saveAppointment () {
                 // TODO
             },

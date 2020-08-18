@@ -320,7 +320,7 @@ function get_appointment_metadata_definition()
             'type' => 'string',
             'required' => __('A natureza do grupo é obrigatória', 'iande'),
             'validation' => function ($value) use ($nature_options) {
-                if (in_array($nature_options, $value)) {
+                if (in_array($value, $nature_options)) {
                     return true;
                 } else {
                     return __('Natureza do grupo inválida', 'iande');
