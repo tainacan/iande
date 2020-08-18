@@ -63,6 +63,12 @@ add_action('wp_enqueue_scripts', 'iande_institution_settings');
 
 function iande_institution_settings()
 {
+
+    /**
+     * Expõe o nome do site no frontend
+     */
+    $site_name = get_bloginfo( 'name' );
+    
     /**
      * Expõe os perfis para instituições no frontend
      */
@@ -72,6 +78,7 @@ function iande_institution_settings()
         'iande',
         'IandeSettings',
         [
+            'site_name' => $site_name,
             'profiles' => $profiles
         ]
     );
