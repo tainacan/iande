@@ -166,6 +166,55 @@ class Appointment extends Controller
     }
 
     /**
+     * Muda o step do agendamento quando todos os campos estão válidos
+     * 
+     * @return void
+     */
+    function endpoint_advance_step(array $params = []) {
+
+        $this->require_authentication();
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        if (get_post_type($params['ID']) != 'appointment') {
+            $this->error(__('O ID informado não é um agendamento válido', 'iande'));
+        }
+
+        $step = get_post_meta($params['ID'], 'step', true);
+
+        $metadata_definition = get_appointment_metadata_definition();
+
+        $validate = false;
+
+        foreach ($metadata_definition as $key => $definition) {
+
+            if ($definition->required) {
+                $metadata = get_post_meta( $params['ID'], $key, true );
+                if (empty($metadata)) {
+                    $this->error(__('O agendamento não pode avançar ainda', 'iande'));
+                } else {
+                    $validate = true;
+                }
+            }
+            
+        }
+
+        if ( $validate && $step == 1 ) {
+            update_post_meta($params['ID'], 'step', '2');
+            $this->success(__('O agendamento passou para o próximo step', 'iande'));
+        } else {
+            $this->success(__('Nenhuma ação', 'iande'));
+        }
+
+    }
+
+    /**
      * Verifica se o usuário tem permissão para ver o agendamento
      * Se não tiver permissão retorna o erro na API
      *

@@ -339,7 +339,11 @@ function get_appointment_metadata_definition()
             'validation' => function ($value) {
                 // TODO
                 return true;
-            }
+            },
+            'metabox' => (object) [
+                'label'   => __('Instituição', 'iande'),
+                'type'    => 'text'
+            ]
         ]
     ];
 
