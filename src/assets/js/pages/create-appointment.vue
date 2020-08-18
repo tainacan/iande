@@ -20,7 +20,7 @@
                     </button>
                     <div v-else></div>
                     <button class="iande-button primary" type="submit">
-                        {{ screen === 4 ? 'Salvar instituição' : 'Voltar' }}
+                        {{ screen === 4 ? 'Salvar instituição' : 'Avançar' }}
                         <Icon icon="angle-right"/>
                     </button>
                 </div>
