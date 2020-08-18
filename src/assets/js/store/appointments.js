@@ -3,17 +3,18 @@ import { make } from 'vuex-pathify'
 function newAppointment() {
     return {
         date: '',
+        group_nature: '',
         hour: '',
         ID: null,
         institution: null,
         name: '',
-        nature: '',
         purpose: '',
         responsible_email: '',
         responsible_first_name: '',
         responsible_last_name: '',
         responsible_phone: '',
         responsible_role: '',
+        step: 1
     }
 }
 

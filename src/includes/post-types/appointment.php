@@ -58,9 +58,9 @@ function register_post_type_appointment()
 
 /**
  * Registra os metaboxes do agendamento
- * 
+ *
  * @filter iande.appointment_metabox_fields
- * 
+ *
  * @return void
  */
 function register_metabox_appointment()
@@ -325,6 +325,14 @@ function get_appointment_metadata_definition()
                 'options' => $nature_options,
                 'size'    => '50'
             ]
+        ],
+        'institution' => (object) [
+            'type' => 'string',
+            'required' => __('A instituição é obrigatória', 'iande'),
+            'validation' => function ($value) {
+                // TODO
+                return true;
+            }
         ]
     ];
 

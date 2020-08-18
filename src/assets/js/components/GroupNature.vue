@@ -35,14 +35,14 @@
         },
         data () {
             return {
-                institution: null,
                 skipInstitution: false,
             }
         },
         computed: {
-            ...sync('appointments/current@', [
-                'nature',
-            ]),
+            ...sync('appointments/current@', {
+                institution: 'institution',
+                nature: 'group_nature',
+            }),
             institutionOptional () {
                 return (this.nature && this.nature === 'outro') || this.skipInstitution
             },
