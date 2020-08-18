@@ -29,7 +29,7 @@ export default {
     mutations: {
         ...make.mutations(state),
         RESET (state) {
-            state.current = newAppointment()
+            state.current = newInstitution()
         }
     },
     actions: {

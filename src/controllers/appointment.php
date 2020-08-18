@@ -19,13 +19,13 @@ class Appointment extends Controller
 
     /**
      * Cria um agendamento novo
-     * 
-     * @param array $params 
-     * 
+     *
+     * @param array $params
+     *
      * @action iande.before_create_appointment
      * @action iande.after_create_appointment
-     * 
-     * @return void 
+     *
+     * @return void
      */
     function endpoint_create(array $params = [])
     {
@@ -60,10 +60,10 @@ class Appointment extends Controller
      * Atualiza o agendamento
      *
      * @param array $params
-     * 
+     *
      * @action iande.before_update_appointment
      * @action iande.after_update_appointment
-     * 
+     *
      * @return void
      */
     function endpoint_update(array $params = []) {
@@ -99,7 +99,7 @@ class Appointment extends Controller
      * Retorna um agendamento pelo id
      *
      * @param array $params
-     * 
+     *
      * @return void
      */
     function endpoint_get(array $params = [])
@@ -140,7 +140,7 @@ class Appointment extends Controller
         $args = array(
             'author'         =>  $user_id,
             'post_type'      => 'appointment',
-            'post_status'    => ['publish', /* 'draft' */],
+            'post_status'    => ['publish', 'pending', 'draft'],
             'posts_per_page' => 9999
         );
 
@@ -167,7 +167,7 @@ class Appointment extends Controller
 
     /**
      * Muda o step do agendamento quando todos os campos estão válidos
-     * 
+     *
      * @return void
      */
     function endpoint_advance_step(array $params = []) {
@@ -195,6 +195,14 @@ class Appointment extends Controller
             } else {
                 $this->success(__('Nenhuma alteração', 'iande'));
             }
+
+        }
+
+        if ( $validate && $step == '1' ) {
+            update_post_meta($params['ID'], 'step', '2', $step);
+            $this->success(__('O agendamento passou para o próximo step', 'iande'));
+        } else {
+            $this->success(__('Nenhuma ação', 'iande'));
         }
 
     }
@@ -204,10 +212,10 @@ class Appointment extends Controller
      * Se não tiver permissão retorna o erro na API
      *
      * @param WP_Post|object $appointment
-     * 
+     *
      * @todo aplicar o current_user_can (https://developer.wordpress.org/reference/functions/current_user_can/)
      *       para que considere a validação do role do usuário, por exemplo adminstradores devem conseguir ver
-     * 
+     *
      * @return void
      */
     function check_user_permission ($appointment){
@@ -267,7 +275,7 @@ class Appointment extends Controller
 
     /**
      * Verifica se todos os campos obrigatórios do agendamento estão preenchidos
-     * 
+     *
      * @param integer $appointment_id
      * @return void
      */
@@ -294,9 +302,9 @@ class Appointment extends Controller
      *
      * @param \WP_Post $appointment
      * @param array $metadata
-     * 
-     * @filter iande.parse_appointment 
-     * 
+     *
+     * @filter iande.parse_appointment
+     *
      * @return object
      */
     function parse_appointment(\WP_Post $appointment, array $metadata = [])

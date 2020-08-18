@@ -57,7 +57,8 @@
             nature: { required },
         },
         async created () {
-            if (!this.institutions) {
+            window.api = api
+            if (this.institutions.length === 0) {
                 const institutions = await api.get('institution/list')
                 this.institutions = institutions
             }

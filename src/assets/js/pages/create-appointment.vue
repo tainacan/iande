@@ -63,6 +63,7 @@
             appointmentId: sync('appointments/current@ID'),
             appointmentInstitution: sync('appointments/current@institution'),
             fields: get('appointments/filteredFields'),
+            institution: sync('institutions/current'),
         },
         async beforeMount () {
             const qs = new URLSearchParams(window.location.search)
@@ -95,10 +96,31 @@
             resetAppointment: call('appointments/reset'),
             resetInstitution: call('institutions/reset'),
             async saveAppointment () {
-                // TODO
+                this.formError = ''
+                if (this.isFormValid()) {
+                    try {
+                        await api.post('appointment/update', this.fields)
+                        await api.post('appointment/advance_step', { ID: this.appointmentId })
+                        await this.resetInstitution()
+                        await this.resetAppointment()
+                        this.$refs.form.$v.$reset()
+                        window.location.assign('../list')
+                    } catch (err) {
+                        this.formError = err
+                    }
+                }
             },
             async saveInstitution () {
-                // TODO
+                this.formError = ''
+                if (this.isFormValid()) {
+                    try {
+                        const institution = await api.post('institution/create', this.institution)
+                        this.appointmentInstitution = institution.ID
+                        await this.saveAppointment()
+                    } catch (err) {
+                        this.formError = err
+                    }
+                }
             },
             async setScreen (num) {
                 this.formError = ''
