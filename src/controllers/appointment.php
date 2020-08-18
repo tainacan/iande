@@ -47,7 +47,7 @@ class Appointment extends Controller
 
         $this->set_appointment_metadata($appointment_id, $params);
 
-        \update_post_meta($appointment_id, 'step', 1);
+        \update_post_meta($appointment_id, 'step', '1');
 
         $appointment = $this->get_parsed_appointment($appointment_id);
 
@@ -205,8 +205,8 @@ class Appointment extends Controller
             
         }
 
-        if ( $validate && $step == 1 ) {
-            update_post_meta($params['ID'], 'step', '2');
+        if ( $validate && $step == '1' ) {
+            update_post_meta($params['ID'], 'step', '2', $step);
             $this->success(__('O agendamento passou para o próximo step', 'iande'));
         } else {
             $this->success(__('Nenhuma ação', 'iande'));
