@@ -5,12 +5,13 @@ function newAppointment() {
         date: '',
         hour: '',
         ID: null,
+        institution: null,
         name: '',
         nature: '',
         purpose: '',
+        responsible_email: '',
         responsible_first_name: '',
         responsible_last_name: '',
-        responsible_email: '',
         responsible_phone: '',
         responsible_role: '',
     }
@@ -32,7 +33,17 @@ export default {
             return Object.fromEntries(entries)
         }
     },
-    mutations: make.mutations(state),
-    actions: make.actions(state),
+    mutations: {
+        ...make.mutations(state),
+        RESET (state) {
+            state.current = newAppointment()
+        }
+    },
+    actions: {
+        ...make.actions(state),
+        reset ({ commit }) {
+            commit('RESET')
+        }
+    },
     namespaced: true
 }
