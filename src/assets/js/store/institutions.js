@@ -26,7 +26,17 @@ const state = {
 export default {
     state,
     getters: make.getters(state),
-    mutations: make.mutations(state),
-    actions: make.actions(state),
+    mutations: {
+        ...make.mutations(state),
+        RESET (state) {
+            state.current = newAppointment()
+        }
+    },
+    actions: {
+        ...make.actions(state),
+        reset ({ commit }) {
+            commit('RESET')
+        }
+    },
     namespaced: true
 }

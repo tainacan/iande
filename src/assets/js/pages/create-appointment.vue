@@ -16,11 +16,11 @@
                 <div class="iande-form-grid">
                     <button class="iande-button solid" type="button" v-if="screen > 1" @click="setScreen(screen - 1)">
                         <Icon icon="angle-left"/>
-                        {{ screen <= 4 ? 'Voltar' : 'Salvar instituição' }}
+                        Voltar
                     </button>
                     <div v-else></div>
                     <button class="iande-button primary" type="submit">
-                        Avançar
+                        {{ screen === 4 ? 'Salvar instituição' : 'Voltar' }}
                         <Icon icon="angle-right"/>
                     </button>
                 </div>
@@ -31,7 +31,7 @@
 
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-    import { get, sync } from 'vuex-pathify'
+    import { call, get, sync } from 'vuex-pathify'
 
     import StepsIndicator from '../components/StepsIndicator.vue'
     import { api } from '../utils'
@@ -60,7 +60,10 @@
         },
         computed: {
             appointmentId: sync('appointments/current@ID'),
-            fields: get('appointments/filteredFields')
+            appointmentInstitution: sync('appointments/current@institution'),
+            resetAppointment: call('appointments/reset'),
+            resetInstitution: call('institutions/reset'),
+            fields: get('appointments/filteredFields'),
         },
         async beforeMount () {
             const qs = new URLSearchParams(window.location.search)
@@ -81,14 +84,19 @@
                 formComponent.$v.$touch()
                 return !formComponent.$v.$invalid
             },
-            nextStep () {
-                if (this.screen <= 4) {
-                    this.setScreen(this.screen + 1)
+            async nextStep () {
+                if (this.screen === 4) {
+                    await this.saveInstitution()
+                } else if (this.screen === 3 && this.appointmentInstitution != null) {
+                    await this.saveAppointment()
                 } else {
-                    this.saveAppointment()
+                    this.setScreen(this.screen + 1)
                 }
             },
-            saveAppointment () {
+            async saveAppointment () {
+                // TODO
+            },
+            async saveInstitution () {
                 // TODO
             },
             async setScreen (num) {

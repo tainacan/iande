@@ -7,7 +7,7 @@
             <Input id="name" type="text" placeholder="Nome oficial da instituição" v-model="name" :validations="$v.name"/>
         </div>
         <div>
-            <label class="iande-label" for="cnpj">CNPJ da instituição</label>
+            <label class="iande-label" for="cnpj">CNPJ da instituição<span class="iande-label__optional">(opcional)</span></label>
             <MaskedInput id="cnpj" type="text" :mask="cnpjMask" placeholder="Digite o CNPJ da instituição" v-model="cnpj" :validations="$v.cnpj"/>
         </div>
         <div>
@@ -130,7 +130,7 @@
             addressComplement: { },
             addressNumber: { required },
             city: { required },
-            cnpj: { required, cnpj },
+            cnpj: { cnpj },
             district: { required },
             email: { required, email },
             name: { required },
