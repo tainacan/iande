@@ -39,6 +39,20 @@ function iande_register_theme_options_metabox()
         'repeatable' => true,
     ]);
 
+    $iande_main_options->add_field([
+        'name'    => __('Escolaridade', 'iande'),
+        'id'      => 'iande_schooling_title',
+        'type'    => 'title',
+        'desc'    => __('Gerencie abaixo as escolaridades disponíveis para as instituições', 'iande')
+    ]);
+
+    $iande_main_options->add_field([
+        'name'       => __('Escolaridade', 'iande'),
+        'id'         => 'institution_schooling',
+        'type'       => 'text',
+        'repeatable' => true,
+    ]);
+
 
 }
 
