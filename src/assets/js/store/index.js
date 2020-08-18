@@ -8,8 +8,6 @@ import user from './user'
 
 const persistence = createPersistedState({
     paths: [
-        'appointments.list',
-        'institutions.list',
         'user.user',
     ]
 })

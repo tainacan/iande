@@ -101,9 +101,9 @@
                     try {
                         await api.post('appointment/update', this.fields)
                         await api.post('appointment/advance_step', { ID: this.appointmentId })
+                        this.$refs.form.$v.$reset()
                         await this.resetInstitution()
                         await this.resetAppointment()
-                        this.$refs.form.$v.$reset()
                         window.location.assign('../list')
                     } catch (err) {
                         this.formError = err

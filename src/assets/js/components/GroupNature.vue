@@ -9,7 +9,7 @@
         <template v-if="nature">
             <div>
                 <label class="iande-label" for="institution">Instituição responsável pela visita</label>
-                <Select id="institution" v-model="institution" :validations="$v.institution" empty="Você ainda não possui instituições cadastradas ⚠️" :options="{}"/>
+                <Select id="institution" v-model="institution" :validations="$v.institution" empty="Você ainda não possui instituições cadastradas ⚠️" :options="institutionOptions"/>
             </div>
             <div class="iande-add-institution" role="button" tabindex="0" @click="addInstitution">
                 <span><Icon icon="plus-circle"/></span>
@@ -45,6 +45,10 @@
             }),
             institutionOptional () {
                 return (this.nature && this.nature === 'outro') || this.skipInstitution
+            },
+            institutionOptions () {
+                const entries = this.institutions.map(({ ID, name }) => [name || `#${ID}`, String(ID)])
+                return Object.fromEntries(entries)
             },
             institutions: sync('institutions/list'),
             natureOptions: constant({
