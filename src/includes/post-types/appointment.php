@@ -145,6 +145,7 @@ function register_metabox_appointment()
 function get_appointment_metadata_definition()
 {
     $default_purpose_options = [
+        '',
         'Ilustrar os conteúdos que estou trabalhando com esse grupo',
         'Complementar o processo educacional realizado pela instituição de origem do grupo',
         'Possibilitar ao grupo o acesso/conhecimento à exposições e museus',
@@ -155,6 +156,7 @@ function get_appointment_metadata_definition()
     ];
 
     $default_role_options = [
+        '',
         'professor',
         'orientador',
         'coordenador',
@@ -164,7 +166,7 @@ function get_appointment_metadata_definition()
     ];
 
     // @todo colocar em página de configuração
-    $nature_options = ['institutional', 'other'];
+    $nature_options = ['', 'institutional', 'other'];
     $purpose_options = get_option('iande_appointment_purposes', $default_purpose_options);
     $role_options = get_option('iande_appointment_responsible_roles', $default_role_options);
 
