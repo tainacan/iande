@@ -7,7 +7,7 @@ use Controller;
 class Appointment extends Controller
 {
     /**
-     * Renderiza a página de criação de reserva
+     * Renderiza a página de criação de agendamento
      *
      * @param array $params
      * @return void
@@ -16,6 +16,18 @@ class Appointment extends Controller
     {
         $this->render('create-appointment');
     }
+
+    /**
+     * Renderiza a página de listagem de agendamentos do usuário
+     *
+     * @param array $params
+     * @return void
+     */
+    function view_list(array $params = [])
+    {
+        $this->render('list-appointments');
+    }
+
 
     /**
      * Cria um agendamento novo

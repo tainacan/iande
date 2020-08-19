@@ -9,6 +9,7 @@ import './utils/icons'
 // Lazy-loading candidates
 import CreateAppointmentPage from './pages/create-appointment.vue'
 import CreateUserPage from './pages/create-user.vue'
+import ListAppointmentsPage from './pages/list-appointments.vue'
 import LoginPage from './pages/login.vue'
 
 Vue.use(Vuelidate)
@@ -16,6 +17,7 @@ Vue.use(Vuex)
 
 Vue.component('app-create-appointment-page', CreateAppointmentPage)
 Vue.component('app-create-user-page', CreateUserPage)
+Vue.component('app-list-appointments-page', ListAppointmentsPage)
 Vue.component('app-login-page', LoginPage)
 
 new Vue({
