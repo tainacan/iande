@@ -8,10 +8,11 @@
     .iande-container {
         margin-left: auto;
         margin-right: auto;
+        max-width: 84em;
         width: 100%;
 
         &.narrow {
-            max-width: 50ex;
+            max-width: 28em;
         }
 
         &.full-width {
