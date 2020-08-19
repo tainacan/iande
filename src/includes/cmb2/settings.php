@@ -89,6 +89,23 @@ function iande_register_theme_options_metabox() {
         )
     ]);
 
+    // Idiomas
+    $iande_main_options->add_field([
+        'name'    => __('Vocabulário de Idiomas', 'iande'),
+        'id'      => 'iande_language_title',
+        'type'    => 'title',
+        'desc'    => __('Gerencie abaixo o vocabulário de idiomas adicionais atendidos', 'iande')
+    ]);
+    $iande_main_options->add_field([
+        'name'       => __('Idiomas adicionais', 'iande'),
+        'id'         => 'institution_language',
+        'type'       => 'text',
+        'repeatable' => true,
+        'text' => array(
+            'add_row_text' => __('Adicionar nova opção', 'iande')
+        )
+    ]);
+
 }
 
 /**
@@ -98,10 +115,11 @@ add_action('wp_enqueue_scripts', 'iande_institution_settings');
 
 function iande_institution_settings() {
 
-    $site_name        = get_bloginfo( 'name' );
-    $profiles         = iande_get_option('institution_profile', []);
-    $responsible_role = iande_get_option('institution_responsible_role', []);
-    $deficiency       = iande_get_option('institution_deficiency',[]);
+    $site_name            = get_bloginfo( 'name' );
+    $profiles             = iande_get_option('institution_profile', []);
+    $responsible_role     = iande_get_option('institution_responsible_role', []);
+    $deficiency           = iande_get_option('institution_deficiency',[]);
+    $institution_language = iande_get_option('institution_language', []);
 
     wp_localize_script(
         'iande',
@@ -110,7 +128,8 @@ function iande_institution_settings() {
             'site_name'        => $site_name,
             'profiles'         => $profiles,
             'responsible_role' => $responsible_role,
-            'deficiency'       => $deficiency
+            'deficiency'       => $deficiency,
+            'language'         => $institution_language
         ]
     );
     
