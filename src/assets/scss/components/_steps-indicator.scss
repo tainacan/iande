@@ -7,7 +7,6 @@
         justify-content: space-between;
 
         @media screen and (max-width: 600px) {
-            display: block;
             padding: 10px;
         }
     }
@@ -15,7 +14,9 @@
     &__step {
         align-items: center;
         display: flex;
+        flex-wrap: wrap;
         font-weight: bold;
+        justify-content: center;
         margin: 15px 0;
 
         &-number {

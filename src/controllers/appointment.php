@@ -7,7 +7,7 @@ use Controller;
 class Appointment extends Controller
 {
     /**
-     * Renderiza a página de criação de reserva
+     * Renderiza a página de criação de agendamento
      *
      * @param array $params
      * @return void
@@ -16,6 +16,18 @@ class Appointment extends Controller
     {
         $this->render('create-appointment');
     }
+
+    /**
+     * Renderiza a página de listagem de agendamentos do usuário
+     *
+     * @param array $params
+     * @return void
+     */
+    function view_list(array $params = [])
+    {
+        $this->render('list-appointments');
+    }
+
 
     /**
      * Cria um agendamento novo
@@ -141,7 +153,15 @@ class Appointment extends Controller
             'author'         =>  $user_id,
             'post_type'      => 'appointment',
             'post_status'    => ['publish', 'pending', 'draft'],
-            'posts_per_page' => 9999
+            'posts_per_page' => 9999,
+            'meta_query'     => [
+                [
+                    'key'     => 'step',
+                    'value'   => 1,
+                    'compare' => '>=',
+                    'type'    => 'NUMERIC'
+                ]
+            ]
         );
 
         $appointments = get_posts($args);

@@ -5,6 +5,7 @@
 @use './layouts/form';
 @use './layouts/stack';
 
+@use './components/appointment';
 @use './components/steps-indicator';
 
 @use './pages/create-institution';
