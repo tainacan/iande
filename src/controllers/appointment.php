@@ -198,13 +198,6 @@ class Appointment extends Controller
 
         }
 
-        if ( $validate && $step == '1' ) {
-            update_post_meta($params['ID'], 'step', '2', $step);
-            $this->success(__('O agendamento passou para o próximo step', 'iande'));
-        } else {
-            $this->success(__('Nenhuma ação', 'iande'));
-        }
-
     }
 
     /**
@@ -286,7 +279,7 @@ class Appointment extends Controller
         foreach ($metadata_definition as $key => $definition) {
 
             if ($definition->required) {
-                $metadata = get_post_meta($id, $key, true);
+                $metadata = get_post_meta($appointment_id, $key, true);
                 if (empty($metadata)) {
                     $this->error($definition->required);
                 }
