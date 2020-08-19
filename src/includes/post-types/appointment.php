@@ -3,7 +3,7 @@
 namespace Iande;
 
 add_action('init', 'Iande\\register_post_type_appointment');
-add_action('init', 'Iande\\register_metabox_appointment');
+add_action('cmb2_admin_init', 'Iande\\register_metabox_appointment');
 
 /**
  * Registra o Post Type Appointment
@@ -57,14 +57,13 @@ function register_post_type_appointment()
 }
 
 /**
- * Registra os metaboxes do agendamento
+ * Registra os metaboxes do agendamento com CMB2
  *
  * @filter iande.appointment_metabox_fields
  *
  * @return void
  */
-function register_metabox_appointment()
-{
+function register_metabox_appointment() {
 
     /* Registra os metaboxes do post type appointment */
 
@@ -77,33 +76,40 @@ function register_metabox_appointment()
 
         if (isset($definition->metabox)) {
 
-            $appointment_metabox = new \Iande_Metabox(
-                'appointment', // Slug/ID do Metabox (obrigatório)
-                'Informações da Instituição', // Nome do Metabox  (obrigatório)
-                'appointment', // Slug do Post Type, sendo possível enviar apenas um valor ou um array com vários (opcional)
-                'normal', // Contexto (opções: normal, advanced, ou side) (opcional)
-                'high' // Prioridade (opções: high, core, default ou low) (opcional)
-            );
+            $appointment_metabox = \new_cmb2_box(array(
+                'id'            => 'appointment',
+                'title'         => __('Informações da Instituição', 'iande'),
+                'object_types'  => array('appointment'),
+                'context'       => 'normal',
+                'priority'      => 'high',
+                'show_names'    => true
+            ));
 
-            $label       = '';
-            $type        = '';
-            $default     = '';
-            $description = '';
-            $options     = [];
-            $attributes  = [];
-            $size        = '';
+            /**
+             * Fields parameters
+             * 
+             * @link https://cmb2.io/docs/field-parameters
+             */
+            $name       = '';
+            $desc       = '';
+            $default    = '';
+            $type       = '';
+            $options    = [];
+            $attributes = [];
+            $repeatable = false;
+            $size       = '';
+  
+            if (isset($definition->metabox->name))
+                $name = $definition->metabox->name;
 
-            if (isset($definition->metabox->label))
-                $label = $definition->metabox->label;
-
-            if (isset($definition->metabox->type))
-                $type = $definition->metabox->type;
+            if (isset($definition->metabox->desc))
+                $desc = $definition->metabox->desc;
 
             if (isset($definition->metabox->default))
                 $default = $definition->metabox->default;
 
-            if (isset($definition->metabox->description))
-                $description = $definition->metabox->description;
+            if (isset($definition->metabox->type))
+                $type = $definition->metabox->type;
 
             if (isset($definition->metabox->options))
                 $options = $definition->metabox->options;
@@ -111,26 +117,34 @@ function register_metabox_appointment()
             if (isset($definition->metabox->attributes))
                 $attributes = $definition->metabox->attributes;
 
+            if (isset($definition->metabox->repeatable))
+                $repeatable = $definition->metabox->repeatable;
+
             if (isset($definition->metabox->size))
                 $size = $definition->metabox->size;
 
             $fields[] = [
-                'id'          => $key,
-                'label'       => $label,
-                'type'        => $type,
-                'default'     => $default,
-                'description' => $description,
-                'options'     => $options,
-                'attributes'  => $attributes,
-                'size'        => $size
+                'name'       => $name,
+                'desc'       => $desc,
+                'id'         => $key,
+                'default'    => $default,
+                'type'       => $type,
+                'options'    => $options,
+                'attributes' => $attributes,
+                'repeatable' => $repeatable,
+                'size'       => $size
             ];
+            
         }
     }
 
     $fields = \apply_filters('iande.appointment_metabox_fields', $fields);
-
-    if (is_object($appointment_metabox))
-        $appointment_metabox->set_fields($fields);
+    
+    if (is_object($appointment_metabox)) {
+        foreach ($fields as $field) {
+            $appointment_metabox->add_field($field);
+        }
+    }
 
     return $appointment_metabox;
 }
@@ -189,7 +203,7 @@ function get_appointment_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label'   => 'Perfil',
+                'name'   => 'Perfil',
                 'type'    => 'select',
                 'options' => $purpose_options,
                 'size'    => '50' // 75%, 50%, 33%, 25%, default 100%
@@ -206,7 +220,7 @@ function get_appointment_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('Nome', 'iande'),
+                'name' => __('Nome', 'iande'),
                 'type'  => 'text',
                 'size'  => '50'
             ]
@@ -223,7 +237,7 @@ function get_appointment_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('Data', 'iande'),
+                'name' => __('Data', 'iande'),
                 'type'  => 'text',
                 'size'  => '50'
             ]
@@ -240,7 +254,7 @@ function get_appointment_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('Hora', 'iande'),
+                'name' => __('Hora', 'iande'),
                 'type'  => 'text',
                 'size'  => '50'
             ]
@@ -252,7 +266,7 @@ function get_appointment_metadata_definition()
                 return true;
             },
             'metabox' => (object) [
-                'label' => __('Nome do responsável', 'iande'),
+                'name' => __('Nome do responsável', 'iande'),
                 'type'  => 'text',
                 'size'  => '50'
             ]
@@ -264,7 +278,7 @@ function get_appointment_metadata_definition()
                 return true;
             },
             'metabox' => (object) [
-                'label' => __('Sobrenome do responsável', 'iande'),
+                'name' => __('Sobrenome do responsável', 'iande'),
                 'type'  => 'text',
                 'size'  => '50'
             ]
@@ -280,7 +294,7 @@ function get_appointment_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('E-mail do responsável', 'iande'),
+                'name' => __('E-mail do responsável', 'iande'),
                 'type'  => 'text',
                 'size'  => '50'
             ]
@@ -296,7 +310,7 @@ function get_appointment_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('Telefone do responsável', 'iande'),
+                'name' => __('Telefone do responsável', 'iande'),
                 'type'  => 'text',
                 'size'  => '50'
             ]
@@ -312,7 +326,7 @@ function get_appointment_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label'   => __('Relação do responsável com a instituição', 'iande'),
+                'name'   => __('Relação do responsável com a instituição', 'iande'),
                 'type'    => 'select',
                 'options' => $role_options,
                 'size'    => '50'
@@ -329,7 +343,7 @@ function get_appointment_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label'   => __('Natureza do grupo', 'iande'),
+                'name'   => __('Natureza do grupo', 'iande'),
                 'type'    => 'select',
                 'options' => $nature_options,
                 'size'    => '50'
@@ -343,7 +357,7 @@ function get_appointment_metadata_definition()
                 return true;
             },
             'metabox' => (object) [
-                'label'   => __('Instituição', 'iande'),
+                'name'   => __('Instituição', 'iande'),
                 'type'    => 'text'
             ]
         ]

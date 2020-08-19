@@ -3,7 +3,7 @@
 namespace Iande;
 
 add_action('init', 'Iande\\register_post_type_institution');
-add_action('init', 'Iande\\register_metabox_institution');
+add_action('cmb2_admin_init', 'Iande\\register_metabox_institution');
 
 /**
  * Registra o Post Type Institution
@@ -57,14 +57,13 @@ function register_post_type_institution()
 }
 
 /**
- * Registra os metaboxes da instituição
+ * RRegistra os metaboxes do agendamento com CMB2
  * 
  * @filter iande.institution_metabox_fields
  * 
  * @return void
  */
-function register_metabox_institution()
-{
+function register_metabox_institution() {
 
     /* Registra os metaboxes do post type institution */
 
@@ -77,33 +76,40 @@ function register_metabox_institution()
 
         if (isset($definition->metabox)) {
 
-            $institution_metabox = new \Iande_Metabox(
-                'institution', // Slug/ID do Metabox (obrigatório)
-                'Informações da Instituição', // Nome do Metabox  (obrigatório)
-                'institution', // Slug do Post Type, sendo possível enviar apenas um valor ou um array com vários (opcional)
-                'normal', // Contexto (opções: normal, advanced, ou side) (opcional)
-                'high' // Prioridade (opções: high, core, default ou low) (opcional)
-            );
+            $appointment_metabox = \new_cmb2_box(array(
+                'id'            => 'institution',
+                'title'         => __('Informações do Agendamento', 'iande'),
+                'object_types'  => array('institution'),
+                'context'       => 'normal',
+                'priority'      => 'high',
+                'show_names'    => true
+            ));
 
-            $label       = '';
-            $type        = '';
-            $default     = '';
-            $description = '';
-            $options     = [];
-            $attributes  = [];
-            $size        = '';
+            /**
+             * Fields parameters
+             * 
+             * @link https://cmb2.io/docs/field-parameters
+             */
+            $name       = '';
+            $desc       = '';
+            $default    = '';
+            $type       = '';
+            $options    = [];
+            $attributes = [];
+            $repeatable = false;
+            $size       = '';
 
-            if (isset($definition->metabox->label))
-                $label = $definition->metabox->label;
+            if (isset($definition->metabox->name))
+                $name = $definition->metabox->name;
 
-            if (isset($definition->metabox->type))
-                $type = $definition->metabox->type;
+            if (isset($definition->metabox->desc))
+                $desc = $definition->metabox->desc;
 
             if (isset($definition->metabox->default))
                 $default = $definition->metabox->default;
 
-            if (isset($definition->metabox->description))
-                $description = $definition->metabox->description;
+            if (isset($definition->metabox->type))
+                $type = $definition->metabox->type;
 
             if (isset($definition->metabox->options))
                 $options = $definition->metabox->options;
@@ -111,18 +117,22 @@ function register_metabox_institution()
             if (isset($definition->metabox->attributes))
                 $attributes = $definition->metabox->attributes;
 
+            if (isset($definition->metabox->repeatable))
+                $repeatable = $definition->metabox->repeatable;
+
             if (isset($definition->metabox->size))
                 $size = $definition->metabox->size;
 
             $fields[] = [
-                'id'          => $key,
-                'label'       => $label,
-                'type'        => $type,
-                'default'     => $default,
-                'description' => $description,
-                'options'     => $options,
-                'attributes'  => $attributes,
-                'size'        => $size
+                'name'       => $name,
+                'desc'       => $desc,
+                'id'         => $key,
+                'default'    => $default,
+                'type'       => $type,
+                'options'    => $options,
+                'attributes' => $attributes,
+                'repeatable' => $repeatable,
+                'size'       => $size
             ];
 
         }
@@ -131,10 +141,13 @@ function register_metabox_institution()
 
     $fields = \apply_filters('iande.institution_metabox_fields', $fields);
 
-    if(is_object($institution_metabox))
-        $institution_metabox->set_fields($fields);
-    
-    return $institution_metabox;
+    if (is_object($appointment_metabox)) {
+        foreach ($fields as $field) {
+            $appointment_metabox->add_field($field);
+        }
+    }
+
+    return $appointment_metabox;
 
 }
 
