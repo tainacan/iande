@@ -132,7 +132,9 @@ add_action('wp_enqueue_scripts', 'iande_institution_settings');
 
 function iande_institution_settings() {
 
-    $site_name        = get_bloginfo( 'name' );
+    $site_name        = get_bloginfo('name');
+    $site_url         = get_bloginfo('url');
+    $iande_url        = get_site_url(null, '/iande');
     $profiles         = iande_get_option('institution_profile', []);
     $responsible_role = iande_get_option('institution_responsible_role', []);
     $deficiency       = iande_get_option('institution_deficiency',[]);
@@ -143,14 +145,16 @@ function iande_institution_settings() {
         'iande',
         'IandeSettings',
         [
-            'site_name'        => $site_name,
+            'siteName'         => $site_name,
+            'siteUrl'          => $site_url,
+            'iandeUrl'         => $iande_url,
             'profiles'         => $profiles,
-            'responsible_role' => $responsible_role,
-            'deficiency'       => $deficiency,
-            'language'         => $language,
-            'age_range'       => $age_range
-            
+            'responsibleRoles' => $responsible_role,
+            'deficiencies'     => $deficiency,
+            'languages'        => $language,
+            'ageRanges'        => $age_range
+
         ]
     );
-    
+
 }
