@@ -153,7 +153,15 @@ class Appointment extends Controller
             'author'         =>  $user_id,
             'post_type'      => 'appointment',
             'post_status'    => ['publish', 'pending', 'draft'],
-            'posts_per_page' => 9999
+            'posts_per_page' => 9999,
+            'meta_query'     => [
+                [
+                    'key'     => 'step',
+                    'value'   => 1,
+                    'compare' => '>=',
+                    'type'    => 'NUMERIC'
+                ]
+            ]
         );
 
         $appointments = get_posts($args);
