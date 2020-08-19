@@ -180,7 +180,10 @@ function get_appointment_metadata_definition()
     ];
 
     // @todo colocar em página de configuração
-    $nature_options = ['', 'institutional', 'other'];
+    $nature_options = [
+        'institutional' => 'Institucional',
+        'other'         => 'Outra'
+    ];
     $purpose_options = get_option('iande_appointment_purposes', $default_purpose_options);
     $role_options = get_option('iande_appointment_responsible_roles', $default_role_options);
 
@@ -343,8 +346,9 @@ function get_appointment_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'name'   => __('Natureza do grupo', 'iande'),
+                'name'    => __('Natureza do grupo', 'iande'),
                 'type'    => 'select',
+                'default' => 'institutional',
                 'options' => $nature_options,
                 'size'    => '50'
             ]
