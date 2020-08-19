@@ -106,6 +106,23 @@ function iande_register_theme_options_metabox() {
         )
     ]);
 
+    // Faixa Etária
+    $iande_main_options->add_field([
+        'name'    => __('Vocabulário de Faixas Etárias', 'iande'),
+        'id'      => 'iande_age_range_title',
+        'type'    => 'title',
+        'desc'    => __('Gerencie abaixo o vocabulário de faixas etárias atendidas', 'iande')
+    ]);
+    $iande_main_options->add_field([
+        'name'       => __('Faixas Etárias', 'iande'),
+        'id'         => 'institution_age_range',
+        'type'       => 'text',
+        'repeatable' => true,
+        'text' => array(
+            'add_row_text' => __('Adicionar nova opção', 'iande')
+        )
+    ]);
+
 }
 
 /**
@@ -115,11 +132,12 @@ add_action('wp_enqueue_scripts', 'iande_institution_settings');
 
 function iande_institution_settings() {
 
-    $site_name            = get_bloginfo( 'name' );
-    $profiles             = iande_get_option('institution_profile', []);
-    $responsible_role     = iande_get_option('institution_responsible_role', []);
-    $deficiency           = iande_get_option('institution_deficiency',[]);
-    $institution_language = iande_get_option('institution_language', []);
+    $site_name        = get_bloginfo( 'name' );
+    $profiles         = iande_get_option('institution_profile', []);
+    $responsible_role = iande_get_option('institution_responsible_role', []);
+    $deficiency       = iande_get_option('institution_deficiency',[]);
+    $language         = iande_get_option('institution_language', []);
+    $age_range        = iande_get_option('institution_age_range', []);
 
     wp_localize_script(
         'iande',
@@ -129,7 +147,9 @@ function iande_institution_settings() {
             'profiles'         => $profiles,
             'responsible_role' => $responsible_role,
             'deficiency'       => $deficiency,
-            'language'         => $institution_language
+            'language'         => $language,
+            'age_range'       => $age_range
+            
         ]
     );
     
