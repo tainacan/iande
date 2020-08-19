@@ -189,9 +189,9 @@ function get_institution_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('Nome', 'iande'),
-                'type'  => 'text',
-                'size'  => '50' // 75%, 50%, 33%, 25%, default 100%
+                'name' => __('Nome', 'iande'),
+                'type' => 'text',
+                'size' => '50' // 75%, 50%, 33%, 25%, default 100%
             ]
         ],
         'cnpj' => (object) [
@@ -205,7 +205,7 @@ function get_institution_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('CNPJ', 'iande'),
+                'name' => __('CNPJ', 'iande'),
                 'type'  => 'text',
                 'size'  => '50'
             ]
@@ -221,7 +221,7 @@ function get_institution_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label'   => 'Perfil',
+                'name'   => 'Perfil',
                 'type'    => 'select',
                 'options' => $institution_profiles_option,
                 'size'  => '50'
@@ -238,7 +238,7 @@ function get_institution_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('Telefone', 'iande'),
+                'name' => __('Telefone', 'iande'),
                 'type'  => 'text',
                 'size'  => '50'
             ]
@@ -254,7 +254,7 @@ function get_institution_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('E-mail', 'iande'),
+                'name' => __('E-mail', 'iande'),
                 'type'  => 'text',
                 'size'  => '50'
             ]
@@ -270,7 +270,7 @@ function get_institution_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('CEP', 'iande'),
+                'name' => __('CEP', 'iande'),
                 'type'  => 'text',
                 'size'  => '50'
             ]
@@ -286,7 +286,7 @@ function get_institution_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('Endereço', 'iande'),
+                'name' => __('Endereço', 'iande'),
                 'type'  => 'text',
                 'size'  => '75'
             ]
@@ -302,7 +302,7 @@ function get_institution_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('Número', 'iande'),
+                'name' => __('Número', 'iande'),
                 'type'  => 'text',
                 'size'  => '25'
             ]
@@ -318,7 +318,7 @@ function get_institution_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('Complemento', 'iande'),
+                'name' => __('Complemento', 'iande'),
                 'type'  => 'text',
                 'description' => 'Vamos ver aqui como fica uma descrição para os campos',
                 'size'  => '50'
@@ -335,7 +335,7 @@ function get_institution_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('Bairro', 'iande'),
+                'name' => __('Bairro', 'iande'),
                 'type'  => 'text',
                 'size'  => '50'
             ]
@@ -351,7 +351,7 @@ function get_institution_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('Cidade', 'iande'),
+                'name' => __('Cidade', 'iande'),
                 'type'  => 'text',
                 'size'  => '75'
             ]
@@ -368,7 +368,7 @@ function get_institution_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'label' => __('Estado', 'iande'),
+                'name' => __('Estado', 'iande'),
                 'type'  => 'text',
                 'description' => 'Vamos ver aqui como fica uma descrição para os campos',
                 'size'  => '25'
