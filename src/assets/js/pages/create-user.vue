@@ -27,7 +27,7 @@
                         <span>{{ formError }}</span>
                     </div>
                     <button class="iande-button primary" type="submit">Criar login</button>
-                    <a class="iande-button outline" href="../login">Já tenho login</a>
+                    <a class="iande-button outline" :href="`${iandeUrl}/user/login`">Já tenho login</a>
                 </div>
             </form>
         </div>
@@ -65,6 +65,7 @@
             }
         },
         computed: {
+            iandeUrl: constant(window.IandeSettings.iandeUrl),
             phoneMask: constant(['(##) ####-####', '(##) #####-####'])
         },
         validations: {
@@ -89,7 +90,7 @@
                             phone: this.phone
                         })
                         await this.$store.set('user/user', user)
-                        window.location.assign('../../appointment/create')
+                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/create`)
                     } catch (err) {
                         this.formError = err
                     }

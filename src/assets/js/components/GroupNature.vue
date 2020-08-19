@@ -53,7 +53,7 @@
             institutions: sync('institutions/list'),
             natureOptions: constant({
                 'Grupo Institucional': 'institutional',
-                'Outro': 'other'
+                'Outra': 'other'
             })
         },
         validations: {

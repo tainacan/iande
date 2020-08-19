@@ -1,4 +1,4 @@
-const baseUrl = `${window.location.origin}/iande/`
+const baseUrl = window.IandeSettings.iandeUrl + '/'
 
 export function searchParams (object) {
     const search = new URLSearchParams()

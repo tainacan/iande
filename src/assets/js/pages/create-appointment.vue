@@ -104,7 +104,7 @@
                         this.$refs.form.$v.$reset()
                         await this.resetInstitution()
                         await this.resetAppointment()
-                        window.location.assign('../list')
+                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
                     } catch (err) {
                         this.formError = err
                     }
