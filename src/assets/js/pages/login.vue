@@ -26,7 +26,7 @@
                         <span>{{ formError }}</span>
                     </div>
                     <button class="iande-button primary" type="submit">Fazer login</button>
-                    <a class="iande-button outline" href="../create">Criar login</a>
+                    <a class="iande-button outline" :href="`${iandeUrl}/user/create`">Criar login</a>
                 </div>
             </form>
         </div>
@@ -38,7 +38,7 @@
 
     import Input from '../components/Input.vue'
     import StepsIndicator from '../components/StepsIndicator.vue'
-    import{ api } from '../utils'
+    import{ api, constant } from '../utils'
 
     export default {
         name: 'LoginPage',
@@ -56,6 +56,9 @@
                 password: '',
             }
         },
+        computed: {
+            iandeUrl: constant(window.IandeSettings.iandeUrl),
+        },
         validations: {
             email: { required },
             password: { required },
@@ -71,7 +74,7 @@
                             password: this.password
                         })
                         await this.$store.set('user/user', user)
-                        window.location.assign('../../appointment/create')
+                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/create`)
                     } catch (err) {
                         this.formError = err
                     }
