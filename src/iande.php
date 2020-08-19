@@ -30,6 +30,7 @@ define('IANDE_BASEURL', plugins_url('', __FILE__) . '/');
 
 define('IANDE_DISTURL', IANDE_BASEURL  . 'dist/');
 
+require 'includes/init.php';
 require 'includes/cmb2.php';
 require 'includes/post-types.php';
 require 'includes/roles.php';
