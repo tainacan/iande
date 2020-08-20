@@ -1,14 +1,14 @@
 .iande-steps {
     background-color: var(--iande-lighter-color);
-    margin-bottom: 40px;
+
+    &:not(.inline) {
+        margin-bottom: 40px;
+        padding: 10px;
+    }
 
     &__row {
         display: flex;
         justify-content: space-between;
-
-        @media screen and (max-width: 600px) {
-            padding: 10px;
-        }
     }
 
     &__step {

@@ -11,7 +11,7 @@
                 <label class="iande-label" for="institution">Instituição responsável pela visita</label>
                 <Select id="institution" v-model="institution" :validations="$v.institution" empty="Você ainda não possui instituições cadastradas ⚠️" :options="institutionOptions"/>
             </div>
-            <div class="iande-add-institution" role="button" tabindex="0" @click="addInstitution">
+            <div class="iande-add-institution" v-if="canAddInstitution" role="button" tabindex="0" @click="addInstitution">
                 <span><Icon icon="plus-circle"/></span>
                 <div class="iande-label">Adicionar uma instituição</div>
             </div>
@@ -32,6 +32,9 @@
         components: {
             Icon: FontAwesomeIcon,
             Select
+        },
+        props: {
+            canAddInstitution: { type: Boolean, default: true }
         },
         data () {
             return {

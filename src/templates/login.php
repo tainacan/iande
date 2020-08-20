@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <div id="iande-app" class="iande">
-    <app-login-page institution="<?= get_bloginfo('name') ?>"></app-login-page>
+    <iande-login-page></iande-login-page>
 </div>
 
 <?php get_footer(); ?>

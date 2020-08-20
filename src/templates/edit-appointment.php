@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <div id="iande-app" class="iande">
-    <iande-create-appointment-page></iande-create-apppointment-page>
+    <iande-edit-appointment-page></iande-edit-apppointment-page>
 </div>
 
 <?php get_footer(); ?>

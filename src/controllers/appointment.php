@@ -14,7 +14,20 @@ class Appointment extends Controller
      */
     function view_create(array $params = [])
     {
+        $this->require_authentication();
         $this->render('create-appointment');
+    }
+
+    /**
+     * Renderiza a página de edição de agendamento
+     *
+     * @param array $params
+     * @return void
+     */
+    function view_edit(array $params = [])
+    {
+        $this->require_authentication();
+        $this->render('edit-appointment');
     }
 
     /**
@@ -25,6 +38,7 @@ class Appointment extends Controller
      */
     function view_list(array $params = [])
     {
+        $this->require_authentication();
         $this->render('list-appointments');
     }
 

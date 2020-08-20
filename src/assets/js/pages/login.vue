@@ -46,9 +46,6 @@
             Input,
             StepsIndicator,
         },
-        props: {
-            institution: { type: String, required: true },
-        },
         data () {
             return {
                 email: '',
@@ -58,6 +55,7 @@
         },
         computed: {
             iandeUrl: constant(window.IandeSettings.iandeUrl),
+            institution: constant(window.IandeSettings.siteName),
         },
         validations: {
             email: { required },
