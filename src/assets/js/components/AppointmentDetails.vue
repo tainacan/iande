@@ -8,11 +8,11 @@
                 </div>
                 <div class="iande-appointment__summary-main">
                     <h2>{{ name }}</h2>
-                    <div class="iande-appointment__detail">
+                    <div class="iande-appointment__info">
                         <Icon icon="map-marker-alt"/>
                         <span>{{ siteName }} / #{{ appointment.ID }}</span>
                     </div>
-                    <div class="iande-appointment__detail">
+                    <div class="iande-appointment__info">
                         <Icon :icon="['far', 'clock']"/>
                         <span>{{ hour }}</span>
                     </div>
@@ -20,8 +20,65 @@
             </div>
             <div>
                 <StepsIndicator inline :step="Number(appointment.step)"/>
-                <div class="iande-appointment__toggle" :aria-label="showDetails ? 'Ocultar detalhes' : 'Exibir detalhes'" role="button" tabindex="0" @click="showDetails = !showDetails">
+                <div class="iande-appointment__toggle" :aria-label="showDetails ? 'Ocultar detalhes' : 'Exibir detalhes'" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
                     <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
+                </div>
+            </div>
+        </div>
+        <div class="iande-appointment__details" v-if="showDetails">
+            <div class="iande-appointment__boxes">
+                <div class="iande-appointment__box">
+                    <div class="iande-appointment__box-title">
+                        <h3>Evento</h3>
+                        <div class="iande-appointment__edit">
+                            <a class="iande-appointment__edit-link" href="#" @click.prevent="gotoScreen(1)">Editar</a>
+                            <Icon icon="pencil-alt"/>
+                        </div>
+                    </div>
+                    <div>{{ appointment.purpose }}</div>
+                    <div>{{ date }}</div>
+                    <div>{{ hour }}</div>
+                </div>
+
+                <div class="iande-appointment__box">
+                    <div class="iande-appointment__box-title">
+                        <h3>Responsável pela visita</h3>
+                        <div class="iande-appointment__edit">
+                            <a class="iande-appointment__edit-link" href="#" @click.prevent="gotoScreen(1)">Editar</a>
+                            <Icon icon="pencil-alt"/>
+                        </div>
+                    </div>
+                    <div>
+                        <div>{{ appointment.responsible_first_name }} {{ appointment.responsible_last_name }}</div>
+                        <div>{{ appointment.responsible_role }}</div>
+                    </div>
+                    <div>
+                        <div>{{ appointment.responsible_email }}</div>
+                        <div>{{ formatPhone(appointment.responsible_phone) }}</div>
+                    </div>
+                </div>
+
+                <div class="iande-appointment__box" v-if="institution">
+                    <div class="iande-appointment__box-title">
+                        <h3>Instituição</h3>
+                        <div class="iande-appointment__edit">
+                            <a class="iande-appointment__edit-link" href="#" @click.prevent="gotoScreen(1)">Editar</a>
+                            <Icon icon="pencil-alt"/>
+                        </div>
+                    </div>
+                    <div>
+                        <div>{{ institution.name }}</div>
+                        <div>{{ formatPhone(institution.phone) }}</div>
+                    </div>
+                    <div>
+                        <div>
+                            {{ institution.address }}, {{ institution.address_number }}
+                            <template v-if="institution.complement">{{ institution.complement }}</template>
+                            - {{ institution.district }}
+                        </div>
+                        <div>{{ city }} - {{ institution.state }}</div>
+                        <div>CEP {{ formatCep(institution.zip_code) }}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,9 +87,11 @@
 
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+    import { get } from 'vuex-pathify'
 
     import StepsIndicator from './StepsIndicator'
-    import { constant } from '../utils'
+    import { constant, formatCep, formatPhone } from '../utils'
+    import '../utils/ibge'
 
     const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 
@@ -52,6 +111,14 @@
             }
         },
         computed: {
+            city () {
+                const cityId = this.institution.city
+                return Object.entries(window.municipios).find(([key]) => key === cityId)[1]
+            },
+            date () {
+                const parts = this.appointment.date.split('-')
+                return parts.reverse().join('/')
+            },
             day () {
                 const parts = this.appointment.date.split('-')
                 return parts[2]
@@ -60,6 +127,10 @@
                 const parts = this.appointment.hour.split(':')
                 return parts.join('h')
             },
+            institution () {
+                return this.institutions.find(institution => institution.ID == this.appointment.institution)
+            },
+            institutions: get('institutions/list'),
             month() {
                 const parts = this.appointment.date.split('-')
                 return months[parseInt(parts[1]) - 1]
@@ -72,6 +143,16 @@
                 }
             },
             siteName: constant(window.IandeSettings.siteName),
+        },
+        methods: {
+            formatCep,
+            formatPhone,
+            gotoScreen (n) {
+
+            },
+            toggleDetails () {
+                this.showDetails = !this.showDetails
+            },
         }
     }
 </script>

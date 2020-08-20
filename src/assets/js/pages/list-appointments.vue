@@ -20,11 +20,16 @@
         },
         computed: {
             appointments: sync('appointments/list'),
+            institutions: sync('institutions/list'),
         },
         async created () {
             if (this.appointments.length === 0) {
                 const appointments = await api.get('appointment/list')
                 this.appointments = appointments
+            }
+            if (this.institutions.length === 0) {
+                const institutions = await api.get('institution/list')
+                this.institutions = institutions
             }
         }
     }

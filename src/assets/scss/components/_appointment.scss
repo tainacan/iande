@@ -23,6 +23,10 @@
                 flex-direction: column;
             }
         }
+
+        & > :nth-child(2) {
+            justify-content: space-between;
+        }
     }
 
     &__date {
@@ -74,7 +78,7 @@
         }
     }
 
-    &__detail {
+    &__info {
         svg[data-icon] {
             color: var(--iande-tertiary-color);
             margin-right: 5px;
@@ -88,5 +92,6 @@
 
     .iande-steps {
         flex: 1;
+        max-width: 500px;
     }
 }
