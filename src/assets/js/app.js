@@ -16,11 +16,11 @@ import LoginPage from './pages/login.vue'
 Vue.use(Vuelidate)
 Vue.use(Vuex)
 
-Vue.component('app-create-appointment-page', CreateAppointmentPage)
-Vue.component('app-create-user-page', CreateUserPage)
-Vue.component('app-edit-appointment-page', EditAppointmentPage)
-Vue.component('app-list-appointments-page', ListAppointmentsPage)
-Vue.component('app-login-page', LoginPage)
+Vue.component('iande-create-appointment-page', CreateAppointmentPage)
+Vue.component('iande-create-user-page', CreateUserPage)
+Vue.component('iande-edit-appointment-page', EditAppointmentPage)
+Vue.component('iande-list-appointments-page', ListAppointmentsPage)
+Vue.component('iande-login-page', LoginPage)
 
 new Vue({
     el: '#iande-app',

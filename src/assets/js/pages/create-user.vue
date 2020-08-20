@@ -50,9 +50,6 @@
             MaskedInput,
             StepsIndicator,
         },
-        props: {
-            institution: { type: String, required: true },
-        },
         data () {
             return {
                 confirmPassword: '',
@@ -66,6 +63,7 @@
         },
         computed: {
             iandeUrl: constant(window.IandeSettings.iandeUrl),
+            institution: constant(window.IandeSettings.siteName),
             phoneMask: constant(['(##) ####-####', '(##) #####-####'])
         },
         validations: {
