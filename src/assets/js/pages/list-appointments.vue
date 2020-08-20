@@ -1,5 +1,5 @@
 <template>
-    <article>
+    <article class="mt-lg">
         <div class="iande-container iande-stack stack-lg">
             <h1>Seus agendamentos</h1>
             <AppointmentDetails v-for="(appointment, n) in appointments" :key="appointment.ID" :appointment="appointment" :n="n + 1"/>

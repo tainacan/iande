@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import Vuex from 'vuex'
 
+import Navbar from './components/Navbar.vue'
 import createStore from './store'
 
 import './utils/icons'
@@ -21,6 +22,7 @@ Vue.component('iande-create-user-page', CreateUserPage)
 Vue.component('iande-edit-appointment-page', EditAppointmentPage)
 Vue.component('iande-list-appointments-page', ListAppointmentsPage)
 Vue.component('iande-login-page', LoginPage)
+Vue.component('iande-navbar', Navbar)
 
 new Vue({
     el: '#iande-app',

@@ -1,5 +1,5 @@
 <template>
-    <article>
+    <article class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="updateAppointment">
                 <VisitDate ref="form" v-if="screen === 1"/>
