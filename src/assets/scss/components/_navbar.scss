@@ -1,0 +1,46 @@
+.iande-navbar {
+    background-color: var(--iande-secondary-color);
+    padding: 10px;
+
+    &__row {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    &__site-name {
+        align-items: flex-end;
+        color: var(--iande-tertiary-color);
+        display: flex;
+        font-weight: 500;
+
+        img {
+            margin-right: 1ex;
+        }
+    }
+
+    nav {
+        display: flex;
+
+        ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            display: inline-block;
+            list-style: none;
+            margin-left: 20px;
+
+            a {
+                color: var(--iande-background-color);
+                font-weight: 500;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
