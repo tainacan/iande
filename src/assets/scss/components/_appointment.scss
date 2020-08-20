@@ -7,6 +7,11 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         line-height: 1.2;
+        padding: 20px;
+
+        &.collapsed {
+            border-radius: var(--iande-border-radius);
+        }
 
         @media screen and (max-width: 800px) {
             grid-template-columns: 1fr;
@@ -15,7 +20,6 @@
         & > * {
             align-items: center;
             display: flex;
-            padding: 10px;
         }
 
         & > :first-child {
@@ -86,8 +90,66 @@
     }
 
     &__toggle {
+        color: var(--iande-secondary-color);
         font-size: 1.5em;
         margin-left: 20px;
+    }
+
+    &__details {
+        background-color: var(--iande-lighter-color);
+        border-radius: 0 0 var(--iande-border-radius) var(--iande-border-radius);
+        padding: 20px;
+    }
+
+    &__boxes {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(24em, 1fr));
+
+        @media screen and (max-width: 30em) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__box {
+        font-size: 0.875em;
+
+        & > * {
+            border-bottom: 1px solid var(--iande-light-color);
+            padding: 5px 0;
+        }
+
+        & > :last-child {
+            border-bottom: none;
+        }
+
+        &-title {
+            align-items: flex-end;
+            border-bottom: 2px solid var(--iande-tertiary-color);
+            display: flex;
+            justify-content: space-between;
+
+            h3 {
+                color: var(--iande-secondary-color);
+                font-size: 1.25em;
+                margin: 0;
+
+                svg[data-icon] {
+                    color: var(--iande-tertiary-color);
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+
+    &__edit {
+        color: var(--iande-medium-color);
+        font-size: 0.75em;
+        margin-left: 10px;
+
+        a {
+            color: inherit;
+        }
     }
 
     .iande-steps {

@@ -1,6 +1,6 @@
 <template>
     <section class="iande-appointment">
-        <div class="iande-appointment__summary">
+        <div class="iande-appointment__summary" :class="showDetails || 'collapsed'">
             <div>
                 <div class="iande-appointment__date">
                     <div class="iande-appointment__day">{{ day }}</div>
@@ -29,7 +29,7 @@
             <div class="iande-appointment__boxes">
                 <div class="iande-appointment__box">
                     <div class="iande-appointment__box-title">
-                        <h3>Evento</h3>
+                        <h3><Icon :icon="['far', 'calendar']"/>Evento</h3>
                         <div class="iande-appointment__edit">
                             <a class="iande-appointment__edit-link" href="#" @click.prevent="gotoScreen(1)">Editar</a>
                             <Icon icon="pencil-alt"/>
@@ -42,7 +42,7 @@
 
                 <div class="iande-appointment__box">
                     <div class="iande-appointment__box-title">
-                        <h3>Responsável pela visita</h3>
+                        <h3><Icon icon="user"/>Responsável pela visita</h3>
                         <div class="iande-appointment__edit">
                             <a class="iande-appointment__edit-link" href="#" @click.prevent="gotoScreen(1)">Editar</a>
                             <Icon icon="pencil-alt"/>
@@ -60,7 +60,7 @@
 
                 <div class="iande-appointment__box" v-if="institution">
                     <div class="iande-appointment__box-title">
-                        <h3>Instituição</h3>
+                        <h3><Icon icon="university"/>Instituição</h3>
                         <div class="iande-appointment__edit">
                             <a class="iande-appointment__edit-link" href="#" @click.prevent="gotoScreen(1)">Editar</a>
                             <Icon icon="pencil-alt"/>
