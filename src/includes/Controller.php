@@ -44,8 +44,8 @@ abstract class Controller
 
     /**
      * Call controller action.
-     * 
-     * if the 
+     *
+     * if the
      *
      * @param [type] $action
      * @param [type] $params
@@ -75,7 +75,7 @@ abstract class Controller
     }
 
     /**
-     * Verifica se o usuário está autenticado e 
+     * Verifica se o usuário está autenticado e
      * se nao estiver renderiza mensagem de erro
      *
      * @param string $error_message
@@ -89,7 +89,7 @@ abstract class Controller
             if (\wp_is_json_request()) {
                 $this->error($error_message);
             } else {
-                $this->render('access-denied', ['error_message' => $error_message]);
+                $this->render('parts/access-denied', ['error_message' => $error_message]);
             }
         }
     }
