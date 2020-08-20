@@ -20,6 +20,9 @@
             </div>
             <div>
                 <StepsIndicator inline :step="Number(appointment.step)"/>
+                <div class="iande-appointment__toggle" :aria-label="showDetails ? 'Ocultar detalhes' : 'Exibir detalhes'" role="button" tabindex="0" @click="showDetails = !showDetails">
+                    <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
+                </div>
             </div>
         </div>
     </section>
@@ -42,6 +45,11 @@
         props: {
             appointment: { type: Object, required: true },
             n: { type: Number, default: 1 },
+        },
+        data () {
+            return {
+                showDetails: false,
+            }
         },
         computed: {
             day () {
