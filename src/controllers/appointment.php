@@ -18,6 +18,17 @@ class Appointment extends Controller
     }
 
     /**
+     * Renderiza a página de edição de agendamento
+     *
+     * @param array $params
+     * @return void
+     */
+    function view_edit(array $params = [])
+    {
+        $this->render('edit-appointment');
+    }
+
+    /**
      * Renderiza a página de listagem de agendamentos do usuário
      *
      * @param array $params

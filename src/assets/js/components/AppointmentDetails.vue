@@ -31,7 +31,7 @@
                     <div class="iande-appointment__box-title">
                         <h3><Icon :icon="['far', 'calendar']"/>Evento</h3>
                         <div class="iande-appointment__edit">
-                            <a class="iande-appointment__edit-link" href="#" @click.prevent="gotoScreen(1)">Editar</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(1)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                     <div class="iande-appointment__box-title">
                         <h3><Icon icon="user"/>Responsável pela visita</h3>
                         <div class="iande-appointment__edit">
-                            <a class="iande-appointment__edit-link" href="#" @click.prevent="gotoScreen(1)">Editar</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(2)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                     <div class="iande-appointment__box-title">
                         <h3><Icon icon="university"/>Instituição</h3>
                         <div class="iande-appointment__edit">
-                            <a class="iande-appointment__edit-link" href="#" @click.prevent="gotoScreen(1)">Editar</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(3)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
@@ -147,8 +147,8 @@
         methods: {
             formatCep,
             formatPhone,
-            gotoScreen (n) {
-
+            gotoScreen (screen) {
+                return `${window.IandeSettings.iandeUrl}/appointment/edit?ID=${this.appointment.ID}&screen=${screen}`
             },
             toggleDetails () {
                 this.showDetails = !this.showDetails
