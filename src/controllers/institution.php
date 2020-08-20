@@ -14,6 +14,7 @@ class Institution extends Controller
      */
     function view_create(array $params = [])
     {
+        $this->require_authentication();
         $this->render('create-institution');
     }
 
