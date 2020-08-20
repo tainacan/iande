@@ -87,7 +87,7 @@ abstract class Controller
 
         if (!\is_user_logged_in()) {
             if (\wp_is_json_request()) {
-                $this->error($error_message);
+                $this->error($error_message, 401);
             } else {
                 $this->render('access-denied', ['error_message' => $error_message]);
             }
