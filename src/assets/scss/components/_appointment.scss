@@ -1,26 +1,45 @@
 .iande-appointment {
+    padding: 0;
 
     &__summary {
         background: var(--iande-lighter-color);
         border-radius: var(--iande-border-radius) var(--iande-border-radius) 0 0;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+        grid-template-columns: 1fr 1fr;
         line-height: 1.2;
+
+        @media screen and (max-width: 800px) {
+            grid-template-columns: 1fr;
+        }
 
         & > * {
             display: flex;
-            padding: calc(var(--iande-border-radius) + 10px);
+            padding: 10px;
+        }
+
+        & > :first-child {
+            @media screen and (max-width: 400px) {
+                flex-direction: column;
+            }
         }
     }
 
     &__date {
         align-items: center;
-        border-right: 1px solid var(--iande-medium-color);
         color: var(--iande-secondary-color);
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding-right: 20px;
+
+        @media screen and (max-width: 400px) {
+            border-bottom: 1px solid var(--iande-medium-color);
+            padding-bottom: 10px;
+        }
+
+        @media screen and (min-width: 401px) {
+            border-right: 1px solid var(--iande-medium-color);
+            padding-right: 20px;
+        }
     }
 
     &__day {
@@ -32,7 +51,15 @@
     }
 
     &__summary-main {
-        padding-left: 20px;
+
+        @media screen and (max-width: 400px) {
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        @media screen and (min-width: 401px) {
+            padding-left: 20px;
+        }
 
         h2 {
             color: var(--iande-secondary-color);
@@ -54,6 +81,6 @@
     }
 
     .iande-steps {
-        margin: 0;
+        flex: 1;
     }
 }

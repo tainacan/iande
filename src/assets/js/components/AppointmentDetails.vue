@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div>
-                <StepsIndicator :step="Number(appointment.step)"/>
+                <StepsIndicator inline :step="Number(appointment.step)"/>
             </div>
         </div>
     </section>
