@@ -30,4 +30,15 @@ export function sortBy (fn, asc = true) {
     }
 }
 
+export function subModel (key) {
+    return {
+        get () {
+            return this.modelValue[key]
+        },
+        set (newValue) {
+            this.modelValue = { ...this.modelValue, [key]: newValue }
+        }
+    }
+}
+
 export { api, searchParams }

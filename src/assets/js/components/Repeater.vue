@@ -1,5 +1,5 @@
 <template>
-    <div class="iande-field">
+    <div class="iande-field iande-stack stack-lg">
         <template v-for="(item, i) of value">
             <slot name="item" :id="id" :onUpdate="updateItem(i)" :value="item" :validations="validations[i] || {}"/>
         </template>
@@ -31,8 +31,8 @@
                 this.$emit('update:value', [...this.value, this.default()])
             },
             updateItem (index) {
-                return function (e) {
-                    const value = this.value.splice()
+                return (e) => {
+                    const value = this.value.slice()
                     value[index] = e
                     this.$emit('update:value', value)
                 }
