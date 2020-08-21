@@ -106,18 +106,7 @@
             },
             cnpjMask: constant('##.###.###/####-##'),
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
-            profileOptions: constant([
-                'Escola estadual',
-                'Escola municipal',
-                'Escola federal',
-                'Escola privada',
-                'Universidade pública',
-                'Universidade/faculdade privada',
-                'ONG',
-                'Agência de turismo',
-                'Empresa',
-                'Outros'
-            ]),
+            profileOptions: constant(window.IandeSettings.profiles),
             stateOptions () {
                 const entries = Object.keys(window.estados)
                     .map(estado => [estado, estado])

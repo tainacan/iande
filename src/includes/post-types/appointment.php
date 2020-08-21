@@ -87,7 +87,7 @@ function register_metabox_appointment() {
 
             /**
              * Fields parameters
-             * 
+             *
              * @link https://cmb2.io/docs/field-parameters
              */
             $name       = '';
@@ -98,7 +98,7 @@ function register_metabox_appointment() {
             $attributes = [];
             $repeatable = false;
             $size       = '';
-  
+
             if (isset($definition->metabox->name))
                 $name = $definition->metabox->name;
 
@@ -134,12 +134,12 @@ function register_metabox_appointment() {
                 'repeatable' => $repeatable,
                 'size'       => $size
             ];
-            
+
         }
     }
 
     $fields = \apply_filters('iande.appointment_metabox_fields', $fields);
-    
+
     if (is_object($appointment_metabox)) {
         foreach ($fields as $field) {
             $appointment_metabox->add_field($field);
@@ -159,13 +159,10 @@ function register_metabox_appointment() {
 function get_appointment_metadata_definition() {
 
     // @todo colocar em página de configuração
-    $nature_options = [
-        'institutional' => 'Institucional',
-        'other'         => 'Outra'
-    ];
+    $nature_options = ['institutional', 'other'];
 
     $purpose_options = get_option('iande_appointments_settings', []);
-    $purpose_options = $purpose_options["appointment_purpose"];
+    $purpose_options = $purpose_options['appointment_purpose'];
 
     $role_options = get_option('iande_institution', []);
     $role_options = $role_options['institution_responsible_role'];
@@ -332,7 +329,10 @@ function get_appointment_metadata_definition() {
                 'name'    => __('Natureza do grupo', 'iande'),
                 'type'    => 'select',
                 'default' => 'institutional',
-                'options' => $nature_options,
+                'options' => [
+                    'institutional' => __('Grupo institucional', 'iande'),
+                    'other' => _x('Outra', 'group', 'iande')
+                ],
                 'size'    => '50'
             ]
         ],
