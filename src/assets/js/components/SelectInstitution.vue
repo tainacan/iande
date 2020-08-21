@@ -28,7 +28,7 @@
     import { api, constant } from '../utils'
 
     export default {
-        name: 'GroupNature',
+        name: 'SelectInstitution',
         components: {
             Icon: FontAwesomeIcon,
             Select

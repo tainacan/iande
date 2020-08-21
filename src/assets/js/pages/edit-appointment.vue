@@ -4,7 +4,7 @@
             <form class="iande-form iande-stack stack-lg" @submit.prevent="updateAppointment">
                 <VisitDate ref="form" v-if="screen === 1"/>
                 <ResponsiblePerson ref="form" v-else-if="screen === 2"/>
-                <GroupNature ref="form" v-else-if="screen === 3" :canAddInstitution="false"/>
+                <SelectInstitution ref="form" v-else-if="screen === 3" :canAddInstitution="false"/>
 
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ formError }}</span>
@@ -24,15 +24,15 @@
     import { api } from '../utils'
 
     // Lazy-loading candidates
-    import GroupNature from '../components/GroupNature.vue'
     import ResponsiblePerson from '../components/ResponsiblePerson.vue'
+    import SelectInstitution from '../components/SelectInstitution.vue'
     import VisitDate from '../components/VisitDate.vue'
 
     export default {
         name: 'EditAppointmentPage',
         components: {
-            GroupNature,
             ResponsiblePerson,
+            SelectInstitution,
             VisitDate,
         },
         data () {

@@ -6,7 +6,7 @@
             <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
                 <VisitDate ref="form" v-if="screen === 1"/>
                 <ResponsiblePerson ref="form" v-else-if="screen === 2"/>
-                <GroupNature ref="form" v-else-if="screen === 3" @add-institution="setScreen(4)"/>
+                <SelectInstitution ref="form" v-else-if="screen === 3" @add-institution="setScreen(4)"/>
                 <CreateInstitution ref="form" v-else-if="screen === 4"/>
 
                 <div class="iande-form-error" v-if="formError">
@@ -38,17 +38,17 @@
 
     // Lazy-loading candidates
     import CreateInstitution from '../components/CreateInstitution.vue'
-    import GroupNature from '../components/GroupNature.vue'
     import ResponsiblePerson from '../components/ResponsiblePerson.vue'
+    import SelectInstitution from '../components/SelectInstitution.vue'
     import VisitDate from '../components/VisitDate.vue'
 
     export default {
         name: 'CreateAppointmentPage',
         components: {
             CreateInstitution,
-            GroupNature,
             Icon: FontAwesomeIcon,
             ResponsiblePerson,
+            SelectInstitution,
             StepsIndicator,
             VisitDate,
         },
