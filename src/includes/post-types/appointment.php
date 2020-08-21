@@ -347,7 +347,22 @@ function get_appointment_metadata_definition() {
                 'name'   => __('Instituição', 'iande'),
                 'type'    => 'text'
             ]
-        ]
+        ],
+        'reason_cancel' => (object) [
+            'type' => 'string',
+            'validation' => function ($value) {
+                $value = \esc_textarea($value);
+                if (is_string($value)) {
+                    return true;
+                } else {
+                    return __("Valor inválido", 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'   => __('Motivo do cancelamento', 'iande'),
+                'type'    => 'textarea_small'
+            ]
+        ],
     ];
 
     $metadata_definition = \apply_filters('iande.appointment_metadata_definition', $metadata_definition);

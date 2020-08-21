@@ -6,6 +6,7 @@ use Controller;
 
 class Appointment extends Controller
 {
+
     /**
      * Renderiza a página de criação de agendamento
      *
@@ -122,6 +123,57 @@ class Appointment extends Controller
         $parsed_appointment = $this->get_parsed_appointment($params['ID']);
 
         $this->success($parsed_appointment);
+    }
+
+    /**
+     * Cancela um agendamento
+     *
+     * @param array $params
+     *
+     * @action iande.before_cancel_appointment
+     * @action iande.after_cancel_appointment
+     *
+     * @return void
+     */
+    function endpoint_cancel(array $params = []) {
+
+        $this->require_authentication();
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro id é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro id deve ser um número inteiro', 'iande'));
+        }
+
+        $appointment = \get_post($params['ID']);
+
+        if ($appointment === null) {
+
+            $this->error(__('Agendamento não encontrado', 'iande'));
+
+        } elseif (\get_current_user_id() == $appointment->post_author || \current_user_can('manage_options')) {
+
+            \do_action('iande.before_cancel_appointment', $params);
+
+            \update_post_meta($params['ID'], 'step', '1');
+            \update_post_meta($params['ID'], 'reason_cancel', __('Cancelado pelo usuário', 'iande'), '');
+
+            $update_appointment = array(
+                'ID'          => $params['ID'],
+                'post_status' => 'canceled'
+            );
+            \wp_update_post($update_appointment);
+
+            $appointment = $this->get_parsed_appointment($params['ID']);
+
+            \do_action('iande.after_cancel_appointment', $appointment);
+
+            $this->success($appointment);
+
+        }
+
     }
 
     /**
@@ -421,4 +473,6 @@ class Appointment extends Controller
             \wp_update_post($post);
         }
     }
+   
 }
+
