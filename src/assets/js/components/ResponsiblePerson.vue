@@ -55,14 +55,7 @@
             }),
             binaryOptions: constant({ 'Sim': true, 'Não': false }),
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
-            roleOptions: constant([
-                'professor',
-                'orientador',
-                'coordenador',
-                'diretor',
-                'guia de turismo',
-                'outros'
-            ]),
+            roleOptions: constant(window.IandeSettings.responsibleRoles),
             user: get('user/user')
         },
         validations: {
