@@ -48,6 +48,8 @@ class Institution extends Controller
 
         $this->set_institution_metadata($institution_id, $params);
 
+        $this->set_institution_title($institution_id);
+
         $institution = $this->get_parsed_institution($institution_id);
 
         \do_action('iande.after_create_institution', $institution_id, $institution);
@@ -86,6 +88,7 @@ class Institution extends Controller
         \do_action('iande.before_update_institution', $params);
 
         $this->set_institution_metadata($params['ID'], $params);
+        $this->set_institution_title($params['ID']);
 
         \do_action('iande.after_update_institution', $params);
 
@@ -296,5 +299,28 @@ class Institution extends Controller
                 \update_post_meta($post_id, $key, $params[$key]);
             }
         }
+    }
+
+    /**
+     * Define/atualiza o título da instituição a partir do meta "name"
+     *
+     * @param integer $post_id
+     * @return void
+     */
+    function set_institution_title(int $post_id) {
+
+        $title = \get_post_meta($post_id, 'name', true);
+        $slug  = \sanitize_title($title);
+        $slug  = \wp_unique_post_slug($slug, $post_id, 'publish', 'institution', 0 );
+
+        if($title && $slug) {
+            $post = array(
+                'ID'         => $post_id,
+                'post_title' => \apply_filters('title', $title),
+                'post_name' => $slug
+            );
+            \wp_update_post($post);
+        }
+        
     }
 }
