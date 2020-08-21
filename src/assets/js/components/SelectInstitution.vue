@@ -1,5 +1,5 @@
 <template>
-    <div id="iande-select-institution" class="iande-stack stack-lg">
+    <div class="iande-stack stack-lg">
         <h1>Natureza do grupo</h1>
         <p>Escolas, ONGs, fundações e outras instituições devem preencher o campo como <b>Grupo Institucional</b>. Famílias, grupos de amigos ou turistas devem se cadastrar como <b>Outros Grupos</b>.</p>
         <div>
@@ -11,7 +11,7 @@
                 <label class="iande-label" for="institution">Instituição responsável pela visita</label>
                 <Select id="institution" v-model="institution" :validations="$v.institution" empty="Você ainda não possui instituições cadastradas ⚠️" :options="institutionOptions"/>
             </div>
-            <div class="iande-add-institution" v-if="canAddInstitution" role="button" tabindex="0" @click="addInstitution">
+            <div class="iande-add-item" v-if="canAddInstitution" role="button" tabindex="0" @click="addInstitution">
                 <span><Icon icon="plus-circle"/></span>
                 <div class="iande-label">Adicionar uma instituição</div>
             </div>
@@ -28,7 +28,7 @@
     import { api, constant } from '../utils'
 
     export default {
-        name: 'GroupNature',
+        name: 'SelectInstitution',
         components: {
             Icon: FontAwesomeIcon,
             Select

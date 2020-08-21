@@ -5,10 +5,10 @@
 @use './layouts/form';
 @use './layouts/stack';
 
+@use './components/add-item';
 @use './components/appointment';
 @use './components/navbar';
 @use './components/steps-indicator';
 
 @use './pages/create-institution';
 @use './pages/login';
-@use './pages/select-institution';
