@@ -28,13 +28,13 @@
         },
         methods: {
             addItem () {
-                this.$emit('update:value', [...this.value, this.default()])
+                this.modelValue = [...this.modelValue, this.default()]
             },
             updateItem (index) {
-                return (e) => {
-                    const value = this.value.slice()
-                    value[index] = e
-                    this.$emit('update:value', value)
+                return (item) => {
+                    const newModelValue = this.modelValue.slice()
+                    newModelValue[index] = item
+                    this.modelValue = newModelValue
                 }
             }
         }
