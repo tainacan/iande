@@ -39,30 +39,31 @@ add_action('wp_enqueue_scripts', 'iande_institution_settings');
 
 function iande_institution_settings() {
 
-    $site_name        = get_bloginfo('name');
-    $site_url         = get_bloginfo('url');
-    $iande_url        = get_site_url(null, '/iande');
-    $profiles         = cmb2_get_option('iande_institution', 'institution_profile', []);
-    $responsible_role = cmb2_get_option('iande_institution', 'institution_responsible_role', []);
-    $deficiency       = cmb2_get_option('iande_institution', 'institution_deficiency', []);
-    $language         = cmb2_get_option('iande_institution', 'institution_language', []);
-    $age_range        = cmb2_get_option('iande_institution', 'institution_age_range', []);
-    $schedules        = get_option('iande_schedules', []);
+    $site_name          = get_bloginfo('name');
+    $site_url           = get_bloginfo('url');
+    $iande_url          = get_site_url(null, '/iande');
+    $profiles           = cmb2_get_option('iande_institution', 'institution_profile', []);
+    $responsible_role   = cmb2_get_option('iande_institution', 'institution_responsible_role', []);
+    $deficiency         = cmb2_get_option('iande_institution', 'institution_deficiency', []);
+    $language           = cmb2_get_option('iande_institution', 'institution_language', []);
+    $age_range          = cmb2_get_option('iande_institution', 'institution_age_range', []);
+    $schedules          = get_option('iande_schedules', []);
+    $schedules_settings = get_option('iande_schedules_settings', []);
 
     wp_localize_script(
         'iande',
         'IandeSettings',
         [
-            'siteName'         => $site_name,
-            'siteUrl'          => $site_url,
-            'iandeUrl'         => $iande_url,
-            'profiles'         => $profiles,
-            'responsibleRoles' => $responsible_role,
-            'deficiencies'     => $deficiency,
-            'languages'        => $language,
-            'ageRanges'        => $age_range,
-            'schedules'        => $schedules
-
+            'siteName'          => $site_name,
+            'siteUrl'           => $site_url,
+            'iandeUrl'          => $iande_url,
+            'profiles'          => $profiles,
+            'responsibleRoles'  => $responsible_role,
+            'deficiencies'      => $deficiency,
+            'languages'         => $language,
+            'ageRanges'         => $age_range,
+            'schedules'         => $schedules,
+            'schedulesSettings' => $schedules_settings
         ]
     );
 }

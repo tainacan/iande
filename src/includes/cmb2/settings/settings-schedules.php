@@ -4,6 +4,70 @@ add_action('cmb2_admin_init', 'iande_settings_schedules');
 
 function iande_settings_schedules() {
 
+    /**
+     * Configurações dos Agendamentos
+     */
+    $args = [
+        'id'           => 'iande_schedules_options_page',
+        'title'        =>  __('Agendamentos', 'iande'),
+        'object_types' => ['options-page'],
+        'option_key'   => 'iande_schedules_settings',
+        'parent_slug'  => 'iande',
+        'tab_group'    => 'iande_tabs',
+        'tab_title'    => __('Agendamentos', 'iande'),
+        'save_button'  => esc_html__('Salvar opções', 'iande')
+    ];
+
+    $iande_schedules_options = new_cmb2_box($args);
+
+    $iande_schedules_fields = $iande_schedules_options->add_field([
+        'name' => __('Duração da visita', 'iande'),
+        'id'   => 'duration_title',
+        'type' => 'title'
+    ]);
+    $iande_schedules_options->add_field([
+        'name' => __('Duração (em minutos)', 'iande'),
+        'description' => __('@todo adicionar descrição mais detalhada para esse campo', 'iande'),
+        'id'   => 'duration',
+        'type' => 'text_small'
+    ]);
+
+    $iande_schedules_fields = $iande_schedules_options->add_field([
+        'name' => __('Tamanho dos grupos', 'iande'),
+        'id'   => 'group_size_title',
+        'type' => 'title'
+    ]);
+    $iande_schedules_options->add_field([
+        'name' => __('Tamanho (máximo) dos grupos', 'iande'),
+        'description' => __('@todo adicionar descrição mais detalhada para esse campo', 'iande'),
+        'id'   => 'group_size',
+        'type' => 'text_small'
+    ]);
+
+    $iande_schedules_fields = $iande_schedules_options->add_field([
+        'name' => __('Quantidade de grupos por slot', 'iande'),
+        'id'   => 'group_slot_title',
+        'type' => 'title'
+    ]);
+    $iande_schedules_options->add_field([
+        'name' => __('Quantidade (máxima) de grupos por slot', 'iande'),
+        'description' => __('@todo adicionar descrição mais detalhada para esse campo', 'iande'),
+        'id'   => 'group_slot',
+        'type' => 'text_small'
+    ]);
+
+    $iande_schedules_fields = $iande_schedules_options->add_field([
+        'name' => __('Grid', 'iande'),
+        'id'   => 'grid_title',
+        'type' => 'title'
+    ]);
+    $iande_schedules_options->add_field([
+        'name' => __('Grid', 'iande'),
+        'description' => __('@todo adicionar descrição mais detalhada para esse campo', 'iande'),
+        'id'   => 'grid',
+        'type' => 'text_small'
+    ]);
+
     $args = [
         'id'           => 'iande_schedules_options_page',
         'title'        =>  __('Horários', 'iande'),
