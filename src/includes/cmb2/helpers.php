@@ -144,8 +144,8 @@ function iande_cmb2_settings_init() {
      * Faixa Etária
      */
     $institution_age_range_default = [
-        'até 4 anos',
-        'de 5 a 9 anos',
+        'Até 4 anos',
+        'De 5 a 9 anos',
         'De 10 a 14 anos',
         'De 15 a 19 anos',
         'De 20 a 24 anos',
