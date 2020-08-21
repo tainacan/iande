@@ -53,8 +53,7 @@ class Appointment extends Controller
      *
      * @return void
      */
-    function endpoint_create(array $params = [])
-    {
+    function endpoint_create(array $params = []) {
 
         $this->require_authentication();
         $this->validate($params);
@@ -74,6 +73,8 @@ class Appointment extends Controller
         $this->set_appointment_metadata($appointment_id, $params);
 
         \update_post_meta($appointment_id, 'step', '1');
+
+        $this->set_appointment_title($appointment_id);
 
         $appointment = $this->get_parsed_appointment($appointment_id);
 
@@ -113,6 +114,8 @@ class Appointment extends Controller
         \do_action('iande.before_update_appointment', $params);
 
         $this->set_appointment_metadata($params['ID'], $params);
+
+        $this->set_appointment_title($params['ID']);
 
         \do_action('iande.after_update_appointment', $params);
 
@@ -387,6 +390,35 @@ class Appointment extends Controller
             if (isset($params[$key])) {
                 \update_post_meta($post_id, $key, $params[$key]);
             }
+        }
+    }
+
+    /**
+     * Define/atualiza o título do agendamento a partir do meta "name"
+     *
+     * @param integer $appointment_id
+     * @return void
+     */
+    function set_appointment_title(int $appointment_id) {
+
+        $responsible_first_name = \get_post_meta($appointment_id, 'responsible_first_name', true);
+        $responsible_last_name  = \get_post_meta($appointment_id, 'responsible_last_name', true);
+        $date                   = \get_post_meta($appointment_id, 'date', true);
+        $hour                   = \get_post_meta($appointment_id, 'hour', true);
+
+        // "{nome-responsavel} {sobrenome-responsavel} - {data} {horário}"
+        $title = $responsible_first_name . ' ' . $responsible_last_name . ' - ' . $date . ' ' . $hour;
+
+        $slug  = \sanitize_title($title);
+        $slug  = \wp_unique_post_slug($slug, $appointment_id, get_post_status($appointment_id), 'appointment', 0);
+
+        if ($title && $slug) {
+            $post = array(
+                'ID'         => $appointment_id,
+                'post_title' => \apply_filters('title', $title),
+                'post_name' => $slug
+            );
+            \wp_update_post($post);
         }
     }
 }
