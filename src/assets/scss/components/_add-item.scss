@@ -1,0 +1,19 @@
+.iande-add-item {
+    align-items: center;
+    display: flex;
+
+    & > span {
+        align-items: center;
+        background-color: var(--iande-primary-color);
+        border-radius: 50%;
+        color: var(--iande-secondary-color);
+        display: flex;
+        height: calc(1em + 20px);
+        justify-content: center;
+        width: calc(1em + 20px);
+    }
+
+    .iande-label {
+        margin-left: 1em;
+    }
+}
