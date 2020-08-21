@@ -75,6 +75,29 @@ function iande_institution_settings() {
 function iande_cmb2_settings_init() {
 
     /**
+     * Agendamentos -> Objetivos
+     */
+
+    $appointment_purpose_default = [
+        '',
+        'Ilustrar os conteúdos que estou trabalhando com esse grupo',
+        'Complementar o processo educacional realizado pela instituição de origem do grupo',
+        'Possibilitar ao grupo o acesso/conhecimento à exposições e museus',
+        'Promover o aprendizado sobre os temas da exposição/museu',
+        'Iniciar a exploração/descoberta de um novo tema',
+        'Desenvolver a cultura geral do grupo',
+        'Promover uma atividade de lazer'
+    ];
+    $appointment_purpose = cmb2_get_option('appointment_purpose');
+
+    if (is_array($appointment_purpose)) {
+        $merge = array_merge($appointment_purpose_default, $appointment_purpose);
+        cmb2_update_option('iande_appointments_settings', 'appointment_purpose', array_unique($merge));
+    } else {
+        cmb2_update_option('iande_appointments_settings', 'appointment_purpose', $appointment_purpose_default);
+    }
+    
+    /**
      * Perfil
      */
     $institution_profile_default = [
@@ -138,6 +161,44 @@ function iande_cmb2_settings_init() {
         cmb2_update_option('iande_institution', 'institution_responsible_role', array_unique($merge));
     } else {
         cmb2_update_option('iande_institution', 'institution_responsible_role', $institution_responsible_role_default);
+    }
+
+    /**
+     * Deficiências
+     */
+    $institution_deficiency_default = [
+        'Pessoa com deficiência intelectual',
+        'Pessoa com deficiência física',
+        'Cego / Baixa Visão',
+        'Surdo / Baixa Audição',
+        'Pessoa com mobilidade reduzida',
+        'Outros'
+    ];
+    $institution_deficiency = cmb2_get_option('institution_deficiency');
+
+    if (is_array($institution_deficiency)) {
+        $merge = array_merge($institution_deficiency_default, $institution_deficiency);
+        cmb2_update_option('iande_institution', 'institution_deficiency', array_unique($merge));
+    } else {
+        cmb2_update_option('iande_institution', 'institution_deficiency', $institution_deficiency_default);
+    }
+
+    /**
+     * Idiomas
+     */
+    $institution_language_default = [
+        'Inglês',
+        'Espanhol',
+        'Libras',
+        'Outros'
+    ];
+    $institution_language = cmb2_get_option('institution_language');
+
+    if (is_array($institution_language)) {
+        $merge = array_merge($institution_language_default, $institution_language);
+        cmb2_update_option('iande_institution', 'institution_language', array_unique($merge));
+    } else {
+        cmb2_update_option('iande_institution', 'institution_language', $institution_language_default);
     }
 
     /**

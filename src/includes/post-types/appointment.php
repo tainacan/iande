@@ -156,36 +156,19 @@ function register_metabox_appointment() {
  *
  * @return array
  */
-function get_appointment_metadata_definition()
-{
-    $default_purpose_options = [
-        '',
-        'Ilustrar os conteúdos que estou trabalhando com esse grupo',
-        'Complementar o processo educacional realizado pela instituição de origem do grupo',
-        'Possibilitar ao grupo o acesso/conhecimento à exposições e museus',
-        'Promover o aprendizado sobre os temas da exposição/museu',
-        'Iniciar a exploração/descoberta de um novo tema',
-        'Desenvolver a cultura geral do grupo',
-        'Promover uma atividade de lazer'
-    ];
-
-    $default_role_options = [
-        '',
-        'professor',
-        'orientador',
-        'coordenador',
-        'diretor',
-        'guia de turismo',
-        'outros'
-    ];
+function get_appointment_metadata_definition() {
 
     // @todo colocar em página de configuração
     $nature_options = [
         'institutional' => 'Institucional',
         'other'         => 'Outra'
     ];
-    $purpose_options = get_option('iande_appointment_purposes', $default_purpose_options);
-    $role_options = get_option('iande_appointment_responsible_roles', $default_role_options);
+
+    $purpose_options = get_option('iande_appointments_settings', []);
+    $purpose_options = $purpose_options["appointment_purpose"];
+
+    $role_options = get_option('iande_institution', []);
+    $role_options = $role_options['institution_responsible_role'];
 
     $metadata_definition = [
         'step' => (object) [
@@ -206,7 +189,7 @@ function get_appointment_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'name'   => 'Perfil',
+                'name'   => 'Objetivo da visita',
                 'type'    => 'select',
                 'options' => $purpose_options,
                 'size'    => '50' // 75%, 50%, 33%, 25%, default 100%

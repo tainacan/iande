@@ -19,4 +19,4 @@ function iande_settings() {
 }
 
 require 'settings/settings-institution.php';
-require 'settings/settings-schedules.php';
+require 'settings/settings-appointments.php';
