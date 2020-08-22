@@ -7,7 +7,7 @@
             <p>Nesta etapa você deve dar informações sobre o grupo que irá visitar o museu.</p>
 
             <form class="iande-form iande-stack stack-lg">
-                <Repeater id="groups" v-model="groups" :default="newGroup" :validations="$v.groups">
+                <Repeater id="groups" v-model="groups" :factory="newGroup" :validations="$v.groups">
                     <template #item="{ id, onUpdate, validations, value }">
                         <GroupInfo :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
                     </template>

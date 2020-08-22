@@ -14,13 +14,13 @@
         name: 'Repeater',
         mixins: [CustomField],
         props: {
-            default: { type: Function, required: true }
+            factory: { type: Function, required: true }
         },
         watch: {
             modelValue: {
                 handler () {
                     if (this.modelValue.length === 0) {
-                        this.modelValue = [this.default()]
+                        this.modelValue = [this.factory()]
                     }
                 },
                 immediate: true
@@ -28,7 +28,7 @@
         },
         methods: {
             addItem () {
-                this.modelValue = [...this.modelValue, this.default()]
+                this.modelValue = [...this.modelValue, this.factory()]
             },
             updateItem (index) {
                 return (item) => {
