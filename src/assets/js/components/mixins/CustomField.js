@@ -6,7 +6,7 @@ export default {
     },
     model: {
         prop: 'value',
-        event: 'update:value'
+        event: 'updateValue'
     },
     props: {
         fieldClass: { type: String, default: null },
@@ -23,7 +23,7 @@ export default {
                 return this.value
             },
             set (newValue) {
-                this.$emit('update:value', newValue)
+                this.$emit('updateValue', newValue)
             }
         }
     }
