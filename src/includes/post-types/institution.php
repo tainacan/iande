@@ -158,25 +158,17 @@ function register_metabox_institution() {
  *
  * @return array
  */
-function get_institution_metadata_definition()
-{
+function get_institution_metadata_definition() {
 
-    $default_institution_profiles_option = [
-        'Escola estadual',
-        'Escola municipal',
-        'Escola federal',
-        'Escola privada',
-        'Universidade pública',
-        'Universidade/faculdade privada',
-        'ONG',
-        'Agência de turismo',
-        'Empresa',
-        'Outros'
-    ];
-
-    // @todo colocar em página de configuração
-    $institution_profiles_option = get_option('iande_institution_profiles', $default_institution_profiles_option);
-
+    // Perfil
+    $institution_profile = get_option('iande_institution', []);
+    if (array_key_exists('institution_profile', $institution_profile)) {
+        $institution_profile = $institution_profile['institution_profile'];
+    } else {
+        $institution_profile = [];
+    }
+    
+    // Escolaridade
     $institution_scholarity = get_option('iande_institution', []);
     if (array_key_exists('institution_scholarity', $institution_scholarity)) {
         $institution_scholarity = $institution_scholarity['institution_scholarity'];
@@ -230,7 +222,7 @@ function get_institution_metadata_definition()
             'metabox' => (object) [
                 'name'   => 'Perfil',
                 'type'    => 'select',
-                'options' => $institution_profiles_option,
+                'options' => $institution_profile,
                 'size'  => '50'
             ]
         ],
