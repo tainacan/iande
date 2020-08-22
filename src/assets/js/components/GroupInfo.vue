@@ -24,7 +24,7 @@
         <div v-if="otherLanguages">
             <Repeater :id="`${id}_languages`" v-model="languages" :factory="newLanguage" :validations="validations.languages">
                 <template #item="{ id, onUpdate, validations, value }">
-                    <Select :id="id" :value="value" :validations="validations" :options="languageOptions" @updateValue="onUpdate"/>
+                    <Select :key="id" :id="id" :value="value" :validations="validations" :options="languageOptions" @updateValue="onUpdate"/>
                 </template>
                 <template #addItem="{ action }">
                     <div class="iande-add-item" role="button" tabindex="0" @click="action">

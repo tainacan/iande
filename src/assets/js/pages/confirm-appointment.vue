@@ -9,7 +9,7 @@
             <form class="iande-form iande-stack stack-lg">
                 <Repeater id="groups" v-model="groups" :factory="newGroup" :validations="$v.groups">
                     <template #item="{ id, onUpdate, validations, value }">
-                        <GroupInfo :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
+                        <GroupInfo :key="id" :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
                     </template>
                     <template #addItem="{ action }">
                         <button type="button" @click="action">Adicionar grupo</button>
