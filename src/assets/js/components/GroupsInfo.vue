@@ -13,20 +13,23 @@
                 </button>
             </template>
         </Repeater>
+        <FormError id="groups__error" :validations="$v.groups" v-if="$v.groups.$error"/>
     </div>
 </template>
 
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-    import { required } from 'vuelidate/lib/validators'
+    import { minLength, required } from 'vuelidate/lib/validators'
     import { sync } from 'vuex-pathify'
 
+    import FormError from './FormError.vue'
     import GroupInfo from './GroupInfo.vue'
     import Repeater from './Repeater.vue'
 
     export default {
         name: 'GroupsInfo',
         components: {
+            FormError,
             GroupInfo,
             Icon: FontAwesomeIcon,
             Repeater,
@@ -36,6 +39,7 @@
         },
         validations: {
             groups: {
+                minGroups: minLength(1),
                 $each: {
                     disabilities: {
                         $each: {

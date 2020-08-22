@@ -81,6 +81,18 @@
                     </div>
                 </div>
             </div>
+            <div class="iande-appointment__buttons iande-form">
+                <template v-if="appointment.step == 2">
+                    <button class="iande-button solid" @click="cancelAppointment">
+                        Cancelar reserva
+                        <Icon icon="times"/>
+                    </button>
+                    <a class="iande-button primary" :href="`${iandeUrl}/appointment/confirm?ID=${appointment.ID}`">
+                        Confirmar reserva
+                        <Icon icon="check"/>
+                    </a>
+                </template>
+            </div>
         </div>
     </section>
 </template>
@@ -90,7 +102,7 @@
     import { get } from 'vuex-pathify'
 
     import StepsIndicator from './StepsIndicator'
-    import { constant, formatCep, formatPhone } from '../utils'
+    import { api, constant, formatCep, formatPhone } from '../utils'
     import '../utils/ibge'
 
     const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
@@ -127,6 +139,7 @@
                 const parts = this.appointment.hour.split(':')
                 return parts.join('h')
             },
+            iandeUrl: constant(window.IandeSettings.iandeUrl),
             institution () {
                 return this.institutions.find(institution => institution.ID == this.appointment.institution)
             },
@@ -145,6 +158,14 @@
             siteName: constant(window.IandeSettings.siteName),
         },
         methods: {
+            async cancelAppointment () {
+                try {
+                    await api.post('appointment/cancel', { ID: this.appointment.ID })
+                    window.location.reload()
+                } catch (err) {
+                    console.error(err)
+                }
+            },
             formatCep,
             formatPhone,
             gotoScreen (screen) {

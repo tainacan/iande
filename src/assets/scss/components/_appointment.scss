@@ -152,6 +152,25 @@
         }
     }
 
+    &__buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        margin-top: 20px;
+
+        .iande-button {
+            width: auto;
+
+            & + .iande-button {
+                margin-left: 20px;
+            }
+
+            svg[data-icon] {
+                margin-left: 10px;
+            }
+        }
+    }
+
     .iande-steps {
         flex: 1;
         max-width: 500px;

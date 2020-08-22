@@ -67,11 +67,11 @@
             phoneMask: constant(['(##) ####-####', '(##) #####-####'])
         },
         validations: {
-            confirmPassword: { required, minLength: minLength(6), samePassword: sameAs('password') },
+            confirmPassword: { required, minChar: minLength(6), samePassword: sameAs('password') },
             firstName: { required },
             email: { email, required },
             lastName: { required },
-            password: { required, minLength: minLength(6) },
+            password: { required, minChar: minLength(6) },
             phone: { required, phone },
         },
         methods: {
