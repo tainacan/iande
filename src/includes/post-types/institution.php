@@ -177,6 +177,13 @@ function get_institution_metadata_definition()
     // @todo colocar em página de configuração
     $institution_profiles_option = get_option('iande_institution_profiles', $default_institution_profiles_option);
 
+    $institution_scholarity = get_option('iande_institution', []);
+    if (array_key_exists('institution_scholarity', $institution_scholarity)) {
+        $institution_scholarity = $institution_scholarity['institution_scholarity'];
+    } else {
+        $institution_scholarity = [];
+    }
+
     $metadata_definition = [
         'name' => (object) [
             'type' => 'string',
@@ -224,6 +231,23 @@ function get_institution_metadata_definition()
                 'name'   => 'Perfil',
                 'type'    => 'select',
                 'options' => $institution_profiles_option,
+                'size'  => '50'
+            ]
+        ],
+        'scholarity' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                if (is_string($value) || is_array($value)) {
+                    return true;
+                } else {
+                    return __($value);
+                }
+            },
+            'metabox' => (object) [
+                'name'   => 'Escolaridade',
+                'type'    => 'select',
+                'options' => $institution_scholarity,
                 'size'  => '50'
             ]
         ],

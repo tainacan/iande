@@ -37,13 +37,13 @@ function iande_institution() {
     // Escolaridade
     $iande_main_options->add_field([
         'name' => __('Escolaridade', 'iande'),
-        'id'   => 'iande_schooling_title',
+        'id'   => 'iande_scholarity_title',
         'type' => 'title',
         'desc' => __('Gerencie abaixo as escolaridades disponíveis para as instituições', 'iande')
     ]);
     $iande_main_options->add_field([
         'name'       => __('Escolaridade', 'iande'),
-        'id'         => 'institution_schooling',
+        'id'         => 'institution_scholarity',
         'type'       => 'text',
         'repeatable' => true,
         'text'       => [

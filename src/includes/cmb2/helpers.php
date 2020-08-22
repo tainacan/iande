@@ -47,6 +47,7 @@ function iande_institution_settings() {
     $deficiency         = cmb2_get_option('iande_institution', 'institution_deficiency', []);
     $language           = cmb2_get_option('iande_institution', 'institution_language', []);
     $age_range          = cmb2_get_option('iande_institution', 'institution_age_range', []);
+    $scholarity         = cmb2_get_option('iande_institution', 'institution_scholarity', []);
     $schedules          = get_option('iande_schedules', []);
     $schedules_settings = get_option('iande_schedules_settings', []);
 
@@ -62,6 +63,7 @@ function iande_institution_settings() {
             'deficiencies'      => $deficiency,
             'languages'         => $language,
             'ageRanges'         => $age_range,
+            'scholarity'        => $scholarity,
             'schedules'         => $schedules,
             'schedulesSettings' => $schedules_settings
         ]
@@ -124,7 +126,7 @@ function iande_cmb2_settings_init() {
     /**
      * Escolaridade
      */
-    $institution_schooling_default = [
+    $institution_scholarity_default = [
         'Educação infantil',
         'Ensino fundamental I',
         'Ensino fundamental II',
@@ -134,13 +136,13 @@ function iande_cmb2_settings_init() {
         'Ensino superior',
         'Turma mista'
     ];
-    $institution_schooling = cmb2_get_option('institution_schooling');
+    $institution_scholarity = cmb2_get_option('institution_scholarity');
 
-    if (is_array($institution_schooling)) {
-        $merge = array_merge($institution_schooling_default, $institution_schooling);
-        cmb2_update_option('iande_institution', 'institution_schooling', array_unique($merge));
+    if (is_array($institution_scholarity)) {
+        $merge = array_merge($institution_scholarity_default, $institution_scholarity);
+        cmb2_update_option('iande_institution', 'institution_scholarity', array_unique($merge));
     } else {
-        cmb2_update_option('iande_institution', 'institution_schooling', $institution_schooling_default);
+        cmb2_update_option('iande_institution', 'institution_scholarity', $institution_scholarity_default);
     }
 
     /**
