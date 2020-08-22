@@ -6,7 +6,7 @@
         </div>
         <div>
             <label :for="`${id}_numPeople`" class="iande-label">Quantidade prevista de pessoas</label>
-            <Input :id="`${id}_numPeople`" type="number" min="5" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="validations.numPeople"/>
+            <Input :id="`${id}_numPeople`" type="number" min="5" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="validations.num_people"/>
             <p class="text-sm">Caso seu grupo seja maior do que a capacidade de atendimento do museu, adicione outro grupo no fim da página.</p>
         </div>
         <div>
@@ -15,7 +15,7 @@
         </div>
         <div>
             <label :for="`${id}_numResponsible`" class="iande-label">Quantidade prevista de responsáveis</label>
-            <Input :id="`${id}_numResponsible`" type="number" min="1" max="2" placeholder="Mínimo de 1 e máximo de 2 pessoas" v-model.number="numResponsible" :validations="validations.numResponsible"/>
+            <Input :id="`${id}_numResponsible`" type="number" min="1" max="2" placeholder="Mínimo de 1 e máximo de 2 pessoas" v-model.number="numResponsible" :validations="validations.num_responsible"/>
         </div>
         <div>
             <label :for="`${id}_otherLanguages`" class="iande-label">O grupo fala algum idioma diferente de português?</label>
