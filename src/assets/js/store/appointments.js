@@ -2,9 +2,15 @@ import { make } from 'vuex-pathify'
 
 function newAppointment() {
     return {
+        additional_comment: '',
         date: '',
-        group_list: [],
+        group_list: {
+            groups: [],
+        },
         group_nature: '',
+        has_prepared_visit: false,
+        has_visited_previously: false,
+        how_prepared_visit: '',
         hour: '',
         ID: null,
         institution: null,

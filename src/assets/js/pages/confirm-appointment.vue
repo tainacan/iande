@@ -5,6 +5,7 @@
         <div class="iande-container narrow">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="confirmAppointment">
                 <GroupsInfo ref="form" v-if="screen === 5"/>
+                <AdditionalData ref="form" v-else-if="screen === 6"/>
 
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ formError }}</span>
@@ -40,14 +41,16 @@
     import { get, sync } from 'vuex-pathify'
 
     import StepsIndicator from '../components/StepsIndicator.vue'
-    import { constant } from '../utils'
+    import { api, constant } from '../utils'
 
     // Lazy-loading candidates
+    import AdditionalData from '../components/AdditionalData.vue'
     import GroupsInfo from '../components/GroupsInfo.vue'
 
     export default {
         name: 'ConfirmAppointmentPage',
         components: {
+            AdditionalData,
             GroupsInfo,
             Icon: FontAwesomeIcon,
             StepsIndicator,

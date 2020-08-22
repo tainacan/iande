@@ -25,14 +25,14 @@
     import Repeater from './Repeater.vue'
 
     export default {
-        name: 'ConfirmAppointmentPage',
+        name: 'GroupsInfo',
         components: {
             GroupInfo,
             Icon: FontAwesomeIcon,
             Repeater,
         },
         computed: {
-            groups: sync('appointments/current@group_list'),
+            groups: sync('appointments/current@group_list.groups'),
         },
         validations: {
             groups: {
@@ -57,6 +57,7 @@
             newGroup () {
                 return {
                     disabilities: [],
+                    id: this.groups.length + 1,
                     languages: [],
                     name: '',
                     num_people: 5,

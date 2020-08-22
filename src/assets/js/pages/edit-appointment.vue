@@ -5,6 +5,8 @@
                 <VisitDate ref="form" v-if="screen === 1"/>
                 <ResponsiblePerson ref="form" v-else-if="screen === 2"/>
                 <SelectInstitution ref="form" v-else-if="screen === 3" :canAddInstitution="false"/>
+                <GroupsInfo ref="form" v-else-if="screen === 5"/>
+                <AdditionalData ref="form" v-else-if="screen === 6"/>
 
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ formError }}</span>
@@ -24,6 +26,7 @@
     import { api } from '../utils'
 
     // Lazy-loading candidates
+    import AdditionalData from '../components/AdditionalData.vue'
     import GroupsInfo from '../components/GroupInfo.vue'
     import ResponsiblePerson from '../components/ResponsiblePerson.vue'
     import SelectInstitution from '../components/SelectInstitution.vue'
@@ -32,6 +35,7 @@
     export default {
         name: 'EditAppointmentPage',
         components: {
+            AdditionalData,
             GroupsInfo,
             ResponsiblePerson,
             SelectInstitution,
