@@ -1,7 +1,7 @@
 <template>
     <div class="iande-field iande-stack stack-lg">
         <template v-for="(item, i) of value">
-            <slot name="item" :id="id" :onUpdate="updateItem(i)" :value="item" :validations="validations[i] || {}"/>
+            <slot name="item" :id="id" :onUpdate="updateItem(i)" :value="item" :validations="(validations.$each && validations.$each[i]) || {}"/>
         </template>
         <slot name="addItem" :action="addItem"></slot>
     </div>
