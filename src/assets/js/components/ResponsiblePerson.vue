@@ -25,10 +25,10 @@
     import { email, required } from 'vuelidate/lib/validators'
     import { get, sync } from 'vuex-pathify'
 
-    import Input from '../components/Input.vue'
-    import MaskedInput from '../components/MaskedInput.vue'
-    import RadioGroup from '../components/RadioGroup.vue'
-    import Select from '../components/Select.vue'
+    import Input from './Input.vue'
+    import MaskedInput from './MaskedInput.vue'
+    import RadioGroup from './RadioGroup.vue'
+    import Select from './Select.vue'
     import { constant } from '../utils'
     import { phone } from '../utils/validators'
 
