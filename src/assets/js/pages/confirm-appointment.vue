@@ -42,7 +42,21 @@
         },
         validations: {
             groups: {
-                $each: {},
+                $each: {
+                    disabilities: {
+                        $each: {
+                            count: { required },
+                            type: { required },
+                        }
+                    },
+                    languages: {
+                        $each: { required },
+                    },
+                    name: { required },
+                    num_people: { required },
+                    num_responsible: { required },
+                    scholarity: { required },
+                },
             },
         },
         methods: {

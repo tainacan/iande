@@ -2,27 +2,27 @@
     <div class="iande-stack stack-lg">
         <div>
             <label :for="`${id}_name`" class="iande-label">Nome do grupo</label>
-            <Input :id="`${id}_name`" type="text" placeholder="Ex.: 1° ano G - Prof. Marta" v-model="name" :validations="$v.name"/>
+            <Input :id="`${id}_name`" type="text" placeholder="Ex.: 1° ano G - Prof. Marta" v-model="name" :validations="validations.name"/>
         </div>
         <div>
             <label :for="`${id}_numPeople`" class="iande-label">Quantidade prevista de pessoas</label>
-            <Input :id="`${id}_numPeople`" type="number" min="5" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="$v.numPeople"/>
+            <Input :id="`${id}_numPeople`" type="number" min="5" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="validations.numPeople"/>
             <p class="text-sm">Caso seu grupo seja maior do que a capacidade de atendimento do museu, adicione outro grupo no fim da página.</p>
         </div>
         <div>
             <label :for="`${id}_scholarity`" class="iande-label">Escolaridade</label>
-            <Select :id="`${id}_scholarity`" v-model="scholarity" :validations="$v.scholarity" :options="scholarityOptions"/>
+            <Select :id="`${id}_scholarity`" v-model="scholarity" :validations="validations.scholarity" :options="scholarityOptions"/>
         </div>
         <div>
             <label :for="`${id}_numResponsible`" class="iande-label">Quantidade prevista de responsáveis</label>
-            <Input :id="`${id}_numResponsible`" type="number" min="1" max="2" placeholder="Mínimo de 1 e máximo de 2 pessoas" v-model.number="numResponsible" :validations="$v.numResponsible"/>
+            <Input :id="`${id}_numResponsible`" type="number" min="1" max="2" placeholder="Mínimo de 1 e máximo de 2 pessoas" v-model.number="numResponsible" :validations="validations.numResponsible"/>
         </div>
         <div>
             <label :for="`${id}_otherLanguages`" class="iande-label">O grupo fala algum idioma diferente de português?</label>
             <RadioGroup :id="`${id}_otherLanguages`" v-model="otherLanguages" :validations="$v.otherLanguages" :options="binaryOptions"/>
         </div>
         <div v-if="otherLanguages">
-            <Repeater :id="`${id}_languages`" v-model="languages" :factory="newLanguage" :validations="$v.languages">
+            <Repeater :id="`${id}_languages`" v-model="languages" :factory="newLanguage" :validations="validations.languages">
                 <template #item="{ id, onUpdate, validations, value }">
                     <Select :id="id" :value="value" :validations="validations" :options="languageOptions" @updateValue="onUpdate"/>
                 </template>
@@ -74,14 +74,7 @@
             scholarityOptions: constant(window.IandeSettings.scholarity),
         },
         validations: {
-            languages: {
-                $each: { required },
-            },
-            name: { required },
-            numPeople: { required },
-            numResponsible: { required },
             otherLanguages: { },
-            scholarity: { required },
         },
         watch: {
             languages: {
