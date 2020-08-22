@@ -348,6 +348,17 @@ function get_appointment_metadata_definition() {
                 'type'    => 'text'
             ]
         ],
+        'group_list' => (object) [
+            'type' => 'string',
+            'validation' => function ($value) {
+                // TODO
+                return true;
+            },
+            'metabox' => (object) [
+                'name'   => __("Grupos do agendamento", 'iande'),
+                'type'    => 'group_list',
+            ]
+        ],
         'reason_cancel' => (object) [
             'type' => 'string',
             'validation' => function ($value) {

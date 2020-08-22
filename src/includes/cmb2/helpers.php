@@ -79,7 +79,6 @@ function iande_cmb2_settings_init() {
     /**
      * Agendamentos -> Objetivos
      */
-
     $appointment_purpose_default = [
         '',
         'Ilustrar os conteúdos que estou trabalhando com esse grupo',
@@ -245,4 +244,128 @@ function iande_register_status() {
         'label_count'               => _n_noop('Cancelado <span class="count">(%s)</span>', 'Cancelado <span class="count">(%s)</span>'),
     ]);
 
+}
+
+/**
+ * Adiciona CMB2 group_list
+ * @see https://cmb2.io/docs/adding-your-own-field-types
+ */
+
+\add_action('cmb2_render_group_list', 'cmb2_render_callback_for_group_list', 10, 5);
+function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id, $object_type, $field_type_object) {
+    
+    //echo $field_type_object->input(array('type' => 'group_list'));
+
+    $html_entity_decode = html_entity_decode($escaped_value);
+
+    $groups_json = ($html_entity_decode) ? json_decode($html_entity_decode, true) : [];
+
+    //$groups_json = json_decode($html_entity_decode, true);
+
+    if (array_key_exists('groups', $groups_json)) {
+
+        foreach($groups_json['groups'] as $group) {
+
+            echo '<div class="cmb-row" style="background-color: #eeeeee;">';
+
+                echo '<div class="cmb-th">';
+                    echo '<b>Grupo</b>';
+                echo '</div>';
+
+                echo '<div class="cmb-td">';
+                    echo $group['id'];
+                echo '</div>';
+
+            echo '</div>';
+            echo '<div class="cmb-row">';
+
+                echo '<div class="cmb-th">';
+                    echo '<b>Deficiências do Grupo</b>';
+                echo '</div>';
+
+                echo '<div class="cmb-td">';
+                    foreach ($group['disabilities'] as $disability) {
+                        echo '<b>Tipo:</b> ' . $disability['type'] . ', <b>Qtde:</b> ' . $disability['count'];
+                        echo ("<br>");
+                    }
+                echo '</div>';
+
+            echo '</div>';
+            echo '<div class="cmb-row">';
+
+                echo '<div class="cmb-th">';
+                    echo '<b>Idiomas do Grupo</b>';
+                echo '</div>';
+
+                echo '<div class="cmb-td">';
+                    foreach ($group['languages'] as $language) {
+                        echo $language;
+                        echo ("<br>");
+                    }
+                echo '</div>';
+
+            echo '</div>';
+            echo '<div class="cmb-row">';
+
+                echo '<div class="cmb-th">';
+                    echo '<b>Responsável do grupo</b>';
+                echo '</div>';
+
+                echo '<div class="cmb-td">';
+                    echo $group['name'];
+                echo '</div>';
+
+            echo '</div>';
+            echo '<div class="cmb-row">';
+
+                echo '<div class="cmb-th">';
+                    echo '<b>Quantidade de pessoas no grupo</b>';
+                echo '</div>';
+
+                echo '<div class="cmb-td">';
+                    echo $group['num_people'];
+                echo '</div>';
+
+            echo '</div>';
+            echo '<div class="cmb-row">';
+
+                echo '<div class="cmb-th">';
+                    echo '<b>Quantidade de responsáveis pelo grupo</b>';
+                echo '</div>';
+
+                echo '<div class="cmb-td">';
+                    echo $group['num_responsible'];
+                echo '</div>';
+
+            echo '</div>';
+            echo '<div class="cmb-row">';
+
+                echo '<div class="cmb-th">';
+                    echo '<b>Escolaridade do grupo</b>';
+                echo '</div>';
+
+                echo '<div class="cmb-td">';
+                    echo $group['scholarity'];
+                echo '</div>';
+
+            echo '</div>';
+
+        }
+
+        echo '<hr>';
+        
+        echo '<details>';
+            echo '<summary>' . __('JSON', 'iande') . '</summary>';
+            echo '<textarea disabled>' . json_encode($escaped_value) . '</textarea>';
+        echo '</details>';
+
+    } else { 
+        _e('Nenhum grupo cadastrado', 'iande');
+    }
+    
+}
+
+\add_filter('cmb2_sanitize_group_list', 'cmb2_sanitize_group_list_callback', 10, 2);
+function cmb2_sanitize_group_list_callback($override_value, $value) {
+    // @todo sanitize field
 }

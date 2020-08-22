@@ -80,7 +80,6 @@ class Appointment extends Controller
             'post_status' => 'draft'
         ];
 
-
         $appointment_id = wp_insert_post($args);
 
         $this->set_appointment_metadata($appointment_id, $params);
@@ -446,13 +445,19 @@ class Appointment extends Controller
      * @param array $params
      * @return void
      */
-    function set_appointment_metadata(int $post_id, array $params = [])
-    {
+    function set_appointment_metadata(int $post_id, array $params = []) {
         $metadata_definition = get_appointment_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
             if (isset($params[$key])) {
-                \update_post_meta($post_id, $key, $params[$key]);
+
+                if($key == 'group_list') {
+                    $value = $params[$key] . ' @todo formatar valor antes de salvar';
+                    \update_post_meta($post_id, $key, $value);
+                } else {
+                    \update_post_meta($post_id, $key, $params[$key]);
+                }
+
             }
         }
     }
