@@ -1,0 +1,65 @@
+<template>
+    <Repeater id="groups" class="iande-groups" v-model="groups" :factory="newGroup" :validations="$v.groups">
+        <template #item="{ id, onUpdate, validations, value }">
+            <GroupInfo :key="id" :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
+        </template>
+        <template #addItem="{ action }">
+            <button class="iande-add-group iande-button" type="button" @click="action">
+                <span><Icon icon="plus-circle"/></span>
+                Adicionar grupo
+            </button>
+        </template>
+    </Repeater>
+</template>
+
+<script>
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+    import { required } from 'vuelidate/lib/validators'
+    import { sync } from 'vuex-pathify'
+
+    import GroupInfo from '../components/GroupInfo.vue'
+    import Repeater from '../components/Repeater.vue'
+
+    export default {
+        name: 'ConfirmAppointmentPage',
+        components: {
+            GroupInfo,
+            Icon: FontAwesomeIcon,
+            Repeater,
+        },
+        computed: {
+            groups: sync('appointments/current@group_list'),
+        },
+        validations: {
+            groups: {
+                $each: {
+                    disabilities: {
+                        $each: {
+                            count: { required },
+                            type: { required },
+                        }
+                    },
+                    languages: {
+                        $each: { required },
+                    },
+                    name: { required },
+                    num_people: { required },
+                    num_responsible: { required },
+                    scholarity: { required },
+                },
+            },
+        },
+        methods: {
+            newGroup () {
+                return {
+                    disabilities: [],
+                    languages: [],
+                    name: '',
+                    num_people: 5,
+                    num_responsible: 1,
+                    scholarity: '',
+                }
+            }
+        }
+    }
+</script>

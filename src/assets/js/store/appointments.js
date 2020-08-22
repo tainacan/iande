@@ -3,6 +3,7 @@ import { make } from 'vuex-pathify'
 function newAppointment() {
     return {
         date: '',
+        group_list: [],
         group_nature: '',
         hour: '',
         ID: null,
