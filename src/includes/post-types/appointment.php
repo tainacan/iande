@@ -348,6 +348,64 @@ function get_appointment_metadata_definition() {
                 'type'    => 'text'
             ]
         ],
+        'additional_comment' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                if (strlen(trim($value)) >= 2) {
+                    return true;
+                } else {
+                    return __('O texto informado é muito curto', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name' => __('Deseja comentar algo mais?', 'iande'),
+                'type'  => 'text',
+                'size'  => '50'
+            ]
+        ],
+        'has_prepared_visit' => (object) [
+            'type'       => 'string',
+            'default'    => 0,
+            'required'   => true,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name' => __('Você preparou seu grupo para a visita?', 'iande'),
+                'type' => 'checkbox',
+                'size' => '50'
+            ]
+        ],
+        'has_visited_previously' => (object) [
+            'type'       => 'string',
+            'default'    => 0,
+            'required'   => true,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name' => __('Você já visitou o museu anteriormente?', 'iande'),
+                'type' => 'checkbox',
+                'size' => '50'
+            ]
+        ],
+        'how_prepared_visit' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                if (strlen(trim($value)) >= 2) {
+                    return true;
+                } else {
+                    return __('O texto informado é muito curto', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name' => __('De que maneira você preparou o grupo?', 'iande'),
+                'type'  => 'text',
+                'size'  => '50'
+            ]
+        ],
         'group_list' => (object) [
             'type' => 'string',
             'validation' => function ($value) {
