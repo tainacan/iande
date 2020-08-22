@@ -1,15 +1,19 @@
 <template>
-    <Repeater id="groups" class="iande-groups" v-model="groups" :factory="newGroup" :validations="$v.groups">
-        <template #item="{ id, onUpdate, validations, value }">
-            <GroupInfo :key="id" :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
-        </template>
-        <template #addItem="{ action }">
-            <button class="iande-add-group iande-button" type="button" @click="action">
-                <span><Icon icon="plus-circle"/></span>
-                Adicionar grupo
-            </button>
-        </template>
-    </Repeater>
+    <div class="iande-stack stack-lg">
+        <h1>Informações do grupo</h1>
+        <p>Nesta etapa você deve dar informações sobre o grupo que irá visitar o museu.</p>
+        <Repeater id="groups" class="iande-groups" v-model="groups" :factory="newGroup" :validations="$v.groups">
+            <template #item="{ id, onUpdate, validations, value }">
+                <GroupInfo :key="id" :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
+            </template>
+            <template #addItem="{ action }">
+                <button class="iande-add-group iande-button" type="button" @click="action">
+                    <span><Icon icon="plus-circle"/></span>
+                    Adicionar grupo
+                </button>
+            </template>
+        </Repeater>
+    </div>
 </template>
 
 <script>

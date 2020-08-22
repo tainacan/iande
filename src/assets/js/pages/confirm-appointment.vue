@@ -2,10 +2,7 @@
     <article>
         <StepsIndicator :step="2"/>
 
-        <div class="iande-container narrow iande-stack stack-lg">
-            <h1>Informações do grupo</h1>
-            <p>Nesta etapa você deve dar informações sobre o grupo que irá visitar o museu.</p>
-
+        <div class="iande-container narrow">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="confirmAppointment">
                 <GroupsInfo ref="form" v-if="screen === 5"/>
 
@@ -40,7 +37,7 @@
 <script>
     import { required } from 'vuelidate/lib/validators'
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-    import { get } from 'vuex-pathify'
+    import { get, sync } from 'vuex-pathify'
 
     import StepsIndicator from '../components/StepsIndicator.vue'
     import { constant } from '../utils'
@@ -62,8 +59,25 @@
             }
         },
         computed: {
+            appointment: sync('appointments/current'),
             fields: get('appointments/filteredFields'),
             iandeUrl: constant(window.IandeSettings.iandeUrl)
+        },
+        async beforeMount () {
+            const qs = new URLSearchParams(window.location.search)
+            if (qs.has('screen')) {
+                this.screen = Number(qs.get('screen'))
+            }
+            if (qs.has('ID')) {
+                try {
+                    const appointment = await api.get('appointment/get', {
+                        ID: Number(qs.get('ID'))
+                    })
+                    this.appointment = { ...this.appointment, ...appointment }
+                } catch (err) {
+                    this.formError = err
+                }
+            }
         },
         methods: {
             async confirmAppointment () {
@@ -78,7 +92,7 @@
                 this.formError = ''
                 if (this.isFormValid()) {
                     try {
-                        await api.post(`appointment/update`, this.fields)
+                        await api.post('appointment/update', this.fields)
                         this.screen = num
                     } catch (err) {
                         this.formError = err

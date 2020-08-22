@@ -24,6 +24,7 @@
     import { api } from '../utils'
 
     // Lazy-loading candidates
+    import GroupsInfo from '../components/GroupInfo.vue'
     import ResponsiblePerson from '../components/ResponsiblePerson.vue'
     import SelectInstitution from '../components/SelectInstitution.vue'
     import VisitDate from '../components/VisitDate.vue'
@@ -31,6 +32,7 @@
     export default {
         name: 'EditAppointmentPage',
         components: {
+            GroupsInfo,
             ResponsiblePerson,
             SelectInstitution,
             VisitDate,
