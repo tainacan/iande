@@ -26,12 +26,12 @@ function iande_get_option($key = '', $default = false) {
     }
 
     return $val;
-    
+
 }
 
 /**
  * Expõe as configurações/dados do plugin no frontend
- * 
+ *
  * @link https://developer.wordpress.org/reference/functions/wp_localize_script/
  * @return var IandeSettings
  */
@@ -42,6 +42,7 @@ function iande_institution_settings() {
     $site_name          = get_bloginfo('name');
     $site_url           = get_bloginfo('url');
     $iande_url          = get_site_url(null, '/iande');
+    $purposes           = cmb2_get_option('iande_appointments_settings', 'appointment_purpose', []);
     $profiles           = cmb2_get_option('iande_institution', 'institution_profile', []);
     $responsible_role   = cmb2_get_option('iande_institution', 'institution_responsible_role', []);
     $deficiency         = cmb2_get_option('iande_institution', 'institution_deficiency', []);
@@ -59,6 +60,7 @@ function iande_institution_settings() {
             'siteUrl'           => $site_url,
             'iandeUrl'          => $iande_url,
             'profiles'          => $profiles,
+            'purposes'          => $purposes,
             'responsibleRoles'  => $responsible_role,
             'deficiencies'      => $deficiency,
             'languages'         => $language,
@@ -97,7 +99,7 @@ function iande_cmb2_settings_init() {
     } else {
         cmb2_update_option('iande_appointments_settings', 'appointment_purpose', $appointment_purpose_default);
     }
-    
+
     /**
      * Perfil
      */
@@ -253,11 +255,11 @@ function iande_register_status() {
 
 \add_action('cmb2_render_group_list', 'cmb2_render_callback_for_group_list', 10, 5);
 function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id, $object_type, $field_type_object) {
-    
+
     //echo $field_type_object->input(array('type' => 'group_list'));
 
     $html_entity_decode = html_entity_decode($escaped_value);
-    
+
     //var_dump($escaped_value);
 
     $groups_json = ($html_entity_decode) ? json_decode($html_entity_decode, true) : [];
@@ -356,16 +358,16 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
         }
 
         echo '<hr>';
-        
+
         echo '<details>';
             echo '<summary>' . __('JSON', 'iande') . '</summary>';
             echo '<textarea disabled>' . json_encode($escaped_value) . '</textarea>';
         echo '</details>';
 
-    } else { 
+    } else {
         _e('Nenhum grupo cadastrado', 'iande');
     }
-    
+
 }
 
 \add_filter('cmb2_sanitize_group_list', 'cmb2_sanitize_group_list_callback', 10, 2);
