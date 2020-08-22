@@ -8,7 +8,7 @@
         <span v-else-if="validations.email === false">E-mail inválido</span>
         <span v-else-if="validations.phone === false">Telefone inválido</span>
         <span v-else-if="validations.time === false">Horário inválido</span>
-        <span v-else-if="validations.minChar === false">Campo tem que ter pelo menos {{ validations.$params.minLength.min }} caracteres</span>
+        <span v-else-if="validations.minChar === false">Campo tem que ter pelo menos {{ validations.$params.minChar.min }} caracteres</span>
         <span v-else-if="validations.minGroups === false">É necessário pelo menos um grupo</span>
     </div>
 </template>
