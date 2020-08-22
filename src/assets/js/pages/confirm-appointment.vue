@@ -21,6 +21,7 @@
 </template>
 
 <script>
+    import { required } from 'vuelidate/lib/validators'
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
     import GroupInfo from '../components/GroupInfo.vue'
