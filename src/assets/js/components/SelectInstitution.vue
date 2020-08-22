@@ -24,7 +24,7 @@
     import { required, requiredUnless } from 'vuelidate/lib/validators'
     import { sync } from 'vuex-pathify'
 
-    import Select from '../components/Select.vue'
+    import Select from './Select.vue'
     import { api, constant } from '../utils'
 
     export default {

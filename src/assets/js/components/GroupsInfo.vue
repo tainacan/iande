@@ -21,8 +21,8 @@
     import { required } from 'vuelidate/lib/validators'
     import { sync } from 'vuex-pathify'
 
-    import GroupInfo from '../components/GroupInfo.vue'
-    import Repeater from '../components/Repeater.vue'
+    import GroupInfo from './GroupInfo.vue'
+    import Repeater from './Repeater.vue'
 
     export default {
         name: 'ConfirmAppointmentPage',
