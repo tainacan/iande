@@ -411,7 +411,11 @@ class Appointment extends Controller
         $metadata_definition = get_appointment_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
-            $pased_appointment->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
+            if ($key == 'group_list') {
+                $pased_appointment->$key = isset($metadata[$key][0]) ? json_decode($metadata[$key][0]) : null;
+            } else {
+                $pased_appointment->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
+            }
         }
 
         $pased_appointment = \apply_filters('iande.parse_appointment', $pased_appointment, $appointment, $metadata);
@@ -452,7 +456,8 @@ class Appointment extends Controller
             if (isset($params[$key])) {
 
                 if($key == 'group_list') {
-                    $value = $params[$key] . ' @todo formatar valor antes de salvar';
+                    // @todo formatar valor antes de salvar
+                    $value = $params[$key];
                     \update_post_meta($post_id, $key, $value);
                 } else {
                     \update_post_meta($post_id, $key, $params[$key]);

@@ -257,8 +257,11 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
     //echo $field_type_object->input(array('type' => 'group_list'));
 
     $html_entity_decode = html_entity_decode($escaped_value);
+    
+    var_dump($escaped_value);
 
     $groups_json = ($html_entity_decode) ? json_decode($html_entity_decode, true) : [];
+
 
     //$groups_json = json_decode($html_entity_decode, true);
 
@@ -368,4 +371,5 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
 \add_filter('cmb2_sanitize_group_list', 'cmb2_sanitize_group_list_callback', 10, 2);
 function cmb2_sanitize_group_list_callback($override_value, $value) {
     // @todo sanitize field
+    return json_decode($value);
 }
