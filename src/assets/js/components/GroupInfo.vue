@@ -71,7 +71,7 @@
             numPeople: subModel('num_people'),
             numResponsible: subModel('num_responsible'),
             scholarity: subModel('scholarity'),
-            scholarityOptions: constant([]),
+            scholarityOptions: constant(window.IandeSettings.scholarity),
         },
         validations: {
             languages: {
