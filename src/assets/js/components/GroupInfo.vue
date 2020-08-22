@@ -1,5 +1,5 @@
 <template>
-    <div class="iande-stack stack-lg">
+    <div class="iande-group iande-stack stack-lg">
         <div>
             <label :for="`${id}_name`" class="iande-label">Nome do grupo</label>
             <Input :id="`${id}_name`" type="text" placeholder="Ex.: 1° ano G - Prof. Marta" v-model="name" :validations="validations.name"/>
