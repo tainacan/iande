@@ -258,7 +258,7 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
 
     $html_entity_decode = html_entity_decode($escaped_value);
     
-    var_dump($escaped_value);
+    //var_dump($escaped_value);
 
     $groups_json = ($html_entity_decode) ? json_decode($html_entity_decode, true) : [];
 
