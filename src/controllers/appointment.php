@@ -74,9 +74,9 @@ class Appointment extends Controller
         \do_action('iande.before_create_appointment', $params);
 
         $args = [
-            'post_type' => 'appointment',
+            'post_type'   => 'appointment',
             'post_author' => get_current_user_id(),
-            'post_title' => '',
+            'post_title'  => '',
             'post_status' => 'draft'
         ];
 
@@ -346,11 +346,12 @@ class Appointment extends Controller
         $metadata_definition = get_appointment_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
-            // validação de campo obrigatórios
+            
+            // validação de campos obrigatórios
             if ($definition->required && empty($params[$key])) {
                 if ($validate_missing_requirements) {
                     $this->error($definition->required);
-                } else if (isset($params[$key])) {
+                } else if (isset($params[$key]) || empty($params[$key])) {
                     $this->error($definition->required);
                 }
             }
@@ -363,6 +364,7 @@ class Appointment extends Controller
                     $this->error($validation);
                 }
             }
+
         }
     }
 
@@ -403,9 +405,9 @@ class Appointment extends Controller
     function parse_appointment(\WP_Post $appointment, array $metadata = [])
     {
         $pased_appointment = (object) [
-            'ID' => $appointment->ID,
+            'ID'      => $appointment->ID,
             'user_id' => $appointment->post_author,
-            'title' => $appointment->post_title,
+            'title'   => $appointment->post_title
         ];
 
         $metadata_definition = get_appointment_metadata_definition();

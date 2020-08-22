@@ -167,19 +167,40 @@ function get_appointment_metadata_definition() {
     $role_options = get_option('iande_institution', []);
     $role_options = $role_options['institution_responsible_role'];
 
+    $user_id = \get_current_user_id();
+
+    $args = array(
+        'author'         =>  $user_id,
+        'post_type'      => 'institution',
+        'post_status'    => ['publish'],
+        'posts_per_page' => 9999,
+        'order'          => 'ASC',
+        'orderby'        => 'title'
+    );
+    $institutions = \get_posts($args);
+
+    $institutions_options = [];
+
+    foreach($institutions as $institution) {
+        $institutions_options[$institution->ID] = $institution->post_title;
+    }
+
+    $institutions_options = array_filter($institutions_options);
+
     $metadata_definition = [
         'step' => (object) [
-            'type' => 'string',
+            'type'       => 'string',
             'validation' => function ($value) {
                 // TODO
                 return true;
             }
         ],
         'purpose' => (object) [
-            'type' => 'string',
-            'required' => __("O objetivo é obrigatório", 'iande'),
-            'validation' => function ($value) use ($purpose_options) {
-                if (in_array($value, $purpose_options)) {
+            'type'          => 'string',
+            'required'      => __("O objetivo é obrigatório", 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) use ($purpose_options) {
+                if (in_array($value, $purpose_options) && !empty($value)) {
                     return true;
                 } else {
                     return __('Objetivo inválido', 'iande');
@@ -193,8 +214,8 @@ function get_appointment_metadata_definition() {
             ]
         ],
         'name' => (object) [
-            'type' => 'string',
-            'required' => false,
+            'type'       => 'string',
+            'required'   => false,
             'validation' => function ($value) {
                 if (strlen(trim($value)) >= 2) {
                     return true;
@@ -204,14 +225,15 @@ function get_appointment_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Nome', 'iande'),
-                'type'  => 'text',
-                'size'  => '50'
+                'type' => 'text',
+                'size' => '50'
             ]
         ],
         'date' => (object) [
-            'type' => 'string',
-            'required' => __("A data é obrigatória", 'iande'),
-            'validation' => function ($value) {
+            'type'          => 'string',
+            'required'      => __("A data é obrigatória", 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) {
                 $d = \DateTime::createFromFormat("Y-m-d", $value);
                 if ($d && $d->format("Y-m-d") === $value) {
                     return true;
@@ -221,55 +243,67 @@ function get_appointment_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Data', 'iande'),
-                'type'  => 'text',
-                'size'  => '50'
+                'type' => 'text',
+                'size' => '50'
             ]
         ],
         'hour' => (object) [
-            'type' => 'string',
-            'required' => __('O horário é obrigatório', 'iande'),
-            'validation' => function ($value) {
+            'type'          => 'string',
+            'required'      => __('O horário é obrigatório', 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) {
                 $d = \DateTime::createFromFormat('H:i', $value);
                 if ($d && $d->format('H:i') === $value) {
                     return true;
                 } else {
-                    return __("Formato de horário inválido", 'iande');
+                    return __("Formato do horário inválido", 'iande');
                 }
             },
             'metabox' => (object) [
                 'name' => __('Hora', 'iande'),
-                'type'  => 'text',
-                'size'  => '50'
+                'type' => 'text',
+                'size' => '50'
             ]
         ],
         'responsible_first_name' => (object) [
-            'type' => 'string',
-            'required' => __('O nome do responsável é obrigatório', 'iande'),
+            'type'          => 'string',
+            'required'      => __('O nome do responsável é obrigatório', 'iande'),
+            'required_step' => 1,
             'validation' => function ($value) {
-                return true;
+                if (strlen(trim($value)) >= 2) {
+                    return true;
+                } else {
+                    return __('O nome informado é muito curto', 'iande');
+                }
             },
             'metabox' => (object) [
                 'name' => __('Nome do responsável', 'iande'),
-                'type'  => 'text',
-                'size'  => '50'
+                'type' => 'text',
+                'size' => '50'
             ]
         ],
         'responsible_last_name' => (object) [
-            'type' => 'string',
-            'required' => __('O sobrenome do responsável é obrigatório', 'iande'),
+            'type'          => 'string',
+            'required'      => __('O sobrenome do responsável é obrigatório', 'iande'),
+            'required_step' => 1,
             'validation' => function ($value) {
-                return true;
+                if (strlen(trim($value)) >= 2) {
+                    return true;
+                } else {
+                    return __('O nome informado é muito curto', 'iande');
+                }
             },
             'metabox' => (object) [
                 'name' => __('Sobrenome do responsável', 'iande'),
-                'type'  => 'text',
-                'size'  => '50'
+                'type' => 'text',
+                'size' => '50'
             ]
         ],
         'responsible_email' => (object) [
-            'type' => 'string',
-            'required' => __('O e-mail do responsável é obrigatório', 'iande'),
-            'validation' => function ($value) {
+            'type'          => 'string',
+            'required'      => __('O e-mail do responsável é obrigatório', 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) {
                 if (empty(filter_var($value, FILTER_VALIDATE_EMAIL))) {
                     return __('Formato de e-mail do responsável inválido', 'iande');
                 } else {
@@ -283,9 +317,10 @@ function get_appointment_metadata_definition() {
             ]
         ],
         'responsible_phone' => (object) [
-            'type' => 'string',
-            'required' => __('O telefone do responsável é obrigatório', 'iande'),
-            'validation' => function ($value) {
+            'type'          => 'string',
+            'required'      => __('O telefone do responsável é obrigatório', 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) {
                 if (empty(preg_match('/^\d{10,11}$/', $value))) {
                     return __('Formato de telefone do responsável inválido', 'iande');
                 } else {
@@ -294,14 +329,15 @@ function get_appointment_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Telefone do responsável', 'iande'),
-                'type'  => 'text',
-                'size'  => '50'
+                'type' => 'text',
+                'size' => '50'
             ]
         ],
         'responsible_role' => (object) [
-            'type' => 'string',
-            'required' => __('A relação com a instituição é obrigatória', 'iande'),
-            'validation' => function ($value) use ($role_options) {
+            'type'          => 'string',
+            'required'      => __('A relação com a instituição é obrigatória', 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) use ($role_options) {
                 if (in_array($value, $role_options)) {
                     return true;
                 } else {
@@ -309,16 +345,17 @@ function get_appointment_metadata_definition() {
                 }
             },
             'metabox' => (object) [
-                'name'   => __('Relação do responsável com a instituição', 'iande'),
+                'name'    => __('Relação do responsável com a instituição', 'iande'),
                 'type'    => 'select',
                 'options' => $role_options,
                 'size'    => '50'
             ]
         ],
         'group_nature' => (object) [
-            'type' => 'string',
-            'required' => __('A natureza do grupo é obrigatória', 'iande'),
-            'validation' => function ($value) use ($nature_options) {
+            'type'          => 'string',
+            'required'      => __('A natureza do grupo é obrigatória', 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) use ($nature_options) {
                 if (in_array($value, $nature_options)) {
                     return true;
                 } else {
@@ -337,55 +374,56 @@ function get_appointment_metadata_definition() {
             ]
         ],
         'institution' => (object) [
-            'type' => 'string',
-            'required' => __('A instituição é obrigatória', 'iande'),
-            'validation' => function ($value) {
-                // TODO
-                return true;
-            },
-            'metabox' => (object) [
-                'name'   => __('Instituição', 'iande'),
-                'type'    => 'text'
-            ]
-        ],
-        'additional_comment' => (object) [
-            'type'       => 'string',
-            'required'   => false,
-            'validation' => function ($value) {
-                if (strlen(trim($value)) >= 2) {
-                    return true;
+            'type'          => 'string',
+            'required'      => __('A instituição é obrigatória', 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) use ($institutions_options) {
+                if (is_numeric($value) && intval($value) == $value) {
+                    if (array_key_exists($value, $institutions_options)) {
+                        return true;
+                    } else {
+                        return __('Instituição inválida', 'iande');
+                    }
                 } else {
-                    return __('O texto informado é muito curto', 'iande');
+                    return __('O valor deve ser um número inteiro', 'iande');
                 }
             },
             'metabox' => (object) [
-                'name' => __('Deseja comentar algo mais?', 'iande'),
-                'type'  => 'text',
-                'size'  => '50'
+                'name' => __('Instituição', 'iande'),
+                'type' => 'select',
+                'options' => $institutions_options,
             ]
         ],
-        'has_prepared_visit' => (object) [
-            'type'       => 'string',
-            'default'    => 0,
-            'required'   => true,
-            'validation' => function ($value) {
-                return true;
+        'has_visited_previously' => (object) [
+            'type'          => 'string',
+            'required'      => __('Precisamos saber se você já visitou esse museu', 'iande'),
+            'required_step' => 2,
+            'validation'    => function ($value) {
+                if ($value == 'on') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
             },
             'metabox' => (object) [
-                'name' => __('Você preparou seu grupo para a visita?', 'iande'),
+                'name' => __('Você já visitou o museu anteriormente?', 'iande'),
                 'type' => 'checkbox',
                 'size' => '50'
             ]
         ],
-        'has_visited_previously' => (object) [
-            'type'       => 'string',
-            'default'    => 0,
-            'required'   => true,
-            'validation' => function ($value) {
-                return true;
+        'has_prepared_visit' => (object) [
+            'type'          => 'string',
+            'required'      => __('Precisamos saber se você preparou seu gruppo para a visita', 'iande'),
+            'required_step' => 2,
+            'validation'    => function ($value) {
+                if ($value == 'on') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
             },
             'metabox' => (object) [
-                'name' => __('Você já visitou o museu anteriormente?', 'iande'),
+                'name' => __('Você preparou seu grupo para a visita?', 'iande'),
                 'type' => 'checkbox',
                 'size' => '50'
             ]
@@ -402,23 +440,40 @@ function get_appointment_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('De que maneira você preparou o grupo?', 'iande'),
-                'type'  => 'text',
-                'size'  => '50'
+                'type' => 'text',
+                'size' => '50'
+            ]
+        ],
+        'additional_comment' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                if (strlen(trim($value)) >= 2) {
+                    return true;
+                } else {
+                    return __('O texto informado é muito curto', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name' => __('Deseja comentar algo mais?', 'iande'),
+                'type' => 'text',
+                'size' => '50'
             ]
         ],
         'group_list' => (object) [
-            'type' => 'string',
-            'validation' => function ($value) {
-                // TODO
+            'type'          => 'string',
+            'required_step' => 2,
+            'validation'    => function ($value) {
+                // @todo validar json dos grupos enviados
                 return true;
             },
             'metabox' => (object) [
-                'name'   => __("Grupos do agendamento", 'iande'),
-                'type'    => 'group_list',
+                'name' => __("Grupos do agendamento", 'iande'),
+                'type' => 'group_list',
             ]
         ],
         'reason_cancel' => (object) [
-            'type' => 'string',
+            'type'       => 'string',
             'validation' => function ($value) {
                 $value = \esc_textarea($value);
                 if (is_string($value)) {
@@ -428,8 +483,8 @@ function get_appointment_metadata_definition() {
                 }
             },
             'metabox' => (object) [
-                'name'   => __('Motivo do cancelamento', 'iande'),
-                'type'    => 'textarea_small'
+                'name' => __('Motivo do cancelamento', 'iande'),
+                'type' => 'textarea_small'
             ]
         ],
     ];
@@ -437,4 +492,5 @@ function get_appointment_metadata_definition() {
     $metadata_definition = \apply_filters('iande.appointment_metadata_definition', $metadata_definition);
 
     return $metadata_definition;
+
 }
