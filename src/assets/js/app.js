@@ -8,6 +8,7 @@ import createStore from './store'
 import './utils/icons'
 
 // Lazy-loading candidates
+import ConfirmAppointmentPage from './pages/confirm-appointment.vue'
 import CreateAppointmentPage from './pages/create-appointment.vue'
 import CreateUserPage from './pages/create-user.vue'
 import EditAppointmentPage from './pages/edit-appointment.vue'
@@ -17,6 +18,7 @@ import LoginPage from './pages/login.vue'
 Vue.use(Vuelidate)
 Vue.use(Vuex)
 
+Vue.component('iande-confirm-appointment-page', ConfirmAppointmentPage)
 Vue.component('iande-create-appointment-page', CreateAppointmentPage)
 Vue.component('iande-create-user-page', CreateUserPage)
 Vue.component('iande-edit-appointment-page', EditAppointmentPage)

@@ -20,6 +20,18 @@ class Appointment extends Controller
     }
 
     /**
+     * Renderiza a página de confirmação de agendamento
+     *
+     * @param array $params
+     * @return void
+     */
+    function view_confirm(array $params = [])
+    {
+        $this->require_authentication();
+        $this->render('confirm-appointment');
+    }
+
+    /**
      * Renderiza a página de edição de agendamento
      *
      * @param array $params
