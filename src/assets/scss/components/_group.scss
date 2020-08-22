@@ -1,0 +1,18 @@
+.iande-groups {
+    .iande-group + .iande-group {
+        border-top: 1px solid var(--iande-light-color);
+        padding-top: 40px;
+    }
+
+    .iande-add-group {
+        background-color: var(--iande-secondary-color);
+        border: 1px solid var(--iande-secondary-color);
+        border-radius: 2em;
+        color: var(--iande-background-color);
+
+        span {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    }
+}
