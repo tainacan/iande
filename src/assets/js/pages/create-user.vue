@@ -67,11 +67,11 @@
             phoneMask: constant(['(##) ####-####', '(##) #####-####'])
         },
         validations: {
-            confirmPassword: { required, minLength: minLength(6), samePassword: sameAs('password') },
+            confirmPassword: { required, minChar: minLength(6), samePassword: sameAs('password') },
             firstName: { required },
             email: { email, required },
             lastName: { required },
-            password: { required, minLength: minLength(6) },
+            password: { required, minChar: minLength(6) },
             phone: { required, phone },
         },
         methods: {
@@ -88,7 +88,7 @@
                             phone: this.phone
                         })
                         await this.$store.set('user/user', user)
-                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/create`)
+                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
                     } catch (err) {
                         this.formError = err
                     }

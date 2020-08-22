@@ -37,15 +37,7 @@
         },
         computed: {
             ...sync('appointments/current@', ['date', 'hour', 'name', 'purpose']),
-            purposeOptions: constant([
-                'Ilustrar os conteúdos que estou trabalhando com esse grupo',
-                'Complementar o processo educacional realizado pela instituição de origem do grupo',
-                'Possibilitar ao grupo o acesso/conhecimento à exposições e museus',
-                'Promover o aprendizado sobre os temas da exposição/museu',
-                'Iniciar a exploração/descoberta de um novo tema',
-                'Desenvolver a cultura geral do grupo',
-                'Promover uma atividade de lazer'
-            ])
+            purposeOptions: constant(window.IandeSettings.purposes.slice(1))
         },
         validations: {
             date: { date, required },

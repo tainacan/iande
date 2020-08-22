@@ -64,6 +64,7 @@
         computed: {
             appointment: sync('appointments/current'),
             fields: get('appointments/filteredFields'),
+            groupList: sync('appointments/current@group_list'),
             iandeUrl: constant(window.IandeSettings.iandeUrl)
         },
         async beforeMount () {
@@ -77,6 +78,9 @@
                         ID: Number(qs.get('ID'))
                     })
                     this.appointment = { ...this.appointment, ...appointment }
+                    if (!this.groupList) {
+                        this.groupList = { groups: [] }
+                    }
                 } catch (err) {
                     this.formError = err
                 }

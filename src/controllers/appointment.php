@@ -232,12 +232,12 @@ class Appointment extends Controller
         $args = array(
             'author'         =>  $user_id,
             'post_type'      => 'appointment',
-            'post_status'    => ['publish', 'pending', 'draft'],
+            'post_status'    => ['publish', 'pending', 'canceled', 'draft'],
             'posts_per_page' => 9999,
             'meta_query'     => [
                 [
                     'key'     => 'step',
-                    'value'   => 1,
+                    'value'   => 2,
                     'compare' => '>=',
                     'type'    => 'NUMERIC'
                 ]
@@ -497,6 +497,6 @@ class Appointment extends Controller
             \wp_update_post($post);
         }
     }
-   
+
 }
 
