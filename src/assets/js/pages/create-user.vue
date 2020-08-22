@@ -88,7 +88,7 @@
                             phone: this.phone
                         })
                         await this.$store.set('user/user', user)
-                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/create`)
+                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
                     } catch (err) {
                         this.formError = err
                     }
