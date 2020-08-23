@@ -117,7 +117,7 @@ class Appointment extends Controller
             $this->error(__('O parâmetro id deve ser um número inteiro', 'iande'));
         }
 
-        $this->validate($params);
+        $this->validate($params, true, true);
 
         $appointment = get_post($params['ID']);
 
@@ -325,9 +325,10 @@ class Appointment extends Controller
      *
      * @param array $params Valores dos metadados
      * @param boolean $validate_missing_requirements Se deve validar a obrigatoriedade dos campos não passados no array $params
+     * @param boolean $force Defina como true para conseguir validar campos não obrigatórios - exemplo de uso, endpoint_update para atualizar um campo que não é obrigatório "group_list"
      * @return void
      */
-    function validate(array $params = [], $validate_missing_requirements = false)
+    function validate(array $params = [], $validate_missing_requirements = false, $force = false)
     {
         /* $params
         'purpose' => (object) [
@@ -348,7 +349,7 @@ class Appointment extends Controller
         foreach ($metadata_definition as $key => $definition) {
             
             // validação de campos obrigatórios
-            if ($definition->required && empty($params[$key])) {
+            if ($definition->required && empty($params[$key]) && !$force) {
                 if ($validate_missing_requirements) {
                     $this->error($definition->required);
                 } else if (isset($params[$key]) || empty($params[$key])) {
