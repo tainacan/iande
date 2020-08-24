@@ -30,7 +30,7 @@
                 <div class="iande-appointment__box">
                     <div class="iande-appointment__box-title">
                         <h3><Icon :icon="['far', 'calendar']"/>Evento</h3>
-                        <div class="iande-appointment__edit">
+                        <div class="iande-appointment__edit" v-if="editable">
                             <a class="iande-appointment__edit-link" :href="gotoScreen(1)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
@@ -43,7 +43,7 @@
                 <div class="iande-appointment__box">
                     <div class="iande-appointment__box-title">
                         <h3><Icon icon="user"/>Responsável pela visita</h3>
-                        <div class="iande-appointment__edit">
+                        <div class="iande-appointment__edit" v-if="editable">
                             <a class="iande-appointment__edit-link" :href="gotoScreen(2)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
@@ -61,7 +61,7 @@
                 <div class="iande-appointment__box" v-if="institution">
                     <div class="iande-appointment__box-title">
                         <h3><Icon icon="university"/>Instituição</h3>
-                        <div class="iande-appointment__edit">
+                        <div class="iande-appointment__edit" v-if="editable">
                             <a class="iande-appointment__edit-link" :href="gotoScreen(3)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
@@ -84,7 +84,7 @@
                 <div class="iande-appointment__box" v-for="group in groups" :key="group.id">
                     <div class="iande-appointment__box-title">
                         <h3><Icon icon="users"/>{{ groupName(group) }}</h3>
-                        <div class="iande-appointment__edit">
+                        <div class="iande-appointment__edit" v-if="editable">
                             <a class="iande-appointment__edit-link" :href="gotoScreen(5)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
@@ -99,7 +99,7 @@
                 <div class="iande-appointment__box" v-if="appointment.step > 2">
                     <div class="iande-appointment__box-title">
                         <h3><Icon :icon="['far', 'address-card']"/>Dados adicionais</h3>
-                        <div class="iande-appointment__edit">
+                        <div class="iande-appointment__edit" v-if="editable">
                             <a class="iande-appointment__edit-link" :href="gotoScreen(6)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
@@ -110,16 +110,22 @@
                 </div>
             </div>
             <div class="iande-appointment__buttons">
-                <template v-if="appointment.step == 2">
-                    <button class="iande-button solid" @click="cancelAppointment">
-                        Cancelar reserva
-                        <Icon icon="times"/>
-                    </button>
-                    <a class="iande-button primary" :href="`${iandeUrl}/appointment/confirm?ID=${appointment.ID}`">
-                        Confirmar reserva
-                        <Icon icon="check"/>
-                    </a>
-                </template>
+                <button class="iande-button solid" @click="cancelAppointment" v-if="editable">
+                    Cancelar reserva
+                    <Icon icon="times"/>
+                </button>
+                <a class="iande-button primary" :href="`${iandeUrl}/appointment/confirm?ID=${appointment.ID}`" v-if="editable && appointment.step == 2">
+                    Confirmar reserva
+                    <Icon icon="check"/>
+                </a>
+                <button class="iande-button primary" v-else-if="editable && appointment.step == 3">
+                    Finalizar reserva
+                    <Icon icon="check"/>
+                </button>
+                <button class="iande-button disabled" v-if="appointment.post_status === 'pending'" disabled>
+                    Aguardando confirmação
+                    <Icon icon="spinner" spin/>
+                </button>
             </div>
         </div>
     </section>
@@ -162,6 +168,9 @@
             day () {
                 const parts = this.appointment.date.split('-')
                 return parts[2]
+            },
+            editable () {
+                return this.appointment.status === 'draft'
             },
             groups () {
                 if (this.appointment.group_list) {
