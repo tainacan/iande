@@ -27,7 +27,7 @@
 
     // Lazy-loading candidates
     import AdditionalData from '../components/AdditionalData.vue'
-    import GroupsInfo from '../components/GroupInfo.vue'
+    import GroupsInfo from '../components/GroupsInfo.vue'
     import ResponsiblePerson from '../components/ResponsiblePerson.vue'
     import SelectInstitution from '../components/SelectInstitution.vue'
     import VisitDate from '../components/VisitDate.vue'
