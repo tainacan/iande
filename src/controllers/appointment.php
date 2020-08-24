@@ -307,6 +307,49 @@ class Appointment extends Controller
 
     }
 
+
+    /**
+     * Altera o status do agendamento
+     * 
+     * @param integer   $params['ID']
+     * @param string    $params['post_status']
+     */
+    function endpoint_set_status(array $params = []) {
+
+        $this->require_authentication();
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        if (\get_post_type($params['ID']) != 'appointment') {
+            $this->error(__('O ID informado não é um agendamento válido', 'iande'));
+        }
+
+        if (empty($params['post_status'])) {
+            $this->error(__('O parâmetro status é obrigatório', 'iande'));
+        }
+
+        $default_post_status = ['publish', 'future', 'draft', 'pending', 'private', 'trash', 'auto-Draft', 'inherit', 'canceled'];
+        if (!in_array(\sanitize_title($params['post_status']), $default_post_status)) {
+            $this->error(__('O parâmetro status informado não é permitido', 'iande'));
+        }
+        
+        $appointment = array(
+            'ID'          => $params['ID'],
+            'post_status' => $params['post_status']
+        );
+        \wp_update_post($appointment);
+
+        $this->success($appointment);
+
+    }
+
+
     /**
      * Verifica se o usuário tem permissão para ver o agendamento
      * Se não tiver permissão retorna o erro na API
