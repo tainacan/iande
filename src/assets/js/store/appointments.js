@@ -13,7 +13,7 @@ function newAppointment() {
         how_prepared_visit: '',
         hour: '',
         ID: null,
-        institution: null,
+        institution_id: null,
         name: '',
         purpose: '',
         responsible_email: '',

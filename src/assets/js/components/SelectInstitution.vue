@@ -43,7 +43,7 @@
         },
         computed: {
             ...sync('appointments/current@', {
-                institution: 'institution',
+                institution: 'institution_id',
                 nature: 'group_nature',
             }),
             institutionOptional () {

@@ -61,7 +61,7 @@
         computed: {
             appointment: sync('appointments/current'),
             appointmentId: sync('appointments/current@ID'),
-            appointmentInstitution: sync('appointments/current@institution'),
+            appointmentInstitution: sync('appointments/current@institution_id'),
             fields: get('appointments/filteredFields'),
             institution: sync('institutions/current'),
         },
@@ -87,7 +87,7 @@
             async nextStep () {
                 if (this.screen === 4) {
                     await this.saveInstitution()
-                } else if (this.screen === 3 && this.appointment.institution != null) {
+                } else if (this.screen === 3 && this.appointment.institution_id != null) {
                     await this.saveAppointment()
                 } else {
                     this.setScreen(this.screen + 1)
