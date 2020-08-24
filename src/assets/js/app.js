@@ -12,7 +12,9 @@ import ConfirmAppointmentPage from './pages/confirm-appointment.vue'
 import CreateAppointmentPage from './pages/create-appointment.vue'
 import CreateUserPage from './pages/create-user.vue'
 import EditAppointmentPage from './pages/edit-appointment.vue'
+import EditInstitutionPage from './pages/edit-institution.vue'
 import ListAppointmentsPage from './pages/list-appointments.vue'
+import ListInstitutionPage from './pages/list-institutions.vue'
 import LoginPage from './pages/login.vue'
 
 Vue.use(Vuelidate)
@@ -22,7 +24,9 @@ Vue.component('iande-confirm-appointment-page', ConfirmAppointmentPage)
 Vue.component('iande-create-appointment-page', CreateAppointmentPage)
 Vue.component('iande-create-user-page', CreateUserPage)
 Vue.component('iande-edit-appointment-page', EditAppointmentPage)
+Vue.component('iande-edit-institution-page', EditInstitutionPage)
 Vue.component('iande-list-appointments-page', ListAppointmentsPage)
+Vue.component('iande-list-institutions-page', ListInstitutionPage)
 Vue.component('iande-login-page', LoginPage)
 Vue.component('iande-navbar', Navbar)
 

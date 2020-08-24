@@ -7,7 +7,7 @@ use Controller;
 class Institution extends Controller
 {
     /**
-     * Renderiza a página de criação da instituição
+     * Renderiza a página de criação de instituição
      *
      * @param array $params
      * @return void
@@ -16,6 +16,30 @@ class Institution extends Controller
     {
         $this->require_authentication();
         $this->render('create-institution');
+    }
+
+    /**
+     * Renderiza a página de edição de instituição
+     *
+     * @param array $params
+     * @return void
+     */
+    function view_edit(array $params = [])
+    {
+        $this->require_authentication();
+        $this->render('edit-institution');
+    }
+
+    /**
+     * Renderiza a página de listagem de instituições
+     *
+     * @param array $params
+     * @return void
+     */
+    function view_list(array $params = [])
+    {
+        $this->require_authentication();
+        $this->render('list-institutions');
     }
 
     /**
@@ -321,6 +345,6 @@ class Institution extends Controller
             );
             \wp_update_post($post);
         }
-        
+
     }
 }
