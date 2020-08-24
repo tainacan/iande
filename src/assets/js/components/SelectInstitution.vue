@@ -6,7 +6,7 @@
             <label class="iande-label" for="nature">Natureza do grupo</label>
             <Select id="nature" v-model="nature" :validations="$v.nature" :options="natureOptions"/>
         </div>
-        <template v-if="nature">
+        <template v-if="nature === 'institutional'">
             <div>
                 <label class="iande-label" for="institution">Instituição responsável pela visita</label>
                 <Select id="institution" v-model="institution" :validations="$v.institution" empty="Você ainda não possui instituições cadastradas ⚠️" :options="institutionOptions"/>
