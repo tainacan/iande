@@ -300,6 +300,7 @@ class Appointment extends Controller
                 'post_status' => 'pending'
             );
             \wp_update_post($update_appointment);
+            update_post_meta($params['ID'], 'step', '3', $step);
             $this->success(__('O agendamento passou para o próximo passo e está aguardando confirmação', 'iande'));
 
         }
