@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div class="iande-appointment__buttons iande-form">
+            <div class="iande-appointment__buttons">
                 <template v-if="appointment.step == 2">
                     <button class="iande-button solid" @click="cancelAppointment">
                         Cancelar reserva
