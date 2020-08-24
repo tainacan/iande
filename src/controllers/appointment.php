@@ -168,7 +168,6 @@ class Appointment extends Controller
 
             \do_action('iande.before_cancel_appointment', $params);
 
-            \update_post_meta($params['ID'], 'step', '1');
             \update_post_meta($params['ID'], 'reason_cancel', __('Cancelado pelo usuário', 'iande'), '');
 
             $update_appointment = array(
@@ -354,7 +353,7 @@ class Appointment extends Controller
         $metadata_definition = get_appointment_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
-            
+
             // validação de campos obrigatórios
             if ($definition->required && empty($params[$key]) && !$force) {
                 if ($validate_missing_requirements) {
@@ -378,7 +377,7 @@ class Appointment extends Controller
 
     /**
      * Verifica o step do agendamento de acordo com o metadata required_step
-     * 
+     *
      * @param integer $appointment_id
      * @return integer $step
      */
@@ -393,9 +392,9 @@ class Appointment extends Controller
             foreach ($metadata_definition as $key => $definition) {
 
                 if (isset($definition->required_step) && !empty($definition->required_step)) {
-                    
+
                     if ($definition->required_step <= $step) {
-                     
+
                         $metadata = get_post_meta($appointment_id, $key, true);
 
                         if (empty($metadata)) {
@@ -405,9 +404,9 @@ class Appointment extends Controller
                     }
 
                 }
-                
+
             }
-            
+
             return true;
 
         }
