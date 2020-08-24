@@ -128,6 +128,7 @@
                 </button>
             </div>
         </div>
+        <Modal ref="modal"/>
     </section>
 </template>
 
@@ -135,6 +136,7 @@
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { get } from 'vuex-pathify'
 
+    import Modal from './Modal'
     import StepsIndicator from './StepsIndicator'
     import { api, constant, formatCep, formatPhone } from '../utils'
     import '../utils/ibge'
@@ -145,6 +147,7 @@
         name: 'AppointmentDetails',
         components: {
             Icon: FontAwesomeIcon,
+            Modal,
             StepsIndicator,
         },
         props: {
@@ -232,6 +235,10 @@
                 } else {
                     return `Grupo ${group.id}`
                 }
+            },
+            async sendConfirmation () {
+                this.$refs.modal.open()
+                //await api.post('appointment/set_status', { ID: this.appointment.ID, post_status: 'pending' })
             },
             toggleDetails () {
                 this.showDetails = !this.showDetails
