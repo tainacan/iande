@@ -298,11 +298,6 @@ class Appointment extends Controller
 
         } elseif($this->validate_step($params['ID']) && $step == '2') {
 
-            $update_appointment = array(
-                'ID'          => $params['ID'],
-                'post_status' => 'pending'
-            );
-            \wp_update_post($update_appointment);
             update_post_meta($params['ID'], 'step', '3', $step);
             $this->success(__('O agendamento passou para o próximo passo e está aguardando confirmação', 'iande'));
 
