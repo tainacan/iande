@@ -4,6 +4,10 @@ export function formatCep (cep) {
     return `${cep.substr(0, 5)}-${cep.substr(5, 3)}`
 }
 
+export function formatCnpj (cnpj) {
+    return `${cnpj.substr(0, 8)}/${cnpj.substr(8, 4)}-${cnpj.substr(12, 2)}`
+}
+
 export function formatPhone (phone) {
     if (phone.length === 10) {
         return `(${phone.substr(0, 2)}) ${phone.substr(2,4)}-${phone.substr(6,4)}`
