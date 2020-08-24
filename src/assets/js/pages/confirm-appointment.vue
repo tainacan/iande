@@ -88,7 +88,13 @@
         },
         methods: {
             async confirmAppointment () {
-                console.log(this.fields)
+                try {
+                    await api.post('appointment/update', this.fields)
+                    await api.post('appointment/advance_step', { ID: this.fields.ID })
+                    window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
+                } catch (err) {
+                    this.formError = err
+                }
             },
             isFormValid () {
                 const formComponent = this.$refs.form
