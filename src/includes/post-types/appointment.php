@@ -375,7 +375,7 @@ function get_appointment_metadata_definition() {
         ],
         'institution_id' => (object) [
             'type'          => 'string',
-            'required'      => false, // @todo It should be required for institutional groups
+            'required'      => __('A instituição é obrigatória', 'iande'),
             'required_step' => 1,
             'validation'    => function ($value) use ($institutions_options) {
                 if (is_numeric($value) && intval($value) == $value) {
