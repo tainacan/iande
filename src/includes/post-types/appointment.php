@@ -399,7 +399,7 @@ function get_appointment_metadata_definition() {
             'required'      => __('Precisamos saber se você já visitou esse museu', 'iande'),
             'required_step' => 2,
             'validation'    => function ($value) {
-                if ($value == 'on') {
+                if ($value == 'yes' || $value == 'not') {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -407,8 +407,12 @@ function get_appointment_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Você já visitou o museu anteriormente?', 'iande'),
-                'type' => 'checkbox',
-                'size' => '50'
+                'type' => 'radio',
+                'size' => '50',
+                'options'          => array(
+                    'yes' => __('Sim', 'iande'),
+                    'not' => __('Não', 'iande')
+                ),
             ]
         ],
         'has_prepared_visit' => (object) [
@@ -416,7 +420,7 @@ function get_appointment_metadata_definition() {
             'required'      => __('Precisamos saber se você preparou seu gruppo para a visita', 'iande'),
             'required_step' => 2,
             'validation'    => function ($value) {
-                if ($value == 'on') {
+                if ($value == 'yes' || $value == 'not') {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -424,8 +428,12 @@ function get_appointment_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Você preparou seu grupo para a visita?', 'iande'),
-                'type' => 'checkbox',
-                'size' => '50'
+                'type' => 'radio',
+                'size' => '50',
+                'options'          => array(
+                    'yes' => __('Sim', 'iande'),
+                    'not' => __('Não', 'iande')
+                ),
             ]
         ],
         'how_prepared_visit' => (object) [
