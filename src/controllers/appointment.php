@@ -288,13 +288,19 @@ class Appointment extends Controller
 
         $step = get_post_meta($params['ID'], 'step', true);
 
-        if ($this->check_metadata_appointment($params['ID'])) {
-            if ($step == '1') {
-                update_post_meta($params['ID'], 'step', '2', $step);
-                $this->success(__('O agendamento passou para o próximo passo', 'iande'));
-            } else {
-                $this->success(__('Nenhuma alteração', 'iande'));
-            }
+        if ($this->validate_step($params['ID']) && $step == '1') {
+
+            update_post_meta($params['ID'], 'step', '2', $step);
+            $this->success(__('O agendamento passou para o próximo passo', 'iande'));
+
+        } elseif($this->validate_step($params['ID']) && $step == '2') {
+
+            $update_appointment = array(
+                'ID'          => $params['ID'],
+                'post_status' => 'pending'
+            );
+            \wp_update_post($update_appointment);
+            $this->success(__('O agendamento passou para o próximo passo e está aguardando confirmação', 'iande'));
 
         }
 
@@ -370,6 +376,48 @@ class Appointment extends Controller
     }
 
     /**
+     * Verifica o step do agendamento de acordo com o metadata required_step
+     * 
+     * @param integer $appointment_id
+     * @return integer $step
+     */
+    function validate_step(int $appointment_id) {
+
+        $step = get_post_meta($appointment_id, 'step', true);
+
+        if ( $step ) {
+
+            $metadata_definition = get_appointment_metadata_definition();
+
+            foreach ($metadata_definition as $key => $definition) {
+
+                if (isset($definition->required_step) && !empty($definition->required_step)) {
+                    
+                    if ($definition->required_step <= $step) {
+                     
+                        $metadata = get_post_meta($appointment_id, $key, true);
+
+                        if (empty($metadata)) {
+                            $this->error(__('Faltam alguns campos obrigatórios, revise e tente novamente'));
+                        }
+
+                    } else {
+
+                        $this->error(__('Campos obrigatórios inválidos'));
+                        
+                    }
+
+                }
+                
+            }
+            
+            return true;
+
+        }
+
+    }
+
+    /**
      * Verifica se todos os campos obrigatórios do agendamento estão preenchidos
      *
      * @param integer $appointment_id
@@ -415,7 +463,7 @@ class Appointment extends Controller
 
         foreach ($metadata_definition as $key => $definition) {
             if ($key == 'group_list') {
-                $pased_appointment->$key = isset($metadata[$key][0]) ? json_decode($metadata[$key][0]) : null;
+                $pased_appointment->$key = isset($metadata[$key][0]) ? json_decode($metadata[$key][0], true) : null;
             } else {
                 $pased_appointment->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
             }
@@ -460,6 +508,7 @@ class Appointment extends Controller
 
                 if($key == 'group_list') {
                     // @todo formatar valor antes de salvar
+                    //$value = json_encode($params[$key]);
                     $value = $params[$key];
                     \update_post_meta($post_id, $key, $value);
                 } else {

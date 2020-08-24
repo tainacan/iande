@@ -255,17 +255,9 @@ function iande_register_status() {
 
 \add_action('cmb2_render_group_list', 'cmb2_render_callback_for_group_list', 10, 5);
 function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id, $object_type, $field_type_object) {
-
-    //echo $field_type_object->input(array('type' => 'group_list'));
-
+    
     $html_entity_decode = html_entity_decode($escaped_value);
-
-    //var_dump($escaped_value);
-
-    $groups_json = ($html_entity_decode) ? json_decode($html_entity_decode, true) : [];
-
-
-    //$groups_json = json_decode($html_entity_decode, true);
+    $groups_json = json_decode($html_entity_decode, true);
 
     if (array_key_exists('groups', $groups_json)) {
 
@@ -361,7 +353,8 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
 
         echo '<details>';
             echo '<summary>' . __('JSON', 'iande') . '</summary>';
-            echo '<textarea disabled>' . json_encode($escaped_value) . '</textarea>';
+            echo $field_type_object->textarea(['type' => 'textarea-small']);
+            //echo '<textarea disabled>' . json_encode($escaped_value) . '</textarea>';
         echo '</details>';
 
     } else {
@@ -373,5 +366,5 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
 \add_filter('cmb2_sanitize_group_list', 'cmb2_sanitize_group_list_callback', 10, 2);
 function cmb2_sanitize_group_list_callback($override_value, $value) {
     // @todo sanitize field
-    return json_decode($value);
+    return $value;
 }

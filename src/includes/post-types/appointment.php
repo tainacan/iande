@@ -462,7 +462,7 @@ function get_appointment_metadata_definition() {
         ],
         'group_list' => (object) [
             'type'          => 'string',
-            'required_step' => 2,
+            'required_step' => '2',
             'validation'    => function ($value) {
                 // @todo validar json dos grupos enviados
                 return true;
