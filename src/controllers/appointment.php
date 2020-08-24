@@ -69,7 +69,7 @@ class Appointment extends Controller
     function endpoint_create(array $params = []) {
 
         $this->require_authentication();
-        $this->validate($params);
+        $this->validate($params, true, true);
 
         \do_action('iande.before_create_appointment', $params);
 
