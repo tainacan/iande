@@ -399,7 +399,7 @@ function get_appointment_metadata_definition() {
             'required'      => __('Precisamos saber se você já visitou esse museu', 'iande'),
             'required_step' => 2,
             'validation'    => function ($value) {
-                if ($value == 'yes' || $value == 'not') {
+                if ($value == true || $value == false) {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -410,8 +410,8 @@ function get_appointment_metadata_definition() {
                 'type' => 'radio',
                 'size' => '50',
                 'options'          => array(
-                    'yes' => __('Sim', 'iande'),
-                    'not' => __('Não', 'iande')
+                    'true'  => __('Sim', 'iande'),
+                    'false' => __('Não', 'iande')
                 ),
             ]
         ],
@@ -420,7 +420,7 @@ function get_appointment_metadata_definition() {
             'required'      => __('Precisamos saber se você preparou seu gruppo para a visita', 'iande'),
             'required_step' => 2,
             'validation'    => function ($value) {
-                if ($value == 'yes' || $value == 'not') {
+                if ($value == true || $value == false) {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -431,8 +431,8 @@ function get_appointment_metadata_definition() {
                 'type' => 'radio',
                 'size' => '50',
                 'options'          => array(
-                    'yes' => __('Sim', 'iande'),
-                    'not' => __('Não', 'iande')
+                    'true'  => __('Sim', 'iande'),
+                    'false' => __('Não', 'iande')
                 ),
             ]
         ],
