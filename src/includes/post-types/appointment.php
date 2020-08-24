@@ -164,8 +164,22 @@ function get_appointment_metadata_definition() {
     $purpose_options = get_option('iande_appointments_settings', []);
     $purpose_options = $purpose_options['appointment_purpose'];
 
+    $purpose_options_new = [];
+    foreach ($purpose_options as $key => $value) {
+        $purpose_options_new[$value] = $value;
+    }
+
+    $purpose_options = $purpose_options_new;
+
     $role_options = get_option('iande_institution', []);
     $role_options = $role_options['institution_responsible_role'];
+
+    $role_options_new = [];
+    foreach ($role_options as $key => $value) {
+        $role_options_new[$value] = $value;
+    }
+
+    $role_options = $role_options_new;
 
     $user_id = \get_current_user_id();
 
