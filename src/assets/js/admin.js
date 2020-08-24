@@ -4,6 +4,10 @@ import StatusMetabox from './components/StatusMetabox.vue'
 
 Vue.component('iande-status-metabox', StatusMetabox)
 
-new Vue({
-    el: '#iande-admin-app',
+jQuery(document).ready(() => {
+    
+    new Vue({
+        el: document.querySelector('#iande-admin-app'),
+    })
+    
 })

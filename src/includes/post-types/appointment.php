@@ -5,6 +5,8 @@ namespace Iande;
 add_action('init', 'Iande\\register_post_type_appointment');
 add_action('cmb2_admin_init', 'Iande\\register_metabox_appointment');
 
+require IANDE_BASEPATH . 'includes/status-metabox.php';
+
 /**
  * Registra o Post Type Appointment
  */
