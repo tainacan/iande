@@ -80,8 +80,36 @@
                         <div>CEP {{ formatCep(institution.zip_code) }}</div>
                     </div>
                 </div>
+
+                <div class="iande-appointment__box" v-for="group in groups" :key="group.id">
+                    <div class="iande-appointment__box-title">
+                        <h3><Icon icon="users"/>{{ groupName(group) }}</h3>
+                        <div class="iande-appointment__edit">
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(5)">Editar</a>
+                            <Icon icon="pencil-alt"/>
+                        </div>
+                    </div>
+                    <div>Previsão de {{ group.num_people }} visitantes</div>
+                    <div>{{ group.num_responsible == 1 ? '1 responsável' : `${group.num_responsible} responsáveis` }}</div>
+                    <div>{{ group.scholarity }}</div>
+                    <div>Pessoas com deficiência: {{ groupDisabilities(group.disabilities) }}</div>
+                    <div>Idiomas: {{ groupLanguages(group.languages) }}</div>
+                </div>
+
+                <div class="iande-appointment__box" v-if="appointment.step > 2">
+                    <div class="iande-appointment__box-title">
+                        <h3><Icon :icon="['far', 'address-card']"/>Dados adicionais</h3>
+                        <div class="iande-appointment__edit">
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(6)">Editar</a>
+                            <Icon icon="pencil-alt"/>
+                        </div>
+                    </div>
+                    <div>Você já visitou o museu antes: {{ appointment.has_visited_previously === 'yes' ? 'Sim' : 'Não' }}</div>
+                    <div>Preparação: {{ appointment.has_prepared_visity === 'yes' ? 'Sim' : 'Não' }}</div>
+                    <div v-if="appointment.additional_comment">Comentários: {{ appointment.additional_comments }}</div>
+                </div>
             </div>
-            <div class="iande-appointment__buttons iande-form">
+            <div class="iande-appointment__buttons">
                 <template v-if="appointment.step == 2">
                     <button class="iande-button solid" @click="cancelAppointment">
                         Cancelar reserva
@@ -135,6 +163,12 @@
                 const parts = this.appointment.date.split('-')
                 return parts[2]
             },
+            groups () {
+                if (this.appointment.group_list) {
+                    return this.appointment.group_list.groups || []
+                }
+                return []
+            },
             hour () {
                 const parts = this.appointment.hour.split(':')
                 return parts.join('h')
@@ -170,6 +204,25 @@
             formatPhone,
             gotoScreen (screen) {
                 return `${window.IandeSettings.iandeUrl}/appointment/edit?ID=${this.appointment.ID}&screen=${screen}`
+            },
+            groupDisabilities (disabilities) {
+                if (disabilities.length === 0) {
+                    return 'não'
+                } else {
+                    return disabilities
+                        .map(disability => `${disability.type} (${disability.count})`)
+                        .join(', ')
+                }
+            },
+            groupLanguages (languages) {
+                return ['Português', ...languages].join(', ')
+            },
+            groupName (group) {
+                if (group.name) {
+                    return `Grupo: ${group.name}`
+                } else {
+                    return `Grupo ${group.id}`
+                }
             },
             toggleDetails () {
                 this.showDetails = !this.showDetails

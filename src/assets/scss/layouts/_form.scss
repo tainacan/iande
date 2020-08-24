@@ -81,31 +81,31 @@
             text-decoration: none;
         }
     }
+}
 
-    .iande-button {
-        border: 1px solid var(--iande-primary-color);
-        border-radius: var(--iande-border-radius);
-        color: var(--iande-secondary-color);
-        display: block;
-        font-size: 1em;
-        font-weight: bold;
-        padding: 15px 20px;
-        text-align: center;
-        text-decoration: none;
-        text-transform: none;
-        width: 100%;
+.iande-button {
+    border: 1px solid var(--iande-primary-color);
+    border-radius: var(--iande-border-radius);
+    color: var(--iande-secondary-color);
+    display: block;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    width: 100%;
 
-        &.solid {
-            background-color: var(--iande-light-color);
-            border-color: var(--iande-light-color);
-        }
+    &.solid {
+        background-color: var(--iande-light-color);
+        border-color: var(--iande-light-color);
+    }
 
-        &.primary {
-            background-color: var(--iande-primary-color);
-        }
+    &.primary {
+        background-color: var(--iande-primary-color);
+    }
 
-        &.outline {
-            background-color: transparent;
-        }
+    &.outline {
+        background-color: transparent;
     }
 }
