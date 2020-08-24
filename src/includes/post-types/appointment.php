@@ -203,7 +203,7 @@ function get_appointment_metadata_definition() {
                 if (in_array($value, $purpose_options) && !empty($value)) {
                     return true;
                 } else {
-                    return __('Objetivo inválido', 'iande');
+                    return __('Objetivo da visita inválido', 'iande');
                 }
             },
             'metabox' => (object) [
@@ -373,7 +373,7 @@ function get_appointment_metadata_definition() {
                 'size'    => '50'
             ]
         ],
-        'institution' => (object) [
+        'institution_id' => (object) [
             'type'          => 'string',
             'required'      => __('A instituição é obrigatória', 'iande'),
             'required_step' => 1,
@@ -385,12 +385,12 @@ function get_appointment_metadata_definition() {
                         return __('Instituição inválida', 'iande');
                     }
                 } else {
-                    return __('O valor deve ser um número inteiro', 'iande');
+                    return __('O valor informado para a instituição deve ser um inteiro', 'iande');
                 }
             },
             'metabox' => (object) [
-                'name' => __('Instituição', 'iande'),
-                'type' => 'select',
+                'name'    => __('Instituição', 'iande'),
+                'type'    => 'select',
                 'options' => $institutions_options,
             ]
         ],
