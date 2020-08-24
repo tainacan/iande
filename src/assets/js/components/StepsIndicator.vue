@@ -26,7 +26,8 @@
         },
         props: {
             inline: { type: Boolean, default: false },
-            step: { type: Number, default: 0 }
+            status: { type: String, dfault: 'draft' },
+            step: { type: Number, default: 0 },
         },
         computed: {
             stepLabels: constant(['Reserva', 'Detalhes', 'Confirmação'])
