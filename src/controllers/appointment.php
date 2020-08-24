@@ -398,13 +398,9 @@ class Appointment extends Controller
                         $metadata = get_post_meta($appointment_id, $key, true);
 
                         if (empty($metadata)) {
-                            $this->error(__('Faltam alguns campos obrigatórios, revise e tente novamente'));
+                            $this->error(__('Faltam alguns campos obrigatórios, revise e tente novamente') . $key);
                         }
 
-                    } else {
-
-                        $this->error(__('Campos obrigatórios inválidos'));
-                        
                     }
 
                 }
