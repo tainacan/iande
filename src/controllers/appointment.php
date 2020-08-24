@@ -451,9 +451,10 @@ class Appointment extends Controller
     function parse_appointment(\WP_Post $appointment, array $metadata = [])
     {
         $pased_appointment = (object) [
-            'ID'      => $appointment->ID,
-            'user_id' => $appointment->post_author,
-            'title'   => $appointment->post_title
+            'ID'          => $appointment->ID,
+            'user_id'     => $appointment->post_author,
+            'title'       => $appointment->post_title,
+            'post_status' => $appointment->post_status
         ];
 
         $metadata_definition = get_appointment_metadata_definition();
