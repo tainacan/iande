@@ -1,7 +1,15 @@
 <?php
 
 function appointment_enqueue_scripts() {
+    wp_enqueue_style( 'iande-admin', IANDE_DISTURL . 'admin.css', [] );
     wp_enqueue_script( 'iande-admin', IANDE_DISTURL . 'admin.js' );
+    wp_localize_script(
+        'iande-admin',
+        'IandeSettings',
+        [
+            'iandeUrl' => get_site_url(null, '/iande'),
+        ]
+    );
 }
 add_action( 'admin_enqueue_scripts', 'appointment_enqueue_scripts' );
 

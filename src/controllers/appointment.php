@@ -168,7 +168,11 @@ class Appointment extends Controller
 
             \do_action('iande.before_cancel_appointment', $params);
 
-            \update_post_meta($params['ID'], 'reason_cancel', __('Cancelado pelo usuário', 'iande'), '');
+            if (!empty($params['reason'])) {
+                \update_post_meta($params['ID'], 'reason_cancel', $params['reason'], '');
+            } else {
+                \update_post_meta($params['ID'], 'reason_cancel', __('Cancelado pelo usuário', 'iande'), '');
+            }
 
             $update_appointment = array(
                 'ID'          => $params['ID'],
@@ -309,7 +313,7 @@ class Appointment extends Controller
 
     /**
      * Altera o status do agendamento
-     * 
+     *
      * @param integer   $params['ID']
      * @param string    $params['post_status']
      */
@@ -337,7 +341,7 @@ class Appointment extends Controller
         if (!in_array(\sanitize_title($params['post_status']), $default_post_status)) {
             $this->error(__('O parâmetro status informado não é permitido', 'iande'));
         }
-        
+
         $appointment = array(
             'ID'          => $params['ID'],
             'post_status' => $params['post_status']

@@ -1,5 +1,6 @@
 {
     "/src/dist/admin.js": "/src/dist/admin.js",
+    "/src/dist/admin.css": "/src/dist/admin.css",
     "/src/dist/app.css": "/src/dist/app.css",
     "/src/dist/app.js": "/src/dist/app.js"
 }
