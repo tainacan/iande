@@ -128,7 +128,13 @@
                 </button>
             </div>
         </div>
-        <Modal ref="modal"/>
+        <Modal ref="modal">
+            <div class="iande-stack">
+                <h1>Agendamento enviado com sucesso!</h1>
+                <p>Os dados do seu agendamento foram enviados para o museu. Assim que a sua visita for confirmada, você receberá um email com todos os detalhes.</p>
+                <button class="iande-button solid" @click="closeModal">Voltar aos agendamentos</button>
+            </div>
+        </Modal>
     </section>
 </template>
 
@@ -211,6 +217,10 @@
                 } catch (err) {
                     console.error(err)
                 }
+            },
+            closeModal () {
+                this.$refs.modal.close()
+                window.location.reload()
             },
             formatCep,
             formatPhone,
