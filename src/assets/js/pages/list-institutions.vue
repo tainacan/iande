@@ -8,7 +8,7 @@
             <div class="iande-container narrow iande-form">
                 <a class="iande-button outline" :href="`${iandeUrl}/institution/create`">
                     <Icon icon="plus-circle"/>
-                    Criar nova instituição
+                    Cadastrar nova instituição
                 </a>
             </div>
         </div>
