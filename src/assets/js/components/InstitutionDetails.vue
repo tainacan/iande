@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div>
-                    <div>Nome da instituição</div>
+                    <div>{{ institution.profile }}</div>
                     <div v-if="institution.cnpj">CNPJ: {{ formatCnpj(institution.cnpj) }}</div>
                     <div>Perfil: {{ institution.profile }}</div>
                     <div>Telefone: {{ formatPhone(institution.phone) }}</div>
