@@ -2,7 +2,7 @@
     <article id="iande-login" class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
             <h1>Boas vindas!</h1>
-            <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ institution }}.</p>
+            <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ siteName }}.</p>
             <p>Para agendar uma visita é simples. Basta você se logar e informar os dados solicitados nas 3 etapas a seguir:</p>
         </div>
 
@@ -63,8 +63,8 @@
         },
         computed: {
             iandeUrl: constant(window.IandeSettings.iandeUrl),
-            institution: constant(window.IandeSettings.siteName),
-            phoneMask: constant(['(##) ####-####', '(##) #####-####'])
+            phoneMask: constant(['(##) ####-####', '(##) #####-####']),
+            siteName: constant(window.IandeSettings.siteName),
         },
         validations: {
             confirmPassword: { required, minChar: minLength(6), samePassword: sameAs('password') },

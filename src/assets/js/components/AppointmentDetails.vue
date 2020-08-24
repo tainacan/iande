@@ -141,7 +141,7 @@
             },
             iandeUrl: constant(window.IandeSettings.iandeUrl),
             institution () {
-                return this.institutions.find(institution => institution.ID == this.appointment.institution)
+                return this.institutions.find(institution => institution.ID == this.appointment.institution_id)
             },
             institutions: get('institutions/list'),
             month() {

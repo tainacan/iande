@@ -417,7 +417,7 @@ function get_appointment_metadata_definition() {
         ],
         'has_prepared_visit' => (object) [
             'type'          => 'string',
-            'required'      => __('Precisamos saber se você preparou seu gruppo para a visita', 'iande'),
+            'required'      => __('Precisamos saber se você preparou seu grupo para a visita', 'iande'),
             'required_step' => 2,
             'validation'    => function ($value) {
                 if ($value == 'yes' || $value == 'no') {
