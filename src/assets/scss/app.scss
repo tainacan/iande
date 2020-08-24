@@ -8,8 +8,10 @@
 @use './components/add-item';
 @use './components/appointment';
 @use './components/group';
+@use './components/institution';
 @use './components/navbar';
 @use './components/steps-indicator';
+@use './components/tooltip';
 
 @use './pages/create-institution';
 @use './pages/login';

@@ -12,6 +12,7 @@ function newInstitution () {
         ID: null,
         name: '',
         phone: '',
+        post_status: 'draft',
         profile: '',
         state: '',
         zip_code: ''
