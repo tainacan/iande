@@ -505,10 +505,8 @@ class Appointment extends Controller
             if (isset($params[$key])) {
 
                 if($key == 'group_list') {
-                    // @todo formatar valor antes de salvar
-                    //$value = json_encode($params[$key]);
-                    $value = $params[$key];
-                    \update_post_meta($post_id, $key, $value);
+                    $value = json_encode($params[$key]);
+                    \update_post_meta($post_id, $key, wp_slash($value));
                 } else {
                     \update_post_meta($post_id, $key, $params[$key]);
                 }

@@ -255,9 +255,8 @@ function iande_register_status() {
 
 \add_action('cmb2_render_group_list', 'cmb2_render_callback_for_group_list', 10, 5);
 function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id, $object_type, $field_type_object) {
-    
-    $html_entity_decode = html_entity_decode($escaped_value);
-    $groups_json = json_decode($html_entity_decode, true);
+
+    $groups_json = json_decode($field->value, true);
 
     if (array_key_exists('groups', $groups_json)) {
 
@@ -365,6 +364,5 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
 
 \add_filter('cmb2_sanitize_group_list', 'cmb2_sanitize_group_list_callback', 10, 2);
 function cmb2_sanitize_group_list_callback($override_value, $value) {
-    // @todo sanitize field
     return $value;
 }
