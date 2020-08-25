@@ -179,7 +179,7 @@
                 return parts[2]
             },
             editable () {
-                return this.appointment.status === 'draft'
+                return this.appointment.post_status === 'draft'
             },
             groups () {
                 if (this.appointment.group_list) {
