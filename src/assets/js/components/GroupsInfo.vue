@@ -19,7 +19,7 @@
 
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-    import { minLength, required } from 'vuelidate/lib/validators'
+    import { maxValue, minLength, required } from 'vuelidate/lib/validators'
     import { sync } from 'vuex-pathify'
 
     import FormError from './FormError.vue'
@@ -51,7 +51,7 @@
                         $each: { required },
                     },
                     name: { required },
-                    num_people: { required },
+                    num_people: { maxValue: maxValue(Number(window.IandeSettings.groupSize)), required },
                     num_responsible: { required },
                     scholarity: { required },
                 },
