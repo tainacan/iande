@@ -373,3 +373,15 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
 function cmb2_sanitize_group_list_callback($override_value, $value) {
     return $value;
 }
+
+/**
+ * Adiciona CMB2 calendar_appointments
+ * @see https://cmb2.io/docs/adding-your-own-field-types
+ */
+
+ \add_action('cmb2_render_calendar_appointments', 'cmb2_render_callback_for_calendar_appointments', 10, 5);
+function cmb2_render_callback_for_calendar_appointments($field, $escaped_value, $object_id, $object_type, $field_type_object) {
+
+    echo '<h2>Hello World</h2>';
+
+}
