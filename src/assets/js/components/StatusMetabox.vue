@@ -38,6 +38,7 @@
                         ID: this.id,
                         reason: this.cancellationReason,
                     })
+                    window.location.reload(true)
                 } catch (err) {
                     this.formError = err
                 }
@@ -49,6 +50,7 @@
                         ID: this.id,
                         post_status: 'publish',
                     })
+                    window.location.reload(true)
                 } catch (err) {
                     this.formError = err
                 }
