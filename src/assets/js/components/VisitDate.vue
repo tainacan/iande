@@ -15,7 +15,7 @@
         </div>
         <div>
             <label class="iande-label" for="hour">Horário</label>
-            <Input id="hour" type="time" placeholder="Selecione um horário disponível" v-model="hour" :validations="$v.hour"/>
+            <SlotPicker ref="slots" id="hour" :day="date" v-model="hour" :validations="$v.hour"/>
         </div>
     </div>
 </template>
@@ -27,6 +27,7 @@
     import DatePicker from './DatePicker.vue'
     import Input from './Input.vue'
     import Select from './Select.vue'
+    import SlotPicker from './SlotPicker.vue'
     import { constant } from '../utils'
     import { date, time } from '../utils/validators'
 
@@ -36,6 +37,7 @@
             DatePicker,
             Input,
             Select,
+            SlotPicker,
         },
         computed: {
             ...sync('appointments/current@', ['date', 'hour', 'name', 'purpose']),
@@ -46,6 +48,15 @@
             hour: { required, time },
             name: { },
             purpose: { required },
+        },
+        watch: {
+            date () {
+                this.$nextTick(() => {
+                    if (!this.$refs.slots.hours.includes(this.hour)) {
+                        this.hour = ''
+                    }
+                })
+            }
         }
     }
 </script>
