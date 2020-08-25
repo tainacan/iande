@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import StatusMetabox from './components/StatusMetabox.vue'
+import StatusMetabox from './components/admin/StatusMetabox.vue'
 
 Vue.component('iande-status-metabox', StatusMetabox)
 

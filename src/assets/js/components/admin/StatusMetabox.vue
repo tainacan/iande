@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import { api } from '../utils'
+    import { api } from '../../utils'
 
     export default {
         name: 'StatusMetabox.vue',
