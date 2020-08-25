@@ -58,7 +58,7 @@ function iande_remove_default_stylesheet()
     }
 
 }
-add_action('wp_enqueue_scripts', 'Iande\\iande_remove_default_stylesheet', 999999);
+\add_action('wp_enqueue_scripts', 'Iande\\iande_remove_default_stylesheet', 999999);
 
 /**
  * Removes os scripts padrões do tema
@@ -81,12 +81,27 @@ function iande_remove_default_scripts()
     }
 
 }
-add_action('wp_enqueue_scripts', 'Iande\\iande_remove_default_scripts', 999999);
+\add_action('wp_enqueue_scripts', 'Iande\\iande_remove_default_scripts', 999999);
+
 
 /**
- * Condicional para verificar se ẽ uma página do Iandé
+ * Remove a WP Admin Bar das páginas do Iandé
  */
-function is_iande_page() {
+function iande_remove_wp_admin_bar()
+{
+    if (is_iande_page()) {
+        return false;
+    }
+    return true;
+}
+\add_filter('show_admin_bar', 'Iande\\iande_remove_wp_admin_bar');
+
+
+/**
+ * Condicional para verificar se é uma página do Iandé
+ */
+function is_iande_page()
+{
 
     $controller_name = \get_query_var('iande_controller');
     $action = \get_query_var('iande_action');
@@ -96,5 +111,4 @@ function is_iande_page() {
     }
 
     return true;
-
 }
