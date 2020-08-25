@@ -1,4 +1,4 @@
-import validateDate from 'validate-date'
+import { DateTime } from 'luxon'
 import { helpers } from 'vuelidate/lib/validators'
 
 export const cep = helpers.regex('cep', /^\d{8}$/)
@@ -9,7 +9,7 @@ export function date (value) {
     if (!value) {
         return true
     }
-    return typeof value === 'string' && validateDate(value, 'boolean')
+    return typeof value === 'string' && DateTime.fromISO(value).isValid()
 }
 
 export const phone = helpers.regex('phone', /^\d{10,11}$/)
