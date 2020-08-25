@@ -6,7 +6,7 @@
         </div>
         <div>
             <label :for="`${id}_numPeople`" class="iande-label">Quantidade prevista de pessoas</label>
-            <Input :id="`${id}_numPeople`" type="number" min="5" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="validations.num_people"/>
+            <Input :id="`${id}_numPeople`" type="number" min="5" :max="maxPeople" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="validations.num_people"/>
             <p class="text-sm">Caso seu grupo seja maior do que a capacidade de atendimento do museu, adicione outro grupo no fim da página.</p>
         </div>
         <div>
@@ -93,6 +93,7 @@
             disabilities: subModel('disabilities'),
             languages: subModel('languages'),
             languageOptions: constant(window.IandeSettings.languages),
+            maxPeople: constant(Number(window.IandeSettings.groupSize)),
             name: subModel('name'),
             numPeople: subModel('num_people'),
             numResponsible: subModel('num_responsible'),
