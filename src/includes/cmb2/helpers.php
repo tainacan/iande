@@ -268,7 +268,7 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
 
         foreach($groups_json['groups'] as $group) {
 
-            echo '<div class="cmb-row" style="background-color: #eeeeee;">';
+            echo '<div class="cmb-row cmb-row-top">';
 
                 echo '<div class="cmb-th">';
                     echo '<b>Grupo</b>';
@@ -279,7 +279,7 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
                 echo '</div>';
 
             echo '</div>';
-            echo '<div class="cmb-row">';
+            echo '<div class="cmb-row cmb-row-line"">';
 
                 echo '<div class="cmb-th">';
                     echo '<b>Deficiências do Grupo</b>';
@@ -293,7 +293,7 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
                 echo '</div>';
 
             echo '</div>';
-            echo '<div class="cmb-row">';
+            echo '<div class="cmb-row cmb-row-line">';
 
                 echo '<div class="cmb-th">';
                     echo '<b>Idiomas do Grupo</b>';
@@ -307,7 +307,7 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
                 echo '</div>';
 
             echo '</div>';
-            echo '<div class="cmb-row">';
+            echo '<div class="cmb-row cmb-row-line">';
 
                 echo '<div class="cmb-th">';
                     echo '<b>Responsável do grupo</b>';
@@ -318,7 +318,7 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
                 echo '</div>';
 
             echo '</div>';
-            echo '<div class="cmb-row">';
+            echo '<div class="cmb-row cmb-row-line">';
 
                 echo '<div class="cmb-th">';
                     echo '<b>Quantidade de pessoas no grupo</b>';
@@ -329,7 +329,7 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
                 echo '</div>';
 
             echo '</div>';
-            echo '<div class="cmb-row">';
+            echo '<div class="cmb-row cmb-row-line">';
 
                 echo '<div class="cmb-th">';
                     echo '<b>Quantidade de responsáveis pelo grupo</b>';
@@ -340,7 +340,7 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
                 echo '</div>';
 
             echo '</div>';
-            echo '<div class="cmb-row">';
+            echo '<div class="cmb-row cmb-row-line">';
 
                 echo '<div class="cmb-th">';
                     echo '<b>Escolaridade do grupo</b>';
