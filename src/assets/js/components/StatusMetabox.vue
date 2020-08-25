@@ -1,13 +1,13 @@
 <template>
     <div class="iande-status-metabox">
-        <button class="button button-primary button-large" @click="publish">
+        <button type="button" class="button button-primary button-large" @click="publish">
             Confirmar agendamento
         </button>
         <div>
             <label for="cancelattion-reason">Motivo do cancelamento</label>
             <textarea id="cancelattion-reason" v-model="cancellationReason"/>
         </div>
-        <button class="button button-primary button-large button-cancel" @click="cancelPost">
+        <button type="button" class="button button-primary button-large button-cancel" @click="cancelPost">
             Cancelar agendamento
         </button>
         <p class="form-error" v-if="formError">
