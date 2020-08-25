@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div>
-                <StepsIndicator inline :step="Number(appointment.step)"/>
+                <StepsIndicator inline :step="Number(appointment.step)" :status="appointment.post_status" :reason="appointment.reason_cancel"/>
                 <div class="iande-appointment__toggle" :aria-label="showDetails ? 'Ocultar detalhes' : 'Exibir detalhes'" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
                     <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
                 </div>
