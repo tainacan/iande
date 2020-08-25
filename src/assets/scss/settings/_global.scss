@@ -5,6 +5,10 @@
     line-height: 1.375;
     padding: 30px 20px;
 
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
     .iande-container {
         margin-left: auto;
         margin-right: auto;
