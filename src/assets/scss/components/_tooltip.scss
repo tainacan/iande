@@ -1,3 +1,25 @@
 .iande-tooltip {
+    color: var(--iande-secondary-color);
+    margin-left: 5px;
+}
 
+.tooltip {
+    border: 2px solid var(--iande-primary-color);
+    border-radius: var(--iande-border-radius);
+    display: block;
+    margin: 10px;
+    z-index: 100;
+
+    &-inner {
+        background-color: var(--iande-background-color);
+        border-radius: var(--iande-border-radius);
+        color: var(--iande-secondary-color);
+        font-size: 0.8em;
+        padding: 10px;
+        text-align: center;
+
+        @media screen and (min-width: 600px) {
+            width: 300px;
+        }
+    }
 }
