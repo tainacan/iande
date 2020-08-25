@@ -11,7 +11,7 @@
         </div>
         <div>
             <label class="iande-label" for="date">Data da visitação</label>
-            <Input id="date" type="date" placeholder="Selecione uma data" v-model="date" :validations="$v.date"/>
+            <DatePicker id="date" v-model="date" placeholder="Selecione uma data" format="dd/MM/yyyy" :validations="$v.date"/>
         </div>
         <div>
             <label class="iande-label" for="hour">Horário</label>
@@ -24,6 +24,7 @@
     import { required } from 'vuelidate/lib/validators'
     import { sync } from 'vuex-pathify'
 
+    import DatePicker from './DatePicker.vue'
     import Input from './Input.vue'
     import Select from './Select.vue'
     import { constant } from '../utils'
@@ -32,6 +33,7 @@
     export default {
         name: 'VisitDate',
         components: {
+            DatePicker,
             Input,
             Select,
         },

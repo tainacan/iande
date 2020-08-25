@@ -35,10 +35,12 @@
     "@fortawesome/free-regular-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/vue-fontawesome": "^0.1.10",
+    "luxon": "^1.25.0",
     "v-tooltip": "^2.0.3",
     "validate-date": "^2.0.0",
     "vue": "^2.6.11",
     "vue-the-mask": "^0.11.1",
+    "vuejs-datepicker": "^1.6.2",
     "vuelidate": "^0.7.5",
     "vuex": "^3.5.1",
     "vuex-pathify": "^1.4.1"
