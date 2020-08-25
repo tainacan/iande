@@ -39,21 +39,22 @@ add_action('wp_enqueue_scripts', 'iande_institution_settings');
 
 function iande_institution_settings() {
 
-    $site_name          = get_bloginfo('name');
-    $site_url           = get_bloginfo('url');
-    $iande_url          = get_site_url(null, '/iande');
-    $purposes           = cmb2_get_option('iande_appointments_settings', 'appointment_purpose', []);
-    $duration           = cmb2_get_option('iande_appointments_settings', 'duration', []);
-    $group_size         = cmb2_get_option('iande_appointments_settings', 'group_size', []);
-    $group_slot         = cmb2_get_option('iande_appointments_settings', 'group_slot', []);
-    $grid               = cmb2_get_option('iande_appointments_settings', 'grid', []);
-    $profiles           = cmb2_get_option('iande_institution', 'institution_profile', []);
-    $responsible_role   = cmb2_get_option('iande_institution', 'institution_responsible_role', []);
-    $deficiency         = cmb2_get_option('iande_institution', 'institution_deficiency', []);
-    $language           = cmb2_get_option('iande_institution', 'institution_language', []);
-    $age_range          = cmb2_get_option('iande_institution', 'institution_age_range', []);
-    $scholarity         = cmb2_get_option('iande_institution', 'institution_scholarity', []);
-    $schedules          = get_option('iande_schedules', []);
+    $site_name        = get_bloginfo('name');
+    $site_url         = get_bloginfo('url');
+    $iande_url        = get_site_url(null, '/iande');
+    $purposes         = cmb2_get_option('iande_appointments_settings', 'appointment_purpose', []);
+    $duration         = cmb2_get_option('iande_appointments_settings', 'duration', []);
+    $group_size       = cmb2_get_option('iande_appointments_settings', 'group_size', []);
+    $group_slot       = cmb2_get_option('iande_appointments_settings', 'group_slot', []);
+    $grid             = cmb2_get_option('iande_appointments_settings', 'grid', []);
+    $profiles         = cmb2_get_option('iande_institution', 'institution_profile', []);
+    $responsible_role = cmb2_get_option('iande_institution', 'institution_responsible_role', []);
+    $deficiency       = cmb2_get_option('iande_institution', 'institution_deficiency', []);
+    $language         = cmb2_get_option('iande_institution', 'institution_language', []);
+    $age_range        = cmb2_get_option('iande_institution', 'institution_age_range', []);
+    $scholarity       = cmb2_get_option('iande_institution', 'institution_scholarity', []);
+    $schedules        = get_option('iande_schedules', []);
+    $schedules        = array_filter($schedules);
 
     wp_localize_script(
         'iande',
