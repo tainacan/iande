@@ -36,8 +36,10 @@
     &__date {
         align-items: center;
         color: var(--iande-secondary-color);
+        font-family: var(--iande-title-font);
         display: flex;
         flex-direction: column;
+
         justify-content: center;
 
         @media screen and (max-width: 400px) {

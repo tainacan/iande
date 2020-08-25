@@ -10,6 +10,9 @@ $medium-color: #999999 !default;
 $text-color: #666666 !default;
 $error-color: #E53E3E !default;
 
+$text-font: 'Open Sans', sans-serif;
+$title-font: 'Quicksand', 'Open Sans', sans-serif;
+
 :root {
     --iande-border-radius: #{$border-radius};
 
@@ -22,4 +25,6 @@ $error-color: #E53E3E !default;
     --iande-medium-color: #{$medium-color};
     --iande-text-color: #{$text-color};
     --iande-error-color: #{$error-color};
+    --iande-text-font: #{$text-font};
+    --iande-title-font: #{$title-font};
 }
