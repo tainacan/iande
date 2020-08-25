@@ -6,7 +6,7 @@
                     <span v-if="step > i" :aria-label="`${i}, concluído`">
                         <Icon icon="check"/>
                     </span>
-                    <span v-else-if="step === i && status === 'canceled'">
+                    <span v-else-if="step === i && status === 'canceled'" :aria-label="`${i}, cancelado`">
                         <Icon icon="times"/>
                     </span>
                     <span v-else>{{ i }}</span>
@@ -15,10 +15,13 @@
             </div>
             <div class="iande-steps__step" :key="3" :class="step === 3 && status !== 'draft' && 'active'">
                 <div class="iande-steps__step-number">
-                    <span v-if="step === 3 && status === 'publish'" :aria-label="`${i}, concluído`">
+                    <span v-if="step === 3 && status === 'publish'" aria-label="3, confirmado">
                         <Icon icon="check"/>
                     </span>
-                    <span v-else-if="step === 3 && status === 'canceled'" :aria-label="`${i}, concluído`">
+                    <span v-else-if="step === 3 && status === 'canceled'" aria-label="3, cancelado">
+                        <Icon icon="times"/>
+                    </span>
+                    <span v-else-if="step === 3 && status === 'pending'" aria-label="3, aguardando confirmação">
                         <Icon icon="times"/>
                     </span>
                     <span v-else>3</span>
