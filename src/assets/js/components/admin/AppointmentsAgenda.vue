@@ -1,6 +1,6 @@
 <template>
     <div class="iande-appointments-agenda">
-        <Calendar activeView="month" :disableViews="['years', 'year']" :events="events" locale="pt-br">
+        <Calendar activeView="month" :disableViews="['years', 'year']" :events="events" locale="pt-br" startWeekOnSunday>
             <template #cell-content="{ cell, view }">
                 <template v-if="view.id === 'month'">
                     <div>{{ cell.content }}</div>
@@ -23,9 +23,6 @@
 
     import { api, constant } from '../../utils'
     import { getWorkingHours } from '../../utils/agenda'
-
-    const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday',
-        'friday', 'saturday']
 
     export default {
         name: 'AppointmentsAgenda',
