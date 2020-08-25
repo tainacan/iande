@@ -33,7 +33,7 @@ add_action('add_meta_boxes_appointment', 'status_metaboxes');
 function build_status_metabox($post)
 {
 ?>
-    <div id="iande-admin-app">
+    <div class="iande-admin-app">
         <iande-status-metabox id="<?php echo get_the_ID(); ?>"></iande-status-metabox>
     </div>
 <?php
