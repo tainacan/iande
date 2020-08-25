@@ -1,14 +1,21 @@
 <template>
     <div class="iande-appointments-agenda">
-        Agenda
+        <Calendar activeView="month" :disableViews="['years', 'year']" locale="pt-br"/>
     </div>
 </template>
 
 <script>
+    import Calendar from 'vue-cal'
+
+    import 'vue-cal/dist/i18n/pt-br';
+
     import { api } from '../../utils'
 
     export default {
         name: 'AppointmentsAgenda',
+        components: {
+            Calendar,
+        },
         data () {
             return {
                 appointments: [],
