@@ -1,8 +1,6 @@
-<?php get_header(); ?>
+<?php $title = 'Cadastro de usuário'; ?>
+<?php require 'parts/header.php'; ?>
 
-<div id="iande-app" class="iande">
-    <iande-navbar></iande-navbar>
-    <iande-create-user-page></iande-create-user-page>
-</div>
+<iande-create-user-page></iande-create-user-page>
 
-<?php get_footer(); ?>
+<?php require 'parts/footer.php'; ?>

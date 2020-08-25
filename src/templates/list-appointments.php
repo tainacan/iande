@@ -1,8 +1,6 @@
-<?php get_header(); ?>
+<?php $title = 'Seus agendamentos'; ?>
+<?php require 'parts/header.php'; ?>
 
-<div id="iande-app" class="iande">
-    <iande-navbar></iande-navbar>
-    <iande-list-appointments-page></iande-list-apppointments-page>
-</div>
+<iande-list-appointments-page></iande-list-apppointments-page>
 
-<?php get_footer(); ?>
+<?php require 'parts/footer.php'; ?>

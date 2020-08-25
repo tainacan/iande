@@ -1,8 +1,6 @@
-<?php get_header(); ?>
+<?php $title = 'Suas instituições'; ?>
+<?php require 'parts/header.php'; ?>
 
-<div id="iande-app" class="iande">
-    <iande-navbar></iande-navbar>
-    <iande-list-institutions-page></iande-list-institutions-page>
-</div>
+<iande-list-institutions-page></iande-list-institutions-page>
 
-<?php get_footer(); ?>
+<?php require 'parts/footer.php'; ?>

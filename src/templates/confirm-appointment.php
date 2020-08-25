@@ -1,8 +1,7 @@
-<?php get_header(); ?>
+<?php $title = 'Confirmação de agendamento'; ?>
+<?php require 'parts/header.php'; ?>
 
-<div id="iande-app" class="iande">
-    <iande-navbar></iande-navbar>
-    <iande-confirm-appointment-page></iande-confirm-apppointment-page>
-</div>
+<iande-confirm-appointment-page></iande-confirm-apppointment-page>
 
-<?php get_footer(); ?>
+<?php require 'parts/footer.php'; ?>
+

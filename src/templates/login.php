@@ -1,8 +1,6 @@
-<?php get_header(); ?>
+<?php $title = 'Login'; ?>
+<?php require 'parts/header.php'; ?>
 
-<div id="iande-app" class="iande">
-    <iande-navbar></iande-navbar>
-    <iande-login-page></iande-login-page>
-</div>
+<iande-login-page></iande-login-page>
 
-<?php get_footer(); ?>
+<?php require 'parts/footer.php'; ?>
