@@ -1,3 +1,6 @@
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faAddressCard, faCalendar, faClock } from '@fortawesome/free-regular-svg-icons'
+import { faAngleLeft, faAngleRight, faCheck, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import Vuex from 'vuex'
@@ -5,7 +8,8 @@ import Vuex from 'vuex'
 import Navbar from './components/Navbar.vue'
 import createStore from './store'
 
-import './utils/icons'
+library.add(faAddressCard, faCalendar, faClock)
+library.add(faAngleLeft, faAngleRight, faCheck, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers)
 
 // Lazy-loading candidates
 import ConfirmAppointmentPage from './pages/confirm-appointment.vue'
