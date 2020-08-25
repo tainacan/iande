@@ -11,7 +11,7 @@
 
     import CustomField from './mixins/CustomField'
 
-    const weekDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+    const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
     export default {
         name: 'DatePicker',
