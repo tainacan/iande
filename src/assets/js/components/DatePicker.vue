@@ -23,9 +23,15 @@
         computed: {
             disabledDates () {
                 const to = DateTime.fromObject({ hour: 0, minute: 0, second: 0, millisecond: 0 }).toJSDate()
-                const days = Object.entries(window.IandeSettings.schedules)
-                    .filter(([day, intervals]) => !Boolean(intervals.find(interval => interval.to && interval.from)))
-                    .map(([day]) => weekDays.indexOf(day))
+                const days = []
+                for (let i = 0; i < 7; i++) {
+                    const day = window.IandeSettings.schedules[weekDays[i]]
+                    if (!day || !Array.isArray(day)) {
+                        days.push(i)
+                    } else if (!Boolean(day.find(interval => interval.to && interval.from))) {
+                        days.push(i)
+                    }
+                }
                 return { days, to }
             },
             dateValue: {

@@ -15,16 +15,16 @@ function iande_institution() {
         'save_button'  => esc_html__('Salvar opções', 'iande')
     ];
 
-    $iande_main_options = new_cmb2_box($args);
+    $iande_institutions_options = new_cmb2_box($args);
 
     // Perfil
-    $iande_main_options->add_field([
+    $iande_institutions_options->add_field([
         'name' => __('Perfil da insituição', 'iande'),
         'id'   => 'institution_profile_title',
         'type' => 'title',
         'desc' => __('Gerencie abaixo os perfis disponíveis para as instituições', 'iande')
     ]);
-    $iande_main_options->add_field([
+    $iande_institutions_options->add_field([
         'name'       => __('Perfil', 'iande'),
         'id'         => 'institution_profile',
         'type'       => 'text',
@@ -35,13 +35,13 @@ function iande_institution() {
     ]);
 
     // Escolaridade
-    $iande_main_options->add_field([
+    $iande_institutions_options->add_field([
         'name' => __('Escolaridade', 'iande'),
         'id'   => 'iande_scholarity_title',
         'type' => 'title',
         'desc' => __('Gerencie abaixo as escolaridades disponíveis para as instituições', 'iande')
     ]);
-    $iande_main_options->add_field([
+    $iande_institutions_options->add_field([
         'name'       => __('Escolaridade', 'iande'),
         'id'         => 'institution_scholarity',
         'type'       => 'text',
@@ -52,13 +52,13 @@ function iande_institution() {
     ]);
 
     // Relação do Responsável
-    $iande_main_options->add_field([
+    $iande_institutions_options->add_field([
         'name' => __('Relação do Responsável com a Instituição', 'iande'),
         'id'   => 'iande_responsible_role_title',
         'type' => 'title',
         'desc' => __('Gerencie abaixo as relações disponíveis para as instituições', 'iande')
     ]);
-    $iande_main_options->add_field([
+    $iande_institutions_options->add_field([
         'name'       => __('Relação do Responsável com a Instituição', 'iande'),
         'id'         => 'institution_responsible_role',
         'type'       => 'text',
@@ -69,13 +69,13 @@ function iande_institution() {
     ]);
 
     // Deficiências
-    $iande_main_options->add_field([
+    $iande_institutions_options->add_field([
         'name' => __('Vocabulário de Deficiências', 'iande'),
         'id'   => 'iande_deficiency_title',
         'type' => 'title',
         'desc' => __('Gerencie abaixo o vocabulário de deficiências atendidas', 'iande')
     ]);
-    $iande_main_options->add_field([
+    $iande_institutions_options->add_field([
         'name'       => __('Deficiências', 'iande'),
         'id'         => 'institution_deficiency',
         'type'       => 'text',
@@ -86,13 +86,13 @@ function iande_institution() {
     ]);
 
     // Idiomas
-    $iande_main_options->add_field([
+    $iande_institutions_options->add_field([
         'name' => __('Vocabulário de Idiomas', 'iande'),
         'id'   => 'iande_language_title',
         'type' => 'title',
         'desc' => __('Gerencie abaixo o vocabulário de idiomas adicionais atendidos', 'iande')
     ]);
-    $iande_main_options->add_field([
+    $iande_institutions_options->add_field([
         'name'       => __('Idiomas adicionais', 'iande'),
         'id'         => 'institution_language',
         'type'       => 'text',
@@ -103,13 +103,13 @@ function iande_institution() {
     ]);
 
     // Faixa Etária
-    $iande_main_options->add_field([
+    $iande_institutions_options->add_field([
         'name' => __('Vocabulário de Faixas Etárias', 'iande'),
         'id'   => 'iande_age_range_title',
         'type' => 'title',
         'desc' => __('Gerencie abaixo o vocabulário de faixas etárias atendidas', 'iande')
     ]);
-    $iande_main_options->add_field([
+    $iande_institutions_options->add_field([
         'name'       => __('Faixas Etárias', 'iande'),
         'id'         => 'institution_age_range',
         'type'       => 'text',
