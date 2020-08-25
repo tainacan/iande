@@ -42,7 +42,7 @@ function iande_settings_appointments() {
     ]);
     $iande_appointments_options->add_field([
         'name' => __('Duração (em minutos)', 'iande'),
-        'description' => __('@todo adicionar descrição mais detalhada para esse campo', 'iande'),
+        'description' => __('', 'iande'),
         'id'   => 'duration',
         'type' => 'text_small'
     ]);
@@ -54,7 +54,7 @@ function iande_settings_appointments() {
     ]);
     $iande_appointments_options->add_field([
         'name' => __('Tamanho (máximo) dos grupos', 'iande'),
-        'description' => __('@todo adicionar descrição mais detalhada para esse campo', 'iande'),
+        'description' => __('', 'iande'),
         'id'   => 'group_size',
         'type' => 'text_small'
     ]);
@@ -66,7 +66,7 @@ function iande_settings_appointments() {
     ]);
     $iande_appointments_options->add_field([
         'name' => __('Quantidade (máxima) de grupos por slot', 'iande'),
-        'description' => __('@todo adicionar descrição mais detalhada para esse campo', 'iande'),
+        'description' => __('', 'iande'),
         'id'   => 'group_slot',
         'type' => 'text_small'
     ]);
@@ -78,7 +78,7 @@ function iande_settings_appointments() {
     ]);
     $iande_appointments_options->add_field([
         'name' => __('Grid', 'iande'),
-        'description' => __('@todo adicionar descrição mais detalhada para esse campo', 'iande'),
+        'description' => __('', 'iande'),
         'id'   => 'grid',
         'type' => 'text_small'
     ]);
