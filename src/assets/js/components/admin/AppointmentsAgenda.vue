@@ -89,7 +89,7 @@
                 return this.appointmentsByDate.get(cell.formattedDate) || []
             },
             cellHours (cell) {
-                return getWorkingHours(cell.startDate).map(interval => `${interval.from}-${interval.to}`)
+                return getWorkingHours(cell.startDate).map(interval => `${interval.from} - ${interval.to}`)
             }
         }
     }
