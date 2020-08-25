@@ -9,8 +9,7 @@
 
     import Select from './Select.vue'
     import CustomField from './mixins/CustomField'
-
-    const weekDays = ['', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+    import { getSlots } from '../utils/agenda'
 
     export default {
         name: 'SlotPicker',
@@ -26,17 +25,7 @@
                 if (!this.day) {
                     return []
                 }
-                const day = window.IandeSettings.schedules[this.weekDay]
-                return day.flatMap(interval => {
-                    if (interval.to && interval.from) {
-                        return Interval.fromDateTimes(
-                            DateTime.fromFormat(interval.from, 'HH:mm'),
-                            DateTime.fromFormat(interval.to, 'HH:mm')
-                        ).splitBy({ minutes: Number(window.IandeSettings.duration) })
-                    } else {
-                        return []
-                    }
-                })
+                return getSlots(this.day)
             },
             emptyMessage () {
                 if (!this.day) {
@@ -57,9 +46,6 @@
                 })
                 return Object.fromEntries(entries)
             },
-            weekDay () {
-                return weekDays[DateTime.fromISO(this.day).weekday]
-            }
         }
     }
 </script>

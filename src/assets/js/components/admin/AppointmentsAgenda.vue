@@ -21,7 +21,8 @@
     import Calendar from 'vue-cal'
     import 'vue-cal/dist/i18n/pt-br';
 
-    import { api } from '../../utils'
+    import { api, constant } from '../../utils'
+    import { getWorkingHours } from '../../utils/agenda'
 
     const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday',
         'friday', 'saturday']
@@ -50,7 +51,7 @@
                 return dates
             },
             events () {
-                const delta = { minutes: Number(window.IandeSettings.duration) }
+                const delta = { minutes: this.timeStep }
                 const endsCache = new Map()
                 return this.appointments.map(appointment => {
                     const start = appointment.hour
@@ -68,7 +69,8 @@
                         raw: appointment,
                     }
                 })
-            }
+            },
+            timeStep: constant(Number(window.IandeSettings.duration)),
         },
         async created () {
             try {
@@ -83,15 +85,9 @@
                 return this.appointmentsByDate.get(cell.formattedDate)
             },
             cellHours (cell) {
-                const weekDay = window.IandeSettings.schedules[weekDays[cell.startDate.getDay()]]
-                if (!weekDay) {
-                    return ''
-                } else {
-                    return weekDay
-                        .filter(interval => interval.from && interval.to)
-                        .map(interval => `${interval.from}-${interval.to}`)
-                        .join('; ')
-                }
+                return getWorkingHours(cell.startDate)
+                    .map(interval => `${interval.from}-${interval.to}`)
+                    .join('; ')
             }
         }
     }
