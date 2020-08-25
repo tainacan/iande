@@ -75,6 +75,28 @@ abstract class Controller
     }
 
     /**
+     * Verifica se o usuário está autenticado e é admin
+     * e se não estiver renderiza mensagem de erro
+     *
+     * @param string $error_message
+     * @return void
+     */
+    function require_admin($error_message = '')
+    {
+        $this->require_authentication($error_message);
+
+        $error_message = $error_message ?: __('This action requires admin permission');
+
+        if (!\current_user_can('administrator')) {
+            if (\wp_is_json_request()) {
+                $this->error($error_message, 403);
+            } else {
+                $this->render('parts/access-denied', ['error_message' => $error_message]);
+            }
+        }
+    }
+
+    /**
      * Verifica se o usuário está autenticado e
      * se nao estiver renderiza mensagem de erro
      *
