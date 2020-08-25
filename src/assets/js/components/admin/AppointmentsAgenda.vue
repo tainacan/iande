@@ -1,15 +1,19 @@
 <template>
-    <div class="iande-appointments-agenda">
+    <div class="iande-admin-agenda">
         <Calendar activeView="month" :disableViews="['years', 'year']" :events="events" locale="pt-br" startWeekOnSunday>
             <template #cell-content="{ cell, view }">
                 <template v-if="view.id === 'month'">
-                    <div>{{ cell.content }}</div>
-                    <div v-if="!cell.outOfScope && cellHours(cell)">
-                        {{ cellHours(cell) }}
-                    </div>
-                    <div v-if="!cell.outOfScope && cellAppointments(cell)">
-                        {{ cellAppointments(cell).length }} agendamento{{ cellAppointments(cell).length > 1 ? 's' : '' }}
-                    </div>
+                    <div class="iande-admin-agenda__month">{{ cell.content }}</div>
+                    <template v-if="!cell.outOfScope">
+                        <LocalScope :people="cellAppointments(cell)" :hours="cellHours(cell)" v-slot="{ hours, people }">
+                            <div class="iande-admin-agenda__line" v-for="hour of hours" :key="hour">
+                                {{ hour }}
+                            </div>
+                            <div class="iande-admin-agenda__line" v-if="people.length > 0">
+                                {{ people.length }} reserva{{ people.length > 1 ? 's' : '' }}
+                            </div>
+                        </LocalScope>
+                    </template>
                 </template>
             </template>
         </Calendar>
@@ -17,8 +21,10 @@
 </template>
 
 <script>
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { DateTime } from 'luxon'
     import Calendar from 'vue-cal'
+    import { LocalScope } from 'vue-local-scope'
     import 'vue-cal/dist/i18n/pt-br';
 
     import { api, constant } from '../../utils'
@@ -28,6 +34,7 @@
         name: 'AppointmentsAgenda',
         components: {
             Calendar,
+            LocalScope,
         },
         data () {
             return {
@@ -79,12 +86,10 @@
         },
         methods: {
             cellAppointments (cell) {
-                return this.appointmentsByDate.get(cell.formattedDate)
+                return this.appointmentsByDate.get(cell.formattedDate) || []
             },
             cellHours (cell) {
-                return getWorkingHours(cell.startDate)
-                    .map(interval => `${interval.from}-${interval.to}`)
-                    .join('; ')
+                return getWorkingHours(cell.startDate).map(interval => `${interval.from}-${interval.to}`)
             }
         }
     }

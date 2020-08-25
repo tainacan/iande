@@ -39,6 +39,7 @@
     "v-tooltip": "^2.0.3",
     "vue": "^2.6.11",
     "vue-cal": "^3.6.4",
+    "vue-local-scope": "0.0.1",
     "vue-the-mask": "^0.11.1",
     "vuejs-datepicker": "^1.6.2",
     "vuelidate": "^0.7.5",
