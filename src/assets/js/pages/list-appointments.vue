@@ -4,7 +4,7 @@
             <h1>Seus agendamentos</h1>
             <AppointmentDetails v-for="(appointment, n) in appointments" :key="appointment.ID" :appointment="appointment" :n="n + 1"/>
             <div class="iande-container narrow">
-                <a class="iande-button outline" :href="`${iandeUrl}/appointment/create`">
+                <a class="iande-button outline mb-lg" :href="`${iandeUrl}/appointment/create`">
                     <Icon icon="plus-circle"/>
                     Criar novo agendamento
                 </a>

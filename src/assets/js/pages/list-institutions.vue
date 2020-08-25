@@ -6,7 +6,7 @@
                 <InstitutionDetails v-for="(institution, n) in institutions" :key="institution.ID" :institution="institution" :n="n + 1"/>
             </div>
             <div class="iande-container narrow">
-                <a class="iande-button outline" :href="`${iandeUrl}/institution/create`">
+                <a class="iande-button outline mb-lg" :href="`${iandeUrl}/institution/create`">
                     <Icon icon="plus-circle"/>
                     Cadastrar nova instituição
                 </a>
