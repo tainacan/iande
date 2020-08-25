@@ -21,9 +21,7 @@
                     <span v-else-if="step === 3 && status === 'canceled'" aria-label="3, cancelado">
                         <Icon icon="times"/>
                     </span>
-                    <span v-else-if="step === 3 && status === 'pending'" aria-label="3, aguardando confirmação">
-                        <Icon icon="times"/>
-                    </span>
+                    <span v-else-if="step === 3 && status === 'pending'" aria-label="3, aguardando confirmação">3</span>
                     <span v-else>3</span>
                 </div>
                 <div class="iande-steps__step-label">
