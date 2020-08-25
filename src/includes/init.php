@@ -42,19 +42,23 @@ add_action('admin_init', 'Iande\\iande_activation_plugin');
  */
 function iande_remove_default_stylesheet()
 {
+    
+    if (is_iande_page()) {
+    
+        global $wp_styles;
 
-    global $wp_styles;
+        foreach ( $wp_styles->queue as $style ) :
 
-    foreach ( $wp_styles->queue as $style ) :
+            if ($style != 'iande') {
+                \wp_dequeue_style($style);
+            }
 
-        if ($style != 'iande') {
-            \wp_dequeue_style($style);
-        }
+        endforeach;
 
-    endforeach;
+    }
 
 }
-add_action('wp_enqueue_scripts', 'Iande\\iande_remove_default_stylesheet', 999);
+add_action('wp_enqueue_scripts', 'Iande\\iande_remove_default_stylesheet', 999999);
 
 /**
  * Removes os scripts padrões do tema
@@ -64,15 +68,33 @@ add_action('wp_enqueue_scripts', 'Iande\\iande_remove_default_stylesheet', 999);
 function iande_remove_default_scripts()
 {
 
-    global $wp_scripts;
+    if(is_iande_page()) {
+        global $wp_scripts;
 
-    foreach ($wp_scripts->queue as $script) :
+        foreach ($wp_scripts->queue as $script) :
 
-        if ($script != 'iande') {
-            \wp_dequeue_script($script);
-        }
+            if ($script != 'iande') {
+                \wp_dequeue_script($script);
+            }
 
-    endforeach;
+        endforeach;
+    }
 
 }
 add_action('wp_enqueue_scripts', 'Iande\\iande_remove_default_scripts', 999999);
+
+/**
+ * Condicional para verificar se ẽ uma página do Iandé
+ */
+function is_iande_page() {
+
+    $controller_name = \get_query_var('iande_controller');
+    $action = \get_query_var('iande_action');
+
+    if (!$action || !$controller_name) {
+        return;
+    }
+
+    return true;
+
+}
