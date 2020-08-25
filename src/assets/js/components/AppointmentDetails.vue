@@ -118,7 +118,7 @@
                     Confirmar reserva
                     <Icon icon="check"/>
                 </a>
-                <button class="iande-button primary" v-else-if="editable && appointment.step == 3">
+                <button class="iande-button primary" v-else-if="editable && appointment.step == 3" @click="sendConfirmation">
                     Finalizar reserva
                     <Icon icon="check"/>
                 </button>
@@ -247,8 +247,8 @@
                 }
             },
             async sendConfirmation () {
+                await api.post('appointment/set_status', { ID: this.appointment.ID, post_status: 'pending' })
                 this.$refs.modal.open()
-                //await api.post('appointment/set_status', { ID: this.appointment.ID, post_status: 'pending' })
             },
             toggleDetails () {
                 this.showDetails = !this.showDetails
