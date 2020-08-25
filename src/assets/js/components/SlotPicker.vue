@@ -53,7 +53,7 @@
                 const entries = this.availableSlots.map(slot => {
                     const start = slot.start.toFormat('HH:mm')
                     const end = slot.end.toFormat('HH:mm')
-                    return [`${start} - ${end}`, start]
+                    return [`${start} a ${end}`, start]
                 })
                 return Object.fromEntries(entries)
             },
