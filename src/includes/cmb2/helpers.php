@@ -381,7 +381,9 @@ function cmb2_sanitize_group_list_callback($override_value, $value) {
 
  \add_action('cmb2_render_calendar_appointments', 'cmb2_render_callback_for_calendar_appointments', 10, 5);
 function cmb2_render_callback_for_calendar_appointments($field, $escaped_value, $object_id, $object_type, $field_type_object) {
-
-    echo '<h2>Hello World</h2>';
-
+    ?>
+    <div class="iande-admin-app">
+        <iande-appointments-agenda></iande-appointments-agenda>
+    </div>
+    <?php
 }

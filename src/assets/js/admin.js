@@ -1,7 +1,9 @@
 import Vue from 'vue'
 
-import StatusMetabox from './components/StatusMetabox.vue'
+import AppointmentsAgenda from './components/admin/AppointmentsAgenda.vue'
+import StatusMetabox from './components/admin/StatusMetabox.vue'
 
+Vue.component('iande-appointments-agenda', AppointmentsAgenda)
 Vue.component('iande-status-metabox', StatusMetabox)
 
 jQuery(document).ready(() => {

@@ -268,6 +268,44 @@ class Appointment extends Controller
         $this->success($parsed_appointments);
     }
 
+
+    /**
+     * Retorna todos os agendamentos confirmados
+     *
+     * @return void
+     */
+    function endpoint_list_published()
+    {
+
+        $this->require_admin();
+
+        $args = array(
+            'post_type'      => 'appointment',
+            'post_status'    => ['publish'],
+            'posts_per_page' => 9999,
+        );
+
+        $appointments = get_posts($args);
+
+        if (empty($appointments)) {
+            return $this->success([]);
+        }
+
+        $parsed_appointments = [];
+
+        foreach ($appointments as $key => $appointment) {
+            $parsed_appointments[] = $this->get_parsed_appointment($appointment->ID);
+        }
+
+        $parsed_appointments = array_filter($parsed_appointments);
+
+        if (empty($parsed_appointments)) {
+            return $this->success([]);
+        }
+
+        $this->success($parsed_appointments);
+    }
+
     /**
      * Muda o step do agendamento quando todos os campos estão válidos
      *

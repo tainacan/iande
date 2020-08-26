@@ -1,0 +1,25 @@
+@import '~vue-cal/dist/vuecal.css';
+
+.iande-admin-agenda {
+
+    &__month {
+        font-size: 1.2em;
+        font-weight: 500;
+        margin: 5px 10px;
+    }
+
+    &__line {
+        border-top: 1px solid #EEE;
+        font-variant-numeric: tabular-nums;
+        margin: 0 10px;
+    }
+
+    .vuecal {
+        &__cells.month-view {
+
+            .vuecal__cell-content {
+                justify-content: flex-start;
+            }
+        }
+    }
+}

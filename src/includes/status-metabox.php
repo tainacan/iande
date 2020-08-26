@@ -3,11 +3,24 @@
 function appointment_enqueue_scripts() {
     wp_enqueue_style( 'iande-admin', IANDE_DISTURL . 'admin.css', [] );
     wp_enqueue_script( 'iande-admin', IANDE_DISTURL . 'admin.js' );
+
+    $duration         = cmb2_get_option('iande_appointments_settings', 'duration', []);
+    $group_size       = cmb2_get_option('iande_appointments_settings', 'group_size', []);
+    $group_slot       = cmb2_get_option('iande_appointments_settings', 'group_slot', []);
+    $grid             = cmb2_get_option('iande_appointments_settings', 'grid', []);
+    $schedules        = get_option('iande_schedules', []);
+    $schedules        = array_filter($schedules);
+
     wp_localize_script(
         'iande-admin',
         'IandeSettings',
         [
-            'iandeUrl' => get_site_url(null, '/iande'),
+            'iandeUrl'          => get_site_url(null, '/iande'),
+            'duration'          => $duration,
+            'groupSize'         => $group_size,
+            'groupSlot'         => $group_slot,
+            'grid'              => $grid,
+            'schedules'         => $schedules,
         ]
     );
 }

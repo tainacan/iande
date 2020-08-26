@@ -9,7 +9,7 @@ export function date (value) {
     if (!value) {
         return true
     }
-    return typeof value === 'string' && DateTime.fromISO(value).isValid()
+    return typeof value === 'string' && DateTime.fromISO(value).isValid
 }
 
 export const phone = helpers.regex('phone', /^\d{10,11}$/)
