@@ -17,7 +17,7 @@
                         <Input id="email" type="text" placeholder="E-mail" aria-label="E-mail" v-model="email" :validations="$v.email"/>
                         <div>
                             <Input id="password" type="password" placeholder="Senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
-                            <a class="iande-form-link" href="#">Não lembro a senha</a>
+                            <a class="iande-form-link" :href="resetPassword">Não lembro a senha</a>
                         </div>
                     </div>
                 </div>
@@ -45,6 +45,9 @@
         components: {
             Input,
             StepsIndicator,
+        },
+        props: {
+            resetPassword: { type: String, default: '#' }
         },
         data () {
             return {
