@@ -1,0 +1,33 @@
+.iande-appointments-filter {
+    border: none;
+    margin: 0;
+
+    &__label {
+        font-weight: bold;
+    }
+
+    &__row {
+        display: inline-flex;
+        flex-wrap: wrap;
+        padding: 5px;
+
+        &:focus-within {
+            outline-style: auto;
+        }
+    }
+
+    input[type=radio] {
+        height: 0;
+        opacity: 0;
+        width: 0;
+
+        & + label {
+            margin-left: 1em;
+            padding-bottom: 5px;
+        }
+
+        &:checked + label {
+            border-bottom: 3px solid var(--iande-tertiary-color);
+        }
+    }
+}
