@@ -1,6 +1,6 @@
 <template>
     <div class="iande-admin-agenda">
-        <Calendar activeView="month" :disableViews="['years', 'year']" :events="events" locale="pt-br" startWeekOnSunday>
+        <Calendar activeView="month" :disableViews="['years', 'year']" :events="events" locale="pt-br" startWeekOnSunday :timeStep="timeStep">
             <template #cell-content="{ cell, view }">
                 <template v-if="view.id === 'month'">
                     <div class="iande-admin-agenda__month">{{ cell.content }}</div>
@@ -15,6 +15,11 @@
                         </LocalScope>
                     </template>
                 </template>
+            </template>
+            <template #event="{ event }">
+                <a :href="postLink(event.raw)" target="_blank">
+                    {{ event.raw.name || `${event.raw.responsible_first_name} ${event.raw.responsible_last_name}` }}
+                </a>
             </template>
         </Calendar>
     </div>
@@ -69,7 +74,6 @@
                     return {
                         start: `${appointment.date} ${start}`,
                         end: `${appointment.date} ${end}`,
-                        title: appointment.name || 'Agendamento',
                         raw: appointment,
                     }
                 })
@@ -90,6 +94,9 @@
             },
             cellHours (cell) {
                 return getWorkingHours(cell.startDate).map(interval => `${interval.from} - ${interval.to}`)
+            },
+            postLink (appointment) {
+                return `${window.IandeSettings.siteUrl}/wp-admin/post.php?post=${appointment.ID}&action=edit`
             }
         }
     }
