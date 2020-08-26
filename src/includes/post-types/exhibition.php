@@ -51,8 +51,8 @@ function register_post_type_exhibition()
 
     $metadata_definition = get_exhibition_metadata_definition();
 
-    foreach ($metadata_definition as $key => $definition) {
-        register_post_meta('exhibition', $key, ['type' => $definition->type]);
+    foreach ($metadata_definition as $d_key => $definition) {
+        register_post_meta('exhibition', $d_key, ['type' => $definition->type]);
     }
 }
 
@@ -91,132 +91,137 @@ function register_metabox_exhibition() {
              * 
              * @link https://cmb2.io/docs/field-parameters
              */
-            $name        = '';
-            $desc        = '';
-            $default     = '';
-            $type        = '';
-            $options     = [];
-            $attributes  = [];
-            $repeatable  = false;
-            $date_format = 'Y-m-d';
+            $mb_name         = '';
+            $mb_desc         = '';
+            $mb_default      = '';
+            $mb_type         = '';
+            $mb_options      = [];
+            $mb_group_fields = [];
+            $mb_attributes   = [];
+            $mb_repeatable   = false;
+            $mb_date_format  = 'Y-m-d';
 
             if (isset($definition->metabox->name))
-                $name = $definition->metabox->name;
+                $mb_name = $definition->metabox->name;
 
             if (isset($definition->metabox->desc))
-                $desc = $definition->metabox->desc;
+                $mb_desc = $definition->metabox->desc;
 
             if (isset($definition->metabox->default))
-                $default = $definition->metabox->default;
+                $mb_default = $definition->metabox->default;
 
             if (isset($definition->metabox->type))
-                $type = $definition->metabox->type;
+                $mb_type = $definition->metabox->type;
 
             if (isset($definition->metabox->options))
-                $options = $definition->metabox->options;
+                $mb_options = $definition->metabox->options;
+
+            if (isset($definition->metabox->group_fields))
+                $mb_group_fields = $definition->metabox->group_fields;
 
             if (isset($definition->metabox->attributes))
-                $attributes = $definition->metabox->attributes;
+                $mb_attributes = $definition->metabox->attributes;
 
             if (isset($definition->metabox->repeatable))
-                $repeatable = $definition->metabox->repeatable;
+                $mb_repeatable = $definition->metabox->repeatable;
 
             if (isset($definition->metabox->date_format))
-                $date_format = $definition->metabox->date_format;
+                $mb_date_format = $definition->metabox->date_format;
 
             $fields[] = [
-                'name'        => $name,
-                'desc'        => $desc,
+                'name'        => $mb_name,
+                'desc'        => $mb_desc,
                 'id'          => $key,
-                'default'     => $default,
-                'type'        => $type,
-                'options'     => $options,
-                'attributes'  => $attributes,
-                'repeatable'  => $repeatable,
-                'date_format' => $date_format
+                'default'     => $mb_default,
+                'type'        => $mb_type,
+                'options'     => $mb_options,
+                'group_fields' => $mb_group_fields,
+                'attributes'  => $mb_attributes,
+                'repeatable'  => $mb_repeatable,
+                'date_format' => $mb_date_format
             ];
-
+            
         }
         
     }
-
+    
     $fields = \apply_filters('iande.exhibition_metabox_fields', $fields);
 
     if (is_object($exhibition_metabox)) {
-        
+      
         foreach ($fields as $field) {
 
             if ($field['type'] == 'group') {
 
-                $name          = '';
-                $group_title   = '';
-                $add_button    = '';
-                $remove_button = '';
-                $sortable      = true;
-                $closed        = true;
+                $f_name          = '';
+                $f_group_title   = '';
+                $f_add_button    = '';
+                $f_remove_button = '';
+                $f_sortable      = true;
+                $f_closed        = true;
 
                 if (isset($field['name']))
-                    $name = $field['name'];
+                    $f_name = $field['name'];
 
                 if (isset($field['options']['group_title']))
-                    $group_title = $field['options']['group_title'];
+                    $f_group_title = $field['options']['group_title'];
 
                 if (isset($field['options']['add_button']))
-                    $add_button = $field['options']['add_button'];
+                    $f_add_button = $field['options']['add_button'];
                     
                 if (isset($field['options']['remove_button']))
-                    $remove_button = $field['options']['remove_button'];
+                    $f_remove_button = $field['options']['remove_button'];
 
                 if (isset($field['options']['sortable']))
-                    $sortable = $field['options']['sortable'];
+                    $f_sortable = $field['options']['sortable'];
 
                 if (isset($field['options']['closed']))
-                    $closed = $field['options']['closed'];
+                    $f_closed = $field['options']['closed'];
 
                 $group_field = $exhibition_metabox->add_field([
                     'id'            => $field['id'],
                     'type'          => 'group',
-                    'name'          => '<b>' . $name . '</b>',
+                    'name'          => '<b>' . $f_name . '</b>',
                     'options'       => [
-                        'group_title'   => $group_title,
-                        'add_button'    => $add_button,
-                        'remove_button' => $remove_button,
-                        'sortable'      => $sortable,
-                        'closed'        => $closed
+                        'group_title'   => $f_group_title,
+                        'add_button'    => $f_add_button,
+                        'remove_button' => $f_remove_button,
+                        'sortable'      => $f_sortable,
+                        'closed'        => $f_closed
                     ]
                 ]);
 
-                if (isset($definition->metabox->group_fields)) {
+                if (isset($field['group_fields'])) {
 
-                    foreach ($definition->metabox->group_fields as $key => $each_field ) {
+                    foreach ($field['group_fields'] as $gf_key => $each_field ) {
                         
-                        $id         = '';
-                        $name       = '';
-                        $type       = '';
-                        $desc       = '';
-                        $repeatable = false;
+                        $gf_id         = '';
+                        $gf_name       = '';
+                        $gf_type       = '';
+                        $gf_desc       = '';
+                        $gf_repeatable = false;
 
                         if (isset($each_field['id']))
-                            $id = $each_field['id'];
+                            $gf_id = $each_field['id'];
 
                         if (isset($each_field['name']))
-                            $name = $each_field['name'];
+                            $gf_name = $each_field['name'];
 
                         if (isset($each_field['type']))
-                            $type = $each_field['type'];
+                            $gf_type = $each_field['type'];
 
                         if (isset($each_field['desc']))
-                            $desc = $each_field['desc'];
+                            $gf_desc = $each_field['desc'];
 
                         if (isset($each_field['repeatable']))
-                            $repeatable = $each_field['repeatable'];
+                            $gf_repeatable = $each_field['repeatable'];
 
                         $exhibition_metabox->add_group_field($group_field, array(
-                            'id'          => $id,
-                            'name'        => $name,
-                            'type'        => $type,
-                            'description' => $desc,
-                            'repeatable'  => $repeatable
+                            'id'          => $gf_id . '_teste',
+                            'name'        => $gf_name,
+                            'type'        => $gf_type,
+                            'description' => $gf_desc,
+                            'repeatable'  => $gf_repeatable
                         ));
 
                     }
@@ -644,7 +649,7 @@ function get_exhibition_metadata_definition() {
                     ]
                 ]
             ]
-        ]
+        ],
 
     ];
 
