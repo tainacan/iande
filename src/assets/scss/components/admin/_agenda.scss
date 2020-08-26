@@ -22,10 +22,14 @@
             }
         }
 
-        &__event {
+        &__event a {
             align-items: center;
+            color: inherit;
             display: flex;
+            height: 100%;
             justify-content: center;
+            text-decoration: none;
+            width: 100%;
         }
     }
 }
