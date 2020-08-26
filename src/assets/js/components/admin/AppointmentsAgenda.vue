@@ -5,12 +5,12 @@
                 <template v-if="view.id === 'month'">
                     <div class="iande-admin-agenda__month">{{ cell.content }}</div>
                     <template v-if="!cell.outOfScope">
-                        <LocalScope :people="cellAppointments(cell)" :hours="cellHours(cell)" v-slot="{ hours, people }">
+                        <LocalScope :count="cellAppointments(cell).length" :hours="cellHours(cell)" v-slot="{ count, hours }">
                             <div class="iande-admin-agenda__line" v-for="hour of hours" :key="hour">
                                 {{ hour }}
                             </div>
-                            <div class="iande-admin-agenda__line" v-if="people.length > 0">
-                                {{ people.length }} reserva{{ people.length > 1 ? 's' : '' }}
+                            <div class="iande-admin-agenda__line" v-if="count > 0">
+                                {{ count }} reserva{{ count > 1 ? 's' : '' }}
                             </div>
                         </LocalScope>
                     </template>
