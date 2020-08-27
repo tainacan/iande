@@ -183,7 +183,7 @@ function get_appointment_metadata_definition() {
 
     $role_options = $role_options_new;
 
-    $user_id = \get_current_user_id();
+    $user_id = \get_the_author_meta('ID');
 
     $args = array(
         'author'         =>  $user_id,
