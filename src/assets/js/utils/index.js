@@ -1,18 +1,18 @@
 import api, { searchParams } from './api'
 
 export function formatCep (cep) {
-    return `${cep.substr(0, 5)}-${cep.substr(5, 3)}`
+    return `${cep.slice(0, 5)}-${cep.slice(5, 8)}`
 }
 
 export function formatCnpj (cnpj) {
-    return `${cnpj.substr(0, 8)}/${cnpj.substr(8, 4)}-${cnpj.substr(12, 2)}`
+    return `${cnpj.slice(0, 8)}/${cnpj.slice(8, 12)}-${cnpj.slice(12, 14)}`
 }
 
 export function formatPhone (phone) {
     if (phone.length === 10) {
-        return `(${phone.substr(0, 2)}) ${phone.substr(2,4)}-${phone.substr(6,4)}`
+        return `(${phone.slice(0, 2)}) ${phone.slice(2, 6)}-${phone.slice(6, 10)}`
     } else {
-        return `(${phone.substr(0, 2)}) ${phone.substr(2,5)}-${phone.substr(7,4)}`
+        return `(${phone.slice(0, 2)}) ${phone.slice(2, 7)}-${phone.slice(7, 11)}`
     }
 }
 
