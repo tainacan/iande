@@ -61,7 +61,7 @@
                 this.formError = ''
                 if (this.isFormValid()) {
                     try {
-                        const verb = this.editMode ? 'edit' : 'create'
+                        const verb = this.editMode ? 'update' : 'create'
                         const { ID, ...restInstitution } = this.institution
                         const result = await api.post(`institution/${verb}`, this.editMode ? this.institution : restInstitution)
                         await this.resetInstitution()
