@@ -65,7 +65,7 @@
     import Input from './Input.vue'
     import MaskedInput from './MaskedInput.vue'
     import Select from './Select.vue'
-    import { constant, sortBy } from '../utils'
+    import { constant, api, sortBy } from '../utils'
     import { cep, cnpj, phone } from '../utils/validators'
 
     // Lazy-loading candidates
@@ -135,6 +135,22 @@
             state () {
                 if (!this.city.startsWith(this.state)) {
                     this.city = ''
+                }
+            },
+            async zipCode () {
+                if (this.zipCode && cep(this.zipCode)) {
+                    try {
+                        const res = await api.get(`https://viacep.com.br/ws/${this.zipCode}/json/`)
+                        if (!res.erro) {
+                            this.address = res.logradouro || ''
+                            this.addressComplement = res.complemento || ''
+                            this.city = `${res.uf}${res.ibge.slice(2)}`
+                            this.district = res.bairro || ''
+                            this.state = res.uf
+                        }
+                    } catch (err) {
+                        console.error(err)
+                    }
                 }
             }
         }
