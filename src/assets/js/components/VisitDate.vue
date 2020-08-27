@@ -41,7 +41,7 @@
         },
         computed: {
             ...sync('appointments/current@', ['date', 'hour', 'name', 'purpose']),
-            purposeOptions: constant(window.IandeSettings.purposes.slice(1))
+            purposeOptions: constant(window.IandeSettings.purposes.slice(1)) // @todo Stop slicing it eventually
         },
         validations: {
             date: { date, required },
