@@ -195,14 +195,6 @@ function get_appointment_metadata_definition() {
     );
     $institutions = \get_posts($args);
 
-    $institutions_options = [];
-
-    foreach($institutions as $institution) {
-        $institutions_options[$institution->ID] = $institution->post_title;
-    }
-
-    $institutions_options = array_filter($institutions_options);
-
     $metadata_definition = [
         'step' => (object) [
             'type'       => 'string',
@@ -225,7 +217,7 @@ function get_appointment_metadata_definition() {
             'metabox' => (object) [
                 'name'   => 'Objetivo da visita',
                 'type'    => 'select',
-                'options' => $purpose_options,
+                'options' => map_array_to_options($purpose_options),
                 'size'    => '50' // 75%, 50%, 33%, 25%, default 100%
             ]
         ],
@@ -363,7 +355,7 @@ function get_appointment_metadata_definition() {
             'metabox' => (object) [
                 'name'    => __('Relação do responsável com a instituição', 'iande'),
                 'type'    => 'select',
-                'options' => $role_options,
+                'options' => map_array_to_options($role_options),
                 'size'    => '50'
             ]
         ],
@@ -393,9 +385,9 @@ function get_appointment_metadata_definition() {
             'type'          => 'string',
             'required'      => __('A instituição é obrigatória', 'iande'),
             'required_step' => 1,
-            'validation'    => function ($value) use ($institutions_options) {
+            'validation'    => function ($value) use ($institutions) {
                 if (is_numeric($value) && intval($value) == $value) {
-                    if (array_key_exists($value, $institutions_options)) {
+                    if (array_post_exists($institutions, $value)) {
                         return true;
                     } else {
                         return __('Instituição inválida', 'iande');
@@ -407,7 +399,7 @@ function get_appointment_metadata_definition() {
             'metabox' => (object) [
                 'name'    => __('Instituição', 'iande'),
                 'type'    => 'select',
-                'options' => $institutions_options,
+                'options' => map_posts_to_options($institutions),
             ]
         ],
         'has_visited_previously' => (object) [
