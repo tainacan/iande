@@ -58,9 +58,9 @@ function register_post_type_institution()
 
 /**
  * RRegistra os metaboxes do agendamento com CMB2
- * 
+ *
  * @filter iande.institution_metabox_fields
- * 
+ *
  * @return void
  */
 function register_metabox_institution() {
@@ -87,7 +87,7 @@ function register_metabox_institution() {
 
             /**
              * Fields parameters
-             * 
+             *
              * @link https://cmb2.io/docs/field-parameters
              */
             $name       = '';
@@ -136,7 +136,7 @@ function register_metabox_institution() {
             ];
 
         }
-        
+
     }
 
     $fields = \apply_filters('iande.institution_metabox_fields', $fields);
@@ -167,7 +167,7 @@ function get_institution_metadata_definition() {
     } else {
         $institution_profile = [];
     }
-    
+
     // Escolaridade
     $institution_scholarity = get_option('iande_institution', []);
     if (array_key_exists('institution_scholarity', $institution_scholarity)) {
@@ -222,7 +222,7 @@ function get_institution_metadata_definition() {
             'metabox' => (object) [
                 'name'   => 'Perfil',
                 'type'    => 'select',
-                'options' => $institution_profile,
+                'options' => map_array_to_options($institution_profile),
                 'size'  => '50'
             ]
         ],
@@ -239,7 +239,7 @@ function get_institution_metadata_definition() {
             'metabox' => (object) [
                 'name'   => 'Escolaridade',
                 'type'    => 'select',
-                'options' => $institution_scholarity,
+                'options' => map_array_to_options($institution_scholarity),
                 'size'  => '50'
             ]
         ],
