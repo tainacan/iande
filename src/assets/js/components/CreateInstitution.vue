@@ -144,6 +144,7 @@
                         if (!res.erro) {
                             this.address = res.logradouro || ''
                             this.addressComplement = res.complemento || ''
+                            this.addressNumber = ''
                             this.city = `${res.uf}${res.ibge.slice(2)}`
                             this.district = res.bairro || ''
                             this.state = res.uf
