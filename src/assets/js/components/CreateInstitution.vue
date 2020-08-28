@@ -69,7 +69,8 @@
     import { cep, cnpj, phone } from '../utils/validators'
 
     // Lazy-loading candidates
-    import '../utils/ibge'
+    import estados from '../../json/estados.json'
+    import municipios from '../../json/municipios.json'
 
     export default {
         name: 'CreateInstitution',
@@ -101,7 +102,7 @@
                 if (!this.state) {
                     return []
                 }
-                const entries = Object.entries(window.municipios)
+                const entries = Object.entries(municipios)
                     .filter(([sigla]) => sigla.startsWith(this.state))
                     .map(([sigla, nome]) => [nome, sigla])
                     .sort(sortBy(municipio => municipio[1]))
@@ -111,7 +112,7 @@
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
             profileOptions: constant(window.IandeSettings.profiles),
             stateOptions () {
-                const entries = Object.keys(window.estados)
+                const entries = Object.keys(estados)
                     .map(estado => [estado, estado])
                     .sort(sortBy(estado => estado[0]))
                 return Object.fromEntries(entries)
@@ -144,6 +145,7 @@
                         if (!res.erro) {
                             this.address = res.logradouro || ''
                             this.addressComplement = res.complemento || ''
+                            this.addressNumber = ''
                             this.city = `${res.uf}${res.ibge.slice(2)}`
                             this.district = res.bairro || ''
                             this.state = res.uf

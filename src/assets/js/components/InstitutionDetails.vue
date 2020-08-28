@@ -39,7 +39,9 @@
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
     import { constant, formatCep, formatCnpj, formatPhone } from '../utils'
-    import '../utils/ibge'
+
+    // Lazy-loading candidates
+    import municipios from '../../json/municipios.json'
 
     export default {
         name: 'InstitutionDetails',
@@ -58,7 +60,7 @@
         computed: {
             city () {
                 const cityId = this.institution.city
-                return Object.entries(window.municipios).find(([key]) => key === cityId)[1]
+                return Object.entries(municipios).find(([key]) => key === cityId)[1]
             },
             iandeUrl: constant(window.IandeSettings.iandeUrl),
             name () {
