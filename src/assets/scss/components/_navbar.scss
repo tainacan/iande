@@ -1,16 +1,12 @@
 .iande-navbar {
     background-color: var(--iande-secondary-color);
     font-family: var(--iande-title-font);
-    padding: 5px 0;
+    padding: 0;
 
     &__row {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-
-        & > * {
-            padding: 10px;
-        }
     }
 
     &__site-name {
@@ -18,6 +14,7 @@
         color: var(--iande-tertiary-color);
         display: flex;
         font-weight: 500;
+        padding: 10px;
 
         img {
             margin-right: 1ex;
@@ -26,24 +23,108 @@
 
     nav {
         display: flex;
+        padding-right: 10px;
+
+        @media screen and (max-width: 800px) {
+            width: 100%;
+
+            &.hidden {
+                display: none;
+            }
+        }
 
         ul, li {
+            height: 100%;
             margin: 0;
             padding: 0;
         }
 
+        ul {
+            display: flex;
+
+            @media screen and (max-width: 800px) {
+                flex-direction: column;
+            }
+        }
+
         li {
-            display: inline-block;
+            align-items: center;
+            display: inline-flex;
             list-style: none;
-            margin-left: 20px;
+            padding: 5px 10px;
+        }
 
-            a {
-                color: var(--iande-background-color);
-                font-weight: 500;
-                text-decoration: none;
+        a {
+            color: var(--iande-background-color);
+            font-weight: 500;
+            text-decoration: none;
 
-                &:hover {
-                    text-decoration: underline;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &__toggle {
+        color: var(--iande-background-color);
+        display: flex;
+        align-items: center;
+
+        @media screen and (min-width: 801px) {
+            display: none;
+        }
+    }
+
+    & &__dropdown {
+        position: relative;
+
+        ul, li {
+            height: auto;
+        }
+
+        li {
+            margin: 0;
+            padding: 0;
+        }
+
+        @media screen and (max-width: 800px) {
+            & > a {
+                display: none;
+            }
+
+            ul {
+                display: flex;
+                flex-direction: column;
+            }
+
+            li {
+                padding-bottom: 10px;
+            }
+        }
+
+        @media screen and (min-width: 801px) {
+            ul {
+                border-radius: 0 0 var(--iande-border-radius) var(--iande-border-radius);
+                display: none;
+                flex-direction: column;
+                padding: 5px;
+                position: absolute;
+                right: 0;
+                top: 100%;
+                width: max-content;
+                z-index: 10;
+            }
+
+            &:hover {
+                background: var(--iande-background-color);
+
+                a {
+                    color: var(--iande-secondary-color);
+                }
+
+                ul {
+                    background: var(--iande-background-color);
+                    display: flex;
                 }
             }
         }
