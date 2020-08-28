@@ -105,9 +105,10 @@
         @media screen and (min-width: 801px) {
             ul {
                 border-radius: 0 0 var(--iande-border-radius) var(--iande-border-radius);
+                box-shadow: 0 5px 5px 0 rgba(gray, 0.3);
                 display: none;
                 flex-direction: column;
-                padding: 5px;
+                padding: 1em;
                 position: absolute;
                 right: 0;
                 top: 100%;
