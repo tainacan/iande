@@ -9,7 +9,7 @@ namespace Iande;
  * @param WP_Post[] $array Lista de posts
  * @return bool
  */
-function array_post_exists ($post_id, $array) {
+function array_post_exists ($post_id, array $array) {
     foreach ($array as $post) {
         if ($post->ID == $post_id) {
             return true;
@@ -25,7 +25,7 @@ function array_post_exists ($post_id, $array) {
  * @param array $array Lista de opções
  * @return array
  */
-function map_array_to_options ($array) {
+function map_array_to_options (array $array) {
     $options = [];
 
     foreach ($array as $item) {
@@ -41,7 +41,7 @@ function map_array_to_options ($array) {
  * @param WP_Post[] $args Lista de posts
  * @return array
  */
-function map_posts_to_options ($posts) {
+function map_posts_to_options (array $posts) {
     $options = [];
 
     foreach ($posts as $post) {

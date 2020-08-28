@@ -53,8 +53,8 @@
         data () {
             return {
                 confirmPassword: '',
-                firstName: '',
                 email: '',
+                firstName: '',
                 formError: '',
                 lastName: '',
                 password: '',
@@ -68,8 +68,8 @@
         },
         validations: {
             confirmPassword: { required, minChar: minLength(6), samePassword: sameAs('password') },
-            firstName: { required },
             email: { email, required },
+            firstName: { required },
             lastName: { required },
             password: { required, minChar: minLength(6) },
             phone: { required, phone },
