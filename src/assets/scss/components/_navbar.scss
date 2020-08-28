@@ -116,7 +116,7 @@
                 z-index: 10;
             }
 
-            &:hover {
+            &:focus-within, &:hover {
                 background: var(--iande-background-color);
 
                 a {
