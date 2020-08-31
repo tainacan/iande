@@ -176,6 +176,12 @@ function get_institution_metadata_definition() {
         $institution_scholarity = [];
     }
 
+    // Estado
+    $current_state = '';
+    if ($_GET['post']) {
+        $current_state = \get_post_meta($_GET['post'], 'state', true);
+    }
+
     $metadata_definition = [
         'name' => (object) [
             'type' => 'string',
@@ -368,8 +374,8 @@ function get_institution_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Cidade', 'iande'),
-                'type'  => 'text',
-                'size'  => '75'
+                'type'  => 'select',
+                'options' => get_city_options($current_state),
             ]
 
         ],
@@ -385,9 +391,9 @@ function get_institution_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Estado', 'iande'),
-                'type'  => 'text',
+                'type'  => 'select',
                 'description' => 'Vamos ver aqui como fica uma descrição para os campos',
-                'size'  => '25'
+                'options' => get_state_options(),
             ]
         ]
     ];

@@ -5,19 +5,19 @@
             <fieldset class="iande-appointments-filter iande-form" aria-labelledby="filters-label">
                 <div class="iande-appointments-filter__row">
                     <div id="filters-label" class="iande-appointments-filter__label">Exibindo:</div>
-                    <input type="radio" name="filter" value="next" v-model="filter">
-                    <label>
+                    <input id="filters-next" type="radio" name="filter" value="next" v-model="filter">
+                    <label for="filters-next">
                         <span class="iande-label">Próximas</span>
                     </label>
-                    <input type="radio" name="filter" value="previous" v-model="filter">
-                    <label>
+                    <input id="filters-previous" type="radio" name="filter" value="previous" v-model="filter">
+                    <label for="filters-previous">
                         <span class="iande-label">Antigas</span>
                     </label>
                 </div>
             </fieldset>
             <AppointmentDetails v-for="(appointment, n) in filteredAppoitments" :key="appointment.ID" :appointment="appointment" :n="n + 1"/>
             <div class="iande-container narrow">
-                <a class="iande-button outline mb-lg" :href="`${iandeUrl}/appointment/create`">
+                <a class="iande-button outline" :href="`${iandeUrl}/appointment/create`">
                     <Icon icon="plus-circle"/>
                     Criar novo agendamento
                 </a>

@@ -145,7 +145,9 @@
     import Modal from './Modal'
     import StepsIndicator from './StepsIndicator'
     import { api, constant, formatCep, formatPhone } from '../utils'
-    import '../utils/ibge'
+
+    // Lazy-loading candidates
+    import municipios from '../../json/municipios.json'
 
     const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 
@@ -168,7 +170,7 @@
         computed: {
             city () {
                 const cityId = this.institution.city
-                return Object.entries(window.municipios).find(([key]) => key === cityId)[1]
+                return Object.entries(municipios).find(([key]) => key === cityId)[1]
             },
             date () {
                 const parts = this.appointment.date.split('-')

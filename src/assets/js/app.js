@@ -1,6 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAddressCard, faCalendar, faClock } from '@fortawesome/free-regular-svg-icons'
-import { faAngleLeft, faAngleRight, faCheck, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { faAngleLeft, faAngleRight, faBars, faCheck, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import Vuex from 'vuex'
@@ -9,7 +9,7 @@ import Navbar from './components/Navbar.vue'
 import createStore from './store'
 
 library.add(faAddressCard, faCalendar, faClock)
-library.add(faAngleLeft, faAngleRight, faCheck, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers)
+library.add(faAngleLeft, faAngleRight, faBars, faCheck, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers)
 
 // Lazy-loading candidates
 import ConfirmAppointmentPage from './pages/confirm-appointment.vue'
@@ -17,6 +17,7 @@ import CreateAppointmentPage from './pages/create-appointment.vue'
 import CreateUserPage from './pages/create-user.vue'
 import EditAppointmentPage from './pages/edit-appointment.vue'
 import EditInstitutionPage from './pages/edit-institution.vue'
+import EditUserPage from './pages/edit-user.vue'
 import ListAppointmentsPage from './pages/list-appointments.vue'
 import ListInstitutionPage from './pages/list-institutions.vue'
 import LoginPage from './pages/login.vue'
@@ -29,6 +30,7 @@ Vue.component('iande-create-appointment-page', CreateAppointmentPage)
 Vue.component('iande-create-user-page', CreateUserPage)
 Vue.component('iande-edit-appointment-page', EditAppointmentPage)
 Vue.component('iande-edit-institution-page', EditInstitutionPage)
+Vue.component('iande-edit-user-page', EditUserPage)
 Vue.component('iande-list-appointments-page', ListAppointmentsPage)
 Vue.component('iande-list-institutions-page', ListInstitutionPage)
 Vue.component('iande-login-page', LoginPage)

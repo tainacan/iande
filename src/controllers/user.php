@@ -28,7 +28,7 @@ class User extends Controller
 
         if ($user->__isset('last_name') && !empty($user->__get('last_name')))
         $parsed_user->last_name = $user->__get('last_name');
-        
+
         if ($user->__isset('phone') && !empty($user->__get('phone')))
             $parsed_user->phone = $user->__get('phone');
 
@@ -57,6 +57,18 @@ class User extends Controller
     function view_create(array $params = [])
     {
         $this->render('create-user');
+    }
+
+    /**
+     * Renderiza a página de edição do usuário atual
+     *
+     * @param array $params
+     * @return void
+     */
+    function view_edit(array $params = [])
+    {
+        $this->require_authentication();
+        $this->render('edit-user');
     }
 
     /**
@@ -134,7 +146,7 @@ class User extends Controller
     }
 
     /**
-     * Cria um novo usuário.
+     * Cria um novo usuário
      *
      * @param array $params
      *
@@ -188,5 +200,60 @@ class User extends Controller
         \do_action('iande.login_success', $user);
 
         $this->success($this->parse_user($user));
+    }
+
+    /**
+     * Edita o usuário atual
+     *
+     * @param array $params
+     *
+     * @action iande.before_edit_user
+     * @action iande.after_edit_user
+     *
+     * @return void
+     */
+    function endpoint_edit(array $params = []) {
+        $this->require_authentication();
+
+        $user = \wp_get_current_user();
+
+        foreach (['first_name', 'last_name', 'email', 'phone'] as $field) {
+            if (empty($params[$field])) {
+                $this->error(__('Todos os campos são obrigatórios', 'iande'));
+            }
+        }
+
+        if (!filter_var($params['email'], FILTER_VALIDATE_EMAIL)) {
+            $this->error(__('O endereço de email informado não é um endereço de emaill válido', 'iande'));
+        }
+
+        if (!empty($params['password']) && strlen($params['password']) < 6) {
+            $this->error(__('Já senha deve ter no mínimo seis caracteres', 'iande'));
+        }
+
+        \do_action('iande.before_create_user', $params);
+
+        $updated_user_id = \wp_update_user([
+            'ID' => $user->ID,
+            'user_login' => $params['email'],
+            'user_email' => $params['email'],
+            'first_name' => $params['first_name'],
+            'last_name' => $params['last_name'],
+            'display_name' => $params['first_name'] . ' ' . $params['last_name']
+        ]);
+
+        if ($updated_user_id instanceof \WP_Error) {
+            $this->error($updated_user_id->get_error_messages());
+        }
+
+        \update_user_meta($updated_user_id, 'phone', $params['phone']);
+
+        if (!empty($params['password'])) {
+            \wp_set_password($params['password'], $updated_user_id);
+        }
+
+        \do_action('iande.after_create_user', $updated_user_id);
+
+        $this->success($this->parse_user(\wp_get_current_user()));
     }
 }

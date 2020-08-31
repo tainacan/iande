@@ -387,7 +387,7 @@ function get_appointment_metadata_definition() {
             'required_step' => 1,
             'validation'    => function ($value) use ($institutions) {
                 if (is_numeric($value) && intval($value) == $value) {
-                    if (array_post_exists($institutions, $value)) {
+                    if (array_post_exists($value, $institutions)) {
                         return true;
                     } else {
                         return __('Instituição inválida', 'iande');

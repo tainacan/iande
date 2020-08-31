@@ -1,13 +1,32 @@
 import Vue from 'vue'
 
-import AppointmentsAgenda from './components/admin/AppointmentsAgenda.vue'
-import StatusMetabox from './components/admin/StatusMetabox.vue'
 import { api } from './utils'
 import { cep } from './utils/validators'
 
 // Lazy-loading candidates
+import AppointmentsAgenda from './components/admin/AppointmentsAgenda.vue'
+import StatusMetabox from './components/admin/StatusMetabox.vue'
+import municipios from '../json/municipios.json';
+
 Vue.component('iande-appointments-agenda', AppointmentsAgenda)
 Vue.component('iande-status-metabox', StatusMetabox)
+
+function populateCityOptions (state, city) {
+    const $city = jQuery('select#city')
+    $city.empty()
+
+    for (const [key, value] of Object.entries(municipios)) {
+        if (key.startsWith(state)) {
+            $city.append(jQuery('<option></option>').attr('value', key).text(value))
+        }
+    }
+
+    if (city && city.startsWith(state)) {
+        $city.val(city);
+    } else {
+        $city.val($city.find('option').first().val());
+    }
+}
 
 jQuery(document).ready(() => {
     document.querySelectorAll('.iande-admin-app').forEach(el => {
@@ -22,16 +41,20 @@ jQuery(document).ready(() => {
                 if (!res.erro) {
                     jQuery('input#address').val(res.logradouro || '')
                     jQuery('input#address_number').val('')
-                    jQuery('input#city').val(`${res.uf}${res.ibge.slice(2)}`)
                     jQuery('input#complement').val(res.complemento || '')
                     jQuery('input#district').val(res.bairro || '')
-                    jQuery('input#state').val(res.uf)
+                    jQuery('select#state').val(res.uf)
+                    populateCityOptions(res.uf, `${res.uf}${res.ibge.slice(2)}`)
                 }
             } catch (err) {
                 console.error(err)
             }
         }
     })
-})
 
-console.log('test')
+    jQuery('select#state').change((e) => {
+        const state = e.target.value
+        const city = jQuery('select#city').val()
+        populateCityOptions(state, city)
+    })
+})
