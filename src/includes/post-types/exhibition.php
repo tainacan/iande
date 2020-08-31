@@ -351,6 +351,7 @@ function get_exhibition_metadata_definition() {
                 ],
             ]
         ],
+
         'monday' => (object) [
             'type'       => 'text',
             'required'   => false,
@@ -358,43 +359,8 @@ function get_exhibition_metadata_definition() {
                 //@todo
                 return true;
             },
-            'metabox' => (object) [
-                'name'    => __('Segunda-feira', 'iande'),
-                'type'    => 'group',
-                'options' => [
-                    'group_title'   => __('Horário {#}', 'iande'),
-                    'add_button'    => __('Adicionar novo horário', 'iande'),
-                    'remove_button' => __('Remover horário', 'iande')
-                ],
-                'group_fields' => [
-                    [
-                        'id'          => 'from',
-                        'name'        => __('De', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ],
-                    [
-                        'id'          => 'to',
-                        'name'        => __('Até', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ]
-                ]
-            ]
+            'metabox' => get_group_fields_metadata(__('Segunda-feira', 'iande'))
+            
         ],
         'tuesday' => (object) [
             'type'       => 'text',
@@ -403,43 +369,7 @@ function get_exhibition_metadata_definition() {
                 //@todo
                 return true;
             },
-            'metabox' => (object) [
-                'name'    => __('Terça-feira', 'iande'),
-                'type'    => 'group',
-                'options' => [
-                    'group_title'   => __('Horário {#}', 'iande'),
-                    'add_button'    => __('Adicionar novo horário', 'iande'),
-                    'remove_button' => __('Remover horário', 'iande')
-                ],
-                'group_fields' => [
-                    [
-                        'id'          => 'from',
-                        'name'        => __('De', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ],
-                    [
-                        'id'          => 'to',
-                        'name'        => __('Até', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ]
-                ]
-            ]
+            'metabox' => get_group_fields_metadata(__('Terça-feira', 'iande'))
         ],
         'wednesday' => (object) [
             'type'       => 'text',
@@ -448,43 +378,7 @@ function get_exhibition_metadata_definition() {
                 //@todo
                 return true;
             },
-            'metabox' => (object) [
-                'name'    => __('Quarta-feira', 'iande'),
-                'type'    => 'group',
-                'options' => [
-                    'group_title'   => __('Horário {#}', 'iande'),
-                    'add_button'    => __('Adicionar novo horário', 'iande'),
-                    'remove_button' => __('Remover horário', 'iande')
-                ],
-                'group_fields' => [
-                    [
-                        'id'          => 'from',
-                        'name'        => __('De', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ],
-                    [
-                        'id'          => 'to',
-                        'name'        => __('Até', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ]
-                ]
-            ]
+            'metabox' => get_group_fields_metadata(__('Quarta-feira', 'iande'))
         ],
         'thursday' => (object) [
             'type'       => 'text',
@@ -493,43 +387,7 @@ function get_exhibition_metadata_definition() {
                 //@todo
                 return true;
             },
-            'metabox' => (object) [
-                'name'    => __('Quinta-feira', 'iande'),
-                'type'    => 'group',
-                'options' => [
-                    'group_title'   => __('Horário {#}', 'iande'),
-                    'add_button'    => __('Adicionar novo horário', 'iande'),
-                    'remove_button' => __('Remover horário', 'iande')
-                ],
-                'group_fields' => [
-                    [
-                        'id'          => 'from',
-                        'name'        => __('De', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ],
-                    [
-                        'id'          => 'to',
-                        'name'        => __('Até', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ]
-                ]
-            ]
+            'metabox' => get_group_fields_metadata(__('Quinta-feira', 'iande'))
         ],
         'friday' => (object) [
             'type'       => 'text',
@@ -538,43 +396,7 @@ function get_exhibition_metadata_definition() {
                 //@todo
                 return true;
             },
-            'metabox' => (object) [
-                'name'    => __('Sexta-feira', 'iande'),
-                'type'    => 'group',
-                'options' => [
-                    'group_title'   => __('Horário {#}', 'iande'),
-                    'add_button'    => __('Adicionar novo horário', 'iande'),
-                    'remove_button' => __('Remover horário', 'iande')
-                ],
-                'group_fields' => [
-                    [
-                        'id'          => 'from',
-                        'name'        => __('De', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ],
-                    [
-                        'id'          => 'to',
-                        'name'        => __('Até', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ]
-                ]
-            ]
+            'metabox' => get_group_fields_metadata(__('Sexta-feira', 'iande'))
         ],
         'saturday' => (object) [
             'type'       => 'text',
@@ -583,43 +405,7 @@ function get_exhibition_metadata_definition() {
                 //@todo
                 return true;
             },
-            'metabox' => (object) [
-                'name'    => __('Sábado', 'iande'),
-                'type'    => 'group',
-                'options' => [
-                    'group_title'   => __('Horário {#}', 'iande'),
-                    'add_button'    => __('Adicionar novo horário', 'iande'),
-                    'remove_button' => __('Remover horário', 'iande')
-                ],
-                'group_fields' => [
-                    [
-                        'id'          => 'from',
-                        'name'        => __('De', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ],
-                    [
-                        'id'          => 'to',
-                        'name'        => __('Até', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ]
-                ]
-            ]
+            'metabox' => get_group_fields_metadata(__('Sábado', 'iande'))
         ],
         'sunday' => (object) [
             'type'       => 'text',
@@ -628,43 +414,7 @@ function get_exhibition_metadata_definition() {
                 //@todo
                 return true;
             },
-            'metabox' => (object) [
-                'name'    => __('Domingo', 'iande'),
-                'type'    => 'group',
-                'options' => [
-                    'group_title'   => __('Horário {#}', 'iande'),
-                    'add_button'    => __('Adicionar novo horário', 'iande'),
-                    'remove_button' => __('Remover horário', 'iande')
-                ],
-                'group_fields' => [
-                    [
-                        'id'          => 'from',
-                        'name'        => __('De', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ],
-                    [
-                        'id'          => 'to',
-                        'name'        => __('Até', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm',
-                                'stepMinute'    => 10,
-                            ]),
-                        ],
-                    ]
-                ]
-            ]
+            'metabox' => get_group_fields_metadata(__('Domingo', 'iande'))
         ],
 
     ];
@@ -672,5 +422,56 @@ function get_exhibition_metadata_definition() {
     $metadata_definition = \apply_filters('iande.institution_metadata_definition', $metadata_definition);
 
     return $metadata_definition;
+
+}
+
+/**
+ * Imprime os group_fields para os campos de horários
+ *
+ * @param string $name
+ * @return void
+ */
+function get_group_fields_metadata($name)
+{
+    
+    $object =  (object) [
+        'name'    => $name,
+        'type'    => 'group',
+        'options' => [
+            'group_title'   => __('Horário {#}', 'iande'),
+            'add_button'    => __('Adicionar novo horário', 'iande'),
+            'remove_button' => __('Remover horário', 'iande')
+        ],
+        'group_fields' => [
+            [
+                'id'          => 'from',
+                'name'        => __('De', 'iande'),
+                'type'        => 'text_time',
+                'time_format' => 'H:i',
+                'attributes'  => [
+                    'data-timepicker' => json_encode([
+                        'timeOnlyTitle' => __('Escolha o horário', 'iande'),
+                        'timeFormat'    => 'HH:mm',
+                        'stepMinute'    => 10,
+                    ]),
+                ],
+            ],
+            [
+                'id'          => 'to',
+                'name'        => __('Até', 'iande'),
+                'type'        => 'text_time',
+                'time_format' => 'H:i',
+                'attributes'  => [
+                    'data-timepicker' => json_encode([
+                        'timeOnlyTitle' => __('Escolha o horário', 'iande'),
+                        'timeFormat'    => 'HH:mm',
+                        'stepMinute'    => 10,
+                    ]),
+                ],
+            ]
+        ]
+    ];
+    
+    return $object;
 
 }
