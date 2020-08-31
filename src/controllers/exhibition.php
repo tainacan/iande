@@ -134,7 +134,25 @@ class Exhibition extends Controller
         $metadata_definition = get_exhibition_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
-            $pased_exhibition->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
+
+            if ($key == 'exception' && isset($metadata[$key][0])) {
+                foreach (unserialize($metadata[$key][0]) as $attached_post) {
+                    
+                    $post = get_post($attached_post);
+                    $schedules = get_post_meta($post->ID, 'exception', true);
+                    $object = json_decode(json_encode($schedules), false);
+                    $exceptions[] = (object) [
+                        "ID"         => $post->ID,
+                        "title"      => $post->post_title,
+                        "exceptions" =>  $object
+                    ];
+
+                }
+                $pased_exhibition->$key = (object) $exceptions;
+            } else {
+                $pased_exhibition->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
+            }
+
         }
 
         $pased_exhibition = \apply_filters('iande.parse_exhibition', $pased_exhibition, $exhibition, $metadata);
