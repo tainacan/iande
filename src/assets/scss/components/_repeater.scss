@@ -1,0 +1,10 @@
+.iande-repetition {
+    position: relative;
+
+    &__remove {
+        color: var(--iande-light-color);
+        left: 100%;
+        position: absolute;
+        top: 0;
+    }
+}
