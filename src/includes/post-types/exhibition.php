@@ -296,7 +296,11 @@ function get_exhibition_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Duração da visita', 'iande'),
-                'type' => 'text_small',
+                'type'       => 'text',
+                'attributes' => [
+                    'type' => 'number',
+                    'min'  => '0',
+                ],
             ]
         ],
         'group_size' => (object) [
@@ -308,7 +312,11 @@ function get_exhibition_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Tamanho (máximo) dos grupos', 'iande'),
-                'type' => 'text_small',
+                'type'       => 'text',
+                'attributes' => [
+                    'type' => 'number',
+                    'min'  => '0',
+                ],
             ]
         ],
         'group_slot' => (object) [
@@ -320,7 +328,11 @@ function get_exhibition_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Quantidade (máxima) de grupos por slot', 'iande'),
-                'type' => 'text_small',
+                'type'       => 'text',
+                'attributes' => [
+                    'type' => 'number',
+                    'min'  => '0',
+                ],
             ]
         ],
         'grid' => (object) [
@@ -331,8 +343,12 @@ function get_exhibition_metadata_definition() {
                 return true;
             },
             'metabox' => (object) [
-                'name' => __('Grid', 'iande'),
-                'type' => 'text_small',
+                'name'       => __('Grid', 'iande'),
+                'type'       => 'text',
+                'attributes' => [
+                    'type' => 'number',
+                    'min'  => '0',
+                ],
             ]
         ],
         'monday' => (object) [
