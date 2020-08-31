@@ -85,13 +85,12 @@ abstract class Controller
     {
         $this->require_authentication($error_message);
 
-        $error_message = $error_message ?: __('This action requires admin permission');
-
         if (!\current_user_can('administrator')) {
             if (\wp_is_json_request()) {
+                $error_message = $error_message ?: __('This action requires admin permission');
                 $this->error($error_message, 403);
             } else {
-                $this->render('parts/access-denied', ['error_message' => $error_message]);
+                $this->render('login', ['next' => $_SERVER['REQUEST_URI']]);
             }
         }
     }
@@ -105,13 +104,12 @@ abstract class Controller
      */
     function require_authentication($error_message = '')
     {
-        $error_message = $error_message ?: __('This action requires authentication');
-
         if (!\is_user_logged_in()) {
             if (\wp_is_json_request()) {
+                $error_message = $error_message ?: __('This action requires authentication');
                 $this->error($error_message, 401);
             } else {
-                $this->render('parts/access-denied', ['error_message' => $error_message]);
+                $this->render('login', ['next' => $_SERVER['REQUEST_URI']]);
             }
         }
     }
