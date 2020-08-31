@@ -25,7 +25,6 @@
             <Repeater :id="`${id}_languages`" v-model="languages" :factory="newLanguage" :validations="validations.languages">
                 <template #item="{ id, onUpdate, validations, value }">
                     <div :key="id">
-                        <label :for="id" class="iande-label">Qual idioma?</label>
                         <LanguageInfo :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
                     </div>
                 </template>

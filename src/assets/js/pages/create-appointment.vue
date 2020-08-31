@@ -34,7 +34,7 @@
     import { call, get, sync } from 'vuex-pathify'
 
     import StepsIndicator from '../components/StepsIndicator.vue'
-    import { api } from '../utils'
+    import { api, normalizeLanguages } from '../utils'
 
     // Lazy-loading candidates
     import CreateInstitution from '../components/CreateInstitution.vue'
@@ -72,7 +72,7 @@
                     const appointment = await api.get('appointment/get', {
                         ID: Number(qs.get('ID'))
                     })
-                    this.appointment = { ...this.appointment, ...appointment }
+                    this.appointment = normalizeLanguages({ ...this.appointment, ...appointment })
                 } catch (err) {
                     this.formError = err
                 }
