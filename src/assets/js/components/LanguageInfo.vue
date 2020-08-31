@@ -26,7 +26,7 @@
         mixins: [CustomField],
         computed: {
             languageOptions: constant(window.IandeSettings.languages),
-            name: subModel('count'),
+            name: subModel('name'),
             other: subModel('other'),
         },
         watch: {
