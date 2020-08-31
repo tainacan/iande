@@ -40,7 +40,13 @@
             },
             removeItem (index) {
                 const newModelValue = this.modelValue.slice()
-                this.modelValue = [...newModelValue.slice(0, index), ...newModelValue.slice(index + 1)]
+                this.modelValue = [...newModelValue.slice(0, index), ...newModelValue.slice(index + 1)].map((item, i) => {
+                    if (item.id != null) {
+                        return { ...item, id: i + 1 }
+                    } else {
+                        return item
+                    }
+                })
             },
             updateItem (index) {
                 return (item) => {
