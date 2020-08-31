@@ -1,7 +1,7 @@
 .iande-groups {
-    .iande-group + .iande-group {
-        border-top: 1px solid var(--iande-light-color);
-        padding-top: 40px;
+    .iande-group {
+        border-bottom: 1px solid var(--iande-light-color);
+        padding-bottom: 40px;
     }
 
     .iande-add-group {
