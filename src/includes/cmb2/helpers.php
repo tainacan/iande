@@ -302,7 +302,13 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
 
                 echo '<div class="cmb-td">';
                     foreach ($group['languages'] as $language) {
-                        echo $language;
+                        if (is_string($language)) {
+                            echo $language;
+                        } else if (!empty($language->other)) {
+                            echo $language->other;
+                        } else {
+                            echo $language->name;
+                        }
                         echo ("<br>");
                     }
                 echo '</div>';
