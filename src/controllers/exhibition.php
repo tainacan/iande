@@ -133,9 +133,12 @@ class Exhibition extends Controller
 
         $metadata_definition = get_exhibition_metadata_definition();
 
+        $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
         foreach ($metadata_definition as $key => $definition) {
 
             if ($key == 'exception' && isset($metadata[$key][0])) {
+                
                 foreach (unserialize($metadata[$key][0]) as $post_id) {
                     
                     $post         = get_post($post_id);
@@ -150,6 +153,12 @@ class Exhibition extends Controller
 
                 }
                 $pased_exhibition->$key = (object) $exceptions;
+                
+            } elseif ( in_array($key, $days) && isset($metadata[$key][0])) {
+
+                $day                    = unserialize($metadata[$key][0]);
+                $pased_exhibition->$key = (object) $day;
+
             } else {
                 $pased_exhibition->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
             }
