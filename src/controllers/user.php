@@ -45,7 +45,7 @@ class User extends Controller
      */
     function view_login(array $params = [])
     {
-        $this->render('login');
+        $this->render('login', ['next' => '/iande/appointment/list']);
     }
 
     /**

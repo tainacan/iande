@@ -47,6 +47,7 @@
             StepsIndicator,
         },
         props: {
+            next: { type: String, default: '/iande/appointment/list' },
             resetPassword: { type: String, default: '#' }
         },
         data () {
@@ -75,7 +76,7 @@
                             password: this.password
                         })
                         await this.$store.set('user/user', user)
-                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
+                        window.location.assign(`${window.IandeSettings.siteUrl}${this.next}`)
                     } catch (err) {
                         this.formError = err
                     }
