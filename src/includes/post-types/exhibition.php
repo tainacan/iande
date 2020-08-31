@@ -247,35 +247,6 @@ function register_metabox_exhibition() {
  */
 function get_exhibition_metadata_definition() {
 
-    $fields_from_to = [
-        [
-            'id'          => 'from',
-            'name'        => __('De', 'iande'),
-            'type'        => 'text_time',
-            'time_format' => 'H:i',
-            'attributes'  => [
-                'data-timepicker' => json_encode([
-                    'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                    'timeFormat'    => 'HH:mm',
-                    'stepMinute'    => 10,
-                ]),
-            ],
-        ],
-        [
-            'id'          => 'to',
-            'name'        => __('Até', 'iande'),
-            'type'        => 'text_time',
-            'time_format' => 'H:i',
-            'attributes'  => [
-                'data-timepicker' => json_encode([
-                    'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                    'timeFormat'    => 'HH:mm',
-                    'stepMinute'    => 10,
-                ]),
-            ],
-        ]
-    ];
-
     $metadata_definition = [
         /**
          * @link https://cmb2.io/docs/field-types#-types-text_date
