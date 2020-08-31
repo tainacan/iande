@@ -480,7 +480,7 @@ function get_appointment_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('De que maneira você preparou o grupo?', 'iande'),
-                'type' => 'text',
+                'type' => 'textarea_small',
                 'size' => '50'
             ]
         ],
@@ -496,7 +496,7 @@ function get_appointment_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Deseja comentar algo mais?', 'iande'),
-                'type' => 'text',
+                'type' => 'textarea_small',
                 'size' => '50'
             ]
         ],
