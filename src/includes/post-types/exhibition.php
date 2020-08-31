@@ -416,10 +416,30 @@ function get_exhibition_metadata_definition() {
             },
             'metabox' => get_group_fields_metadata(__('Domingo', 'iande'))
         ],
+        'exception' => (object) [
+            'type'       => 'text',
+            'required'   => false,
+            'validation' => function ($value) {
+                //@todo
+                return true;
+            },
+            'metabox' => (object) [
+                'name'       => __('Exceções', 'iande'),
+                'type'       => 'custom_attached_posts',
+                'options' => [
+                    'show_thumbnails' => false, // Show thumbnails on the left
+                    'filter_boxes'    => false, // Show a text box for filtering the results
+                    'query_args'      => [
+                        'posts_per_page' => 99,
+                        'post_type'      => 'exception',
+                    ], // override the get_posts args
+                ],
+            ]
+        ]
 
     ];
 
-    $metadata_definition = \apply_filters('iande.institution_metadata_definition', $metadata_definition);
+    $metadata_definition = \apply_filters('iande.exhibition_metadata_definition', $metadata_definition);
 
     return $metadata_definition;
 
