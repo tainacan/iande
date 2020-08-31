@@ -178,7 +178,7 @@ function get_institution_metadata_definition() {
 
     // Estado
     $current_state = '';
-    if ($_GET['post']) {
+    if (!empty($_GET['post'])) {
         $current_state = \get_post_meta($_GET['post'], 'state', true);
     }
 
