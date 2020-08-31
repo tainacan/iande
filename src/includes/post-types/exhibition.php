@@ -46,14 +46,14 @@ function register_post_type_exhibition()
 
     register_post_type('exhibition', $exhibition_args);
 
-
     /* Registra os metadados do post type exhibition */
 
     $metadata_definition = get_exhibition_metadata_definition();
 
-    foreach ($metadata_definition as $d_key => $definition) {
-        register_post_meta('exhibition', $d_key, ['type' => $definition->type]);
+    foreach ($metadata_definition as $key => $definition) {
+        register_post_meta('exhibition', $key, ['type' => $definition->type]);
     }
+
 }
 
 /**
@@ -217,7 +217,7 @@ function register_metabox_exhibition() {
                             $gf_repeatable = $each_field['repeatable'];
 
                         $exhibition_metabox->add_group_field($group_field, array(
-                            'id'          => $gf_id . '_teste',
+                            'id'          => $gf_id,
                             'name'        => $gf_name,
                             'type'        => $gf_type,
                             'description' => $gf_desc,
@@ -289,7 +289,7 @@ function get_exhibition_metadata_definition() {
         ],
         'duration' => (object) [
             'type'       => 'text',
-            'required'   => true,
+            'required'   => false,
             'validation' => function ($value) {
                 // @todo
                 return true;
@@ -305,7 +305,7 @@ function get_exhibition_metadata_definition() {
         ],
         'group_size' => (object) [
             'type'       => 'text',
-            'required'   => true,
+            'required'   => false,
             'validation' => function ($value) {
                 // @todo
                 return true;
@@ -321,7 +321,7 @@ function get_exhibition_metadata_definition() {
         ],
         'group_slot' => (object) [
             'type'       => 'text',
-            'required'   => true,
+            'required'   => false,
             'validation' => function ($value) {
                 // @todo
                 return true;
@@ -337,7 +337,7 @@ function get_exhibition_metadata_definition() {
         ],
         'grid' => (object) [
             'type'       => 'text',
-            'required'   => true,
+            'required'   => false,
             'validation' => function ($value) {
                 // @todo
                 return true;
@@ -353,7 +353,7 @@ function get_exhibition_metadata_definition() {
         ],
         'monday' => (object) [
             'type'       => 'text',
-            'required'   => true,
+            'required'   => false,
             'validation' => function ($value) {
                 //@todo
                 return true;
@@ -398,7 +398,7 @@ function get_exhibition_metadata_definition() {
         ],
         'tuesday' => (object) [
             'type'       => 'text',
-            'required'   => true,
+            'required'   => false,
             'validation' => function ($value) {
                 //@todo
                 return true;
@@ -443,7 +443,7 @@ function get_exhibition_metadata_definition() {
         ],
         'wednesday' => (object) [
             'type'       => 'text',
-            'required'   => true,
+            'required'   => false,
             'validation' => function ($value) {
                 //@todo
                 return true;
@@ -488,7 +488,7 @@ function get_exhibition_metadata_definition() {
         ],
         'thursday' => (object) [
             'type'       => 'text',
-            'required'   => true,
+            'required'   => false,
             'validation' => function ($value) {
                 //@todo
                 return true;
@@ -533,7 +533,7 @@ function get_exhibition_metadata_definition() {
         ],
         'friday' => (object) [
             'type'       => 'text',
-            'required'   => true,
+            'required'   => false,
             'validation' => function ($value) {
                 //@todo
                 return true;
@@ -578,7 +578,7 @@ function get_exhibition_metadata_definition() {
         ],
         'saturday' => (object) [
             'type'       => 'text',
-            'required'   => true,
+            'required'   => false,
             'validation' => function ($value) {
                 //@todo
                 return true;
@@ -623,7 +623,7 @@ function get_exhibition_metadata_definition() {
         ],
         'sunday' => (object) [
             'type'       => 'text',
-            'required'   => true,
+            'required'   => false,
             'validation' => function ($value) {
                 //@todo
                 return true;
