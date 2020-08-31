@@ -221,6 +221,18 @@ function get_appointment_metadata_definition() {
                 'size'    => '50' // 75%, 50%, 33%, 25%, default 100%
             ]
         ],
+        'purpose_other' => (object) [
+            'type' => 'string',
+            'required' => false,
+            'validations' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name' => __('Objetivo da visita (outro)', 'iande'),
+                'type' => 'text',
+                'size' => 50
+            ]
+        ],
         'name' => (object) [
             'type'       => 'string',
             'required'   => false,
@@ -357,6 +369,18 @@ function get_appointment_metadata_definition() {
                 'type'    => 'select',
                 'options' => map_array_to_options($role_options),
                 'size'    => '50'
+            ]
+        ],
+        'responsible_role_other' => (object) [
+            'type' => 'string',
+            'required' => false,
+            'validations' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name' => __('Relação do responsável com a instituição (outra)', 'iande'),
+                'type' => 'text',
+                'size' => 50
             ]
         ],
         'group_nature' => (object) [
