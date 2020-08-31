@@ -26,7 +26,7 @@
                 <template #item="{ id, onUpdate, validations, value }">
                     <div :key="id">
                         <label :for="id" class="iande-label">Qual idioma?</label>
-                        <Select :id="id" :value="value" :validations="validations" :options="languageOptions" @updateValue="onUpdate"/>
+                        <LanguageInfo :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
                     </div>
                 </template>
                 <template #addItem="{ action }">
@@ -65,6 +65,7 @@
 
     import DisabilityInfo from './DisabilityInfo.vue'
     import Input from './Input.vue'
+    import LanguageInfo from './LanguageInfo.vue'
     import RadioGroup from './RadioGroup.vue'
     import Repeater from './Repeater.vue'
     import Select from './Select.vue'
@@ -77,6 +78,7 @@
             DisabilityInfo,
             Icon: FontAwesomeIcon,
             Input,
+            LanguageInfo,
             RadioGroup,
             Repeater,
             Select,
@@ -92,7 +94,6 @@
             binaryOptions: constant({ 'Não': false, 'Sim': true }),
             disabilities: subModel('disabilities'),
             languages: subModel('languages'),
-            languageOptions: constant(window.IandeSettings.languages),
             maxPeople: constant(Number(window.IandeSettings.groupSize)),
             name: subModel('name'),
             numPeople: subModel('num_people'),
@@ -136,11 +137,15 @@
             newDisability () {
                 return {
                     type: '',
-                    count: 1
+                    other: '',
+                    count: 1,
                 }
             },
             newLanguage () {
-                return ''
+                return {
+                    name: '',
+                    other: '',
+                }
             }
         }
     }

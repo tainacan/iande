@@ -1,5 +1,9 @@
 import api, { searchParams } from './api'
 
+export function constant (value) {
+    return () => value
+}
+
 export function formatCep (cep) {
     return `${cep.slice(0, 5)}-${cep.slice(5, 8)}`
 }
@@ -16,8 +20,8 @@ export function formatPhone (phone) {
     }
 }
 
-export function constant (value) {
-    return () => value
+export function isOther (term) {
+    return String(term).toLowerCase().includes('outr')
 }
 
 export function sortBy (fn, asc = true) {
@@ -41,6 +45,14 @@ export function subModel (key) {
         },
         set (newValue) {
             this.modelValue = { ...this.modelValue, [key]: newValue }
+        }
+    }
+}
+
+export function watchForOther (vocabulary, other) {
+    return function () {
+        if (!isOther(this[vocabulary])) {
+            this[other] = ''
         }
     }
 }

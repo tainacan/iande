@@ -14,6 +14,7 @@ function newInstitution () {
         phone: '',
         post_status: 'draft',
         profile: '',
+        profile_other: '',
         state: '',
         zip_code: ''
     }

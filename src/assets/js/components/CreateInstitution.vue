@@ -14,6 +14,10 @@
             <label class="iande-label" for="profile">Perfil da instituição</label>
             <Select id="profile" placeholder="Selecione o perfil da instituição" v-model="profile" :validations="$v.profile" :options="profileOptions"/>
         </div>
+        <div v-if="isOther(profile)">
+            <label class="iande-label" for="profileOther">Qual?</label>
+            <Input id="profileOther" type="text" v-model="profileOther" :validations="$v.profileOther"/>
+        </div>
         <div>
             <label for="phone" class="iande-label">Telefone</label>
             <MaskedInput id="phone" type="tel" :mask="phoneMask" placeholder="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
@@ -65,7 +69,7 @@
     import Input from './Input.vue'
     import MaskedInput from './MaskedInput.vue'
     import Select from './Select.vue'
-    import { constant, api, sortBy } from '../utils'
+    import { api, constant, isOther, sortBy, watchForOther } from '../utils'
     import { cep, cnpj, phone } from '../utils/validators'
 
     // Lazy-loading candidates
@@ -94,6 +98,7 @@
                 name: 'name',
                 phone: 'phone',
                 profile: 'profile',
+                profileOther: 'profile_other',
                 state: 'state',
                 zipCode: 'zip_code'
             }),
@@ -129,10 +134,12 @@
             name: { required },
             phone: { required, phone },
             profile: { required },
+            profileOther: { },
             state: { required },
             zipCode: { required, cep }
         },
         watch: {
+            profile: watchForOther('profile', 'profileOther'),
             state () {
                 if (!this.city.startsWith(this.state)) {
                     this.city = ''
@@ -155,6 +162,9 @@
                     }
                 }
             }
+        },
+        methods: {
+            isOther,
         }
     }
 </script>

@@ -16,11 +16,13 @@ function newAppointment() {
         institution_id: null,
         name: '',
         purpose: '',
+        purpose_other: '',
         responsible_email: '',
         responsible_first_name: '',
         responsible_last_name: '',
         responsible_phone: '',
         responsible_role: '',
+        responsible_role_other: '',
         step: 1
     }
 }
