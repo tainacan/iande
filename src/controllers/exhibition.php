@@ -143,16 +143,15 @@ class Exhibition extends Controller
                     
                     $post         = get_post($post_id);
                     $schedules    = get_post_meta($post->ID, 'exception', true);
-                    $object       = json_decode(json_encode($schedules), false);
                     
-                    $exceptions[] = (object) [
-                        "ID"         => $post->ID,
-                        "title"      => $post->post_title,
-                        "exceptions" => (object) $object
+                    $exceptions[] = [
+                        $post->ID,
+                        $post->post_title,
+                        $schedules
                     ];
 
                 }
-                $pased_exhibition->$key = (object) $exceptions;
+                $pased_exhibition->$key = $exceptions;
                 
             } elseif ( in_array($key, $days) && isset($metadata[$key][0])) {
 
