@@ -142,12 +142,12 @@ class Exhibition extends Controller
                 foreach (unserialize($metadata[$key][0]) as $post_id) {
                     
                     $post         = get_post($post_id);
-                    $schedules    = get_post_meta($post->ID, 'exception', false);
+                    $schedules    = get_post_meta($post->ID, 'exception', true);
                     
-                    $exceptions[] = [
-                        'ID'        => $post->ID,
-                        'title'     => $post->post_title,
-                        'exceptions' => $schedules
+                    $exceptions[] = (object) [
+                        'ID'         => $post->ID,
+                        'title'      => $post->post_title,
+                        'exceptions' => (object) $schedules
                     ];
 
                 }
