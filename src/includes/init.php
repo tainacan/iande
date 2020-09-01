@@ -29,6 +29,7 @@ function iande_activation_plugin() {
          * Adicione aqui as funcões que deseja executar ao ativar o plugin
          */
         iande_cmb2_settings_init();
+        iande_settings_init();
 
     }
 
@@ -111,4 +112,21 @@ function is_iande_page()
     }
 
     return true;
+}
+
+/**
+ * Configurações iniciais do plugin Iandé
+ */
+function iande_settings_init() {
+
+    
+    
+    
+    /**
+     * Remove rewrite rules and then recreate.
+     * 
+     * @link https://developer.wordpress.org/reference/functions/flush_rewrite_rules/
+     */
+    \flush_rewrite_rules();
+
 }
