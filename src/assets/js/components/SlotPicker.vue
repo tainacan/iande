@@ -6,6 +6,7 @@
 
 <script>
     import { DateTime, Interval } from 'luxon'
+    import { get } from 'vuex-pathify'
 
     import Select from './Select.vue'
     import CustomField from './mixins/CustomField'
@@ -25,7 +26,7 @@
                 if (!this.day) {
                     return []
                 }
-                return getSlots(this.day)
+                return getSlots(this.exhibition, this.day)
             },
             emptyMessage () {
                 if (!this.day) {
@@ -34,6 +35,7 @@
                     return 'Nenhum horário disponível'
                 }
             },
+            exhibition: get('exhibitions/default'),
             hours () {
                 /* Used by VisitDate component */
                 return this.availableSlots.map(slot => slot.start.toFormat('HH:mm'))

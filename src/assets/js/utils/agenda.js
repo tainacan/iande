@@ -1,9 +1,21 @@
 import { DateTime, Interval } from 'luxon'
 
-const duration = Number(window.IandeSettings.duration)
-const schedules = window.IandeSettings.schedules
 const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday',
 'friday', 'saturday']
+
+function isValidInterval (interval) {
+    return interval && interval.from && interval.to
+}
+
+function toArray (value) {
+    if (!value) {
+        return []
+    } else if (Array.isArray(value)) {
+        return value
+    } else {
+        return Object.values(value)
+    }
+}
 
 function normalizeDate (date) {
     if (date instanceof DateTime) {
@@ -25,18 +37,25 @@ function normalizeTime (time) {
     }
 }
 
-export function getWorkingHours (date) {
+export function getWorkingHours (exhibition, date) {
     const dt = normalizeDate(date)
-    const intervals = schedules[weekDays[dt.weekday]] || []
-    return intervals.filter(interval => interval && interval.from && interval.to)
+    const dateString = dt.toISODate()
+    for (const exception of toArray(exhibition.exception)) {
+        if (dateString >= exception.date_from && dateString <= exception.date_to) {
+            const intervals = toArray(exception.exceptions) || []
+            return intervals.filter(isValidInterval)
+        }
+    }
+    const intervals = toArray(exhibition[weekDays[dt.weekday]]) || []
+    return intervals.filter(isValidInterval)
 }
 
-export function getSlots (date) {
-    const intervals = getWorkingHours(date)
+export function getSlots (exhibition, date) {
+    const intervals = getWorkingHours(exhibition, date)
     return intervals.flatMap(interval => {
         return Interval.fromDateTimes(
             normalizeTime(interval.from),
             normalizeTime(interval.to)
-        ).splitBy({ minutes: duration })
+        ).splitBy({ minutes: Number(exhibition.duration) })
     })
 }

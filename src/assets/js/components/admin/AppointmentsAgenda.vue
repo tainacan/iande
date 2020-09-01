@@ -4,16 +4,14 @@
             <template #cell-content="{ cell, view }">
                 <template v-if="view.id === 'month'">
                     <div class="iande-admin-agenda__month">{{ cell.content }}</div>
-                    <template v-if="!cell.outOfScope">
-                        <LocalScope :count="cellAppointments(cell).length" :hours="cellHours(cell)" v-slot="{ count, hours }">
-                            <div class="iande-admin-agenda__line" v-for="hour of hours" :key="hour">
-                                {{ hour }}
-                            </div>
-                            <div class="iande-admin-agenda__line" v-if="count > 0">
-                                {{ count }} reserva{{ count > 1 ? 's' : '' }}
-                            </div>
-                        </LocalScope>
-                    </template>
+                    <LocalScope :count="cellAppointments(cell).length" :hours="cellHours(cell)" v-slot="{ count, hours }">
+                        <div class="iande-admin-agenda__line" v-for="hour of hours" :key="hour">
+                            {{ hour }}
+                        </div>
+                        <div class="iande-admin-agenda__line" v-if="count > 0">
+                            {{ count }} reserva{{ count > 1 ? 's' : '' }}
+                        </div>
+                    </LocalScope>
                 </template>
             </template>
             <template #event="{ event }">
@@ -44,6 +42,7 @@
         data () {
             return {
                 appointments: [],
+                exhibition: null,
             }
         },
         computed: {
@@ -82,6 +81,8 @@
         },
         async created () {
             try {
+                const exhibitions = await api.post('exhibition/list')
+                this.exhibition = exhibitions[0] || null
                 const appointments = await api.post('appointment/list_published')
                 this.appointments = appointments
             } catch (err) {
@@ -93,7 +94,10 @@
                 return this.appointmentsByDate.get(cell.formattedDate) || []
             },
             cellHours (cell) {
-                return getWorkingHours(cell.startDate).map(interval => `${interval.from} - ${interval.to}`)
+                if (!this.exhibition) {
+                    return []
+                }
+                return getWorkingHours(this.exhibition, cell.startDate).map(interval => `${interval.from} - ${interval.to}`)
             },
             postLink (appointment) {
                 return `${window.IandeSettings.siteUrl}/wp-admin/post.php?post=${appointment.ID}&action=edit`
