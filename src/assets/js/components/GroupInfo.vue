@@ -61,6 +61,7 @@
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { required } from 'vuelidate/lib/validators'
+    import { get } from 'vuex-pathify'
 
     import DisabilityInfo from './DisabilityInfo.vue'
     import Input from './Input.vue'
@@ -92,8 +93,15 @@
         computed: {
             binaryOptions: constant({ 'Não': false, 'Sim': true }),
             disabilities: subModel('disabilities'),
+            exhibition: get('exhibitions/default'),
             languages: subModel('languages'),
-            maxPeople: constant(Number(window.IandeSettings.groupSize)),
+            maxPeople () {
+                if (this.exhibition) {
+                    return Number(this.exhibition.group_size)
+                } else {
+                    return 100
+                }
+            },
             name: subModel('name'),
             numPeople: subModel('num_people'),
             numResponsible: subModel('num_responsible'),

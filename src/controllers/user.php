@@ -217,6 +217,10 @@ class User extends Controller
 
         $user = \wp_get_current_user();
 
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro id é obrigatório', 'iande'));
+        }
+
         foreach (['first_name', 'last_name', 'email', 'phone'] as $field) {
             if (empty($params[$field])) {
                 $this->error(__('Todos os campos são obrigatórios', 'iande'));
