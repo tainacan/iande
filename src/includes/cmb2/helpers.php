@@ -397,3 +397,23 @@ function cmb2_render_callback_for_calendar_appointments($field, $escaped_value, 
     </div>
     <?php
 }
+
+/**
+ * Adiciona CMB2 iande_time
+ * @see https://cmb2.io/docs/adding-your-own-field-types
+ */
+
+\add_filter('cmb2_render_iande_time', 'cmb2_render_iande_time_callback', 10, 5);
+function cmb2_render_iande_time_callback($field, $escaped_value, $object_id, $object_type, $field_type_object) {
+	echo $field_type_object->input(['type' => 'time', 'value' => $field->value]);
+}
+
+\add_filter('cmb2_sanitize_iande_time', 'cmb2_sanitize_iande_time_callback', 10, 2);
+function cmb2_sanitize_iande_time_callback($override_value, $value) {
+    $d = \DateTime::createFromFormat('H:i', $value);
+    if ($d && $d->format('H:i') === $value) {
+        return $value;
+    } else {
+        return substr($value, 0, 5) || '';
+    }
+}

@@ -124,28 +124,12 @@ function iande_settings_appointments() {
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('De', 'iande'),
         'id'   => 'from',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('Até', 'iande'),
         'id'   => 'to',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
 
     /**
@@ -169,28 +153,12 @@ function iande_settings_appointments() {
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('De', 'iande'),
         'id'   => 'from',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('Até', 'iande'),
         'id'   => 'to',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
 
     /**
@@ -214,28 +182,12 @@ function iande_settings_appointments() {
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('De', 'iande'),
         'id'   => 'from',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('Até', 'iande'),
         'id'   => 'to',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
 
     /**
@@ -259,28 +211,12 @@ function iande_settings_appointments() {
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('De', 'iande'),
         'id'   => 'from',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('Até', 'iande'),
         'id'   => 'to',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
 
     /**
@@ -304,28 +240,12 @@ function iande_settings_appointments() {
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('De', 'iande'),
         'id'   => 'from',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('Até', 'iande'),
         'id'   => 'to',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
 
     /**
@@ -349,28 +269,12 @@ function iande_settings_appointments() {
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('De', 'iande'),
         'id'   => 'from',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('Até', 'iande'),
         'id'   => 'to',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
 
     /**
@@ -394,27 +298,11 @@ function iande_settings_appointments() {
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('De', 'iande'),
         'id'   => 'from',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
     $iande_appointments_options->add_group_field($iande_schedules_fields, [
         'name' => __('Até', 'iande'),
         'id'   => 'to',
-        'type' => 'text_time',
-        'time_format' => 'H:i',
-        'attributes'  => [
-            'data-timepicker' => json_encode([
-                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                'timeFormat'    => 'HH:mm',
-                'stepMinute'    => 10,
-            ]),
-        ],
+        'type' => 'iande_time',
     ]);
 }
