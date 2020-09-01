@@ -20,7 +20,7 @@
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { maxValue, minLength, required } from 'vuelidate/lib/validators'
-    import { sync } from 'vuex-pathify'
+    import { get, sync } from 'vuex-pathify'
 
     import FormError from './FormError.vue'
     import GroupInfo from './GroupInfo.vue'
@@ -35,31 +35,35 @@
             Repeater,
         },
         computed: {
+            exhibition: get('exhibitions/default'),
             groups: sync('appointments/current@group_list.groups'),
         },
-        validations: {
-            groups: {
-                minGroups: minLength(1),
-                $each: {
-                    disabilities: {
-                        $each: {
-                            count: { required },
-                            other: { },
-                            type: { required },
-                        }
-                    },
-                    languages: {
-                        $each: {
-                            name: { required },
-                            other: { },
+        validations () {
+            const maxPeople = this.exhibition ? Number(this.exhibition.group_size) : 100
+            return {
+                groups: {
+                    minGroups: minLength(1),
+                    $each: {
+                        disabilities: {
+                            $each: {
+                                count: { required },
+                                other: { },
+                                type: { required },
+                            }
                         },
+                        languages: {
+                            $each: {
+                                name: { required },
+                                other: { },
+                            },
+                        },
+                        name: { required },
+                        num_people: { maxValue: maxValue(maxPeople), required },
+                        num_responsible: { required },
+                        scholarity: { required },
                     },
-                    name: { required },
-                    num_people: { maxValue: maxValue(Number(window.IandeSettings.groupSize)), required },
-                    num_responsible: { required },
-                    scholarity: { required },
                 },
-            },
+            }
         },
         methods: {
             newGroup () {

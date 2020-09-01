@@ -28,9 +28,10 @@
     import { DateTime } from 'luxon'
     import Calendar from 'vue-cal'
     import { LocalScope } from 'vue-local-scope'
+    import { get } from 'vuex-pathify'
     import 'vue-cal/dist/i18n/pt-br';
 
-    import { api, constant } from '../../utils'
+    import { api } from '../../utils'
     import { getWorkingHours } from '../../utils/agenda'
 
     export default {
@@ -77,7 +78,14 @@
                     }
                 })
             },
-            timeStep: constant(Number(window.IandeSettings.duration)),
+            exhibition: get('exhibitions/default'),
+            timeStep () {
+                if (this.exhibition) {
+                    return Number(this.exhibition.duration)
+                } else {
+                    return 60
+                }
+            },
         },
         async created () {
             try {
