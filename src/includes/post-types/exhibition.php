@@ -58,9 +58,9 @@ function register_post_type_exhibition()
 
 /**
  * Registra os metaboxes do agendamento com CMB2
- * 
+ *
  * @filter iande.exhibition_metabox_fields
- * 
+ *
  * @return void
  */
 function register_metabox_exhibition() {
@@ -88,7 +88,7 @@ function register_metabox_exhibition() {
 
             /**
              * Fields parameters
-             * 
+             *
              * @link https://cmb2.io/docs/field-parameters
              */
             $mb_name         = '';
@@ -140,15 +140,15 @@ function register_metabox_exhibition() {
                 'repeatable'  => $mb_repeatable,
                 'date_format' => $mb_date_format
             ];
-            
+
         }
-        
+
     }
-    
+
     $fields = \apply_filters('iande.exhibition_metabox_fields', $fields);
 
     if (is_object($exhibition_metabox)) {
-      
+
         foreach ($fields as $field) {
 
             if ($field['type'] == 'group') {
@@ -168,7 +168,7 @@ function register_metabox_exhibition() {
 
                 if (isset($field['options']['add_button']))
                     $f_add_button = $field['options']['add_button'];
-                    
+
                 if (isset($field['options']['remove_button']))
                     $f_remove_button = $field['options']['remove_button'];
 
@@ -194,7 +194,7 @@ function register_metabox_exhibition() {
                 if (isset($field['group_fields'])) {
 
                     foreach ($field['group_fields'] as $gf_key => $each_field ) {
-                        
+
                         $gf_id         = '';
                         $gf_name       = '';
                         $gf_type       = '';
@@ -228,7 +228,7 @@ function register_metabox_exhibition() {
 
                 }
 
-            } else {   
+            } else {
                 $exhibition_metabox->add_field($field);
             }
         }
@@ -248,9 +248,6 @@ function register_metabox_exhibition() {
 function get_exhibition_metadata_definition() {
 
     $metadata_definition = [
-        /**
-         * @link https://cmb2.io/docs/field-types#-types-text_date
-         */
         'date_from' => (object) [
             'type'       => 'text',
             'required'   => true,
@@ -265,8 +262,7 @@ function get_exhibition_metadata_definition() {
             'metabox' => (object) [
                 'name'        => __('Data (De)', 'iande'),
                 'desc'        => __('Adicione a data de início das visitações a essa exposição', 'iande'),
-                'type'        => 'text_date',
-                'date_format' => 'Y-m-d',
+                'type'        => 'iande_date',
             ]
         ],
         'date_to' => (object) [
@@ -283,8 +279,7 @@ function get_exhibition_metadata_definition() {
             'metabox' => (object) [
                 'name'        => __('Data (Até)', 'iande'),
                 'desc'        => __('Adicione a data de término das visitações a essa exposição', 'iande'),
-                'type'        => 'text_date',
-                'date_format' => 'Y-m-d',
+                'type'        => 'iande_date',
             ]
         ],
         'duration' => (object) [
@@ -360,7 +355,7 @@ function get_exhibition_metadata_definition() {
                 return true;
             },
             'metabox' => get_group_fields_metadata(__('Segunda-feira', 'iande'))
-            
+
         ],
         'tuesday' => (object) [
             'type'       => 'text',
@@ -453,7 +448,7 @@ function get_exhibition_metadata_definition() {
  */
 function get_group_fields_metadata($name)
 {
-    
+
     $object =  (object) [
         'name'    => $name,
         'type'    => 'group',
@@ -466,32 +461,16 @@ function get_group_fields_metadata($name)
             [
                 'id'          => 'from',
                 'name'        => __('De', 'iande'),
-                'type'        => 'text_time',
-                'time_format' => 'H:i',
-                'attributes'  => [
-                    'data-timepicker' => json_encode([
-                        'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                        'timeFormat'    => 'HH:mm',
-                        'stepMinute'    => 10,
-                    ]),
-                ],
+                'type'        => 'iande_time',
             ],
             [
                 'id'          => 'to',
                 'name'        => __('Até', 'iande'),
-                'type'        => 'text_time',
-                'time_format' => 'H:i',
-                'attributes'  => [
-                    'data-timepicker' => json_encode([
-                        'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                        'timeFormat'    => 'HH:mm',
-                        'stepMinute'    => 10,
-                    ]),
-                ],
+                'type'        => 'iande_time',
             ]
         ]
     ];
-    
+
     return $object;
 
 }

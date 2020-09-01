@@ -59,9 +59,9 @@ function register_post_type_exception()
 
 /**
  * Registra os metaboxes do agendamento com CMB2
- * 
+ *
  * @filter iande.exception_metabox_fields
- * 
+ *
  * @return void
  */
 function register_metabox_exception() {
@@ -89,7 +89,7 @@ function register_metabox_exception() {
 
             /**
              * Fields parameters
-             * 
+             *
              * @link https://cmb2.io/docs/field-parameters
              */
             $mb_name         = '';
@@ -141,15 +141,15 @@ function register_metabox_exception() {
                 'repeatable'   => $mb_repeatable,
                 'date_format'  => $mb_date_format
             ];
-            
+
         }
-        
+
     }
-    
+
     $fields = \apply_filters('iande.exception_metabox_fields', $fields);
 
     if (is_object($exception_metabox)) {
-      
+
         foreach ($fields as $field) {
 
             if ($field['type'] == 'group') {
@@ -169,7 +169,7 @@ function register_metabox_exception() {
 
                 if (isset($field['options']['add_button']))
                     $f_add_button = $field['options']['add_button'];
-                    
+
                 if (isset($field['options']['remove_button']))
                     $f_remove_button = $field['options']['remove_button'];
 
@@ -195,7 +195,7 @@ function register_metabox_exception() {
                 if (isset($field['group_fields'])) {
 
                     foreach ($field['group_fields'] as $gf_key => $each_field ) {
-                        
+
                         $gf_id         = '';
                         $gf_name       = '';
                         $gf_type       = '';
@@ -229,7 +229,7 @@ function register_metabox_exception() {
 
                 }
 
-            } else {   
+            } else {
                 $exception_metabox->add_field($field);
             }
         }
@@ -250,9 +250,6 @@ function get_exception_metadata_definition()
 {
 
     $metadata_definition = [
-        /**
-         * @link https://cmb2.io/docs/field-types#-types-text_date
-         */
         'date_from' => (object) [
             'type'       => 'text',
             'required'   => true,
@@ -266,8 +263,7 @@ function get_exception_metadata_definition()
             },
             'metabox' => (object) [
                 'name'        => __('Data (De)', 'iande'),
-                'type'        => 'text_date',
-                'date_format' => 'Y-m-d',
+                'type'        => 'iande_date',
             ]
         ],
         'date_to' => (object) [
@@ -283,8 +279,7 @@ function get_exception_metadata_definition()
             },
             'metabox' => (object) [
                 'name'        => __('Data (Até)', 'iande'),
-                'type'        => 'text_date',
-                'date_format' => 'Y-m-d',
+                'type'        => 'iande_date',
             ]
         ],
         'exception' => (object) [
@@ -306,26 +301,12 @@ function get_exception_metadata_definition()
                     [
                         'id'          => 'from',
                         'name'        => __('De', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm'
-                            ]),
-                        ],
+                        'type'        => 'iande_time',
                     ],
                     [
                         'id'          => 'to',
                         'name'        => __('Até', 'iande'),
-                        'type'        => 'text_time',
-                        'time_format' => 'H:i',
-                        'attributes'  => [
-                            'data-timepicker' => json_encode([
-                                'timeOnlyTitle' => __('Escolha o horário', 'iande'),
-                                'timeFormat'    => 'HH:mm'
-                            ]),
-                        ],
+                        'type'        => 'iande_time',
                     ]
                 ]
             ]
