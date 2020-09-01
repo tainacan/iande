@@ -232,6 +232,18 @@ function get_institution_metadata_definition() {
                 'size'  => '50'
             ]
         ],
+        'profile_other' => (object) [
+            'type' => 'string',
+            'required' => false,
+            'validations' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name' => __('Perfil (outro)', 'iande'),
+                'type' => 'text',
+                'size' => 50
+            ]
+        ],
         'scholarity' => (object) [
             'type' => 'string',
             'required' => true,

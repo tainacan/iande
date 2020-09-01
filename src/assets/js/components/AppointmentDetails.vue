@@ -35,7 +35,7 @@
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
-                    <div>{{ appointment.purpose }}</div>
+                    <div>{{ purpose }}</div>
                     <div>{{ date }}</div>
                     <div>{{ hour }}</div>
                 </div>
@@ -50,7 +50,7 @@
                     </div>
                     <div>
                         <div>{{ appointment.responsible_first_name }} {{ appointment.responsible_last_name }}</div>
-                        <div>{{ appointment.responsible_role }}</div>
+                        <div>{{ responsibleRole }}</div>
                     </div>
                     <div>
                         <div>{{ appointment.responsible_email }}</div>
@@ -144,7 +144,7 @@
 
     import Modal from './Modal'
     import StepsIndicator from './StepsIndicator'
-    import { api, constant, formatCep, formatPhone } from '../utils'
+    import { api, constant, formatCep, formatPhone, isOther } from '../utils'
 
     // Lazy-loading candidates
     import municipios from '../../json/municipios.json'
@@ -209,6 +209,20 @@
                     return `Agendamento ${this.n}`
                 }
             },
+            purpose () {
+                if (isOther(this.appointment.purpose) && this.appointment.purpose_other) {
+                    return this.appointment.purpose_other
+                } else {
+                    return this.appointment.purpose
+                }
+            },
+            responsibleRole () {
+                if (isOther(this.appointment.responsible_role) && this.appointment.responsible_role_other) {
+                    return this.appointment.responsible_role_other
+                } else {
+                    return this.appointment.responsible_role
+                }
+            },
             siteName: constant(window.IandeSettings.siteName),
         },
         methods: {
@@ -234,12 +248,28 @@
                     return 'não'
                 } else {
                     return disabilities
-                        .map(disability => `${disability.type} (${disability.count})`)
+                        .map(disability => {
+                            if (isOther(disability.type) && disability.other) {
+                                return `${disability.type} / ${disability.other} (${disability.count})`
+                            } else {
+                                return `${disability.type} (${disability.count})`
+                            }
+                        })
                         .join(', ')
                 }
             },
             groupLanguages (languages) {
-                return ['Português', ...languages].join(', ')
+                return [{ name: 'Português' }, ...languages]
+                    .map(language => {
+                        if (typeof language === 'string') {
+                            return language
+                        } else if (isOther(language.name) && language.other) {
+                            return `${language.name} / ${language.other}`
+                        } else {
+                            return language.name
+                        }
+                    })
+                    .join(', ')
             },
             groupName (group) {
                 if (group.name) {

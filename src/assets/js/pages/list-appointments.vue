@@ -32,7 +32,7 @@
     import { sync } from 'vuex-pathify'
 
     import AppointmentDetails from '../components/AppointmentDetails'
-    import { api, constant } from '../utils'
+    import { api, constant, normalizeLanguages } from '../utils'
 
     export default {
         name: 'ListAppointmentsPage',
@@ -61,7 +61,7 @@
         async created () {
             if (this.appointments.length === 0) {
                 const appointments = await api.get('appointment/list')
-                this.appointments = appointments
+                this.appointments = appointments.map(normalizeLanguages)
             }
             if (this.institutions.length === 0) {
                 const institutions = await api.get('institution/list')

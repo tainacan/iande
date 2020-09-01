@@ -18,6 +18,10 @@
             <label class="iande-label" for="role">Informe sua relação com a instituição de ensino</label>
             <Select id="role" v-model="role" :validations="$v.role" :options="roleOptions" />
         </div>
+        <div v-if="isOther(role)">
+            <label class="iande-label" for="roleOther">Qual?</label>
+            <Input id="roleOther" type="text" v-model="roleOther" :validations="$v.roleOther"/>
+        </div>
     </div>
 </template>
 
@@ -29,7 +33,7 @@
     import MaskedInput from './MaskedInput.vue'
     import RadioGroup from './RadioGroup.vue'
     import Select from './Select.vue'
-    import { constant } from '../utils'
+    import { constant, isOther, watchForOther } from '../utils'
     import { phone } from '../utils/validators'
 
     export default {
@@ -52,6 +56,7 @@
                 lastName: 'responsible_last_name',
                 phone: 'responsible_phone',
                 role: 'responsible_role',
+                roleOther: 'responsible_role_other',
             }),
             binaryOptions: constant({ 'Sim': true, 'Não': false }),
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
@@ -65,6 +70,7 @@
             lastName: { required },
             phone: { required, phone },
             role: { required },
+            roleOther: { },
         },
         created () {
             if (this.firstName && this.lastName && this.email && this.phone) {
@@ -74,6 +80,7 @@
             }
         },
         watch: {
+            role: watchForOther('role', 'roleOther'),
             isContact () {
                 if (this.isContact) {
                     this.firstName = this.user.first_name
@@ -87,6 +94,9 @@
                     this.phone = ''
                 }
             }
+        },
+        methods: {
+            isOther,
         }
     }
 </script>

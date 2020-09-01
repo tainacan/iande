@@ -221,6 +221,18 @@ function get_appointment_metadata_definition() {
                 'size'    => '50' // 75%, 50%, 33%, 25%, default 100%
             ]
         ],
+        'purpose_other' => (object) [
+            'type' => 'string',
+            'required' => false,
+            'validations' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name' => __('Objetivo da visita (outro)', 'iande'),
+                'type' => 'text',
+                'size' => 50
+            ]
+        ],
         'name' => (object) [
             'type'       => 'string',
             'required'   => false,
@@ -359,6 +371,18 @@ function get_appointment_metadata_definition() {
                 'size'    => '50'
             ]
         ],
+        'responsible_role_other' => (object) [
+            'type' => 'string',
+            'required' => false,
+            'validations' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name' => __('Relação do responsável com a instituição (outra)', 'iande'),
+                'type' => 'text',
+                'size' => 50
+            ]
+        ],
         'group_nature' => (object) [
             'type'          => 'string',
             'required'      => __('A natureza do grupo é obrigatória', 'iande'),
@@ -456,7 +480,7 @@ function get_appointment_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('De que maneira você preparou o grupo?', 'iande'),
-                'type' => 'text',
+                'type' => 'textarea_small',
                 'size' => '50'
             ]
         ],
@@ -472,7 +496,7 @@ function get_appointment_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Deseja comentar algo mais?', 'iande'),
-                'type' => 'text',
+                'type' => 'textarea_small',
                 'size' => '50'
             ]
         ],

@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div>
-                    <div>{{ institution.profile }}</div>
+                    <div>{{ institutionProfile(institution) }}</div>
                     <div v-if="institution.cnpj">CNPJ: {{ formatCnpj(institution.cnpj) }}</div>
                     <div>Telefone: {{ formatPhone(institution.phone) }}</div>
                     <div>E-mail: {{ institution.email }}</div>
@@ -38,7 +38,7 @@
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-    import { constant, formatCep, formatCnpj, formatPhone } from '../utils'
+    import { constant, formatCep, formatCnpj, formatPhone, isOther } from '../utils'
 
     // Lazy-loading candidates
     import municipios from '../../json/municipios.json'
@@ -76,6 +76,13 @@
             formatCep,
             formatCnpj,
             formatPhone,
+            institutionProfile (institution) {
+                if (isOther(institution.profile) && institution.profile_other) {
+                    return institution.profile_other
+                } else {
+                    return institution.profile
+                }
+            },
             toggleDetails () {
                 this.showDetails = !this.showDetails
             },

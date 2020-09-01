@@ -5,6 +5,10 @@
             <label class="iande-label" for="purpose">Qual o objetivo da visita?</label>
             <Select id="purpose" v-model="purpose" :validations="$v.purpose" :options="purposeOptions"/>
         </div>
+        <div v-if="isOther(purpose)">
+            <label class="iande-label" for="purposeOther">Qual?</label>
+            <Input id="purposeOther" type="text" v-model="purposeOther" :validations="$v.purposeOther"/>
+        </div>
         <div>
             <label class="iande-label" for="name">Dê um nome para sua visita<span class="iande-label__optional">(opcional)</span></label>
             <Input id="name" type="text" placeholder="Se quiser, atribua um nome para esta visita" v-model="name" :validations="$v.name"/>
@@ -28,7 +32,7 @@
     import Input from './Input.vue'
     import Select from './Select.vue'
     import SlotPicker from './SlotPicker.vue'
-    import { constant } from '../utils'
+    import { constant, isOther, watchForOther } from '../utils'
     import { date, time } from '../utils/validators'
 
     export default {
@@ -40,7 +44,13 @@
             SlotPicker,
         },
         computed: {
-            ...sync('appointments/current@', ['date', 'hour', 'name', 'purpose']),
+            ...sync('appointments/current@', {
+                date: 'date',
+                hour: 'hour',
+                name: 'name',
+                purpose: 'purpose',
+                purposeOther: 'purpose_other',
+            }),
             purposeOptions: constant(window.IandeSettings.purposes.slice(1)) // @todo Stop slicing it eventually
         },
         validations: {
@@ -48,6 +58,7 @@
             hour: { required, time },
             name: { },
             purpose: { required },
+            purposeOther: { },
         },
         watch: {
             date () {
@@ -56,7 +67,11 @@
                         this.hour = ''
                     }
                 })
-            }
+            },
+            purpose: watchForOther('purpose', 'purposeOther'),
+        },
+        methods: {
+            isOther,
         }
     }
 </script>

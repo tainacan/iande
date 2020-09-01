@@ -44,11 +44,15 @@
                     disabilities: {
                         $each: {
                             count: { required },
+                            other: { },
                             type: { required },
                         }
                     },
                     languages: {
-                        $each: { required },
+                        $each: {
+                            name: { required },
+                            other: { },
+                        },
                     },
                     name: { required },
                     num_people: { maxValue: maxValue(Number(window.IandeSettings.groupSize)), required },

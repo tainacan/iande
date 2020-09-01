@@ -41,7 +41,7 @@
     import { get, sync } from 'vuex-pathify'
 
     import StepsIndicator from '../components/StepsIndicator.vue'
-    import { api, constant } from '../utils'
+    import { api, constant, normalizeLanguages } from '../utils'
 
     // Lazy-loading candidates
     import AdditionalData from '../components/AdditionalData.vue'
@@ -81,6 +81,7 @@
                     if (!this.groupList) {
                         this.groupList = { groups: [] }
                     }
+                    this.appointment = normalizeLanguages(this.appointment)
                 } catch (err) {
                     this.formError = err
                 }

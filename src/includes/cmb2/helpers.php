@@ -288,7 +288,11 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
 
                 echo '<div class="cmb-td">';
                     foreach ($group['disabilities'] as $disability) {
-                        echo '<b>Tipo:</b> ' . $disability['type'] . ', <b>Qtde:</b> ' . $disability['count'];
+                        if (!empty($disability['other'])) {
+                            echo 'Outra / ' . $disability['other'] . ' (' . $disability['count'] . ')';
+                        } else {
+                            echo $disability['type'] . ' (' . $disability['count'] . ')';
+                        }
                         echo ("<br>");
                     }
                 echo '</div>';
@@ -302,7 +306,13 @@ function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id,
 
                 echo '<div class="cmb-td">';
                     foreach ($group['languages'] as $language) {
-                        echo $language;
+                        if (is_string($language)) {
+                            echo $language;
+                        } else if (!empty($language['other'])) {
+                            echo 'Outros / ' . $language['other'];
+                        } else {
+                            echo $language['name'];
+                        }
                         echo ("<br>");
                     }
                 echo '</div>';
