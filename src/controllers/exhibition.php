@@ -17,8 +17,6 @@ class Exhibition extends Controller
     function endpoint_get(array $params = [])
     {
 
-        $this->require_authentication();
-
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro id é obrigatório', 'iande'));
         }
@@ -48,8 +46,6 @@ class Exhibition extends Controller
      */
     function endpoint_list()
     {
-
-        $this->require_authentication();
 
         $args = array(
             'post_type'      => 'exhibition',
@@ -138,14 +134,14 @@ class Exhibition extends Controller
         foreach ($metadata_definition as $key => $definition) {
 
             if ($key == 'exception' && isset($metadata[$key][0])) {
-                
+
                 foreach (unserialize($metadata[$key][0]) as $post_id) {
-                    
+
                     $post      = get_post($post_id);
                     $schedules = get_post_meta($post->ID, 'exception', true);
                     $date_from = get_post_meta($post->ID, 'date_from', true);
                     $date_to   = get_post_meta($post->ID, 'date_to', true);
-                    
+
                     $exceptions[] = (object) [
                         'ID'         => $post->ID,
                         'title'      => $post->post_title,
@@ -156,7 +152,7 @@ class Exhibition extends Controller
 
                 }
                 $pased_exhibition->$key = $exceptions;
-                
+
             } elseif ( in_array($key, $days) && isset($metadata[$key][0])) {
 
                 $day                    = unserialize($metadata[$key][0]);
@@ -182,7 +178,7 @@ class Exhibition extends Controller
      */
     function get_parsed_exhibition(int $exhibition_id)
     {
-        
+
         $exhibition = get_post($exhibition_id);
 
         if (is_null($exhibition)) {
