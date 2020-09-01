@@ -174,7 +174,7 @@ function get_appointment_metadata_definition() {
     $purpose_options = $purpose_options_new;
 
     $role_options = get_option('iande_institution', []);
-    $role_options = $role_options['institution_responsible_role'];
+    $role_options = isset($role_options['institution_responsible_role']) ? $role_options['institution_responsible_role'] : [];
 
     $role_options_new = [];
     foreach ($role_options as $key => $value) {
