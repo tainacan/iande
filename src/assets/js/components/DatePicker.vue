@@ -8,8 +8,10 @@
 <script>
     import { DateTime } from 'luxon'
     import Datepicker from 'vuejs-datepicker'
+    import { get } from 'vuex-pathify'
 
     import CustomField from './mixins/CustomField'
+    import { getWorkingHours } from '../utils/agenda'
 
     const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
@@ -21,18 +23,20 @@
         mixins: [CustomField],
         inheritAttrs: false,
         computed: {
-            disabledDates () {
-                const to = DateTime.fromObject({ hour: 0, minute: 0, second: 0, millisecond: 0 }).toJSDate()
-                const days = []
-                for (let i = 0; i < 7; i++) {
-                    const day = window.IandeSettings.schedules[weekDays[i]]
-                    if (!day || !Array.isArray(day)) {
-                        days.push(i)
-                    } else if (!Boolean(day.find(interval => interval.to && interval.from))) {
-                        days.push(i)
+            disabledDatesPredictor () {
+                if (!this.exhibition) {
+                    return () => true
+                } else {
+                    return (date) => {
+                        const intervals = getWorkingHours(this.exhibition, date)
+                        return intervals.length === 0
                     }
                 }
-                return { days, to }
+            },
+            disabledDates () {
+                const customPredictor = this.disabledDatesPredictor
+                const to = DateTime.fromObject({ hour: 0, minute: 0, second: 0, millisecond: 0 }).toJSDate()
+                return { customPredictor, to }
             },
             dateValue: {
                 get () {
@@ -46,6 +50,7 @@
                     this.modelValue = DateTime.fromJSDate(newValue).toISODate()
                 }
             },
+            exhibition: get('exhibitions/default'),
             inputClasses () {
                 return ['iande-input', this.fieldClass, this.validations.$error && 'invalid']
             },
