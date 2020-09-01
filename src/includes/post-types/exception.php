@@ -250,9 +250,6 @@ function get_exception_metadata_definition()
 {
 
     $metadata_definition = [
-        /**
-         * @link https://cmb2.io/docs/field-types#-types-text_date
-         */
         'date_from' => (object) [
             'type'       => 'text',
             'required'   => true,
@@ -266,8 +263,7 @@ function get_exception_metadata_definition()
             },
             'metabox' => (object) [
                 'name'        => __('Data (De)', 'iande'),
-                'type'        => 'text_date',
-                'date_format' => 'Y-m-d',
+                'type'        => 'iande_date',
             ]
         ],
         'date_to' => (object) [
@@ -283,8 +279,7 @@ function get_exception_metadata_definition()
             },
             'metabox' => (object) [
                 'name'        => __('Data (Até)', 'iande'),
-                'type'        => 'text_date',
-                'date_format' => 'Y-m-d',
+                'type'        => 'iande_date',
             ]
         ],
         'exception' => (object) [
