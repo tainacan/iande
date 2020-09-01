@@ -404,13 +404,21 @@ function cmb2_render_callback_for_calendar_appointments($field, $escaped_value, 
 
 \add_filter('cmb2_render_iande_date', 'cmb2_render_iande_date_callback', 10, 5);
 function cmb2_render_iande_date_callback($field, $escaped_value, $object_id, $object_type, $field_type_object) {
+    $value = $field->value;
+    if (!empty($value) && is_string($value)) {
+        if (strpos($value, 'AM')) {
+            $value = substr($value, 0, 5);
+        } else if (strpos($value, 'PM')) {
+            $value = (intval(substr($value, 0, 2)) + 12) . substr($value, 2, 3);
+        }
+    }
 	echo $field_type_object->input(['type' => 'date', 'value' => $field->value]);
 }
 
 \add_filter('cmb2_sanitize_iande_date', 'cmb2_sanitize_iande_date_callback', 10, 2);
 function cmb2_sanitize_iande_date_callback($override_value, $value) {
-    $d = \DateTime::createFromFormat('H:i', $value);
-    if ($d && $d->format('H:i') === $value) {
+    $d = \DateTime::createFromFormat('Y-m-d', $value);
+    if ($d && $d->format('Y-m-d') === $value) {
         return $value;
     } else {
         return substr($value, 0, 5) || '';

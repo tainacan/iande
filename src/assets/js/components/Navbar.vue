@@ -44,6 +44,7 @@
             }
         },
         computed: {
+            exhibitions: sync('exhibitions/list'),
             iandeUrl: constant(window.IandeSettings.iandeUrl),
             siteName: constant(window.IandeSettings.siteName),
             pluginDir: constant(`${window.IandeSettings.siteUrl}/wp-content/plugins/iande/`),
@@ -56,6 +57,8 @@
                     this.isLoggedIn = true
                     this.user = user
                 }
+                const exhibitions = await api.post('exhibition/list')
+                this.exhibitions = exhibitions
             } catch (err) {
                 console.error(err)
             }
