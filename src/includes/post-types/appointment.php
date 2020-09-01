@@ -164,7 +164,7 @@ function get_appointment_metadata_definition() {
     $nature_options = ['institutional', 'other'];
 
     $purpose_options = get_option('iande_appointments_settings', []);
-    $purpose_options = $purpose_options['appointment_purpose'];
+    $purpose_options = isset($purpose_options['appointment_purpose']) ? $purpose_options['appointment_purpose'] : [];
 
     $purpose_options_new = [];
     foreach ($purpose_options as $key => $value) {
