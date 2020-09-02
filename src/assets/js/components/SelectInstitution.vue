@@ -47,7 +47,7 @@
                 nature: 'group_nature',
             }),
             institutionOptional () {
-                return (this.nature && this.nature === 'outro') || this.skipInstitution
+                return (this.nature && this.nature === 'other') || this.skipInstitution
             },
             institutionOptions () {
                 const entries = this.institutions.map(({ ID, name }) => [name || `#${ID}`, String(ID)])
