@@ -1,9 +1,9 @@
 <?php
 
-namespace Iande;
+namespace IandePlugin;
 
-add_action('init', 'Iande\\register_post_type_institution');
-add_action('cmb2_admin_init', 'Iande\\register_metabox_institution');
+add_action('init', 'IandePlugin\\register_post_type_institution');
+add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_institution');
 
 /**
  * Registra o Post Type Institution

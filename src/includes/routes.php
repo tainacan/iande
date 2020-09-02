@@ -1,6 +1,6 @@
 <?php
 
-namespace Iande;
+namespace IandePlugin;
 
 use Controller;
 
@@ -17,7 +17,7 @@ function set_404()
 }
 
 /**
- * Adiciona os parâmetros necessários para o 
+ * Adiciona os parâmetros necessários para o
  * funcionamento das rotas do plugin
  */
 \add_filter('query_vars', 'iande\\filter__query_vars');
@@ -38,8 +38,8 @@ function action__rewrite_rules()
 }
 
 /**
- * Redireciona requisições como /iande/{controller}/{action}/ 
- * para a açao no controller: Iande\Controllers\{controller}::action_{action}
+ * Redireciona requisições como /iande/{controller}/{action}/
+ * para a açao no controller: IandePlugin\Controllers\{controller}::action_{action}
  */
 \add_action('template_redirect', 'iande\\action__template_redirects');
 function action__template_redirects()
@@ -53,8 +53,8 @@ function action__template_redirects()
 
     require_once 'Controller.php';
 
-    $controller_filename = IANDE_BASEPATH . 'controllers/' . strtolower($controller_name) . '.php';
-    $controller_class = 'Iande\\' . ucfirst($controller_name);
+    $controller_filename = IANDE_PLUGIN_BASEPATH . 'controllers/' . strtolower($controller_name) . '.php';
+    $controller_class = 'IandePlugin\\' . ucfirst($controller_name);
 
     if (file_exists($controller_filename)) {
         require_once $controller_filename;

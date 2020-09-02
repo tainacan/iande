@@ -1,6 +1,6 @@
 <?php
 
-namespace Iande;
+namespace IandePlugin;
 
 /**
  * Rederiza o template
@@ -11,8 +11,8 @@ namespace Iande;
  */
 function template_render(string $template, array $params = [])
 {
-    $template_filename = IANDE_BASEPATH . "templates/{$template}.php";
-    
+    $template_filename = IANDE_PLUGIN_BASEPATH . "templates/{$template}.php";
+
     render($template_filename, $params);
 }
 
@@ -25,8 +25,8 @@ function template_render(string $template, array $params = [])
  */
 function template_part(string $template_part, array $params = [])
 {
-    $template_filename = IANDE_BASEPATH . "templates/parts/{$template_part}.php";
-    
+    $template_filename = IANDE_PLUGIN_BASEPATH . "templates/parts/{$template_part}.php";
+
     render($template_filename, $params);
 }
 

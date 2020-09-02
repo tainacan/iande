@@ -1,6 +1,6 @@
 <?php
 
-namespace Iande;
+namespace IandePlugin;
 
 use Controller;
 

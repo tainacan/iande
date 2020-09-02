@@ -1,7 +1,7 @@
 <?php
 
-use function Iande\set_404;
-use function Iande\template_render;
+use function IandePlugin\set_404;
+use function IandePlugin\template_render;
 
 /**
  * Classe base dos controladores

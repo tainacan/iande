@@ -1,9 +1,9 @@
 <?php
 
-namespace Iande;
+namespace IandePlugin;
 
-add_action('init', 'Iande\\register_post_type_exhibition');
-add_action('cmb2_admin_init', 'Iande\\register_metabox_exhibition');
+add_action('init', 'IandePlugin\\register_post_type_exhibition');
+add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_exhibition');
 
 /**
  * Registra o Post Type Exhibition

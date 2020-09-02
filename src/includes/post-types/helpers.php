@@ -1,6 +1,6 @@
 <?php
 
-namespace Iande;
+namespace IandePlugin;
 
 /**
  * Determina se um post existe numa array de posts
@@ -26,7 +26,7 @@ function array_post_exists ($post_id, array $array) {
  * @return array
  */
 function get_city_options ($state = '') {
-    $json = \json_decode(\file_get_contents(IANDE_BASEURL . 'assets/json/municipios.json'), true);
+    $json = \json_decode(\file_get_contents(IANDE_PLUGIN_BASEURL . 'assets/json/municipios.json'), true);
     $options = [];
     if (empty($state)) {
         $state = 'AC'; // First state, alphabetically
@@ -48,7 +48,7 @@ function get_city_options ($state = '') {
  * @return array
  */
 function get_state_options () {
-    $json = \json_decode(\file_get_contents(IANDE_BASEURL . 'assets/json/estados.json'), true);
+    $json = \json_decode(\file_get_contents(IANDE_PLUGIN_BASEURL . 'assets/json/estados.json'), true);
     $options = [];
 
     foreach ($json as $key => $value) {

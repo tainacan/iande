@@ -1,6 +1,6 @@
 <?php
 
-namespace Iande;
+namespace IandePlugin;
 
 // If this file is called directly, abort.
 if (!defined('WPINC')) {
@@ -11,7 +11,7 @@ if (!defined('WPINC')) {
 /**
  * Adiciona filtro para evitar que o usuário apague todo o vocabulário `institution_profile`
  */
-add_filter('cmb2_override_institution_profile_meta_value', 'Iande\\iande_cmb2_institution_profile_default', 10, 4);
+add_filter('cmb2_override_institution_profile_meta_value', 'IandePlugin\\iande_cmb2_institution_profile_default', 10, 4);
 
 function iande_cmb2_institution_profile_default($data, $object_id, $args, $cmb)
 {
@@ -40,7 +40,7 @@ function iande_cmb2_institution_profile_default($data, $object_id, $args, $cmb)
 /**
  * Adiciona filtro para evitar que o usuário apague todo o vocabulário `institution_scholarity`
  */
-add_filter('cmb2_override_institution_scholarity_meta_value', 'Iande\\iande_cmb2_institution_scholarity_default', 10, 4);
+add_filter('cmb2_override_institution_scholarity_meta_value', 'IandePlugin\\iande_cmb2_institution_scholarity_default', 10, 4);
 
 function iande_cmb2_institution_scholarity_default($data, $object_id, $args, $cmb)
 {
@@ -67,7 +67,7 @@ function iande_cmb2_institution_scholarity_default($data, $object_id, $args, $cm
 /**
  * Adiciona filtro para evitar que o usuário apague todo o vocabulário `institution_responsible_role`
  */
-add_filter('cmb2_override_institution_responsible_role_meta_value', 'Iande\\iande_cmb2_institution_responsible_role_default', 10, 4);
+add_filter('cmb2_override_institution_responsible_role_meta_value', 'IandePlugin\\iande_cmb2_institution_responsible_role_default', 10, 4);
 
 function iande_cmb2_institution_responsible_role_default($data, $object_id, $args, $cmb)
 {
@@ -92,7 +92,7 @@ function iande_cmb2_institution_responsible_role_default($data, $object_id, $arg
 /**
  * Adiciona filtro para evitar que o usuário apague todo o vocabulário `institution_deficiency`
  */
-add_filter('cmb2_override_institution_deficiency_meta_value', 'Iande\\iande_cmb2_institution_deficiency_default', 10, 4);
+add_filter('cmb2_override_institution_deficiency_meta_value', 'IandePlugin\\iande_cmb2_institution_deficiency_default', 10, 4);
 
 function iande_cmb2_institution_deficiency_default($data, $object_id, $args, $cmb)
 {
@@ -117,7 +117,7 @@ function iande_cmb2_institution_deficiency_default($data, $object_id, $args, $cm
 /**
  * Adiciona filtro para evitar que o usuário apague todo o vocabulário `institution_language`
  */
-add_filter('cmb2_override_institution_language_meta_value', 'Iande\\iande_cmb2_institution_language_default', 10, 4);
+add_filter('cmb2_override_institution_language_meta_value', 'IandePlugin\\iande_cmb2_institution_language_default', 10, 4);
 
 function iande_cmb2_institution_language_default($data, $object_id, $args, $cmb)
 {
@@ -140,7 +140,7 @@ function iande_cmb2_institution_language_default($data, $object_id, $args, $cmb)
 /**
  * Adiciona filtro para evitar que o usuário apague todo o vocabulário `institution_age_range`
  */
-add_filter('cmb2_override_institution_age_range_meta_value', 'Iande\\iande_cmb2_institution_age_range_default', 10, 4);
+add_filter('cmb2_override_institution_age_range_meta_value', 'IandePlugin\\iande_cmb2_institution_age_range_default', 10, 4);
 
 function iande_cmb2_institution_age_range_default($data, $object_id, $args, $cmb)
 {

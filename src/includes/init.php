@@ -1,6 +1,6 @@
 <?php
 
-namespace Iande;
+namespace IandePlugin;
 
 // If this file is called directly, abort.
 if (!defined('WPINC')) {
@@ -17,7 +17,7 @@ function iande_activation() {
     add_option('iande_activation', '1');
 
 }
-register_activation_hook(IANDE_BASEPATH . 'iande.php', 'Iande\\iande_activation');
+register_activation_hook(IANDE_PLUGIN_BASEPATH . 'iande.php', 'IandePlugin\\iande_activation');
 
 function iande_activation_plugin() {
 
@@ -34,7 +34,7 @@ function iande_activation_plugin() {
     }
 
 }
-add_action('admin_init', 'Iande\\iande_activation_plugin');
+add_action('admin_init', 'IandePlugin\\iande_activation_plugin');
 
 /**
  * Removes os styles padrões do tema
@@ -59,7 +59,7 @@ function iande_remove_default_stylesheet()
     }
 
 }
-\add_action('wp_enqueue_scripts', 'Iande\\iande_remove_default_stylesheet', 999999);
+\add_action('wp_enqueue_scripts', 'IandePlugin\\iande_remove_default_stylesheet', 999999);
 
 /**
  * Removes os scripts padrões do tema
@@ -82,7 +82,7 @@ function iande_remove_default_scripts()
     }
 
 }
-\add_action('wp_enqueue_scripts', 'Iande\\iande_remove_default_scripts', 999999);
+\add_action('wp_enqueue_scripts', 'IandePlugin\\iande_remove_default_scripts', 999999);
 
 
 /**
@@ -95,7 +95,7 @@ function iande_remove_wp_admin_bar($value)
     }
     return $value;
 }
-\add_filter('show_admin_bar', 'Iande\\iande_remove_wp_admin_bar');
+\add_filter('show_admin_bar', 'IandePlugin\\iande_remove_wp_admin_bar');
 
 
 /**
@@ -136,15 +136,15 @@ function iande_settings_init() {
 
         $hm = '3' * 60;
         $ms = $hm * 60;
-        $gmdata = gmdate("Y-m-d", time() - ($ms)); 
+        $gmdata = gmdate("Y-m-d", time() - ($ms));
 
         update_post_meta($exhibition_id, 'date_from', $gmdata);
-        
+
     }
 
     /**
      * Remove rewrite rules and then recreate.
-     * 
+     *
      * @link https://developer.wordpress.org/reference/functions/flush_rewrite_rules/
      */
     global $wp_rewrite;

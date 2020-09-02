@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Iande;
 
 function add_custom_roles_and_capabilities () {
@@ -8,4 +8,4 @@ function add_custom_roles_and_capabilities () {
         'publish_appointments' => true,
     ]);
 }
-\add_action('init', 'Iande\\add_custom_roles_and_capabilities');
+\add_action('init', 'IandePlugin\\add_custom_roles_and_capabilities');

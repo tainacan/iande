@@ -13,7 +13,7 @@
  * Domain Path:       /languages
  */
 
-namespace Iande;
+namespace IandePlugin;
 
 // If this file is called directly, abort.
 if (!defined('WPINC')) {
@@ -23,12 +23,12 @@ if (!defined('WPINC')) {
 /**
  * Currently plugin version.
  */
-define('IANDE_VERSION', '1.0.0');
+define('IANDE_PLUGIN_VERSION', '1.0.0');
 
-define('IANDE_BASEPATH', plugin_dir_path(__FILE__));
-define('IANDE_BASEURL', plugins_url('', __FILE__) . '/');
+define('IANDE_PLUGIN_BASEPATH', plugin_dir_path(__FILE__));
+define('IANDE_PLUGIN_BASEURL', plugins_url('', __FILE__) . '/');
 
-define('IANDE_DISTURL', IANDE_BASEURL  . 'dist/');
+define('IANDE_PLUGIN_DISTURL', IANDE_PLUGIN_BASEURL  . 'dist/');
 
 require 'includes/init.php';
 require 'includes/cmb2.php';

@@ -1,6 +1,6 @@
 <?php
 
-namespace Iande;
+namespace IandePlugin;
 
 require 'post-types/helpers.php';
 require 'post-types/appointment.php';
