@@ -41,7 +41,7 @@ export function getWorkingHours (exhibition, date) {
     const dt = normalizeDate(date)
     const dateString = dt.toISODate()
     for (const exception of toArray(exhibition.exception)) {
-        if (dateString >= exception.date_from && dateString <= exception.date_to) {
+        if (dateString >= exception.date_from && (!exception.date_to || dateString <= exception.date_to)) {
             const intervals = toArray(exception.exceptions) || []
             return intervals.filter(isValidInterval)
         }
