@@ -119,9 +119,9 @@ function is_iande_page()
  */
 function iande_settings_init() {
 
-    
-    
-    
+    global $wp_rewrite;
+    $wp_rewrite->set_permalink_structure('/%postname%/');
+
     /**
      * Remove rewrite rules and then recreate.
      * 
