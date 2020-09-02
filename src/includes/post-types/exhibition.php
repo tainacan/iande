@@ -248,6 +248,21 @@ function register_metabox_exhibition() {
 function get_exhibition_metadata_definition() {
 
     $metadata_definition = [
+        'description' => (object) [
+            'type'       => 'text',
+            'validation' => function ($value) {
+                if (strlen(trim($value)) >= 2) {
+                    return true;
+                } else {
+                    return __('O texto informado é muito curto', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name' => __('Descrição', 'iande'),
+                'type' => 'textarea_small',
+                'size' => '50'
+            ]
+        ],
         'date_from' => (object) [
             'type'       => 'text',
             'required'   => true,
