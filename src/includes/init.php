@@ -119,14 +119,37 @@ function is_iande_page()
  */
 function iande_settings_init() {
 
-    global $wp_rewrite;
-    $wp_rewrite->set_permalink_structure('/%postname%/');
+    /**
+     * Cria exposição Acervo Permanente
+     */
+    $title = __('Acervo Permanente', 'iande');
+    $exhibition_check = get_page_by_title($title, 'OBJECT', 'exhibition');
+    $exhibition = array(
+        'post_type'     => 'exhibition',
+        'post_title'    => $title,
+        'post_status'   => 'publish',
+        'post_author'   => 1,
+    );
+
+    if (!isset($exhibition_check->ID)) {
+        $exhibition_id = wp_insert_post($exhibition);
+
+        $hm = '3' * 60;
+        $ms = $hm * 60;
+        $gmdata = gmdate("Y-m-d", time() - ($ms)); 
+
+        update_post_meta($exhibition_id, 'date_from', $gmdata);
+        
+    }
 
     /**
      * Remove rewrite rules and then recreate.
      * 
      * @link https://developer.wordpress.org/reference/functions/flush_rewrite_rules/
      */
+    global $wp_rewrite;
+    $wp_rewrite->set_permalink_structure('/%postname%/');
+
     \flush_rewrite_rules();
 
 }
