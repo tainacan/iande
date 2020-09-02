@@ -62,6 +62,7 @@ function iande_export_appointment() {
                 'Preparou a visita?',
                 'Como preparou a visita',
                 'Comentários adicionais',
+                'Nome do(s) grupo(s)'
             );
 
             $data_rows = array();
@@ -69,6 +70,19 @@ function iande_export_appointment() {
             foreach ($appointments as $appointment) {
 
                 $id = $appointment->ID;
+
+                $groups = \get_post_meta($id, 'group_list', true);
+                if (is_string($groups)) {
+                    $groups = json_decode($groups);
+                }
+                $groups = $groups->groups;
+
+                $group_names = [];
+                foreach ($groups as $group) {
+                    $group_names[] = $group->name;
+                }
+
+                $group_names = join(', ', $group_names);
 
                 // Cada linha do array deve corresponder aos cabeçalhos do CSV
                 $row = array(
@@ -91,6 +105,7 @@ function iande_export_appointment() {
                     \get_post_meta($id, 'has_prepared_visit', true),
                     \get_post_meta($id, 'how_prepared_visit', true),
                     \get_post_meta($id, 'additional_comment', true),
+                    $group_names
                 );
                 $data_rows[] = $row;
 
@@ -159,7 +174,7 @@ function iande_export_visit_groups() {
                 if (!empty($disability->other)) {
                     $arr[] = $disability->other . ' (' . $disability->count . ')';
                 } else {
-                    $arr[] = $disability->type. ' (' . $disability->count . ')';
+                    $arr[] = $disability->type . ' (' . $disability->count . ')';
                 }
             }
             return join(', ', $arr);
@@ -210,6 +225,7 @@ function iande_export_visit_groups() {
                 $groups = $groups->groups;
 
                 foreach ($groups as $group) {
+
                     // Cada linha do array deve corresponder aos cabeçalhos do CSV
                     $row = array(
                         $id,
