@@ -224,7 +224,7 @@ function get_appointment_metadata_definition() {
         'purpose_other' => (object) [
             'type' => 'string',
             'required' => false,
-            'validations' => function ($value) {
+            'validation' => function ($value) {
                 return true;
             },
             'metabox' => (object) [
@@ -374,7 +374,7 @@ function get_appointment_metadata_definition() {
         'responsible_role_other' => (object) [
             'type' => 'string',
             'required' => false,
-            'validations' => function ($value) {
+            'validation' => function ($value) {
                 return true;
             },
             'metabox' => (object) [

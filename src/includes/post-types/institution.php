@@ -235,7 +235,7 @@ function get_institution_metadata_definition() {
         'profile_other' => (object) [
             'type' => 'string',
             'required' => false,
-            'validations' => function ($value) {
+            'validation' => function ($value) {
                 return true;
             },
             'metabox' => (object) [
