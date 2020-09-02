@@ -263,7 +263,7 @@ function get_appointment_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Data', 'iande'),
-                'type' => 'text',
+                'type' => 'iande_date',
                 'size' => '50'
             ]
         ],
@@ -281,7 +281,7 @@ function get_appointment_metadata_definition() {
             },
             'metabox' => (object) [
                 'name' => __('Hora', 'iande'),
-                'type' => 'text',
+                'type' => 'iande_time',
                 'size' => '50'
             ]
         ],
