@@ -1,6 +1,6 @@
 <?php
 
-namespace Iande;
+namespace IandePlugin;
 
 add_action('init', 'IandePlugin\\register_post_type_appointment');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_appointment');

@@ -1,5 +1,5 @@
 <?php
-namespace Iande;
+namespace IandePlugin;
 
 function add_custom_roles_and_capabilities () {
     add_role('iande_admin', __('Administrador do Iandé', 'iande'), [
