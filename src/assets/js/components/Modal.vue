@@ -31,7 +31,9 @@
             },
             open () {
                 this.isOpen = true
-                this.$refs.button.focus()
+                this.$nextTick(() => {
+                    this.$refs.button.focus()
+                })
             },
         }
     }
