@@ -227,7 +227,7 @@ function get_appointment_metadata_definition() {
                 }
             },
             'metabox' => (object) [
-                'name'    => __('Instituição', 'iande'),
+                'name'    => __('Exibição', 'iande'),
                 'type'    => 'select',
                 'options' => map_posts_to_options($exhibitions),
             ]
