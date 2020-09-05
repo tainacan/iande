@@ -6,12 +6,6 @@ function appointment_enqueue_scripts() {
 
     $site_url         = get_bloginfo('url');
     $iande_url        = get_site_url(null, '/iande');
-    $duration         = cmb2_get_option('iande_appointments_settings', 'duration', []);
-    $group_size       = cmb2_get_option('iande_appointments_settings', 'group_size', []);
-    $group_slot       = cmb2_get_option('iande_appointments_settings', 'group_slot', []);
-    $grid             = cmb2_get_option('iande_appointments_settings', 'grid', []);
-    $schedules        = get_option('iande_schedules', []);
-    $schedules        = array_filter($schedules);
 
     wp_localize_script(
         'iande-admin',
@@ -19,11 +13,6 @@ function appointment_enqueue_scripts() {
         [
             'siteUrl'           => $site_url,
             'iandeUrl'          => $iande_url,
-            'duration'          => $duration,
-            'groupSize'         => $group_size,
-            'groupSlot'         => $group_slot,
-            'grid'              => $grid,
-            'schedules'         => $schedules,
         ]
     );
 }

@@ -274,16 +274,24 @@ class Appointment extends Controller
      *
      * @return void
      */
-    function endpoint_list_published()
+    function endpoint_list_published($params)
     {
 
         $this->require_admin();
 
-        $args = array(
+        $args = [
             'post_type'      => 'appointment',
             'post_status'    => ['publish'],
             'posts_per_page' => 9999,
-        );
+            'meta_query'     => []
+        ];
+
+        if (!empty($params['exhibition'])) {
+            $args['meta_query'][] = [
+                'key'   => 'exhibition_id',
+                'value' => $params['exhibition'],
+            ];
+        }
 
         $appointments = get_posts($args);
 

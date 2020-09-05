@@ -40,6 +40,9 @@
             Calendar,
             LocalScope,
         },
+        props: {
+            exhibitionId: { type: Number, required: true },
+        },
         data () {
             return {
                 appointments: [],
@@ -78,7 +81,6 @@
                     }
                 })
             },
-            exhibition: get('exhibitions/default'),
             timeStep () {
                 if (this.exhibition) {
                     return Number(this.exhibition.duration)
@@ -89,9 +91,9 @@
         },
         async created () {
             try {
-                const exhibitions = await api.post('exhibition/list')
-                this.exhibition = exhibitions[0] || null
-                const appointments = await api.post('appointment/list_published')
+                const exhibition = await api.post('exhibition/get', { ID: this.exhibitionId })
+                this.exhibition = exhibition
+                const appointments = await api.post('appointment/list_published', { exhibition: this.exhibitionId })
                 this.appointments = appointments
             } catch (err) {
                 console.error(err)

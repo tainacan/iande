@@ -43,18 +43,12 @@ function iande_institution_settings() {
     $site_url         = get_bloginfo('url');
     $iande_url        = get_site_url(null, '/iande');
     $purposes         = cmb2_get_option('iande_appointments_settings', 'appointment_purpose', []);
-    $duration         = cmb2_get_option('iande_appointments_settings', 'duration', []);
-    $group_size       = cmb2_get_option('iande_appointments_settings', 'group_size', []);
-    $group_slot       = cmb2_get_option('iande_appointments_settings', 'group_slot', []);
-    $grid             = cmb2_get_option('iande_appointments_settings', 'grid', []);
     $profiles         = cmb2_get_option('iande_institution', 'institution_profile', []);
     $responsible_role = cmb2_get_option('iande_institution', 'institution_responsible_role', []);
     $deficiency       = cmb2_get_option('iande_institution', 'institution_deficiency', []);
     $language         = cmb2_get_option('iande_institution', 'institution_language', []);
     $age_range        = cmb2_get_option('iande_institution', 'institution_age_range', []);
     $scholarity       = cmb2_get_option('iande_institution', 'institution_scholarity', []);
-    $schedules        = get_option('iande_schedules', []);
-    $schedules        = array_filter($schedules);
 
     wp_localize_script(
         'iande',
@@ -70,11 +64,6 @@ function iande_institution_settings() {
             'languages'         => $language,
             'ageRanges'         => $age_range,
             'scholarity'        => $scholarity,
-            'schedules'         => $schedules,
-            'duration'          => $duration,
-            'groupSize'         => $group_size,
-            'groupSlot'         => $group_slot,
-            'grid'              => $grid
         ]
     );
 }
@@ -393,7 +382,7 @@ function cmb2_sanitize_group_list_callback($override_value, $value) {
 function cmb2_render_callback_for_calendar_appointments($field, $escaped_value, $object_id, $object_type, $field_type_object) {
     ?>
     <div class="iande-admin-app">
-        <iande-appointments-agenda></iande-appointments-agenda>
+        <iande-appointments-agenda :exhibition-id="<?= $object_id ?>"></iande-appointments-agenda>
     </div>
     <?php
 }

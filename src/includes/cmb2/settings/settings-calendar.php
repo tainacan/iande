@@ -16,10 +16,4 @@ function iande_settings()
 
     $iande_calendar_options = new_cmb2_box($args);
 
-    $iande_calendar_options->add_field([
-        'name' => '',
-        'id'   => 'calendar_appointments',
-        'type' => 'calendar_appointments'
-    ]);
-    
 }
