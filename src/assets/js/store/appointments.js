@@ -4,6 +4,7 @@ function newAppointment() {
     return {
         additional_comment: '',
         date: '',
+        exhibition_id: null,
         group_list: {
             groups: [],
         },
@@ -36,6 +37,12 @@ export default {
     state,
     getters: {
         ...make.getters(state),
+        exhibition (state, getters, rootState, rootGetters) {
+            if (!state.current.exhibition_id) {
+                return null
+            }
+            return rootGetters['exhibitions/list'].find(exhibition => exhibition.ID === state.current.exhibition_id)
+        },
         filteredFields (state) {
             const entries = Object.entries(state.current).filter(([key, value]) => {
                 return value != null && value !== ''

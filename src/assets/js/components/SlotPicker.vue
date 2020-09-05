@@ -35,7 +35,7 @@
                     return 'Nenhum horário disponível'
                 }
             },
-            exhibition: get('exhibitions/default'),
+            exhibition: get('appointments/exhibition'),
             hours () {
                 /* Used by VisitDate component */
                 return this.availableSlots.map(slot => slot.start.toFormat('HH:mm'))

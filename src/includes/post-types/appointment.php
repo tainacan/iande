@@ -185,15 +185,23 @@ function get_appointment_metadata_definition() {
 
     $user_id = \get_the_author_meta('ID');
 
-    $args = array(
+
+    $exhibitions = \get_posts([
+        'post_type'      => 'exhibition',
+        'post_status'    => ['publish'],
+        'posts_per_page' => 9999,
+        'order'          => 'ASC',
+        'orderby'        => 'ID'
+    ]);
+
+    $institutions = \get_posts([
         'author'         =>  $user_id,
         'post_type'      => 'institution',
         'post_status'    => ['publish'],
         'posts_per_page' => 9999,
         'order'          => 'ASC',
         'orderby'        => 'title'
-    );
-    $institutions = \get_posts($args);
+    ]);
 
     $metadata_definition = [
         'step' => (object) [
@@ -202,6 +210,22 @@ function get_appointment_metadata_definition() {
                 // TODO
                 return true;
             }
+        ],
+        'exhibition_id' => (object) [
+            'type'          => 'string',
+            'required'      => __('A exposição é obrigatória', 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) use ($exhibitions) {
+                if (is_numeric($value) && intval($value) == $value) {
+                    if (array_post_exists($value, $exhibitions)) {
+                        return true;
+                    } else {
+                        return __('Exposição inválida', 'iande');
+                    }
+                } else {
+                    return __('O valor informado para a exposição deve ser um inteiro', 'iande');
+                }
+            },
         ],
         'purpose' => (object) [
             'type'          => 'string',

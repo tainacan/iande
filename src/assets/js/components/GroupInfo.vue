@@ -93,7 +93,7 @@
         computed: {
             binaryOptions: constant({ 'Não': false, 'Sim': true }),
             disabilities: subModel('disabilities'),
-            exhibition: get('exhibitions/default'),
+            exhibition: get('appointments/exhibition'),
             languages: subModel('languages'),
             maxPeople () {
                 if (this.exhibition) {

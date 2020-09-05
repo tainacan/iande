@@ -35,7 +35,7 @@
             Repeater,
         },
         computed: {
-            exhibition: get('exhibitions/default'),
+            exhibition: get('appointments/exhibition'),
             groups: sync('appointments/current@group_list.groups'),
         },
         validations () {

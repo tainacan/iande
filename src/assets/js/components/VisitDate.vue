@@ -1,6 +1,13 @@
 <template>
-    <div class="iande-stack stack-lg">
+    <div id="iande-visit-date" class="iande-stack stack-lg">
         <h1>Reserve sua visita</h1>
+        <div v-if="exhibitions.length > 1">
+            <label class="iande-label" for="exhibitionId">Exibição</label>
+            <Select id="exhibitionId" v-model="exhibitionId" :validations="$v.exhibitionId" :options="exhibitionOptions"/>
+            <p class="iande-exhibition-description" v-if="exhibition && exhibition.description">
+                {{ exhibition.description }}
+            </p>
+        </div>
         <div>
             <label class="iande-label" for="purpose">Qual o objetivo da visita?</label>
             <Select id="purpose" v-model="purpose" :validations="$v.purpose" :options="purposeOptions"/>
@@ -26,7 +33,7 @@
 
 <script>
     import { required } from 'vuelidate/lib/validators'
-    import { sync } from 'vuex-pathify'
+    import { get, sync } from 'vuex-pathify'
 
     import DatePicker from './DatePicker.vue'
     import Input from './Input.vue'
@@ -46,15 +53,23 @@
         computed: {
             ...sync('appointments/current@', {
                 date: 'date',
+                exhibitionId: 'exhibition_id',
                 hour: 'hour',
                 name: 'name',
                 purpose: 'purpose',
                 purposeOther: 'purpose_other',
             }),
+            exhibition: get('appointments/exhibition'),
+            exhibitionOptions () {
+                const entries = this.exhibitions.map(exhibition => [exhibition.title, exhibition.ID])
+                return Object.fromEntries(entries)
+            },
+            exhibitions: get('exhibitions/list'),
             purposeOptions: constant(window.IandeSettings.purposes.slice(1)) // @todo Stop slicing it eventually
         },
         validations: {
             date: { date, required },
+            exhibitionId: { required },
             hour: { required, time },
             name: { },
             purpose: { required },
@@ -67,6 +82,14 @@
                         this.hour = ''
                     }
                 })
+            },
+            exhibitions: {
+                handler () {
+                    if (this.exhibitions.length === 1) {
+                        this.exhibitionId = this.exhibitions[0].ID
+                    }
+                },
+                immediate: true,
             },
             purpose: watchForOther('purpose', 'purposeOther'),
         },

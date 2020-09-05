@@ -50,7 +50,7 @@
                     this.modelValue = DateTime.fromJSDate(newValue).toISODate()
                 }
             },
-            exhibition: get('exhibitions/default'),
+            exhibition: get('appointments/exhibition'),
             inputClasses () {
                 return ['iande-input', this.fieldClass, this.validations.$error && 'invalid']
             },
