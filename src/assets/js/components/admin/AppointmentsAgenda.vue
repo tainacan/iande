@@ -91,9 +91,9 @@
         },
         async created () {
             try {
-                const exhibitions = await api.post('exhibition/list')
-                this.exhibition = exhibitions.find(exhibition => exhibition.ID == this.exhibitionId) || null
-                const appointments = await api.post('appointment/list_published')
+                const exhibition = await api.post('exhibition/get', { ID: this.exhibitionId })
+                this.exhibition = exhibition
+                const appointments = await api.post('appointment/list_published', { exhibition: this.exhibitionId })
                 this.appointments = appointments
             } catch (err) {
                 console.error(err)
