@@ -226,6 +226,11 @@ function get_appointment_metadata_definition() {
                     return __('O valor informado para a exposição deve ser um inteiro', 'iande');
                 }
             },
+            'metabox' => (object) [
+                'name'    => __('Instituição', 'iande'),
+                'type'    => 'select',
+                'options' => map_posts_to_options($exhibitions),
+            ]
         ],
         'purpose' => (object) [
             'type'          => 'string',
