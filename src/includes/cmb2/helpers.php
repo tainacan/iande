@@ -382,7 +382,7 @@ function cmb2_sanitize_group_list_callback($override_value, $value) {
 function cmb2_render_callback_for_calendar_appointments($field, $escaped_value, $object_id, $object_type, $field_type_object) {
     ?>
     <div class="iande-admin-app">
-        <iande-appointments-agenda></iande-appointments-agenda>
+        <iande-appointments-agenda :exhibition-id="<?= $object_id ?>"></iande-appointments-agenda>
     </div>
     <?php
 }

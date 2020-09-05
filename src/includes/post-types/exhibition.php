@@ -248,6 +248,16 @@ function register_metabox_exhibition() {
 function get_exhibition_metadata_definition() {
 
     $metadata_definition = [
+        'calendar_appointments' => (object) [
+            'type' => 'text',
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name' => '',
+                'type' => 'calendar_appointments'
+            ]
+        ],
         'description' => (object) [
             'type'       => 'text',
             'validation' => function ($value) {
