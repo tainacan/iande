@@ -23,10 +23,10 @@ function iande_settings_emails() {
     $options = [
         'wpautop'       => true,
         'media_buttons' => false,
-        'textarea_rows' => 10,
+        'textarea_rows' => 20,
         'teeny'         => true,
         'dfw'           => false,
-        'tinymce'       => false,
+        'tinymce'       => true,
         'quicktags'     => true
     ];
 

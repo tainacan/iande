@@ -222,6 +222,174 @@ function iande_cmb2_settings_init() {
     } else {
         cmb2_update_option('iande_institution', 'institution_age_range', $institution_age_range_default);
     }
+
+    
+    /**
+     * Parei aqui
+     * Ao ativar o plugin adicionar e-mail default
+     * Verificar se o option existe, se não criar
+     * Se o option existir e estiver vazio, adiciona o valor padrao também
+     * 
+     * Testar funcao cmb2_update_option
+     */
+
+
+    $emails_settings = \get_option('iande_emails_settings', '');
+
+    /**
+     * E-mail 1.1 - Pré agendamento
+     */
+    if (empty($emails_settings['email_pre_scheduling_title'])) {
+        $title = "Confirmação de reserva da visita";
+        cmb2_update_option('iande_emails_settings', 'email_pre_scheduling_title', $title);
+    }
+
+    if (empty($emails_settings['email_pre_scheduling'])) {
+
+        $message = "Olá %nome%,
+
+Aqui estão os dados da sua reserva para visitar o Museu <b>" . get_bloginfo('name') . "</b>.
+
+<b>Exposição:</b> %exposicao%
+<b>Data da visita:</b> %data%
+<b>Horário da visita:</b> %horario%
+<b>Número de visitantes:</b> %visitantes%
+
+Para finalizar seu agendamento e garantir a visita do seu grupo, preencha os demais dados do seu grupo <a href='%link%'>clicando aqui</a>.
+
+Você tem alguma dúvida? Entre em contato!
+%contatos%";
+
+        cmb2_update_option('iande_emails_settings', 'email_pre_scheduling', $message);
+
+    }
+
+    /**
+     * E-mail 1.2 - Pré agendamento + isenção
+     */
+    if (empty($emails_settings['email_pre_scheduling_exemption_title'])) {
+        $title = "Confirmação de reserva da visita";
+        cmb2_update_option('iande_emails_settings', 'email_pre_scheduling_exemption_title', $title);
+    }
+
+    if (empty($emails_settings['email_pre_scheduling_exemption'])) {
+
+        $message = "Olá %nome%,
+
+Aqui estão os dados da sua reserva para visitar o Museu <b>" . get_bloginfo('name') . "</b>.
+
+<b>Exposição:</b> %exposicao%
+<b>Data da visita:</b> %data%
+<b>Horário da visita:</b> %horario%
+<b>Número de visitantes:</b> %visitantes%
+
+Para finalizar seu agendamento e garantir a visita do seu grupo, preencha os demais dados do seu grupo <a href='%link%'>clicando aqui</a>.
+
+Você tem alguma dúvida? Entre em contato!
+%contatos%
+
+Você solicitou a isenção do pagamento dos ingressos na sua visita ao Museu <b>" . get_bloginfo('name') . "</b>.
+
+Lembramos que a gratuidade se aplica aos seguintes casos:
+
+<li>Idosos acima de 60 anos</li>
+<li>Crianças até 6 anos</li>
+<li>Deficientes</li>
+<li>Alunos da rede pública</li>
+<li>Acompanhantes de grupos com visitas agendadas</li>
+<li>Membros do ICOM, mediante apresentação de comprovante</li>
+
+Anexado a este e-mail você encontrará um modelo de pedido de isenção que deve ser preenchido e enviado para o e-mail %email%, para que sua solicitação de isenção seja processada.
+ 
+Caso você tenha dúvidas se está apto a solicitar a isenção do ingresso, entre em contato.
+%contatos%";
+
+        cmb2_update_option('iande_emails_settings', 'email_pre_scheduling_exemption', $message);
+
+    }
+
+    /**
+     * E-mail 1.3 - Lembrete
+     */
+    if (empty($emails_settings['email_reminder_title'])) {
+        $title = "Solicitação de confirmação da visita";
+        cmb2_update_option('iande_emails_settings', 'email_reminder_title', $title);
+    }
+
+    if (empty($emails_settings['email_reminder'])) {
+
+        $message = "A data da visita do seu grupo ao Museu <b>" . get_bloginfo('name') . "</b> está próxima!
+
+<b>Exposição:</b> %exposicao%
+<b>Data da visita:</b> %data%
+<b>Horário da visita:</b> %horario%
+<b>Número de visitantes:</b> %visitantes%
+
+Para finalizar seu agendamento e garantir a visita do seu grupo, preencha os dados complementares <a href='%link%'>clicando aqui</a>.
+
+Caso você deseje cancelar a visita, <a href='%cancelar%'>clique aqui</a>";
+
+        cmb2_update_option('iande_emails_settings', 'email_reminder', $message);
+    }
+
+    /**
+     * E-mail 1.4 - Agendamento confirmado
+     */
+    if (empty($emails_settings['email_confirmed_title'])) {
+        $title = "Visita confirmada";
+        cmb2_update_option('iande_emails_settings', 'email_confirmed_title', $title);
+    }
+
+    if (empty($emails_settings['email_confirmed'])) {
+
+        $message = "Olá %nome%,
+
+A sua visita está confirmada! Te esperamos no dia e horário a seguir:
+
+<b>Exposição:</b> %exposicao%
+<b>Data da visita:</b> %data%
+<b>Horário da visita:</b> %horario%
+<b>Número de visitantes:</b> %visitantes%
+ 
+Veja as regras de visitação do Museu acesando <a href='%regras%'>esse link</a>. 
+
+Gostaríamos de saber um pouco mais sobre você. Por favor, preencha uma breve pesquisa sobre sua relação com o Museu <b>" . get_bloginfo('name') . "</b> <a href='%regras%'>clicando aqui</a>.
+ 
+Nos vemos em breve!
+Equipe do Museu <b>" . get_bloginfo('name') . "</b>.
+
+Mudou de ideia? Não se esqueça de cancelar seu agendamento <a href='%cancelar%'>clicando aqui</a>.
+Precisa modificar a seu agendamento? Cancele e agende novamente <a href='%agendar%'>clicando aqui</a>.";
+
+        cmb2_update_option('iande_emails_settings', 'email_confirmed', $message);
+    }
+
+    /**
+     * E-mail 1.5 - Agendamento cancelado
+     */
+    if (empty($emails_settings['email_canceled_title'])) {
+        $title = "Visita cancelada";
+        cmb2_update_option('iande_emails_settings', 'email_canceled_title', $title);
+    }
+
+    if (empty($emails_settings['email_canceled'])) {
+
+        $message = "Olá %nome%,
+
+Sua visita foi cancelada.
+
+Dados da visita cancelada:
+
+<b>Exposição:</b> %exposicao%
+<b>Data da visita:</b> %data%
+<b>Horário da visita:</b> %horario%
+<b>Número de visitantes:</b> %visitantes%
+
+Equipe do Museu <b>" . get_bloginfo('name') . "</b>.";
+
+        cmb2_update_option('iande_emails_settings', 'email_canceled', $message);
+    }
+    
 }
 
 /**
