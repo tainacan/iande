@@ -71,6 +71,28 @@ function iande_settings_emails() {
         'show_names' => false,
         'options'    => $options
     ]);
+    $iande_emails_options->add_field([
+        'id'         => 'email_pre_scheduling_exemption_attachment',
+        'type'       => 'file',
+        'show_names' => false,
+        'options' => [
+            'url' => false,
+        ],
+        'text' => [
+            'add_upload_file_text' => __('Adicionar anexo ao e-mail', 'iande'),
+            'file_text'            => __('Anexo: ', 'iande'),
+            'file_download_text'   => __('Substituir anexo', 'iande'),
+            'remove_text'          => __('Remover anexo', 'iande')
+        ],
+        'query_args' => [
+            'type' => [
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.oasis.opendocument.text',
+                'application/pdf',
+            ],
+        ]
+    ]);
 
     // E-mail 1.3 - Lembrete
     $iande_emails_options->add_field([

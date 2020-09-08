@@ -213,6 +213,11 @@ abstract class Controller
             $headers[] = 'Content-Type: text/html; charset=UTF-8';
         }
 
+        $attachments = '';
+        if (!empty($emails_settings) && isset($emails_settings[$email_template . '_attachment'])) {
+            $attachments = \get_attached_file( $emails_settings[$email_template . '_attachment_id']);
+        }
+
         // executa as interpolações no título e corpo do e-mail
         if (!empty($params['interpolations'])) {
             
@@ -227,7 +232,7 @@ abstract class Controller
          * @link https://developer.wordpress.org/reference/functions/wp_mail/
          */
         $send = false;
-        $send = \wp_mail(sanitize_email($params['email']), $subject, \apply_filters('the_content', $body), $headers);
+        $send = \wp_mail(sanitize_email($params['email']), $subject, \apply_filters('the_content', $body), $headers, $attachments);
 
         // caso o e-mail enviado seja HTML, retorna ao formato defaut (text/plain)
         \add_filter('wp_mail_content_type', [$this, 'text_content_type']);
