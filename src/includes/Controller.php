@@ -227,6 +227,11 @@ abstract class Controller
             }
             
         }
+
+        // adiciona assinatura de e-mail se estiver definida
+        if (!empty($emails_settings) && isset($emails_settings['email_signature'])) {
+            $body .= "\n\r" . $emails_settings['email_signature'];
+        }
         
         /**
          * @link https://developer.wordpress.org/reference/functions/wp_mail/

@@ -23,12 +23,26 @@ function iande_settings_emails() {
     $options = [
         'wpautop'       => true,
         'media_buttons' => false,
-        'textarea_rows' => 20,
+        'textarea_rows' => 15,
         'teeny'         => true,
         'dfw'           => false,
         'tinymce'       => true,
         'quicktags'     => true
     ];
+
+    // Assinatura dos e-mails
+    $iande_emails_options->add_field([
+        'name'       => __('Assinatura dos e-mails', 'iande'),
+        'description' => __('Configure abaixo a assinatura de e-mail que acompanhará todos os e-mails enviados durante o processo de agendamento.', 'iande'),
+        'id'         => 'email_signature_heading',
+        'type'       => 'title'
+    ]);
+    $iande_emails_options->add_field([
+        'id'         => 'email_signature',
+        'type'       => 'wysiwyg',
+        'show_names' => false,
+        'options'    => $options
+    ]);
 
     // E-mail 1.1 - Pré agendamento
     $iande_emails_options->add_field([

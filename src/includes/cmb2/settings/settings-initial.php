@@ -14,6 +14,6 @@ function iande_settings()
         'save_button'  => esc_html__('Salvar opções', 'iande')
     ];
 
-    $iande_calendar_options = new_cmb2_box($args);
+    $iande_initial_options = new_cmb2_box($args);
 
 }

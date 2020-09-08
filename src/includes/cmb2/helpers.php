@@ -225,16 +225,24 @@ function iande_cmb2_settings_init() {
 
     
     /**
-     * Parei aqui
-     * Ao ativar o plugin adicionar e-mail default
-     * Verificar se o option existe, se não criar
-     * Se o option existir e estiver vazio, adiciona o valor padrao também
-     * 
-     * Testar funcao cmb2_update_option
+     * Define os e-mails padrões ao ativar o plugin
      */
-
-
     $emails_settings = \get_option('iande_emails_settings', '');
+
+    /**
+     * Assinatura dos e-mails
+     */
+    if (empty($emails_settings['email_signature'])) {
+
+        $message = "\n\r
+--
+<b><a href=". \home_url('/') .">" . \get_bloginfo('name') . "</b>
+<b>Telefone:</b> +55 (00) 0000 0000
+<b>E-mail:</b> " . \get_option('admin_email');
+
+        cmb2_update_option('iande_emails_settings', 'email_signature', $message);
+
+    }
 
     /**
      * E-mail 1.1 - Pré agendamento
@@ -257,8 +265,7 @@ Aqui estão os dados da sua reserva para visitar o Museu <b>" . get_bloginfo('na
 
 Para finalizar seu agendamento e garantir a visita do seu grupo, preencha os demais dados do seu grupo <a href='%link%'>clicando aqui</a>.
 
-Você tem alguma dúvida? Entre em contato!
-%contatos%";
+Você tem alguma dúvida? Entre em contato!";
 
         cmb2_update_option('iande_emails_settings', 'email_pre_scheduling', $message);
 
@@ -286,7 +293,6 @@ Aqui estão os dados da sua reserva para visitar o Museu <b>" . get_bloginfo('na
 Para finalizar seu agendamento e garantir a visita do seu grupo, preencha os demais dados do seu grupo <a href='%link%'>clicando aqui</a>.
 
 Você tem alguma dúvida? Entre em contato!
-%contatos%
 
 Você solicitou a isenção do pagamento dos ingressos na sua visita ao Museu <b>" . get_bloginfo('name') . "</b>.
 
@@ -301,8 +307,7 @@ Lembramos que a gratuidade se aplica aos seguintes casos:
 
 Anexado a este e-mail você encontrará um modelo de pedido de isenção que deve ser preenchido e enviado para o e-mail %email%, para que sua solicitação de isenção seja processada.
  
-Caso você tenha dúvidas se está apto a solicitar a isenção do ingresso, entre em contato.
-%contatos%";
+Caso você tenha dúvidas se está apto a solicitar a isenção do ingresso, entre em contato.";
 
         cmb2_update_option('iande_emails_settings', 'email_pre_scheduling_exemption', $message);
 
@@ -355,13 +360,13 @@ Veja as regras de visitação do Museu acesando <a href='%regras%'>esse link</a>
 
 Gostaríamos de saber um pouco mais sobre você. Por favor, preencha uma breve pesquisa sobre sua relação com o Museu <b>" . get_bloginfo('name') . "</b> <a href='%regras%'>clicando aqui</a>.
  
-Nos vemos em breve!
-Equipe do Museu <b>" . get_bloginfo('name') . "</b>.
-
 Mudou de ideia? Não se esqueça de cancelar seu agendamento <a href='%cancelar%'>clicando aqui</a>.
-Precisa modificar a seu agendamento? Cancele e agende novamente <a href='%agendar%'>clicando aqui</a>.";
+Precisa modificar a seu agendamento? Cancele e agende novamente <a href='%agendar%'>clicando aqui</a>.
+
+Nos vemos em breve!";
 
         cmb2_update_option('iande_emails_settings', 'email_confirmed', $message);
+
     }
 
     /**
@@ -383,11 +388,10 @@ Dados da visita cancelada:
 <b>Exposição:</b> %exposicao%
 <b>Data da visita:</b> %data%
 <b>Horário da visita:</b> %horario%
-<b>Número de visitantes:</b> %visitantes%
-
-Equipe do Museu <b>" . get_bloginfo('name') . "</b>.";
+<b>Número de visitantes:</b> %visitantes%";
 
         cmb2_update_option('iande_emails_settings', 'email_canceled', $message);
+
     }
     
 }
