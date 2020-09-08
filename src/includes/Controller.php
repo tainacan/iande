@@ -178,4 +178,70 @@ abstract class Controller
 
         die;
     }
+
+    /**
+     * Envia e-mail de transição do plugin.
+     *
+     * @return void
+     */
+    protected function email(string $email_template, array $params)
+    {
+
+        $this->require_authentication();
+
+        if (empty($params['email'])) {
+            $this->error(__('O endereço de e-mail é obrigatório', 'iande'));
+        }
+
+        $body = '';
+        $subject = '';
+        
+        $emails_settings = \get_option('iande_emails_settings', '');
+
+        if (!empty($emails_settings) && isset($emails_settings[$email_template])) {
+            $body = $emails_settings[$email_template];
+        }
+
+        if (!empty($emails_settings) && isset($emails_settings[$email_template . '_title'])) {
+            $subject = $emails_settings[$email_template . '_title'];
+        }
+
+        $headers = [];
+        if (isset($params['headers']) && !empty($params['headers'])) {
+            $headers[] = $params['headers'];
+        } else {
+            $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        }
+
+        // executa as interpolações no título e corpo do e-mail
+        if (!empty($params['interpolations'])) {
+            
+            foreach ($params['interpolations'] as $keyword => $value) {
+                $body    = str_replace('%' . $keyword . '%', $value, $body);
+                $subject = str_replace('%' . $keyword . '%', $value, $subject);
+            }
+            
+        }
+        
+        /**
+         * @link https://developer.wordpress.org/reference/functions/wp_mail/
+         */
+        $send = false;
+        $send = \wp_mail(sanitize_email($params['email']), $subject, \apply_filters('the_content', $body), $headers);
+
+        // caso o e-mail enviado seja HTML, retorna ao formato defaut (text/plain)
+        \add_filter('wp_mail_content_type', [$this, 'text_content_type']);
+
+        if ($send) {
+            $this->success('E-mail enviado!');
+        } else {
+            $this->error('Problemas ao tentar enviar o e-mail!');
+        }
+
+    }
+    
+    protected function text_content_type() {
+        return 'text/plain';
+    }
+
 }
