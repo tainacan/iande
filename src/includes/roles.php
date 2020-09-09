@@ -6,21 +6,21 @@ function add_custom_roles_and_capabilities () {
     add_role('iande_admin', __('Administrador do Iandé', 'iande'));
 
     // iande_admin
-    set_capabilities_to_role('iande_admin', 'appointment', 'appointments');
-    set_capabilities_to_role('iande_admin', 'exhibition', 'exhibitions');
-    set_capabilities_to_role('iande_admin', 'institution', 'institutions');
-    set_capabilities_to_role('iande_admin', 'exception', 'exceptions');
+    set_iande_admin_capabilities('iande_admin', 'appointment', 'appointments');
+    set_iande_admin_capabilities('iande_admin', 'exhibition', 'exhibitions');
+    set_iande_admin_capabilities('iande_admin', 'institution', 'institutions');
+    set_iande_admin_capabilities('iande_admin', 'exception', 'exceptions');
 
     // administrator
-    set_capabilities_to_role('administrator', 'appointment', 'appointments');
-    set_capabilities_to_role('administrator', 'exhibition', 'exhibitions');
-    set_capabilities_to_role('administrator', 'institution', 'institutions');
-    set_capabilities_to_role('administrator', 'exception', 'exceptions');
+    set_iande_admin_capabilities('administrator', 'appointment', 'appointments');
+    set_iande_admin_capabilities('administrator', 'exhibition', 'exhibitions');
+    set_iande_admin_capabilities('administrator', 'institution', 'institutions');
+    set_iande_admin_capabilities('administrator', 'exception', 'exceptions');
 
 }
 \add_action('init', 'IandePlugin\\add_custom_roles_and_capabilities');
 
-function set_capabilities_to_role($role, $singular, $plural) {
+function set_iande_admin_capabilities($role, $singular, $plural) {
 
     $set_role = get_role($role);
     
@@ -37,5 +37,6 @@ function set_capabilities_to_role($role, $singular, $plural) {
     $set_role->add_cap('delete_others_'.$plural);
     $set_role->add_cap('edit_private_'.$plural);
     $set_role->add_cap('edit_published_'.$plural);
+    $set_role->add_cap('manage_iande_options');
 
 }

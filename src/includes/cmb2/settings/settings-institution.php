@@ -8,6 +8,7 @@ function iande_institution() {
         'id'           => 'iande_institution_options_page',
         'title'        => __('Instituições', 'iande'),
         'object_types' => ['options-page'],
+        'capability'   => 'manage_iande_options',
         'option_key'   => 'iande_institution',
         'parent_slug'  => 'iande',
         'tab_group'    => 'iande_tabs',

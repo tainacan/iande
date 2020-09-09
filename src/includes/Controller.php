@@ -75,7 +75,7 @@ abstract class Controller
     }
 
     /**
-     * Verifica se o usuário está autenticado e é admin
+     * Verifica se o usuário está autenticado e tem a capability manage_iande_options
      * e se não estiver renderiza mensagem de erro
      *
      * @param string $error_message
@@ -85,7 +85,7 @@ abstract class Controller
     {
         $this->require_authentication($error_message);
 
-        if (!\current_user_can('administrator')) {
+        if (!\current_user_can('manage_iande_options')) {
             if (\wp_is_json_request()) {
                 $error_message = $error_message ?: __('This action requires admin permission');
                 $this->error($error_message, 403);

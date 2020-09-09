@@ -10,6 +10,7 @@ function iande_settings_emails() {
     $args = [
         'id'           => 'iande_emails_options_page',
         'object_types' => ['options-page'],
+        'capability'   => 'manage_iande_options',
         'parent_slug'  => 'iande',
         'tab_group'    => 'iande_tabs',
         'option_key'   => 'iande_emails_settings',
