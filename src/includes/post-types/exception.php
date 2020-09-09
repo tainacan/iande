@@ -37,7 +37,7 @@ function register_post_type_exception()
         'show_in_menu'       => true,
         'query_var'          => true,
         'rewrite'            => ['slug' => 'exception'],
-        'capability_type'    => 'post',
+        'capability_type'    => 'exception',
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,

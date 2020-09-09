@@ -36,7 +36,7 @@ function register_post_type_exhibition()
         'show_in_menu'       => true,
         'query_var'          => true,
         'rewrite'            => ['slug' => 'exhibition'],
-        'capability_type'    => 'post',
+        'capability_type'    => 'exhibition',
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,

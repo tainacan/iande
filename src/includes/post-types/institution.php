@@ -36,7 +36,7 @@ function register_post_type_institution()
         'show_in_menu'       => true,
         'query_var'          => true,
         'rewrite'            => ['slug' => 'institution'],
-        'capability_type'    => 'post',
+        'capability_type'    => 'institution',
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,

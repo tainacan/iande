@@ -38,7 +38,7 @@ function register_post_type_appointment()
         'show_in_menu'       => true,
         'query_var'          => true,
         'rewrite'            => ['slug' => 'appointment'],
-        'capability_type'    => 'post',
+        'capability_type'    => 'appointment',
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
