@@ -31,18 +31,31 @@ function iande_settings_emails() {
         'quicktags'     => true
     ];
 
-    // Assinatura dos e-mails
+    // E-mail do museu
     $iande_emails_options->add_field([
-        'name'       => __('Assinatura dos e-mails', 'iande'),
-        'description' => __('Configure abaixo a assinatura de e-mail que acompanhará todos os e-mails enviados durante o processo de agendamento.', 'iande'),
-        'id'         => 'email_signature_heading',
-        'type'       => 'title'
+        'name'        => __('E-mail do museu', 'iande'),
+        'description' => __('E-mail que será utilizado para contato do público com o museu.', 'iande'),
+        'id'          => 'email_contact_heading',
+        'type'        => 'title'
     ]);
     $iande_emails_options->add_field([
-        'id'         => 'email_signature',
-        'type'       => 'wysiwyg',
-        'show_names' => false,
-        'options'    => $options
+        'id'          => 'email_contact',
+        'type'        => 'text_email',
+        'show_names'  => false,
+    ]);
+
+    // Assinatura dos e-mails
+    $iande_emails_options->add_field([
+        'name'        => __('Assinatura dos e-mails', 'iande'),
+        'description' => __('Configure abaixo a assinatura de e-mail que acompanhará todos os e-mails enviados durante o processo de agendamento.', 'iande'),
+        'id'          => 'email_signature_heading',
+        'type'        => 'title'
+    ]);
+    $iande_emails_options->add_field([
+        'id'          => 'email_signature',
+        'type'        => 'wysiwyg',
+        'show_names'  => false,
+        'options'     => $options
     ]);
 
     // E-mail 1.1 - Pré agendamento
@@ -60,10 +73,11 @@ function iande_settings_emails() {
         ]
     ]);
     $iande_emails_options->add_field([
-        'id'         => 'email_pre_scheduling',
-        'type'       => 'wysiwyg',
-        'show_names' => false,
-        'options'    => $options
+        'id'          => 'email_pre_scheduling',
+        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%exposicao%</b>, <b>%data%</b>, <b>%horario%</b>, <b>%visitantes%</b>.', 'iande'),
+        'type'        => 'wysiwyg',
+        'show_names'  => false,
+        'options'     => $options
     ]);
 
     // E-mail 1.2 - Pré agendamento + isenção
@@ -81,10 +95,11 @@ function iande_settings_emails() {
         ]
     ]);
     $iande_emails_options->add_field([
-        'id'         => 'email_pre_scheduling_exemption',
-        'type'       => 'wysiwyg',
-        'show_names' => false,
-        'options'    => $options
+        'id'          => 'email_pre_scheduling_exemption',
+        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%exposicao%</b>, <b>%data%</b>, <b>%horario%</b>, <b>%visitantes%</b>, <b>%email_museu%</b>.', 'iande'),
+        'type'        => 'wysiwyg',
+        'show_names'  => false,
+        'options'     => $options
     ]);
     $iande_emails_options->add_field([
         'id'         => 'email_pre_scheduling_exemption_attachment',
@@ -124,10 +139,11 @@ function iande_settings_emails() {
         ]
     ]);
     $iande_emails_options->add_field([
-        'id'         => 'email_reminder',
-        'type'       => 'wysiwyg',
-        'show_names' => false,
-        'options'    => $options
+        'id'          => 'email_reminder',
+        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%exposicao%</b>, <b>%data%</b>, <b>%horario%</b>, <b>%visitantes%</b>.', 'iande'),
+        'type'        => 'wysiwyg',
+        'show_names'  => false,
+        'options'     => $options
     ]);
 
     // E-mail 1.4 - Agendamento confirmado
@@ -145,10 +161,11 @@ function iande_settings_emails() {
         ]
     ]);
     $iande_emails_options->add_field([
-        'id'         => 'email_confirmed',
-        'type'       => 'wysiwyg',
-        'show_names' => false,
-        'options'    => $options
+        'id'          => 'email_confirmed',
+        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%exposicao%</b>, <b>%data%</b>, <b>%horario%</b>, <b>%visitantes%</b>.', 'iande'),
+        'type'        => 'wysiwyg',
+        'show_names'  => false,
+        'options'     => $options
     ]);
 
     // E-mail 1.5 - Agendamento cancelado
@@ -166,10 +183,11 @@ function iande_settings_emails() {
         ]
     ]);
     $iande_emails_options->add_field([
-        'id'         => 'email_canceled',
-        'type'       => 'wysiwyg',
-        'show_names' => false,
-        'options'    => $options
+        'id'          => 'email_canceled',
+        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%exposicao%</b>, <b>%data%</b>, <b>%horario%</b>, <b>%visitantes%</b>.', 'iande'),
+        'type'        => 'wysiwyg',
+        'show_names'  => false,
+        'options'     => $options
     ]);
 
 }

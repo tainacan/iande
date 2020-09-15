@@ -230,6 +230,15 @@ function iande_cmb2_settings_init() {
     $emails_settings = \get_option('iande_emails_settings', '');
 
     /**
+     * E-mail do museu
+     */
+    if (empty($emails_settings['email_contact'])) {
+
+        cmb2_update_option('iande_emails_settings', 'email_contact', get_option('admin_email'));
+        
+    }
+
+    /**
      * Assinatura dos e-mails
      */
     if (empty($emails_settings['email_signature'])) {
@@ -305,7 +314,7 @@ Lembramos que a gratuidade se aplica aos seguintes casos:
 <li>Acompanhantes de grupos com visitas agendadas</li>
 <li>Membros do ICOM, mediante apresentação de comprovante</li>
 
-Anexado a este e-mail você encontrará um modelo de pedido de isenção que deve ser preenchido e enviado para o e-mail %email%, para que sua solicitação de isenção seja processada.
+Anexado a este e-mail você encontrará um modelo de pedido de isenção que deve ser preenchido e enviado para o e-mail %email_museu%, para que sua solicitação de isenção seja processada.
  
 Caso você tenha dúvidas se está apto a solicitar a isenção do ingresso, entre em contato.";
 
