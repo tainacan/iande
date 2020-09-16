@@ -5,7 +5,7 @@
             <Select :id="`${id}_type`" v-model="type" :validations="validations.type" :options="disabilityOptions"/>
         </div>
         <div v-if="isOther(type)">
-            <label :for="`${id}_other`" class="iande-label">Qual?</label>
+            <label :for="`${id}_other`" class="iande-label">Especifique o tipo de deficiência</label>
             <Input :id="`${id}_other`" type="text" v-model="other" :validations="validations.other"/>
         </div>
         <div>

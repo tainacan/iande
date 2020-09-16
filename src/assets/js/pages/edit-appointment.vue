@@ -3,10 +3,9 @@
         <div class="iande-container narrow iande-stack stack-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="updateAppointment">
                 <VisitDate ref="form" v-if="screen === 1"/>
-                <ResponsiblePerson ref="form" v-else-if="screen === 2"/>
-                <SelectInstitution ref="form" v-else-if="screen === 3" :canAddInstitution="false"/>
-                <GroupsInfo ref="form" v-else-if="screen === 5"/>
-                <AdditionalData ref="form" v-else-if="screen === 6"/>
+                <SelectInstitution ref="form" v-else-if="screen === 2" :canAddInstitution="false"/>
+                <GroupsInfo ref="form" v-else-if="screen === 4"/>
+                <AdditionalData ref="form" v-else-if="screen === 5"/>
 
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ formError }}</span>
@@ -28,7 +27,6 @@
     // Lazy-loading candidates
     import AdditionalData from '../components/AdditionalData.vue'
     import GroupsInfo from '../components/GroupsInfo.vue'
-    import ResponsiblePerson from '../components/ResponsiblePerson.vue'
     import SelectInstitution from '../components/SelectInstitution.vue'
     import VisitDate from '../components/VisitDate.vue'
 
@@ -37,7 +35,6 @@
         components: {
             AdditionalData,
             GroupsInfo,
-            ResponsiblePerson,
             SelectInstitution,
             VisitDate,
         },

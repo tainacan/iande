@@ -4,24 +4,24 @@
 
         <div class="iande-container narrow">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="confirmAppointment">
-                <GroupsInfo ref="form" v-if="screen === 5"/>
-                <AdditionalData ref="form" v-else-if="screen === 6"/>
+                <GroupsInfo ref="form" v-if="screen === 4"/>
+                <AdditionalData ref="form" v-else-if="screen === 5"/>
 
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ formError }}</span>
                 </div>
 
                 <div class="iande-form-grid">
-                    <a class="iande-button solid" v-if="screen === 5" :href="`${iandeUrl}/appointment/list`">
+                    <a class="iande-button solid" v-if="screen === 4" :href="`${iandeUrl}/appointment/list`">
                         <Icon icon="angle-left"/>
                         Voltar
                     </a>
-                    <button class="iande-button solid" type="button" v-else @click="setScreen(5)">
+                    <button class="iande-button solid" type="button" v-else @click="setScreen(4)">
                         <Icon icon="angle-left"/>
                         Voltar
                     </button>
 
-                    <button class="iande-button primary" type="button" v-if="screen === 5" @click="setScreen(6)">
+                    <button class="iande-button primary" type="button" v-if="screen === 4" @click="setScreen(5)">
                         Avançar
                         <Icon icon="angle-right"/>
                     </button>
@@ -58,7 +58,7 @@
         data () {
             return {
                 formError: '',
-                screen: 5,
+                screen: 4,
             }
         },
         computed: {

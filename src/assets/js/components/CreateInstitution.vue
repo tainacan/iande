@@ -15,7 +15,7 @@
             <Select id="profile" placeholder="Selecione o perfil da instituição" v-model="profile" :validations="$v.profile" :options="profileOptions"/>
         </div>
         <div v-if="isOther(profile)">
-            <label class="iande-label" for="profileOther">Qual?</label>
+            <label class="iande-label" for="profileOther">Especifique o perfil da instituição</label>
             <Input id="profileOther" type="text" v-model="profileOther" :validations="$v.profileOther"/>
         </div>
         <div>

@@ -62,7 +62,7 @@
                     <div class="iande-appointment__box-title">
                         <h3><Icon icon="university"/>Instituição</h3>
                         <div class="iande-appointment__edit" v-if="editable">
-                            <a class="iande-appointment__edit-link" :href="gotoScreen(3)">Editar</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(2)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     <div class="iande-appointment__box-title">
                         <h3><Icon icon="users"/>{{ groupName(group) }}</h3>
                         <div class="iande-appointment__edit" v-if="editable">
-                            <a class="iande-appointment__edit-link" :href="gotoScreen(5)">Editar</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(4)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                     <div class="iande-appointment__box-title">
                         <h3><Icon :icon="['far', 'address-card']"/>Dados adicionais</h3>
                         <div class="iande-appointment__edit" v-if="editable">
-                            <a class="iande-appointment__edit-link" :href="gotoScreen(6)">Editar</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(5)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
