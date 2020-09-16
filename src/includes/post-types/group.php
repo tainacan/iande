@@ -257,11 +257,13 @@ function get_group_metadata_definition() {
                 }
             },
             'metabox' => (object) [
-                'name'    => __('Deficiências', 'iande'),
-                'type'    => 'double_text',
-                'options' => [
-                    'name_1' => __('Deficiência', 'iande'),
-                    'name_2' => __('Quantidade', 'iande')
+                'name'       => __('Deficiências', 'iande'),
+                'type'       => 'double_text',
+                'repeatable' => true,
+                'options'    => [
+                    'name_1'       => __('Deficiência', 'iande'),
+                    'name_2'       => __('Quantidade', 'iande'),
+                    'add_row_text' => __('Adicionar Deficiência/Quantidade', 'iande')
                 ]
             ]
         ]
