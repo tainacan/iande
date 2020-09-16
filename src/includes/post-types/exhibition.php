@@ -347,7 +347,7 @@ function get_exhibition_metadata_definition() {
                 return true;
             },
             'metabox' => (object) [
-                'name' => __('Quantidade (máxima) de grupos por slot', 'iande'),
+                'name' => __('Quantidade (máxima) de grupos por horário', 'iande'),
                 'type'       => 'text',
                 'attributes' => [
                     'type' => 'number',
@@ -363,7 +363,7 @@ function get_exhibition_metadata_definition() {
                 return true;
             },
             'metabox' => (object) [
-                'name'       => __('Grid', 'iande'),
+                'name'       => __('Intervalo entre os horários de atendimento', 'iande'),
                 'type'       => 'text',
                 'attributes' => [
                     'type' => 'number',
