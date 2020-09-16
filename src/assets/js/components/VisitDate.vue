@@ -1,24 +1,24 @@
 <template>
     <div id="iande-visit-date" class="iande-stack stack-lg">
-        <h1>Reserve sua visita</h1>
-        <div v-if="exhibitions.length > 1">
-            <label class="iande-label" for="exhibitionId">Exibição</label>
-            <Select id="exhibitionId" v-model="exhibitionId" :validations="$v.exhibitionId" :options="exhibitionOptions"/>
-            <p class="iande-exhibition-description" v-if="exhibition && exhibition.description">
-                {{ exhibition.description }}
-            </p>
-        </div>
+        <h1>Sobre a visita</h1>
         <div>
             <label class="iande-label" for="purpose">Qual o objetivo da visita?</label>
             <Select id="purpose" v-model="purpose" :validations="$v.purpose" :options="purposeOptions"/>
         </div>
         <div v-if="isOther(purpose)">
-            <label class="iande-label" for="purposeOther">Qual?</label>
+            <label class="iande-label" for="purposeOther">Especifique o objetivo da visita</label>
             <Input id="purposeOther" type="text" v-model="purposeOther" :validations="$v.purposeOther"/>
         </div>
         <div>
             <label class="iande-label" for="name">Dê um nome para sua visita<span class="iande-label__optional">(opcional)</span></label>
             <Input id="name" type="text" placeholder="Se quiser, atribua um nome para esta visita" v-model="name" :validations="$v.name"/>
+        </div>
+        <div v-if="exhibitions.length > 1">
+            <label class="iande-label" for="exhibitionId">Qual exposição será visitada?</label>
+            <Select id="exhibitionId" v-model="exhibitionId" :validations="$v.exhibitionId" :options="exhibitionOptions"/>
+            <p class="iande-exhibition-description" v-if="exhibition && exhibition.description">
+                {{ exhibition.description }}
+            </p>
         </div>
         <div>
             <label class="iande-label" for="date">Data da visitação</label>

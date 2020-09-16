@@ -5,7 +5,7 @@
             <Select :id="`${id}_name`" v-model="name" :validations="validations.name" :options="languageOptions"/>
         </div>
         <div v-if="isOther(name)">
-            <label :for="`${id}_name`" class="iande-label">Qual?</label>
+            <label :for="`${id}_name`" class="iande-label">Especifique o idioma</label>
             <Input :id="`${id}_name`" type="text" v-model="other" :validations="validations.other"/>
         </div>
     </div>

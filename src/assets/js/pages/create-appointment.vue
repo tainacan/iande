@@ -5,9 +5,8 @@
         <div class="iande-container narrow iande-stack stack-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
                 <VisitDate ref="form" v-if="screen === 1"/>
-                <ResponsiblePerson ref="form" v-else-if="screen === 2"/>
-                <SelectInstitution ref="form" v-else-if="screen === 3" @add-institution="setScreen(4)"/>
-                <CreateInstitution ref="form" v-else-if="screen === 4"/>
+                <SelectInstitution ref="form" v-else-if="screen === 2" @add-institution="setScreen(3)"/>
+                <CreateInstitution ref="form" v-else-if="screen === 3"/>
 
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ formError }}</span>
@@ -20,7 +19,7 @@
                     </button>
                     <div v-else></div>
                     <button class="iande-button primary" type="submit">
-                        {{ screen === 4 ? 'Salvar instituição' : 'Avançar' }}
+                        {{ screen === 3 ? 'Salvar instituição' : 'Avançar' }}
                         <Icon icon="angle-right"/>
                     </button>
                 </div>
@@ -38,7 +37,6 @@
 
     // Lazy-loading candidates
     import CreateInstitution from '../components/CreateInstitution.vue'
-    import ResponsiblePerson from '../components/ResponsiblePerson.vue'
     import SelectInstitution from '../components/SelectInstitution.vue'
     import VisitDate from '../components/VisitDate.vue'
 
@@ -47,7 +45,6 @@
         components: {
             CreateInstitution,
             Icon: FontAwesomeIcon,
-            ResponsiblePerson,
             SelectInstitution,
             StepsIndicator,
             VisitDate,
@@ -85,9 +82,9 @@
                 return !formComponent.$v.$invalid
             },
             async nextStep () {
-                if (this.screen === 4) {
+                if (this.screen === 3) {
                     await this.saveInstitution()
-                } else if (this.screen === 3 && this.appointment.institution_id != null) {
+                } else if (this.screen === 2 && this.appointment.institution_id != null) {
                     await this.saveAppointment()
                 } else {
                     this.setScreen(this.screen + 1)
