@@ -28,7 +28,7 @@ function set_iande_admin_capabilities($role, $singular, $plural) {
     $set_role->add_cap('read_'.$singular);
     $set_role->add_cap('delete_'.$singular);
     $set_role->add_cap('edit_'.$plural);
-    $set_role->add_cap('edit_other_'.$plural);
+    $set_role->add_cap('edit_others_'.$plural);
     $set_role->add_cap('publish_'.$plural);
     $set_role->add_cap('read_private_'.$plural);
     $set_role->add_cap('delete_'.$plural);
