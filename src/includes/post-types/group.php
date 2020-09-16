@@ -229,7 +229,6 @@ function get_group_metadata_definition() {
                 'type'  => 'text'
             ]
         ],
-        // @todo aplicar repeater
         'languages' => (object) [
             'type'       => 'string',
             'required'   => false,
@@ -241,11 +240,14 @@ function get_group_metadata_definition() {
                 }
             },
             'metabox' => (object) [
-                'name' => __('Idiomas', 'iande'),
-                'type' => 'text',
+                'name'       => __('Idiomas', 'iande'),
+                'type'       => 'text',
+                'repeatable' => true,
+                'options'    => [
+                    'add_row_text' => __('Adicionar Idioma', 'iande')
+                ]
             ]
         ],
-        // @todo aplicar repeater
         'disabilities' => (object) [
             'type'       => 'string',
             'required'   => false,
