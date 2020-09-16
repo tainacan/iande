@@ -257,8 +257,12 @@ function get_group_metadata_definition() {
                 }
             },
             'metabox' => (object) [
-                'name' => __('Deficiências', 'iande'),
-                'type' => 'text',
+                'name'    => __('Deficiências', 'iande'),
+                'type'    => 'double_text',
+                'options' => [
+                    'name_1' => __('Deficiência', 'iande'),
+                    'name_2' => __('Quantidade', 'iande')
+                ]
             ]
         ]
 
