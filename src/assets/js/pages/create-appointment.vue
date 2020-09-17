@@ -5,7 +5,7 @@
         <div class="iande-container narrow iande-stack stack-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
                 <VisitDate ref="form" v-if="screen === 1"/>
-                <SelectInstitution ref="form" v-else-if="screen === 2" @add-institution="setScreen(3)"/>
+                <SelectInstitution ref="form" v-else-if="screen === 2" @add-institution="saveAndSetScreen(3)"/>
                 <CreateInstitution ref="form" v-else-if="screen === 3"/>
 
                 <div class="iande-form-error" v-if="formError">
@@ -87,7 +87,7 @@
                 } else if (this.screen === 2 && this.appointment.institution_id != null) {
                     await this.saveAppointment()
                 } else {
-                    this.setScreen(this.screen + 1)
+                    this.saveAndSetScreen(this.screen + 1)
                 }
             },
             resetAppointment: call('appointments/reset'),
@@ -119,14 +119,17 @@
                     }
                 }
             },
-            async setScreen (num) {
+            setScreen (num) {
+                this.screen = num
+            },
+            async saveAndSetScreen (num) {
                 this.formError = ''
                 if (this.isFormValid()) {
                     try {
                         const verb = this.fields.ID ? 'update' : 'create'
                         const result = await api.post(`appointment/${verb}`, this.fields)
                         this.appointmentId = result.ID
-                        this.screen = num
+                        this.setScreen(num)
                     } catch (err) {
                         this.formError = err
                     }

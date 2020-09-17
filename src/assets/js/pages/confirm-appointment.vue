@@ -21,7 +21,7 @@
                         Voltar
                     </button>
 
-                    <button class="iande-button primary" type="button" v-if="screen === 4" @click="setScreen(5)">
+                    <button class="iande-button primary" type="button" v-if="screen === 4" @click="saveAndSetScreen(5)">
                         Avançar
                         <Icon icon="angle-right"/>
                     </button>
@@ -102,12 +102,15 @@
                 formComponent.$v.$touch()
                 return !formComponent.$v.$invalid
             },
-            async setScreen (num) {
+            setScreen (num) {
+                this.screen = num
+            },
+            async saveAndSetScreen (num) {
                 this.formError = ''
                 if (this.isFormValid()) {
                     try {
                         await api.post('appointment/update', this.fields)
-                        this.screen = num
+                        this.setScreen(num)
                     } catch (err) {
                         this.formError = err
                     }
