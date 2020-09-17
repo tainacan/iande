@@ -73,7 +73,7 @@
     import { constant, subModel } from '../utils'
 
     export default {
-        name: 'GroupInfo',
+        name: 'GroupAdditionalInfo',
         components: {
             DisabilityInfo,
             Icon: FontAwesomeIcon,

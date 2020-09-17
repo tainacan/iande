@@ -4,7 +4,7 @@
         <p>Nesta etapa você deve dar informações sobre o grupo que irá visitar o museu.</p>
         <Repeater id="groups" class="iande-groups" v-model="groups" :factory="newGroup" :validations="$v.groups">
             <template #item="{ id, onUpdate, validations, value }">
-                <GroupInfo :key="id" :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
+                <GroupAdditionalInfo :key="id" :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
             </template>
             <template #addItem="{ action }">
                 <button class="iande-add-group iande-button" type="button" @click="action">
@@ -23,14 +23,14 @@
     import { get, sync } from 'vuex-pathify'
 
     import FormError from './FormError.vue'
-    import GroupInfo from './GroupInfo.vue'
+    import GroupAdditionalInfo from './GroupAdditionalInfo.vue'
     import Repeater from './Repeater.vue'
 
     export default {
-        name: 'GroupsInfo',
+        name: 'GroupsAdditionalInfo',
         components: {
             FormError,
-            GroupInfo,
+            GroupAdditionalInfo,
             Icon: FontAwesomeIcon,
             Repeater,
         },
