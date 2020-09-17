@@ -4,7 +4,7 @@
 
         <div class="iande-container narrow">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="confirmAppointment">
-                <GroupsInfo ref="form" v-if="screen === 4"/>
+                <GroupsAdditionalInfo ref="form" v-if="screen === 4"/>
                 <AdditionalData ref="form" v-else-if="screen === 5"/>
 
                 <div class="iande-form-error" v-if="formError">
@@ -45,13 +45,13 @@
 
     // Lazy-loading candidates
     import AdditionalData from '../components/AdditionalData.vue'
-    import GroupsInfo from '../components/GroupsInfo.vue'
+    import GroupsAdditionalInfo from '../components/GroupsAdditionalInfo.vue'
 
     export default {
         name: 'ConfirmAppointmentPage',
         components: {
             AdditionalData,
-            GroupsInfo,
+            GroupsAdditionalInfo,
             Icon: FontAwesomeIcon,
             StepsIndicator,
         },
