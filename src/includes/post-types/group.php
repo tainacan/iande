@@ -248,7 +248,7 @@ function get_group_metadata_definition() {
                 ]
             ]
         ],
-        'disabilities' => (object) [
+        'deficiency' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
@@ -260,11 +260,9 @@ function get_group_metadata_definition() {
             },
             'metabox' => (object) [
                 'name'       => __('Deficiências', 'iande'),
-                'type'       => 'double_text',
+                'type'       => 'deficiency',
                 'repeatable' => true,
                 'options'    => [
-                    'name_1'       => __('Deficiência', 'iande'),
-                    'name_2'       => __('Quantidade', 'iande'),
                     'add_row_text' => __('Adicionar Deficiência/Quantidade', 'iande')
                 ]
             ]
