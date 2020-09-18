@@ -104,8 +104,8 @@
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
-                    <div>Você já visitou o museu antes: {{ appointment.has_visited_previously === 'yes' ? 'Sim' : 'Não' }}</div>
-                    <div>Preparação: {{ appointment.has_prepared_visity === 'yes' ? 'Sim' : 'Não' }}</div>
+                    <div>Você já visitou o museu antes: {{ formatBinaryOption(appointment.has_visited_previously) }}</div>
+                    <div>Preparação: {{ formatBinaryOption(appointment.has_prepared_visity) }}</div>
                     <div v-if="appointment.additional_comment">Comentários: {{ appointment.additional_comments }}</div>
                 </div>
             </div>
@@ -237,6 +237,9 @@
             closeModal () {
                 this.$refs.modal.close()
                 window.location.reload()
+            },
+            formatBinaryOption (option) {
+                return option === 'yes' ? 'Sim' : 'Não'
             },
             formatCep,
             formatPhone,
