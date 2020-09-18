@@ -245,7 +245,19 @@ abstract class Controller
         if ($send) {
             $this->success('E-mail enviado!');
         } else {
-            $this->error('Problemas ao tentar enviar o e-mail!');
+
+            global $wp_mail_errors;
+            global $phpmailer;
+        
+            if (!isset($wp_mail_errors))
+                $wp_mail_errors = [];
+        
+            if (isset($phpmailer)) {
+                $wp_mail_errors['error'] = $phpmailer->ErrorInfo;
+            }
+        
+            $this->error($wp_mail_errors['error']);
+
         }
 
     }

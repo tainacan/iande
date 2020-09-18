@@ -180,6 +180,19 @@ class Appointment extends Controller
             );
             \wp_update_post($update_appointment);
 
+            // envia o e-mail de cancelamento para o responsavel do agendamento
+            $email_params = [
+                'email' => $appointment->responsible_email,
+                'interpolations' => [
+                    'nome'       => $appointment->responsible_first_name,
+                    'exposicao'  => \get_the_title($appointment->exhibition_id),
+                    'data'       => date('d/m/Y', strtotime($appointment->date)),
+                    'horario'    => $appointment->hour,
+                    'visitantes' => $appointment->num_people
+                ]
+            ];
+            $this->email('email_canceled', $email_params);
+
             $appointment = $this->get_parsed_appointment($params['ID']);
 
             \do_action('iande.after_cancel_appointment', $appointment);
