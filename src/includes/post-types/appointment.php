@@ -443,6 +443,27 @@ function get_appointment_metadata_definition() {
                 'options' => map_posts_to_options($institutions),
             ]
         ],
+        'requested_exemption' => (object) [
+            'type'          => 'string',
+            'required'      => false,
+            'required_step' => 2,
+            'validation'    => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Solicitou isenção dos ingressos?', 'iande'),
+                'type'    => 'radio',
+                'default' => 'no',
+                'options' => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ],
         'has_visited_previously' => (object) [
             'type'          => 'string',
             'required'      => __('Precisamos saber se você já visitou esse museu', 'iande'),
@@ -523,6 +544,21 @@ function get_appointment_metadata_definition() {
             'metabox' => (object) [
                 'name' => __('Grupos do agendamento', 'iande'),
                 'type' => 'group_list',
+            ]
+        ],
+        'num_people' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                if (is_numeric($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado não é um número válido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name' => __('Quantidade prevista de pessoas', 'iande'),
+                'type' => 'text'
             ]
         ],
         'reason_cancel' => (object) [
