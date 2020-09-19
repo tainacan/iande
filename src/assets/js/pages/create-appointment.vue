@@ -4,22 +4,21 @@
 
         <div class="iande-container narrow iande-stack stack-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
-                <VisitDate ref="form" v-if="screen === 1"/>
-                <SelectInstitution ref="form" v-else-if="screen === 2" @add-institution="saveAndSetScreen(3)"/>
-                <CreateInstitution ref="form" v-else-if="screen === 3"/>
+                <component :is="route.component" ref="form" @add-institution="setScreen(3)"/>
 
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ formError }}</span>
                 </div>
 
                 <div class="iande-form-grid">
-                    <button class="iande-button solid" type="button" v-if="screen > 1" @click="setScreen(screen - 1)">
+                    <button class="iande-button solid" type="button" v-if="route.previous" @click="previousStep">
                         <Icon icon="angle-left"/>
                         Voltar
                     </button>
                     <div v-else></div>
+
                     <button class="iande-button primary" type="submit">
-                        {{ screen === 3 ? 'Salvar instituição' : 'Avançar' }}
+                        Avançar
                         <Icon icon="angle-right"/>
                     </button>
                 </div>
@@ -40,14 +39,30 @@
     import SelectInstitution from '../components/SelectInstitution.vue'
     import VisitDate from '../components/VisitDate.vue'
 
+    const routes = {
+        1: {
+            component: VisitDate,
+            action: 'saveAppointment',
+            next: 2,
+        },
+        2: {
+            component: SelectInstitution,
+            action: 'submitAppointment',
+            previous: 1,
+        },
+        3: {
+            component: CreateInstitution,
+            action: 'saveInstitution',
+            previous: 2,
+            next: 2,
+        },
+    }
+
     export default {
         name: 'CreateAppointmentPage',
         components: {
-            CreateInstitution,
             Icon: FontAwesomeIcon,
-            SelectInstitution,
             StepsIndicator,
-            VisitDate,
         },
         data () {
             return {
@@ -61,6 +76,10 @@
             appointmentInstitution: sync('appointments/current@institution_id'),
             fields: get('appointments/filteredFields'),
             institution: sync('institutions/current'),
+            institutions: sync('institutions/list'),
+            route () {
+                return routes[this.screen]
+            },
         },
         async beforeMount () {
             const qs = new URLSearchParams(window.location.search)
@@ -82,57 +101,58 @@
                 return !formComponent.$v.$invalid
             },
             async nextStep () {
-                if (this.screen === 3) {
-                    await this.saveInstitution()
-                } else if (this.screen === 2 && this.appointment.institution_id != null) {
-                    await this.saveAppointment()
-                } else {
-                    this.saveAndSetScreen(this.screen + 1)
+                this.formError = ''
+                if (this.isFormValid()) {
+                    if (this[this.route.action]() && this.route.next) {
+                        this.setScreen(this.route.next)
+                    }
+                }
+            },
+            previousStep () {
+                this.formError = ''
+                if (this.route.previous) {
+                    this.setScreen(this.route.previous)
                 }
             },
             resetAppointment: call('appointments/reset'),
             resetInstitution: call('institutions/reset'),
             async saveAppointment () {
-                this.formError = ''
-                if (this.isFormValid()) {
-                    try {
-                        await api.post('appointment/update', this.fields)
-                        await api.post('appointment/advance_step', { ID: this.appointmentId })
-                        this.$refs.form.$v.$reset()
-                        await this.resetInstitution()
-                        await this.resetAppointment()
-                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
-                    } catch (err) {
-                        this.formError = err
-                    }
+                try {
+                    const verb = this.fields.ID ? 'update' : 'create'
+                    const result = await api.post(`appointment/${verb}`, this.fields)
+                    this.appointmentId = result.ID
+                    return true
+                } catch (err) {
+                    this.formError = err
+                    return false
                 }
             },
             async saveInstitution () {
-                this.formError = ''
-                if (this.isFormValid()) {
-                    try {
-                        const institution = await api.post('institution/create', this.institution)
-                        this.appointmentInstitution = institution.ID
-                        await this.saveAppointment()
-                    } catch (err) {
-                        this.formError = err
-                    }
+                try {
+                    const institution = await api.post('institution/create', this.institution)
+                    this.institutions = [...this.institutions, institution]
+                    this.appointmentInstitution = institution.ID
+                    return true
+                } catch (err) {
+                    this.formError = err
+                    return false
                 }
             },
             setScreen (num) {
                 this.screen = num
             },
-            async saveAndSetScreen (num) {
-                this.formError = ''
-                if (this.isFormValid()) {
-                    try {
-                        const verb = this.fields.ID ? 'update' : 'create'
-                        const result = await api.post(`appointment/${verb}`, this.fields)
-                        this.appointmentId = result.ID
-                        this.setScreen(num)
-                    } catch (err) {
-                        this.formError = err
-                    }
+            async submitAppointment () {
+                try {
+                    await api.post('appointment/update', this.fields)
+                    await api.post('appointment/advance_step', { ID: this.appointmentId })
+                    this.$refs.form.$v.$reset()
+                    await this.resetInstitution()
+                    await this.resetAppointment()
+                    window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
+                    return true
+                } catch (err) {
+                    this.formError = err
+                    return false
                 }
             },
         }
