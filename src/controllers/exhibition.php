@@ -101,7 +101,7 @@ class Exhibition extends Controller
 
             if (!empty($params[$key])) {
                 $validation_fn = $definition->validation;
-                $validation = $validation_fn($params[$key]);
+                $validation = $validation_fn($params[$key], $params);
                 $valid = $validation === true;
                 if (!$valid) {
                     $this->error($validation);

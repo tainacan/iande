@@ -440,7 +440,7 @@ class Appointment extends Controller
     function check_availability($exhibition_id, $date, $hour) {
 
         $this->require_authentication();
-        
+
         if (!is_numeric($exhibition_id) || intval($exhibition_id) != $exhibition_id) {
             $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
@@ -542,7 +542,7 @@ class Appointment extends Controller
 
             if (!empty($params[$key])) {
                 $validation_fn = $definition->validation;
-                $validation = $validation_fn($params[$key]);
+                $validation = $validation_fn($params[$key], $params);
                 $valid = $validation === true;
                 if (!$valid) {
                     $this->error($validation);
