@@ -354,11 +354,18 @@ class Appointment extends Controller
 
             update_post_meta($params['ID'], 'step', '2', $step);
 
+            $requested_exemption = get_post_meta($params['ID'], 'requested_exemption', true);
+
+            if ($requested_exemption) {
+                $email_template = 'email_pre_scheduling_exemption';
+            } else {
+                $email_template = 'email_pre_scheduling';
+            }
+
             // envia o e-mail de pré-agendamento para o responsavel do agendamento
             $email_params = [
                 'email' => \get_post_meta($params['ID'], 'responsible_email', true),
                 'interpolations' => [
-                    'nome'       => $appointment->responsible_first_name,
                     'nome'       => \get_post_meta($params['ID'], 'responsible_first_name', true),
                     'exposicao'  => \get_the_title($params['ID'], 'exhibition_id', true),
                     'data'       => date('d/m/Y', strtotime(get_post_meta($params['ID'], 'date', true))),
@@ -367,7 +374,7 @@ class Appointment extends Controller
                     'link'       => \home_url('/iande/appointment/confirm?ID=' . $params['ID'])
                 ]
             ];
-            $this->email('email_pre_scheduling', $email_params);
+            $this->email($email_template, $email_params);
 
             $this->success(__('O agendamento passou para o próximo passo', 'iande'));
 
