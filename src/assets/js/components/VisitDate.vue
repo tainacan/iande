@@ -20,11 +20,11 @@
                 {{ exhibition.description }}
             </p>
         </div>
-        <div>
+        <div v-if="exhibitionId">
             <label class="iande-label" for="date">Data da visitação</label>
             <DatePicker id="date" v-model="date" placeholder="Selecione uma data" format="dd/MM/yyyy" :validations="$v.date"/>
         </div>
-        <div>
+        <div v-if="date">
             <label class="iande-label" for="hour">Horário</label>
             <SlotPicker ref="slots" id="hour" :day="date" v-model="hour" :validations="$v.hour"/>
         </div>

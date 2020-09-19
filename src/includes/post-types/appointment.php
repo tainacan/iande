@@ -446,6 +446,7 @@ function get_appointment_metadata_definition() {
         'requested_exemption' => (object) [
             'type'          => 'string',
             'required'      => false,
+            'required_step' => 1,
             'validation'    => function ($value) {
                 if ($value == 'yes' || $value == 'no') {
                     return true;
