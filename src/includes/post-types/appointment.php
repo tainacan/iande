@@ -374,13 +374,18 @@ function get_appointment_metadata_definition() {
         ],
         'responsible_role' => (object) [
             'type'          => 'string',
-            'required'      => __('A relação com a instituição é obrigatória', 'iande'),
+            'required'      => false,
             'required_step' => 1,
-            'validation'    => function ($value) use ($role_options) {
-                if (in_array($value, $role_options)) {
+            'validation'    => function ($value, $params) use ($role_options) {
+                $group_nature = $params['group_nature'];
+                if (empty($group_nature) || $group_nature != 'institutional') {
                     return true;
-                } else {
+                } elseif (empty($value)) {
+                    return __('A relação com a instituição é obrigatória', 'iande');
+                } elseif (!in_array($value, $role_options)) {
                     return __('Relação com instituição inválida', 'iande');
+                } else {
+                    return true;
                 }
             },
             'metabox' => (object) [
@@ -427,7 +432,9 @@ function get_appointment_metadata_definition() {
             'required'      => __('A instituição é obrigatória', 'iande'),
             'required_step' => 1,
             'validation'    => function ($value) use ($institutions) {
-                if (is_numeric($value) && intval($value) == $value) {
+                if (empty($group_nature) || $group_nature != 'institutional') {
+                    return true;
+                } elseif (is_numeric($value) && intval($value) == $value) {
                     if (array_post_exists($value, $institutions)) {
                         return true;
                     } else {

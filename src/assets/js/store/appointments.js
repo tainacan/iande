@@ -18,6 +18,7 @@ function newAppointment() {
         name: '',
         purpose: '',
         purpose_other: '',
+        requested_exemption: 'no',
         responsible_email: '',
         responsible_first_name: '',
         responsible_last_name: '',

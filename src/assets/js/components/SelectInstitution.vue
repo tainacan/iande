@@ -6,7 +6,7 @@
             <label class="iande-label" for="isContact">Você é o contato responsável pela visita?</label>
             <RadioGroup id="isContact" v-model="isContact" :validations="$v.isContact" :options="binaryOptions"/>
         </div>
-        <div v-show="!isContact">
+        <div v-show="isContact !== 'yes'">
             <div class="iande-label">Informe o contato da pessoa responsável</div>
             <div class="iande-form-grid">
                 <Input id="firstName" type="text" placeholder="Nome" aria-label="Primeiro nome" v-model="firstName" :validations="$v.firstName"/>
@@ -14,6 +14,10 @@
                 <Input id="email" type="email" placeholder="E-mail" aria-label="E-mail" v-model="email" :validations="$v.email"/>
                 <MaskedInput id="phone" type="tel" :mask="phoneMask" placeholder="DDD + Telefone" aria-label="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
             </div>
+        </div>
+        <div>
+            <label class="iande-label" for="requestedExemption">Deseja solicitar formulário de isenção de ingresso?</label>
+            <RadioGroup id="requestedExemption" v-model="requestedExemption" :validations="$v.requestedExemption" :options="binaryOptions"/>
         </div>
         <div>
             <label class="iande-label" for="nature">Natureza do grupo</label>
@@ -78,10 +82,11 @@
                 lastName: 'responsible_last_name',
                 nature: 'group_nature',
                 phone: 'responsible_phone',
+                requestedExemption: 'requested_exemption',
                 role: 'responsible_role',
                 roleOther: 'responsible_role_other',
             }),
-            binaryOptions: constant({ 'Sim': true, 'Não': false }),
+            binaryOptions: constant({ 'Sim': 'yes', 'Não': 'no' }),
             institutionOptional () {
                 return (this.nature && this.nature === 'other') || this.skipInstitution
             },
@@ -106,14 +111,15 @@
             lastName: { required },
             nature: { required },
             phone: { required, phone },
-            role: { required },
+            requestedExemption: { required },
+            role: { required: requiredUnless('institutionOptional') },
             roleOther: { },
         },
         async created () {
             if (this.firstName && this.lastName && this.email && this.phone) {
-                this.isContact = true
+                this.isContact = 'yes'
             } else {
-                this.isContact = false
+                this.isContact = 'no'
             }
 
             if (this.institutions.length === 0) {
@@ -124,7 +130,7 @@
         watch: {
             role: watchForOther('role', 'roleOther'),
             isContact () {
-                if (this.isContact) {
+                if (this.isContact === 'yes') {
                     this.firstName = this.user.first_name
                     this.lastName = this.user.last_name
                     this.email = this.user.user_email
