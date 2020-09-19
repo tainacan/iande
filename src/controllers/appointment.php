@@ -353,6 +353,22 @@ class Appointment extends Controller
         if ($this->validate_step($params['ID']) && $step == '1') {
 
             update_post_meta($params['ID'], 'step', '2', $step);
+
+            // envia o e-mail de pré-agendamento para o responsavel do agendamento
+            $email_params = [
+                'email' => \get_post_meta($params['ID'], 'responsible_email', true),
+                'interpolations' => [
+                    'nome'       => $appointment->responsible_first_name,
+                    'nome'       => \get_post_meta($params['ID'], 'responsible_first_name', true),
+                    'exposicao'  => \get_the_title($params['ID'], 'exhibition_id', true),
+                    'data'       => date('d/m/Y', strtotime(get_post_meta($params['ID'], 'date', true))),
+                    'horario'    => \get_post_meta($params['ID'], 'hour', true),
+                    'visitantes' => \get_post_meta($params['ID'], 'num_people', true),
+                    'link'       => \home_url('/iande/appointment/confirm?ID=' . $params['ID'])
+                ]
+            ];
+            $this->email('email_pre_scheduling', $email_params);
+
             $this->success(__('O agendamento passou para o próximo passo', 'iande'));
 
         } elseif($this->validate_step($params['ID']) && $step == '2') {
