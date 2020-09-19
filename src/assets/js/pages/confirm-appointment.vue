@@ -3,29 +3,24 @@
         <StepsIndicator :step="2"/>
 
         <div class="iande-container narrow">
-            <form class="iande-form iande-stack stack-lg" @submit.prevent="confirmAppointment">
-                <GroupsAdditionalInfo ref="form" v-if="screen === 4"/>
-                <AdditionalData ref="form" v-else-if="screen === 5"/>
+            <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
+                <component :is="route.component" ref="form"/>
 
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ formError }}</span>
                 </div>
 
                 <div class="iande-form-grid">
-                    <a class="iande-button solid" v-if="screen === 4" :href="`${iandeUrl}/appointment/list`">
+                    <button class="iande-button solid" type="button" v-if="route.previous" @click="previousStep">
+                        <Icon icon="angle-left"/>
+                        Voltar
+                    </button>
+                    <a class="iande-button solid" v-else :href="`${iandeUrl}/appointment/list`">
                         <Icon icon="angle-left"/>
                         Voltar
                     </a>
-                    <button class="iande-button solid" type="button" v-else @click="setScreen(4)">
-                        <Icon icon="angle-left"/>
-                        Voltar
-                    </button>
 
-                    <button class="iande-button primary" type="button" v-if="screen === 4" @click="saveAndSetScreen(5)">
-                        Avançar
-                        <Icon icon="angle-right"/>
-                    </button>
-                    <button class="iande-button primary" v-else type="submit">
+                    <button class="iande-button primary" type="submit">
                         Avançar
                         <Icon icon="angle-right"/>
                     </button>
@@ -47,11 +42,22 @@
     import AdditionalData from '../components/AdditionalData.vue'
     import GroupsAdditionalInfo from '../components/GroupsAdditionalInfo.vue'
 
+    const routes = {
+        4: {
+            component: GroupsAdditionalInfo,
+            action: 'updateAppointment',
+            next: 5,
+        },
+        5: {
+            component: AdditionalData,
+            action: 'confirmAppointment',
+            previous: 4,
+        },
+    }
+
     export default {
         name: 'ConfirmAppointmentPage',
         components: {
-            AdditionalData,
-            GroupsAdditionalInfo,
             Icon: FontAwesomeIcon,
             StepsIndicator,
         },
@@ -65,7 +71,10 @@
             appointment: sync('appointments/current'),
             fields: get('appointments/filteredFields'),
             groupList: sync('appointments/current@group_list'),
-            iandeUrl: constant(window.IandeSettings.iandeUrl)
+            iandeUrl: constant(window.IandeSettings.iandeUrl),
+            route () {
+                return routes[this.screen]
+            },
         },
         async beforeMount () {
             const qs = new URLSearchParams(window.location.search)
@@ -93,8 +102,10 @@
                     await api.post('appointment/update', this.fields)
                     await api.post('appointment/advance_step', { ID: this.fields.ID })
                     window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
+                    return true
                 } catch (err) {
                     this.formError = err
+                    return false
                 }
             },
             isFormValid () {
@@ -102,18 +113,30 @@
                 formComponent.$v.$touch()
                 return !formComponent.$v.$invalid
             },
+            async nextStep () {
+                this.formError = ''
+                if (this.isFormValid()) {
+                    if (this[this.route.action]() && this.route.next) {
+                        this.setScreen(this.route.next)
+                    }
+                }
+            },
+            previousStep () {
+                this.formError = ''
+                if (this.route.previous) {
+                    this.setScreen(this.route.previous)
+                }
+            },
             setScreen (num) {
                 this.screen = num
             },
-            async saveAndSetScreen (num) {
-                this.formError = ''
-                if (this.isFormValid()) {
-                    try {
-                        await api.post('appointment/update', this.fields)
-                        this.setScreen(num)
-                    } catch (err) {
-                        this.formError = err
-                    }
+            async updateAppointment (num) {
+                try {
+                    await api.post('appointment/update', this.fields)
+                    return true
+                } catch (err) {
+                    this.formError = err
+                    return false
                 }
             },
         }
