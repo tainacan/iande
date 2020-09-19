@@ -1,6 +1,6 @@
 <template>
     <div class="iande-field">
-        <Select :id="id" placeholder="Selecione um horário disponível" :empty="emptyMessage" v-model="modelValue" :validations="validations" :options="options"/>
+        <Select :id="id" placeholder="Selecione um dos horários disponíveis" :empty="emptyMessage" v-model="modelValue" :validations="validations" :options="options"/>
     </div>
 </template>
 
