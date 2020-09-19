@@ -406,6 +406,59 @@ class Appointment extends Controller
 
     }
 
+    /**
+     *  Verifica se o horário e data estão disponíveis na exposição
+    *
+    * @param string $exhibition_id
+    * @param string $date
+    * @param string $hour
+    * @return void
+    */
+    function check_availability($exhibition_id, $date, $hour) {
+
+        $this->require_authentication();
+        
+        if (!is_numeric($exhibition_id) || intval($exhibition_id) != $exhibition_id) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        if (\get_post_type($exhibition_id) != 'exhibition') {
+            $this->error(__('O ID informado não é uma exposição válida', 'iande'));
+        }
+
+        $args = [
+            'post_type'      => 'appointment',
+            'posts_per_page' => -1,
+            'post_status'    => 'publish',
+            'meta_query'     => [
+                'comparation' => 'AND',
+                [
+                    'key'   => 'exhibition_id',
+                    'value' => $exhibition_id
+                ],
+                [
+                    'key'     => 'date',
+                    'value'   => $date,
+                    'compare' => '=',
+                    'type'    => 'DATE'
+                ],
+                [
+                    'key'     => 'hour',
+                    'value'   => $hour,
+                    'compare' => '='
+                ]
+            ]
+        ];
+
+        $appointments = \get_posts($args);
+
+        if (count($appointments) >= 1) {
+            $this->error(__('Data/horário indisponível nessa exposição', 'iande'));
+        } else {
+            $this->success(__('Data/horário disponível para agendamento', 'iande'));
+        }
+
+    }
 
     /**
      * Verifica se o usuário tem permissão para ver o agendamento
