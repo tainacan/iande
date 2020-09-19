@@ -193,6 +193,8 @@ class Appointment extends Controller
             ];
             $this->email('email_canceled', $email_params);
 
+            \update_post_meta($params['ID'], 'confirmation_sent', '0');
+
             $appointment = $this->get_parsed_appointment($params['ID']);
 
             \do_action('iande.after_cancel_appointment', $appointment);
@@ -347,7 +349,6 @@ class Appointment extends Controller
         if (get_post_type($params['ID']) != 'appointment') {
             $this->error(__('O ID informado não é um agendamento válido', 'iande'));
         }
-
         $step = get_post_meta($params['ID'], 'step', true);
 
         if ($this->validate_step($params['ID']) && $step == '1') {
@@ -419,14 +420,40 @@ class Appointment extends Controller
             $this->error(__('O parâmetro status informado não é permitido', 'iande'));
         }
 
-        $appointment = array(
+        $appointment = [
             'ID'          => $params['ID'],
             'post_status' => $params['post_status']
-        );
-        \wp_update_post($appointment);
+        ];
+        $appointment_update = \wp_update_post($appointment, true);
+        
+        if (!is_wp_error($appointment_update) || !is_null($appointment_update)) {
 
-        $this->success($appointment);
+            $confirmation_sent = \get_post_meta($params['ID'], 'confirmation_sent', true);
 
+            if ($this->validate_step($params['ID']) && !$confirmation_sent) {
+
+                // envia o e-mail de confirmação para o responsavel do agendamento
+                $email_params = [
+                    'email' => \get_post_meta($params['ID'], 'responsible_email', true),
+                    'interpolations' => [
+                        'nome'       => \get_post_meta($params['ID'], 'responsible_first_name', true),
+                        'exposicao'  => \get_the_title($params['ID'], 'exhibition_id', true),
+                        'data'       => date('d/m/Y', strtotime(get_post_meta($params['ID'], 'date', true))),
+                        'horario'    => \get_post_meta($params['ID'], 'hour', true),
+                        'visitantes' => \get_post_meta($params['ID'], 'num_people', true),
+                        // @todo link para cancelar o agendamento
+                    ]
+                ];
+                $this->email('email_confirmed', $email_params);
+
+                \update_post_meta($params['ID'], 'confirmation_sent', '1');
+
+            }
+            
+            $this->success($appointment);
+            
+        }
+        
     }
 
     /**

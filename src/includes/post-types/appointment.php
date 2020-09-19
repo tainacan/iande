@@ -446,7 +446,6 @@ function get_appointment_metadata_definition() {
         'requested_exemption' => (object) [
             'type'          => 'string',
             'required'      => false,
-            'required_step' => 2,
             'validation'    => function ($value) {
                 if ($value == 'yes' || $value == 'no') {
                     return true;
@@ -457,7 +456,6 @@ function get_appointment_metadata_definition() {
             'metabox' => (object) [
                 'name'    => __('Solicitou isenção dos ingressos?', 'iande'),
                 'type'    => 'radio',
-                'default' => 'no',
                 'options' => [
                     'yes' => __('Sim', 'iande'),
                     'no'  => __('Não', 'iande')
@@ -533,6 +531,13 @@ function get_appointment_metadata_definition() {
                 'name' => __('Deseja comentar algo mais?', 'iande'),
                 'type' => 'textarea_small'
             ]
+        ],
+        'confirmation_sent' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            }
         ],
         'group_list' => (object) [
             'type'          => 'string',

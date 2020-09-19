@@ -242,9 +242,7 @@ abstract class Controller
         // caso o e-mail enviado seja HTML, retorna ao formato defaut (text/plain)
         \add_filter('wp_mail_content_type', [$this, 'text_content_type']);
 
-        if ($send) {
-            $this->success('E-mail enviado!');
-        } else {
+        if (!$send) {
 
             global $wp_mail_errors;
             global $phpmailer;
