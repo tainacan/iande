@@ -42,7 +42,7 @@ export default {
             if (!state.current.exhibition_id) {
                 return null
             }
-            return rootGetters['exhibitions/list'].find(exhibition => exhibition.ID === state.current.exhibition_id)
+            return rootGetters['exhibitions/list'].find(exhibition => exhibition.ID == state.current.exhibition_id)
         },
         filteredFields (state) {
             const entries = Object.entries(state.current).filter(([key, value]) => {
