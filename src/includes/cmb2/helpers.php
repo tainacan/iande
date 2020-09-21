@@ -326,23 +326,21 @@ Caso você tenha dúvidas se está apto a solicitar a isenção do ingresso, ent
      * E-mail 1.3 - Lembrete
      */
     if (empty($emails_settings['email_reminder_title'])) {
-        $title = "Solicitação de confirmação da visita";
+        $title = "Lembrete de visita";
         cmb2_update_option('iande_emails_settings', 'email_reminder_title', $title);
     }
 
     if (empty($emails_settings['email_reminder'])) {
 
         $message = "A data da visita do seu grupo ao Museu <b>" . get_bloginfo('name') . "</b> está próxima!
-
+ 
 <b>Exposição:</b> %exposicao%
 <b>Data da visita:</b> %data%
 <b>Horário da visita:</b> %horario%
 <b>Número de visitantes:</b> %visitantes%
 
-Para finalizar seu agendamento e garantir a visita do seu grupo, preencha os dados complementares <a href='%link%'>clicando aqui</a>.
-
-Caso você deseje cancelar a visita, <a href='%cancelar%'>clique aqui</a>";
-
+Estamos aguardando sua visita.";
+        
         cmb2_update_option('iande_emails_settings', 'email_reminder', $message);
     }
 
