@@ -15,7 +15,7 @@
                     </label>
                 </div>
             </fieldset>
-            <AppointmentDetails v-for="(appointment, n) in filteredAppoitments" :key="appointment.ID" :appointment="appointment" :n="n + 1"/>
+            <AppointmentDetails v-for="appointment in filteredAppoitments" :key="appointment.ID" :appointment="appointment"/>
             <div class="iande-container narrow">
                 <a class="iande-button outline" :href="`${iandeUrl}/appointment/create`">
                     <Icon icon="plus-circle"/>

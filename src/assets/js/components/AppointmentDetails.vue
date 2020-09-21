@@ -162,7 +162,6 @@
         },
         props: {
             appointment: { type: Object, required: true },
-            n: { type: Number, default: 1 },
         },
         data () {
             return {
@@ -208,7 +207,7 @@
                 if (this.appointment.name) {
                     return this.appointment.name
                 } else {
-                    return `Agendamento ${this.n}`
+                    return `Agendamento #${this.appointment.ID}`
                 }
             },
             purpose () {
