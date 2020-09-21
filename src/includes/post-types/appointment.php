@@ -375,7 +375,6 @@ function get_appointment_metadata_definition() {
         'responsible_role' => (object) [
             'type'          => 'string',
             'required'      => false,
-            'required_step' => 1,
             'validation'    => function ($value, $params) use ($role_options) {
                 $group_nature = $params['group_nature'];
                 if (empty($group_nature) || $group_nature != 'institutional') {
@@ -429,11 +428,14 @@ function get_appointment_metadata_definition() {
         ],
         'institution_id' => (object) [
             'type'          => 'string',
-            'required'      => __('A instituição é obrigatória', 'iande'),
-            'required_step' => 1,
-            'validation'    => function ($value) use ($institutions) {
+            'required'      => false,
+            'validation'    => function ($value, $params) use ($institutions) {
+                $group_nature = $params['group_nature'];
+                error_log('group_nature: ' . $group_nature);
                 if (empty($group_nature) || $group_nature != 'institutional') {
                     return true;
+                } else if (empty($value)) {
+                    return __('A instituição é obrigatória', 'iande');
                 } elseif (is_numeric($value) && intval($value) == $value) {
                     if (array_post_exists($value, $institutions)) {
                         return true;
@@ -549,6 +551,7 @@ function get_appointment_metadata_definition() {
         ],
         'group_list' => (object) [
             'type'          => 'string',
+            'required'      => __('Os grupos de agendamento são obrigatórios', 'iande'),
             'required_step' => '2',
             'validation'    => function ($value) {
                 // @todo validar json dos grupos enviados
