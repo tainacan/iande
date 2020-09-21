@@ -8,7 +8,7 @@ if (!defined('WPINC')) {
 }
 
 /**
- * Adiciona
+ * Adiciona funções na ativação do plugin
  *
  * @link https://developer.wordpress.org/reference/functions/register_activation_hook/
  */
@@ -36,8 +36,23 @@ function iande_activation_plugin() {
 }
 add_action('admin_init', 'IandePlugin\\iande_activation_plugin');
 
+
 /**
- * Removes os styles padrões do tema
+ * Verifica se o plugin WP Mail SMTP by WPForms está ativo
+ */
+function check_dependencies() {
+    
+    if (!is_plugin_active('wp-mail-smtp/wp_mail_smtp.php')) {
+        echo '<div class="notice notice-warning is-dismissible">';
+            echo '<p>O plugin <b>WP Mail SMTP by WPForms</b> é necessário o envio de e-mails dos agendamentos do plugin <b>Iandé</b>. <a href="' . admin_url('/plugin-install.php?s=WP+Mail+SMTP&tab=search&type=term') . '">Clique aqui para instalá-lo</a>!</p>';
+        echo '</div>';
+    }
+
+}
+add_action('admin_notices', 'IandePlugin\\check_dependencies');
+
+/**
+ * Remove os styles padrões do tema
  *
  * @link https://developer.wordpress.org/reference/functions/wp_dequeue_style/
  */
