@@ -1,7 +1,7 @@
 <template>
     <div class="iande-field iande-stack stack-lg">
         <div class="iande-repetition" :class="fieldClass" v-for="(item, i) of value" :key="i">
-            <div class="iande-repetition__remove" v-if="i > 0" aria-label="Remover item" role="button" tabindex="0" @click="removeItem(i)">
+            <div class="iande-repetition__remove" v-if="value.length > 1" aria-label="Remover item" role="button" tabindex="0" @click="removeItem(i)">
                 <Icon icon="times"/>
             </div>
             <slot name="item" :id="`${id}_${i}`" :onUpdate="updateItem(i)" :value="item" :validations="validations.$each[i]"/>

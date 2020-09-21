@@ -15,7 +15,7 @@
                     </label>
                 </div>
             </fieldset>
-            <AppointmentDetails v-for="(appointment, n) in filteredAppoitments" :key="appointment.ID" :appointment="appointment" :n="n + 1"/>
+            <AppointmentDetails v-for="appointment in filteredAppoitments" :key="appointment.ID" :appointment="appointment"/>
             <div class="iande-container narrow">
                 <a class="iande-button outline" :href="`${iandeUrl}/appointment/create`">
                     <Icon icon="plus-circle"/>
@@ -32,7 +32,7 @@
     import { sync } from 'vuex-pathify'
 
     import AppointmentDetails from '../components/AppointmentDetails'
-    import { api, constant, normalizeLanguages } from '../utils'
+    import { api, constant, normalizeLanguages, sortBy } from '../utils'
 
     export default {
         name: 'ListAppointmentsPage',
@@ -50,13 +50,16 @@
             filteredAppoitments () {
                 const today = new Date().toISOString().slice(0, 10)
                 if (this.filter === 'next') {
-                    return this.appointments.filter(appointment => appointment.date >= today)
+                    return this.sortedAppointments.filter(appointment => appointment.date >= today)
                 } else {
-                    return this.appointments.filter(appointment => appointment.date < today)
+                    return this.sortedAppointments.filter(appointment => appointment.date < today)
                 }
             },
             iandeUrl: constant(window.IandeSettings.iandeUrl),
             institutions: sync('institutions/list'),
+            sortedAppointments () {
+                return this.appointments.sort(sortBy(appointment => appointment.date))
+            },
         },
         async created () {
             if (this.appointments.length === 0) {

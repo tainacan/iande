@@ -171,6 +171,7 @@ abstract class Controller
     protected function json($data, int $http_status_code)
     {
         header('Content-Type: application/json');
+        header('Vary: Accept');
 
         http_response_code($http_status_code);
 
@@ -195,7 +196,7 @@ abstract class Controller
 
         $body = '';
         $subject = '';
-        
+
         $emails_settings = \get_option('iande_emails_settings', '');
 
         if (!empty($emails_settings) && isset($emails_settings[$email_template])) {
@@ -220,19 +221,19 @@ abstract class Controller
 
         // executa as interpolações no título e corpo do e-mail
         if (!empty($params['interpolations'])) {
-            
+
             foreach ($params['interpolations'] as $keyword => $value) {
                 $body    = str_replace('%' . $keyword . '%', $value, $body);
                 $subject = str_replace('%' . $keyword . '%', $value, $subject);
             }
-            
+
         }
 
         // adiciona assinatura de e-mail se estiver definida
         if (!empty($emails_settings) && isset($emails_settings['email_signature'])) {
             $body .= "\n\r" . $emails_settings['email_signature'];
         }
-        
+
         /**
          * @link https://developer.wordpress.org/reference/functions/wp_mail/
          */
@@ -246,20 +247,20 @@ abstract class Controller
 
             global $wp_mail_errors;
             global $phpmailer;
-        
+
             if (!isset($wp_mail_errors))
                 $wp_mail_errors = [];
-        
+
             if (isset($phpmailer)) {
                 $wp_mail_errors['error'] = $phpmailer->ErrorInfo;
             }
-        
+
             $this->error($wp_mail_errors['error']);
 
         }
 
     }
-    
+
     protected function text_content_type() {
         return 'text/plain';
     }

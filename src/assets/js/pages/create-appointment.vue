@@ -24,6 +24,19 @@
                 </div>
             </form>
         </div>
+        <Modal ref="modal" @close="listAppointments">
+            <div class="iande-stack iande-form">
+                <h1>Reserva enviada com sucesso</h1>
+                <div class="iande-form-grid">
+                    <a class="iande-button solid" :href="`${iandeUrl}/appointment/list`">
+                        Ver agendamentos
+                    </a>
+                    <a class="iande-button primary" :href="`${iandeUrl}/appointment/confirm?ID=${appointmentId}`">
+                        Completar reserva
+                    </a>
+                </div>
+            </div>
+        </Modal>
     </article>
 </template>
 
@@ -31,8 +44,9 @@
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { call, get, sync } from 'vuex-pathify'
 
+    import Modal from '../components/Modal.vue'
     import StepsIndicator from '../components/StepsIndicator.vue'
-    import { api, normalizeLanguages } from '../utils'
+    import { api, constant, normalizeLanguages } from '../utils'
 
     // Lazy-loading candidates
     import CreateInstitution from '../components/CreateInstitution.vue'
@@ -62,6 +76,7 @@
         name: 'CreateAppointmentPage',
         components: {
             Icon: FontAwesomeIcon,
+            Modal,
             StepsIndicator,
         },
         data () {
@@ -75,6 +90,7 @@
             appointmentId: sync('appointments/current@ID'),
             appointmentInstitution: sync('appointments/current@institution_id'),
             fields: get('appointments/filteredFields'),
+            iandeUrl: constant(window.IandeSettings.iandeUrl),
             institution: sync('institutions/current'),
             institutions: sync('institutions/list'),
             route () {
@@ -99,6 +115,9 @@
                 const formComponent = this.$refs.form
                 formComponent.$v.$touch()
                 return !formComponent.$v.$invalid
+            },
+            listAppointments () {
+                window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
             },
             async nextStep () {
                 this.formError = ''
@@ -147,8 +166,7 @@
                     await api.post('appointment/advance_step', { ID: this.appointmentId })
                     this.$refs.form.$v.$reset()
                     await this.resetInstitution()
-                    await this.resetAppointment()
-                    window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
+                    this.$refs.modal.open()
                     return true
                 } catch (err) {
                     this.formError = err

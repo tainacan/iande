@@ -128,11 +128,13 @@
                 </button>
             </div>
         </div>
-        <Modal ref="modal">
+        <Modal ref="modal" @close="closeModal">
             <div class="iande-stack">
                 <h1>Agendamento enviado com sucesso!</h1>
                 <p>Os dados do seu agendamento foram enviados para o museu. Assim que a sua visita for confirmada, você receberá um email com todos os detalhes.</p>
-                <button class="iande-button solid" @click="closeModal">Voltar aos agendamentos</button>
+                <button class="iande-button solid" @click="closeModal">
+                    Voltar aos agendamentos
+                </button>
             </div>
         </Modal>
     </section>
@@ -160,7 +162,6 @@
         },
         props: {
             appointment: { type: Object, required: true },
-            n: { type: Number, default: 1 },
         },
         data () {
             return {
@@ -206,7 +207,7 @@
                 if (this.appointment.name) {
                     return this.appointment.name
                 } else {
-                    return `Agendamento ${this.n}`
+                    return `Agendamento #${this.appointment.ID}`
                 }
             },
             purpose () {
@@ -235,7 +236,9 @@
                 }
             },
             closeModal () {
-                this.$refs.modal.close()
+                if (this.$refs.modal.isOpen) {
+                    this.$refs.modal.close()
+                }
                 window.location.reload()
             },
             formatBinaryOption (option) {
