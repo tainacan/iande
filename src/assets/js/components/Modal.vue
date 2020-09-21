@@ -2,7 +2,7 @@
     <div class="iande-modal__wrapper" v-if="isOpen">
         <div class="iande-modal" role="alertdialog">
             <div class="iande-modal__header">
-                <div class="iande-modal__close" role="button" tabindex="0" ref="button" aria-label="Fechar">
+                <div class="iande-modal__close" role="button" tabindex="0" ref="button" aria-label="Fechar" @click="close">
                     <Icon icon="times"/>
                 </div>
             </div>
@@ -28,6 +28,7 @@
         methods: {
             close () {
                 this.isOpen = false
+                this.$emit('close')
             },
             open () {
                 this.isOpen = true

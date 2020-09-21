@@ -24,7 +24,7 @@
                 </div>
             </form>
         </div>
-        <Modal ref="modal">
+        <Modal ref="modal" @close="listAppointments">
             <div class="iande-stack iande-form">
                 <h1>Reserva enviada com sucesso</h1>
                 <div class="iande-form-grid">
@@ -115,6 +115,9 @@
                 const formComponent = this.$refs.form
                 formComponent.$v.$touch()
                 return !formComponent.$v.$invalid
+            },
+            listAppointments () {
+                window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
             },
             async nextStep () {
                 this.formError = ''
