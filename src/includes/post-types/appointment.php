@@ -464,6 +464,7 @@ function get_appointment_metadata_definition() {
             'metabox' => (object) [
                 'name'    => __('Solicitou isenção dos ingressos?', 'iande'),
                 'type'    => 'radio',
+                'default' => 'no',
                 'options' => [
                     'yes' => __('Sim', 'iande'),
                     'no'  => __('Não', 'iande')

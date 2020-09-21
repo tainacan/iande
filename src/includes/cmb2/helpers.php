@@ -270,7 +270,6 @@ Aqui estão os dados da sua reserva para visitar o Museu <b>" . get_bloginfo('na
 <b>Exposição:</b> %exposicao%
 <b>Data da visita:</b> %data%
 <b>Horário da visita:</b> %horario%
-<b>Número de visitantes:</b> %visitantes%
 
 Para finalizar seu agendamento e garantir a visita do seu grupo, preencha os demais dados do seu grupo <a href='%link%'>clicando aqui</a>.
 
@@ -297,7 +296,6 @@ Aqui estão os dados da sua reserva para visitar o Museu <b>" . get_bloginfo('na
 <b>Exposição:</b> %exposicao%
 <b>Data da visita:</b> %data%
 <b>Horário da visita:</b> %horario%
-<b>Número de visitantes:</b> %visitantes%
 
 Para finalizar seu agendamento e garantir a visita do seu grupo, preencha os demais dados do seu grupo <a href='%link%'>clicando aqui</a>.
 
@@ -314,7 +312,7 @@ Lembramos que a gratuidade se aplica aos seguintes casos:
 <li>Acompanhantes de grupos com visitas agendadas</li>
 <li>Membros do ICOM, mediante apresentação de comprovante</li>
 
-Anexado a este e-mail você encontrará um modelo de pedido de isenção que deve ser preenchido e enviado para o e-mail %email_museu%, para que sua solicitação de isenção seja processada.
+Anexado a este e-mail você encontrará um modelo de pedido de isenção que deve ser preenchido e enviado para o e-mail do Museu <b>" . get_bloginfo('name') . "</b>, para que sua solicitação de isenção seja processada.
  
 Caso você tenha dúvidas se está apto a solicitar a isenção do ingresso, entre em contato.";
 
@@ -363,13 +361,6 @@ A sua visita está confirmada! Te esperamos no dia e horário a seguir:
 <b>Horário da visita:</b> %horario%
 <b>Número de visitantes:</b> %visitantes%
  
-Veja as regras de visitação do Museu acesando <a href='%regras%'>esse link</a>. 
-
-Gostaríamos de saber um pouco mais sobre você. Por favor, preencha uma breve pesquisa sobre sua relação com o Museu <b>" . get_bloginfo('name') . "</b> <a href='%regras%'>clicando aqui</a>.
- 
-Mudou de ideia? Não se esqueça de cancelar seu agendamento <a href='%cancelar%'>clicando aqui</a>.
-Precisa modificar a seu agendamento? Cancele e agende novamente <a href='%agendar%'>clicando aqui</a>.
-
 Nos vemos em breve!";
 
         cmb2_update_option('iande_emails_settings', 'email_confirmed', $message);

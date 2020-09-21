@@ -6,7 +6,7 @@ use Controller;
 
 class Appointment extends Controller
 {
-
+    
     /**
      * Renderiza a página de criação de agendamento
      *
@@ -188,7 +188,7 @@ class Appointment extends Controller
                     'exposicao'  => \get_the_title($appointment->exhibition_id),
                     'data'       => date('d/m/Y', strtotime($appointment->date)),
                     'horario'    => $appointment->hour,
-                    'visitantes' => $appointment->num_people
+                    'visitantes' => $this->count_people_appointment($params['ID'])
                 ]
             ];
             $this->email('email_canceled', $email_params);
@@ -357,7 +357,7 @@ class Appointment extends Controller
 
             $requested_exemption = get_post_meta($params['ID'], 'requested_exemption', true);
 
-            if ($requested_exemption) {
+            if ($requested_exemption == 'yes') {
                 $email_template = 'email_pre_scheduling_exemption';
             } else {
                 $email_template = 'email_pre_scheduling';
@@ -371,7 +371,7 @@ class Appointment extends Controller
                     'exposicao'  => \get_the_title($params['ID'], 'exhibition_id', true),
                     'data'       => date('d/m/Y', strtotime(get_post_meta($params['ID'], 'date', true))),
                     'horario'    => \get_post_meta($params['ID'], 'hour', true),
-                    'visitantes' => \get_post_meta($params['ID'], 'num_people', true),
+                    'visitantes' => $this->count_people_appointment($params['ID']),
                     'link'       => \home_url('/iande/appointment/confirm?ID=' . $params['ID'])
                 ]
             ];
@@ -430,24 +430,40 @@ class Appointment extends Controller
 
             $confirmation_sent = \get_post_meta($params['ID'], 'confirmation_sent', true);
 
-            if ($this->validate_step($params['ID']) && !$confirmation_sent) {
+            if (\get_post_status($params['ID']) == 'pending' && $params['post_status'] == 'publish') {
 
-                // envia o e-mail de confirmação para o responsavel do agendamento
-                $email_params = [
-                    'email' => \get_post_meta($params['ID'], 'responsible_email', true),
-                    'interpolations' => [
-                        'nome'       => \get_post_meta($params['ID'], 'responsible_first_name', true),
-                        'exposicao'  => \get_the_title($params['ID'], 'exhibition_id', true),
-                        'data'       => date('d/m/Y', strtotime(get_post_meta($params['ID'], 'date', true))),
-                        'horario'    => \get_post_meta($params['ID'], 'hour', true),
-                        'visitantes' => \get_post_meta($params['ID'], 'num_people', true),
-                        // @todo link para cancelar o agendamento
-                    ]
-                ];
-                $this->email('email_confirmed', $email_params);
+                if ($this->validate_step($params['ID']) && !$confirmation_sent) {
 
-                \update_post_meta($params['ID'], 'confirmation_sent', '1');
+                    // envia o e-mail de confirmação para o responsavel do agendamento
+                    $email_params = [
+                        'email' => \get_post_meta($params['ID'], 'responsible_email', true),
+                        'interpolations' => [
+                            'nome'       => \get_post_meta($params['ID'], 'responsible_first_name', true),
+                            'exposicao'  => \get_the_title(get_post_meta($params['ID'], 'exhibition_id', true)),
+                            'data'       => date('d/m/Y', strtotime(get_post_meta($params['ID'], 'date', true))),
+                            'horario'    => \get_post_meta($params['ID'], 'hour', true),
+                            'visitantes' => $this->count_people_appointment($params['ID'])
+                        ]
+                    ];
+                    $this->email('email_confirmed', $email_params);
 
+                    // adiciona o envio de lembrete do agendamento
+                    $event_date = \get_post_meta($params['ID'], 'date', true);
+
+                    $interval   = strtotime($event_date) - strtotime('now');
+                    $interval   = floor($interval / (60 * 60 * 24));
+
+                    if ($interval > 14) {
+                        \wp_schedule_single_event(strtotime('-7 days', strtotime($event_date)), 'send_email_reminder', [$email_params]);
+                    } elseif ($interval > 8) {
+                        \wp_schedule_single_event(strtotime('-4 days', strtotime($event_date)), 'send_email_reminder', [$email_params]);
+                    } elseif ($interval > 4) {
+                        \wp_schedule_single_event(strtotime('-2 days', strtotime($event_date)), 'send_email_reminder', [$email_params]);
+                    }
+
+                    \update_post_meta($params['ID'], 'confirmation_sent', '1');
+                }
+            
             }
             
             $this->success($appointment);
@@ -455,7 +471,7 @@ class Appointment extends Controller
         }
         
     }
-
+    
     /**
      *  Verifica se o horário e data estão disponíveis na exposição
     *
@@ -745,6 +761,37 @@ class Appointment extends Controller
             );
             \wp_update_post($post);
         }
+    }
+
+    /**
+     * Retorna a quantidade de pessoas no agendamento informado
+     *
+     * @param   string $appointment_id
+     * @return  string
+     */
+    function count_people_appointment(string $appointment_id)
+    {
+
+        $num_people = get_post_meta($appointment_id, 'num_people', true);
+
+        if (!empty($num_people)) {
+            return $num_people;
+        } else {
+            $group_list = \get_post_meta($appointment_id, 'group_list');
+
+            if (!empty($group_list)) {
+                $group_list = json_decode($group_list[0]);
+
+                $count = [];
+
+                foreach ($group_list->groups as $group) {
+                    $count[] = $group->num_people;
+                }
+
+                return array_sum($count);
+            }
+        }
+
     }
 
 }
