@@ -420,6 +420,9 @@ class Appointment extends Controller
             $this->error(__('O parâmetro status informado não é permitido', 'iande'));
         }
 
+        $current_post_status = \get_post_status($params['ID']);
+        $new_post_status     = $params['post_status'];
+        
         $appointment = [
             'ID'          => $params['ID'],
             'post_status' => $params['post_status']
@@ -430,7 +433,7 @@ class Appointment extends Controller
 
             $confirmation_sent = \get_post_meta($params['ID'], 'confirmation_sent', true);
 
-            if (\get_post_status($params['ID']) == 'pending' && $params['post_status'] == 'publish') {
+            if ($current_post_status == 'pending' && $new_post_status == 'publish') {
 
                 if ($this->validate_step($params['ID']) && !$confirmation_sent) {
 
