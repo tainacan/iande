@@ -40,5 +40,6 @@ function set_iande_admin_capabilities($role, $singular, $plural) {
     $set_role->add_cap('edit_private_'.$plural);
     $set_role->add_cap('edit_published_'.$plural);
     $set_role->add_cap('manage_iande_options');
+    $set_role->add_cap('upload_files');
 
 }
