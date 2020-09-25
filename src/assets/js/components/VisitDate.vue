@@ -67,7 +67,7 @@
                 return Object.fromEntries(entries)
             },
             exhibitions: get('exhibitions/list'),
-            purposeOptions: constant(window.IandeSettings.purposes.slice(1)) // @todo Stop slicing it eventually
+            purposeOptions: constant(window.IandeSettings.purposes)
         },
         validations: {
             date: { date, required },
