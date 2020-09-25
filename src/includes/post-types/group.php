@@ -229,6 +229,38 @@ function get_group_metadata_definition() {
                 'type'  => 'text'
             ]
         ],
+        'date' => (object) [
+            'type'          => 'string',
+            'required'      => __('A data é obrigatória', 'iande'),
+            'validation'    => function ($value) {
+                $d = \DateTime::createFromFormat("Y-m-d", $value);
+                if ($d && $d->format("Y-m-d") === $value) {
+                    return true;
+                } else {
+                    return __('Formato de data inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name' => __('Data', 'iande'),
+                'type' => 'iande_date'
+            ]
+        ],
+        'hour' => (object) [
+            'type'          => 'string',
+            'required'      => __('O horário é obrigatório', 'iande'),
+            'validation'    => function ($value) {
+                $d = \DateTime::createFromFormat('H:i', $value);
+                if ($d && $d->format('H:i') === $value) {
+                    return true;
+                } else {
+                    return __('Formato do horário inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name' => __('Hora', 'iande'),
+                'type' => 'iande_time'
+            ]
+        ],
         'languages' => (object) [
             'type'       => 'string',
             'required'   => false,
