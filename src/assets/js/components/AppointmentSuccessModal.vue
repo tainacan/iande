@@ -23,8 +23,12 @@
                 if (this.$refs.modal.isOpen) {
                     this.$refs.modal.close()
                 }
-                window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
-                window.location.reload()
+                const destination = `${window.IandeSettings.iandeUrl}/appointment/list`
+                if (window.location.href.startsWith(destination)) {
+                    window.location.reload()
+                } else {
+                    window.location.assign(destination)
+                }
             },
             open () {
                 this.$refs.modal.open()
