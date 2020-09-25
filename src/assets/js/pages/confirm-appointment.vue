@@ -41,7 +41,7 @@
                 </div>
             </div>
         </Modal>
-        <AppointmentSuccessModal ref="secondModal">
+        <AppointmentSuccessModal ref="secondModal"/>
     </article>
 </template>
 
