@@ -27,6 +27,21 @@
                 </div>
             </form>
         </div>
+        <Modal ref="firstModal" @close="listAppointments">
+            <div class="iande-stack iande-form">
+                <h1>Preenchimento finalizado</h1>
+                <p>Agradecemos pelo seu tempo em completar detalhadamente todas as etapas do agendamento. Você pode revisar o agendamento ou já enviar a solicitação para o museu.</p>
+                <div class="iande-form-grid">
+                    <a class="iande-button solid" :href="`${iandeUrl}/appointment/list`">
+                        Revisar informações
+                    </a>
+                    <button class="iande-button primary" @click="finishAppointment">
+                        Finalizar
+                    </button>
+                </div>
+            </div>
+        </Modal>
+        <AppointmentSuccessModal ref="secondModal">
     </article>
 </template>
 
@@ -35,6 +50,8 @@
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { get, sync } from 'vuex-pathify'
 
+    import AppointmentSuccessModal from '../components/AppointmentSuccessModal.vue'
+    import Modal from '../components/Modal.vue'
     import StepsIndicator from '../components/StepsIndicator.vue'
     import { api, constant, normalizeLanguages } from '../utils'
 
@@ -58,7 +75,9 @@
     export default {
         name: 'ConfirmAppointmentPage',
         components: {
+            AppointmentSuccessModal,
             Icon: FontAwesomeIcon,
+            Modal,
             StepsIndicator,
         },
         data () {
@@ -101,17 +120,25 @@
                 try {
                     await api.post('appointment/update', this.fields)
                     await api.post('appointment/advance_step', { ID: this.fields.ID })
-                    window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
+                    this.$refs.firstModal.open()
                     return true
                 } catch (err) {
                     this.formError = err
                     return false
                 }
             },
+            async finishAppointment () {
+                this.$refs.firstModal.close(false)
+                await api.post('appointment/set_status', { ID: this.appointment.ID, post_status: 'pending' })
+                this.$refs.secondModal.open()
+            },
             isFormValid () {
                 const formComponent = this.$refs.form
                 formComponent.$v.$touch()
                 return !formComponent.$v.$invalid
+            },
+            listAppointments () {
+                window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
             },
             async nextStep () {
                 this.formError = ''
