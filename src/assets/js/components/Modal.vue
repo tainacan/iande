@@ -26,9 +26,11 @@
             }
         },
         methods: {
-            close () {
+            close (emitEvent = true) {
                 this.isOpen = false
-                this.$emit('close')
+                if (emitEvent) {
+                    this.$emit('close')
+                }
             },
             open () {
                 this.isOpen = true

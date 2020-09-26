@@ -128,15 +128,7 @@
                 </button>
             </div>
         </div>
-        <Modal ref="modal" @close="closeModal">
-            <div class="iande-stack">
-                <h1>Agendamento enviado com sucesso!</h1>
-                <p>Os dados do seu agendamento foram enviados para o museu. Assim que a sua visita for confirmada, você receberá um email com todos os detalhes.</p>
-                <button class="iande-button solid" @click="closeModal">
-                    Voltar aos agendamentos
-                </button>
-            </div>
-        </Modal>
+        <AppointmentSuccessModal ref="modal"/>
     </section>
 </template>
 
@@ -144,8 +136,8 @@
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { get } from 'vuex-pathify'
 
-    import Modal from './Modal'
-    import StepsIndicator from './StepsIndicator'
+    import AppointmentSuccessModal from './AppointmentSuccessModal.vue'
+    import StepsIndicator from './StepsIndicator.vue'
     import { api, constant, formatCep, formatPhone, isOther } from '../utils'
 
     // Lazy-loading candidates
@@ -156,8 +148,8 @@
     export default {
         name: 'AppointmentDetails',
         components: {
+            AppointmentSuccessModal,
             Icon: FontAwesomeIcon,
-            Modal,
             StepsIndicator,
         },
         props: {
@@ -234,12 +226,6 @@
                 } catch (err) {
                     console.error(err)
                 }
-            },
-            closeModal () {
-                if (this.$refs.modal.isOpen) {
-                    this.$refs.modal.close()
-                }
-                window.location.reload()
             },
             formatBinaryOption (option) {
                 return option === 'yes' ? 'Sim' : 'Não'
