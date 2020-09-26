@@ -1,5 +1,5 @@
 <template>
-    <div class="iande-stack stack-lg">
+    <article class="iande-stack stack-lg">
         <h1>Informações do grupo</h1>
         <p>Nesta etapa você deve dar informações sobre o grupo que irá visitar o museu.</p>
         <Repeater id="groups" class="iande-groups" v-model="groups" :factory="newGroup" :validations="$v.groups">
@@ -14,7 +14,7 @@
             </template>
         </Repeater>
         <FormError id="groups__error" :validations="$v.groups" v-if="$v.groups.$error"/>
-    </div>
+    </article>
 </template>
 
 <script>
@@ -68,8 +68,9 @@
         methods: {
             newGroup () {
                 return {
+                    date: null,
                     disabilities: [],
-                    id: this.groups.length + 1,
+                    hour: null,
                     languages: [],
                     name: '',
                     num_people: 5,
