@@ -100,6 +100,12 @@ function register_metabox_appointment() {
             $attributes = [];
             $repeatable = false;
             $size       = '';
+            $multiple   = false;
+            $limit      = \get_option('posts_per_page');
+            $query_args = [
+                'post_type'   => [ 'post', 'page' ],
+                'post_status' => [ 'publish', 'pending' ]
+            ];
 
             if (isset($definition->metabox->name))
                 $name = $definition->metabox->name;
@@ -125,16 +131,28 @@ function register_metabox_appointment() {
             if (isset($definition->metabox->size))
                 $size = $definition->metabox->size;
 
+            if(isset($definition->metabox->multiple_item))
+                $multiple = $definition->metabox->multiple_item;
+
+            if(isset($definition->metabox->limit))
+                $limit = $definition->metabox->limit;
+
+            if(isset($definition->metabox->query_args))
+                $query_args = $definition->metabox->query_args;
+
             $fields[] = [
-                'name'       => $name,
-                'desc'       => $desc,
-                'id'         => $key,
-                'default'    => $default,
-                'type'       => $type,
-                'options'    => $options,
-                'attributes' => $attributes,
-                'repeatable' => $repeatable,
-                'size'       => $size
+                'name'          => $name,
+                'desc'          => $desc,
+                'id'            => $key,
+                'default'       => $default,
+                'type'          => $type,
+                'options'       => $options,
+                'attributes'    => $attributes,
+                'repeatable'    => $repeatable,
+                'size'          => $size,
+                'multiple-item' => $multiple,
+                'limit'         => $limit,
+                'query_args'    => $query_args
             ];
 
         }
@@ -549,6 +567,22 @@ function get_appointment_metadata_definition() {
             'validation' => function ($value) {
                 return true;
             }
+        ],
+        'groups' => (object) [
+            'type' => 'string',
+            'required' => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name' => __('Grupos', 'iande'),
+                'type' => 'post_ajax_search',
+                'multiple_item' => true,
+                'query_args' => [
+                    'post_type' => ['group']
+                ]
+
+            ]
         ],
         'group_list' => (object) [
             'type'          => 'string',

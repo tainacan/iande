@@ -628,7 +628,11 @@ class Appointment extends Controller
         $metadata_definition = get_appointment_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
-            if ($key == 'group_list') {
+            if ($key == 'num_people') {
+                $pased_appointment->$key = isset($metadata[$key][0]) ? $this->count_people_appointment($appointment->ID) : null;
+            }elseif ($key == 'groups') {
+                $pased_appointment->$key = isset($metadata[$key][0]) ? $this->get_parsed_group(\maybe_unserialize($metadata[$key][0])) : null;
+            } elseif ($key == 'group_list') {
                 $pased_appointment->$key = isset($metadata[$key][0]) ? json_decode($metadata[$key][0], true) : null;
             } else {
                 $pased_appointment->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
@@ -657,6 +661,40 @@ class Appointment extends Controller
         $meta = get_post_meta($appointment_id);
 
         return $this->parse_appointment($appointment, $meta);
+    }
+    
+    /**
+     * Retorna um ou mais grupos parseados
+     *
+     * @param array $groups
+     * @return void
+     */
+    function get_parsed_group(array $groups) {
+
+        $parsed_groups = [];
+        foreach ($groups as $group_id) {
+
+            $group = \get_post(intval($group_id));
+
+            $parsed_groups[] = (object)[
+                'age_range'       => $group->age_range,
+                'id'              => $group->ID,
+                'date'            => $group->date,
+                'disabilities'    => $group->deficiency,
+                'disabilities'    => (isset($group->deficiency) && !empty($group->deficiency)) ? $group->deficiency : [],
+                'exhibition_id'   => $group->exhibition_id,
+                'hour'            => $group->hour,
+                'languages'       => (isset($group->languages) && !empty($group->languages)) ? $group->languages : [],
+                'name'            => $group->post_title,
+                'num_people'      => $group->num_people,
+                'num_responsible' => $group->num_responsible,
+                'scholarity'      => $group->scholarity,
+            ];
+
+        }
+
+        return (object) $parsed_groups;
+
     }
 
     /**
@@ -715,20 +753,35 @@ class Appointment extends Controller
     /**
      * Retorna a quantidade de pessoas no agendamento informado
      *
-     * @param   string $appointment_id
-     * @return  string
+     * @param string    $appointment_id
+     * @param boolean   $sum
+     * @return void
      */
-    function count_people_appointment(string $appointment_id)
+    function count_people_appointment(string $appointment_id, $sum = false)
     {
 
+        
+        $num_people_groups = \maybe_unserialize(get_post_meta($appointment_id, 'groups', true));
         $num_people = get_post_meta($appointment_id, 'num_people', true);
+        
+        
+        if ($sum && is_array($num_people_groups) && !empty($num_people_groups)) {
 
-        if (!empty($num_people)) {
-            return $num_people;
+            foreach ($num_people_groups as $group) {
+                $count[] = \get_post_meta($group, 'num_people', true);
+            }
+
+            return array_sum($count);
+
+        } elseif(!empty($num_people)) {
+
+            return $num_people;            
+
         } else {
             $group_list = \get_post_meta($appointment_id, 'group_list');
 
             if (!empty($group_list)) {
+
                 $group_list = json_decode($group_list[0]);
 
                 $count = [];
@@ -738,6 +791,7 @@ class Appointment extends Controller
                 }
 
                 return array_sum($count);
+
             }
         }
 
