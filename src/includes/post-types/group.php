@@ -165,8 +165,38 @@ function get_group_metadata_definition() {
         $scholarity = [];
     }
 
+    // exposicoes
+    $exhibitions = \get_posts([
+        'post_type'      => 'exhibition',
+        'post_status'    => ['pending', 'publish'],
+        'posts_per_page' => 9999,
+        'order'          => 'ASC',
+        'orderby'        => 'ID'
+    ]);
+
     $metadata_definition = [
 
+        'exhibition_id' => (object) [
+            'type'          => 'string',
+            'required'      => __('A exposição é obrigatória', 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) use ($exhibitions) {
+                if (is_numeric($value) && intval($value) == $value) {
+                    if (array_post_exists($value, $exhibitions)) {
+                        return true;
+                    } else {
+                        return __('Exposição inválida', 'iande');
+                    }
+                } else {
+                    return __('O valor informado para a exposição deve ser um inteiro', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Exposição', 'iande'),
+                'type'    => 'select',
+                'options' => map_posts_to_options($exhibitions),
+            ]
+        ],
         'num_people' => (object) [
             'type'       => 'string',
             'required'   => false,
@@ -184,10 +214,14 @@ function get_group_metadata_definition() {
         ],
         'age_range' => (object) [
             'type'       => 'string',
-            'required'   => true,
-            'validation' => function ($value) {
+            'required'   => __('A faixa etária é obrigatória', 'iande'),
+            'validation' => function ($value) use ($age_range) {
                 if (is_string($value) || is_array($value)) {
-                    return true;
+                    if (in_array($value, $age_range)) {
+                        return true;
+                    } else {
+                        return __('Faixa etária inválida', 'iande');
+                    }
                 } else {
                     return __('O valor informado não é uma string válida', 'iande');
                 }
@@ -200,10 +234,14 @@ function get_group_metadata_definition() {
         ],
         'scholarity' => (object) [
             'type'       => 'string',
-            'required'   => true,
-            'validation' => function ($value) {
+            'required'   => __('A escolaridade é obrigatória', 'iande'),
+            'validation' => function ($value) use ($scholarity) {
                 if (is_string($value) || is_array($value)) {
-                    return true;
+                    if (in_array($value, $scholarity)) {
+                        return true;
+                    } else {
+                        return __('Escolaridade inválida', 'iande');
+                    }
                 } else {
                     return __('O valor informado não é uma string válida', 'iande');
                 }
@@ -230,9 +268,9 @@ function get_group_metadata_definition() {
             ]
         ],
         'date' => (object) [
-            'type'          => 'string',
-            'required'      => __('A data é obrigatória', 'iande'),
-            'validation'    => function ($value) {
+            'type'       => 'string',
+            'required'   => __('A data é obrigatória', 'iande'),
+            'validation' => function ($value) {
                 $d = \DateTime::createFromFormat("Y-m-d", $value);
                 if ($d && $d->format("Y-m-d") === $value) {
                     return true;
@@ -246,9 +284,9 @@ function get_group_metadata_definition() {
             ]
         ],
         'hour' => (object) [
-            'type'          => 'string',
-            'required'      => __('O horário é obrigatório', 'iande'),
-            'validation'    => function ($value) {
+            'type'       => 'string',
+            'required'   => __('O horário é obrigatório', 'iande'),
+            'validation' => function ($value) {
                 $d = \DateTime::createFromFormat('H:i', $value);
                 if ($d && $d->format('H:i') === $value) {
                     return true;

@@ -265,4 +265,61 @@ abstract class Controller
         return 'text/plain';
     }
 
+    /**
+     *  Verifica se o horário e data estão disponíveis na exposição
+     *
+     * @param string $exhibition_id
+     * @param string $date
+     * @param string $hour
+     * @return void
+     */
+    protected function check_availability($exhibition_id, $date, $hour)
+    {
+        
+        $this->require_authentication();
+
+        if (!is_numeric($exhibition_id) || intval($exhibition_id) != $exhibition_id) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        if (\get_post_type($exhibition_id) != 'exhibition') {
+            $this->error(__('O ID informado não é uma exposição válida', 'iande'));
+        }
+
+        $args = [
+            'post_type'      => 'group',
+            'posts_per_page' => -1,
+            'post_status'    => ['pending', 'publish'],
+            'meta_query'     => [
+                'comparation' => 'AND',
+                [
+                    'key'   => 'exhibition_id',
+                    'value' => $exhibition_id
+                ],
+                [
+                    'key'     => 'date',
+                    'value'   => $date,
+                    'compare' => '=',
+                    'type'    => 'DATE'
+                ],
+                [
+                    'key'     => 'hour',
+                    'value'   => $hour,
+                    'compare' => '='
+                ]
+            ]
+        ];
+
+        $group_slot = \get_post_meta($exhibition_id, 'group_slot', true);
+        
+        $groups = \get_posts($args);
+
+        if (count($groups) < $group_slot) {
+            return true;
+        } else {
+            $this->error(__('Data/horário indisponível nessa exposição', 'iande'));
+        }
+        
+    }
+
 }
