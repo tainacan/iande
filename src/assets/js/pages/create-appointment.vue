@@ -52,11 +52,11 @@
     // Lazy-loading candidates
     import CreateInstitution from '../components/CreateInstitution.vue'
     import SelectInstitution from '../components/SelectInstitution.vue'
-    import VisitDate from '../components/VisitDate.vue'
+    import SelectExhibition from '../components/SelectExhibition.vue'
 
     const routes = {
         1: {
-            component: VisitDate,
+            component: SelectExhibition,
             action: 'saveAppointment',
             next: 2,
         },

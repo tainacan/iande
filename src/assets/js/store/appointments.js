@@ -16,6 +16,7 @@ function newAppointment() {
         ID: null,
         institution_id: null,
         name: '',
+        num_people: null,
         purpose: '',
         purpose_other: '',
         requested_exemption: 'no',

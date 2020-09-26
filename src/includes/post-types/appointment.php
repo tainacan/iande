@@ -553,7 +553,7 @@ function get_appointment_metadata_definition() {
         'group_list' => (object) [
             'type'          => 'string',
             'required'      => __('Os grupos de agendamento são obrigatórios', 'iande'),
-            'required_step' => '2',
+            'required_step' => 2,
             'validation'    => function ($value) {
                 // @todo validar json dos grupos enviados
                 return true;
@@ -564,9 +564,10 @@ function get_appointment_metadata_definition() {
             ]
         ],
         'num_people' => (object) [
-            'type'       => 'string',
-            'required'   => false,
-            'validation' => function ($value) {
+            'type'          => 'string',
+            'required'      => __('A quantidade prevista de pessoas é obrigatório', 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) {
                 if (is_numeric($value)) {
                     return true;
                 } else {

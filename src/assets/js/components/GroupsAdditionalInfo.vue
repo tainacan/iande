@@ -19,7 +19,7 @@
 
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-    import { maxValue, minLength, required } from 'vuelidate/lib/validators'
+    import { integer, maxValue, minLength, required } from 'vuelidate/lib/validators'
     import { get, sync } from 'vuex-pathify'
 
     import FormError from './FormError.vue'
@@ -46,7 +46,7 @@
                     $each: {
                         disabilities: {
                             $each: {
-                                count: { required },
+                                count: { integer, required },
                                 other: { },
                                 type: { required },
                             }
@@ -58,8 +58,8 @@
                             },
                         },
                         name: { required },
-                        num_people: { maxValue: maxValue(maxPeople), required },
-                        num_responsible: { required },
+                        num_people: { integer, maxValue: maxValue(maxPeople), required },
+                        num_responsible: { integer, required },
                         scholarity: { required },
                     },
                 },

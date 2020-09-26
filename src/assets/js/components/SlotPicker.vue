@@ -37,7 +37,7 @@
             },
             exhibition: get('appointments/exhibition'),
             hours () {
-                /* Used by VisitDate component */
+                /* Used by GroupDate component */
                 return this.availableSlots.map(slot => slot.start.toFormat('HH:mm'))
             },
             options () {

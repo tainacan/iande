@@ -10,7 +10,7 @@
             <Input id="purposeOther" type="text" v-model="purposeOther" :validations="$v.purposeOther"/>
         </div>
         <div>
-            <label class="iande-label" for="name">Dê um nome para sua visita<span class="iande-label__optional">(opcional)</span></label>
+            <label class="iande-label" for="name">Dê um nome à visita<span class="iande-label__optional">(opcional)</span></label>
             <Input id="name" type="text" placeholder="Se quiser, atribua um nome para esta visita" v-model="name" :validations="$v.name"/>
         </div>
         <div v-if="exhibitions.length > 1">
@@ -20,44 +20,33 @@
                 {{ exhibition.description }}
             </p>
         </div>
-        <template v-if="exhibition">
-            <div>
-                <label class="iande-label" for="date">Data da visitação</label>
-                <DatePicker id="date" v-model="date" placeholder="Selecione uma data" format="dd/MM/yyyy" :validations="$v.date"/>
-            </div>
-            <div v-if="date">
-                <label class="iande-label" for="hour">Horário</label>
-                <SlotPicker ref="slots" id="hour" :day="date" v-model="hour" :validations="$v.hour"/>
-            </div>
-        </template>
+        <div>
+            <label class="iande-label" for="numPeople">Quantidade prevista de pessoas</label>
+            <Input id="`numPeople" type="number" min="5" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="$v.numPeople"/>
+            <p class="text-sm">Caso a quantidade seja maior do que a capacidade de atendimento, mais grupos serão criados automaticamente</p>
+        </div>
     </div>
 </template>
 
 <script>
-    import { required } from 'vuelidate/lib/validators'
+    import { integer, required } from 'vuelidate/lib/validators'
     import { get, sync } from 'vuex-pathify'
 
-    import DatePicker from './DatePicker.vue'
     import Input from './Input.vue'
     import Select from './Select.vue'
-    import SlotPicker from './SlotPicker.vue'
     import { constant, isOther, watchForOther } from '../utils'
-    import { date, time } from '../utils/validators'
 
     export default {
-        name: 'VisitDate',
+        name: 'SelectExhibition',
         components: {
-            DatePicker,
             Input,
             Select,
-            SlotPicker,
         },
         computed: {
             ...sync('appointments/current@', {
-                date: 'date',
                 exhibitionId: 'exhibition_id',
-                hour: 'hour',
                 name: 'name',
+                numPeople: 'num_people',
                 purpose: 'purpose',
                 purposeOther: 'purpose_other',
             }),
@@ -70,21 +59,13 @@
             purposeOptions: constant(window.IandeSettings.purposes)
         },
         validations: {
-            date: { date, required },
             exhibitionId: { required },
-            hour: { required, time },
             name: { },
+            numPeople: { integer, required },
             purpose: { required },
             purposeOther: { },
         },
         watch: {
-            date () {
-                this.$nextTick(() => {
-                    if (!this.$refs.slots.hours.includes(this.hour)) {
-                        this.hour = ''
-                    }
-                })
-            },
             exhibitions: {
                 handler () {
                     if (this.exhibitions.length === 1) {

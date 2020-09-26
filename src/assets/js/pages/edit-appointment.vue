@@ -2,7 +2,7 @@
     <article class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="updateAppointment">
-                <VisitDate ref="form" v-if="screen === 1"/>
+                <SelectExhibition ref="form" v-if="screen === 1"/>
                 <SelectInstitution ref="form" v-else-if="screen === 2" :canAddInstitution="false"/>
                 <GroupsAdditionalInfo ref="form" v-else-if="screen === 4"/>
                 <AdditionalData ref="form" v-else-if="screen === 5"/>
@@ -28,15 +28,15 @@
     import AdditionalData from '../components/AdditionalData.vue'
     import GroupsAdditionalInfo from '../components/GroupsAdditionalInfo.vue'
     import SelectInstitution from '../components/SelectInstitution.vue'
-    import VisitDate from '../components/VisitDate.vue'
+    import SelectExhibition from '../components/SelectExhibition.vue'
 
     export default {
         name: 'EditAppointmentPage',
         components: {
             AdditionalData,
             GroupsAdditionalInfo,
+            SelectExhibition,
             SelectInstitution,
-            VisitDate,
         },
         data () {
             return {
