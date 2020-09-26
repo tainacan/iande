@@ -78,7 +78,6 @@ function iande_cmb2_settings_init() {
      * Agendamentos -> Objetivos
      */
     $appointment_purpose_default = [
-        '',
         'Ilustrar os conteúdos que estou trabalhando com esse grupo',
         'Complementar o processo educacional realizado pela instituição de origem do grupo',
         'Possibilitar ao grupo o acesso/conhecimento à exposições e museus',
@@ -223,7 +222,7 @@ function iande_cmb2_settings_init() {
         cmb2_update_option('iande_institution', 'institution_age_range', $institution_age_range_default);
     }
 
-    
+
     /**
      * Define os e-mails padrões ao ativar o plugin
      */
@@ -235,7 +234,7 @@ function iande_cmb2_settings_init() {
     if (empty($emails_settings['email_contact'])) {
 
         cmb2_update_option('iande_emails_settings', 'email_contact', get_option('admin_email'));
-        
+
     }
 
     /**
@@ -313,7 +312,7 @@ Lembramos que a gratuidade se aplica aos seguintes casos:
 <li>Membros do ICOM, mediante apresentação de comprovante</li>
 
 Anexado a este e-mail você encontrará um modelo de pedido de isenção que deve ser preenchido e enviado para o e-mail do Museu <b>" . get_bloginfo('name') . "</b>, para que sua solicitação de isenção seja processada.
- 
+
 Caso você tenha dúvidas se está apto a solicitar a isenção do ingresso, entre em contato.";
 
         cmb2_update_option('iande_emails_settings', 'email_pre_scheduling_exemption', $message);
@@ -331,14 +330,14 @@ Caso você tenha dúvidas se está apto a solicitar a isenção do ingresso, ent
     if (empty($emails_settings['email_reminder'])) {
 
         $message = "A data da visita do seu grupo ao Museu <b>" . get_bloginfo('name') . "</b> está próxima!
- 
+
 <b>Exposição:</b> %exposicao%
 <b>Data da visita:</b> %data%
 <b>Horário da visita:</b> %horario%
 <b>Número de visitantes:</b> %visitantes%
 
 Estamos aguardando sua visita.";
-        
+
         cmb2_update_option('iande_emails_settings', 'email_reminder', $message);
     }
 
@@ -360,7 +359,7 @@ A sua visita está confirmada! Te esperamos no dia e horário a seguir:
 <b>Data da visita:</b> %data%
 <b>Horário da visita:</b> %horario%
 <b>Número de visitantes:</b> %visitantes%
- 
+
 Nos vemos em breve!";
 
         cmb2_update_option('iande_emails_settings', 'email_confirmed', $message);
@@ -391,7 +390,7 @@ Dados da visita cancelada:
         cmb2_update_option('iande_emails_settings', 'email_canceled', $message);
 
     }
-    
+
 }
 
 /**
