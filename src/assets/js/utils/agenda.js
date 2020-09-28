@@ -51,13 +51,13 @@ export function getWorkingHours (exhibition, date) {
 }
 
 export function getSlots (exhibition, date) {
-    const delta = { minutes: Number(exhibition.duration) }
+    const delta = { minutes: exhibition.duration }
     const intervals = getWorkingHours(exhibition, date)
     return intervals.flatMap(interval => {
         const intervalStart = normalizeTime(interval.from)
         const intervalEnd = normalizeTime(interval.to)
         return Interval.fromDateTimes(intervalStart, intervalEnd)
-            .splitBy({ minutes: Number(exhibition.grid) })
+            .splitBy({ minutes: exhibition.grid })
             .map(subinterval => subinterval.set({ end: subinterval.start.plus(delta) }))
             .filter(subinterval => subinterval.end < intervalEnd)
     })

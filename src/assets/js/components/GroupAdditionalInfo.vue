@@ -96,11 +96,7 @@
             exhibition: get('appointments/exhibition'),
             languages: subModel('languages'),
             maxPeople () {
-                if (this.exhibition) {
-                    return Number(this.exhibition.group_size)
-                } else {
-                    return 100
-                }
+                return this.exhibition ? this.exhibition.group_size : 100
             },
             n () {
                 return Number(this.id.split('_').pop()) + 1

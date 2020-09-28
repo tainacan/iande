@@ -27,7 +27,9 @@
             Repeater,
         },
         computed: {
+            exhibition: sync('appointments/exhibition'),
             groups: sync('appointments/current@groups'),
+            numPeople: get('appointments/current@num_people'),
         },
         validations: {
             groups: {
@@ -38,6 +40,9 @@
                     name: { required },
                 },
             },
+        },
+        created () {
+            // this.groups = [...new Array(Math.ceil())]
         },
         methods: {
             newGroup () {

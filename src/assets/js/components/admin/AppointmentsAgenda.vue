@@ -82,11 +82,7 @@
                 })
             },
             timeStep () {
-                if (this.exhibition) {
-                    return Number(this.exhibition.duration)
-                } else {
-                    return 60
-                }
+                return this.exhibition ? this.exhibition.duration : 60
             },
         },
         async created () {

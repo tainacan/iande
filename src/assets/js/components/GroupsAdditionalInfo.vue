@@ -33,7 +33,7 @@
             groups: sync('appointments/current@groups'),
         },
         validations () {
-            const maxPeople = this.exhibition ? Number(this.exhibition.group_size) : 100
+            const maxPeople = this.exhibition ? this.exhibition.group_size : 100
             return {
                 groups: {
                     minGroups: minLength(1),
