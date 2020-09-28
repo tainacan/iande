@@ -45,7 +45,7 @@ export default {
         },
         filteredFields (state) {
             const entries = Object.entries(state.current).filter(([key, value]) => {
-                if (key === 'groups') {
+                if (key === 'groups' && Array.isArray(value)) {
                     return value.filter(prop => prop != null && prop != '')
                 }
                 return value != null && value !== ''
