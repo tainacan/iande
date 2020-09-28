@@ -118,7 +118,7 @@ class Appointment extends Controller
         }
 
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
-            $this->error(__('O parâmetro id deve ser um número inteiro', 'iande'));
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
 
         $this->validate($params, true, true);
@@ -132,6 +132,10 @@ class Appointment extends Controller
         $this->set_appointment_metadata($params['ID'], $params);
 
         $this->set_appointment_title($params['ID']);
+        
+        if (isset($params['groups']) && !empty($params['groups'])) {
+            $this->set_appointment_groups($params['ID'], $params['groups']);
+        }
 
         \do_action('iande.after_update_appointment', $params);
 
@@ -740,9 +744,9 @@ class Appointment extends Controller
         $group_to_appointment = [];
 
         $exhibition_id = \get_post_meta($appointment_id, 'exhibition_id', true);
-      
+
         foreach($groups as $group) {
-            
+         
             if(!isset($group['group_id']) || empty($group['group_id'])) {
                                 
                 $meta_input = [];

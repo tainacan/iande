@@ -418,7 +418,7 @@ function iande_register_status() {
  * @see https://cmb2.io/docs/adding-your-own-field-types
  */
 
-\add_action('cmb2_render_group_list', 'cmb2_render_callback_for_group_list', 10, 5);
+//\add_action('cmb2_render_group_list', 'cmb2_render_callback_for_group_list', 10, 5);
 function cmb2_render_callback_for_group_list($field, $escaped_value, $object_id, $object_type, $field_type_object) {
 
     $groups_json = json_decode($field->value, true);

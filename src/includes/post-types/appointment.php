@@ -48,7 +48,6 @@ function register_post_type_appointment()
 
     register_post_type('appointment', $appointment_args);
 
-
     /* Registra os metadados do post type appointment */
 
     $metadata_definition = get_appointment_metadata_definition();
