@@ -265,6 +265,9 @@ abstract class Controller
         return 'text/plain';
     }
 
+
+
+
     /**
      *  Verifica se o horário e data estão disponíveis na exposição
      *
@@ -275,8 +278,6 @@ abstract class Controller
      */
     protected function check_availability($exhibition_id, $date, $hour)
     {
-        
-        $this->require_authentication();
 
         if (!is_numeric($exhibition_id) || intval($exhibition_id) != $exhibition_id) {
             $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
@@ -286,12 +287,12 @@ abstract class Controller
             $this->error(__('O ID informado não é uma exposição válida', 'iande'));
         }
 
+        // verificar se nessa exposição existe algum grupo com a data e horario
         $args = [
             'post_type'      => 'group',
-            'posts_per_page' => -1,
+            'numberposts' => -1,
             'post_status'    => ['pending', 'publish'],
             'meta_query'     => [
-                'comparation' => 'AND',
                 [
                     'key'   => 'exhibition_id',
                     'value' => $exhibition_id
@@ -310,16 +311,18 @@ abstract class Controller
             ]
         ];
 
-        $group_slot = \get_post_meta($exhibition_id, 'group_slot', true);
-        
         $groups = \get_posts($args);
 
+        // pega o tamanho do slot (quantidade de grupos por horário)
+        $group_slot = \get_post_meta($exhibition_id, 'group_slot', true);
+
+        // se a quantidade de grupos for menor que o tamanho do slot, retorna true, se não retorna erro
         if (count($groups) < $group_slot) {
             return true;
         } else {
             $this->error(__('Data/horário indisponível nessa exposição', 'iande'));
         }
-        
+
     }
 
 }
