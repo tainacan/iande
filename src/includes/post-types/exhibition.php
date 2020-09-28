@@ -249,7 +249,7 @@ function get_exhibition_metadata_definition() {
 
     $metadata_definition = [
         'calendar_appointments' => (object) [
-            'type' => 'text',
+            'type' => 'string',
             'validation' => function ($value) {
                 return true;
             },
@@ -259,7 +259,7 @@ function get_exhibition_metadata_definition() {
             ]
         ],
         'description' => (object) [
-            'type'       => 'text',
+            'type'       => 'string',
             'validation' => function ($value) {
                 if (strlen(trim($value)) >= 2) {
                     return true;
@@ -274,7 +274,7 @@ function get_exhibition_metadata_definition() {
             ]
         ],
         'date_from' => (object) [
-            'type'       => 'text',
+            'type'       => 'string',
             'required'   => true,
             'validation' => function ($value) {
                 $d = \DateTime::createFromFormat("Y-m-d", $value);
@@ -291,7 +291,7 @@ function get_exhibition_metadata_definition() {
             ]
         ],
         'date_to' => (object) [
-            'type'       => 'text',
+            'type'       => 'string',
             'required'   => true,
             'validation' => function ($value) {
                 $d = \DateTime::createFromFormat("Y-m-d", $value);
@@ -308,11 +308,14 @@ function get_exhibition_metadata_definition() {
             ]
         ],
         'duration' => (object) [
-            'type'       => 'text',
+            'type'       => 'integer',
             'required'   => false,
             'validation' => function ($value) {
-                // @todo
-                return true;
+                if (is_numeric($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado não é um número válido', 'iande');
+                }
             },
             'metabox' => (object) [
                 'name' => __('Duração da visita', 'iande'),
@@ -324,11 +327,14 @@ function get_exhibition_metadata_definition() {
             ]
         ],
         'group_size' => (object) [
-            'type'       => 'text',
+            'type'       => 'integer',
             'required'   => false,
             'validation' => function ($value) {
-                // @todo
-                return true;
+                if (is_numeric($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado não é um número válido', 'iande');
+                }
             },
             'metabox' => (object) [
                 'name' => __('Tamanho (máximo) dos grupos', 'iande'),
@@ -340,11 +346,14 @@ function get_exhibition_metadata_definition() {
             ]
         ],
         'group_slot' => (object) [
-            'type'       => 'text',
+            'type'       => 'integer',
             'required'   => false,
             'validation' => function ($value) {
-                // @todo
-                return true;
+                if (is_numeric($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado não é um número válido', 'iande');
+                }
             },
             'metabox' => (object) [
                 'name' => __('Quantidade (máxima) de grupos por horário', 'iande'),
@@ -356,11 +365,14 @@ function get_exhibition_metadata_definition() {
             ]
         ],
         'grid' => (object) [
-            'type'       => 'text',
+            'type'       => 'integer',
             'required'   => false,
             'validation' => function ($value) {
-                // @todo
-                return true;
+                if (is_numeric($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado não é um número válido', 'iande');
+                }
             },
             'metabox' => (object) [
                 'name'       => __('Intervalo entre os horários de atendimento', 'iande'),

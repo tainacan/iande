@@ -101,7 +101,7 @@ function register_metabox_group() {
 
             if (isset($definition->metabox->desc))
                 $desc = $definition->metabox->desc;
-            
+
             if (isset($definition->metabox->type))
                 $type = $definition->metabox->type;
 
@@ -177,7 +177,7 @@ function get_group_metadata_definition() {
     $metadata_definition = [
 
         'exhibition_id' => (object) [
-            'type'          => 'string',
+            'type'          => 'integer',
             'required'      => __('A exposição é obrigatória', 'iande'),
             'required_step' => 1,
             'validation'    => function ($value) use ($exhibitions) {
@@ -198,7 +198,7 @@ function get_group_metadata_definition() {
             ]
         ],
         'num_people' => (object) [
-            'type'       => 'string',
+            'type'       => 'integer',
             'required'   => false,
             'validation' => function ($value) {
                 if (is_numeric($value)) {
@@ -253,7 +253,7 @@ function get_group_metadata_definition() {
             ]
         ],
         'num_responsible' => (object) [
-            'type'       => 'string',
+            'type'       => 'integer',
             'required'   => false,
             'validation' => function ($value) {
                 if (is_numeric($value)) {

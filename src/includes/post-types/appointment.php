@@ -221,14 +221,14 @@ function get_appointment_metadata_definition() {
 
     $metadata_definition = [
         'step' => (object) [
-            'type'       => 'string',
+            'type'       => 'integer',
             'validation' => function ($value) {
                 // TODO
                 return true;
             }
         ],
         'exhibition_id' => (object) [
-            'type'          => 'string',
+            'type'          => 'integer',
             'required'      => __('A exposição é obrigatória', 'iande'),
             'required_step' => 1,
             'validation'    => function ($value) use ($exhibitions) {
@@ -444,7 +444,7 @@ function get_appointment_metadata_definition() {
             ]
         ],
         'institution_id' => (object) [
-            'type'          => 'string',
+            'type'          => 'integer',
             'required'      => false,
             'validation'    => function ($value, $params) use ($institutions) {
                 $group_nature = $params['group_nature'];
@@ -470,11 +470,11 @@ function get_appointment_metadata_definition() {
             ]
         ],
         'requested_exemption' => (object) [
-            'type'          => 'string',
+            'type'          => 'boolean',
             'required'      => false,
             'required_step' => 1,
             'validation'    => function ($value) {
-                if ($value == 'yes' || $value == 'no') {
+                if (is_bool($value)) {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -491,11 +491,11 @@ function get_appointment_metadata_definition() {
             ]
         ],
         'has_visited_previously' => (object) [
-            'type'          => 'string',
+            'type'          => 'boolean',
             'required'      => __('Precisamos saber se você já visitou esse museu', 'iande'),
             'required_step' => 2,
             'validation'    => function ($value) {
-                if ($value == 'yes' || $value == 'no') {
+                if (is_bool($value)) {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -511,11 +511,11 @@ function get_appointment_metadata_definition() {
             ]
         ],
         'has_prepared_visit' => (object) [
-            'type'          => 'string',
+            'type'          => 'boolean',
             'required'      => __('Precisamos saber se você preparou seu grupo para a visita', 'iande'),
             'required_step' => 2,
             'validation'    => function ($value) {
-                if ($value == 'yes' || $value == 'no') {
+                if (is_bool($value)) {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -583,21 +583,8 @@ function get_appointment_metadata_definition() {
 
             ]
         ],
-        'group_list' => (object) [
-            'type'          => 'string',
-            'required'      => __('Os grupos de agendamento são obrigatórios', 'iande'),
-            'required_step' => 2,
-            'validation'    => function ($value) {
-                // @todo validar json dos grupos enviados
-                return true;
-            },
-            'metabox' => (object) [
-                'name' => __('Grupos do agendamento', 'iande'),
-                'type' => 'group_list',
-            ]
-        ],
         'num_people' => (object) [
-            'type'          => 'string',
+            'type'          => 'integer',
             'required'      => __('A quantidade prevista de pessoas é obrigatório', 'iande'),
             'required_step' => 1,
             'validation'    => function ($value) {

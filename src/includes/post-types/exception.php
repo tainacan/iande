@@ -251,7 +251,7 @@ function get_exception_metadata_definition()
 
     $metadata_definition = [
         'date_from' => (object) [
-            'type'       => 'text',
+            'type'       => 'string',
             'required'   => true,
             'validation' => function ($value) {
                 $d = \DateTime::createFromFormat("Y-m-d", $value);
@@ -267,7 +267,7 @@ function get_exception_metadata_definition()
             ]
         ],
         'date_to' => (object) [
-            'type'       => 'text',
+            'type'       => 'string',
             'required'   => true,
             'validation' => function ($value) {
                 $d = \DateTime::createFromFormat("Y-m-d", $value);
