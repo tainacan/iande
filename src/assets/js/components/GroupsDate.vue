@@ -21,7 +21,7 @@
 
     export default {
         name: 'GroupsDate',
-        component: {
+        components: {
             FormError,
             GroupDate,
             Repeater,

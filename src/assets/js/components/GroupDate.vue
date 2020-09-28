@@ -8,11 +8,11 @@
         <template v-if="exhibition">
             <div>
                 <label class="iande-label" :for="`${id}_date`">Data da visitação</label>
-                <DatePicker :id="`${id}_date`" v-model="date" placeholder="Selecione uma data" format="dd/MM/yyyy" :validations="$v.date"/>
+                <DatePicker :id="`${id}_date`" v-model="date" placeholder="Selecione uma data" format="dd/MM/yyyy" :validations="validations.date"/>
             </div>
             <div v-if="date">
                 <label class="iande-label" :for="`${id}_hour`">Horário</label>
-                <SlotPicker :id="`${id}_hour`" ref="slots" :day="date" v-model="hour" :validations="$v.hour"/>
+                <SlotPicker :id="`${id}_hour`" ref="slots" :day="date" v-model="hour" :validations="validations.hour"/>
             </div>
         </template>
     </div>
