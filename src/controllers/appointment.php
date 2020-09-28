@@ -677,7 +677,7 @@ class Appointment extends Controller
      * @param array $groups
      * @return void
      */
-    function get_parsed_group(array $groups) {
+    function get_parsed_group($groups) {
 
         $parsed_groups = [];
         foreach ($groups as $group_id) {
