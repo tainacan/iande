@@ -222,7 +222,7 @@
                 }
             },
             formatBinaryOption (option) {
-                return option === 'yes' ? 'Sim' : 'Não'
+                return option ? 'Sim' : 'Não'
             },
             formatCep,
             formatPhone,

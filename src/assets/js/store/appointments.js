@@ -7,8 +7,8 @@ function newAppointment() {
         exhibition_id: null,
         group_nature: '',
         groups: [],
-        has_prepared_visit: 'no',
-        has_visited_previously: 'no',
+        has_prepared_visit: false,
+        has_visited_previously: false,
         how_prepared_visit: '',
         hour: '',
         ID: null,
@@ -17,14 +17,14 @@ function newAppointment() {
         num_people: null,
         purpose: '',
         purpose_other: '',
-        requested_exemption: 'no',
+        requested_exemption: false,
         responsible_email: '',
         responsible_first_name: '',
         responsible_last_name: '',
         responsible_phone: '',
         responsible_role: '',
         responsible_role_other: '',
-        step: 1
+        step: 1,
     }
 }
 

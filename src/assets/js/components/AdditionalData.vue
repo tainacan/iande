@@ -9,7 +9,7 @@
             <label for="hasPreparedVisit" class="iande-label">Você preparou seu grupo para a visita?</label>
             <RadioGroup id="hasPreparedVisit" v-model="hasPreparedVisit" :validations="$v.hasPreparedVisit" :options="binaryOptions"/>
         </div>
-        <div v-if="hasPreparedVisit === 'yes'">
+        <div v-if="hasPreparedVisit">
             <label for="howPreparedVisit" class="iande-label">De que maneira você preparou o grupo?</label>
             <TextArea id="howPreparedVisit" placeholder="Quais conteúdos gostaria que fossem abordados na visita?" v-model="howPreparedVisit" :validations="$v.howPreparedVisit"/>
         </div>
@@ -41,7 +41,7 @@
                hasVisitedPreviously: 'has_visited_previously',
                howPreparedVisit: 'how_prepared_visit',
             }),
-            binaryOptions: constant({ 'Não': 'no', 'Sim': 'yes' }),
+            binaryOptions: constant({ 'Sim': true, 'Não': false }),
         },
         validations: {
             additionalComment: { },

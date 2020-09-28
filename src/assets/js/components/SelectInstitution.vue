@@ -6,7 +6,7 @@
             <label class="iande-label" for="isContact">Você é o contato responsável pela visita?</label>
             <RadioGroup id="isContact" v-model="isContact" :validations="$v.isContact" :options="binaryOptions"/>
         </div>
-        <div v-show="isContact !== 'yes'">
+        <div v-show="!isContact">
             <div class="iande-label">Informe o contato da pessoa responsável</div>
             <div class="iande-form-grid">
                 <Input id="firstName" type="text" placeholder="Nome" aria-label="Primeiro nome" v-model="firstName" :validations="$v.firstName"/>
@@ -86,7 +86,7 @@
                 role: 'responsible_role',
                 roleOther: 'responsible_role_other',
             }),
-            binaryOptions: constant({ 'Sim': 'yes', 'Não': 'no' }),
+            binaryOptions: constant({ 'Sim': true, 'Não': false }),
             institutionOptional () {
                 return (this.nature && this.nature === 'other') || this.skipInstitution
             },
@@ -116,11 +116,7 @@
             roleOther: { },
         },
         async created () {
-            if (this.firstName && this.lastName && this.email && this.phone) {
-                this.isContact = 'yes'
-            } else {
-                this.isContact = 'no'
-            }
+            this.isContact = Boolean(this.firstName && this.lastName && this.email && this.phone)
 
             if (this.institutions.length === 0) {
                 const institutions = await api.get('institution/list')
@@ -130,7 +126,7 @@
         watch: {
             role: watchForOther('role', 'roleOther'),
             isContact () {
-                if (this.isContact === 'yes') {
+                if (this.isContact) {
                     this.firstName = this.user.first_name
                     this.lastName = this.user.last_name
                     this.email = this.user.user_email
