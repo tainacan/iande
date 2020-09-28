@@ -1,5 +1,5 @@
 <template>
-    <div class="iande-stack stack-lg">
+    <section class="iande-stack stack-lg">
         <h2 class="iande-group-title">Grupo {{ n }}:</h2>
         <div>
             <label class="iande-label" :for="`${id}_name`">Nome do grupo</label>
@@ -15,7 +15,7 @@
                 <SlotPicker :id="`${id}_hour`" ref="slots" :day="date" v-model="hour" :validations="validations.hour"/>
             </div>
         </template>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -40,7 +40,7 @@
             exhibition: get('appointments/exhibition'),
             hour: subModel('hour'),
             n () {
-                return this.id.split('_').pop()
+                return Number(this.id.split('_').pop()) + 1
             },
             name: subModel('name'),
         },
