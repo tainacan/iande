@@ -27,7 +27,7 @@
             Repeater,
         },
         computed: {
-            groups: sync('appointments/current@group_list.groups'),
+            groups: sync('appointments/current@groups'),
         },
         validations: {
             groups: {

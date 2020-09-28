@@ -30,7 +30,7 @@
         },
         computed: {
             exhibition: get('appointments/exhibition'),
-            groups: sync('appointments/current@group_list.groups'),
+            groups: sync('appointments/current@groups'),
         },
         validations () {
             const maxPeople = this.exhibition ? Number(this.exhibition.group_size) : 100
