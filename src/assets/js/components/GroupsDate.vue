@@ -11,7 +11,7 @@
 </template>
 
 <script>
-    import { required } from 'vuelidate/lib/validators'
+    import { minLength, required } from 'vuelidate/lib/validators'
     import { get, sync } from 'vuex-pathify'
 
     import FormError from './FormError.vue'
