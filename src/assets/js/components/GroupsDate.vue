@@ -16,6 +16,7 @@
 
     import FormError from './FormError.vue'
     import GroupDate from './GroupDate.vue'
+    import Repeater from './Repeater.vue'
     import { date, time } from '../utils/validators'
 
     export default {
@@ -23,6 +24,7 @@
         component: {
             FormError,
             GroupDate,
+            Repeater,
         },
         computed: {
             groups: sync('appointments/current@group_list.groups'),
