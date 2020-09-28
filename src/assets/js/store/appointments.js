@@ -5,10 +5,8 @@ function newAppointment() {
         additional_comment: '',
         date: '',
         exhibition_id: null,
-        group_list: {
-            groups: [],
-        },
         group_nature: '',
+        groups: [],
         has_prepared_visit: 'no',
         has_visited_previously: 'no',
         how_prepared_visit: '',
@@ -47,6 +45,9 @@ export default {
         },
         filteredFields (state) {
             const entries = Object.entries(state.current).filter(([key, value]) => {
+                if (key === 'groups') {
+                    return value.filter(prop => prop != null && prop != '')
+                }
                 return value != null && value !== ''
             })
             return Object.fromEntries(entries)

@@ -24,22 +24,6 @@ export function isOther (term) {
     return String(term).toLowerCase().includes('outr')
 }
 
-// TODO: Remove it after deployments
-export function normalizeLanguages (appointment) {
-    let groups = (appointment.group_list && appointment.group_list.groups) || []
-    groups = groups.map(group => {
-        const languages = group.languages.map(language => {
-            if (typeof language === 'string') {
-                return { name: language, other: '' }
-            } else {
-                return language
-            }
-        })
-        return { ...group, languages }
-    })
-    return { ...appointment, group_list: { groups } }
-}
-
 export function sortBy (fn, asc = true) {
     return (a, b) => {
         const newA = fn(a)

@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <div class="iande-appointment__box" v-for="group in groups" :key="group.id">
+                <div class="iande-appointment__box" v-for="group in appointment.groups" :key="group.id">
                     <div class="iande-appointment__box-title">
                         <h3><Icon icon="users"/>{{ groupName(group) }}</h3>
                         <div class="iande-appointment__edit" v-if="editable">
@@ -175,12 +175,6 @@
             },
             editable () {
                 return this.appointment.post_status === 'draft'
-            },
-            groups () {
-                if (this.appointment.group_list) {
-                    return this.appointment.group_list.groups || []
-                }
-                return []
             },
             hour () {
                 const parts = this.appointment.hour.split(':')

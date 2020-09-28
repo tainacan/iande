@@ -23,7 +23,7 @@
 <script>
     import { call, get, sync } from 'vuex-pathify'
 
-    import { api, normalizeLanguages } from '../utils'
+    import { api } from '../utils'
 
     // Lazy-loading candidates
     import AdditionalData from '../components/AdditionalData.vue'
@@ -61,7 +61,7 @@
                     const appointment = await api.get('appointment/get', {
                         ID: Number(qs.get('ID'))
                     })
-                    this.appointment = normalizeLanguages({ ...this.appointment, ...appointment })
+                    this.appointment = { ...this.appointment, ...appointment }
                 } catch (err) {
                     this.formError = err
                 }

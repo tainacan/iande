@@ -53,7 +53,7 @@
     import AppointmentSuccessModal from '../components/AppointmentSuccessModal.vue'
     import Modal from '../components/Modal.vue'
     import StepsIndicator from '../components/StepsIndicator.vue'
-    import { api, constant, normalizeLanguages } from '../utils'
+    import { api, constant } from '../utils'
 
     // Lazy-loading candidates
     import AdditionalData from '../components/AdditionalData.vue'
@@ -89,7 +89,6 @@
         computed: {
             appointment: sync('appointments/current'),
             fields: get('appointments/filteredFields'),
-            groupList: sync('appointments/current@group_list'),
             iandeUrl: constant(window.IandeSettings.iandeUrl),
             route () {
                 return routes[this.screen]
@@ -106,10 +105,6 @@
                         ID: Number(qs.get('ID'))
                     })
                     this.appointment = { ...this.appointment, ...appointment }
-                    if (!this.groupList) {
-                        this.groupList = { groups: [] }
-                    }
-                    this.appointment = normalizeLanguages(this.appointment)
                 } catch (err) {
                     this.formError = err
                 }
