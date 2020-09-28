@@ -311,7 +311,7 @@ function get_group_metadata_definition() {
             },
             'metabox' => (object) [
                 'name'       => __('Idiomas', 'iande'),
-                'type'       => 'text',
+                'type'       => 'languages',
                 'repeatable' => true,
                 'options'    => [
                     'add_row_text' => __('Adicionar Idioma', 'iande')
