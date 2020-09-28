@@ -1,5 +1,6 @@
 <template>
-    <div class="iande-group iande-stack stack-lg">
+    <section class="iande-group iande-stack stack-lg">
+        <h2 class="iande-group-title">Grupo {{ n }}:</h2>
         <div>
             <label :for="`${id}_name`" class="iande-label">Nome do grupo</label>
             <Input :id="`${id}_name`" type="text" placeholder="Ex.: 1° ano G - Prof. Marta" v-model="name" :validations="validations.name"/>
@@ -55,7 +56,7 @@
                 </template>
             </Repeater>
         </template>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -100,6 +101,9 @@
                 } else {
                     return 100
                 }
+            },
+            n () {
+                return Number(this.id.split('_').pop()) + 1
             },
             name: subModel('name'),
             numPeople: subModel('num_people'),
