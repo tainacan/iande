@@ -27,7 +27,7 @@
             Repeater,
         },
         computed: {
-            exhibition: sync('appointments/exhibition'),
+            exhibition: get('appointments/exhibition'),
             groups: sync('appointments/current@groups'),
             numPeople: get('appointments/current@num_people'),
         },
@@ -42,7 +42,8 @@
             },
         },
         created () {
-            // this.groups = [...new Array(Math.ceil())]
+            const numGroups = Math.ceil(this.numPeople / this.exhibition.group_size)
+            this.groups = [...new Array(numGroups)].map(this.newGroup)
         },
         methods: {
             newGroup () {
