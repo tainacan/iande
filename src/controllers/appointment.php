@@ -80,13 +80,17 @@ class Appointment extends Controller
             'post_status' => 'draft'
         ];
 
-        $appointment_id = wp_insert_post($args);
+        $appointment_id = \wp_insert_post($args);
 
         $this->set_appointment_metadata($appointment_id, $params);
 
         \update_post_meta($appointment_id, 'step', '1');
 
         $this->set_appointment_title($appointment_id);
+
+        if (isset($params['groups']) && !empty($params['groups'])) {
+            $this->set_appointment_groups($appointment_id, $params['groups']);
+        }
 
         $appointment = $this->get_parsed_appointment($appointment_id);
 
@@ -722,7 +726,81 @@ class Appointment extends Controller
     }
 
     /**
-     * Define/atualiza o título do agendamento a partir do meta "name"
+     * Cria os grupos do agendamento
+     *
+     * @param int   $appointment_id
+     * @param array $groups
+     * @return void
+     * 
+     */
+    function set_appointment_groups($appointment_id, $groups = []) {
+       
+        $metadata_definition = get_group_metadata_definition();
+
+        $group_to_appointment = [];
+
+        $exhibition_id = \get_post_meta($appointment_id, 'exhibition_id', true);
+      
+        foreach($groups as $group) {
+            
+            if(!isset($group['group_id']) || empty($group['group_id'])) {
+                                
+                $meta_input = [];
+
+                foreach ($group as $key => $value) {
+
+                    if (array_key_exists($key, $metadata_definition) && !empty($value)) {
+                        $meta_input[$key] = $value;
+                    }
+
+                    $meta_input['exhibition_id'] = $exhibition_id;
+                    
+                }
+
+                if(!isset($meta_input['date']) || empty($meta_input['date']) || !isset($meta_input['hour']) || empty($meta_input['hour'])) {
+                    $this->error(__('Data e horário são obrigatórios para criar um grupo', 'iande'));
+                }               
+                
+                $this->check_availability($exhibition_id, $meta_input['date'], $meta_input['hour']);
+                
+                $new_group = [
+                    'post_type'   => 'group',
+                    'post_author' => \get_current_user_id(),
+                    'post_title'  => '',
+                    'post_status' => 'pending',
+                    'meta_input'  => $meta_input
+                ];
+
+                $new_group_id = \wp_insert_post($new_group, true);
+
+                if (!is_wp_error($new_group_id)) {
+                    $group_to_appointment[] = $new_group_id;
+                } else {
+                    $this->error(__('O grupo não pode ser criado', 'iande'));
+                }
+                
+            } else {
+
+                if (!isset($group['date']) || empty($group['date']) || !isset($group['hour']) || empty($group['hour'])) {
+                    $this->error(__('Data e horário são obrigatórios para editar um grupo', 'iande'));
+                }
+                
+                $this->check_availability($exhibition_id, $group['date'], $group['hour']);                
+
+                foreach ($group as $key => $value) {
+                    \update_post_meta($group['group_id'], $key, $value );
+                }
+
+            }
+
+        }        
+
+        \update_post_meta($appointment_id, 'groups', $group_to_appointment);
+
+    }
+
+    /**
+     * Define/atualiza o título do agendamento
      *
      * @param integer $appointment_id
      * @return void
@@ -744,7 +822,7 @@ class Appointment extends Controller
             $post = array(
                 'ID'         => $appointment_id,
                 'post_title' => \apply_filters('title', $title),
-                'post_name' => $slug
+                'post_name'  => $slug
             );
             \wp_update_post($post);
         }
@@ -759,7 +837,6 @@ class Appointment extends Controller
      */
     function count_people_appointment(string $appointment_id, $sum = false)
     {
-
         
         $num_people_groups = \maybe_unserialize(get_post_meta($appointment_id, 'groups', true));
         $num_people = get_post_meta($appointment_id, 'num_people', true);

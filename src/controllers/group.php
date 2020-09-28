@@ -130,8 +130,6 @@ class Group extends Controller
             }
 
             if (!empty($params[$key])) {
-                
-                $this->check_availability($params['exhibition_id'], $params['date'], $params['hour']);
 
                 $validation_fn = $definition->validation;
                 $validation = $validation_fn($params[$key], $params);
