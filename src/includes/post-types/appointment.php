@@ -477,7 +477,7 @@ function get_appointment_metadata_definition() {
                 if (is_bool($value)) {
                     return true;
                 } else {
-                    return __('Valor inválido', 'iande');
+                    return __('Valor inválido para solicitação de isenção', 'iande');
                 }
             },
             'metabox' => (object) [
@@ -498,7 +498,7 @@ function get_appointment_metadata_definition() {
                 if (is_bool($value)) {
                     return true;
                 } else {
-                    return __('Valor inválido', 'iande');
+                    return __('Valor inválido sobre visitação do museu', 'iande');
                 }
             },
             'metabox' => (object) [
@@ -518,7 +518,7 @@ function get_appointment_metadata_definition() {
                 if (is_bool($value)) {
                     return true;
                 } else {
-                    return __('Valor inválido', 'iande');
+                    return __('Valor inválido sobre preparação do grupo', 'iande');
                 }
             },
             'metabox' => (object) [
@@ -606,7 +606,7 @@ function get_appointment_metadata_definition() {
                 if (is_string($value)) {
                     return true;
                 } else {
-                    return __('Valor inválido', 'iande');
+                    return __('Motivo de cancelamento inválido', 'iande');
                 }
             },
             'metabox' => (object) [
