@@ -84,7 +84,7 @@ class Appointment extends Controller
 
         $this->set_appointment_metadata($appointment_id, $params);
 
-        \update_post_meta($appointment_id, 'step', '1');
+        \update_post_meta($appointment_id, 'step', 1);
 
         $this->set_appointment_title($appointment_id);
 
@@ -359,9 +359,9 @@ class Appointment extends Controller
         }
         $step = get_post_meta($params['ID'], 'step', true);
 
-        if ($this->validate_step($params['ID']) && $step == '1') {
+        if ($this->validate_step($params['ID']) && $step == 1) {
 
-            update_post_meta($params['ID'], 'step', '2', $step);
+            update_post_meta($params['ID'], 'step', 2, $step);
 
             $requested_exemption = get_post_meta($params['ID'], 'requested_exemption', true);
 
@@ -387,9 +387,9 @@ class Appointment extends Controller
 
             $this->success(__('O agendamento passou para o próximo passo', 'iande'));
 
-        } elseif($this->validate_step($params['ID']) && $step == '2') {
+        } elseif($this->validate_step($params['ID']) && $step == 2) {
 
-            update_post_meta($params['ID'], 'step', '3', $step);
+            update_post_meta($params['ID'], 'step', 3, $step);
             $this->success(__('O agendamento passou para o próximo passo e está aguardando confirmação', 'iande'));
 
         }
@@ -562,7 +562,7 @@ class Appointment extends Controller
 
         $step = get_post_meta($appointment_id, 'step', true);
 
-        if ( $step ) {
+        if ($step) {
 
             $metadata_definition = get_appointment_metadata_definition();
 
@@ -638,10 +638,8 @@ class Appointment extends Controller
         foreach ($metadata_definition as $key => $definition) {
             if ($key == 'num_people') {
                 $pased_appointment->$key = isset($metadata[$key][0]) ? $this->count_people_appointment($appointment->ID) : null;
-            }elseif ($key == 'groups') {
+            } elseif ($key == 'groups') {
                 $pased_appointment->$key = isset($metadata[$key][0]) ? $this->get_parsed_group(\maybe_unserialize($metadata[$key][0])) : null;
-            } elseif ($key == 'group_list') {
-                $pased_appointment->$key = isset($metadata[$key][0]) ? json_decode($metadata[$key][0], true) : null;
             } else {
                 $pased_appointment->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
             }
