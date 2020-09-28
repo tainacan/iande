@@ -470,11 +470,11 @@ function get_appointment_metadata_definition() {
             ]
         ],
         'requested_exemption' => (object) [
-            'type'          => 'boolean',
+            'type'          => 'string',
             'required'      => false,
             'required_step' => 1,
             'validation'    => function ($value) {
-                if (is_bool($value)) {
+                if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
                     return __('Valor inválido para solicitação de isenção', 'iande');
@@ -491,11 +491,11 @@ function get_appointment_metadata_definition() {
             ]
         ],
         'has_visited_previously' => (object) [
-            'type'          => 'boolean',
+            'type'          => 'string',
             'required'      => __('Precisamos saber se você já visitou esse museu', 'iande'),
             'required_step' => 2,
             'validation'    => function ($value) {
-                if (is_bool($value)) {
+                if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
                     return __('Valor inválido sobre visitação do museu', 'iande');
@@ -511,11 +511,11 @@ function get_appointment_metadata_definition() {
             ]
         ],
         'has_prepared_visit' => (object) [
-            'type'          => 'boolean',
+            'type'          => 'string',
             'required'      => __('Precisamos saber se você preparou seu grupo para a visita', 'iande'),
             'required_step' => 2,
             'validation'    => function ($value) {
-                if (is_bool($value)) {
+                if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
                     return __('Valor inválido sobre preparação do grupo', 'iande');
