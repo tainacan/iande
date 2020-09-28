@@ -4,7 +4,7 @@
 
         <div class="iande-container narrow iande-stack stack-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
-                <component :is="route.component" ref="form" @add-institution="setScreen(3)"/>
+                <component :is="route.component" ref="form" @add-institution="setScreen(4)"/>
 
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ formError }}</span>
@@ -51,6 +51,7 @@
 
     // Lazy-loading candidates
     import CreateInstitution from '../components/CreateInstitution.vue'
+    import GroupsDate from '../components/GroupsDate.vue'
     import SelectInstitution from '../components/SelectInstitution.vue'
     import SelectExhibition from '../components/SelectExhibition.vue'
 
@@ -61,15 +62,21 @@
             next: 2,
         },
         2: {
-            component: SelectInstitution,
-            action: 'submitAppointment',
+            component: GroupsDate,
+            action: 'saveAppointment',
             previous: 1,
+            next: 3,
         },
         3: {
+            component: SelectInstitution,
+            action: 'submitAppointment',
+            previous: 2,
+        },
+        4: {
             component: CreateInstitution,
             action: 'saveInstitution',
-            previous: 2,
-            next: 2,
+            previous: 3,
+            next: 3,
         },
     }
 
@@ -83,7 +90,7 @@
         data () {
             return {
                 formError: '',
-                screen: 1
+                screen: 1,
             }
         },
         computed: {

@@ -60,15 +60,15 @@
     import GroupsAdditionalInfo from '../components/GroupsAdditionalInfo.vue'
 
     const routes = {
-        4: {
+        5: {
             component: GroupsAdditionalInfo,
             action: 'updateAppointment',
-            next: 5,
+            next: 6,
         },
-        5: {
+        6: {
             component: AdditionalData,
             action: 'confirmAppointment',
-            previous: 4,
+            previous: 5,
         },
     }
 
@@ -83,7 +83,7 @@
         data () {
             return {
                 formError: '',
-                screen: 4,
+                screen: 5,
             }
         },
         computed: {
