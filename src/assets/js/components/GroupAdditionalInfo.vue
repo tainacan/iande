@@ -91,7 +91,7 @@
             }
         },
         computed: {
-            binaryOptions: constant({ 'Sim': true, 'Não': false }),
+            binaryOptions: constant({ 'Não': false, 'Sim': true }),
             disabilities: subModel('disabilities'),
             exhibition: get('appointments/exhibition'),
             languages: subModel('languages'),
