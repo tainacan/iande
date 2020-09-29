@@ -682,7 +682,7 @@ class Appointment extends Controller
 
             $group = \get_post(intval($group_id));
 
-            $parsed_groups[] = (object)[
+            $parsed_groups[] = [
                 'age_range'       => $group->age_range,
                 'id'              => $group->ID,
                 'date'            => $group->date,
@@ -699,7 +699,7 @@ class Appointment extends Controller
 
         }
 
-        return (object) $parsed_groups;
+        return $parsed_groups;
 
     }
 
