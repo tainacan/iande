@@ -51,7 +51,6 @@
                                 other: { },
                             },
                         },
-                        name: { required },
                         num_people: { integer, maxValue: maxValue(maxPeople), required },
                         num_responsible: { integer, required },
                         scholarity: { required },

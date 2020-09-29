@@ -1,10 +1,6 @@
 <template>
     <section class="iande-group iande-stack stack-lg">
-        <h2 class="iande-group-title">Grupo {{ n }}:</h2>
-        <div>
-            <label :for="`${id}_name`" class="iande-label">Nome do grupo</label>
-            <Input :id="`${id}_name`" type="text" placeholder="Ex.: 1° ano G - Prof. Marta" v-model="name" :validations="validations.name"/>
-        </div>
+        <h2 class="iande-group-title">Grupo {{ n }}: {{ value.name }}</h2>
         <div>
             <label :for="`${id}_numPeople`" class="iande-label">Quantidade prevista de pessoas<span class="iande-label__optional">Máximo de {{ maxPeople }} pessoas</span></label>
             <Input :id="`${id}_numPeople`" type="number" min="5" :max="maxPeople" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="validations.numPeople"/>

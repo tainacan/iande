@@ -122,10 +122,8 @@
                 this.isContact = 'no'
             }
 
-            if (this.institutions.length === 0) {
-                const institutions = await api.get('institution/list')
-                this.institutions = institutions
-            }
+            const institutions = await api.get('institution/list')
+            this.institutions = institutions
         },
         watch: {
             role: watchForOther('role', 'roleOther'),
