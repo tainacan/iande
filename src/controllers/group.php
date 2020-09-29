@@ -110,7 +110,7 @@ class Group extends Controller
      *
      * @param array     $params Valores dos metadados
      * @param boolean   $validate_missing_requirements Se deve validar a obrigatoriedade dos campos não passados no array $params
-     * @param boolean   $force Defina como true para conseguir validar campos não obrigatórios - exemplo de uso, endpoint_update para atualizar um campo que não é obrigatório "group_list"
+     * @param boolean   $force Defina como true para conseguir validar campos não obrigatórios
      * @return void
      */
     function validate(array $params = [], $validate_missing_requirements = false, $force = false)

@@ -508,7 +508,7 @@ class Appointment extends Controller
      *
      * @param array $params Valores dos metadados
      * @param boolean $validate_missing_requirements Se deve validar a obrigatoriedade dos campos não passados no array $params
-     * @param boolean $force Defina como true para conseguir validar campos não obrigatórios - exemplo de uso, endpoint_update para atualizar um campo que não é obrigatório "group_list"
+     * @param boolean $force Defina como true para conseguir validar campos não obrigatórios
      * @return void
      */
     function validate(array $params = [], $validate_missing_requirements = false, $force = false)
@@ -716,12 +716,7 @@ class Appointment extends Controller
         foreach ($metadata_definition as $key => $definition) {
             if (isset($params[$key])) {
 
-                if($key == 'group_list') {
-                    $value = json_encode($params[$key]);
-                    \update_post_meta($post_id, $key, wp_slash($value));
-                } else {
-                    \update_post_meta($post_id, $key, $params[$key]);
-                }
+                \update_post_meta($post_id, $key, $params[$key]);
 
             }
         }
@@ -862,23 +857,9 @@ class Appointment extends Controller
 
             return $num_people;            
 
-        } else {
-            $group_list = \get_post_meta($appointment_id, 'group_list');
-
-            if (!empty($group_list)) {
-
-                $group_list = json_decode($group_list[0]);
-
-                $count = [];
-
-                foreach ($group_list->groups as $group) {
-                    $count[] = $group->num_people;
-                }
-
-                return array_sum($count);
-
-            }
         }
+
+        return false;
 
     }
 
