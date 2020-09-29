@@ -197,6 +197,18 @@ function get_group_metadata_definition() {
                 'options' => map_posts_to_options($exhibitions),
             ]
         ],
+        'name' => (object) [
+            'type'          => 'string',
+            'required'      => __('O nome do grupo é obrigatório', 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name' => __('Nome', 'iande'),
+                'type' => 'text',
+            ]
+        ],
         'num_people' => (object) [
             'type'       => 'integer',
             'required'   => false,
