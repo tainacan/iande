@@ -3,7 +3,7 @@
         <h2 class="iande-group-title">Grupo {{ n }}: {{ value.name }}</h2>
         <div>
             <label :for="`${id}_numPeople`" class="iande-label">Quantidade prevista de pessoas<span class="iande-label__optional">Máximo de {{ maxPeople }} pessoas</span></label>
-            <Input :id="`${id}_numPeople`" type="number" min="5" :max="maxPeople" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="validations.numPeople"/>
+            <Input :id="`${id}_numPeople`" type="number" min="5" :max="maxPeople" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="validations.num_people"/>
             <p class="text-sm">Caso seu grupo seja maior do que a capacidade de atendimento do museu, adicione outro grupo no fim da página.</p>
         </div>
         <div>
