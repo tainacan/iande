@@ -90,6 +90,7 @@
             }
         },
         computed: {
+            ageRange: subModel('age_range'),
             ageRangeOptions: constant(window.IandeSettings.ageRanges),
             binaryOptions: constant({ 'Não': false, 'Sim': true }),
             disabilities: subModel('disabilities'),
