@@ -3,14 +3,12 @@ import { make } from 'vuex-pathify'
 function newAppointment() {
     return {
         additional_comment: '',
-        date: '',
         exhibition_id: null,
         group_nature: '',
         groups: [],
         has_prepared_visit: 'no',
         has_visited_previously: 'no',
         how_prepared_visit: '',
-        hour: '',
         ID: null,
         institution_id: null,
         name: '',
