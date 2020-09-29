@@ -22,7 +22,7 @@
         </div>
         <div>
             <label class="iande-label" for="numPeople">Quantidade prevista de pessoas</label>
-            <Input id="`numPeople" type="number" min="5" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="$v.numPeople"/>
+            <Input id="numPeople" type="number" min="5" placeholder="Mínimo de 5 pessoas" :disabled="groups.length > 0" v-model.number="numPeople" :validations="$v.numPeople"/>
             <p class="text-sm">Caso a quantidade seja maior do que a capacidade de atendimento, mais grupos serão criados automaticamente</p>
         </div>
     </div>
@@ -56,6 +56,7 @@
                 return Object.fromEntries(entries)
             },
             exhibitions: get('exhibitions/list'),
+            groups: get('appointments/current@groups'),
             purposeOptions: constant(window.IandeSettings.purposes)
         },
         validations: {
