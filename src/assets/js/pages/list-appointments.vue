@@ -51,7 +51,7 @@
                 const today = new Date().toISOString().slice(0, 10)
                 if (this.filter === 'next') {
                     return this.sortedAppointments.filter(appointment => {
-                        return appointment.groups.any(group => group.date >= today)
+                        return appointment.groups.some(group => group.date >= today)
                     })
                 } else {
                     return this.sortedAppointments.filter(appointment => {
