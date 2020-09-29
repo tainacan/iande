@@ -247,9 +247,7 @@
             groupLanguages (languages) {
                 return [{ name: 'Português' }, ...languages]
                     .map(language => {
-                        if (typeof language === 'string') {
-                            return language
-                        } else if (isOther(language.name) && language.other) {
+                        if (isOther(language.name) && language.other) {
                             return `${language.name} / ${language.other}`
                         } else {
                             return language.name
