@@ -37,6 +37,10 @@
         &.invalid {
             border-color: var(--iande-error-color);
         }
+
+        &:disabled {
+            background-color: var(--iande-lighter-color);
+        }
     }
 
     .iande-radio-group {
