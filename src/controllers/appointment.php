@@ -791,8 +791,10 @@ class Appointment extends Controller
                 $this->check_availability($exhibition_id, $group['date'], $group['hour']);
 
                 foreach ($group as $key => $value) {
-                    \update_post_meta($group['group_id'], $key, $value );
+                    \update_post_meta($group['ID'], $key, $value );
                 }
+
+                $group_to_appointment[] = $group['ID'];
 
             }
 
