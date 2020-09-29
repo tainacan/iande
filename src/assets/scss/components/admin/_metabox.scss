@@ -43,6 +43,62 @@
             summary {
                 cursor: pointer;
             }
+
+            // Repeater field
+            .cmb-repeat {
+
+                .cmb-repeat-row {
+                    
+                    &::before {
+                        padding-top: 7px;
+                        box-sizing: border-box;
+                    }
+
+                    .cmb-remove-row-button {
+                        background-color: transparent;
+                        border: 2px solid #a00;
+                        border-radius: 50px;
+                        color: #a00;
+                        margin-top: 3px;
+                        padding: 0;
+                        height: 30px;
+                        width: 30px;
+
+                        &::before {
+                            box-sizing: border-box;
+                            padding: 4px;
+                        }
+
+                        &:hover {
+                            color: #fff;
+                            background-color: red;
+                            border: 2px solid red;
+                        }
+                    }
+
+                }
+                
+                .alignleft {
+                    margin-right: 15px;
+
+                    &>p {
+                        display: none;
+                    }
+                }
+
+                select {
+                    margin-top: 0;
+                }
+
+                h3 {
+                    &.cmbhandle-title {
+                        cursor: pointer;
+                    }
+                }
+                
+            }
+
         }
     }
+
 }

@@ -491,3 +491,25 @@ function use_exemption() {
     }
 
 }
+
+/**
+ * Verifica se existem Exceções cadastradas
+ *
+ * @return boolean
+ */
+function has_exception() {
+
+    $args = [
+        'post_type' => 'exception',
+        'fields'    => 'ids'
+    ];
+
+    $exceptions = get_posts($args);
+
+    if (count($exceptions) >= 1) {
+        return true;
+    } else {
+        return false;
+    }
+
+}

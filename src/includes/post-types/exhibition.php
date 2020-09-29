@@ -100,6 +100,7 @@ function register_metabox_exhibition() {
             $mb_attributes   = [];
             $mb_repeatable   = false;
             $mb_date_format  = 'Y-m-d';
+            $show_on_cb = '';
 
             if (isset($definition->metabox->name))
                 $mb_name = $definition->metabox->name;
@@ -128,17 +129,21 @@ function register_metabox_exhibition() {
             if (isset($definition->metabox->date_format))
                 $mb_date_format = $definition->metabox->date_format;
 
+            if (isset($definition->metabox->show_on_cb))
+                $show_on_cb = $definition->metabox->show_on_cb;
+
             $fields[] = [
-                'name'        => $mb_name,
-                'desc'        => $mb_desc,
-                'id'          => $key,
-                'default'     => $mb_default,
-                'type'        => $mb_type,
-                'options'     => $mb_options,
+                'name'         => $mb_name,
+                'desc'         => $mb_desc,
+                'id'           => $key,
+                'default'      => $mb_default,
+                'type'         => $mb_type,
+                'options'      => $mb_options,
                 'group_fields' => $mb_group_fields,
-                'attributes'  => $mb_attributes,
-                'repeatable'  => $mb_repeatable,
-                'date_format' => $mb_date_format
+                'attributes'   => $mb_attributes,
+                'repeatable'   => $mb_repeatable,
+                'date_format'  => $mb_date_format,
+                'show_on_cb'   => $show_on_cb
             ];
 
         }
@@ -458,7 +463,8 @@ function get_exhibition_metadata_definition() {
             'metabox' => (object) [
                 'name'       => __('Exceções', 'iande'),
                 'type'       => 'custom_attached_posts',
-                'options' => [
+                'show_on_cb' => 'has_exception',
+                'options'    => [
                     'show_thumbnails' => false, // Show thumbnails on the left
                     'filter_boxes'    => false, // Show a text box for filtering the results
                     'query_args'      => [
