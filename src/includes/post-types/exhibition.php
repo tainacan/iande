@@ -100,7 +100,13 @@ function register_metabox_exhibition() {
             $mb_attributes   = [];
             $mb_repeatable   = false;
             $mb_date_format  = 'Y-m-d';
-            $show_on_cb = '';
+            $mb_multiple   = false;
+            $mb_limit      = \get_option('posts_per_page');
+            $mb_query_args = [
+                'post_type'   => ['post', 'page'],
+                'post_status' => ['publish', 'pending']
+            ];
+            $mb_show_on_cb = '';
 
             if (isset($definition->metabox->name))
                 $mb_name = $definition->metabox->name;
@@ -129,21 +135,33 @@ function register_metabox_exhibition() {
             if (isset($definition->metabox->date_format))
                 $mb_date_format = $definition->metabox->date_format;
 
+            if (isset($definition->metabox->multiple_item))
+                $mb_multiple = $definition->metabox->multiple_item;
+
+            if (isset($definition->metabox->limit))
+                $mb_limit = $definition->metabox->limit;
+
+            if (isset($definition->metabox->query_args))
+                $mb_query_args = $definition->metabox->query_args;
+
             if (isset($definition->metabox->show_on_cb))
-                $show_on_cb = $definition->metabox->show_on_cb;
+                $mb_show_on_cb = $definition->metabox->show_on_cb;
 
             $fields[] = [
-                'name'         => $mb_name,
-                'desc'         => $mb_desc,
-                'id'           => $key,
-                'default'      => $mb_default,
-                'type'         => $mb_type,
-                'options'      => $mb_options,
-                'group_fields' => $mb_group_fields,
-                'attributes'   => $mb_attributes,
-                'repeatable'   => $mb_repeatable,
-                'date_format'  => $mb_date_format,
-                'show_on_cb'   => $show_on_cb
+                'name'          => $mb_name,
+                'desc'          => $mb_desc,
+                'id'            => $key,
+                'default'       => $mb_default,
+                'type'          => $mb_type,
+                'options'       => $mb_options,
+                'group_fields'  => $mb_group_fields,
+                'attributes'    => $mb_attributes,
+                'repeatable'    => $mb_repeatable,
+                'date_format'   => $mb_date_format,
+                'multiple-item' => $mb_multiple,
+                'limit'         => $mb_limit,
+                'query_args'    => $mb_query_args,
+                'show_on_cb'    => $mb_show_on_cb
             ];
 
         }
@@ -461,17 +479,13 @@ function get_exhibition_metadata_definition() {
                 return true;
             },
             'metabox' => (object) [
-                'name'       => __('Exceções', 'iande'),
-                'type'       => 'custom_attached_posts',
-                'show_on_cb' => 'has_exception',
-                'options'    => [
-                    'show_thumbnails' => false, // Show thumbnails on the left
-                    'filter_boxes'    => false, // Show a text box for filtering the results
-                    'query_args'      => [
-                        'posts_per_page' => 99,
-                        'post_type'      => 'exception',
-                    ], // override the get_posts args
-                ],
+                'name'          => __('Exceções', 'iande'),
+                'type'          => 'post_ajax_search',
+                'show_on_cb'    => 'has_exception',
+                'multiple_item' => true,
+                'query_args'    => [
+                    'post_type' => 'exception'
+                ]
             ]
         ]
 

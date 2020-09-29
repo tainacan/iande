@@ -546,10 +546,10 @@ function get_appointment_metadata_definition() {
                 return true;
             },
             'metabox' => (object) [
-                'name' => __('Grupos', 'iande'),
-                'type' => 'post_ajax_search',
+                'name'          => __('Grupos', 'iande'),
+                'type'          => 'post_ajax_search',
                 'multiple_item' => true,
-                'query_args' => [
+                'query_args'    => [
                     'post_type' => ['group']
                 ]
 
