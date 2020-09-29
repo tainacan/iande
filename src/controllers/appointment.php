@@ -767,10 +767,14 @@ class Appointment extends Controller
                 
                 $this->check_availability($exhibition_id, $meta_input['date'], $meta_input['hour']);
                 
+                // Cria o título do grupo com informações do agendamento
+                // {nome-grupo} - {data} {horário}"
+                $title = $group['name'] . ' - ' . date_format(date_create($meta_input['date']), 'd/m/Y') . ' ' . $meta_input['hour'];
+                
                 $new_group = [
                     'post_type'   => 'group',
                     'post_author' => \get_current_user_id(),
-                    'post_title'  => '',
+                    'post_title'  => $title,
                     'post_status' => 'pending',
                     'meta_input'  => $meta_input
                 ];
