@@ -132,7 +132,7 @@ class Appointment extends Controller
         $this->set_appointment_metadata($params['ID'], $params);
 
         $this->set_appointment_title($params['ID']);
-        
+     
         if (isset($params['groups']) && !empty($params['groups'])) {
             $this->set_appointment_groups($params['ID'], $params['groups']);
         }
@@ -738,12 +738,14 @@ class Appointment extends Controller
     function set_appointment_groups($appointment_id, $groups = []) {
        
         $metadata_definition = get_group_metadata_definition();
-
+        
         $group_to_appointment = [];
-
+        
         $exhibition_id = \get_post_meta($appointment_id, 'exhibition_id', true);
+        
+        foreach($groups as $each_group) {
 
-        foreach($groups as $group) {
+            $group = (array) $each_group;
          
             if(!isset($group['group_id']) || empty($group['group_id'])) {
                                 
@@ -795,7 +797,7 @@ class Appointment extends Controller
 
             }
 
-        }        
+        }
 
         \update_post_meta($appointment_id, 'groups', $group_to_appointment);
 
