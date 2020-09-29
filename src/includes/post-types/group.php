@@ -330,7 +330,7 @@ function get_group_metadata_definition() {
                 ]
             ]
         ],
-        'deficiency' => (object) [
+        'disabilities' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
@@ -342,7 +342,7 @@ function get_group_metadata_definition() {
             },
             'metabox' => (object) [
                 'name'       => __('Deficiências', 'iande'),
-                'type'       => 'deficiency',
+                'type'       => 'disabilities',
                 'repeatable' => true,
                 'options'    => [
                     'add_row_text' => __('Adicionar Deficiência/Quantidade', 'iande')

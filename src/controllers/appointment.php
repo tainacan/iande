@@ -686,7 +686,7 @@ class Appointment extends Controller
                 'age_range'       => $group->age_range,
                 'ID'              => $group->ID,
                 'date'            => $group->date,
-                'deficiency'      => (isset($group->deficiency) && !empty($group->deficiency)) ? $group->deficiency : [],
+                'disabilities'    => (isset($group->disabilities) && !empty($group->disabilities)) ? $group->disabilities : [],
                 'exhibition_id'   => $group->exhibition_id,
                 'hour'            => $group->hour,
                 'languages'       => (isset($group->languages) && !empty($group->languages)) ? $group->languages : [],
