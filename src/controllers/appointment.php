@@ -6,7 +6,7 @@ use Controller;
 
 class Appointment extends Controller
 {
-    
+
     /**
      * Renderiza a página de criação de agendamento
      *
@@ -132,7 +132,7 @@ class Appointment extends Controller
         $this->set_appointment_metadata($params['ID'], $params);
 
         $this->set_appointment_title($params['ID']);
-     
+
         if (isset($params['groups']) && !empty($params['groups'])) {
             $this->set_appointment_groups($params['ID'], $params['groups']);
         }
@@ -430,13 +430,13 @@ class Appointment extends Controller
 
         $current_post_status = \get_post_status($params['ID']);
         $new_post_status     = $params['post_status'];
-        
+
         $appointment = [
             'ID'          => $params['ID'],
             'post_status' => $params['post_status']
         ];
         $appointment_update = \wp_update_post($appointment, true);
-        
+
         if (!is_wp_error($appointment_update) || !is_null($appointment_update)) {
 
             $confirmation_sent = \get_post_meta($params['ID'], 'confirmation_sent', true);
@@ -474,13 +474,13 @@ class Appointment extends Controller
 
                     \update_post_meta($params['ID'], 'confirmation_sent', '1');
                 }
-            
+
             }
-            
+
             $this->success($appointment);
-            
+
         }
-        
+
     }
 
     /**
@@ -668,7 +668,7 @@ class Appointment extends Controller
 
         return $this->parse_appointment($appointment, $meta);
     }
-    
+
     /**
      * Retorna um ou mais grupos parseados
      *
@@ -684,14 +684,14 @@ class Appointment extends Controller
 
             $parsed_groups[] = [
                 'age_range'       => $group->age_range,
-                'id'              => $group->ID,
+                'ID'              => $group->ID,
                 'date'            => $group->date,
                 'disabilities'    => $group->deficiency,
                 'disabilities'    => (isset($group->deficiency) && !empty($group->deficiency)) ? $group->deficiency : [],
                 'exhibition_id'   => $group->exhibition_id,
                 'hour'            => $group->hour,
                 'languages'       => (isset($group->languages) && !empty($group->languages)) ? $group->languages : [],
-                'name'            => $group->post_title,
+                'name'            => $group->name,
                 'num_people'      => $group->num_people,
                 'num_responsible' => $group->num_responsible,
                 'scholarity'      => $group->scholarity,
@@ -728,22 +728,22 @@ class Appointment extends Controller
      * @param int   $appointment_id
      * @param array $groups
      * @return void
-     * 
+     *
      */
     function set_appointment_groups($appointment_id, $groups = []) {
-       
+
         $metadata_definition = get_group_metadata_definition();
-        
+
         $group_to_appointment = [];
-        
+
         $exhibition_id = \get_post_meta($appointment_id, 'exhibition_id', true);
-        
+
         foreach($groups as $each_group) {
 
             $group = (array) $each_group;
-         
-            if(!isset($group['group_id']) || empty($group['group_id'])) {
-                                
+
+            if(!isset($group['ID']) || empty($group['ID'])) {
+
                 $meta_input = [];
 
                 foreach ($group as $key => $value) {
@@ -753,19 +753,19 @@ class Appointment extends Controller
                     }
 
                     $meta_input['exhibition_id'] = $exhibition_id;
-                    
+
                 }
 
                 if(!isset($meta_input['date']) || empty($meta_input['date']) || !isset($meta_input['hour']) || empty($meta_input['hour'])) {
                     $this->error(__('Data e horário são obrigatórios para criar um grupo', 'iande'));
-                }               
-                
+                }
+
                 $this->check_availability($exhibition_id, $meta_input['date'], $meta_input['hour']);
-                
+
                 // Cria o título do grupo com informações do agendamento
                 // {nome-grupo} - {data} {horário}"
                 $title = $group['name'] . ' - ' . date_format(date_create($meta_input['date']), 'd/m/Y') . ' ' . $meta_input['hour'];
-                
+
                 $new_group = [
                     'post_type'   => 'group',
                     'post_author' => \get_current_user_id(),
@@ -781,14 +781,14 @@ class Appointment extends Controller
                 } else {
                     $this->error(__('O grupo não pode ser criado', 'iande'));
                 }
-                
+
             } else {
 
                 if (!isset($group['date']) || empty($group['date']) || !isset($group['hour']) || empty($group['hour'])) {
                     $this->error(__('Data e horário são obrigatórios para editar um grupo', 'iande'));
                 }
-                
-                $this->check_availability($exhibition_id, $group['date'], $group['hour']);                
+
+                $this->check_availability($exhibition_id, $group['date'], $group['hour']);
 
                 foreach ($group as $key => $value) {
                     \update_post_meta($group['group_id'], $key, $value );
@@ -840,11 +840,11 @@ class Appointment extends Controller
      */
     function count_people_appointment(string $appointment_id, $sum = false)
     {
-        
+
         $num_people_groups = \maybe_unserialize(get_post_meta($appointment_id, 'groups', true));
         $num_people = get_post_meta($appointment_id, 'num_people', true);
-        
-        
+
+
         if ($sum && is_array($num_people_groups) && !empty($num_people_groups)) {
 
             foreach ($num_people_groups as $group) {
@@ -855,7 +855,7 @@ class Appointment extends Controller
 
         } elseif(!empty($num_people)) {
 
-            return $num_people;            
+            return $num_people;
 
         }
 
