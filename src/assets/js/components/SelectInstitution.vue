@@ -15,7 +15,7 @@
                 <MaskedInput id="phone" type="tel" :mask="phoneMask" placeholder="DDD + Telefone" aria-label="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
             </div>
         </div>
-        <div>
+        <div v-if="requireExemption">
             <label class="iande-label" for="requestedExemption">Deseja solicitar formulário de isenção de ingresso?</label>
             <RadioGroup id="requestedExemption" v-model="requestedExemption" :validations="$v.requestedExemption" :options="binaryOptions"/>
         </div>
@@ -55,6 +55,8 @@
     import Select from './Select.vue'
     import { api, constant, isOther, watchForOther } from '../utils'
     import { phone } from '../utils/validators'
+
+    const requireExemption = window.IandeSettings.use_exemption === 'yes'
 
     export default {
         name: 'SelectInstitution',
@@ -100,6 +102,7 @@
                 'Outra': 'other'
             }),
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
+            requireExemption: constant(requireExemption),
             roleOptions: constant(window.IandeSettings.responsibleRoles),
             user: get('user/user'),
         },
@@ -111,7 +114,7 @@
             lastName: { required },
             nature: { required },
             phone: { required, phone },
-            requestedExemption: { required },
+            requestedExemption:requireExemption ? { required } : { },
             role: { required: requiredUnless('institutionOptional') },
             roleOther: { },
         },
