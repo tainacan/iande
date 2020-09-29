@@ -6,6 +6,10 @@
             <Input :id="`${id}_numPeople`" type="number" min="5" :max="maxPeople" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="validations.num_people"/>
         </div>
         <div>
+            <label :for="`${id}_ageRange`" class="iande-label">Perfil etário</label>
+            <Select :id="`${id}_ageRange`" v-model="ageRange" :validations="validations.age_range" :options="ageRangeOptions"/>
+        </div>
+        <div>
             <label :for="`${id}_scholarity`" class="iande-label">Escolaridade</label>
             <Select :id="`${id}_scholarity`" v-model="scholarity" :validations="validations.scholarity" :options="scholarityOptions"/>
         </div>
@@ -86,6 +90,7 @@
             }
         },
         computed: {
+            ageRangeOptions: constant(window.IandeSettings.ageRanges),
             binaryOptions: constant({ 'Não': false, 'Sim': true }),
             disabilities: subModel('disabilities'),
             exhibition: get('appointments/exhibition'),

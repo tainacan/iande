@@ -38,6 +38,7 @@
                 groups: {
                     minGroups: minLength(1),
                     $each: {
+                        age_range: { required },
                         disabilities: {
                             $each: {
                                 count: { integer, required },
@@ -61,6 +62,7 @@
         methods: {
             newGroup () {
                 return {
+                    age_range: '',
                     date: null,
                     disabilities: [],
                     hour: null,

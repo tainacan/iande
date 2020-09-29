@@ -48,6 +48,7 @@
         methods: {
             newGroup () {
                 return {
+                    age_range: '',
                     date: null,
                     disabilities: [],
                     hour: null,
