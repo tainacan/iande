@@ -49,21 +49,23 @@ function iande_institution_settings() {
     $language         = cmb2_get_option('iande_institution', 'institution_language', []);
     $age_range        = cmb2_get_option('iande_institution', 'institution_age_range', []);
     $scholarity       = cmb2_get_option('iande_institution', 'institution_scholarity', []);
+    $use_exemption    = cmb2_get_option('iande', 'use_exemption', 'no');
 
     wp_localize_script(
         'iande',
         'IandeSettings',
         [
-            'siteName'          => $site_name,
-            'siteUrl'           => $site_url,
-            'iandeUrl'          => $iande_url,
-            'profiles'          => $profiles,
-            'purposes'          => $purposes,
-            'responsibleRoles'  => $responsible_role,
-            'deficiencies'      => $deficiency,
-            'languages'         => $language,
-            'ageRanges'         => $age_range,
-            'scholarity'        => $scholarity,
+            'siteName'         => $site_name,
+            'siteUrl'          => $site_url,
+            'iandeUrl'         => $iande_url,
+            'profiles'         => $profiles,
+            'purposes'         => $purposes,
+            'responsibleRoles' => $responsible_role,
+            'deficiencies'     => $deficiency,
+            'languages'        => $language,
+            'ageRanges'        => $age_range,
+            'scholarity'       => $scholarity,
+            'use_exemption'    => $use_exemption
         ]
     );
 }
@@ -600,4 +602,21 @@ function cmb2_sanitize_iande_time_callback($override_value, $value) {
     } else {
         return substr($value, 0, 5) || '';
     }
+}
+
+/**
+ * Verifica se o museu permitiu a solicitação de isenções
+ *
+ * @return boolean
+ */
+function use_exemption() {
+
+    $use_exemption = cmb2_get_option('iande', 'use_exemption', 'no');
+
+    if ($use_exemption == 'yes') {
+        return true;
+    } else {
+        return false;
+    }
+
 }

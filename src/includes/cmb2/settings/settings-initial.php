@@ -17,4 +17,22 @@ function iande_settings()
 
     $iande_initial_options = new_cmb2_box($args);
 
+    // Usar Isenção
+    $iande_initial_options->add_field([
+        'name' => __('Permitir solicitação de isenção?', 'iande'),
+        'id'   => 'use_exemption_heading',
+        'type' => 'title'
+    ]);
+    $link_email = \admin_url('admin.php?page=iande_emails_settings%2F#email-pre-scheduling-exemption-heading');
+    $iande_initial_options->add_field([
+        'id'          => 'use_exemption',
+        'description' => __('Marcando essa opção, o museu aceitará solicitações para isenção dos ingressos nos agendamentos. Lembre-se de adicionar o anexo com o modelo de solicitação que será enviado por e-mail para o responsável pelo agendamento que solicitou isenção, <a href="'.$link_email.'">clicando aqui</a>.', 'iande'),
+        'type'        => 'radio_inline',
+        'default'     => 'no',
+        'options'     => [
+            'yes' => __('Sim', 'iande'),
+            'no'  => __('Não', 'iande')
+        ]
+    ]);
+
 }

@@ -365,7 +365,7 @@ class Appointment extends Controller
 
             $requested_exemption = get_post_meta($params['ID'], 'requested_exemption', true);
 
-            if ($requested_exemption == 'yes') {
+            if ($requested_exemption == 'yes' && use_exemption()) {
                 $email_template = 'email_pre_scheduling_exemption';
             } else {
                 $email_template = 'email_pre_scheduling';

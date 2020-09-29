@@ -105,6 +105,7 @@ function register_metabox_appointment() {
                 'post_type'   => [ 'post', 'page' ],
                 'post_status' => [ 'publish', 'pending' ]
             ];
+            $show_on_cb = '';
 
             if (isset($definition->metabox->name))
                 $name = $definition->metabox->name;
@@ -139,6 +140,9 @@ function register_metabox_appointment() {
             if(isset($definition->metabox->query_args))
                 $query_args = $definition->metabox->query_args;
 
+            if (isset($definition->metabox->show_on_cb))
+                $show_on_cb = $definition->metabox->show_on_cb;
+
             $fields[] = [
                 'name'          => $name,
                 'desc'          => $desc,
@@ -151,7 +155,8 @@ function register_metabox_appointment() {
                 'size'          => $size,
                 'multiple-item' => $multiple,
                 'limit'         => $limit,
-                'query_args'    => $query_args
+                'query_args'    => $query_args,
+                'show_on_cb'    => $show_on_cb
             ];
 
         }
@@ -447,10 +452,11 @@ function get_appointment_metadata_definition() {
                 }
             },
             'metabox' => (object) [
-                'name'    => __('Solicitou isenção dos ingressos?', 'iande'),
-                'type'    => 'radio',
-                'default' => 'no',
-                'options' => [
+                'name'       => __('Solicitou isenção dos ingressos?', 'iande'),
+                'type'       => 'radio',
+                'default'    => 'no',
+                'show_on_cb' => 'use_exemption', // @see includes/cmb2/helpers.php
+                'options'    => [
                     'yes' => __('Sim', 'iande'),
                     'no'  => __('Não', 'iande')
                 ]
