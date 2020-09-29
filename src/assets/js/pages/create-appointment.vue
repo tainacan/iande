@@ -130,7 +130,8 @@
             async nextStep () {
                 this.formError = ''
                 if (this.isFormValid()) {
-                    if (this[this.route.action]() && this.route.next) {
+                    const success = await this[this.route.action]()
+                    if (success && this.route.next) {
                         this.setScreen(this.route.next)
                     }
                 }
@@ -157,7 +158,6 @@
             async saveInstitution () {
                 try {
                     const institution = await api.post('institution/create', this.institution)
-                    this.institutions = [...this.institutions, institution]
                     this.appointmentInstitution = institution.ID
                     return true
                 } catch (err) {
