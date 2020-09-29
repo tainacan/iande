@@ -50,10 +50,13 @@
             filteredAppoitments () {
                 const today = new Date().toISOString().slice(0, 10)
                 if (this.filter === 'next') {
-                    return this.sortedAppointments.filter(appointment => appointment.date >= today)
+                    return this.sortedAppointments.filter(appointment => {
+                        return appointment.groups.any(group => group.date >= today)
+                    })
                 } else {
-                    return this.sortedAppointments.filter(appointment => appointment.date < today)
-                }
+                    return this.sortedAppointments.filter(appointment => {
+                        return appointment.groups.every(group => group.date < today)
+                    })                }
             },
             iandeUrl: constant(window.IandeSettings.iandeUrl),
             institutions: sync('institutions/list'),
