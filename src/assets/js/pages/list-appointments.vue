@@ -56,7 +56,8 @@
                 } else {
                     return this.sortedAppointments.filter(appointment => {
                         return appointment.groups.every(group => group.date < today)
-                    })                }
+                    })
+                }
             },
             iandeUrl: constant(window.IandeSettings.iandeUrl),
             institutions: sync('institutions/list'),
