@@ -291,40 +291,6 @@ function get_appointment_metadata_definition() {
                 'type' => 'text'
             ]
         ],
-        'date' => (object) [
-            'type'          => 'string',
-            'required'      => __('A data é obrigatória', 'iande'),
-            'required_step' => 1,
-            'validation'    => function ($value) {
-                $d = \DateTime::createFromFormat("Y-m-d", $value);
-                if ($d && $d->format("Y-m-d") === $value) {
-                    return true;
-                } else {
-                    return __('Formato de data inválido', 'iande');
-                }
-            },
-            'metabox' => (object) [
-                'name' => __('Data', 'iande'),
-                'type' => 'iande_date'
-            ]
-        ],
-        'hour' => (object) [
-            'type'          => 'string',
-            'required'      => __('O horário é obrigatório', 'iande'),
-            'required_step' => 1,
-            'validation'    => function ($value) {
-                $d = \DateTime::createFromFormat('H:i', $value);
-                if ($d && $d->format('H:i') === $value) {
-                    return true;
-                } else {
-                    return __('Formato do horário inválido', 'iande');
-                }
-            },
-            'metabox' => (object) [
-                'name' => __('Hora', 'iande'),
-                'type' => 'iande_time'
-            ]
-        ],
         'responsible_first_name' => (object) [
             'type'          => 'string',
             'required'      => __('O nome do responsável é obrigatório', 'iande'),
