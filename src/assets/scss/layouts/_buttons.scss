@@ -11,6 +11,12 @@
     text-transform: none;
     width: 100%;
 
+    &.small {
+        height: 100%;
+        padding: 10px;
+        width: auto;
+    }
+
     &.disabled {
         background-color: var(--iande-light-color);
         border-color: var(--iande-light-color);
