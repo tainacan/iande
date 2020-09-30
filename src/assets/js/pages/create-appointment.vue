@@ -147,9 +147,9 @@
             async saveAppointment () {
                 try {
                     const verb = this.fields.ID ? 'update' : 'create'
-                    const result = await api.post(`appointment/${verb}`, this.fields)
-                    this.appointment = { ...this.appointment, ...result }
-                    this.appointmentId = result.ID
+                    const appointment = await api.post(`appointment/${verb}`, this.fields)
+                    this.appointment = { ...this.appointment, ...appointment }
+                    this.appointmentId = appointment.ID
                     return true
                 } catch (err) {
                     this.formError = err
