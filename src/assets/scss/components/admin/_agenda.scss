@@ -29,25 +29,8 @@
         }
     }
 
-    &__group-link, &__appointment-link {
-        &:before {
-            font-family: dashicons;
-            margin-left: 3px;
-        }
-    }
-
     &__group-link {
         font-weight: bold;
-
-        &:before {
-            content: '\f307';
-        }
-    }
-
-    &__appointment-link {
-        &:before {
-            content: '\f508';
-        }
     }
 
     .vuecal {
