@@ -214,6 +214,11 @@ abstract class Controller
             $headers[] = 'Content-Type: text/html; charset=UTF-8';
         }
 
+        $current_user_email = \wp_get_current_user()->user_email;
+        if ($current_user_email && $params['email'] !== $current_user_email) {
+            $headers[] = 'Cc: ' . $current_user_email;
+        }
+
         $attachments = '';
         if (!empty($emails_settings) && isset($emails_settings[$email_template . '_attachment'])) {
             $attachments = \get_attached_file( $emails_settings[$email_template . '_attachment_id']);
@@ -223,12 +228,12 @@ abstract class Controller
         if (!empty($params['interpolations'])) {
 
             foreach ($params['interpolations'] as $keyword => $value) {
-                
+
                 if ($keyword == 'grupos') {
 
                     $interpolation_group = [];
                     foreach ($value as $group_id) {
-                        
+
                         $interpolation_group[] = "\n<b>" . \get_post_meta($group_id, 'name', true) . "</b>";
                         $interpolation_group[] = "<b>Data:</b> " . date('d/m/Y', strtotime(\get_post_meta($group_id, 'date', true))) . " / <b>Hora:</b> " . \get_post_meta($group_id, 'hour', true) . "\n";
 
@@ -241,7 +246,7 @@ abstract class Controller
                 } else {
                     $body    = str_replace('%' . $keyword . '%', $value, $body);
                     $subject = str_replace('%' . $keyword . '%', $value, $subject);
-                }                
+                }
 
             }
 

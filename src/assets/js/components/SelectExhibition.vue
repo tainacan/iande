@@ -58,7 +58,7 @@
             exhibitions: get('exhibitions/list'),
             groups: get('appointments/current@groups'),
             groupsCreated () {
-                return this.groups.filter(group => Boolean(group.ID)).length > 0
+                return this.groups.length > 0
             },
             purposeOptions: constant(window.IandeSettings.purposes)
         },
