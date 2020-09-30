@@ -14,22 +14,48 @@
         margin: 0 10px;
     }
 
+    &__event {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+    }
+
+    &__group-link, &__appointment-link {
+        &:before {
+            font-family: dashicons;
+            margin-left: 3px;
+        }
+    }
+
+    &__group-link {
+        font-weight: bold;
+
+        &:before {
+            content: '\f307';
+        }
+    }
+
+    &__appointment-link {
+        &:before {
+            content: '\f508';
+        }
+    }
+
     .vuecal {
         &__cells.month-view {
 
             .vuecal__cell-content {
                 justify-content: flex-start;
             }
-        }
-
-        &__event a {
-            align-items: center;
-            color: inherit;
-            display: flex;
-            height: 100%;
-            justify-content: center;
-            text-decoration: none;
-            width: 100%;
         }
     }
 }

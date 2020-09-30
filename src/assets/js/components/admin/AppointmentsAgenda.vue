@@ -15,16 +15,20 @@
                 </template>
             </template>
             <template #event="{ event }">
-                <a :href="postLink(event.raw)" target="_blank">
-                    {{ event.raw.name || `${event.raw.responsible_first_name} ${event.raw.responsible_last_name}` }}
-                </a>
+                <div class="iande-admin-agenda__event">
+                    <a class="iande-admin-agenda__group-link" :href="postLink(event.group)" target="_blank">
+                        {{ event.group.name }}
+                    </a>
+                    <a class="iande-admin-agenda__appointment-link" :href="postLink(event.appointment)" target="_blank">
+                        {{ event.appointment.name || `${event.appointment.responsible_first_name} ${event.appointment.responsible_last_name}` }}
+                    </a>
+                </div>
             </template>
         </Calendar>
     </div>
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { DateTime } from 'luxon'
     import Calendar from 'vue-cal'
     import { LocalScope } from 'vue-local-scope'
@@ -50,39 +54,46 @@
             }
         },
         computed: {
-            appointmentsByDate () {
+            groupsByDate () {
                 const dates = new Map()
                 for (const appointment of this.appointments) {
-                    const date = dates.get(appointment.date)
-                    if (date) {
-                        date.push(appointment)
-                    } else {
-                        dates.set(appointment.date, [appointment])
+                    for (const group of (appointment.groups || [])) {
+                        const data = { appointment, group }
+                        const date = dates.get(group.date)
+                        if (date) {
+                            date.push(data)
+                        } else {
+                            dates.set(group.date, [data])
+                        }
                     }
                 }
                 return dates
             },
             events () {
-                const delta = { minutes: this.timeStep }
+                const duration = this.exhibition ? Number(this.exhibition.duration) : 60
+                const delta = { minutes: duration }
                 const endsCache = new Map()
-                return this.appointments.map(appointment => {
-                    const start = appointment.hour
-                    let end
-                    if (endsCache.has(start)) {
-                        end = endsCache.get(start)
-                    } else {
-                        end = DateTime.fromFormat(start, 'HH:mm').plus(delta).toFormat('HH:mm')
-                        endsCache.set(start, end)
-                    }
-                    return {
-                        start: `${appointment.date} ${start}`,
-                        end: `${appointment.date} ${end}`,
-                        raw: appointment,
-                    }
+                return this.appointments.flatMap(appointment => {
+                    return (appointment.groups || []).map(group => {
+                        const start = group.hour
+                        let end
+                        if (endsCache.has(start)) {
+                            end = endsCache.get(start)
+                        } else {
+                            end = DateTime.fromFormat(start, 'HH:mm').plus(delta).toFormat('HH:mm')
+                            endsCache.set(start, end)
+                        }
+                        return {
+                            start: `${group.date} ${start}`,
+                            end: `${group.date} ${end}`,
+                            appointment,
+                            group,
+                        }
+                    })
                 })
             },
             timeStep () {
-                return this.exhibition ? this.exhibition.duration : 60
+                return this.exhibition ? Number(this.exhibition.grid) : 60
             },
         },
         async created () {
@@ -96,8 +107,11 @@
             }
         },
         methods: {
+            postLink (post) {
+                return `${window.IandeSettings.siteUrl}/wp-admin/post.php?post=${post.ID}&action=edit`
+            },
             cellAppointments (cell) {
-                return this.appointmentsByDate.get(cell.formattedDate) || []
+                return this.groupsByDate.get(cell.formattedDate) || []
             },
             cellHours (cell) {
                 if (!this.exhibition) {
@@ -105,9 +119,6 @@
                 }
                 return getWorkingHours(this.exhibition, cell.startDate).map(interval => `${interval.from} - ${interval.to}`)
             },
-            postLink (appointment) {
-                return `${window.IandeSettings.siteUrl}/wp-admin/post.php?post=${appointment.ID}&action=edit`
-            }
         }
     }
 </script>
