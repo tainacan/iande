@@ -188,15 +188,16 @@ class Appointment extends Controller
             );
             \wp_update_post($update_appointment);
 
+            $groups = \get_post_meta($params['ID'], 'groups', true);
+
             // envia o e-mail de cancelamento para o responsavel do agendamento
             $email_params = [
                 'email' => $appointment->responsible_email,
                 'interpolations' => [
                     'nome'       => $appointment->responsible_first_name,
                     'exposicao'  => \get_the_title($appointment->exhibition_id),
-                    'data'       => date('d/m/Y', strtotime($appointment->date)),
-                    'horario'    => $appointment->hour,
-                    'visitantes' => $this->count_people_appointment($params['ID'])
+                    'grupos'     => $groups,
+                    'link'       => \home_url('/iande/appointment/create/')
                 ]
             ];
             $this->email('email_canceled', $email_params);
@@ -378,12 +379,9 @@ class Appointment extends Controller
                 'email' => \get_post_meta($params['ID'], 'responsible_email', true),
                 'interpolations' => [
                     'nome'       => \get_post_meta($params['ID'], 'responsible_first_name', true),
-                    'exposicao'  => \get_the_title(get_post_meta($params['ID'], 'exhibition_id', true)),
+                    'exposicao'  => \get_the_title(\get_post_meta($params['ID'], 'exhibition_id', true)),
                     'grupos'     => $groups,
-                    'data'       => date('d/m/Y', strtotime(get_post_meta($params['ID'], 'date', true))),
-                    'horario'    => \get_post_meta($params['ID'], 'hour', true),
-                    'visitantes' => $this->count_people_appointment($params['ID']),
-                    'link'       => \home_url('/iande/appointment/confirm?ID                             =' . $params['ID'])
+                    'link'       => \home_url('/iande/appointment/confirm?ID=' . $params['ID'])
                 ]
             ];
             $this->email($email_template, $email_params);
@@ -448,34 +446,41 @@ class Appointment extends Controller
 
                 if ($this->validate_step($params['ID']) && !$confirmation_sent) {
 
+                    $groups = \get_post_meta($params['ID'], 'groups', true);
+
                     // envia o e-mail de confirmação para o responsavel do agendamento
                     $email_params = [
                         'email' => \get_post_meta($params['ID'], 'responsible_email', true),
                         'interpolations' => [
-                            'nome'       => \get_post_meta($params['ID'], 'responsible_first_name', true),
-                            'exposicao'  => \get_the_title(get_post_meta($params['ID'], 'exhibition_id', true)),
-                            'data'       => date('d/m/Y', strtotime(get_post_meta($params['ID'], 'date', true))),
-                            'horario'    => \get_post_meta($params['ID'], 'hour', true),
-                            'visitantes' => $this->count_people_appointment($params['ID'])
+                            'nome'      => \get_post_meta($params['ID'], 'responsible_first_name', true),
+                            'exposicao' => \get_the_title(\get_post_meta($params['ID'], 'exhibition_id', true)),
+                            'grupos'    => $groups,
+                            'link'      => \home_url('/iande/appointment/list')
                         ]
                     ];
                     $this->email('email_confirmed', $email_params);
 
                     // adiciona o envio de lembrete do agendamento
-                    $event_date = \get_post_meta($params['ID'], 'date', true);
+                    foreach ($groups as $group) {
 
-                    $interval   = strtotime($event_date) - strtotime('now');
-                    $interval   = floor($interval / (60 * 60 * 24));
+                        $email_params['interpolations']['grupos'] = [$group];
 
-                    if ($interval > 14) {
-                        \wp_schedule_single_event(strtotime('-7 days', strtotime($event_date)), 'send_email_reminder', [$email_params]);
-                    } elseif ($interval > 8) {
-                        \wp_schedule_single_event(strtotime('-4 days', strtotime($event_date)), 'send_email_reminder', [$email_params]);
-                    } elseif ($interval > 4) {
-                        \wp_schedule_single_event(strtotime('-2 days', strtotime($event_date)), 'send_email_reminder', [$email_params]);
+                        $event_date = \get_post_meta($group, 'date', true);
+                        $interval   = strtotime($event_date) - strtotime('now');
+                        $interval   = floor($interval / (60 * 60 * 24));
+
+                        if ($interval > 14) {
+                            \wp_schedule_single_event(strtotime('-7 days', strtotime($event_date)), 'send_email_reminder', [$email_params]);
+                        } elseif ($interval > 8) {
+                            \wp_schedule_single_event(strtotime('-4 days', strtotime($event_date)), 'send_email_reminder', [$email_params]);
+                        } elseif ($interval > 4) {
+                            \wp_schedule_single_event(strtotime('-2 days', strtotime($event_date)), 'send_email_reminder', [$email_params]);
+                        }
+                        
                     }
 
                     \update_post_meta($params['ID'], 'confirmation_sent', '1');
+
                 }
 
             }

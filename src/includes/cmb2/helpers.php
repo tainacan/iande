@@ -330,9 +330,7 @@ Caso você tenha dúvidas se está apto a solicitar a isenção do ingresso, ent
         $message = "A data da visita do seu grupo ao Museu <b>" . get_bloginfo('name') . "</b> está próxima!
 
 <b>Exposição:</b> %exposicao%
-<b>Data da visita:</b> %data%
-<b>Horário da visita:</b> %horario%
-<b>Número de visitantes:</b> %visitantes%
+<b>Grupo(s):</b> %grupos%
 
 Estamos aguardando sua visita.";
 
@@ -354,9 +352,9 @@ Estamos aguardando sua visita.";
 A sua visita está confirmada! Te esperamos no dia e horário a seguir:
 
 <b>Exposição:</b> %exposicao%
-<b>Data da visita:</b> %data%
-<b>Horário da visita:</b> %horario%
-<b>Número de visitantes:</b> %visitantes%
+<b>Grupo(s): </b> %grupos%
+
+Para ver todos os detalhes do seu agendamento, <a href='%link%'>clicando aqui</a>.
 
 Nos vemos em breve!";
 
@@ -381,9 +379,9 @@ Sua visita foi cancelada.
 Dados da visita cancelada:
 
 <b>Exposição:</b> %exposicao%
-<b>Data da visita:</b> %data%
-<b>Horário da visita:</b> %horario%
-<b>Número de visitantes:</b> %visitantes%";
+<b>Grupo(s): </b> %grupos%
+
+Caso queira fazer um novo agendamento, <a href='%link%'>clique aqui</a>.";
 
         cmb2_update_option('iande_emails_settings', 'email_canceled', $message);
 
