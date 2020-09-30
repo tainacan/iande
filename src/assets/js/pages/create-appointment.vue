@@ -170,7 +170,8 @@
             },
             async submitAppointment () {
                 try {
-                    await api.post('appointment/update', this.fields)
+                    const appointment = await api.post('appointment/update', this.fields)
+                    this.appointment = { ...this.appointment, ...appointment }
                     await api.post('appointment/advance_step', { ID: this.appointmentId })
                     this.$refs.form.$v.$reset()
                     await this.resetInstitution()

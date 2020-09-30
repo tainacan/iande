@@ -113,7 +113,8 @@
         methods: {
             async confirmAppointment () {
                 try {
-                    await api.post('appointment/update', this.fields)
+                    const appointment = await api.post('appointment/update', this.fields)
+                    this.appointment = { ...this.appointment, ...appointment }
                     await api.post('appointment/advance_step', { ID: this.fields.ID })
                     this.$refs.firstModal.open()
                     return true
@@ -154,7 +155,8 @@
             },
             async updateAppointment (num) {
                 try {
-                    await api.post('appointment/update', this.fields)
+                    const appointment = await api.post('appointment/update', this.fields)
+                    this.appointment = { ...this.appointment, ...appointment }
                     return true
                 } catch (err) {
                     this.formError = err
