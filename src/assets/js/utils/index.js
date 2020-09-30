@@ -49,6 +49,16 @@ export function subModel (key) {
     }
 }
 
+export function toArray (value) {
+    if (!value) {
+        return []
+    } else if (Array.isArray(value)) {
+        return value
+    } else {
+        return Object.values(value)
+    }
+}
+
 export function watchForOther (vocabulary, other) {
     return function () {
         if (!isOther(this[vocabulary])) {

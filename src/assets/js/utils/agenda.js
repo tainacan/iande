@@ -1,20 +1,11 @@
 import { DateTime, Interval } from 'luxon'
+import { toArray } from './index'
 
 const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday',
 'friday', 'saturday']
 
 function isValidInterval (interval) {
     return interval && interval.from && interval.to && interval.from < interval.to
-}
-
-function toArray (value) {
-    if (!value) {
-        return []
-    } else if (Array.isArray(value)) {
-        return value
-    } else {
-        return Object.values(value)
-    }
 }
 
 function normalizeDate (date) {
