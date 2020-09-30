@@ -2,15 +2,15 @@
     <div class="iande-stack stack-lg">
         <div>
             <label :for="`${id}_type`" class="iande-label">Qual tipo de deficiência?</label>
-            <Select :id="`${id}_type`" v-model="type" :validations="validations.type" :options="disabilityOptions"/>
+            <Select :id="`${id}_type`" v-model="type" :validations="validations.disabilities_type" :options="disabilityOptions"/>
         </div>
         <div v-if="isOther(type)">
             <label :for="`${id}_other`" class="iande-label">Especifique o tipo de deficiência</label>
-            <Input :id="`${id}_other`" type="text" v-model="other" :validations="validations.other"/>
+            <Input :id="`${id}_other`" type="text" v-model="other" :validations="validations.disabilities_other"/>
         </div>
         <div>
             <label :for="`${id}_count`" class="iande-label">Quantas pessoas?</label>
-            <Input :id="`${id}_count`" type="number" min="1" v-model="count" :validations="validations.count"/>
+            <Input :id="`${id}_count`" type="number" min="1" v-model="count" :validations="validations.disabilities_count"/>
         </div>
     </div>
 </template>
