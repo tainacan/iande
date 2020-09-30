@@ -112,8 +112,8 @@
                         </div>
                     </div>
                     <div>Você já visitou o museu antes: {{ formatBinaryOption(appointment.has_visited_previously) }}</div>
-                    <div>Preparação: {{ formatBinaryOption(appointment.has_prepared_visity) }}</div>
-                    <div v-if="appointment.additional_comment">Comentários: {{ appointment.additional_comments }}</div>
+                    <div>Preparação: {{ formatBinaryOption(appointment.has_prepared_visit) }}</div>
+                    <div v-if="appointment.additional_comment">Comentários: {{ appointment.additional_comment }}</div>
                 </div>
             </div>
             <div class="iande-appointment__buttons">
@@ -171,6 +171,9 @@
         },
         computed: {
             city () {
+                if (!this.institution) {
+                    return null
+                }
                 const cityId = this.institution.city
                 return Object.entries(municipios).find(([key]) => key === cityId)[1]
             },
