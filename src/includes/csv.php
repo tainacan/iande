@@ -23,15 +23,30 @@ function iande_export_appointment() {
 
     if (isset($_GET['export_all_appointments']) && \is_admin()) {
 
-        $args = array(
+        $format_binary = function ($value) {
+            if (empty($value) || $value == 'no') {
+                return 'Não';
+            } elseif ($value == 'yes') {
+                return 'Sim';
+            }
+        };
+
+        $format_group_nature = function ($value) {
+            if ($value == 'institutional') {
+                return 'Institucional';
+            } elseif ($value == 'other') {
+                return 'Outra';
+            }
+        };
+
+        $appointments = \get_posts([
             'post_type'      => 'appointment',
             'post_status'    => 'publish',
             'posts_per_page' => -1,
             'orderby'        => 'ID',
             'order'          => 'ASC',
-        );
+        ]);
 
-        $appointments = \get_posts($args);
         if ($appointments) {
 
             ob_start();
@@ -42,14 +57,13 @@ function iande_export_appointment() {
             $filename = $blogname . '-export-appointments-' . $current_datetime . '.csv';
 
             // Cabeçalhos do CSV
-            $header_row = array(
+            $header_row = [
                 'ID',
                 'Título',
                 'Nome da visita',
+                'Exibição',
                 'Objetivo da visita',
                 'Objetivo da visita (Outro)',
-                'Data',
-                'Hora',
                 'Nome do responsável',
                 'Sobrenome do responsável',
                 'E-mail do responsável',
@@ -58,55 +72,50 @@ function iande_export_appointment() {
                 'Relação com a instituição (Outro)',
                 'Natureza do grupo',
                 'Instituição',
+                'Requisitou isenção?',
                 'Já visitou o museu?',
                 'Preparou a visita?',
                 'Como preparou a visita',
                 'Comentários adicionais',
-                'Nome do(s) grupo(s)'
-            );
+                'Grupo(s)'
+            ];
 
-            $data_rows = array();
+            $data_rows = [];
 
             foreach ($appointments as $appointment) {
 
                 $id = $appointment->ID;
 
-                $groups = \get_post_meta($id, 'group_list', true);
+                $groups = \get_post_meta($id, 'groups', true);
                 if (is_string($groups)) {
                     $groups = json_decode($groups);
                 }
-                $groups = $groups->groups;
 
-                $group_names = [];
-                foreach ($groups as $group) {
-                    $group_names[] = $group->name;
-                }
-
-                $group_names = join(', ', $group_names);
+                $group_ids = join(', ', $groups);
 
                 // Cada linha do array deve corresponder aos cabeçalhos do CSV
-                $row = array(
+                $row = [
                     $id,
                     $appointment->post_title,
                     \get_post_meta($id, 'name', true),
+                    \get_the_title(\get_post_meta($id, 'exhibition_id', true)),
                     \get_post_meta($id, 'purpose', true),
                     \get_post_meta($id, 'purpose_other', true),
-                    \get_post_meta($id, 'date', true),
-                    \get_post_meta($id, 'hour', true),
                     \get_post_meta($id, 'responsible_first_name', true),
                     \get_post_meta($id, 'responsible_last_name', true),
                     \get_post_meta($id, 'responsible_email', true),
                     \get_post_meta($id, 'responsible_phone', true),
                     \get_post_meta($id, 'responsible_role', true),
                     \get_post_meta($id, 'responsible_role_other', true),
-                    \get_post_meta($id, 'group_nature', true),
+                    $format_group_nature(\get_post_meta($id, 'group_nature', true)),
                     \get_the_title(\get_post_meta($id, 'institution_id', true)),
-                    \get_post_meta($id, 'has_visited_previously', true),
-                    \get_post_meta($id, 'has_prepared_visit', true),
+                    $format_binary(\get_post_meta($id, 'requested_exemption', true)),
+                    $format_binary(\get_post_meta($id, 'has_visited_previously', true)),
+                    $format_binary(\get_post_meta($id, 'has_prepared_visit', true)),
                     \get_post_meta($id, 'how_prepared_visit', true),
                     \get_post_meta($id, 'additional_comment', true),
-                    $group_names
-                );
+                    $group_ids
+                ];
                 $data_rows[] = $row;
 
             }
@@ -146,14 +155,6 @@ function iande_export_visit_groups() {
 
     if (isset($_GET['export_all_groups']) && \is_admin()) {
 
-        $args = array(
-            'post_type'      => 'appointment',
-            'post_status'    => 'publish',
-            'posts_per_page' => -1,
-            'orderby'        => 'ID',
-            'order'          => 'ASC',
-        );
-
         $display_languages = function ($languages) {
             $arr = [];
             foreach ($languages as $language) {
@@ -180,7 +181,14 @@ function iande_export_visit_groups() {
             return join(', ', $arr);
         };
 
-        $appointments = \get_posts($args);
+        $appointments = \get_posts([
+            'post_type'      => 'appointment',
+            'post_status'    => 'publish',
+            'posts_per_page' => -1,
+            'orderby'        => 'ID',
+            'order'          => 'ASC',
+        ]);
+
         if ($appointments) {
 
             ob_start();
@@ -191,7 +199,7 @@ function iande_export_visit_groups() {
             $filename = $blogname . '-export-groups-' . $current_datetime . '.csv';
 
             // Cabeçalhos do CSV
-            $header_row = array(
+            $header_row = [
                 'Agendamento',
                 'Data',
                 'Hora',
@@ -210,9 +218,9 @@ function iande_export_visit_groups() {
                 'Preparou a visita?',
                 'Como preparou a visita',
                 'Comentários adicionais',
-            );
+            ];
 
-            $data_rows = array();
+            $data_rows = [];
 
             foreach ($appointments as $appointment) {
 
@@ -227,7 +235,7 @@ function iande_export_visit_groups() {
                 foreach ($groups as $group) {
 
                     // Cada linha do array deve corresponder aos cabeçalhos do CSV
-                    $row = array(
+                    $row = [
                         $id,
                         \get_post_meta($id, 'date', true),
                         \get_post_meta($id, 'hour', true),
@@ -246,7 +254,7 @@ function iande_export_visit_groups() {
                         \get_post_meta($id, 'has_prepared_visit', true),
                         \get_post_meta($id, 'how_prepared_visit', true),
                         \get_post_meta($id, 'additional_comment', true),
-                    );
+                    ];
                     $data_rows[] = $row;
                 }
             }
