@@ -143,15 +143,15 @@
         methods: {
             newDisability () {
                 return {
-                    type: '',
-                    other: '',
-                    count: 1,
+                    disabilities_type: '',
+                    disabilities_other: '',
+                    disabilities_count: 1,
                 }
             },
             newLanguage () {
                 return {
-                    name: '',
-                    other: '',
+                    languages_name: '',
+                    languages_other: '',
                 }
             }
         }

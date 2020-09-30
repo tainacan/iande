@@ -29,10 +29,10 @@
         },
         mixins: [CustomField],
         computed: {
-            count: subModel('count'),
+            count: subModel('disabilities_count'),
             disabilityOptions: constant(window.IandeSettings.deficiencies),
-            other: subModel('other'),
-            type: subModel('type'),
+            other: subModel('disabilities_other'),
+            type: subModel('disabilities_type'),
         },
         watch: {
             type: watchForOther('type', 'other'),

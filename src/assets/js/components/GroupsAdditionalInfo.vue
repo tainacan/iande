@@ -41,15 +41,15 @@
                         age_range: { required },
                         disabilities: {
                             $each: {
-                                count: { integer, required },
-                                other: { },
-                                type: { required },
+                                disabilities_count: { integer, required },
+                                disabilities_other: { },
+                                disabilities_type: { required },
                             }
                         },
                         languages: {
                             $each: {
-                                name: { required },
-                                other: { },
+                                languages_name: { required },
+                                languages_other: { },
                             },
                         },
                         num_people: { integer, maxValue: maxValue(maxPeople), required },

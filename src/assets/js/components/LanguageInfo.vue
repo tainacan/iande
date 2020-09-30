@@ -2,11 +2,11 @@
     <div class="iande-stack stack-lg">
         <div>
             <label :for="`${id}_name`" class="iande-label">Qual idioma?</label>
-            <Select :id="`${id}_name`" v-model="name" :validations="validations.name" :options="languageOptions"/>
+            <Select :id="`${id}_name`" v-model="type" :validations="validations.languages_name" :options="languageOptions"/>
         </div>
         <div v-if="isOther(name)">
-            <label :for="`${id}_name`" class="iande-label">Especifique o idioma</label>
-            <Input :id="`${id}_name`" type="text" v-model="other" :validations="validations.other"/>
+            <label :for="`${id}_other`" class="iande-label">Especifique o idioma</label>
+            <Input :id="`${id}_other`" type="text" v-model="other" :validations="validations.languages_other"/>
         </div>
     </div>
 </template>
@@ -26,8 +26,8 @@
         mixins: [CustomField],
         computed: {
             languageOptions: constant(window.IandeSettings.languages),
-            name: subModel('name'),
-            other: subModel('other'),
+            name: subModel('languages_name'),
+            other: subModel('languages_other'),
         },
         watch: {
             name: watchForOther('name', 'other'),
