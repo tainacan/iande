@@ -819,15 +819,14 @@ class Appointment extends Controller
 
         $count_groups = round($num_people / $group_size);
 
-        $date                   = \get_post_meta($appointment_id, 'date', true);
-        $hour                   = \get_post_meta($appointment_id, 'hour', true);
-
         $name = \get_post_meta($appointment_id, 'name', true);
 
+        $string_groups = ($count_groups > 1) ? 'grupos' : 'grupo';
+
         if ($name) {
-            $title = $name . ' - ' . $count_groups . ' grupo(s)';
+            $title = $name . ' - ' . $count_groups . ' ' . $string_groups;
         } else {
-            $title = $count_groups . ' grupo(s)';
+            $title = $count_groups . ' ' . $string_groups;
         }
 
         $slug  = \sanitize_title($title);
@@ -841,6 +840,7 @@ class Appointment extends Controller
             );
             \wp_update_post($post);
         }
+        
     }
 
     /**
