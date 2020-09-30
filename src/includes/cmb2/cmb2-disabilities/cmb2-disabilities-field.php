@@ -9,11 +9,13 @@ function cmb2_render_disabilities_field_callback($field, $value, $object_id, $ob
     // get the ID field
     $field_id  = $field->args['id'];
 
+    $array_value = (array) $value;
+
     // make sure we specify each part of the value we need.
-    $value = wp_parse_args($value, array(
+    $value = wp_parse_args($array_value, array(
         $field_id . '_type' => '',
         $field_id . '_other' => '',
-        $field_id . '_qty' => ''
+        $field_id . '_count' => ''
     ));
 
     // get disabilities from settings
@@ -49,7 +51,7 @@ function cmb2_render_disabilities_field_callback($field, $value, $object_id, $ob
     <div class="alignleft">
         <p><label for="<?php echo $field_type->_id('_disabilities_other'); ?>'"></label></p>
         <?php echo $field_type->input(array(
-            'name'        => $field_type->_name('[' . $field_id . '_other]'),
+            'name'        => $field_type->_name('[disabilities_other]'),
             'id'          => $field_type->_id('_disabilities_other'),
             'value'       => $value['disabilities_other'],
             'placeholder' => __('Outro', 'iande'),
@@ -57,11 +59,11 @@ function cmb2_render_disabilities_field_callback($field, $value, $object_id, $ob
         )); ?>
     </div>
     <div class="alignleft">
-        <p><label for="<?php echo $field_type->_id('_disabilities_qty'); ?>'"></label></p>
+        <p><label for="<?php echo $field_type->_id('_disabilities_count'); ?>'"></label></p>
         <?php echo $field_type->input(array(
-            'name'        => $field_type->_name('[disabilities_qty]'),
-            'id'          => $field_type->_id('_disabilities_qty'),
-            'value'       => $value['disabilities_qty'],
+            'name'        => $field_type->_name('[disabilities_count]'),
+            'id'          => $field_type->_id('_disabilities_count'),
+            'value'       => $value['disabilities_count'],
             'placeholder' => __('Quantidade', 'iande'),
             'desc'        => ''
         )); ?>
@@ -84,7 +86,8 @@ function cmb2_sanitize_disabilities_field($check, $meta_value, $object_id, $fiel
     }
 
     foreach ($meta_value as $key => $value) {
-        $meta_value[$key] = array_map('sanitize_text_field', $value);
+        $array_value      = (array) $value;
+        $meta_value[$key] = array_map('sanitize_text_field', $array_value);
     }
 
     $new_meta_value = array_map('array_filter', $meta_value);
@@ -105,7 +108,8 @@ function cmb2_types_esc_disabilities_field($check, $meta_value, $field_args, $fi
     }
 
     foreach ($meta_value as $key => $value) {
-        $meta_value[$key] = array_map('esc_attr', $value);
+        $array_value      = (array) $value;
+        $meta_value[$key] = array_map('esc_attr', $array_value);
     }
 
     $new_meta_value = array_map('array_filter', $meta_value);

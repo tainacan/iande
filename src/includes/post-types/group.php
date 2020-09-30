@@ -312,7 +312,7 @@ function get_group_metadata_definition() {
             ]
         ],
         'languages' => (object) [
-            'type'       => 'string',
+            'type'       => 'object',
             'required'   => false,
             'validation' => function ($value) {
                 if (is_string($value) || is_array($value)) {
@@ -331,7 +331,7 @@ function get_group_metadata_definition() {
             ]
         ],
         'disabilities' => (object) [
-            'type'       => 'string',
+            'type'       => 'object',
             'required'   => false,
             'validation' => function ($value) {
                 if (is_string($value) || is_array($value)) {

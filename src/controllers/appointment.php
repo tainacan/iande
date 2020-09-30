@@ -730,7 +730,7 @@ class Appointment extends Controller
      *
      */
     function set_appointment_groups($appointment_id, $groups = []) {
-
+        
         $metadata_definition = get_group_metadata_definition();
 
         $group_to_appointment = [];
@@ -790,7 +790,7 @@ class Appointment extends Controller
                 $this->check_availability($exhibition_id, $group['date'], $group['hour']);
 
                 foreach ($group as $key => $value) {
-                    \update_post_meta($group['ID'], $key, $value );
+                    \update_post_meta($group['ID'], $key, $value);
                 }
 
                 $group_to_appointment[] = $group['ID'];

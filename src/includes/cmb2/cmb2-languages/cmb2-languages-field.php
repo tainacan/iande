@@ -9,9 +9,11 @@ function cmb2_render_languages_field_callback($field, $value, $object_id, $objec
     // get the ID field
     $field_id  = $field->args['id'];
 
+    $array_value = (array) $value;
+
     // make sure we specify each part of the value we need.
-    $value = wp_parse_args($value, array(
-        $field_id . '_type' => '',
+    $value = wp_parse_args($array_value, array(
+        $field_id . '_name' => '',
         $field_id . '_other' => ''
     ));
 
@@ -26,7 +28,7 @@ function cmb2_render_languages_field_callback($field, $value, $object_id, $objec
         foreach ($languages as $languages) {
             if (!empty($languages)) {
                 
-                $selected = ($value['languages_type'] == $languages) ? 'selected' : '';
+                $selected = ($value['languages_name'] == $languages) ? 'selected' : '';
                 $languages_options .= '<option value="' . $languages . '" ' . $selected . '>' . $languages . '</option>';
 
             }
@@ -36,11 +38,11 @@ function cmb2_render_languages_field_callback($field, $value, $object_id, $objec
 ?>
 
     <div class="alignleft">
-        <p><label for="<?php echo $field_type->_id('_languages_type'); ?>'"></label></p>
+        <p><label for="<?php echo $field_type->_id('_languages_name'); ?>'"></label></p>
         <?php echo $field_type->select(array(
-            'name'    => $field_type->_name('[languages_type]'),
-            'id'      => $field_type->_id('_languages_type'),
-            'value'   => $value['languages_type'],
+            'name'    => $field_type->_name('[languages_name]'),
+            'id'      => $field_type->_id('_languages_name'),
+            'value'   => $value['languages_name'],
             'options' => $languages_options,
             'desc'    => ''
         )); ?>
@@ -73,7 +75,8 @@ function cmb2_sanitize_languages_field($check, $meta_value, $object_id, $field_a
     }
 
     foreach ($meta_value as $key => $value) {
-        $meta_value[$key] = array_map('sanitize_text_field', $value);
+        $array_value      = (array) $value;
+        $meta_value[$key] = array_map('sanitize_text_field', $array_value);
     }
 
     $new_meta_value = array_map('array_filter', $meta_value);
@@ -94,7 +97,8 @@ function cmb2_types_esc_languages_field($check, $meta_value, $field_args, $field
     }
 
     foreach ($meta_value as $key => $value) {
-        $meta_value[$key] = array_map('esc_attr', $value);
+        $array_value      = (array) $value;
+        $meta_value[$key] = array_map('esc_attr', $array_value);
     }
 
     $new_meta_value = array_map('array_filter', $meta_value);
