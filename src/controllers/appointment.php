@@ -799,7 +799,9 @@ class Appointment extends Controller
 
         }
 
-        \update_post_meta($appointment_id, 'groups', $group_to_appointment);
+        if (!empty($group_to_appointment)) {
+            \update_post_meta($appointment_id, 'groups', $group_to_appointment);
+        }        
 
     }
 
@@ -811,13 +813,22 @@ class Appointment extends Controller
      */
     function set_appointment_title(int $appointment_id) {
 
-        $responsible_first_name = \get_post_meta($appointment_id, 'responsible_first_name', true);
-        $responsible_last_name  = \get_post_meta($appointment_id, 'responsible_last_name', true);
+        $num_people    = \get_post_meta($appointment_id, 'num_people', true);
+        $exhibition_id = \get_post_meta($appointment_id, 'exhibition_id', true);
+        $group_size    = \get_post_meta($exhibition_id, 'group_size', true);
+
+        $count_groups = round($num_people / $group_size);
+
         $date                   = \get_post_meta($appointment_id, 'date', true);
         $hour                   = \get_post_meta($appointment_id, 'hour', true);
 
-        // "{nome-responsavel} {sobrenome-responsavel} - {data} {horário}"
-        $title = $responsible_first_name . ' ' . $responsible_last_name . ' - ' . $date . ' ' . $hour;
+        $name = \get_post_meta($appointment_id, 'name', true);
+
+        if ($name) {
+            $title = $name . ' - ' . $count_groups . ' grupo(s)';
+        } else {
+            $title = $count_groups . ' grupo(s)';
+        }
 
         $slug  = \sanitize_title($title);
         $slug  = \wp_unique_post_slug($slug, $appointment_id, get_post_status($appointment_id), 'appointment', 0);
