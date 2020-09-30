@@ -4,11 +4,9 @@
             <div>
                 <div class="iande-appointment__date">
                     <div>
+                        <div class="iande-appointment__from" v-if="manyDates">a partir de</div>
                         <div class="iande-appointment__day">{{ day }}</div>
                         <div class="iande-appointment__month">{{ month }}</div>
-                    </div>
-                    <div v-if="manyDates">
-                        <Icon icon="ellipsis-h"/>
                     </div>
                 </div>
                 <div class="iande-appointment__summary-main">
