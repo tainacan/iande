@@ -23,6 +23,22 @@ function iande_export_appointment() {
 
     if (isset($_GET['export_all_appointments']) && \is_admin()) {
 
+        $format_binary = function ($value) {
+            if (empty($value) || $value == 'no') {
+                return 'Não';
+            } elseif ($value == 'yes') {
+                return 'Sim';
+            }
+        };
+
+        $format_group_nature = function ($value) {
+            if ($value == 'institutional') {
+                return 'Institucional';
+            } elseif ($value == 'other') {
+                return 'Outra';
+            }
+        };
+
         $appointments = \get_posts([
             'post_type'      => 'appointment',
             'post_status'    => 'publish',
@@ -91,11 +107,11 @@ function iande_export_appointment() {
                     \get_post_meta($id, 'responsible_phone', true),
                     \get_post_meta($id, 'responsible_role', true),
                     \get_post_meta($id, 'responsible_role_other', true),
-                    \get_post_meta($id, 'group_nature', true),
+                    $format_group_nature(\get_post_meta($id, 'group_nature', true)),
                     \get_the_title(\get_post_meta($id, 'institution_id', true)),
-                    \get_post_meta($id, 'requested_exemption', true),
-                    \get_post_meta($id, 'has_visited_previously', true),
-                    \get_post_meta($id, 'has_prepared_visit', true),
+                    $format_binary(\get_post_meta($id, 'requested_exemption', true)),
+                    $format_binary(\get_post_meta($id, 'has_visited_previously', true)),
+                    $format_binary(\get_post_meta($id, 'has_prepared_visit', true)),
                     \get_post_meta($id, 'how_prepared_visit', true),
                     \get_post_meta($id, 'additional_comment', true),
                     $group_ids
