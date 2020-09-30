@@ -148,6 +148,7 @@
                 try {
                     const verb = this.fields.ID ? 'update' : 'create'
                     const result = await api.post(`appointment/${verb}`, this.fields)
+                    this.appointment = { ...this.appointment, ...result }
                     this.appointmentId = result.ID
                     return true
                 } catch (err) {
