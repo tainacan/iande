@@ -38,9 +38,18 @@
         color: var(--iande-secondary-color);
         font-family: var(--iande-title-font);
         display: flex;
-        flex-direction: column;
-
         justify-content: center;
+
+        & > div {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        & > :nth-of-type(2) {
+            margin-left: 0.5ch;
+        }
 
         @media screen and (max-width: 400px) {
             border-bottom: 1px solid var(--iande-medium-color);

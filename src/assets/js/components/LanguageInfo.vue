@@ -2,7 +2,7 @@
     <div class="iande-stack stack-lg">
         <div>
             <label :for="`${id}_name`" class="iande-label">Qual idioma?</label>
-            <Select :id="`${id}_name`" v-model="type" :validations="validations.languages_name" :options="languageOptions"/>
+            <Select :id="`${id}_name`" v-model="name" :validations="validations.languages_name" :options="languageOptions"/>
         </div>
         <div v-if="isOther(name)">
             <label :for="`${id}_other`" class="iande-label">Especifique o idioma</label>

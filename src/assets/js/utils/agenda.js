@@ -50,6 +50,11 @@ export function getWorkingHours (exhibition, date) {
     return intervals.filter(isValidInterval)
 }
 
+export function getInterval (exhibition, time) {
+    const dt = normalizeTime(time)
+    return Interval.fromDateTimes(dt, dt.plus({ minutes: exhibition.duration }))
+}
+
 export function getSlots (exhibition, date) {
     const delta = { minutes: exhibition.duration }
     const intervals = getWorkingHours(exhibition, date)
