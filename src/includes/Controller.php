@@ -262,12 +262,6 @@ abstract class Controller
         $send = false;
         $send = \wp_mail(sanitize_email($params['email']), $subject, \apply_filters('the_content', $body), $headers, $attachments);
 
-        error_log(json_encode($headers));
-        error_log(json_encode($headers));
-        error_log(json_encode($headers));
-        error_log(json_encode($headers));
-
-
         // caso o e-mail enviado seja HTML, retorna ao formato defaut (text/plain)
         \add_filter('wp_mail_content_type', [$this, 'text_content_type']);
 
