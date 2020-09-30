@@ -269,12 +269,11 @@ function iande_cmb2_settings_init() {
 Aqui estão os dados da sua reserva para visitar o Museu <b>" . get_bloginfo('name') . "</b>.
 
 <b>Exposição:</b> %exposicao%
-<b>Data da visita:</b> %data%
-<b>Horário da visita:</b> %horario%
+<b>Grupo(s): </b> %grupos%
 
-Para finalizar seu agendamento e garantir a visita do seu grupo, preencha os demais dados do seu grupo <a href='%link%'>clicando aqui</a>.
+Para finalizar seu agendamento, preencha os demais dados do(s) seu(s) grupo(s) <a href='%link%'>clicando aqui</a>.
 
-Você tem alguma dúvida? Entre em contato!";
+Caso tenha alguma dúvida, entre em contato com o Museu nos dados abaixo.";
 
         cmb2_update_option('iande_emails_settings', 'email_pre_scheduling', $message);
 
@@ -295,12 +294,9 @@ Você tem alguma dúvida? Entre em contato!";
 Aqui estão os dados da sua reserva para visitar o Museu <b>" . get_bloginfo('name') . "</b>.
 
 <b>Exposição:</b> %exposicao%
-<b>Data da visita:</b> %data%
-<b>Horário da visita:</b> %horario%
+<b>Grupo(s): </b> %grupos%
 
-Para finalizar seu agendamento e garantir a visita do seu grupo, preencha os demais dados do seu grupo <a href='%link%'>clicando aqui</a>.
-
-Você tem alguma dúvida? Entre em contato!
+Para finalizar seu agendamento, preencha os demais dados do(s) seu(s) grupo(s) <a href='%link%'>clicando aqui</a>.
 
 Você solicitou a isenção do pagamento dos ingressos na sua visita ao Museu <b>" . get_bloginfo('name') . "</b>.
 

@@ -361,7 +361,7 @@ class Appointment extends Controller
 
         if ($this->validate_step($params['ID']) && $step == 1) {
 
-            update_post_meta($params['ID'], 'step', 2, $step);
+            \update_post_meta($params['ID'], 'step', 2, $step);
 
             $requested_exemption = get_post_meta($params['ID'], 'requested_exemption', true);
 
@@ -371,16 +371,19 @@ class Appointment extends Controller
                 $email_template = 'email_pre_scheduling';
             }
 
+            $groups = \get_post_meta($params['ID'], 'groups', true);
+
             // envia o e-mail de pré-agendamento para o responsavel do agendamento
             $email_params = [
                 'email' => \get_post_meta($params['ID'], 'responsible_email', true),
                 'interpolations' => [
                     'nome'       => \get_post_meta($params['ID'], 'responsible_first_name', true),
-                    'exposicao'  => \get_the_title($params['ID'], 'exhibition_id', true),
+                    'exposicao'  => \get_the_title(get_post_meta($params['ID'], 'exhibition_id', true)),
+                    'grupos'     => $groups,
                     'data'       => date('d/m/Y', strtotime(get_post_meta($params['ID'], 'date', true))),
                     'horario'    => \get_post_meta($params['ID'], 'hour', true),
                     'visitantes' => $this->count_people_appointment($params['ID']),
-                    'link'       => \home_url('/iande/appointment/confirm?ID=' . $params['ID'])
+                    'link'       => \home_url('/iande/appointment/confirm?ID                             =' . $params['ID'])
                 ]
             ];
             $this->email($email_template, $email_params);
@@ -389,7 +392,7 @@ class Appointment extends Controller
 
         } elseif($this->validate_step($params['ID']) && $step == 2) {
 
-            update_post_meta($params['ID'], 'step', 3, $step);
+            \update_post_meta($params['ID'], 'step', 3, $step);
             $this->success(__('O agendamento passou para o próximo passo e está aguardando confirmação', 'iande'));
 
         }

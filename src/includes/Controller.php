@@ -223,8 +223,26 @@ abstract class Controller
         if (!empty($params['interpolations'])) {
 
             foreach ($params['interpolations'] as $keyword => $value) {
-                $body    = str_replace('%' . $keyword . '%', $value, $body);
-                $subject = str_replace('%' . $keyword . '%', $value, $subject);
+                
+                if ($keyword == 'grupos') {
+
+                    $interpolation_group = [];
+                    foreach ($value as $group_id) {
+                        
+                        $interpolation_group[] = "\n<b>" . \get_post_meta($group_id, 'name', true) . "</b>";
+                        $interpolation_group[] = "<b>Data:</b> " . date('d/m/Y', strtotime(\get_post_meta($group_id, 'date', true))) . " / <b>Hora:</b> " . \get_post_meta($group_id, 'hour', true) . "\n";
+
+                    }
+
+                    $interpolation_group = implode("\n", $interpolation_group);
+
+                    $body = str_replace('%' . $keyword . '%', $interpolation_group, $body);
+
+                } else {
+                    $body    = str_replace('%' . $keyword . '%', $value, $body);
+                    $subject = str_replace('%' . $keyword . '%', $value, $subject);
+                }                
+
             }
 
         }
@@ -264,8 +282,6 @@ abstract class Controller
     protected function text_content_type() {
         return 'text/plain';
     }
-
-
 
 
     /**

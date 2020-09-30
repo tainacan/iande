@@ -74,7 +74,7 @@ function iande_settings_emails() {
     ]);
     $iande_emails_options->add_field([
         'id'          => 'email_pre_scheduling',
-        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%exposicao%</b>, <b>%data%</b>, <b>%horario%</b>.', 'iande'),
+        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%exposicao%</b>, <b>%grupos%</b>.', 'iande'),
         'type'        => 'wysiwyg',
         'show_names'  => false,
         'options'     => $options
@@ -96,7 +96,7 @@ function iande_settings_emails() {
     ]);
     $iande_emails_options->add_field([
         'id'          => 'email_pre_scheduling_exemption',
-        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%exposicao%</b>, <b>%data%</b>, <b>%horario%</b>, <b>%email_museu%</b>.', 'iande'),
+        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%exposicao%</b>, <b>%grupos%</b>, <b>%email_museu%</b>.', 'iande'),
         'type'        => 'wysiwyg',
         'show_names'  => false,
         'options'     => $options
