@@ -3,8 +3,13 @@
         <div class="iande-appointment__summary" :class="showDetails || 'collapsed'">
             <div>
                 <div class="iande-appointment__date">
-                    <div class="iande-appointment__day">{{ day }}</div>
-                    <div class="iande-appointment__month">{{ month }}</div>
+                    <div>
+                        <div class="iande-appointment__day">{{ day }}</div>
+                        <div class="iande-appointment__month">{{ month }}</div>
+                    </div>
+                    <div v-if="manyDates">
+                        <Icon icon="ellipsis-h"/>
+                    </div>
                 </div>
                 <div class="iande-appointment__summary-main">
                     <h2>{{ name }}</h2>
@@ -14,12 +19,12 @@
                     </div>
                     <div class="iande-appointment__info">
                         <Icon :icon="['far', 'clock']"/>
-                        <span>{{ hour }}</span>
+                        <span>{{ hours }}</span>
                     </div>
                 </div>
             </div>
             <div>
-                <StepsIndicator inline :step="appointment.step" :status="appointment.post_status" :reason="appointment.reason_cancel"/>
+                <StepsIndicator inline :step="Number(appointment.step)" :status="appointment.post_status" :reason="appointment.reason_cancel"/>
                 <div class="iande-appointment__toggle" :aria-label="showDetails ? 'Ocultar detalhes' : 'Exibir detalhes'" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
                     <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
                 </div>
@@ -31,13 +36,16 @@
                     <div class="iande-appointment__box-title">
                         <h3><Icon :icon="['far', 'calendar']"/>Evento</h3>
                         <div class="iande-appointment__edit" v-if="editable">
-                            <a class="iande-appointment__edit-link" :href="gotoScreen(1)">Editar</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(2)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
-                    <div>{{ purpose }}</div>
-                    <div>{{ date }}</div>
-                    <div>{{ hour }}</div>
+                    <div>{{ exhibition.title }}</div>
+                    <div>Previsão de {{ appointment.num_people }} pessoas no total</div>
+                    <div v-for="(group, i) of appointment.groups" :key="group.ID">
+                        <div>Grupo {{ i + 1 }}: {{ formatDate(group.date) }}</div>
+                        <div>{{ formatInterval(group.hour) }} (até {{ exhibition.group_size }} pessoas)</div>
+                    </div>
                 </div>
 
                 <div class="iande-appointment__box">
@@ -81,15 +89,16 @@
                     </div>
                 </div>
 
-                <div class="iande-appointment__box" v-for="group in appointment.groups" :key="group.id">
+                <div class="iande-appointment__box" v-for="(group, i) in appointment.groups" :key="group.id">
                     <div class="iande-appointment__box-title">
-                        <h3><Icon icon="users"/>{{ groupName(group) }}</h3>
+                        <h3><Icon icon="users"/>Grupo {{ i + 1 }}: {{ group.name }}</h3>
                         <div class="iande-appointment__edit" v-if="editable">
                             <a class="iande-appointment__edit-link" :href="gotoScreen(5)">Editar</a>
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
-                    <div>Previsão de {{ group.num_people }} visitantes</div>
+                    <div>{{ group.age_range }}</div>
+                    <div>previsão de {{ group.num_people }} visitantes</div>
                     <div>{{ group.num_responsible == 1 ? '1 responsável' : `${group.num_responsible} responsáveis` }}</div>
                     <div>{{ group.scholarity }}</div>
                     <div>Pessoas com deficiência: {{ groupDisabilities(group.disabilities) }}</div>
@@ -134,11 +143,13 @@
 
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+    import { DateTime } from 'luxon'
     import { get } from 'vuex-pathify'
 
     import AppointmentSuccessModal from './AppointmentSuccessModal.vue'
     import StepsIndicator from './StepsIndicator.vue'
-    import { api, constant, formatCep, formatPhone, isOther } from '../utils'
+    import { api, constant, formatCep, formatPhone, isOther, sortBy } from '../utils'
+    import { getInterval } from '../utils/agenda'
 
     // Lazy-loading candidates
     import municipios from '../../json/municipios.json'
@@ -165,28 +176,34 @@
                 const cityId = this.institution.city
                 return Object.entries(municipios).find(([key]) => key === cityId)[1]
             },
-            date () {
-                const parts = this.appointment.date.split('-')
-                return parts.reverse().join('/')
-            },
             day () {
-                const parts = this.appointment.date.split('-')
+                const parts = this.firstGroup.date.split('-')
                 return parts[2]
             },
             editable () {
                 return this.appointment.post_status === 'draft'
             },
-            hour () {
-                const parts = this.appointment.hour.split(':')
-                return parts.join('h')
+            exhibition () {
+                return this.exhibitions.find(exhibition => exhibition.ID == this.appointment.exhibition_id)
+            },
+            exhibitions: get('exhibitions/list'),
+            firstGroup () {
+                return this.appointment.groups.slice().sort(sortBy(group => `${group.date} ${group.hour}`))[0]
+            },
+            hours () {
+                const hours = this.appointment.groups.map(group => group.hour)
+                return [...new Set(hours)].sort().join(', ')
             },
             iandeUrl: constant(window.IandeSettings.iandeUrl),
             institution () {
                 return this.institutions.find(institution => institution.ID == this.appointment.institution_id)
             },
             institutions: get('institutions/list'),
+            manyDates () {
+                return [...new Set(this.appointment.groups.map(group => group.date))].length > 1
+            },
             month() {
-                const parts = this.appointment.date.split('-')
+                const parts = this.firstGroup.date.split('-')
                 return months[parseInt(parts[1]) - 1]
             },
             name () {
@@ -225,6 +242,13 @@
                 return option === 'yes' ? 'Sim' : 'Não'
             },
             formatCep,
+            formatDate (date) {
+                return DateTime.fromISO(date).toLocaleString(DateTime.DATE_SHORT)
+            },
+            formatInterval (time) {
+                const interval = getInterval(this.exhibition, time)
+                return `${interval.start.toFormat('HH:mm')} - ${interval.end.toFormat('HH:mm')}`
+            },
             formatPhone,
             gotoScreen (screen) {
                 return `${window.IandeSettings.iandeUrl}/appointment/edit?ID=${this.appointment.ID}&screen=${screen}`
@@ -235,32 +259,25 @@
                 } else {
                     return disabilities
                         .map(disability => {
-                            if (isOther(disability.type) && disability.other) {
-                                return `${disability.type} / ${disability.other} (${disability.count})`
+                            if (isOther(disability.disabilities_type) && disability.disabilities_other) {
+                                return `${disability.disabilities_type} / ${disability.disabilities_other} (${disability.disabilities_count})`
                             } else {
-                                return `${disability.type} (${disability.count})`
+                                return `${disability.disabilities_type} (${disability.disabilities_count})`
                             }
                         })
                         .join(', ')
                 }
             },
             groupLanguages (languages) {
-                return [{ name: 'Português' }, ...languages]
+                return [{ languages_name: 'Português' }, ...languages]
                     .map(language => {
-                        if (isOther(language.name) && language.other) {
-                            return `${language.name} / ${language.other}`
+                        if (isOther(language.languages_name) && language.languages_other) {
+                            return `${language.languages_name} / ${language.languages_other}`
                         } else {
-                            return language.name
+                            return language.languages_name
                         }
                     })
                     .join(', ')
-            },
-            groupName (group) {
-                if (group.name) {
-                    return `Grupo: ${group.name}`
-                } else {
-                    return `Grupo ${group.id}`
-                }
             },
             async sendConfirmation () {
                 await api.post('appointment/set_status', { ID: this.appointment.ID, post_status: 'pending' })
