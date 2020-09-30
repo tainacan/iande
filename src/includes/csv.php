@@ -23,7 +23,7 @@ function iande_export_appointment() {
 
     if (isset($_GET['export_all_appointments']) && \is_admin()) {
 
-        $format_binary = function ($value) {
+        $display_binary = function ($value) {
             if (empty($value) || $value == 'no') {
                 return 'Não';
             } elseif ($value == 'yes') {
@@ -31,7 +31,7 @@ function iande_export_appointment() {
             }
         };
 
-        $format_group_nature = function ($value) {
+        $display_group_nature = function ($value) {
             if ($value == 'institutional') {
                 return 'Institucional';
             } elseif ($value == 'other') {
@@ -107,11 +107,11 @@ function iande_export_appointment() {
                     \get_post_meta($id, 'responsible_phone', true),
                     \get_post_meta($id, 'responsible_role', true),
                     \get_post_meta($id, 'responsible_role_other', true),
-                    $format_group_nature(\get_post_meta($id, 'group_nature', true)),
+                    $display_group_nature(\get_post_meta($id, 'group_nature', true)),
                     \get_the_title(\get_post_meta($id, 'institution_id', true)),
-                    $format_binary(\get_post_meta($id, 'requested_exemption', true)),
-                    $format_binary(\get_post_meta($id, 'has_visited_previously', true)),
-                    $format_binary(\get_post_meta($id, 'has_prepared_visit', true)),
+                    $display_binary(\get_post_meta($id, 'requested_exemption', true)),
+                    $display_binary(\get_post_meta($id, 'has_visited_previously', true)),
+                    $display_binary(\get_post_meta($id, 'has_prepared_visit', true)),
                     \get_post_meta($id, 'how_prepared_visit', true),
                     \get_post_meta($id, 'additional_comment', true),
                     $group_ids
@@ -155,27 +155,41 @@ function iande_export_visit_groups() {
 
     if (isset($_GET['export_all_groups']) && \is_admin()) {
 
-        $display_languages = function ($languages) {
-            $arr = [];
-            foreach ($languages as $language) {
-                if (is_string($language)) {
-                    $arr[] = $language;
-                } elseif (!empty($language->other)) {
-                    $arr[] = $language->other;
-                } else {
-                    $arr[] = $language->name;
-                }
+        $display_binary = function ($value) {
+            if (empty($value) || $value == 'no') {
+                return 'Não';
+            } elseif ($value == 'yes') {
+                return 'Sim';
             }
-            return join(', ', $arr);
+        };
+
+        $display_group_nature = function ($value) {
+            if ($value == 'institutional') {
+                return 'Institucional';
+            } elseif ($value == 'other') {
+                return 'Outra';
+            }
         };
 
         $display_disabilities = function ($disabilities) {
             $arr = [];
             foreach ($disabilities as $disability) {
-                if (!empty($disability->other)) {
-                    $arr[] = $disability->other . ' (' . $disability->count . ')';
+                if (!empty($disability->disabilities_other)) {
+                    $arr[] = $disability->disabilities_other . ' (' . $disability->disabilities_count . ')';
                 } else {
-                    $arr[] = $disability->type . ' (' . $disability->count . ')';
+                    $arr[] = $disability->disabilities_type . ' (' . $disability->disabilities_count . ')';
+                }
+            }
+            return join(', ', $arr);
+        };
+
+        $display_languages = function ($languages) {
+            $arr = [];
+            foreach ($languages as $language) {
+                if (!empty($language->languages_other)) {
+                    $arr[] = $language->languages_other;
+                } else {
+                    $arr[] = $language->languages_name;
                 }
             }
             return join(', ', $arr);
@@ -200,11 +214,14 @@ function iande_export_visit_groups() {
 
             // Cabeçalhos do CSV
             $header_row = [
+                'ID',
                 'Agendamento',
+                'Nome do grupo',
+                'Exibição',
                 'Data',
                 'Hora',
-                'Nome do grupo',
                 'Quantidade prevista de pessoas',
+                'Faixa etária',
                 'Escolaridade',
                 'Quantidade prevista de responsáveis',
                 'Idiomas',
@@ -214,6 +231,8 @@ function iande_export_visit_groups() {
                 'E-mail do responsável',
                 'Telefone do responsável',
                 'Natureza do grupo',
+                'Instituição',
+                'Requisitou isenção?',
                 'Já visitou o museu?',
                 'Preparou a visita?',
                 'Como preparou a visita',
@@ -224,36 +243,40 @@ function iande_export_visit_groups() {
 
             foreach ($appointments as $appointment) {
 
-                $id = $appointment->ID;
+                $appointment_id = $appointment->ID;
 
-                $groups = \get_post_meta($id, 'group_list', true);
+                $groups = \get_post_meta($appointment_id, 'groups', true);
                 if (is_string($groups)) {
                     $groups = json_decode($groups);
                 }
-                $groups = $groups->groups;
 
                 foreach ($groups as $group) {
 
                     // Cada linha do array deve corresponder aos cabeçalhos do CSV
                     $row = [
-                        $id,
-                        \get_post_meta($id, 'date', true),
-                        \get_post_meta($id, 'hour', true),
-                        $group->name,
-                        $group->num_people,
-                        $group->scholarity,
-                        $group->num_responsible,
-                        $display_languages($group->languages),
-                        $display_disabilities($group->disabilities),
-                        \get_post_meta($id, 'responsible_first_name', true),
-                        \get_post_meta($id, 'responsible_last_name', true),
-                        \get_post_meta($id, 'responsible_email', true),
-                        \get_post_meta($id, 'responsible_phone', true),
-                        \get_post_meta($id, 'group_nature', true),
-                        \get_post_meta($id, 'has_visited_previously', true),
-                        \get_post_meta($id, 'has_prepared_visit', true),
-                        \get_post_meta($id, 'how_prepared_visit', true),
-                        \get_post_meta($id, 'additional_comment', true),
+                        $group,
+                        $appointment_id,
+                        \get_post_meta($group, 'name', true),
+                        \get_the_title(\get_post_meta($appointment_id, 'exhibition_id', true)),
+                        \get_post_meta($group, 'date', true),
+                        \get_post_meta($group, 'hour', true),
+                        \get_post_meta($group, 'num_people', true),
+                        \get_post_meta($group, 'age_range', true),
+                        \get_post_meta($group, 'scholarity', true),
+                        \get_post_meta($group, 'num_responsible', true),
+                        $display_languages(\get_post_meta($group, 'languages', true)),
+                        $display_disabilities(\get_post_meta($group, 'disabilities', true)),
+                        \get_post_meta($appointment_id, 'responsible_first_name', true),
+                        \get_post_meta($appointment_id, 'responsible_last_name', true),
+                        \get_post_meta($appointment_id, 'responsible_email', true),
+                        \get_post_meta($appointment_id, 'responsible_phone', true),
+                        $display_group_nature(\get_post_meta($appointment_id, 'group_nature', true)),
+                        \get_the_title(\get_post_meta($appointment_id, 'institution_id', true)),
+                        $display_binary(\get_post_meta($appointment_id, 'requested_exemption', true)),
+                        $display_binary(\get_post_meta($appointment_id, 'has_visited_previously', true)),
+                        $display_binary(\get_post_meta($appointment_id, 'has_prepared_visit', true)),
+                        \get_post_meta($appointment_id, 'how_prepared_visit', true),
+                        \get_post_meta($appointment_id, 'additional_comment', true),
                     ];
                     $data_rows[] = $row;
                 }
