@@ -214,9 +214,8 @@ abstract class Controller
             $headers[] = 'Content-Type: text/html; charset=UTF-8';
         }
 
-        $current_user_email = \wp_get_current_user()->user_email;
-        if ($current_user_email && $params['email'] !== $current_user_email) {
-            $headers[] = 'Cc: ' . $current_user_email;
+        if (isset($params['cc']) && $params['email'] !== $params['cc']) {
+            $headers[] = 'Cc: ' . $params['cc'];
         }
 
         $attachments = '';
@@ -262,6 +261,12 @@ abstract class Controller
          */
         $send = false;
         $send = \wp_mail(sanitize_email($params['email']), $subject, \apply_filters('the_content', $body), $headers, $attachments);
+
+        error_log(json_encode($headers));
+        error_log(json_encode($headers));
+        error_log(json_encode($headers));
+        error_log(json_encode($headers));
+
 
         // caso o e-mail enviado seja HTML, retorna ao formato defaut (text/plain)
         \add_filter('wp_mail_content_type', [$this, 'text_content_type']);

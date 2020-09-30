@@ -193,6 +193,7 @@ class Appointment extends Controller
             // envia o e-mail de cancelamento para o responsavel do agendamento
             $email_params = [
                 'email' => $appointment->responsible_email,
+                'cc'    => $this->get_author_email($params['ID']),
                 'interpolations' => [
                     'nome'       => $appointment->responsible_first_name,
                     'exposicao'  => \get_the_title($appointment->exhibition_id),
@@ -377,6 +378,7 @@ class Appointment extends Controller
             // envia o e-mail de pré-agendamento para o responsavel do agendamento
             $email_params = [
                 'email' => \get_post_meta($params['ID'], 'responsible_email', true),
+                'cc'    => $this->get_author_email($params['ID']),
                 'interpolations' => [
                     'nome'       => \get_post_meta($params['ID'], 'responsible_first_name', true),
                     'exposicao'  => \get_the_title(\get_post_meta($params['ID'], 'exhibition_id', true)),
@@ -451,6 +453,7 @@ class Appointment extends Controller
                     // envia o e-mail de confirmação para o responsavel do agendamento
                     $email_params = [
                         'email' => \get_post_meta($params['ID'], 'responsible_email', true),
+                        'cc'    => $this->get_author_email($params['ID']),
                         'interpolations' => [
                             'nome'      => \get_post_meta($params['ID'], 'responsible_first_name', true),
                             'exposicao' => \get_the_title(\get_post_meta($params['ID'], 'exhibition_id', true)),
@@ -881,6 +884,16 @@ class Appointment extends Controller
 
         return false;
 
+    }
+
+    /**
+     * Retorna o e-mail do autor do post
+     *
+     * @param number $post_id ID do post
+     * @return string
+     */
+    function get_author_email($post_id) {
+        return \get_the_author_meta('user_email', \get_post($post_id)->post_author);        
     }
 
 }
