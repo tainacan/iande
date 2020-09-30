@@ -26,7 +26,9 @@ add_action( 'admin_enqueue_scripts', 'appointment_enqueue_scripts' );
  */
 function status_metaboxes($post)
 {
-    add_meta_box('status_metaboxes', __('Status', 'iande'), 'build_status_metabox', 'appointment', 'side', 'low');
+    if ($post->post_status == 'pending') {
+        add_meta_box('status_metaboxes', __('Status', 'iande'), 'build_status_metabox', 'appointment', 'side', 'low');
+    }
 }
 add_action('add_meta_boxes_appointment', 'status_metaboxes');
 
