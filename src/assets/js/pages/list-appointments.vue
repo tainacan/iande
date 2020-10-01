@@ -21,7 +21,7 @@
                     Criar novo agendamento
                 </a>
             </div>
-            <AppointmentDetails v-for="appointment in filteredAppoitments" :key="appointment.ID" :appointment="appointment"/>
+            <AppointmentDetails v-for="appointment in filteredAppointments" :key="appointment.ID" :appointment="appointment"/>
             <div class="iande-container narrow">
                 <a class="iande-button outline" :href="`${iandeUrl}/appointment/create`">
                     <Icon icon="plus-circle"/>
@@ -53,7 +53,7 @@
         },
         computed: {
             appointments: sync('appointments/list'),
-            filteredAppoitments () {
+            filteredAppointments () {
                 const today = new Date().toISOString().slice(0, 10)
                 if (this.filter === 'next') {
                     return this.sortedAppointments.filter(appointment => {
