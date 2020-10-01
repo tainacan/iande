@@ -87,34 +87,36 @@
                     </div>
                 </div>
 
-                <div class="iande-appointment__box" v-for="(group, i) in appointment.groups" :key="group.id">
-                    <div class="iande-appointment__box-title">
-                        <h3><Icon icon="users"/>Grupo {{ i + 1 }}: {{ group.name }}</h3>
-                        <div class="iande-appointment__edit" v-if="editable">
-                            <a class="iande-appointment__edit-link" :href="gotoScreen(5)">Editar</a>
-                            <Icon icon="pencil-alt"/>
+                <template v-if="appointment.step > 2">
+                    <div class="iande-appointment__box" v-for="(group, i) in appointment.groups" :key="group.id">
+                        <div class="iande-appointment__box-title">
+                            <h3><Icon icon="users"/>Grupo {{ i + 1 }}: {{ group.name }}</h3>
+                            <div class="iande-appointment__edit" v-if="editable">
+                                <a class="iande-appointment__edit-link" :href="gotoScreen(5)">Editar</a>
+                                <Icon icon="pencil-alt"/>
+                            </div>
                         </div>
+                        <div>{{ group.age_range }}</div>
+                        <div>previsão de {{ group.num_people }} visitantes</div>
+                        <div>{{ group.num_responsible == 1 ? '1 responsável' : `${group.num_responsible} responsáveis` }}</div>
+                        <div>{{ group.scholarity }}</div>
+                        <div>Pessoas com deficiência: {{ groupDisabilities(group.disabilities) }}</div>
+                        <div>Idiomas: {{ groupLanguages(group.languages) }}</div>
                     </div>
-                    <div>{{ group.age_range }}</div>
-                    <div>previsão de {{ group.num_people }} visitantes</div>
-                    <div>{{ group.num_responsible == 1 ? '1 responsável' : `${group.num_responsible} responsáveis` }}</div>
-                    <div>{{ group.scholarity }}</div>
-                    <div>Pessoas com deficiência: {{ groupDisabilities(group.disabilities) }}</div>
-                    <div>Idiomas: {{ groupLanguages(group.languages) }}</div>
-                </div>
 
-                <div class="iande-appointment__box" v-if="appointment.step > 2">
-                    <div class="iande-appointment__box-title">
-                        <h3><Icon :icon="['far', 'address-card']"/>Dados adicionais</h3>
-                        <div class="iande-appointment__edit" v-if="editable">
-                            <a class="iande-appointment__edit-link" :href="gotoScreen(6)">Editar</a>
-                            <Icon icon="pencil-alt"/>
+                    <div class="iande-appointment__box">
+                        <div class="iande-appointment__box-title">
+                            <h3><Icon :icon="['far', 'address-card']"/>Dados adicionais</h3>
+                            <div class="iande-appointment__edit" v-if="editable">
+                                <a class="iande-appointment__edit-link" :href="gotoScreen(6)">Editar</a>
+                                <Icon icon="pencil-alt"/>
+                            </div>
                         </div>
+                        <div>Você já visitou o museu antes: {{ formatBinaryOption(appointment.has_visited_previously) }}</div>
+                        <div>Preparação: {{ formatBinaryOption(appointment.has_prepared_visit) }}</div>
+                        <div v-if="appointment.additional_comment">Comentários: {{ appointment.additional_comment }}</div>
                     </div>
-                    <div>Você já visitou o museu antes: {{ formatBinaryOption(appointment.has_visited_previously) }}</div>
-                    <div>Preparação: {{ formatBinaryOption(appointment.has_prepared_visit) }}</div>
-                    <div v-if="appointment.additional_comment">Comentários: {{ appointment.additional_comment }}</div>
-                </div>
+                </template>
             </div>
             <div class="iande-appointment__buttons">
                 <button class="iande-button solid" @click="cancelAppointment" v-if="editable">
