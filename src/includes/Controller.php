@@ -340,7 +340,7 @@ abstract class Controller
         if (count($groups) <= $group_slot) {
             return true;
         } else {
-            $this->error(__('Data/horário indisponível nessa exposição', 'iande'));
+            $this->error(__('Horário indisponível nessa exposição: ' . date_format(date_create($date), 'd/m/Y') . ' ' . $hour, 'iande'));
         }
 
     }
