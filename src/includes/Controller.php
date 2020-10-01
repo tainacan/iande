@@ -337,7 +337,7 @@ abstract class Controller
         $group_slot = \get_post_meta($exhibition_id, 'group_slot', true);
 
         // se a quantidade de grupos for menor que o tamanho do slot, retorna true, se não retorna erro
-        if (count($groups) < $group_slot) {
+        if (count($groups) <= $group_slot) {
             return true;
         } else {
             $this->error(__('Data/horário indisponível nessa exposição', 'iande'));
