@@ -49,11 +49,10 @@
     import StepsIndicator from '../components/StepsIndicator.vue'
     import { api, constant } from '../utils'
 
-    // Lazy-loading candidates
-    import CreateInstitution from '../components/CreateInstitution.vue'
-    import GroupsDate from '../components/GroupsDate.vue'
-    import SelectInstitution from '../components/SelectInstitution.vue'
-    import SelectExhibition from '../components/SelectExhibition.vue'
+    const CreateInstitution = () => import(/* webpackChunkName: 'create-institution-step' */ '../components/CreateInstitution.vue')
+    const GroupsDate = () => import(/* webpackChunkName: 'groups-date-step' */ '../components/GroupsDate.vue')
+    const SelectInstitution = () => import(/* webpackChunkName: 'select-institution-step' */ '../components/SelectInstitution.vue')
+    const SelectExhibition = () => import(/* webpackChunkName: 'select-exhibition-step' */ '../components/SelectExhibition.vue')
 
     const routes = {
         1: {

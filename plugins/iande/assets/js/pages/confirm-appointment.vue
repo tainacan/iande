@@ -55,9 +55,8 @@
     import StepsIndicator from '../components/StepsIndicator.vue'
     import { api, constant } from '../utils'
 
-    // Lazy-loading candidates
-    import AdditionalData from '../components/AdditionalData.vue'
-    import GroupsAdditionalInfo from '../components/GroupsAdditionalInfo.vue'
+    const AdditionalData = () => import(/* webpackChunkName: 'additional-data-step' */ '../components/AdditionalData.vue')
+    const GroupsAdditionalInfo = () => import(/* webpackChunkName: 'groups-additional-info-step' */ '../components/GroupAdditionalInfo.vue')
 
     const routes = {
         5: {
