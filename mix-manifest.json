@@ -1,6 +1,7 @@
 {
-    "/src/dist/admin.js": "/src/dist/admin.js",
-    "/src/dist/admin.css": "/src/dist/admin.css",
-    "/src/dist/app.css": "/src/dist/app.css",
-    "/src/dist/app.js": "/src/dist/app.js"
+    "/plugins/iande/dist/admin.js": "/plugins/iande/dist/admin.js",
+    "/plugins/iande/dist/admin.css": "/plugins/iande/dist/admin.css",
+    "/plugins/iande/dist/app.css": "/plugins/iande/dist/app.css",
+    "/plugins/iande/dist/app.js": "/plugins/iande/dist/app.js",
+    "/plugins/iande/dist/login-page.js": "/plugins/iande/dist/login-page.js"
 }

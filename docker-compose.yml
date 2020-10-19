@@ -15,7 +15,7 @@ services:
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DEBUG: 'true'
     volumes:
-      - ./src:/var/www/html/wp-content/plugins/iande
+      - ./plugins/iande:/var/www/html/wp-content/plugins/iande
 
   mariadb:
     image: mariadb:10.4

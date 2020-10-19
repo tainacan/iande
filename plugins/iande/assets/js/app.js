@@ -20,7 +20,7 @@ import EditInstitutionPage from './pages/edit-institution.vue'
 import EditUserPage from './pages/edit-user.vue'
 import ListAppointmentsPage from './pages/list-appointments.vue'
 import ListInstitutionPage from './pages/list-institutions.vue'
-import LoginPage from './pages/login.vue'
+const LoginPage = import(/* webpackChunkName: 'login-page' */ './pages/login.vue')
 
 Vue.use(Vuelidate)
 Vue.use(Vuex)
