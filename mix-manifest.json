@@ -1,7 +1,25 @@
 {
+    "/plugins/iande/dist/vendors~confirm-appointment-page~create-appointment-page~create-user-page~edit-appointment-page~edit~1378bd2c.js": "/plugins/iande/dist/vendors~confirm-appointment-page~create-appointment-page~create-user-page~edit-appointment-page~edit~1378bd2c.js",
+    "/plugins/iande/dist/vendors~create-appointment-page~create-user-page~edit-appointment-page~edit-institution-page~edit-us~9937f15d.js": "/plugins/iande/dist/vendors~create-appointment-page~create-user-page~edit-appointment-page~edit-institution-page~edit-us~9937f15d.js",
+    "/plugins/iande/dist/vendors~confirm-appointment-page~create-appointment-page~create-user-page~list-appointments-page~login-page.js": "/plugins/iande/dist/vendors~confirm-appointment-page~create-appointment-page~create-user-page~list-appointments-page~login-page.js",
+    "/plugins/iande/dist/edit-institution-page~list-appointments-page~list-institutions-page.js": "/plugins/iande/dist/edit-institution-page~list-appointments-page~list-institutions-page.js",
+    "/plugins/iande/dist/confirm-appointment-page~edit-appointment-page.js": "/plugins/iande/dist/confirm-appointment-page~edit-appointment-page.js",
+    "/plugins/iande/dist/vendors~create-appointment-page~edit-appointment-page.js": "/plugins/iande/dist/vendors~create-appointment-page~edit-appointment-page.js",
     "/plugins/iande/dist/admin.js": "/plugins/iande/dist/admin.js",
     "/plugins/iande/dist/admin.css": "/plugins/iande/dist/admin.css",
     "/plugins/iande/dist/app.css": "/plugins/iande/dist/app.css",
     "/plugins/iande/dist/app.js": "/plugins/iande/dist/app.js",
-    "/plugins/iande/dist/login-page.js": "/plugins/iande/dist/login-page.js"
+    "/plugins/iande/dist/appointment-agenda.js": "/plugins/iande/dist/appointment-agenda.js",
+    "/plugins/iande/dist/confirm-appointment-page.js": "/plugins/iande/dist/confirm-appointment-page.js",
+    "/plugins/iande/dist/create-appointment-page.js": "/plugins/iande/dist/create-appointment-page.js",
+    "/plugins/iande/dist/create-user-page.js": "/plugins/iande/dist/create-user-page.js",
+    "/plugins/iande/dist/edit-appointment-page.js": "/plugins/iande/dist/edit-appointment-page.js",
+    "/plugins/iande/dist/edit-institution-page.js": "/plugins/iande/dist/edit-institution-page.js",
+    "/plugins/iande/dist/edit-user-page.js": "/plugins/iande/dist/edit-user-page.js",
+    "/plugins/iande/dist/estados-municipios.js": "/plugins/iande/dist/estados-municipios.js",
+    "/plugins/iande/dist/list-appointments-page.js": "/plugins/iande/dist/list-appointments-page.js",
+    "/plugins/iande/dist/list-institutions-page.js": "/plugins/iande/dist/list-institutions-page.js",
+    "/plugins/iande/dist/login-page.js": "/plugins/iande/dist/login-page.js",
+    "/plugins/iande/dist/status-metabox.js": "/plugins/iande/dist/status-metabox.js",
+    "/plugins/iande/dist/vendors~appointment-agenda.js": "/plugins/iande/dist/vendors~appointment-agenda.js"
 }

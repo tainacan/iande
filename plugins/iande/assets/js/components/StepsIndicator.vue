@@ -36,10 +36,8 @@
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-    import { constant } from '../utils'
-
-    // Lazy-loading candidates
     import Tooltip from './Tooltip.vue'
+    import { constant } from '../utils'
 
     export default {
         name: 'StepsIndicator',
