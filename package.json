@@ -8,7 +8,7 @@
     "dev:watch": "mix watch",
     "hot": "mix watch --hot",
     "prod": "mix --production",
-    "prod:watch": "npm run dev:watch",
+    "prod:watch": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --watch --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "npm run prod:watch"
   },
   "repository": {
@@ -23,6 +23,7 @@
   },
   "homepage": "https://gitlab.com/percebe/iande-plugin#readme",
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "laravel-mix": "^6.0.0-beta.10",
     "resolve-url-loader": "^3.1.2",
     "sass": "^1.27.0",
