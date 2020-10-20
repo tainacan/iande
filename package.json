@@ -8,7 +8,7 @@
     "dev:watch": "mix watch",
     "hot": "mix watch --hot",
     "prod": "mix --production",
-    "prod:watch": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --watch --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod:watch": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --watch --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "npm run prod:watch"
   },
   "repository": {
