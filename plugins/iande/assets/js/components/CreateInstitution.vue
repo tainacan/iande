@@ -72,9 +72,8 @@
     import { api, constant, isOther, sortBy, watchForOther } from '../utils'
     import { cep, cnpj, phone } from '../utils/validators'
 
-    // Lazy-loading candidates
-    import estados from '../../json/estados.json'
-    import municipios from '../../json/municipios.json'
+    const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/estados.json')
+    const states = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
 
     export default {
         name: 'CreateInstitution',
@@ -85,6 +84,20 @@
             Input,
             MaskedInput,
             Select
+        },
+        async: {
+            cities: {
+                get () {
+                    return cities
+                },
+                default: {},
+            },
+            states: {
+                get () {
+                    return states
+                },
+                default: {},
+            }
         },
         computed: {
             ...sync('institutions/current@', {
@@ -107,19 +120,19 @@
                 if (!this.state) {
                     return []
                 }
-                const entries = Object.entries(municipios)
+                const entries = Object.entries(this.cities)
                     .filter(([sigla]) => sigla.startsWith(this.state))
                     .map(([sigla, nome]) => [nome, sigla])
-                    .sort(sortBy(municipio => municipio[1]))
+                    .sort(sortBy(city => city[1]))
                 return Object.fromEntries(entries)
             },
             cnpjMask: constant('##.###.###/####-##'),
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
             profileOptions: constant(window.IandeSettings.profiles),
             stateOptions () {
-                const entries = Object.keys(estados)
-                    .map(estado => [estado, estado])
-                    .sort(sortBy(estado => estado[0]))
+                const entries = Object.keys(this.states)
+                    .map(state => [state, state])
+                    .sort(sortBy(state => state[0]))
                 return Object.fromEntries(entries)
             },
         },

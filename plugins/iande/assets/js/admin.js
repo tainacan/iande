@@ -7,7 +7,7 @@ import { cep } from './utils/validators'
 
 const AppointmentsAgenda = () => import(/* webpackChunkName: 'appointment-agenda' */ './components/admin/AppointmentsAgenda.vue')
 const StatusMetabox = () => import(/* webpackChunkName: 'status-metabox' */ './components/admin/StatusMetabox.vue')
-const municipios = import(/* webpackChunkName: 'estados-municipios' */ '../json/municipios.json')
+const cities = import(/* webpackChunkName: 'estados-municipios' */ '../json/municipios.json')
 
 Vue.component('iande-appointments-agenda', AppointmentsAgenda)
 Vue.component('iande-status-metabox', StatusMetabox)
@@ -16,7 +16,7 @@ async function populateCityOptions (state, city) {
     const $city = jQuery('select#city')
     $city.empty()
 
-    for (const [key, value] of Object.entries(await municipios)) {
+    for (const [key, value] of Object.entries(await cities)) {
         if (key.startsWith(state)) {
             $city.append(jQuery('<option></option>').attr('value', key).text(value))
         }

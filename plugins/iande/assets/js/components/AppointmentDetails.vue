@@ -151,9 +151,7 @@
     import { api, constant, formatCep, formatPhone, isOther, sortBy } from '../utils'
     import { getInterval } from '../utils/agenda'
 
-    // Lazy-loading candidates
-    import municipios from '../../json/municipios.json'
-
+    const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
     const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 
     export default {
@@ -171,13 +169,21 @@
                 showDetails: false,
             }
         },
+        asyncComputed: {
+            cities: {
+                get () {
+                    return cities
+                },
+                default: {},
+            },
+        },
         computed: {
             city () {
                 if (!this.institution) {
                     return null
                 }
                 const cityId = this.institution.city
-                return Object.entries(municipios).find(([key]) => key === cityId)[1]
+                return Object.entries(this.cities).find(([key]) => key === cityId)[1]
             },
             day () {
                 const parts = this.firstGroup.date.split('-')
