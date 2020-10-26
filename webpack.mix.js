@@ -17,9 +17,15 @@ mix.js(assetsDir + 'js/admin.js', distDir)
         },
         version: 2,
     })
-    .webpackConfig({
+    .webpackConfig(webpack => ({
         output: {
             chunkFilename: distDir + '[name].js',
             publicPath: '/wp-content/',
         },
-    })
+        plugins: [
+            new webpack.EnvironmentPlugin({
+                BUILD: 'web',
+                NODE_ENV: process.env.NODE_ENV,
+            }),
+        ]
+    }))
