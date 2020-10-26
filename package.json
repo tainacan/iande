@@ -24,7 +24,8 @@
   "homepage": "https://gitlab.com/percebe/iande-plugin#readme",
   "devDependencies": {
     "cross-env": "^7.0.2",
-    "laravel-mix": "^6.0.0-beta.10",
+    "laravel-mix": "^6.0.0-beta.11",
+    "postcss": "^8.1.4",
     "resolve-url-loader": "^3.1.2",
     "sass": "^1.27.0",
     "sass-loader": "^8.0.2",
@@ -44,7 +45,7 @@
     "vue-local-scope": "0.0.1",
     "vue-the-mask": "^0.11.1",
     "vuejs-datepicker": "^1.6.2",
-    "vuelidate": "^0.7.5",
+    "vuelidate": "^0.7.6",
     "vuex": "^3.5.1",
     "vuex-pathify": "^1.4.1"
   }
