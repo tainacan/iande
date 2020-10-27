@@ -85,7 +85,7 @@
             MaskedInput,
             Select
         },
-        async: {
+        asyncComputed: {
             cities: {
                 get () {
                     return cities
