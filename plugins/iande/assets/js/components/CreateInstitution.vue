@@ -72,8 +72,8 @@
     import { api, constant, isOther, sortBy, watchForOther } from '../utils'
     import { cep, cnpj, phone } from '../utils/validators'
 
-    const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/estados.json')
-    const states = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
+    const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
+    const states = import(/* webpackChunkName: 'estados-municipios' */ '../../json/estados.json')
 
     export default {
         name: 'CreateInstitution',
