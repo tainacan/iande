@@ -1,7 +1,6 @@
 === Iande ===
-Contributors: (this should be a list of wordpress.org userid's)
-Donate link: http://example.com/
-Tags: comments, spam
+Contributors: percebeeduca
+Tags: museum, appointment, education
 Requires at least: 5.1
 Tested up to: 5.2
 Requires PHP: 7.2
@@ -59,12 +58,15 @@ An answer to that question.
 Answer to foo bar dilemma.
  
 == Screenshots ==
- 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+
+1. All Iande's options available for users: Appointments, Institutions, Expositions, Groups, Exceptions & Iandé, 
+2. Iande's settings: Iandé, Institutions, Appointments,  E-mails
+3. Institutions menu: Create a new Instituion
+4. Appointments menu: Create a new Appointment
+5. Expositions menu: Create a new Appointment
+6. Exceptions menu: Create a new Appointment
+7. Groups menu: Create a new Appointment
+
  
 == Changelog ==
  
