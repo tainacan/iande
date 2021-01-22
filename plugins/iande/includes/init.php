@@ -41,7 +41,7 @@ add_action('admin_init', 'IandePlugin\\iande_activation_plugin');
  * Verifica se o plugin WP Mail SMTP by WPForms está ativo
  */
 function check_dependencies() {
-    
+
     if (!is_plugin_active('wp-mail-smtp/wp_mail_smtp.php')) {
         echo '<div class="notice notice-warning is-dismissible">';
             echo '<p>O plugin <b>WP Mail SMTP by WPForms</b> é necessário o envio de e-mails dos agendamentos do plugin <b>Iandé</b>. <a href="' . admin_url('/plugin-install.php?s=WP+Mail+SMTP&tab=search&type=term') . '">Clique aqui para instalá-lo</a>!</p>';
@@ -65,7 +65,7 @@ function iande_remove_default_stylesheet()
 
         foreach ( $wp_styles->queue as $style ) :
 
-            if ($style != 'iande') {
+            if ($style !== 'iande' && $style !== 'tainacan-fonts') {
                 \wp_dequeue_style($style);
             }
 
@@ -89,7 +89,7 @@ function iande_remove_default_scripts()
 
         foreach ($wp_scripts->queue as $script) :
 
-            if ($script != 'iande') {
+            if ($script !== 'iande' && $script !== 'tainacan-search') {
                 \wp_dequeue_script($script);
             }
 

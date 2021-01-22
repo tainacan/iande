@@ -1,6 +1,24 @@
 {
-    "/src/dist/admin.js": "/src/dist/admin.js",
-    "/src/dist/admin.css": "/src/dist/admin.css",
-    "/src/dist/app.css": "/src/dist/app.css",
-    "/src/dist/app.js": "/src/dist/app.js"
+    "/plugins/iande/dist/admin.js": "/plugins/iande/dist/admin.js",
+    "/plugins/iande/dist/app.js": "/plugins/iande/dist/app.js",
+    "/plugins/iande/dist/appointment-agenda.js": "/plugins/iande/dist/appointment-agenda.js",
+    "/plugins/iande/dist/status-metabox.js": "/plugins/iande/dist/status-metabox.js",
+    "/plugins/iande/dist/estados-municipios.js": "/plugins/iande/dist/estados-municipios.js",
+    "/plugins/iande/dist/confirm-appointment-page.js": "/plugins/iande/dist/confirm-appointment-page.js",
+    "/plugins/iande/dist/create-appointment-page.js": "/plugins/iande/dist/create-appointment-page.js",
+    "/plugins/iande/dist/create-user-page.js": "/plugins/iande/dist/create-user-page.js",
+    "/plugins/iande/dist/edit-appointment-page.js": "/plugins/iande/dist/edit-appointment-page.js",
+    "/plugins/iande/dist/edit-institution-page.js": "/plugins/iande/dist/edit-institution-page.js",
+    "/plugins/iande/dist/edit-user-page.js": "/plugins/iande/dist/edit-user-page.js",
+    "/plugins/iande/dist/list-appointments-page.js": "/plugins/iande/dist/list-appointments-page.js",
+    "/plugins/iande/dist/list-institutions-page.js": "/plugins/iande/dist/list-institutions-page.js",
+    "/plugins/iande/dist/login-page.js": "/plugins/iande/dist/login-page.js",
+    "/plugins/iande/dist/additional-data-step.js": "/plugins/iande/dist/additional-data-step.js",
+    "/plugins/iande/dist/groups-additional-info-step.js": "/plugins/iande/dist/groups-additional-info-step.js",
+    "/plugins/iande/dist/create-institution-step.js": "/plugins/iande/dist/create-institution-step.js",
+    "/plugins/iande/dist/groups-date-step.js": "/plugins/iande/dist/groups-date-step.js",
+    "/plugins/iande/dist/select-institution-step.js": "/plugins/iande/dist/select-institution-step.js",
+    "/plugins/iande/dist/select-exhibition-step.js": "/plugins/iande/dist/select-exhibition-step.js",
+    "/plugins/iande/dist/app.css": "/plugins/iande/dist/app.css",
+    "/plugins/iande/dist/admin.css": "/plugins/iande/dist/admin.css"
 }

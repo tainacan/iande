@@ -40,8 +40,7 @@
 
     import { constant, formatCep, formatCnpj, formatPhone, isOther } from '../utils'
 
-    // Lazy-loading candidates
-    import municipios from '../../json/municipios.json'
+    const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
 
     export default {
         name: 'InstitutionDetails',
@@ -57,10 +56,18 @@
                 showDetails: false,
             }
         },
+        asyncComputed: {
+            cities: {
+                get () {
+                    return cities
+                },
+                default: {},
+            },
+        },
         computed: {
             city () {
                 const cityId = this.institution.city
-                return Object.entries(municipios).find(([key]) => key === cityId)[1]
+                return Object.entries(this.cities).find(([key]) => key === cityId)[1]
             },
             iandeUrl: constant(window.IandeSettings.iandeUrl),
             name () {

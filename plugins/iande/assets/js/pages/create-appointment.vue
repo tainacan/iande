@@ -1,10 +1,10 @@
 <template>
     <article>
-        <StepsIndicator :step="2"/>
+        <StepsIndicator :step="1"/>
 
-        <div class="iande-container narrow">
+        <div class="iande-container narrow iande-stack stack-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
-                <component :is="route.component" ref="form"/>
+                <component :is="route.component" ref="form" @add-institution="setScreen(4)"/>
 
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ formError }}</span>
@@ -15,10 +15,7 @@
                         <Icon icon="angle-left"/>
                         Voltar
                     </button>
-                    <a class="iande-button solid" v-else :href="`${iandeUrl}/appointment/list`">
-                        <Icon icon="angle-left"/>
-                        Voltar
-                    </a>
+                    <div v-else></div>
 
                     <button class="iande-button primary" type="submit">
                         Avançar
@@ -27,55 +24,64 @@
                 </div>
             </form>
         </div>
-        <Modal ref="firstModal" @close="listAppointments">
+        <Modal ref="modal" @close="listAppointments">
             <div class="iande-stack iande-form">
-                <h1>Preenchimento finalizado</h1>
-                <p>Agradecemos pelo seu tempo em completar detalhadamente todas as etapas do agendamento. Você pode revisar o agendamento ou já enviar a solicitação para o museu.</p>
+                <h1>Reserva enviada com sucesso!</h1>
+                <p>Uma reserva de data e horário foi enviada ao museu, mas para garantir o agendamento é necessário completar formulário com mais informações.</p>
                 <div class="iande-form-grid">
                     <a class="iande-button solid" :href="`${iandeUrl}/appointment/list`">
-                        Revisar informações
+                        Ver agendamentos
                     </a>
-                    <button class="iande-button primary" @click="finishAppointment">
-                        Finalizar
-                    </button>
+                    <a class="iande-button primary" :href="`${iandeUrl}/appointment/confirm?ID=${appointmentId}`">
+                        Completar reserva
+                    </a>
                 </div>
             </div>
         </Modal>
-        <AppointmentSuccessModal ref="secondModal"/>
     </article>
 </template>
 
 <script>
-    import { required } from 'vuelidate/lib/validators'
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-    import { get, sync } from 'vuex-pathify'
+    import { call, get, sync } from 'vuex-pathify'
 
-    import AppointmentSuccessModal from '../components/AppointmentSuccessModal.vue'
     import Modal from '../components/Modal.vue'
     import StepsIndicator from '../components/StepsIndicator.vue'
     import { api, constant } from '../utils'
 
-    // Lazy-loading candidates
-    import AdditionalData from '../components/AdditionalData.vue'
-    import GroupsAdditionalInfo from '../components/GroupsAdditionalInfo.vue'
+    const CreateInstitution = () => import(/* webpackChunkName: 'create-institution-step' */ '../components/CreateInstitution.vue')
+    const GroupsDate = () => import(/* webpackChunkName: 'groups-date-step' */ '../components/GroupsDate.vue')
+    const SelectInstitution = () => import(/* webpackChunkName: 'select-institution-step' */ '../components/SelectInstitution.vue')
+    const SelectExhibition = () => import(/* webpackChunkName: 'select-exhibition-step' */ '../components/SelectExhibition.vue')
 
     const routes = {
-        5: {
-            component: GroupsAdditionalInfo,
-            action: 'updateAppointment',
-            next: 6,
+        1: {
+            component: SelectExhibition,
+            action: 'saveAppointment',
+            next: 2,
         },
-        6: {
-            component: AdditionalData,
-            action: 'confirmAppointment',
-            previous: 5,
+        2: {
+            component: GroupsDate,
+            action: 'saveAppointment',
+            previous: 1,
+            next: 3,
+        },
+        3: {
+            component: SelectInstitution,
+            action: 'submitAppointment',
+            previous: 2,
+        },
+        4: {
+            component: CreateInstitution,
+            action: 'saveInstitution',
+            previous: 3,
+            next: 3,
         },
     }
 
     export default {
-        name: 'ConfirmAppointmentPage',
+        name: 'CreateAppointmentPage',
         components: {
-            AppointmentSuccessModal,
             Icon: FontAwesomeIcon,
             Modal,
             StepsIndicator,
@@ -83,22 +89,23 @@
         data () {
             return {
                 formError: '',
-                screen: 5,
+                screen: 1,
             }
         },
         computed: {
             appointment: sync('appointments/current'),
+            appointmentId: sync('appointments/current@ID'),
+            appointmentInstitution: sync('appointments/current@institution_id'),
             fields: get('appointments/filteredFields'),
             iandeUrl: constant(window.IandeSettings.iandeUrl),
+            institution: sync('institutions/current'),
+            institutions: sync('institutions/list'),
             route () {
                 return routes[this.screen]
             },
         },
         async beforeMount () {
             const qs = new URLSearchParams(window.location.search)
-            if (qs.has('screen')) {
-                this.screen = Number(qs.get('screen'))
-            }
             if (qs.has('ID')) {
                 try {
                     const appointment = await api.get('appointment/get', {
@@ -111,23 +118,6 @@
             }
         },
         methods: {
-            async confirmAppointment () {
-                try {
-                    const appointment = await api.post('appointment/update', this.fields)
-                    this.appointment = { ...this.appointment, ...appointment }
-                    await api.post('appointment/advance_step', { ID: this.fields.ID })
-                    this.$refs.firstModal.open()
-                    return true
-                } catch (err) {
-                    this.formError = err
-                    return false
-                }
-            },
-            async finishAppointment () {
-                this.$refs.firstModal.close(false)
-                await api.post('appointment/set_status', { ID: this.appointment.ID, post_status: 'pending' })
-                this.$refs.secondModal.open()
-            },
             isFormValid () {
                 const formComponent = this.$refs.form
                 formComponent.$v.$touch()
@@ -139,7 +129,8 @@
             async nextStep () {
                 this.formError = ''
                 if (this.isFormValid()) {
-                    if (this[this.route.action]() && this.route.next) {
+                    const success = await this[this.route.action]()
+                    if (success && this.route.next) {
                         this.setScreen(this.route.next)
                     }
                 }
@@ -150,13 +141,41 @@
                     this.setScreen(this.route.previous)
                 }
             },
+            resetAppointment: call('appointments/reset'),
+            resetInstitution: call('institutions/reset'),
+            async saveAppointment () {
+                try {
+                    const verb = this.fields.ID ? 'update' : 'create'
+                    const appointment = await api.post(`appointment/${verb}`, this.fields)
+                    this.appointment = { ...this.appointment, ...appointment }
+                    this.appointmentId = appointment.ID
+                    return true
+                } catch (err) {
+                    this.formError = err
+                    return false
+                }
+            },
+            async saveInstitution () {
+                try {
+                    const institution = await api.post('institution/create', this.institution)
+                    this.appointmentInstitution = institution.ID
+                    return true
+                } catch (err) {
+                    this.formError = err
+                    return false
+                }
+            },
             setScreen (num) {
                 this.screen = num
             },
-            async updateAppointment (num) {
+            async submitAppointment () {
                 try {
                     const appointment = await api.post('appointment/update', this.fields)
                     this.appointment = { ...this.appointment, ...appointment }
+                    await api.post('appointment/advance_step', { ID: this.appointmentId })
+                    this.$refs.form.$v.$reset()
+                    await this.resetInstitution()
+                    this.$refs.modal.open()
                     return true
                 } catch (err) {
                     this.formError = err
