@@ -46,7 +46,6 @@
 </template>
 
 <script>
-    import { required } from 'vuelidate/lib/validators'
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { get, sync } from 'vuex-pathify'
 
@@ -56,7 +55,7 @@
     import { api, constant } from '../utils'
 
     const AdditionalData = () => import(/* webpackChunkName: 'additional-data-step' */ '../components/AdditionalData.vue')
-    const GroupsAdditionalInfo = () => import(/* webpackChunkName: 'groups-additional-info-step' */ '../components/GroupAdditionalInfo.vue')
+    const GroupsAdditionalInfo = () => import(/* webpackChunkName: 'groups-additional-info-step' */ '../components/GroupsAdditionalInfo.vue')
 
     const routes = {
         5: {
