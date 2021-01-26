@@ -46,6 +46,7 @@ function action__template_redirects()
 {
     $controller_name = \get_query_var('iande_controller');
     $action = \get_query_var('iande_action');
+    $action = \str_replace('-', '_', $action);
 
     if (!$action || !$controller_name) {
         return;

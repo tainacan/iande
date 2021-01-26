@@ -14,6 +14,7 @@ import createStore from './store'
 library.add(faAddressCard, faCalendar, faClock)
 library.add(faAngleLeft, faAngleRight, faBars, faCheck, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers)
 
+const ChangePasswordPage = () => import(/* webpackChunkName: 'change-password-page' */ './pages/change-password.vue')
 const ConfirmAppointmentPage = () => import(/* webpackChunkName: 'confirm-appointment-page' */ './pages/confirm-appointment.vue')
 const CreateAppointmentPage = () => import(/* webpackChunkName: 'create-appointment-page' */ './pages/create-appointment.vue')
 const CreateUserPage = () => import(/* webpackChunkName: 'create-user-page' */ './pages/create-user.vue')
@@ -28,6 +29,7 @@ Vue.use(VueAsyncComputed)
 Vue.use(Vuelidate)
 Vue.use(Vuex)
 
+Vue.component('iande-change-password-page', ChangePasswordPage)
 Vue.component('iande-confirm-appointment-page', ConfirmAppointmentPage)
 Vue.component('iande-create-appointment-page', CreateAppointmentPage)
 Vue.component('iande-create-user-page', CreateUserPage)

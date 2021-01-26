@@ -19,17 +19,6 @@
                     <label class="iande-label" for="phone">Telefone</label>
                     <MaskedInput id="phone" type="tel" :mask="phoneMask" placeholder="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
                 </div>
-                <p class="iande-password-notice">
-                    Deixe os campos a seguir vazios para manter a senha atual
-                </p>
-                <div>
-                    <label class="iande-label" for="password">Senha</label>
-                    <Input id="password" type="password" v-model="password" :validations="$v.password"/>
-                </div>
-                <div>
-                    <label class="iande-label" for="confirmPassword">Confirmar senha</label>
-                    <Input id="confirmPassword" type="password" v-model="confirmPassword" :validations="$v.confirmPassword"/>
-                </div>
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ formError }}</span>
                 </div>
@@ -42,7 +31,7 @@
 </template>
 
 <script>
-    import { email, minLength, required, sameAs } from 'vuelidate/lib/validators'
+    import { email, required } from 'vuelidate/lib/validators'
     import { get } from 'vuex-pathify'
 
     import Input from '../components/Input.vue'
@@ -58,12 +47,10 @@
         },
         data () {
             return {
-                confirmPassword: '',
                 email: '',
                 firstName: '',
                 formError: '',
                 lastName: '',
-                password: '',
                 phone: '',
             }
         },
@@ -72,11 +59,9 @@
             user: get('user/user'),
         },
         validations: {
-            confirmPassword: { minChar: minLength(6), samePassword: sameAs('password') },
             email: { email, required },
             firstName: { required },
             lastName: { required },
-            password: { minChar: minLength(6) },
             phone: { required, phone },
         },
         watch: {
@@ -99,16 +84,8 @@
                             last_name: this.lastName,
                             phone: this.phone,
                         }
-                        if (this.password) {
-                            payload.password = this.password
-                        }
                         const user = await api.post('user/edit', payload)
-                        if (this.password) {
-                            await api.post('user/logout')
-                            window.location.assign(`${window.IandeSettings.iandeUrl}/user/login`)
-                        } else {
-                            window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
-                        }
+                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
                     } catch (err) {
                         this.formError = err
                     }

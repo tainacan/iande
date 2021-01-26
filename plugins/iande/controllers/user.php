@@ -72,6 +72,18 @@ class User extends Controller
     }
 
     /**
+     * Renderiza a página de alteração de senha
+     *
+     * @param array $params
+     * @return void
+     */
+    function view_change_password(array $params = [])
+    {
+        $this->require_authentication();
+        $this->render('change-password');
+    }
+
+    /**
      * Verifica se o usuário está logado
      *
      * @return void
@@ -165,7 +177,7 @@ class User extends Controller
         }
 
         if (strlen($params['password']) < 6) {
-            $this->error(__('Já senha deve ter no mínimo seis caracteres', 'iande'));
+            $this->error(__('A senha deve ter no mínimo seis caracteres', 'iande'));
         }
 
         if (!filter_var($params['email'], FILTER_VALIDATE_EMAIL)) {
@@ -227,10 +239,6 @@ class User extends Controller
             $this->error(__('O endereço de email informado não é um endereço de emaill válido', 'iande'));
         }
 
-        if (!empty($params['password']) && strlen($params['password']) < 6) {
-            $this->error(__('Já senha deve ter no mínimo seis caracteres', 'iande'));
-        }
-
         \do_action('iande.before_create_user', $params);
 
         $updated_user_id = \wp_update_user([
@@ -248,11 +256,37 @@ class User extends Controller
 
         \update_user_meta($updated_user_id, 'phone', $params['phone']);
 
-        if (!empty($params['password'])) {
-            \wp_set_password($params['password'], $updated_user_id);
+        \do_action('iande.after_create_user', $updated_user_id);
+
+        $this->success($this->parse_user(\wp_get_current_user()));
+    }
+
+    /**
+     * Altera a senha do usuário atual
+     *
+     * @param array $params
+     *
+     * @action iande.before_edit_user
+     * @action iande.after_edit_user
+     *
+     * @return void
+     */
+    function endpoint_change_password(array $params = []) {
+        $this->require_authentication();
+
+        $user_id = \get_current_user_id();
+
+        if (!empty($params['password']) && strlen($params['password']) < 6) {
+            $this->error(__('A senha deve ter no mínimo seis caracteres', 'iande'));
         }
 
-        \do_action('iande.after_create_user', $updated_user_id);
+        \do_action('iande.before_change_password', $params);
+
+        if (!empty($params['password'])) {
+            \wp_set_password($params['password'], $user_id);
+        }
+
+        \do_action('iande.after_change_password', $user_id);
 
         $this->success($this->parse_user(\wp_get_current_user()));
     }

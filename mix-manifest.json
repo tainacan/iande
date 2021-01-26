@@ -4,6 +4,7 @@
     "/plugins/iande/dist/appointment-agenda.js": "/plugins/iande/dist/appointment-agenda.js",
     "/plugins/iande/dist/status-metabox.js": "/plugins/iande/dist/status-metabox.js",
     "/plugins/iande/dist/estados-municipios.js": "/plugins/iande/dist/estados-municipios.js",
+    "/plugins/iande/dist/change-password-page.js": "/plugins/iande/dist/change-password-page.js",
     "/plugins/iande/dist/confirm-appointment-page.js": "/plugins/iande/dist/confirm-appointment-page.js",
     "/plugins/iande/dist/create-appointment-page.js": "/plugins/iande/dist/create-appointment-page.js",
     "/plugins/iande/dist/create-user-page.js": "/plugins/iande/dist/create-user-page.js",
