@@ -26,7 +26,7 @@ add_action( 'admin_enqueue_scripts', 'appointment_enqueue_scripts' );
  */
 function status_metaboxes($post)
 {
-    if ($post->post_status == 'pending') {
+    if ($post->post_status === 'pending' || $post->post_status === 'publish') {
         add_meta_box('status_metaboxes', __('Status', 'iande'), 'build_status_metabox', 'appointment', 'side', 'low');
     }
 }
@@ -41,7 +41,7 @@ function build_status_metabox($post)
 {
 ?>
     <div class="iande-admin-app">
-        <iande-status-metabox id="<?php echo get_the_ID(); ?>"></iande-status-metabox>
+        <iande-status-metabox id="<?php echo get_the_ID(); ?>" post-status="<?php echo get_post_status($post) ?>"></iande-status-metabox>
     </div>
 <?php
 }

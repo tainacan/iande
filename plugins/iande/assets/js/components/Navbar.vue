@@ -17,6 +17,7 @@
                         </a>
                         <ul>
                             <li><a :href="`${iandeUrl}/user/edit`">Editar usuário</a></li>
+                            <li><a :href="`${iandeUrl}/user/change-password`">Alterar senha</a></li>
                             <li><a href="javascript:void(0)" role="button" tabindex="0" @click="logout">Logout</a></li>
                         </ul>
                     </li>

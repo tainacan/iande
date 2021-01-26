@@ -1,6 +1,6 @@
 <template>
     <div class="iande-status-metabox">
-        <button type="button" class="button button-primary button-large" @click="publish">
+        <button type="button" class="button button-primary button-large" @click="publish" v-if="postStatus !== 'publish'">
             Confirmar agendamento
         </button>
         <div>
@@ -23,6 +23,7 @@
         name: 'StatusMetabox.vue',
         props: {
             id: { type: [Number, String], required: true },
+            postStatus: { type: String, required: true },
         },
         data () {
             return {
