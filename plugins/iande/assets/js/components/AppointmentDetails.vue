@@ -119,7 +119,7 @@
                 </template>
             </div>
             <div class="iande-appointment__buttons">
-                <button class="iande-button solid" @click="cancelAppointment" v-if="editable">
+                <button class="iande-button solid" @click="cancelAppointment" v-if="cancelable">
                     Cancelar reserva
                     <Icon icon="times"/>
                 </button>
@@ -178,6 +178,9 @@
             },
         },
         computed: {
+            cancelable () {
+                return this.appointment.post_status !== 'canceled'
+            },
             city () {
                 if (!this.institution) {
                     return null
