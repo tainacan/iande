@@ -1,8 +1,9 @@
-const mix = require('laravel-mix');
+const mix = require('laravel-mix')
+const path = require('path')
 
-const rootDir = 'plugins/iande/'
+const rootDir = 'src/'
 const assetsDir = rootDir + 'assets/'
-const distDir = rootDir + 'dist/'
+const distDir = 'dist/'
 
 mix.js(assetsDir + 'js/admin.js', distDir)
     .js(assetsDir + 'js/app.js', distDir)
@@ -20,7 +21,8 @@ mix.js(assetsDir + 'js/admin.js', distDir)
     .webpackConfig(webpack => ({
         output: {
             chunkFilename: distDir + '[name].js',
-            publicPath: '/wp-content/',
+            path: path.resolve(__dirname, rootDir),
+            publicPath: '/wp-content/plugins/iande/',
         },
         plugins: [
             new webpack.EnvironmentPlugin({
