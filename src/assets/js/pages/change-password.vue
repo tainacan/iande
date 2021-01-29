@@ -57,7 +57,7 @@
                         const payload = {
                             password: this.password,
                         }
-                        const user = await api.post('user/edit', payload)
+                        const user = await api.post('user/change-password', payload)
                         await api.post('user/logout')
                         window.location.assign(`${window.IandeSettings.iandeUrl}/user/login`)
                     } catch (err) {
