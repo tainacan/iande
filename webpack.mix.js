@@ -26,7 +26,6 @@ mix.js(assetsDir + 'js/admin.js', distDir)
         },
         plugins: [
             new webpack.EnvironmentPlugin({
-                BUILD: 'web',
                 NODE_ENV: process.env.NODE_ENV,
             }),
         ]
