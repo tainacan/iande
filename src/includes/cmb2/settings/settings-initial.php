@@ -12,7 +12,9 @@ function iande_settings()
         'option_key'   => 'iande',
         'tab_group'    => 'iande_tabs',
         'tab_title'    => __('Iandé', 'iande'),
-        'save_button'  => esc_html__('Salvar opções', 'iande')
+        'save_button'  => esc_html__('Salvar opções', 'iande'),
+        'icon_url'     => IANDE_PLUGIN_BASEURL . '/assets/img/iande-menu-icon.svg',
+//      'icon_url'     => 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(IANDE_PLUGIN_BASEURL . '/assets/img/iande-menu-icon-pb.svg')),
     ];
 
     $iande_initial_options = new_cmb2_box($args);
