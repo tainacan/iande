@@ -15,5 +15,5 @@ function mtime($filename)
 function enqueue_assets()
 {
     \wp_enqueue_style('iande', IANDE_PLUGIN_DISTURL . 'app.css', [], mtime('app.css'));
-    \wp_enqueue_script('iande', IANDE_PLUGIN_DISTURL . 'app.js', [], mtime('app.js'), true);
+    \wp_enqueue_script('iande', IANDE_PLUGIN_DISTURL . 'app.js', ['wp-i18n'], mtime('app.js'), true);
 }
