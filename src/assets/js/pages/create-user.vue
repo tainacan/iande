@@ -14,12 +14,12 @@
                 <div>
                     <div class="iande-label">Faça login para começar:</div>
                     <div class="iande-form-grid">
-                        <Input id="firstName" type="text" placeholder="Nome" aria-label="Primeiro nome" v-model="firstName" :validations="$v.firstName"/>
-                        <Input id="lastName" type="text" placeholder="Sobrenome" aria-label="Sobrenome" v-model="lastName" :validations="$v.lastName"/>
-                        <Input id="email" type="email" placeholder="E-mail" aria-label="E-mail" v-model="email" :validations="$v.email"/>
-                        <MaskedInput id="phone" type="tel" :mask="phoneMask" placeholder="DDD + Telefone" aria-label="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
-                        <Input id="password" type="password" placeholder="senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
-                        <Input id="confirmPassword" type="password" placeholder="Confirmar senha" aria-label="Confirmar senha" v-model="confirmPassword" :validations="$v.confirmPassword"/>
+                        <Input id="firstName" type="text" autocomplete="given-name" placeholder="Nome" aria-label="Primeiro nome" v-model="firstName" :validations="$v.firstName"/>
+                        <Input id="lastName" type="text" autocomplete="family-name" placeholder="Sobrenome" aria-label="Sobrenome" v-model="lastName" :validations="$v.lastName"/>
+                        <Input id="email" type="email" autocomplete="email" placeholder="E-mail" aria-label="E-mail" v-model="email" :validations="$v.email"/>
+                        <MaskedInput id="phone" type="tel" autocomplete="tel-national" :mask="phoneMask" placeholder="DDD + Telefone" aria-label="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
+                        <Input id="password" type="password" autocomplete="new-password" placeholder="Senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
+                        <Input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirmar senha" aria-label="Confirmar senha" v-model="confirmPassword" :validations="$v.confirmPassword"/>
                     </div>
                 </div>
                 <div class="iande-stack stack-md">
