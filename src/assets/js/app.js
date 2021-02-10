@@ -9,6 +9,7 @@ import Vuelidate from 'vuelidate'
 import Vuex from 'vuex'
 
 import Navbar from './components/Navbar.vue'
+import WpI18n from './plugins/wp-i18n'
 import createStore from './store'
 
 library.add(faAddressCard, faCalendar, faClock)
@@ -28,6 +29,7 @@ const LoginPage = () => import(/* webpackChunkName: 'login-page' */ './pages/log
 Vue.use(VueAsyncComputed)
 Vue.use(Vuelidate)
 Vue.use(Vuex)
+Vue.use(WpI18n)
 
 Vue.component('iande-change-password-page', ChangePasswordPage)
 Vue.component('iande-confirm-appointment-page', ConfirmAppointmentPage)
