@@ -47,7 +47,7 @@
             StepsIndicator,
         },
         props: {
-            next: { type: String, default: '/iande/appointment/list' },
+            next: { type: String, default: '/iande/user/welcome' },
             resetPassword: { type: String, default: '#' }
         },
         data () {

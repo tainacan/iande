@@ -6,6 +6,6 @@
         $next = $_GET['next'];
     }
 ?>
-<iande-login-page next="<?= $next ?>" reset-password="<?= wp_lostpassword_url(get_site_url(null, '/iande/appointment/list')) ?>"></iande-login-page>
+<iande-login-page next="<?= $next ?>" reset-password="<?= wp_lostpassword_url(get_site_url(null, '/iande/user/welcome')) ?>"></iande-login-page>
 
 <?php require 'parts/footer.php'; ?>

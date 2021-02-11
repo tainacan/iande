@@ -85,7 +85,7 @@
                             phone: this.phone,
                         }
                         const user = await api.post('user/edit', payload)
-                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
+                        window.location.assign(`${window.IandeSettings.iandeUrl}/user/welcome`)
                     } catch (err) {
                         this.formError = err
                     }

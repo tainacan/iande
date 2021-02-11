@@ -9,8 +9,8 @@
             </a>
             <nav :class="showMenu || 'hidden'" v-if="isLoggedIn">
                 <ul>
-                    <li><a :href="`${iandeUrl}/appointment/list`">Seus agendamentos</a></li>
-                    <li><a :href="`${iandeUrl}/institution/list`">Suas instituições</a></li>
+                    <li><a :href="`${iandeUrl}/appointment/list`">Agendamentos</a></li>
+                    <li><a :href="`${iandeUrl}/institution/list`">Instituições</a></li>
                     <li class="iande-navbar__dropdown">
                         <a href="javascript:void(0)" role="button" tabindex="0" aria-label="Usuário">
                             <Icon icon="user"/>

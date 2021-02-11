@@ -25,6 +25,7 @@ const EditUserPage = () => import(/* webpackChunkName: 'edit-user-page' */ './pa
 const ListAppointmentsPage = () => import(/* webpackChunkName: 'list-appointments-page' */ './pages/list-appointments.vue')
 const ListInstitutionsPage = () => import(/* webpackChunkName: 'list-institutions-page' */ './pages/list-institutions.vue')
 const LoginPage = () => import(/* webpackChunkName: 'login-page' */ './pages/login.vue')
+const WelcomePage = () => import(/* webpackChunkName: 'welcome-page */ './pages/welcome.vue')
 
 Vue.use(VueAsyncComputed)
 Vue.use(Vuelidate)
@@ -42,6 +43,7 @@ Vue.component('iande-list-appointments-page', ListAppointmentsPage)
 Vue.component('iande-list-institutions-page', ListInstitutionsPage)
 Vue.component('iande-login-page', LoginPage)
 Vue.component('iande-navbar', Navbar)
+Vue.component('iande-welcome-page', WelcomePage)
 
 new Vue({
     el: '#iande-app',

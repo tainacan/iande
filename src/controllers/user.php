@@ -45,7 +45,7 @@ class User extends Controller
      */
     function view_login(array $params = [])
     {
-        $this->render('login', ['next' => '/iande/appointment/list']);
+        $this->render('login', ['next' => '/iande/user/welcome']);
     }
 
     /**
@@ -81,6 +81,18 @@ class User extends Controller
     {
         $this->require_authentication();
         $this->render('change-password');
+    }
+
+    /**
+     * Renderiza a página de boas-vindas
+     *
+     * @param array $params
+     * @return void
+    */
+    function view_welcome(array $params = [])
+    {
+        $this->require_authentication();
+        $this->render('welcome');
     }
 
     /**
