@@ -25,7 +25,7 @@ const EditUserPage = () => import(/* webpackChunkName: 'edit-user-page' */ './pa
 const ListAppointmentsPage = () => import(/* webpackChunkName: 'list-appointments-page' */ './pages/list-appointments.vue')
 const ListInstitutionsPage = () => import(/* webpackChunkName: 'list-institutions-page' */ './pages/list-institutions.vue')
 const LoginPage = () => import(/* webpackChunkName: 'login-page' */ './pages/login.vue')
-const WelcomePage = () => import(/* webpackChunkName: 'welcome-page */ './pages/welcome.vue')
+const WelcomePage = () => import(/* webpackChunkName: 'welcome-page' */ './pages/welcome.vue')
 
 Vue.use(VueAsyncComputed)
 Vue.use(Vuelidate)

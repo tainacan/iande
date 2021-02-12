@@ -4,20 +4,11 @@
     border-radius: var(--iande-border-radius);
 
     &__title {
+        align-items: center;
         background-color: var(--iande-primary-color);
-        border-radius: var(--iande-border-radius);
-        font-size: 1em;
-        margin: 0;
-
-        a {
-            align-items: center;
-            color: var(--iande-secondary-color);
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 20px;
-            text-decoration: none;
-            width: 100%;
-        }
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 20px;
     }
 
     &__description {

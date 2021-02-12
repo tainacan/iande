@@ -1,7 +1,9 @@
 .iande-modal {
     background-color: var(--iande-background-color);
     border-radius: var(--iande-border-radius);
+    max-height: 100%;
     max-width: 30em;
+    overflow-y: auto;
     padding: 20px;
 
     &__wrapper {

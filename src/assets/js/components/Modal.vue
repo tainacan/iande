@@ -7,7 +7,9 @@
                     <Icon icon="times"/>
                 </div>
             </div>
-            <slot/>
+            <div class="iande-modal__content">
+                <slot/>
+            </div>
         </div>
     </div>
     <div v-else/>
