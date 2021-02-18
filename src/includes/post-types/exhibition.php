@@ -349,7 +349,7 @@ function get_exhibition_metadata_definition() {
                 ],
             ]
         ],
-        'group_size' => (object) [
+        'min_group_size' => (object) [
             'type'       => 'integer',
             'required'   => false,
             'validation' => function ($value) {
@@ -360,7 +360,28 @@ function get_exhibition_metadata_definition() {
                 }
             },
             'metabox' => (object) [
-                'name' => __('Tamanho (máximo) dos grupos', 'iande'),
+                'name' => __('Tamanho mínimo dos grupos', 'iande'),
+                'type'       => 'text',
+                'attributes' => [
+                    'type' => 'number',
+                    'min'  => '0',
+                ],
+            ]
+        ],
+        'group_size' => (object) [
+            'type'       => 'integer',
+            'required'   => false,
+            'validation' => function ($value, $params) {
+                if (!is_numeric($value)) {
+                    return __('O valor informado não é um número válido', 'iande');
+                } else if ($params['min_group_size'] && $value < $params['min_group_size']) {
+                    return __('O tamanho deve ser igual ou maior do que o tamanho mínimo', 'iande');
+                } else {
+                    return true;
+                }
+            },
+            'metabox' => (object) [
+                'name' => __('Tamanho máximo dos grupos', 'iande'),
                 'type'       => 'text',
                 'attributes' => [
                     'type' => 'number',
