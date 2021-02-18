@@ -22,14 +22,14 @@
         </div>
         <div>
             <label class="iande-label" for="numPeople">Quantidade prevista de pessoas</label>
-            <Input id="numPeople" type="number" min="5" placeholder="Mínimo de 5 pessoas" :disabled="groupsCreated" v-model.number="numPeople" :validations="$v.numPeople"/>
+            <Input id="numPeople" type="number" :min="minPeople" :placeholder="`Mínimo de ${minPeople} pessoas`" :disabled="groupsCreated" v-model.number="numPeople" :validations="$v.numPeople"/>
             <p class="text-sm">Caso seu grupo seja maior do que a capacidade de atendimento do museu, mais grupos serão criados automaticamente</p>
         </div>
     </div>
 </template>
 
 <script>
-    import { integer, required } from 'vuelidate/lib/validators'
+    import { integer, minValue, required } from 'vuelidate/lib/validators'
     import { get, sync } from 'vuex-pathify'
 
     import Input from './Input.vue'
@@ -60,14 +60,19 @@
             groupsCreated () {
                 return this.groups.length > 0
             },
+            minPeople () {
+                return this.exhibition ? this.exhibition.min_group_size: 5
+            },
             purposeOptions: constant(window.IandeSettings.purposes)
         },
-        validations: {
-            exhibitionId: { required },
-            name: { },
-            numPeople: { integer, required },
-            purpose: { required },
-            purposeOther: { },
+        validations () {
+            return {
+                exhibitionId: { required },
+                name: { },
+                numPeople: { integer, minValue: minValue(this.minPeople), required },
+                purpose: { required },
+                purposeOther: { },
+            }
         },
         watch: {
             exhibitions: {
