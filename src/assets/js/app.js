@@ -3,6 +3,7 @@ import '../scss/app.scss'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAddressCard, faCalendar, faClock } from '@fortawesome/free-regular-svg-icons'
 import { faAngleLeft, faAngleRight, faBars, faCheck, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
+import PortalVue from 'portal-vue'
 import Vue from 'vue'
 import VueAsyncComputed from 'vue-async-computed'
 import Vuelidate from 'vuelidate'
@@ -25,8 +26,10 @@ const EditUserPage = () => import(/* webpackChunkName: 'edit-user-page' */ './pa
 const ListAppointmentsPage = () => import(/* webpackChunkName: 'list-appointments-page' */ './pages/list-appointments.vue')
 const ListInstitutionsPage = () => import(/* webpackChunkName: 'list-institutions-page' */ './pages/list-institutions.vue')
 const LoginPage = () => import(/* webpackChunkName: 'login-page' */ './pages/login.vue')
+const TainacanDemoPage = () => import(/* webpackChunkName: 'tainacan-demo' */ './pages/tainacan-demo.vue')
 const WelcomePage = () => import(/* webpackChunkName: 'welcome-page' */ './pages/welcome.vue')
 
+Vue.use(PortalVue)
 Vue.use(VueAsyncComputed)
 Vue.use(Vuelidate)
 Vue.use(Vuex)
@@ -43,9 +46,10 @@ Vue.component('iande-list-appointments-page', ListAppointmentsPage)
 Vue.component('iande-list-institutions-page', ListInstitutionsPage)
 Vue.component('iande-login-page', LoginPage)
 Vue.component('iande-navbar', Navbar)
+Vue.component('iande-tainacan', TainacanDemoPage)
 Vue.component('iande-welcome-page', WelcomePage)
 
 new Vue({
     el: '#iande-app',
-    store: createStore()
+    store: createStore(),
 })
