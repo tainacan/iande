@@ -16,8 +16,8 @@
             }
         },
         mounted () {
-            this.unsubscribe = onIandeEvent((type, data) => {
-                console.log(type, data)
+            this.unsubscribe = onIandeEvent((type, payload) => {
+                console.log(type, payload)
             })
         },
         beforeDestroy () {
