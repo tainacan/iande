@@ -89,15 +89,15 @@ function iande_remove_default_scripts()
     if(is_iande_page()) {
         global $wp_scripts;
 
-        $allowedScripts = ['iande', 'tainacan-search'];
+        $allowedScripts = ['iande', 'iande-tainacan', 'tainacan-search'];
 
-        foreach ($wp_scripts->queue as $script) :
+        foreach ($wp_scripts->queue as $script) {
 
             if (!in_array($script, $allowedScripts)) {
                 \wp_dequeue_script($script);
             }
 
-        endforeach;
+        }
     }
 
 }
@@ -172,3 +172,19 @@ function iande_settings_init() {
     \flush_rewrite_rules();
 
 }
+
+function register_custom_view_modes ($helper) {
+    if (function_exists('tainacan_register_view_mode')) {
+        $helper->register_vuejs_component('demo-iande', IANDE_PLUGIN_DISTURL . 'tainacan-view-modes.js', ['public' => true, 'deps' => ['wp-i18n']], null, true);
+
+        \tainacan_register_view_mode('demo-iande', [
+            'label' => 'Iandé',
+			'icon' 					=> '<span class="icon"><i><svg fill="var(--tainacan-info-color, #555758)" xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M8.492 6.074h7.016v11.852H8.492zM4.943 7.477h2.806v9.046H4.943zM16.251 7.477h2.807v9.046H16.25zM19.8 8.442h1.884v7.116h-1.883zM2.316 8.442h1.883v7.116H2.316z"/></svg></i></span>',
+            'type' 					=> 'component',
+			'component' 			=> 'demo-iande',
+			'dynamic_metadata' 		=> true,
+			'implements_skeleton' 	=> true
+        ]);
+    }
+}
+\add_action('tainacan-register-vuejs-component', 'IandePlugin\\register_custom_view_modes');

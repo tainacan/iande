@@ -1,7 +1,6 @@
 <template>
-    <div class="iande-container mt-lg">
+    <div class="iande-container mt-lg iande-stack stack-lg">
         <h1>Tainacan demo</h1>
-        <portal-target name="tainacan-view"/>
     </div>
 </template>
 

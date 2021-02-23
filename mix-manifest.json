@@ -1,6 +1,7 @@
 {
     "/dist/admin.js": "/dist/admin.js",
     "/dist/app.js": "/dist/app.js",
+    "/dist/tainacan-view-modes.js": "/dist/tainacan-view-modes.js",
     "/dist/appointment-agenda.js": "/dist/appointment-agenda.js",
     "/dist/status-metabox.js": "/dist/status-metabox.js",
     "/dist/estados-municipios.js": "/dist/estados-municipios.js",

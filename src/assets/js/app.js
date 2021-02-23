@@ -3,7 +3,6 @@ import '../scss/app.scss'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAddressCard, faCalendar, faClock } from '@fortawesome/free-regular-svg-icons'
 import { faAngleLeft, faAngleRight, faBars, faCheck, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
-import PortalVue from 'portal-vue'
 import Vue from 'vue'
 import VueAsyncComputed from 'vue-async-computed'
 import Vuelidate from 'vuelidate'
@@ -29,7 +28,6 @@ const LoginPage = () => import(/* webpackChunkName: 'login-page' */ './pages/log
 const TainacanDemoPage = () => import(/* webpackChunkName: 'tainacan-demo' */ './pages/tainacan-demo.vue')
 const WelcomePage = () => import(/* webpackChunkName: 'welcome-page' */ './pages/welcome.vue')
 
-Vue.use(PortalVue)
 Vue.use(VueAsyncComputed)
 Vue.use(Vuelidate)
 Vue.use(Vuex)

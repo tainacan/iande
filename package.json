@@ -38,7 +38,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/vue-fontawesome": "^0.1.10",
     "luxon": "^1.25.0",
-    "portal-vue": "^2.1.7",
     "v-tooltip": "^2.1.2",
     "vue": "^2.6.12",
     "vue-async-computed": "^3.9.0",

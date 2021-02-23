@@ -3,10 +3,8 @@
 
 <iande-tainacan></iande-tainacan>
 
-<portal-target to="tainacan-view">
-    <div class="iande-container" v-once>
-        <div id="tainacan-items-page"></div>
-    </div>
-</portal-target>
+<div class="iande-container">
+    <?php tainacan_the_faceted_search(['default_view_mode' => 'demo-iande']); ?>
+</div>
 
 <?php require 'parts/footer.php'; ?>
