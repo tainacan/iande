@@ -427,6 +427,25 @@ function get_exhibition_metadata_definition() {
                 ],
             ]
         ],
+        'days_advance' => (object) [
+            'type'       => 'integer',
+            'required'   => false,
+            'validation' => function ($value) {
+                if (is_numeric($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado não é um número válido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name' => __('Antecedência mínima (em dias)', 'iande'),
+                'type'       => 'text',
+                'attributes' => [
+                    'type' => 'number',
+                    'min'  => '0',
+                ],
+            ]
+        ],
 
         'monday' => (object) [
             'type'       => 'text',

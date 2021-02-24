@@ -5,7 +5,6 @@
 </template>
 
 <script>
-    import { DateTime, Interval } from 'luxon'
     import { get } from 'vuex-pathify'
 
     import Select from './Select.vue'
