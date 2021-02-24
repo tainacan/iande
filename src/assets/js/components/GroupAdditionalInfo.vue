@@ -3,7 +3,7 @@
         <h2 class="iande-group-title">Grupo {{ n }}: {{ value.name }}</h2>
         <div>
             <label :for="`${id}_numPeople`" class="iande-label">Quantidade prevista de pessoas<span class="iande-label__optional">Máximo de {{ maxPeople }} pessoas</span></label>
-            <Input :id="`${id}_numPeople`" type="number" min="5" :max="maxPeople" placeholder="Mínimo de 5 pessoas" v-model.number="numPeople" :validations="validations.num_people"/>
+            <Input :id="`${id}_numPeople`" type="number" :min="minPeople" :max="maxPeople" :placeholder="`Mínimo de ${minPeople} pessoas`" v-model.number="numPeople" :validations="validations.num_people"/>
         </div>
         <div>
             <label :for="`${id}_ageRange`" class="iande-label">Perfil etário</label>
@@ -97,7 +97,10 @@
             exhibition: get('appointments/exhibition'),
             languages: subModel('languages'),
             maxPeople () {
-                return this.exhibition ? this.exhibition.group_size : 100
+                return this.exhibition?.group_size ? Number(this.exhibition.group_size) : 100
+            },
+            minPeople () {
+                return this.exhibition?.min_group_size ? Number(this.exhibition.mingroup_size) : 5
             },
             n () {
                 return Number(this.id.split('_').pop()) + 1

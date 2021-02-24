@@ -61,7 +61,7 @@
                 return this.groups.length > 0
             },
             minPeople () {
-                return this.exhibition ? this.exhibition.min_group_size: 5
+                return this.exhibition?.min_group_size ? Number(this.exhibition.min_group_size) : 5
             },
             purposeOptions: constant(window.IandeSettings.purposes)
         },
