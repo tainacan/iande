@@ -6,15 +6,14 @@ function iande_settings()
 
     $args = [
         'id'           => 'iande_options_page',
-        'title'        => __('Iandé', 'iande'),
+        'title'        => __('Configurações', 'iande'),
         'object_types' => ['options-page'],
         'capability'   => 'manage_iande_options',
         'option_key'   => 'iande',
+        'parent_slug'  => 'iande-main-menu',
         'tab_group'    => 'iande_tabs',
-        'tab_title'    => __('Iandé', 'iande'),
+        'tab_title'    => __('Configurações', 'iande'),
         'save_button'  => esc_html__('Salvar opções', 'iande'),
-        'icon_url'     => IANDE_PLUGIN_BASEURL . '/assets/img/iande-menu-icon.svg',
-//      'icon_url'     => 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(IANDE_PLUGIN_BASEURL . '/assets/img/iande-menu-icon-pb.svg')),
     ];
 
     $iande_initial_options = new_cmb2_box($args);

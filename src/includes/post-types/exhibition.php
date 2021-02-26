@@ -20,7 +20,7 @@ function register_post_type_exhibition()
         'new_item'           => __('Novo Exposição', 'iande'),
         'edit_item'          => __('Editar Exposição', 'iande'),
         'view_item'          => __('Ver Exposição', 'iande'),
-        'all_items'          => __('Todos os Exposições', 'iande'),
+        'all_items'          => _x('Exposições', 'all items', 'iande'),
         'search_items'       => __('Buscar Exposições', 'iande'),
         'parent_item_colon'  => __('Exposições Pais:', 'iande'),
         'not_found'          => __('Nenhuma Exposição encontrada.', 'iande'),
@@ -33,7 +33,7 @@ function register_post_type_exhibition()
         'public'             => true,
         'publicly_queryable' => true,
         'show_ui'            => true,
-        'show_in_menu'       => true,
+        'show_in_menu'       => 'iande-main-menu',
         'query_var'          => true,
         'rewrite'            => ['slug' => 'exhibition'],
         'capability_type'    => 'exhibition',
@@ -420,6 +420,25 @@ function get_exhibition_metadata_definition() {
             },
             'metabox' => (object) [
                 'name'       => __('Intervalo entre os horários de atendimento', 'iande'),
+                'type'       => 'text',
+                'attributes' => [
+                    'type' => 'number',
+                    'min'  => '0',
+                ],
+            ]
+        ],
+        'days_advance' => (object) [
+            'type'       => 'integer',
+            'required'   => false,
+            'validation' => function ($value) {
+                if (is_numeric($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado não é um número válido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name' => __('Antecedência mínima (em dias)', 'iande'),
                 'type'       => 'text',
                 'attributes' => [
                     'type' => 'number',

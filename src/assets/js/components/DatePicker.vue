@@ -13,8 +13,6 @@
     import CustomField from './mixins/CustomField'
     import { getWorkingHours } from '../utils/agenda'
 
-    const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-
     export default {
         name: 'DatePicker',
         components: {
@@ -35,7 +33,12 @@
             },
             disabledDates () {
                 const customPredictor = this.disabledDatesPredictor
-                const to = DateTime.fromObject({ hour: 0, minute: 0, second: 0, millisecond: 0 }).toJSDate()
+                const daysInAdvance = this.exhibition?.days_advance ? Number(this.exhibition.days_advance) : 1
+                const to = DateTime
+                    .fromObject({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+                    .plus({ days: daysInAdvance })
+                    .toJSDate()
+                console.log(to)
                 return { customPredictor, to }
             },
             dateValue: {
