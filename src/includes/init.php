@@ -192,7 +192,7 @@ function redirect_to_iande_frontend () {
     $menu_redirect = isset($_GET['page']) ? $_GET['page'] : '';
 
     if ($menu_redirect === 'iande_frontend') {
-        \wp_safe_redirect(get_site_url(null, '/iande/appointment/list'));
+        \wp_safe_redirect(get_site_url(null, '/iande/'));
         exit;
     }
 }
