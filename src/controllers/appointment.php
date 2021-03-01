@@ -182,13 +182,23 @@ class Appointment extends Controller
                 \update_post_meta($params['ID'], 'reason_cancel', __('Cancelado pelo usuário', 'iande'), '');
             }
 
-            $update_appointment = array(
+            $update_appointment = [
                 'ID'          => $params['ID'],
                 'post_status' => 'canceled'
-            );
+            ];
             \wp_update_post($update_appointment);
 
             $groups = \get_post_meta($params['ID'], 'groups', true);
+
+            if (!empty($groups) && is_array($groups)) {
+                foreach ($groups as $group) {
+                    $update_group = [
+                        'ID'          => $group,
+                        'post_status' => 'canceled'
+                    ];
+                    \wp_update_post($update_group);
+                }
+            }
 
             // envia o e-mail de cancelamento para o responsavel do agendamento
             $email_params = [
@@ -479,7 +489,7 @@ class Appointment extends Controller
                         } elseif ($interval > 4) {
                             \wp_schedule_single_event(strtotime('-2 days', strtotime($event_date)), 'send_email_reminder', [$email_params]);
                         }
-                        
+
                     }
 
                     \update_post_meta($params['ID'], 'confirmation_sent', '1');
@@ -741,7 +751,7 @@ class Appointment extends Controller
      *
      */
     function set_appointment_groups($appointment_id, $groups = []) {
-        
+
         $metadata_definition = get_group_metadata_definition();
 
         $group_to_appointment = [];
@@ -812,7 +822,7 @@ class Appointment extends Controller
 
         if (!empty($group_to_appointment)) {
             \update_post_meta($appointment_id, 'groups', $group_to_appointment);
-        }        
+        }
 
     }
 
@@ -851,7 +861,7 @@ class Appointment extends Controller
             );
             \wp_update_post($post);
         }
-        
+
     }
 
     /**
@@ -893,7 +903,7 @@ class Appointment extends Controller
      * @return string
      */
     function get_author_email($post_id) {
-        return \get_the_author_meta('user_email', \get_post($post_id)->post_author);        
+        return \get_the_author_meta('user_email', \get_post($post_id)->post_author);
     }
 
 }
