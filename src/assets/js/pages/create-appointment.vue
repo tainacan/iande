@@ -65,17 +65,20 @@
             action: 'saveAppointment',
             previous: 1,
             next: 3,
+            validatePrevious: true,
         },
         3: {
             component: SelectInstitution,
             action: 'submitAppointment',
             previous: 2,
+            validatePrevious: true,
         },
         4: {
             component: CreateInstitution,
             action: 'saveInstitution',
             previous: 3,
             next: 3,
+            validatePrevious: false,
         },
     }
 
@@ -137,7 +140,7 @@
             },
             previousStep () {
                 this.formError = ''
-                if (this.route.previous) {
+                if (!this.route.validatePrevious || this.isFormValid()) {
                     this.setScreen(this.route.previous)
                 }
             },
