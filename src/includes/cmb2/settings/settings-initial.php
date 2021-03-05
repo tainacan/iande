@@ -36,4 +36,10 @@ function iande_settings()
         ]
     ]);
 
+    // ReCaptcha
+    // $iande_initial_options->add_field([
+    //     'name' => __('Configurações de CAPTCHA', 'iande'),
+    //     'id'   => 'recaptcha_heading',
+    //     'type' => 'title'
+    // ]);
 }

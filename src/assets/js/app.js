@@ -6,6 +6,7 @@ import { faAngleLeft, faAngleRight, faBars, faCheck, faMapMarkerAlt, faMinusCirc
 import Vue from 'vue'
 import VueAsyncComputed from 'vue-async-computed'
 import Vuelidate from 'vuelidate'
+import { VueReCaptcha } from 'vue-recaptcha-v3'
 import Vuex from 'vuex'
 
 import Navbar from './components/Navbar.vue'
@@ -28,6 +29,7 @@ const LoginPage = () => import(/* webpackChunkName: 'login-page' */ './pages/log
 
 Vue.use(VueAsyncComputed)
 Vue.use(Vuelidate)
+Vue.use(VueReCaptcha, { siteKey: '' })
 Vue.use(Vuex)
 Vue.use(WpI18n)
 

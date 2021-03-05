@@ -9,7 +9,7 @@
     "hot": "mix watch --hot",
     "prod": "mix --production",
     "prod:watch": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --watch --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "npm run prod:watch"
+    "watch": "npm run dev:watch"
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,7 @@
     "vue-cal": "^3.10.0",
     "vue-global-events": "^1.2.1",
     "vue-local-scope": "0.0.1",
+    "vue-recaptcha-v3": "^1.9.0",
     "vue-the-mask": "^0.11.1",
     "vuejs-datepicker": "^1.6.2",
     "vuelidate": "^0.7.6",
