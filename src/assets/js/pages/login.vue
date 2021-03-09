@@ -71,9 +71,15 @@
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
                     try {
+                        let recaptchaToken = undefined
+                        if (window.IandeSettings.recaptchaKey) {
+                            await this.$recaptchaLoaded()
+                            recaptchaToken = await this.$recaptcha('login')
+                        }
                         const user = await api.post('user/login', {
                             email: this.email,
-                            password: this.password
+                            password: this.password,
+                            recaptcha: recaptchaToken,
                         })
                         await this.$store.set('user/user', user)
                         window.location.assign(`${window.IandeSettings.siteUrl}${this.next}`)

@@ -56,7 +56,7 @@
     import { api, constant, isOther, watchForOther } from '../utils'
     import { phone } from '../utils/validators'
 
-    const requireExemption = window.IandeSettings.use_exemption === 'yes'
+    const requireExemption = window.IandeSettings.useExemption === 'yes'
 
     export default {
         name: 'SelectInstitution',

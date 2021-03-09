@@ -35,6 +35,7 @@ require 'includes/cmb2.php';
 require 'includes/post-types.php';
 require 'includes/roles.php';
 require 'includes/assets.php';
+require 'includes/captcha.php';
 require 'includes/templates.php';
 require 'includes/routes.php';
 require 'includes/csv.php';

@@ -50,6 +50,13 @@ function iande_institution_settings() {
     $age_range        = cmb2_get_option('iande_institution', 'institution_age_range', []);
     $scholarity       = cmb2_get_option('iande_institution', 'institution_scholarity', []);
     $use_exemption    = cmb2_get_option('iande', 'use_exemption', 'no');
+    $recaptcha_keys   = IandePlugin\compute_recaptcha_keys();
+
+    if (!empty($recaptcha_keys)) {
+        $recaptcha_public_key = $recaptcha_keys->public;
+    } else {
+        $recaptcha_public_key = null;
+    }
 
     wp_localize_script(
         'iande',
@@ -65,7 +72,8 @@ function iande_institution_settings() {
             'languages'        => $language,
             'ageRanges'        => $age_range,
             'scholarity'       => $scholarity,
-            'use_exemption'    => $use_exemption
+            'useExemption'     => $use_exemption,
+            'recaptchaKey'     => $recaptcha_public_key,
         ]
     );
 }

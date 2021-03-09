@@ -6,10 +6,10 @@ import { faAngleLeft, faAngleRight, faBars, faCheck, faMapMarkerAlt, faMinusCirc
 import Vue from 'vue'
 import VueAsyncComputed from 'vue-async-computed'
 import Vuelidate from 'vuelidate'
-import { VueReCaptcha } from 'vue-recaptcha-v3'
 import Vuex from 'vuex'
 
 import Navbar from './components/Navbar.vue'
+import IandePlugin from './plugins/iande'
 import WpI18n from './plugins/wp-i18n'
 import createStore from './store'
 
@@ -27,9 +27,9 @@ const ListAppointmentsPage = () => import(/* webpackChunkName: 'list-appointment
 const ListInstitutionsPage = () => import(/* webpackChunkName: 'list-institutions-page' */ './pages/list-institutions.vue')
 const LoginPage = () => import(/* webpackChunkName: 'login-page' */ './pages/login.vue')
 
+Vue.use(IandePlugin)
 Vue.use(VueAsyncComputed)
 Vue.use(Vuelidate)
-Vue.use(VueReCaptcha, { siteKey: '' })
 Vue.use(Vuex)
 Vue.use(WpI18n)
 

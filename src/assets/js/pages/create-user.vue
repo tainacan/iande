@@ -80,12 +80,18 @@
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
                     try {
+                        let recaptchaToken = undefined
+                        if (window.IandeSettings.recaptchaKey) {
+                            await this.$recaptchaLoaded()
+                            recaptchaToken = await this.$recaptcha('login')
+                        }
                         const user = await api.post('user/create', {
                             email: this.email,
                             first_name: this.firstName,
                             last_name: this.lastName,
                             password: this.password,
-                            phone: this.phone
+                            phone: this.phone,
+                            recaptcha: recaptchaToken,
                         })
                         await this.$store.set('user/user', user)
                         window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/create`)
