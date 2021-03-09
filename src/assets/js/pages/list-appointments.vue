@@ -16,14 +16,14 @@
                         </label>
                     </div>
                 </fieldset>
-                <a class="iande-button small outline" :href="`${iandeUrl}/appointment/create`" v-if="appointments.length > 0">
+                <a class="iande-button small outline" :href="$iandeUrl('appointment/create')" v-if="appointments.length > 0">
                     <Icon icon="plus-circle"/>
                     Criar novo agendamento
                 </a>
             </div>
             <AppointmentDetails v-for="appointment in filteredAppointments" :key="appointment.ID" :appointment="appointment"/>
             <div class="iande-container narrow">
-                <a class="iande-button outline" :href="`${iandeUrl}/appointment/create`">
+                <a class="iande-button outline" :href="$iandeUrl('appointment/create')">
                     <Icon icon="plus-circle"/>
                     Criar novo agendamento
                 </a>
@@ -38,7 +38,7 @@
     import { sync } from 'vuex-pathify'
 
     import AppointmentDetails from '../components/AppointmentDetails'
-    import { api, constant, sortBy } from '../utils'
+    import { api, sortBy } from '../utils'
 
     export default {
         name: 'ListAppointmentsPage',
@@ -65,7 +65,6 @@
                     })
                 }
             },
-            iandeUrl: constant(window.IandeSettings.iandeUrl),
             institutions: sync('institutions/list'),
             sortedAppointments () {
                 return this.appointments.sort(sortBy(appointment => appointment.date))

@@ -2,7 +2,7 @@
     <article id="iande-login" class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
             <h1>Boas vindas!</h1>
-            <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ siteName }}.</p>
+            <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ $iande.siteName }}.</p>
             <p>Para agendar uma visita é simples. Basta você se logar e informar os dados solicitados nas 3 etapas a seguir:</p>
         </div>
 
@@ -26,7 +26,7 @@
                         <span>{{ formError }}</span>
                     </div>
                     <button class="iande-button primary" type="submit">Fazer login</button>
-                    <a class="iande-button outline" :href="`${iandeUrl}/user/create`">Criar login</a>
+                    <a class="iande-button outline" :href="$iandeUrl('user/create')">Criar login</a>
                 </div>
             </form>
         </div>
@@ -38,7 +38,7 @@
 
     import Input from '../components/Input.vue'
     import StepsIndicator from '../components/StepsIndicator.vue'
-    import{ api, constant } from '../utils'
+    import{ api } from '../utils'
 
     export default {
         name: 'LoginPage',
@@ -57,10 +57,6 @@
                 password: '',
             }
         },
-        computed: {
-            iandeUrl: constant(window.IandeSettings.iandeUrl),
-            siteName: constant(window.IandeSettings.siteName),
-        },
         validations: {
             email: { required },
             password: { required },
@@ -72,7 +68,7 @@
                 if (!this.$v.$invalid) {
                     try {
                         let recaptchaToken = undefined
-                        if (window.IandeSettings.recaptchaKey) {
+                        if (this.$iande.recaptchaKey) {
                             await this.$recaptchaLoaded()
                             recaptchaToken = await this.$recaptcha('login')
                         }
@@ -82,7 +78,7 @@
                             recaptcha: recaptchaToken,
                         })
                         await this.$store.set('user/user', user)
-                        window.location.assign(`${window.IandeSettings.siteUrl}${this.next}`)
+                        window.location.assign(`${this.$iande.siteUrl}${this.next}`)
                     } catch (err) {
                         this.formError = err
                     }

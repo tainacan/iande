@@ -2,7 +2,7 @@
     <article id="iande-login" class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
             <h1>Boas vindas!</h1>
-            <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ siteName }}.</p>
+            <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ $iande.siteName }}.</p>
             <p>Para agendar uma visita é simples. Basta você se logar e informar os dados solicitados nas 3 etapas a seguir:</p>
         </div>
 
@@ -27,7 +27,7 @@
                         <span>{{ formError }}</span>
                     </div>
                     <button class="iande-button primary" type="submit">Criar login</button>
-                    <a class="iande-button outline" :href="`${iandeUrl}/user/login`">Já tenho login</a>
+                    <a class="iande-button outline" :href="$iandeUrl('user/login')">Já tenho login</a>
                 </div>
             </form>
         </div>
@@ -62,9 +62,7 @@
             }
         },
         computed: {
-            iandeUrl: constant(window.IandeSettings.iandeUrl),
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
-            siteName: constant(window.IandeSettings.siteName),
         },
         validations: {
             confirmPassword: { required, minChar: minLength(6), samePassword: sameAs('password') },
@@ -81,7 +79,7 @@
                 if (!this.$v.$invalid) {
                     try {
                         let recaptchaToken = undefined
-                        if (window.IandeSettings.recaptchaKey) {
+                        if (this.$iande.recaptchaKey) {
                             await this.$recaptchaLoaded()
                             recaptchaToken = await this.$recaptcha('login')
                         }
@@ -94,7 +92,7 @@
                             recaptcha: recaptchaToken,
                         })
                         await this.$store.set('user/user', user)
-                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/create`)
+                        window.location.assign(this.$iandeUrl('appointment/create'))
                     } catch (err) {
                         this.formError = err
                     }

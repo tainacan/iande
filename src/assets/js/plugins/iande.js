@@ -3,7 +3,7 @@ const $iande = window.IandeSettings
 export default {
     install (Vue) {
         Vue.prototype.$iande = $iande
-        Vue.prototype.$iandeUrl = (suffix = '') => `${$iande.$iandeUrl}${suffix}`
+        Vue.prototype.$iandeUrl = (suffix = '') => `${$iande.iandeUrl}/${suffix}`
 
         if ($iande.recaptchaKey) {
             const location = window.location.href

@@ -2,7 +2,7 @@
     <div class="iande-stack stack-lg">
         <div>
             <label :for="`${id}_name`" class="iande-label">Qual idioma?</label>
-            <Select :id="`${id}_name`" v-model="name" :validations="validations.languages_name" :options="languageOptions"/>
+            <Select :id="`${id}_name`" v-model="name" :validations="validations.languages_name" :options="$iande.languages"/>
         </div>
         <div v-if="isOther(name)">
             <label :for="`${id}_other`" class="iande-label">Especifique o idioma</label>
@@ -15,7 +15,7 @@
     import Input from './Input.vue'
     import Select from './Select.vue'
     import CustomField from './mixins/CustomField'
-    import { constant, isOther, subModel, watchForOther } from '../utils'
+    import { isOther, subModel, watchForOther } from '../utils'
 
     export default {
         name: 'LanguageInfo',
@@ -25,7 +25,6 @@
         },
         mixins: [CustomField],
         computed: {
-            languageOptions: constant(window.IandeSettings.languages),
             name: subModel('languages_name'),
             other: subModel('languages_other'),
         },

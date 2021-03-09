@@ -12,7 +12,7 @@
         </div>
         <div>
             <label class="iande-label" for="profile">Perfil da instituição</label>
-            <Select id="profile" placeholder="Selecione o perfil da instituição" v-model="profile" :validations="$v.profile" :options="profileOptions"/>
+            <Select id="profile" placeholder="Selecione o perfil da instituição" v-model="profile" :validations="$v.profile" :options="$iande.profiles"/>
         </div>
         <div v-if="isOther(profile)">
             <label class="iande-label" for="profileOther">Especifique o perfil da instituição</label>
@@ -128,7 +128,6 @@
             },
             cnpjMask: constant('##.###.###/####-##'),
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
-            profileOptions: constant(window.IandeSettings.profiles),
             stateOptions () {
                 const entries = Object.keys(this.states)
                     .map(state => [state, state])

@@ -15,7 +15,7 @@
                         <Icon icon="angle-left"/>
                         Voltar
                     </button>
-                    <a class="iande-button solid" v-else :href="`${iandeUrl}/appointment/list`">
+                    <a class="iande-button solid" v-else :href="$iandeUrl('appointment/list')">
                         <Icon icon="angle-left"/>
                         Voltar
                     </a>
@@ -32,7 +32,7 @@
                 <h1>Preenchimento finalizado</h1>
                 <p>Agradecemos pelo seu tempo em completar detalhadamente todas as etapas do agendamento. Você pode revisar o agendamento ou já enviar a solicitação para o museu.</p>
                 <div class="iande-form-grid">
-                    <a class="iande-button solid" :href="`${iandeUrl}/appointment/list`">
+                    <a class="iande-button solid" :href="$iandeUrl('appointment/list')">
                         Revisar informações
                     </a>
                     <button class="iande-button primary" @click="finishAppointment">
@@ -52,7 +52,7 @@
     import AppointmentSuccessModal from '../components/AppointmentSuccessModal.vue'
     import Modal from '../components/Modal.vue'
     import StepsIndicator from '../components/StepsIndicator.vue'
-    import { api, constant } from '../utils'
+    import { api } from '../utils'
 
     const AdditionalData = () => import(/* webpackChunkName: 'additional-data-step' */ '../components/AdditionalData.vue')
     const GroupsAdditionalInfo = () => import(/* webpackChunkName: 'groups-additional-info-step' */ '../components/GroupsAdditionalInfo.vue')
@@ -87,7 +87,6 @@
         computed: {
             appointment: sync('appointments/current'),
             fields: get('appointments/filteredFields'),
-            iandeUrl: constant(window.IandeSettings.iandeUrl),
             route () {
                 return routes[this.screen]
             },
@@ -132,7 +131,7 @@
                 return !formComponent.$v.$invalid
             },
             listAppointments () {
-                window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
+                window.location.assign(this.$iandeUrl('appointment/list'))
             },
             async nextStep () {
                 this.formError = ''

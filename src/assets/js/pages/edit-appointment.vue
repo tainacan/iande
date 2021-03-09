@@ -79,7 +79,7 @@
                     try {
                         const result = await api.post('appointment/update', this.fields)
                         await this.resetAppointment()
-                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
+                        window.location.assign(this.$iandeUrl('appointment/list'))
                     } catch (err) {
                         this.formError = err
                     }

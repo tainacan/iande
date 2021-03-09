@@ -7,11 +7,11 @@
         </div>
         <div>
             <label :for="`${id}_ageRange`" class="iande-label">Perfil etário</label>
-            <Select :id="`${id}_ageRange`" v-model="ageRange" :validations="validations.age_range" :options="ageRangeOptions"/>
+            <Select :id="`${id}_ageRange`" v-model="ageRange" :validations="validations.age_range" :options="$iande.ageRanges"/>
         </div>
         <div>
             <label :for="`${id}_scholarity`" class="iande-label">Escolaridade</label>
-            <Select :id="`${id}_scholarity`" v-model="scholarity" :validations="validations.scholarity" :options="scholarityOptions"/>
+            <Select :id="`${id}_scholarity`" v-model="scholarity" :validations="validations.scholarity" :options="$iande.scholarity"/>
         </div>
         <div>
             <label :for="`${id}_numResponsible`" class="iande-label">Quantidade prevista de responsáveis</label>
@@ -91,7 +91,6 @@
         },
         computed: {
             ageRange: subModel('age_range'),
-            ageRangeOptions: constant(window.IandeSettings.ageRanges),
             binaryOptions: constant({ 'Não': false, 'Sim': true }),
             disabilities: subModel('disabilities'),
             exhibition: get('appointments/exhibition'),
@@ -109,7 +108,6 @@
             numPeople: subModel('num_people'),
             numResponsible: subModel('num_responsible'),
             scholarity: subModel('scholarity'),
-            scholarityOptions: constant(window.IandeSettings.scholarity),
         },
         validations: {
             haveDisabilities: { },
