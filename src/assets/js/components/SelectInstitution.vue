@@ -26,7 +26,7 @@
         <template v-if="!institutionOptional">
             <div>
                 <label class="iande-label" for="role">Informe sua relação com a instituição</label>
-                <Select id="role" v-model="role" :validations="$v.role" :options="roleOptions" />
+                <Select id="role" v-model="role" :validations="$v.role" :options="$iande.responsibleRoles" />
             </div>
             <div v-if="isOther(role)">
                 <label class="iande-label" for="roleOther">Especifique sua relação com a instituição</label>
@@ -56,7 +56,7 @@
     import { api, constant, isOther, watchForOther } from '../utils'
     import { phone } from '../utils/validators'
 
-    const requireExemption = window.IandeSettings.use_exemption === 'yes'
+    const requireExemption = window.IandeSettings.useExemption === 'yes'
 
     export default {
         name: 'SelectInstitution',
@@ -103,7 +103,6 @@
             }),
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
             requireExemption: constant(requireExemption),
-            roleOptions: constant(window.IandeSettings.responsibleRoles),
             user: get('user/user'),
         },
         validations: {
@@ -114,7 +113,7 @@
             lastName: { required },
             nature: { required },
             phone: { required, phone },
-            requestedExemption:requireExemption ? { required } : { },
+            requestedExemption: requireExemption ? { required } : { },
             role: { required: requiredUnless('institutionOptional') },
             roleOther: { },
         },

@@ -604,7 +604,7 @@ function get_appointment_metadata_definition() {
 function avoid_deleting_appointment() {
     global $post;
 
-    if ($post->post_type === 'appointment' && in_array($post->post_status, ['pending', 'publish'])) {
+    if (!empty($post) && $post->post_type === 'appointment' && in_array($post->post_status, ['pending', 'publish'])) {
         wp_die(__('Agendamento não pode ser deletado. Tente cancelá-lo, em vez disso.', 'iande'));
     }
 }

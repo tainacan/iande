@@ -3,7 +3,7 @@
         <h1>Sobre a visita</h1>
         <div>
             <label class="iande-label" for="purpose">Qual o objetivo da visita?</label>
-            <Select id="purpose" v-model="purpose" :validations="$v.purpose" :options="purposeOptions"/>
+            <Select id="purpose" v-model="purpose" :validations="$v.purpose" :options="$iande.purposes"/>
         </div>
         <div v-if="isOther(purpose)">
             <label class="iande-label" for="purposeOther">Especifique o objetivo da visita</label>
@@ -34,7 +34,7 @@
 
     import Input from './Input.vue'
     import Select from './Select.vue'
-    import { constant, isOther, watchForOther } from '../utils'
+    import { isOther, watchForOther } from '../utils'
 
     export default {
         name: 'SelectExhibition',
@@ -63,7 +63,6 @@
             minPeople () {
                 return this.exhibition?.min_group_size ? Number(this.exhibition.min_group_size) : 5
             },
-            purposeOptions: constant(window.IandeSettings.purposes)
         },
         validations () {
             return {

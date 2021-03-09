@@ -13,7 +13,7 @@
                     <h2>{{ name }}</h2>
                     <div class="iande-appointment__info">
                         <Icon icon="map-marker-alt"/>
-                        <span>{{ siteName }} / #{{ appointment.ID }}</span>
+                        <span>{{ $iande.siteName }} / #{{ appointment.ID }}</span>
                     </div>
                     <div class="iande-appointment__info">
                         <Icon :icon="['far', 'clock']"/>
@@ -123,7 +123,7 @@
                     Cancelar reserva
                     <Icon icon="times"/>
                 </button>
-                <a class="iande-button primary" :href="`${iandeUrl}/appointment/confirm?ID=${appointment.ID}`" v-if="editable && appointment.step == 2">
+                <a class="iande-button primary" :href="$iandeUrl(`appointment/confirm?ID=${appointment.ID}`)" v-if="editable && appointment.step == 2">
                     Confirmar reserva
                     <Icon icon="check"/>
                 </a>
@@ -148,7 +148,7 @@
 
     import AppointmentSuccessModal from './AppointmentSuccessModal.vue'
     import StepsIndicator from './StepsIndicator.vue'
-    import { api, constant, formatCep, formatPhone, isOther, sortBy } from '../utils'
+    import { api, formatCep, formatPhone, isOther, sortBy } from '../utils'
     import { getInterval } from '../utils/agenda'
 
     const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
@@ -206,7 +206,6 @@
                 const hours = this.appointment.groups.map(group => group.hour)
                 return [...new Set(hours)].sort().join(', ')
             },
-            iandeUrl: constant(window.IandeSettings.iandeUrl),
             institution () {
                 return this.institutions.find(institution => institution.ID == this.appointment.institution_id)
             },
@@ -239,7 +238,6 @@
                     return this.appointment.responsible_role
                 }
             },
-            siteName: constant(window.IandeSettings.siteName),
         },
         methods: {
             async cancelAppointment () {
@@ -263,7 +261,7 @@
             },
             formatPhone,
             gotoScreen (screen) {
-                return `${window.IandeSettings.iandeUrl}/appointment/edit?ID=${this.appointment.ID}&screen=${screen}`
+                return this.$iandeUrl(`appointment/edit?ID=${this.appointment.ID}&screen=${screen}`)
             },
             groupDisabilities (disabilities) {
                 if (disabilities.length === 0) {

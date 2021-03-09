@@ -9,6 +9,7 @@ import Vuelidate from 'vuelidate'
 import Vuex from 'vuex'
 
 import Navbar from './components/Navbar.vue'
+import IandePlugin from './plugins/iande'
 import WpI18n from './plugins/wp-i18n'
 import createStore from './store'
 
@@ -28,6 +29,7 @@ const LoginPage = () => import(/* webpackChunkName: 'login-page' */ './pages/log
 const TainacanDemoPage = () => import(/* webpackChunkName: 'tainacan-demo' */ './pages/tainacan-demo.vue')
 const WelcomePage = () => import(/* webpackChunkName: 'welcome-page' */ './pages/welcome.vue')
 
+Vue.use(IandePlugin)
 Vue.use(VueAsyncComputed)
 Vue.use(Vuelidate)
 Vue.use(Vuex)

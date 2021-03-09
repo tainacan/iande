@@ -29,10 +29,10 @@
                 <h1>Reserva enviada com sucesso!</h1>
                 <p>Uma reserva de data e horário foi enviada ao museu, mas para garantir o agendamento é necessário completar formulário com mais informações.</p>
                 <div class="iande-form-grid">
-                    <a class="iande-button solid" :href="`${iandeUrl}/appointment/list`">
+                    <a class="iande-button solid" :href="$iandeUrl('appointment/list')">
                         Ver agendamentos
                     </a>
-                    <a class="iande-button primary" :href="`${iandeUrl}/appointment/confirm?ID=${appointmentId}`">
+                    <a class="iande-button primary" :href="$iandeUrl(`appointment/confirm?ID=${appointmentId}`)">
                         Completar reserva
                     </a>
                 </div>
@@ -47,7 +47,7 @@
 
     import Modal from '../components/Modal.vue'
     import StepsIndicator from '../components/StepsIndicator.vue'
-    import { api, constant } from '../utils'
+    import { api } from '../utils'
 
     const CreateInstitution = () => import(/* webpackChunkName: 'create-institution-step' */ '../components/CreateInstitution.vue')
     const GroupsDate = () => import(/* webpackChunkName: 'groups-date-step' */ '../components/GroupsDate.vue')
@@ -65,17 +65,20 @@
             action: 'saveAppointment',
             previous: 1,
             next: 3,
+            validatePrevious: true,
         },
         3: {
             component: SelectInstitution,
             action: 'submitAppointment',
             previous: 2,
+            validatePrevious: true,
         },
         4: {
             component: CreateInstitution,
             action: 'saveInstitution',
             previous: 3,
             next: 3,
+            validatePrevious: false,
         },
     }
 
@@ -97,7 +100,6 @@
             appointmentId: sync('appointments/current@ID'),
             appointmentInstitution: sync('appointments/current@institution_id'),
             fields: get('appointments/filteredFields'),
-            iandeUrl: constant(window.IandeSettings.iandeUrl),
             institution: sync('institutions/current'),
             institutions: sync('institutions/list'),
             route () {
@@ -124,7 +126,7 @@
                 return !formComponent.$v.$invalid
             },
             listAppointments () {
-                window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
+                window.location.assign(this.$iandeUrl('appointment/list'))
             },
             async nextStep () {
                 this.formError = ''
@@ -137,7 +139,7 @@
             },
             previousStep () {
                 this.formError = ''
-                if (this.route.previous) {
+                if (!this.route.validatePrevious || this.isFormValid()) {
                     this.setScreen(this.route.previous)
                 }
             },

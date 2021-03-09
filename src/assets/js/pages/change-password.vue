@@ -59,7 +59,7 @@
                         }
                         const user = await api.post('user/change-password', payload)
                         await api.post('user/logout')
-                        window.location.assign(`${window.IandeSettings.iandeUrl}/user/login`)
+                        window.location.assign(this.$iandeUrl('user/login'))
                     } catch (err) {
                         this.formError = err
                     }

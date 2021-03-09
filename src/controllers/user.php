@@ -143,6 +143,18 @@ class User extends Controller
             $this->error(__('Informe a senha', 'iande'));
         }
 
+        if (!empty(compute_recaptcha_keys())) {
+
+            if (empty($params['recaptcha'])) {
+                $this->error(__('Preencha o Captcha', 'iande'));
+            }
+
+            if (!verify_recaptcha($params['recaptcha'])) {
+                $this->error(__('Captcha inválido', 'iande'));
+            }
+
+        }
+
         \do_action('iande.login_before', $params);
 
         $user = wp_signon(['user_login' => $params['email'], 'user_password' => $params['password']]);
@@ -195,6 +207,19 @@ class User extends Controller
         if (!filter_var($params['email'], FILTER_VALIDATE_EMAIL)) {
             $this->error(__('O endereço de email informado não é um endereço de emaill válido', 'iande'));
         }
+
+        if (!empty(compute_recaptcha_keys())) {
+
+            if (empty($params['recaptcha'])) {
+                $this->error(__('Preencha o Captcha', 'iande'));
+            }
+
+            if (!verify_recaptcha($params['recaptcha'])) {
+                $this->error(__('Captcha inválido', 'iande'));
+            }
+
+        }
+
 
         if (\get_user_by('email', $params['email'])) {
             $this->error(__('Já existe um usuário com este endereço de email', 'iande'));

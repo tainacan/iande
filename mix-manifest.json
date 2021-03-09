@@ -1,7 +1,6 @@
 {
     "/dist/admin.js": "/dist/admin.js",
     "/dist/app.js": "/dist/app.js",
-    "/dist/tainacan-view-modes.js": "/dist/tainacan-view-modes.js",
     "/dist/appointment-agenda.js": "/dist/appointment-agenda.js",
     "/dist/status-metabox.js": "/dist/status-metabox.js",
     "/dist/estados-municipios.js": "/dist/estados-municipios.js",
@@ -15,8 +14,6 @@
     "/dist/list-appointments-page.js": "/dist/list-appointments-page.js",
     "/dist/list-institutions-page.js": "/dist/list-institutions-page.js",
     "/dist/login-page.js": "/dist/login-page.js",
-    "/dist/tainacan-demo.js": "/dist/tainacan-demo.js",
-    "/dist/welcome-page.js": "/dist/welcome-page.js",
     "/dist/additional-data-step.js": "/dist/additional-data-step.js",
     "/dist/groups-additional-info-step.js": "/dist/groups-additional-info-step.js",
     "/dist/create-institution-step.js": "/dist/create-institution-step.js",
@@ -24,5 +21,8 @@
     "/dist/select-institution-step.js": "/dist/select-institution-step.js",
     "/dist/select-exhibition-step.js": "/dist/select-exhibition-step.js",
     "/dist/app.css": "/dist/app.css",
-    "/dist/admin.css": "/dist/admin.css"
+    "/dist/admin.css": "/dist/admin.css",
+    "/dist/vue-recaptcha-v3.js": "/dist/vue-recaptcha-v3.js",
+    "/dist/tainacan-demo.js": "/dist/tainacan-demo.js",
+    "/dist/welcome-page.js": "/dist/welcome-page.js"
 }

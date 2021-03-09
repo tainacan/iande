@@ -2,22 +2,22 @@
     <header class="iande-navbar">
         <div class="iande-container iande-navbar__row">
             <div class="iande-navbar__site-name">
-                <img :src="`${pluginDir}/assets/img/iande-logo.png`" alt="Iandé"> + {{ siteName }}
+                <img :src="`${$iande.siteUrl}/wp-content/plugins/iande/assets/img/iande-logo.png`" alt="Iandé"> + {{ $iande.siteName }}
             </div>
             <a v-if="isLoggedIn" class="iande-navbar__toggle" href="javascript:void(0)" role="button" tabindex="0" :aria-label="showMenu ? 'Ocultar menu' : 'Exibir menu'" @click="toggleMenu">
                 <Icon icon="bars"/>
             </a>
             <nav :class="showMenu || 'hidden'" v-if="isLoggedIn">
                 <ul>
-                    <li><a :href="`${iandeUrl}/appointment/list`">Agendamentos</a></li>
-                    <li><a :href="`${iandeUrl}/institution/list`">Instituições</a></li>
+                    <li><a :href="$iandeUrl('appointment/list')">Agendamentos</a></li>
+                    <li><a :href="$iandeUrl('institution/list')">Instituições</a></li>
                     <li class="iande-navbar__dropdown">
                         <a href="javascript:void(0)" role="button" tabindex="0" aria-label="Usuário">
                             <Icon icon="user"/>
                         </a>
                         <ul>
-                            <li><a :href="`${iandeUrl}/user/edit`">Editar usuário</a></li>
-                            <li><a :href="`${iandeUrl}/user/change-password`">Alterar senha</a></li>
+                            <li><a :href="$iandeUrl('user/edit')">Editar usuário</a></li>
+                            <li><a :href="$iandeUrl('user/change-password')">Alterar senha</a></li>
                             <li><a href="javascript:void(0)" role="button" tabindex="0" @click="logout">Logout</a></li>
                         </ul>
                     </li>
@@ -31,7 +31,7 @@
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { sync } from 'vuex-pathify'
 
-    import { api, constant } from '../utils'
+    import { api } from '../utils'
 
     export default {
         name: 'Navbar',
@@ -46,9 +46,6 @@
         },
         computed: {
             exhibitions: sync('exhibitions/list'),
-            iandeUrl: constant(window.IandeSettings.iandeUrl),
-            siteName: constant(window.IandeSettings.siteName),
-            pluginDir: constant(`${window.IandeSettings.siteUrl}/wp-content/plugins/iande/`),
             user: sync('user/user'),
         },
         async beforeMount () {
@@ -68,7 +65,7 @@
             async logout () {
                 try {
                     await api.post('user/logout')
-                    window.location.assign(`${window.IandeSettings.iandeUrl}/user/login`)
+                    window.location.assign(this.$iandeUrl('user/login'))
                 } catch (err) {
                     console.error(err)
                 }
