@@ -10,6 +10,7 @@
         <span v-else-if="validations.time === false">Horário inválido</span>
         <span v-else-if="validations.integer === false">Valor não é número inteiro</span>
         <span v-else-if="validations.maxValue === false">Valor máximo é {{ validations.$params.maxValue.max }}</span>
+        <span v-else-if="validations.minValue === false">Valor mínimo é {{ validations.$params.minValue.min }}</span>
         <span v-else-if="validations.minChar === false">Campo tem que ter pelo menos {{ validations.$params.minChar.min }} caracteres</span>
         <span v-else-if="validations.minGroups === false">É necessário pelo menos um grupo</span>
     </div>

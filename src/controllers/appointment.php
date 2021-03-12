@@ -182,13 +182,23 @@ class Appointment extends Controller
                 \update_post_meta($params['ID'], 'reason_cancel', __('Cancelado pelo usuário', 'iande'), '');
             }
 
-            $update_appointment = array(
+            $update_appointment = [
                 'ID'          => $params['ID'],
                 'post_status' => 'canceled'
-            );
+            ];
             \wp_update_post($update_appointment);
 
             $groups = \get_post_meta($params['ID'], 'groups', true);
+
+            if (!empty($groups) && is_array($groups)) {
+                foreach ($groups as $group) {
+                    $update_group = [
+                        'ID'          => $group,
+                        'post_status' => 'canceled'
+                    ];
+                    \wp_update_post($update_group);
+                }
+            }
 
             // envia o e-mail de cancelamento para o responsavel do agendamento
             $email_params = [
@@ -479,7 +489,7 @@ class Appointment extends Controller
                         } elseif ($interval > 4) {
                             \wp_schedule_single_event(strtotime('-2 days', strtotime($event_date)), 'send_email_reminder', [$email_params]);
                         }
-                        
+
                     }
 
                     \update_post_meta($params['ID'], 'confirmation_sent', '1');
@@ -741,12 +751,14 @@ class Appointment extends Controller
      *
      */
     function set_appointment_groups($appointment_id, $groups = []) {
-        
+
         $metadata_definition = get_group_metadata_definition();
 
         $group_to_appointment = [];
 
         $exhibition_id = \get_post_meta($appointment_id, 'exhibition_id', true);
+
+        $this->check_availability($exhibition_id, $groups);
 
         foreach($groups as $each_group) {
 
@@ -765,12 +777,6 @@ class Appointment extends Controller
                     $meta_input['exhibition_id'] = $exhibition_id;
 
                 }
-
-                if(!isset($meta_input['date']) || empty($meta_input['date']) || !isset($meta_input['hour']) || empty($meta_input['hour'])) {
-                    $this->error(__('Data e horário são obrigatórios para criar um grupo', 'iande'));
-                }
-
-                $this->check_availability($exhibition_id, $meta_input['date'], $meta_input['hour']);
 
                 // Cria o título do grupo com informações do agendamento
                 // {nome-grupo} - {data} {horário}"
@@ -794,12 +800,6 @@ class Appointment extends Controller
 
             } else {
 
-                if (!isset($group['date']) || empty($group['date']) || !isset($group['hour']) || empty($group['hour'])) {
-                    $this->error(__('Data e horário são obrigatórios para editar um grupo', 'iande'));
-                }
-
-                $this->check_availability($exhibition_id, $group['date'], $group['hour']);
-
                 foreach ($group as $key => $value) {
                     \update_post_meta($group['ID'], $key, $value);
                 }
@@ -812,7 +812,7 @@ class Appointment extends Controller
 
         if (!empty($group_to_appointment)) {
             \update_post_meta($appointment_id, 'groups', $group_to_appointment);
-        }        
+        }
 
     }
 
@@ -851,7 +851,7 @@ class Appointment extends Controller
             );
             \wp_update_post($post);
         }
-        
+
     }
 
     /**
@@ -893,8 +893,92 @@ class Appointment extends Controller
      * @return string
      */
     function get_author_email($post_id) {
-        return \get_the_author_meta('user_email', \get_post($post_id)->post_author);        
+        return \get_the_author_meta('user_email', \get_post($post_id)->post_author);
+    }
+
+    /**
+     * Verifica se todos os grupos podem ser agendados simultaneamente
+     *
+     * @param integer $exhibition_id
+     * @param array   $groups
+     * @return void
+     */
+    protected function check_availability($exhibition_id, $groups) {
+
+        if (!is_numeric($exhibition_id) || intval($exhibition_id) != $exhibition_id) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        if (\get_post_type($exhibition_id) != 'exhibition') {
+            $this->error(__('O ID informado não é uma exposição válida', 'iande'));
+        }
+
+        // Pega o tamanho do slot (quantidade de grupos por horário)
+        $group_slots = \get_post_meta($exhibition_id, 'group_slot', true);
+
+        $agenda = [];
+
+        $group_ids = [];
+        foreach ($groups as $each_group) {
+            $group = (array) $each_group;
+
+            if ($group['ID']) {
+                $group_ids[] = (int) $group['ID'];
+            }
+        }
+
+        foreach ($groups as $each_group) {
+            $group = (array) $each_group;
+
+            if(!isset($group['date']) || empty($group['date']) || !isset($group['hour']) || empty($group['hour'])) {
+                $this->error(__('Data e horário são obrigatórios para um grupo', 'iande'));
+            }
+
+            $date = $group['date'];
+            $hour = $group['hour'];
+            $time = $date . ' ' . $hour;
+
+            if (!isset($agenda[$time])) {
+                $args = [
+                    'post_type'   => 'group',
+                    'numberposts' => -1,
+                    'post_status' => ['pending', 'publish'],
+                    'exclude'     => $group_ids,
+                    'fields'      => 'ids',
+                    'meta_query'  => [
+                        [
+                            'key'   => 'exhibition_id',
+                            'value' => $exhibition_id
+                        ],
+                        [
+                            'key'     => 'date',
+                            'value'   => $group['date'],
+                            'compare' => '=',
+                            'type'    => 'DATE'
+                        ],
+                        [
+                            'key'     => 'hour',
+                            'value'   => $group['hour'],
+                            'compare' => '='
+                        ]
+                    ]
+                ];
+
+                $time_groups = \get_posts($args);
+                $agenda[$time] = $time_groups;
+            }
+
+            if ($group['ID']) {
+                $agenda[$time][] = (int) $group['ID'];
+            } else {
+                $agenda[$time][] = -1;
+            }
+
+           // Se a quantidade de grupos for maior que o tamanho do slot, retorna erro
+            if (count($agenda[$time]) > $group_slots) {
+                $this->error(\sprintf(__('Horário indisponível nessa exposição: %s %s', 'iande'), date_format(date_create($date), 'd/m/Y'), $hour));
+            }
+        }
     }
 
 }
-

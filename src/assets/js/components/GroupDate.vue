@@ -25,7 +25,7 @@
     import Input from './Input.vue'
     import SlotPicker from './SlotPicker.vue'
     import CustomField from './mixins/CustomField'
-    import { constant, subModel } from '../utils'
+    import { subModel } from '../utils'
 
     export default {
         name: 'GroupDate',

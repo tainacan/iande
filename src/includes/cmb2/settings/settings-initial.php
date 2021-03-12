@@ -6,13 +6,14 @@ function iande_settings()
 
     $args = [
         'id'           => 'iande_options_page',
-        'title'        => __('Iandé', 'iande'),
+        'title'        => __('Configurações', 'iande'),
         'object_types' => ['options-page'],
         'capability'   => 'manage_iande_options',
         'option_key'   => 'iande',
+        'parent_slug'  => 'iande-main-menu',
         'tab_group'    => 'iande_tabs',
-        'tab_title'    => __('Iandé', 'iande'),
-        'save_button'  => esc_html__('Salvar opções', 'iande')
+        'tab_title'    => __('Configurações', 'iande'),
+        'save_button'  => esc_html__('Salvar opções', 'iande'),
     ];
 
     $iande_initial_options = new_cmb2_box($args);
@@ -35,4 +36,10 @@ function iande_settings()
         ]
     ]);
 
+    // ReCaptcha
+    // $iande_initial_options->add_field([
+    //     'name' => __('Configurações de CAPTCHA', 'iande'),
+    //     'id'   => 'recaptcha_heading',
+    //     'type' => 'title'
+    // ]);
 }

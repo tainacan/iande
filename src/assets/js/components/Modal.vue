@@ -1,8 +1,9 @@
 <template>
     <div class="iande-modal__wrapper" v-if="isOpen">
-        <div class="iande-modal" role="alertdialog">
+        <GlobalEvents @keyup.esc="close"/>
+        <div class="iande-modal" role="dialog" aria-modal="true" :aria-label="label" tabindex="-1">
             <div class="iande-modal__header">
-                <div class="iande-modal__close" role="button" tabindex="0" ref="button" aria-label="Fechar" @click="close">
+                <div class="iande-modal__close" role="button" tabindex="0" ref="button" aria-label="Fechar" @click="close" @keypress.enter="close">
                     <Icon icon="times"/>
                 </div>
             </div>
@@ -14,11 +15,16 @@
 
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+    import GlobalEvents from 'vue-global-events'
 
     export default {
         name: 'Modal',
         components: {
+            GlobalEvents,
             Icon: FontAwesomeIcon,
+        },
+        props: {
+            label: { type: String, default: 'Sucesso!' },
         },
         data () {
             return {

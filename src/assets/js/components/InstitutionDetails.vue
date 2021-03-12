@@ -11,7 +11,7 @@
                 <div class="iande-institution__box-title">
                     <h3><Icon icon="university"/>Instituição</h3>
                     <div class="iande-institution__edit">
-                        <a class="iande-institution__edit-link" :href="`${iandeUrl}/institution/edit?ID=${institution.ID}`">Editar</a>
+                        <a class="iande-institution__edit-link" :href="$iandeUrl(`institution/edit?ID=${institution.ID}`)">Editar</a>
                         <Icon icon="pencil-alt"/>
                     </div>
                 </div>
@@ -38,10 +38,9 @@
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-    import { constant, formatCep, formatCnpj, formatPhone, isOther } from '../utils'
+    import { formatCep, formatCnpj, formatPhone, isOther } from '../utils'
 
-    // Lazy-loading candidates
-    import municipios from '../../json/municipios.json'
+    const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
 
     export default {
         name: 'InstitutionDetails',
@@ -57,12 +56,19 @@
                 showDetails: false,
             }
         },
+        asyncComputed: {
+            cities: {
+                get () {
+                    return cities
+                },
+                default: {},
+            },
+        },
         computed: {
             city () {
                 const cityId = this.institution.city
-                return Object.entries(municipios).find(([key]) => key === cityId)[1]
+                return Object.entries(this.cities).find(([key]) => key === cityId)[1]
             },
-            iandeUrl: constant(window.IandeSettings.iandeUrl),
             name () {
                 if (this.institution.name) {
                     return this.institution.name
@@ -70,7 +76,6 @@
                     return `Instituição ${this.n}`
                 }
             },
-            siteName: constant(window.IandeSettings.siteName),
         },
         methods: {
             formatCep,

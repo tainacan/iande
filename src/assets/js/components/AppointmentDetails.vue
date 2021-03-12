@@ -13,7 +13,7 @@
                     <h2>{{ name }}</h2>
                     <div class="iande-appointment__info">
                         <Icon icon="map-marker-alt"/>
-                        <span>{{ siteName }} / #{{ appointment.ID }}</span>
+                        <span>{{ $iande.siteName }} / #{{ appointment.ID }}</span>
                     </div>
                     <div class="iande-appointment__info">
                         <Icon :icon="['far', 'clock']"/>
@@ -119,11 +119,11 @@
                 </template>
             </div>
             <div class="iande-appointment__buttons">
-                <button class="iande-button solid" @click="cancelAppointment" v-if="editable">
+                <button class="iande-button solid" @click="cancelAppointment" v-if="cancelable">
                     Cancelar reserva
                     <Icon icon="times"/>
                 </button>
-                <a class="iande-button primary" :href="`${iandeUrl}/appointment/confirm?ID=${appointment.ID}`" v-if="editable && appointment.step == 2">
+                <a class="iande-button primary" :href="$iandeUrl(`appointment/confirm?ID=${appointment.ID}`)" v-if="editable && appointment.step == 2">
                     Confirmar reserva
                     <Icon icon="check"/>
                 </a>
@@ -148,12 +148,10 @@
 
     import AppointmentSuccessModal from './AppointmentSuccessModal.vue'
     import StepsIndicator from './StepsIndicator.vue'
-    import { api, constant, formatCep, formatPhone, isOther, sortBy } from '../utils'
+    import { api, formatCep, formatPhone, isOther, sortBy } from '../utils'
     import { getInterval } from '../utils/agenda'
 
-    // Lazy-loading candidates
-    import municipios from '../../json/municipios.json'
-
+    const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
     const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 
     export default {
@@ -171,13 +169,24 @@
                 showDetails: false,
             }
         },
+        asyncComputed: {
+            cities: {
+                get () {
+                    return cities
+                },
+                default: {},
+            },
+        },
         computed: {
+            cancelable () {
+                return this.appointment.post_status !== 'canceled'
+            },
             city () {
                 if (!this.institution) {
                     return null
                 }
                 const cityId = this.institution.city
-                return Object.entries(municipios).find(([key]) => key === cityId)[1]
+                return Object.entries(this.cities).find(([key]) => key === cityId)[1]
             },
             day () {
                 const parts = this.firstGroup.date.split('-')
@@ -197,7 +206,6 @@
                 const hours = this.appointment.groups.map(group => group.hour)
                 return [...new Set(hours)].sort().join(', ')
             },
-            iandeUrl: constant(window.IandeSettings.iandeUrl),
             institution () {
                 return this.institutions.find(institution => institution.ID == this.appointment.institution_id)
             },
@@ -230,7 +238,6 @@
                     return this.appointment.responsible_role
                 }
             },
-            siteName: constant(window.IandeSettings.siteName),
         },
         methods: {
             async cancelAppointment () {
@@ -254,7 +261,7 @@
             },
             formatPhone,
             gotoScreen (screen) {
-                return `${window.IandeSettings.iandeUrl}/appointment/edit?ID=${this.appointment.ID}&screen=${screen}`
+                return this.$iandeUrl(`appointment/edit?ID=${this.appointment.ID}&screen=${screen}`)
             },
             groupDisabilities (disabilities) {
                 if (disabilities.length === 0) {

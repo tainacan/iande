@@ -4,6 +4,8 @@ namespace IandePlugin;
 
 add_action('init', 'IandePlugin\\register_post_type_appointment');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_appointment');
+add_action('before_delete_post', 'IandePlugin\\avoid_deleting_appointment');
+add_action('wp_trash_post', 'IandePlugin\\avoid_deleting_appointment');
 
 require IANDE_PLUGIN_BASEPATH . 'includes/status-metabox.php';
 
@@ -22,7 +24,7 @@ function register_post_type_appointment()
         'new_item'           => __('Novo Agendamento', 'iande'),
         'edit_item'          => __('Editar Agendamento', 'iande'),
         'view_item'          => __('Ver Agendamento', 'iande'),
-        'all_items'          => __('Todos os Agendamentos', 'iande'),
+        'all_items'          => _x('Agendamentos', 'all items', 'iande'),
         'search_items'       => __('Buscar Agendamentos', 'iande'),
         'parent_item_colon'  => __('Agendamentos Pais:', 'iande'),
         'not_found'          => __('Nenhum agendamento encontrado.', 'iande'),
@@ -35,7 +37,7 @@ function register_post_type_appointment()
         'public'             => true,
         'publicly_queryable' => true,
         'show_ui'            => true,
-        'show_in_menu'       => true,
+        'show_in_menu'       => 'iande-main-menu',
         'query_var'          => true,
         'rewrite'            => ['slug' => 'appointment'],
         'capability_type'    => 'appointment',
@@ -592,4 +594,17 @@ function get_appointment_metadata_definition() {
 
     return $metadata_definition;
 
+}
+
+/**
+ * Impede a remoção acidental de Agendamentos, em vez de cancelamento
+ *
+ * @param integer $post_id ID do post a ser deletado
+ */
+function avoid_deleting_appointment() {
+    global $post;
+
+    if (!empty($post) && $post->post_type === 'appointment' && in_array($post->post_status, ['pending', 'publish'])) {
+        wp_die(__('Agendamento não pode ser deletado. Tente cancelá-lo, em vez disso.', 'iande'));
+    }
 }

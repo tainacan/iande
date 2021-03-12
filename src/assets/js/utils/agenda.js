@@ -55,6 +55,6 @@ export function getSlots (exhibition, date) {
         return Interval.fromDateTimes(intervalStart, intervalEnd)
             .splitBy({ minutes: exhibition.grid })
             .map(subinterval => subinterval.set({ end: subinterval.start.plus(delta) }))
-            .filter(subinterval => subinterval.end < intervalEnd)
+            .filter(subinterval => subinterval.end <= intervalEnd)
     })
 }

@@ -2,7 +2,7 @@
     <div class="iande-stack stack-lg">
         <div>
             <label :for="`${id}_type`" class="iande-label">Qual tipo de deficiência?</label>
-            <Select :id="`${id}_type`" v-model="type" :validations="validations.disabilities_type" :options="disabilityOptions"/>
+            <Select :id="`${id}_type`" v-model="type" :validations="validations.disabilities_type" :options="$iande.deficiencies"/>
         </div>
         <div v-if="isOther(type)">
             <label :for="`${id}_other`" class="iande-label">Especifique o tipo de deficiência</label>
@@ -19,7 +19,7 @@
     import Input from './Input.vue'
     import Select from './Select.vue'
     import CustomField from './mixins/CustomField'
-    import { constant, isOther, subModel, watchForOther } from '../utils'
+    import { isOther, subModel, watchForOther } from '../utils'
 
     export default {
         name: 'DisabilityInfo',
@@ -30,7 +30,6 @@
         mixins: [CustomField],
         computed: {
             count: subModel('disabilities_count'),
-            disabilityOptions: constant(window.IandeSettings.deficiencies),
             other: subModel('disabilities_other'),
             type: subModel('disabilities_type'),
         },

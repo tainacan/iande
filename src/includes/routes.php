@@ -35,6 +35,7 @@ function filter__query_vars(array $qvars)
 function action__rewrite_rules()
 {
     \add_rewrite_rule('iande/([^/]+)/([^/]+)/?$', 'index.php?iande_controller=$matches[1]&iande_action=$matches[2]', 'top');
+    \add_rewrite_rule('iande/?$', 'index.php?iande_controller=appointment&iande_action=list', 'top');
 }
 
 /**
@@ -46,6 +47,7 @@ function action__template_redirects()
 {
     $controller_name = \get_query_var('iande_controller');
     $action = \get_query_var('iande_action');
+    $action = \str_replace('-', '_', $action);
 
     if (!$action || !$controller_name) {
         return;

@@ -3,7 +3,7 @@
         <h1>Sobre a visita</h1>
         <div>
             <label class="iande-label" for="purpose">Qual o objetivo da visita?</label>
-            <Select id="purpose" v-model="purpose" :validations="$v.purpose" :options="purposeOptions"/>
+            <Select id="purpose" v-model="purpose" :validations="$v.purpose" :options="$iande.purposes"/>
         </div>
         <div v-if="isOther(purpose)">
             <label class="iande-label" for="purposeOther">Especifique o objetivo da visita</label>
@@ -22,19 +22,19 @@
         </div>
         <div>
             <label class="iande-label" for="numPeople">Quantidade prevista de pessoas</label>
-            <Input id="numPeople" type="number" min="5" placeholder="Mínimo de 5 pessoas" :disabled="groupsCreated" v-model.number="numPeople" :validations="$v.numPeople"/>
+            <Input id="numPeople" type="number" :min="minPeople" :placeholder="`Mínimo de ${minPeople} pessoas`" :disabled="groupsCreated" v-model.number="numPeople" :validations="$v.numPeople"/>
             <p class="text-sm">Caso seu grupo seja maior do que a capacidade de atendimento do museu, mais grupos serão criados automaticamente</p>
         </div>
     </div>
 </template>
 
 <script>
-    import { integer, required } from 'vuelidate/lib/validators'
+    import { integer, minValue, required } from 'vuelidate/lib/validators'
     import { get, sync } from 'vuex-pathify'
 
     import Input from './Input.vue'
     import Select from './Select.vue'
-    import { constant, isOther, watchForOther } from '../utils'
+    import { isOther, watchForOther } from '../utils'
 
     export default {
         name: 'SelectExhibition',
@@ -60,14 +60,18 @@
             groupsCreated () {
                 return this.groups.length > 0
             },
-            purposeOptions: constant(window.IandeSettings.purposes)
+            minPeople () {
+                return this.exhibition?.min_group_size ? Number(this.exhibition.min_group_size) : 5
+            },
         },
-        validations: {
-            exhibitionId: { required },
-            name: { },
-            numPeople: { integer, required },
-            purpose: { required },
-            purposeOther: { },
+        validations () {
+            return {
+                exhibitionId: { required },
+                name: { },
+                numPeople: { integer, minValue: minValue(this.minPeople), required },
+                purpose: { required },
+                purposeOther: { },
+            }
         },
         watch: {
             exhibitions: {

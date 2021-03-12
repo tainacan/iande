@@ -41,7 +41,7 @@ add_action('admin_init', 'IandePlugin\\iande_activation_plugin');
  * Verifica se o plugin WP Mail SMTP by WPForms está ativo
  */
 function check_dependencies() {
-    
+
     if (!is_plugin_active('wp-mail-smtp/wp_mail_smtp.php')) {
         echo '<div class="notice notice-warning is-dismissible">';
             echo '<p>O plugin <b>WP Mail SMTP by WPForms</b> é necessário o envio de e-mails dos agendamentos do plugin <b>Iandé</b>. <a href="' . admin_url('/plugin-install.php?s=WP+Mail+SMTP&tab=search&type=term') . '">Clique aqui para instalá-lo</a>!</p>';
@@ -63,9 +63,11 @@ function iande_remove_default_stylesheet()
 
         global $wp_styles;
 
+        $allowedStyles = ['iande', 'tainacan-fonts'];
+
         foreach ( $wp_styles->queue as $style ) :
 
-            if ($style != 'iande') {
+            if (!in_array($style, $allowedStyles)) {
                 \wp_dequeue_style($style);
             }
 
@@ -87,9 +89,11 @@ function iande_remove_default_scripts()
     if(is_iande_page()) {
         global $wp_scripts;
 
+        $allowedScripts = ['iande', 'tainacan-search'];
+
         foreach ($wp_scripts->queue as $script) :
 
-            if ($script != 'iande') {
+            if (!in_array($script, $allowedScripts)) {
                 \wp_dequeue_script($script);
             }
 
@@ -168,3 +172,28 @@ function iande_settings_init() {
     \flush_rewrite_rules();
 
 }
+
+/**
+ * Adiciona entrada para Iandé no menu do WP-Admin
+ */
+function add_iande_menu () {
+    $icon = IANDE_PLUGIN_BASEURL . '/assets/img/iande-menu-icon.svg';
+    // $icon = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(IANDE_PLUGIN_BASEURL . '/assets/img/iande-menu-icon-pb.svg'));
+
+    \add_menu_page('Iandé', 'Iandé', 'manage_options', 'iande-main-menu', '', $icon, 100);
+    \add_submenu_page('iande-main-menu', '', __('Front-end', 'iande'), 'edit_posts', 'iande_frontend', '__');
+}
+\add_action('admin_menu', 'IandePlugin\\add_iande_menu');
+
+/**
+ * Redireciona /admin.php?page=iande_frontend para o front-end do Iandé
+ */
+function redirect_to_iande_frontend () {
+    $menu_redirect = isset($_GET['page']) ? $_GET['page'] : '';
+
+    if ($menu_redirect === 'iande_frontend') {
+        \wp_safe_redirect(get_site_url(null, '/iande/'));
+        exit;
+    }
+}
+\add_action( 'admin_init', 'IandePlugin\\redirect_to_iande_frontend', 1 );

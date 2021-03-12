@@ -65,7 +65,7 @@
                         const { ID, ...restInstitution } = this.institution
                         const result = await api.post(`institution/${verb}`, this.editMode ? this.institution : restInstitution)
                         await this.resetInstitution()
-                        window.location.assign(`${window.IandeSettings.iandeUrl}/institution/list`)
+                        window.location.assign(this.$iandeUrl('institution/list'))
                     } catch (err) {
                         this.formError = err
                     }

@@ -25,12 +25,11 @@
 
     import { api } from '../utils'
 
-    // Lazy-loading candidates
-    import AdditionalData from '../components/AdditionalData.vue'
-    import GroupsAdditionalInfo from '../components/GroupsAdditionalInfo.vue'
-    import GroupsDate from '../components/GroupsDate.vue'
-    import SelectInstitution from '../components/SelectInstitution.vue'
-    import SelectExhibition from '../components/SelectExhibition.vue'
+    const AdditionalData = () => import(/* webpackChunkName: 'additional-data-step' */ '../components/AdditionalData.vue')
+    const GroupsAdditionalInfo = () => import(/* webpackChunkName: 'groups-additional-info-step' */ '../components/GroupsAdditionalInfo.vue')
+    const GroupsDate = () => import(/* webpackChunkName: 'groups-date-step' */ '../components/GroupsDate.vue')
+    const SelectInstitution = () => import(/* webpackChunkName: 'select-institution-step' */ '../components/SelectInstitution.vue')
+    const SelectExhibition = () => import(/* webpackChunkName: 'select-exhibition-step' */ '../components/SelectExhibition.vue')
 
     export default {
         name: 'EditAppointmentPage',
@@ -80,7 +79,7 @@
                     try {
                         const result = await api.post('appointment/update', this.fields)
                         await this.resetAppointment()
-                        window.location.assign(`${window.IandeSettings.iandeUrl}/appointment/list`)
+                        window.location.assign(this.$iandeUrl('appointment/list'))
                     } catch (err) {
                         this.formError = err
                     }
