@@ -1,57 +1,38 @@
 === Iande ===
 Contributors: percebeeduca
-Tags: museum, appointment, education
-Requires at least: 5.1
+Tags: Reservation system, scheduling, schedule, group visits, virtual group tours, museums, Tainacan
+Requires at least: 5.5.3
 Tested up to: 5.2
 Requires PHP: 7.2
-Stable tag: 4.3
+Stable tag: 0.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+Iandé, plugin de agendamento de visitas de grupos para instituições que recebem públicos presencial ou digitalmente.
+
+== Descrição ==
  
-== Description ==
+Iandé é um plugin do WordPress, voltado para o agendamento de visitas de grupos, para instituições que recebem públicos presencial ou digitalmente.
+
+O Iandé vem atender algumas das principais demandas de museus e instituições culturais, permitindo a automatização do agendamento das visitas de grupos, escolares e não escolares, avaliação da experiência de visita e ainda a geração de relatórios qualificados sobre os visitantes e as dinâmicas dos grupos. O Iandé é um software livre  e tem como pressuposto a democratização do acesso às tecnologias digitais pelos museus e instituições culturais. A interface amigável visa ampliar o engajamento do público e facilitar o uso pelos administradores institucionais. 
+
+O Iandé será interligado com o plugin Tainacan e permitirá que os visitantes escolham os acervos e customizem roteiros de visita no momento da realização do agendamento
  
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+Features:
+
+* Agendamento de grupos de forma automatizada, facilitando a marcação da visita pelo público e o controle do fluxo de visitantes pela instituição. 
+* Instância administrativa de fácil utilização pela equipe, permitindo alterações e customizações da interface conforme as necessidades institucionais.
+* Instância de mediação com os visitantes customizável, permitindo a remodelação da comunicação desejada.
+* Geração de relatórios de dados sobre perfil do grupo e avaliação da experiência da visita (em implantação).
+* Módulo de check-in e avaliação, permitindo a confirmação dos dados inseridos pelos públicos no momento do agendamento (em implantação).
+* Interligação com o plugin Tainacan, permitindo a seleção prévia de acervos de interesse e a organização de roteiros de visita (em implantação).
+
  
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+== Instalação ==
  
-A few notes about the sections above:
- 
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
- 
-Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
- 
-If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
- 
-== Installation ==
- 
-1. Upload `iande.php` to the `/wp-content/plugins/` directory;
-2. Activate the plugin through the 'Plugins' menu in WordPress;
-3. Select Jeo on the admin menu.
- 
-== Frequently Asked Questions ==
- 
-= A question that someone might have =
- 
-An answer to that question.
- 
-= What about foo bar? =
- 
-Answer to foo bar dilemma.
+1. Carregar `iande.php` à pasta `/wp-content/plugins/`;
+2. Ativar o the plugin por meio do menu 'Plugins' menu no WordPress;
+3. Selecionar Iandé no menu do Painel administrador Wordpress;
  
 == Screenshots ==
 
@@ -59,55 +40,23 @@ Answer to foo bar dilemma.
 2. Iande's settings: Iandé, Institutions, Appointments,  E-mails
 3. Institutions menu: Create a new Instituion
 4. Appointments menu: Create a new Appointment
-5. Expositions menu: Create a new Appointment
-6. Exceptions menu: Create a new Appointment
-7. Groups menu: Create a new Appointment
+5. Expositions menu: Create a new Expositions
+6. Exceptions menu: Create a new Exceptions
+7. Groups menu: Create a new Group
 
  
 == Changelog ==
+
+= 0.5.1 =
+= 0.5.0 =
+= 0.4.0 =
+= 0.3.5 =
+= 0.3.3 =
+= 0.3.2 =
+= 0.3.1 =
+= 0.2.0 =
  
-= 1.0 =
-* A change since the previous version.
-* Another change.
+== Mais informações ==
  
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
- 
-== Upgrade Notice ==
- 
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
- 
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
- 
-== Arbitrary section ==
- 
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
- 
-== A brief Markdown Example ==
- 
-Ordered list:
- 
-1. Some feature
-1. Another feature
-1. Something else about the plugin
- 
-Unordered list:
- 
-* something
-* something else
-* third thing
- 
-Here's a link to [WordPress](https://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
- 
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-"Markdown is what the parser uses to process much of the readme file"
- 
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
- 
-`<?php code(); // goes in backticks ?>`
+Visite nosso site oficial: [Iandé](https://wordpress.org/)
+Contribua com o código fonte:: [Github Iandé](https://gitlab.com/percebe/iande-plugin/)
