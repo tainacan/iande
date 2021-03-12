@@ -39,13 +39,9 @@ you put the stable version, in order to eliminate any doubt.
  
 == Installation ==
  
-This section describes how to install the plugin and get it working.
- 
-e.g.
- 
-1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+1. Upload `iande.php` to the `/wp-content/plugins/` directory;
+2. Activate the plugin through the 'Plugins' menu in WordPress;
+3. Select Jeo on the admin menu.
  
 == Frequently Asked Questions ==
  
