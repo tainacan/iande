@@ -30,6 +30,7 @@ define('IANDE_PLUGIN_BASEURL', plugins_url('', __FILE__) . '/');
 
 define('IANDE_PLUGIN_DISTURL', IANDE_PLUGIN_BASEURL  . 'dist/');
 
+require 'includes/polyfills.php';
 require 'includes/init.php';
 require 'includes/cmb2.php';
 require 'includes/post-types.php';
