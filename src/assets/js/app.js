@@ -2,7 +2,7 @@ import '../scss/app.scss'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAddressCard, faCalendar, faClock } from '@fortawesome/free-regular-svg-icons'
-import { faAngleLeft, faAngleRight, faBars, faCheck, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { faAngleLeft, faAngleRight, faBars, faCheck, faCheckCircle, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
 import Vue from 'vue'
 import VueAsyncComputed from 'vue-async-computed'
 import Vuelidate from 'vuelidate'
@@ -14,7 +14,7 @@ import WpI18n from './plugins/wp-i18n'
 import createStore from './store'
 
 library.add(faAddressCard, faCalendar, faClock)
-library.add(faAngleLeft, faAngleRight, faBars, faCheck, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers)
+library.add(faAngleLeft, faAngleRight, faBars, faCheck, faCheckCircle, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers)
 
 const ChangePasswordPage = () => import(/* webpackChunkName: 'change-password-page' */ './pages/change-password.vue')
 const ConfirmAppointmentPage = () => import(/* webpackChunkName: 'confirm-appointment-page' */ './pages/confirm-appointment.vue')

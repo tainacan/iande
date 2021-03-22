@@ -1,0 +1,47 @@
+.iande-gallery {
+    display: grid;
+    grid-gap: 40px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+    @media screen and (min-width: 779px) {
+        margin: 20px 40px;
+    }
+}
+
+.iande-gallery-item {
+    background-color: var(--iande-lighter-color);
+
+    &--header {
+        align-items: center;
+        display: flex;
+        justify-content: flex-start;
+        padding: 10px;
+
+        .iande-button {
+            background-color: var(--iande-primary-color);
+            border: none;
+            border-radius: 5px;
+            color: var(--iande-secondary-color);
+            line-height: 1;
+            margin-right: 10px;
+            padding: 7.5px;
+            width: auto;
+
+            &.selected {
+                background-color: var(--iande-secondary-color);
+                color: var(--iande-primary-color);
+            }
+        }
+
+        span {
+            font-size: 0.875em;
+        }
+    }
+
+    &--thumbnail {
+        background-position: center;
+        background-size: cover;
+        padding-top: 100%;
+        width: 100%;
+    }
+}
