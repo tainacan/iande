@@ -10,6 +10,10 @@ use ReCaptcha;
  */
 function compute_recaptcha_keys () {
 
+    if (!function_exists('is_plugin_active')) {
+        include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+    }
+
     if (\is_plugin_active('google-captcha/google-captcha.php')) {
         $config = \get_option('gglcptch_options');
 
