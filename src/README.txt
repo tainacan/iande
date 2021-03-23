@@ -2,9 +2,9 @@
 Contributors: percebeeduca
 Tags: Reservation system, scheduling, schedule, group visits, virtual group tours, museums, Tainacan
 Requires at least: 5.5.3
-Tested up to: 5.2
+Tested up to: 5.7
 Requires PHP: 7.2
-Stable tag: 0.5.1
+Stable tag: 0.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,17 +49,25 @@ Features:
 
 == Changelog ==
 
-= 0.5.1 =
-= 0.5.0 =
-= 0.4.0 =
-= 0.3.5 =
-= 0.3.3 =
-= 0.3.2 =
-= 0.3.1 =
-= 0.2.0 =
+= 0.5.2 =
+* Suporte experimental à CAPTCHA invisível
 
+= 0.5.1 =
+* Adicionar link do front-end ao menu único
+* Mensagem de erro ao apagar agendamentos pendentes ou aprovados
+* Correção de bug: cancelar agendamento libera vaga para novos agendamentos
+* Correção de bug: não permitir voltar à página anterior se os grupos não estiverem preenchidos
+
+= 0.5.0 =
+* Menu único reunindo post-types e configuração do plugin
+* Configuração do prazo mínimo para agendamento
+
+= 0.4.0 =
+* Cancelamento de agendamentos por parte do usuário
+* Melhoria na velocidade de carregamento das páginas
+* Correção de bug: permitir agendamento se horário final da visita coincidir com fechamento do museu
 
 == Mais informações ==
 
-Visite nosso site oficial: [Iandé](https://wordpress.org/)
+Visite nosso site oficial: [Iandé](https://iandecultura.com.br/)
 Contribua com o código fonte:: [Github Iandé](https://gitlab.com/percebe/iande-plugin/)
