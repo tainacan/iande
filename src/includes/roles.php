@@ -2,8 +2,8 @@
 namespace IandePlugin;
 
 function add_custom_roles_and_capabilities () {
-    
-    add_role('iande_admin', __('Administrador do Iandé', 'iande'));
+
+    \add_role('iande_admin', __('Administrador do Iandé', 'iande'));
 
     // iande_admin
     set_iande_admin_capabilities('iande_admin', 'appointment', 'appointments');
@@ -24,8 +24,8 @@ function add_custom_roles_and_capabilities () {
 
 function set_iande_admin_capabilities($role, $singular, $plural) {
 
-    $set_role = get_role($role);
-    
+    $set_role = \get_role($role);
+
     $set_role->add_cap('edit_'.$singular);
     $set_role->add_cap('read_'.$singular);
     $set_role->add_cap('delete_'.$singular);
@@ -40,6 +40,7 @@ function set_iande_admin_capabilities($role, $singular, $plural) {
     $set_role->add_cap('edit_private_'.$plural);
     $set_role->add_cap('edit_published_'.$plural);
     $set_role->add_cap('manage_iande_options');
+    $set_role->add_cap('read');
     $set_role->add_cap('upload_files');
 
 }
