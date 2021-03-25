@@ -9,8 +9,12 @@
             </a>
             <nav :class="showMenu || 'hidden'" v-if="isLoggedIn">
                 <ul>
-                    <li><a :href="$iandeUrl('appointment/list')">Seus agendamentos</a></li>
-                    <li><a :href="$iandeUrl('institution/list')">Suas instituições</a></li>
+                    <template v-if="userIsAdmin">
+                    </template>
+                    <template v-else>
+                        <li><a :href="$iandeUrl('appointment/list')">Agendamentos</a></li>
+                    </template>
+                    <li><a :href="$iandeUrl('institution/list')">Instituições</a></li>
                     <li class="iande-navbar__dropdown">
                         <a href="javascript:void(0)" role="button" tabindex="0" aria-label="Usuário">
                             <Icon icon="user"/>
@@ -47,6 +51,12 @@
         computed: {
             exhibitions: sync('exhibitions/list'),
             user: sync('user/user'),
+            userIsAdmin () {
+                if (!this.user) {
+                    return false
+                }
+                return this.user.roles.some(role => role === 'administrator' || role === 'iande_admin')
+            },
         },
         async beforeMount () {
             try {
