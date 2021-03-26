@@ -774,6 +774,7 @@ class Appointment extends Controller
                         $meta_input[$key] = $value;
                     }
 
+                    $meta_input['appointment_id'] = $appointment_id;
                     $meta_input['exhibition_id'] = $exhibition_id;
 
                 }
