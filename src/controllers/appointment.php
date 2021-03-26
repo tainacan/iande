@@ -271,7 +271,7 @@ class Appointment extends Controller
             'author'         =>  $user_id,
             'post_type'      => 'appointment',
             'post_status'    => ['publish', 'pending', 'canceled', 'draft'],
-            'posts_per_page' => 9999,
+            'posts_per_page' => -1,
             'meta_query'     => [
                 [
                     'key'     => 'step',
@@ -317,7 +317,7 @@ class Appointment extends Controller
         $args = [
             'post_type'      => 'appointment',
             'post_status'    => ['publish'],
-            'posts_per_page' => 9999,
+            'posts_per_page' => -1,
             'meta_query'     => []
         ];
 

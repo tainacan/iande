@@ -212,7 +212,7 @@ function get_appointment_metadata_definition() {
     $exhibitions = \get_posts([
         'post_type'      => 'exhibition',
         'post_status'    => ['publish'],
-        'posts_per_page' => 9999,
+        'posts_per_page' => -1,
         'order'          => 'ASC',
         'orderby'        => 'ID'
     ]);
@@ -221,7 +221,7 @@ function get_appointment_metadata_definition() {
         'author'         =>  $user_id,
         'post_type'      => 'institution',
         'post_status'    => ['publish'],
-        'posts_per_page' => 9999,
+        'posts_per_page' => -1,
         'order'          => 'ASC',
         'orderby'        => 'title'
     ]);

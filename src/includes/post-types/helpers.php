@@ -85,7 +85,7 @@ function map_posts_to_options (array $posts) {
     $options = [];
 
     foreach ($posts as $post) {
-        $options[$post->ID] = $post->post_title;
+        $options[$post->ID] = $post->post_title . ' #' . $post->ID;
     }
 
     return \array_filter($options);

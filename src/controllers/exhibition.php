@@ -50,7 +50,7 @@ class Exhibition extends Controller
         $args = array(
             'post_type'      => 'exhibition',
             'post_status'    => ['publish'],
-            'posts_per_page' => 9999,
+            'posts_per_page' => -1,
             'order'          => 'ASC',
             'orderby'        => 'ID',
         );

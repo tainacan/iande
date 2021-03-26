@@ -165,17 +165,44 @@ function get_group_metadata_definition() {
         $scholarity = [];
     }
 
-    // exposicoes
+    $appointments = \get_posts([
+        'post_type'      => 'appointment',
+        'post_status'    => ['draft', 'pending', 'publish'],
+        'posts_per_page' => -1,
+        'order'          => 'DESC',
+        'orderby'        => 'ID',
+    ]);
     $exhibitions = \get_posts([
         'post_type'      => 'exhibition',
         'post_status'    => ['pending', 'publish'],
-        'posts_per_page' => 9999,
+        'posts_per_page' => -1,
         'order'          => 'ASC',
-        'orderby'        => 'ID'
+        'orderby'        => 'ID',
     ]);
 
     $metadata_definition = [
 
+        'appointment_id' => (object) [
+            'type'          => 'integer',
+            'required'      => __('O agendamento é obrigatório', 'iande'),
+            'required_step' => 1,
+            'validation'    => function ($value) use ($appointments) {
+                if (is_numeric($value) && intval($value) == $value) {
+                    if (array_post_exists($value, $appointments)) {
+                        return true;
+                    } else {
+                        return __('Agendamento inválido', 'iande');
+                    }
+                } else {
+                    return __('O valor informado para o agendamento deve ser um inteiro', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Agendamento', 'iande'),
+                'type'    => 'select',
+                'options' => map_posts_to_options($appointments),
+            ]
+        ],
         'exhibition_id' => (object) [
             'type'          => 'integer',
             'required'      => __('A exposição é obrigatória', 'iande'),
