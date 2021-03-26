@@ -426,7 +426,7 @@ function iande_register_status() {
 function cmb2_render_callback_for_calendar_appointments($field, $escaped_value, $object_id, $object_type, $field_type_object) {
     ?>
     <div class="iande-admin-app">
-        <iande-appointments-agenda :exhibition-id="<?= $object_id ?>"></iande-appointments-agenda>
+        <iande-exhibition-agenda :exhibition-id="<?= $object_id ?>"></iande-exhibition-agenda>
     </div>
     <?php
 }

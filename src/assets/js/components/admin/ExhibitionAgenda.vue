@@ -32,14 +32,13 @@
     import { DateTime } from 'luxon'
     import Calendar from 'vue-cal'
     import { LocalScope } from 'vue-local-scope'
-    import { get } from 'vuex-pathify'
-    import 'vue-cal/dist/i18n/pt-br';
+    import 'vue-cal/dist/i18n/pt-br'
 
     import { api, toArray } from '../../utils'
     import { getWorkingHours } from '../../utils/agenda'
 
     export default {
-        name: 'AppointmentsAgenda',
+        name: 'ExhibitionAgenda',
         components: {
             Calendar,
             LocalScope,
