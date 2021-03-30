@@ -454,11 +454,21 @@ class Appointment extends Controller
 
             $confirmation_sent = \get_post_meta($params['ID'], 'confirmation_sent', true);
 
+            $groups = \get_post_meta($params['ID'], 'groups', true);
+
+            if (!empty($groups) && is_array($groups)) {
+                foreach ($groups as $group) {
+                    $update_group = [
+                        'ID'          => $group,
+                        'post_status' => $params['post_status'],
+                    ];
+                    \wp_update_post($update_group);
+                }
+            }
+
             if ($current_post_status == 'pending' && $new_post_status == 'publish') {
 
                 if ($this->validate_step($params['ID']) && !$confirmation_sent) {
-
-                    $groups = \get_post_meta($params['ID'], 'groups', true);
 
                     // envia o e-mail de confirmação para o responsavel do agendamento
                     $email_params = [
