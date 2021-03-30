@@ -9,11 +9,7 @@
             </a>
             <nav :class="showMenu || 'hidden'" v-if="isLoggedIn">
                 <ul>
-                    <template v-if="userIsAdmin">
-                    </template>
-                    <template v-else>
-                        <li><a :href="$iandeUrl('appointment/list')">Agendamentos</a></li>
-                    </template>
+                    <li><a :href="$iandeUrl('appointment/list')">Agendamentos</a></li>
                     <li><a :href="$iandeUrl('institution/list')">Instituições</a></li>
                     <li class="iande-navbar__dropdown">
                         <a href="javascript:void(0)" role="button" tabindex="0" aria-label="Usuário">
