@@ -50,6 +50,7 @@ Features:
 == Changelog ==
 
 = 0.5.2 =
+* Preparação para o suporte para check-in
 * Suporte experimental à CAPTCHA invisível
 
 = 0.5.1 =
