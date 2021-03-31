@@ -12,6 +12,7 @@
     "/dist/edit-institution-page.js": "/dist/edit-institution-page.js",
     "/dist/edit-user-page.js": "/dist/edit-user-page.js",
     "/dist/list-appointments-page.js": "/dist/list-appointments-page.js",
+    "/dist/list-groups-page.js": "/dist/list-groups-page.js",
     "/dist/list-institutions-page.js": "/dist/list-institutions-page.js",
     "/dist/login-page.js": "/dist/login-page.js",
     "/dist/vue-recaptcha-v3.js": "/dist/vue-recaptcha-v3.js",

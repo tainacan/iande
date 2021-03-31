@@ -12,11 +12,7 @@ class Group extends Controller
      * Cria um agendamento novo
      *
      * @param array $params
-     *
-     * @action iande.before_create_appointment
-     * @action iande.after_create_appointment
-     *
-     * @return void
+     * @return array
      */
     function endpoint_create(array $params = [])
     {
@@ -38,6 +34,55 @@ class Group extends Controller
 
         $this->success($group);
 
+    }
+
+    /**
+     * Retorna todos os grupos agendados
+     *
+     * @param array $params
+     * @return array
+     */
+    function endpoint_list (array $params = [])
+    {
+        $this->require_authentication();
+
+        $args = [
+            'post_type'      => 'group',
+            'post_status'    => ['publish'],
+            'posts_per_page' => -1,
+        ];
+
+        $groups = get_posts($args);
+
+        if (empty($groups)) {
+            return $this->success([]);
+        }
+
+        $parsed_groups = [];
+
+        foreach ($groups as $key => $group) {
+            $parsed_groups[] = $this->get_parsed_group($group->ID);
+        }
+
+        $parsed_groups = array_filter($parsed_groups);
+
+        if (empty($parsed_groups)) {
+            return $this->success([]);
+        }
+
+        $this->success($parsed_groups);
+    }
+
+    /**
+     * Renderiza o calendário de grupos para educadores
+     *
+     * @param array $params
+     * @return void
+     */
+    function view_calendar(array $params = [])
+    {
+        $this->require_authentication();
+        $this->render('list-groups');
     }
 
     /**
@@ -89,7 +134,7 @@ class Group extends Controller
      */
     function parse_group(\WP_Post $group, array $metadata = [])
     {
-        $pased_group = (object) [
+        $parsed_group = (object) [
             'ID'          => $group->ID,
             'user_id'     => $group->post_author,
             'title'       => $group->post_title,
@@ -99,10 +144,10 @@ class Group extends Controller
         $metadata_definition = get_group_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
-            $pased_group->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
+            $parsed_group->$key = isset($metadata[$key][0]) ? \maybe_unserialize($metadata[$key][0]) : null;
         }
 
-        return $pased_group;
+        return $parsed_group;
     }
 
     /**
@@ -141,5 +186,5 @@ class Group extends Controller
 
         }
     }
-    
+
 }
