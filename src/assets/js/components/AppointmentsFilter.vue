@@ -36,7 +36,7 @@
                 set (newValue) {
                     this.$emit('updateValue', newValue)
                 }
-            }
+            },
         },
         methods: {
             idFor (suffix) {
