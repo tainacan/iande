@@ -46,7 +46,6 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { get, sync } from 'vuex-pathify'
 
     import AppointmentSuccessModal from '../components/AppointmentSuccessModal.vue'
@@ -74,7 +73,6 @@
         name: 'ConfirmAppointmentPage',
         components: {
             AppointmentSuccessModal,
-            Icon: FontAwesomeIcon,
             Modal,
             StepsIndicator,
         },

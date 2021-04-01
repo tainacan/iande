@@ -42,7 +42,6 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { call, get, sync } from 'vuex-pathify'
 
     import Modal from '../components/Modal.vue'
@@ -85,7 +84,6 @@
     export default {
         name: 'CreateAppointmentPage',
         components: {
-            Icon: FontAwesomeIcon,
             Modal,
             StepsIndicator,
         },

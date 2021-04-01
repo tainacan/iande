@@ -142,7 +142,6 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { DateTime } from 'luxon'
     import { get } from 'vuex-pathify'
 
@@ -158,7 +157,6 @@
         name: 'AppointmentDetails',
         components: {
             AppointmentSuccessModal,
-            Icon: FontAwesomeIcon,
             StepsIndicator,
         },
         props: {

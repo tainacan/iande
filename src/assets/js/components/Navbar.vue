@@ -28,16 +28,12 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { sync } from 'vuex-pathify'
 
     import { api } from '../utils'
 
     export default {
         name: 'Navbar',
-        components: {
-            Icon: FontAwesomeIcon,
-        },
         data () {
             return {
                 isLoggedIn: false,

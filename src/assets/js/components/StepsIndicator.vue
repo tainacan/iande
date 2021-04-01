@@ -34,15 +34,12 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
     import Tooltip from './Tooltip.vue'
     import { constant } from '../utils'
 
     export default {
         name: 'StepsIndicator',
         components: {
-            Icon: FontAwesomeIcon,
             Tooltip
         },
         props: {

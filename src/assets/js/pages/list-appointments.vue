@@ -22,7 +22,6 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { sync } from 'vuex-pathify'
 
     import AppointmentDetails from '../components/AppointmentDetails.vue'
@@ -34,7 +33,6 @@
         components: {
             AppointmentDetails,
             AppointmentsFilter,
-            Icon: FontAwesomeIcon,
         },
         data () {
             return {

@@ -3,6 +3,7 @@ import '../scss/app.scss'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAddressCard, faCalendar, faClock } from '@fortawesome/free-regular-svg-icons'
 import { faAngleLeft, faAngleRight, faBars, faCheck, faMapMarkerAlt, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Vue from 'vue'
 import VueAsyncComputed from 'vue-async-computed'
 import Vuelidate from 'vuelidate'
@@ -46,6 +47,7 @@ Vue.component('iande-list-groups-page', ListGroupsPage)
 Vue.component('iande-list-institutions-page', ListInstitutionsPage)
 Vue.component('iande-login-page', LoginPage)
 Vue.component('iande-navbar', Navbar)
+Vue.component('Icon', FontAwesomeIcon)
 
 new Vue({
     el: '#iande-app',

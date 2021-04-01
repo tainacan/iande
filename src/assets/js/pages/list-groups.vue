@@ -8,8 +8,6 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
     import GroupsAgenda from '../components/GroupsCalendar'
     import { api } from '../utils'
 
@@ -17,7 +15,6 @@
         name: 'ListGroupsPage',
         components: {
             GroupsAgenda,
-            Icon: FontAwesomeIcon,
         },
         data () {
             return {

@@ -12,7 +12,6 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { integer, maxValue, minLength, required } from 'vuelidate/lib/validators'
     import { get, sync } from 'vuex-pathify'
 
@@ -25,7 +24,6 @@
         components: {
             FormError,
             GroupAdditionalInfo,
-            Icon: FontAwesomeIcon,
             Repeater,
         },
         computed: {

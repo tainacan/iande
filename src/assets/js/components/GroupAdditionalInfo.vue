@@ -59,7 +59,6 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { get } from 'vuex-pathify'
 
     import DisabilityInfo from './DisabilityInfo.vue'
@@ -75,7 +74,6 @@
         name: 'GroupAdditionalInfo',
         components: {
             DisabilityInfo,
-            Icon: FontAwesomeIcon,
             Input,
             LanguageInfo,
             RadioGroup,

@@ -16,13 +16,8 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
     export default {
         name: 'AppointmentsFilter',
-        components: {
-            Icon: FontAwesomeIcon,
-        },
         model: {
             prop: 'value',
             event: 'updateValue'

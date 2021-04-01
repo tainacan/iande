@@ -14,14 +14,12 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import GlobalEvents from 'vue-global-events'
 
     export default {
         name: 'Modal',
         components: {
             GlobalEvents,
-            Icon: FontAwesomeIcon,
         },
         props: {
             label: { type: String, default: 'Sucesso!' },
