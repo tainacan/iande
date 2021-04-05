@@ -1,3 +1,5 @@
+@use '../settings/abstract';
+
 .iande-groups-legend {
     background-color: var(--iande-lighter-color);
     border-radius: var(--iande-border-radius);
@@ -30,18 +32,15 @@
         }
 
         &.assigned-other:before {
-            background-color: var(--iande-tertiary-color);
-            border-color: var(--iande-tertiary-color);
+            @extend %assigned-other;
         }
 
         &.assigned-self:before {
-            background-color: var(--iande-success-color);
-            border-color: var(--iande-success-color);
+            @extend %assigned-self;
         }
 
         &.unassigned:before {
-            background-color: white;
-            border-color: var(--iande-success-color);
+            @extend %unassigned;
         }
     }
 }

@@ -3,10 +3,16 @@
         <Calendar activeView="month" :disableViews="['years', 'year']" :events="events" locale="pt-br" startWeekOnSunday>
             <template #cell-content="{ cell, view }">
                 <template v-if="view.id === 'month'">
-                    <div class="iande-admin-agenda__month">{{ cell.content }}</div>
-                    <LocalScope :groups="cellGroups(cell)" v-slot="{ groups }">
-                        {{ groups.length }}
-                    </LocalScope>
+                    <div class="iande-admin-agenda__month">
+                        <b>{{ cell.content }}</b>
+                        <div class="iande-educator-agenda__month-row" aria-hidden="true">
+                            <LocalScope :groups="cellGroups(cell)" v-slot="{ groups }">
+                                <span class="iande-educator-agenda__ball unassigned" v-if="groups.length > 0">
+                                    {{ groups.length }}
+                                </span>
+                            </LocalScope>
+                        </div>
+                    </div>
                 </template>
             </template>
         </Calendar>

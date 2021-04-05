@@ -1,1 +1,28 @@
+@use '../settings/abstract';
 @import '~vue-cal/dist/vuecal.css';
+
+.iande-educator-agenda {
+
+    &__month-row {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__ball {
+        align-items: center;
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 1px;
+        display: flex;
+        font-size: 12px;
+        height: 18px;
+        justify-content: center;
+        line-height: 1;
+        margin: 10px;
+        width: 18px;
+
+        &.unassigned {
+            @extend %unassigned !optional;
+        }
+    }
+}
