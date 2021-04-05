@@ -25,5 +25,7 @@
     "/dist/select-institution-step.js": "/dist/select-institution-step.js",
     "/dist/select-exhibition-step.js": "/dist/select-exhibition-step.js",
     "/dist/app.css": "/dist/app.css",
-    "/dist/admin.css": "/dist/admin.css"
+    "/dist/admin.css": "/dist/admin.css",
+    "/dist/exhibition-agenda.js": "/dist/exhibition-agenda.js",
+    "/dist/list-groups-page.js": "/dist/list-groups-page.js"
 }

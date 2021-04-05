@@ -5,11 +5,11 @@ import Vue from 'vue'
 import { api } from './utils'
 import { cep } from './utils/validators'
 
-const AppointmentsAgenda = () => import(/* webpackChunkName: 'appointment-agenda' */ './components/admin/AppointmentsAgenda.vue')
+const ExhibitionAgenda = () => import(/* webpackChunkName: 'exhibition-agenda' */ './components/admin/ExhibitionAgenda.vue')
 const StatusMetabox = () => import(/* webpackChunkName: 'status-metabox' */ './components/admin/StatusMetabox.vue')
 const cities = import(/* webpackChunkName: 'estados-municipios' */ '../json/municipios.json')
 
-Vue.component('iande-appointments-agenda', AppointmentsAgenda)
+Vue.component('iande-exhibition-agenda', ExhibitionAgenda)
 Vue.component('iande-status-metabox', StatusMetabox)
 
 async function populateCityOptions (state, city) {

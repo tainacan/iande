@@ -196,8 +196,8 @@ function add_iande_menu () {
     $icon = IANDE_PLUGIN_BASEURL . '/assets/img/iande-menu-icon.svg';
     // $icon = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(IANDE_PLUGIN_BASEURL . '/assets/img/iande-menu-icon-pb.svg'));
 
-    \add_menu_page('Iandé', 'Iandé', 'manage_options', 'iande-main-menu', '', $icon, 100);
-    \add_submenu_page('iande-main-menu', '', __('Front-end', 'iande'), 'edit_posts', 'iande_frontend', '__');
+    \add_menu_page('Iandé', 'Iandé', 'manage_iande_options', 'iande-main-menu', '', $icon, 100);
+    \add_submenu_page('iande-main-menu', '', __('Front-end', 'iande'), 'read', 'iande_frontend', '__');
 }
 \add_action('admin_menu', 'IandePlugin\\add_iande_menu');
 

@@ -271,7 +271,7 @@ class Appointment extends Controller
             'author'         =>  $user_id,
             'post_type'      => 'appointment',
             'post_status'    => ['publish', 'pending', 'canceled', 'draft'],
-            'posts_per_page' => 9999,
+            'posts_per_page' => -1,
             'meta_query'     => [
                 [
                     'key'     => 'step',
@@ -317,7 +317,7 @@ class Appointment extends Controller
         $args = [
             'post_type'      => 'appointment',
             'post_status'    => ['publish'],
-            'posts_per_page' => 9999,
+            'posts_per_page' => -1,
             'meta_query'     => []
         ];
 
@@ -454,11 +454,21 @@ class Appointment extends Controller
 
             $confirmation_sent = \get_post_meta($params['ID'], 'confirmation_sent', true);
 
+            $groups = \get_post_meta($params['ID'], 'groups', true);
+
+            if (!empty($groups) && is_array($groups)) {
+                foreach ($groups as $group) {
+                    $update_group = [
+                        'ID'          => $group,
+                        'post_status' => $params['post_status'],
+                    ];
+                    \wp_update_post($update_group);
+                }
+            }
+
             if ($current_post_status == 'pending' && $new_post_status == 'publish') {
 
                 if ($this->validate_step($params['ID']) && !$confirmation_sent) {
-
-                    $groups = \get_post_meta($params['ID'], 'groups', true);
 
                     // envia o e-mail de confirmação para o responsavel do agendamento
                     $email_params = [
@@ -774,6 +784,7 @@ class Appointment extends Controller
                         $meta_input[$key] = $value;
                     }
 
+                    $meta_input['appointment_id'] = $appointment_id;
                     $meta_input['exhibition_id'] = $exhibition_id;
 
                 }

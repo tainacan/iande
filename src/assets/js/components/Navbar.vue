@@ -47,6 +47,12 @@
         computed: {
             exhibitions: sync('exhibitions/list'),
             user: sync('user/user'),
+            userIsAdmin () {
+                if (!this.user) {
+                    return false
+                }
+                return this.user.roles.some(role => role === 'administrator' || role === 'iande_admin')
+            },
         },
         async beforeMount () {
             try {
