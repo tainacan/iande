@@ -4,8 +4,12 @@
 .iande-educator-agenda {
 
     &__month-row {
-        display: flex;
-        justify-content: center;
+        display: block;
+        text-align: center;
+
+        @media screen and (max-width: 700px) {
+            display: none;
+        }
     }
 
     &__ball {
@@ -13,12 +17,12 @@
         border-radius: 50%;
         border-style: solid;
         border-width: 1px;
-        display: flex;
+        display: inline-flex;
         font-size: 12px;
         height: 18px;
         justify-content: center;
         line-height: 1;
-        margin: 10px;
+        margin: 5px;
         width: 18px;
 
         &.unassigned {
