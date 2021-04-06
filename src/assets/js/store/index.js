@@ -4,7 +4,7 @@ import pathify from 'vuex-pathify'
 import appointments from './appointments'
 import exhibitions from './exhibitions'
 import institutions from './institutions'
-import user from './user'
+import users from './users'
 
 export default function createStore() {
     return new Vuex.Store({
@@ -12,7 +12,7 @@ export default function createStore() {
             appointments,
             exhibitions,
             institutions,
-            user,
+            users,
         },
         plugins: [
             pathify.plugin,

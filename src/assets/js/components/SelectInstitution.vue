@@ -101,7 +101,7 @@
             }),
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
             requireExemption: constant(requireExemption),
-            user: get('user/user'),
+            user: get('users/current'),
         },
         validations: {
             firstName: { required },

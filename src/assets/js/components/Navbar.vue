@@ -42,7 +42,7 @@
         },
         computed: {
             exhibitions: sync('exhibitions/list'),
-            user: sync('user/user'),
+            user: sync('users/current'),
             userIsAdmin () {
                 if (!this.user) {
                     return false

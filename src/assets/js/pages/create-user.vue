@@ -91,7 +91,7 @@
                             phone: this.phone,
                             recaptcha: recaptchaToken,
                         })
-                        await this.$store.set('user/user', user)
+                        await this.$store.set('users/current', user)
                         window.location.assign(this.$iandeUrl('appointment/create'))
                     } catch (err) {
                         this.formError = err
