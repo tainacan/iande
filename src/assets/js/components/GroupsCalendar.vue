@@ -32,9 +32,13 @@
     import { DateTime } from 'luxon'
     import Calendar from 'vue-cal'
     import { LocalScope } from 'vue-local-scope'
+    import { get } from 'vuex-pathify'
     import 'vue-cal/dist/i18n/pt-br'
 
+    import { toArray } from '../utils'
     import { assignmentStatus } from '../utils/groups'
+
+    const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
     export default {
         name: 'GroupsCalendar',
@@ -42,11 +46,9 @@
             Calendar,
             LocalScope,
         },
-        props: {
-            exhibitions: { type: Array, required: true },
-            groups: { type: Array, required: true },
-        },
         computed: {
+            exhibitions: get('exhibitions/list'),
+            groups: get('groups/list'),
             groupsByDate () {
                 const dates = new Map()
                 for (const group of this.groups) {
@@ -77,23 +79,33 @@
                 return new Map(this.exhibitions.map(exhibition => [Number(exhibition.ID), exhibition]))
             },
             timeLimits () {
-                if (this.events.length === 0) {
-                    return { start: 0, end: 24 * 60 }
-                }
-
                 let start = '24:00'
                 let end = '00:00'
 
-                for (const group of this.groups) {
-                    const exhibition = this.exhibitionsList.get(Number(group.exhibition_id)) ?? 60
-                    const groupStart = group.hour
-                    const delta = { minutes: Number(exhibition.duration) }
-                    const groupEnd = DateTime.fromFormat(groupStart, 'HH:mm').plus(delta).toFormat('HH:mm')
-                    if (groupStart < start) {
-                        start = groupStart
+                for (const exhibition of this.exhibitions) {
+                    for (const day of weekDays) {
+                        if (exhibition[day]) {
+                            for (const hour of toArray(exhibition[day])) {
+                                if (hour.from && hour.from < start) {
+                                    start = hour.from
+                                }
+                                if (hour.to && hour.to > end) {
+                                    end = hour.to
+                                }
+                            }
+                        }
                     }
-                    if (groupEnd > end) {
-                        end = groupEnd
+                    if (exhibition.exception) {
+                        for (const exception of toArray(exhibition.exception)) {
+                            for (const hour of toArray(exception.exceptions)) {
+                                if (hour.from && hour.from < start) {
+                                    start = hour.from
+                                }
+                                if (hour.to && hour.to > end) {
+                                    end = hour.to
+                                }
+                            }
+                        }
                     }
                 }
 

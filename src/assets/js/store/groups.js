@@ -1,7 +1,7 @@
 import { make } from 'vuex-pathify'
 
 const state = {
-    current: null,
+    list: []
 }
 
 export default {

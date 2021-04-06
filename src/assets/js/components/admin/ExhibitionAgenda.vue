@@ -34,7 +34,7 @@
     import { LocalScope } from 'vue-local-scope'
     import 'vue-cal/dist/i18n/pt-br'
 
-    import { api, toArray } from '../../utils'
+    import { api } from '../../utils'
     import { getWorkingHours } from '../../utils/agenda'
 
     export default {
@@ -94,22 +94,6 @@
             timeStep () {
                 return this.exhibition ? Number(this.exhibition.grid) : 60
             },
-            workingHours () {
-                let start = null
-                let end = null
-                const week = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-                for (const day of week) {
-                    for (const interval of toArray(this.exhibition[day])) {
-                        if (!start || start > interval.from) {
-                            start = interval.from
-                        }
-                        if (!end || end < interval.to) {
-                            end = interval.to
-                        }
-                    }
-                }
-                return { start, end }
-            }
         },
         async created () {
             try {

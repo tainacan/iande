@@ -9,17 +9,21 @@
                 <div class="iande-groups-legend__entry unassigned">Sem mediação atribuída</div>
                 <div class="iande-groups-legend__entry assigned-self">Mediação atribuída a você</div>
             </div>
-            <GroupsAgenda :exhibitions="exhibitions" :groups="groups" v-if="viewMode === 'calendar'"/>
+            <GroupsAgenda v-if="viewMode === 'calendar'"/>
             <template v-else>
                 <AppointmentsFilter id="time" label="Exibindo" :options="timeOptions" v-model="time"/>
+                <GroupDetails v-for="group of groups" :group="group" :key="group.ID"/>
             </template>
         </div>
     </article>
 </template>
 
 <script>
+    import { sync } from 'vuex-pathify'
+
     import AppointmentsFilter from '../components/AppointmentsFilter.vue'
     import GroupsAgenda from '../components/GroupsCalendar.vue'
+    import GroupDetails from '../components/GroupDetails'
     import { api, constant } from '../utils'
 
     export default {
@@ -27,16 +31,18 @@
         components: {
             AppointmentsFilter,
             GroupsAgenda,
+            GroupDetails,
         },
         data () {
             return {
-                exhibitions: [],
-                groups: [],
                 time: 'next',
-                viewMode: 'calendar'
+                viewMode: 'calendar',
             }
         },
         computed: {
+            appointments: sync('appointments/list'),
+            exhibitions: sync('exhibitions/list'),
+            groups: sync('groups/list'),
             timeOptions: constant([
                 { label: 'Próximas', value: 'next' },
                 { label: 'Antigas', value: 'previous' },
@@ -50,7 +56,9 @@
             try {
                 const exhibitions = await api.get('exhibition/list')
                 this.exhibitions = exhibitions
-                const groups = await api.get('group/list') ?? []
+                const appointments = await api.get('appointment/list_published')
+                this.appointments = appointments
+                const groups = await api.get('group/list')
                 this.groups = groups
             } catch (err) {
                 console.error(err)
