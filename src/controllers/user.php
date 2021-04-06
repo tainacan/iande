@@ -83,6 +83,21 @@ class User extends Controller
         $this->render('change-password');
     }
 
+    /** Lista os usuários
+     *
+     * @param array $params
+     * @return array
+     */
+    function endpoint_list()
+    {
+        $this->require_admin();
+
+        $users = \get_users();
+
+        $parsed_users = \array_map([$this, 'parse_user'], $users);
+        $this->success($parsed_users);
+    }
+
     /**
      * Verifica se o usuário está logado
      *
