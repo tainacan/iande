@@ -7,16 +7,18 @@
                         <b>{{ cell.content }}</b>
                         <div class="iande-educator-agenda__month-row" aria-hidden="true">
                             <LocalScope :groups="cellGroups(cell)" v-slot="{ groups }">
-                                <span class="iande-educator-agenda__ball unassigned" v-if="groups.length > 0">
-                                    {{ groups.length }}
-                                </span>
+                                <template v-for="count, status of groups">
+                                    <span class="iande-educator-agenda__ball" :class="status" :key="status" v-if="count > 0">
+                                        {{ count }}
+                                    </span>
+                                </template>
                             </LocalScope>
                         </div>
                     </div>
                 </template>
             </template>
             <template #event="{ event }">
-                <div class="iande-educator-agenda__event unassigned">
+                <div class="iande-educator-agenda__event" :class="assignmentStatus(event.group)">
                     <p><b>{{ event.group.name }}</b></p>
                     <p>{{ event.group.hour }} - {{ formatHour(event.end) }}</p>
                     <a href="javascript:void(0)">ver mais</a>
@@ -31,6 +33,8 @@
     import Calendar from 'vue-cal'
     import { LocalScope } from 'vue-local-scope'
     import 'vue-cal/dist/i18n/pt-br'
+
+    import { assignmentStatus } from '../utils/groups'
 
     export default {
         name: 'GroupsCalendar',
@@ -102,13 +106,24 @@
             },
         },
         methods: {
+            assignmentStatus (group) {
+                return assignmentStatus(group)
+            },
             cellGroups (cell) {
                 const groups = this.groupsByDate.get(cell.formattedDate) || []
-                return groups
+                const statuses = {
+                    'assigned-self': 0,
+                    'assigned-other': 0,
+                    'unassigned': 0,
+                }
+                for (const group of groups) {
+                    statuses[assignmentStatus(group)] += 1
+                }
+                return statuses
             },
             formatHour (date) {
                 return DateTime.fromJSDate(date).toFormat('HH:mm')
-            }
+            },
         }
     }
 </script>
