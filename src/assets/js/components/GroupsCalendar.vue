@@ -124,8 +124,8 @@
             cellGroups (cell) {
                 const groups = this.groupsByDate.get(cell.formattedDate) || []
                 const statuses = {
-                    'assigned-self': 0,
                     'assigned-other': 0,
+                    'assigned-self': 0,
                     'unassigned': 0,
                 }
                 for (const group of groups) {
