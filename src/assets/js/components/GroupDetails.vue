@@ -20,6 +20,35 @@
                     </div>
                 </div>
             </div>
+            <div class="iande-group__steps">
+                <div class="iande-group__step">
+                    <div class="iande-group__step-icon active">
+                        <Icon icon="check"/>
+                    </div>
+                    <label>
+                        <span>Mediação:</span>
+                        <select>
+                            <option :value="null">Atribuir mediação</option>
+                            <option v-for="educator in educators" :key="educator.ID" :value="educator.ID">
+                                {{ educator.display_name }}
+                            </option>
+                        </select>
+                        <Icon icon="pencil-alt"/>
+                    </label>
+                </div>
+                <div class="iande-group__step">
+                    <div class="iande-group__step-icon">
+                        <Icon icon="minus"/>
+                    </div>
+                    Check-in
+                </div>
+                <div class="iande-group__step">
+                    <div class="iande-group__step-icon">
+                        <Icon icon="minus"/>
+                    </div>
+                    Avaliação
+                </div>
+            </div>
         </div>
         <div class="iande-group__details">
             <div class="iande-appointment__boxes">
@@ -72,6 +101,7 @@
     export default {
         name: 'GroupDetails',
         props: {
+            educators: { type: Array, default: () => [] },
             group: { type: Object, required: true },
         },
         data () {

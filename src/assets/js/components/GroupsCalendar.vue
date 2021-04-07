@@ -46,6 +46,9 @@
             Calendar,
             LocalScope,
         },
+        props: {
+            educators: { type: Array, default: () => [] },
+        },
         computed: {
             exhibitions: get('exhibitions/list'),
             groups: get('groups/list'),

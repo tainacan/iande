@@ -13,3 +13,69 @@
         text-transform: uppercase;
     }
 }
+
+// Group details
+.iande-group {
+
+    &__summary {
+        display: flex;
+        justify-content: space-between;
+
+        & > * {
+            display: flex;
+        }
+    }
+
+    &__steps {
+        align-items: center;
+
+        & > * + * {
+            margin-left: 1em;
+        }
+    }
+
+    &__step {
+        align-items: center;
+        color: var(--iande-tertiary-color);
+        display: flex;
+        font-size: 0.75em;
+        font-weight: bold;
+
+        &-icon {
+            align-items: center;
+            background-color: var(--iande-tertiary-color);
+            border: 2px solid var(--iande-tertiary-color);
+            border-radius: 50%;
+            color: white;
+            display: inline-flex;
+            height: 2.5em;
+            justify-content: center;
+            margin-right: 1em;
+            width: 2.5em;
+
+            &.active {
+                background-color: inherit;
+                color: var(--iande-tertiary-color);
+            }
+        }
+
+        label {
+
+            [data-icon] {
+                color: var(--iande-secondary-color);
+            }
+        }
+
+        select {
+            background-color: transparent;
+            border: none;
+            color: var(--iande-secondary-color);
+            font-size: inherit;
+            font-weight: inherit;
+        }
+    }
+
+    &__details {
+        padding-top: 20px;
+    }
+}

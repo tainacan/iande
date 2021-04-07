@@ -88,11 +88,28 @@ class User extends Controller
      * @param array $params
      * @return array
      */
-    function endpoint_list()
+    function endpoint_list(array $params = [])
     {
         $this->require_admin();
 
-        $users = \get_users();
+        $query_args = [];
+
+        if (!empty($params['cap'])) {
+            $cap = $params['cap'];
+            $role__in = [];
+
+            foreach (\wp_roles()->roles as $role_slug => $role) {
+                if (!empty($role['capabilities'][$cap])) {
+                    $role__in[] = $role_slug;
+                }
+            }
+
+            if (!empty($role__in)) {
+                $query_args['role__in'] = $role__in;
+            }
+        }
+
+        $users = \get_users($query_args);
 
         $parsed_users = \array_map([$this, 'parse_user'], $users);
         $this->success($parsed_users);

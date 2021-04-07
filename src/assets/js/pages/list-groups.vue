@@ -9,10 +9,10 @@
                 <div class="iande-groups-legend__entry unassigned">Sem mediação atribuída</div>
                 <div class="iande-groups-legend__entry assigned-self">Mediação atribuída a você</div>
             </div>
-            <GroupsAgenda v-if="viewMode === 'calendar'"/>
+            <GroupsAgenda :educators="educators" v-if="viewMode === 'calendar'"/>
             <template v-else>
                 <AppointmentsFilter id="time" label="Exibindo" :options="timeOptions" v-model="time"/>
-                <GroupDetails v-for="group of groups" :group="group" :key="group.ID"/>
+                <GroupDetails v-for="group of groups" :educators="educators" :group="group" :key="group.ID"/>
             </template>
         </div>
     </article>
@@ -35,6 +35,7 @@
         },
         data () {
             return {
+                educators: [],
                 time: 'next',
                 viewMode: 'calendar',
             }
@@ -60,6 +61,8 @@
                 this.appointments = appointments
                 const groups = await api.get('group/list')
                 this.groups = groups
+                const educators = await api.get('user/list?cap=manage_iande_options')
+                this.educators = educators
             } catch (err) {
                 console.error(err)
             }
