@@ -24,7 +24,7 @@
                 </div>
             </form>
         </div>
-        <Modal ref="modal" @close="listAppointments">
+        <Modal ref="modal" narrow @close="listAppointments">
             <div class="iande-stack iande-form">
                 <h1>Reserva enviada com sucesso!</h1>
                 <p>Uma reserva de data e horário foi enviada ao museu, mas para garantir o agendamento é necessário completar formulário com mais informações.</p>

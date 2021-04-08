@@ -7,7 +7,9 @@
                     <Icon icon="times"/>
                 </div>
             </div>
-            <slot/>
+            <div class="iande-modal__body">
+                <slot/>
+            </div>
         </div>
     </div>
     <div v-else/>
@@ -23,6 +25,7 @@
         },
         props: {
             label: { type: String, default: 'Sucesso!' },
+            narrow: { type: Boolean, default: false },
         },
         data () {
             return {

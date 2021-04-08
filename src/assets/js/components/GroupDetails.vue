@@ -1,5 +1,5 @@
 <template>
-    <section class="iande-group" :class="{ inline }">
+    <section class="iande-group" :class="{ boxed }">
         <div class="iande-group__summary">
             <div>
                 <div class="iande-appointment__date">
@@ -107,9 +107,9 @@
     export default {
         name: 'GroupDetails',
         props: {
+            boxed: { type: Boolean, default: false },
             educators: { type: Array, default: () => [] },
             group: { type: Object, required: true },
-            inline: { type: Boolean, default: false },
         },
         data () {
             return {

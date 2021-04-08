@@ -12,7 +12,7 @@
             <GroupsAgenda :educators="educators" v-if="viewMode === 'calendar'"/>
             <template v-else>
                 <AppointmentsFilter id="time" label="Exibindo" :options="timeOptions" v-model="time"/>
-                <GroupDetails v-for="group of groups" :key="group.ID" :educators="educators" :group="group" inline/>
+                <GroupDetails v-for="group of groups" :key="group.ID" boxed :educators="educators" :group="group"/>
             </template>
         </div>
     </article>

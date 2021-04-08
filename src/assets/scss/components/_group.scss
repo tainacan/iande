@@ -19,6 +19,7 @@
 
     &__summary {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         padding: 20px;
 
@@ -80,16 +81,24 @@
         padding: 20px;
     }
 
-    &.inline & {
+    &.boxed & {
 
         &__summary {
-            background: var(--iande-lighter-color);
+            background-color: var(--iande-lighter-color);
             border-radius: var(--iande-border-radius) var(--iande-border-radius) 0 0;
         }
 
         &__details {
             background-color: var(--iande-lighter-color);
             border-radius: 0 0 var(--iande-border-radius) var(--iande-border-radius);
+        }
+    }
+
+    .iande-modal & {
+
+        &__summary {
+            background-color: var(--iande-lighter-color);
+            border-radius: var(--iande-border-radius);
         }
     }
 }

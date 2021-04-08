@@ -21,10 +21,11 @@
                 <div class="iande-educator-agenda__event" :class="assignmentStatus(event.group)">
                     <p><b>{{ event.group.name }}</b></p>
                     <p>{{ event.group.hour }} - {{ formatHour(event.end) }}</p>
-                    <a href="javascript:void(0)">ver mais</a>
+                    <a href="javascript:void(0)" role="button" tabindex="0" @click="showModal(event.group)">ver mais</a>
                 </div>
             </template>
         </Calendar>
+        <GroupAssignmentModal ref="modal" :educators="educators"/>
     </div>
 </template>
 
@@ -35,6 +36,7 @@
     import { get } from 'vuex-pathify'
     import 'vue-cal/dist/i18n/pt-br'
 
+    import GroupAssignmentModal from './GroupAssignmentModal.vue'
     import { toArray } from '../utils'
     import { assignmentStatus } from '../utils/groups'
 
@@ -44,6 +46,7 @@
         name: 'GroupsCalendar',
         components: {
             Calendar,
+            GroupAssignmentModal,
             LocalScope,
         },
         props: {
@@ -139,6 +142,9 @@
             formatHour (date) {
                 return DateTime.fromJSDate(date).toFormat('HH:mm')
             },
+            showModal (group) {
+                this.$refs.modal.open(group)
+            }
         }
     }
 </script>
