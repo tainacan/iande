@@ -1,5 +1,5 @@
 <template>
-    <section class="iande-group">
+    <section class="iande-group" :class="{ inline }">
         <div class="iande-group__summary">
             <div>
                 <div class="iande-appointment__date">
@@ -103,6 +103,7 @@
         props: {
             educators: { type: Array, default: () => [] },
             group: { type: Object, required: true },
+            inline: { type: Boolean, default: false },
         },
         data () {
             return {

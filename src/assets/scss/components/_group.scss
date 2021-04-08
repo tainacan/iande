@@ -20,6 +20,7 @@
     &__summary {
         display: flex;
         justify-content: space-between;
+        padding: 20px;
 
         & > * {
             display: flex;
@@ -76,6 +77,22 @@
     }
 
     &__details {
-        padding-top: 20px;
+        padding: 20px;
+    }
+
+    &.inline {
+
+        .iande-group {
+
+            &__summary {
+                background: var(--iande-lighter-color);
+                border-radius: var(--iande-border-radius) var(--iande-border-radius) 0 0;
+            }
+
+            &__details {
+                background-color: var(--iande-lighter-color);
+                border-radius: 0 0 var(--iande-border-radius) var(--iande-border-radius);
+            }
+        }
     }
 }
