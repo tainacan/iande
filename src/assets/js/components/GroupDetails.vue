@@ -87,6 +87,12 @@
                     <div v-if="appointment.additional_comment">Comentários: {{ appointment.additional_comment }}</div>
                 </div>
             </div>
+            <div class="iande-appointment__buttons">
+                <button class="iande-button primary">
+                    Check-in
+                    <Icon icon="check"/>
+                </button>
+            </div>
         </div>
     </section>
 </template>
