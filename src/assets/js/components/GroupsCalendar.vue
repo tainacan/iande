@@ -8,7 +8,7 @@
                         <div class="iande-educator-agenda__month-row" aria-hidden="true">
                             <LocalScope :groups="cellGroups(cell)" v-slot="{ groups }">
                                 <template v-for="count, status of groups">
-                                    <span class="iande-educator-agenda__ball" :class="status" :key="status" v-if="count > 0">
+                                    <span class="iande-educator-agenda__bubble" :class="status" :key="status" v-if="count > 0">
                                         {{ count }}
                                     </span>
                                 </template>
