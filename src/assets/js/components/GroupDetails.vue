@@ -48,7 +48,7 @@
                     </div>
                     Avaliação
                 </div>
-                <div class="iande-appointment__toggle" :aria-label="showDetails ? 'Ocultar detalhes' : 'Exibir detalhes'" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails" v-if="boxed">
+                <div class="iande-appointment__toggle" :aria-label="showDetails ? 'Ocultar detalhes' : 'Exibir detalhes'" role="button" tabindex="0" v-if="boxed" @click="toggleDetails" @keypress.enter="toggleDetails">
                     <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
                 </div>
             </div>
@@ -96,6 +96,9 @@
                     <Icon icon="check"/>
                 </button>
             </div>
+        </div>
+        <div class="iande-group__toggle-button" role="button" tabindex="0" v-if="boxed" @click="toggleDetails" @keypress.enter="toggleDetails">
+            {{ collapsed ? 'Exibir detalhes' : 'Ocultar detalhes' }}
         </div>
     </section>
 </template>

@@ -58,9 +58,11 @@
 
     &__steps {
         align-items: center;
+        display: flex;
+        flex-wrap: wrap;
 
-        & > * + * {
-            margin-left: 1em;
+        & > * {
+            margin: 0.5em 1em 0.5em 0;
         }
     }
 
@@ -109,6 +111,29 @@
         padding: 20px;
     }
 
+    .iande-appointment__toggle {
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
+    }
+
+    &__toggle-button {
+        align-items: center;
+        background-color: var(--iande-secondary-color);
+        border-radius: 0 0 var(--iande-border-radius) var(--iande-border-radius);
+        color: white;
+        display: none;
+        font-size: 0.75em;
+        font-weight: bold;
+        justify-content: center;
+        padding: 5px;
+        text-transform: lowercase;
+
+        @media screen and (max-width: 600px) {
+            display: flex;
+        }
+    }
+
     &.boxed & {
 
         &__summary {
@@ -116,13 +141,18 @@
             border-radius: var(--iande-border-radius) var(--iande-border-radius) 0 0;
 
             &.collapsed {
-                border-radius: var(--iande-border-radius);
+                @media screen and (min-width: 601px) {
+                    border-radius: var(--iande-border-radius);
+                }
             }
         }
 
         &__details {
             background-color: var(--iande-lighter-color);
-            border-radius: 0 0 var(--iande-border-radius) var(--iande-border-radius);
+
+            @media screen and (min-width: 601px) {
+                border-radius: 0 0 var(--iande-border-radius) var(--iande-border-radius);
+            }
         }
     }
 
