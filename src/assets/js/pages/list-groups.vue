@@ -12,7 +12,7 @@
             <GroupsAgenda :educators="educators" v-if="viewMode === 'calendar'"/>
             <template v-else>
                 <AppointmentsFilter id="time" label="Exibindo" :options="timeOptions" v-model="time"/>
-                <GroupDetails v-for="group of groups" :key="group.ID" boxed :educators="educators" :group="group"/>
+                <GroupDetails v-for="group of filteredGroups" :key="group.ID" boxed :educators="educators" :group="group"/>
             </template>
         </div>
     </article>
@@ -24,7 +24,7 @@
     import AppointmentsFilter from '../components/AppointmentsFilter.vue'
     import GroupsAgenda from '../components/GroupsCalendar.vue'
     import GroupDetails from '../components/GroupDetails'
-    import { api, constant } from '../utils'
+    import { api, constant, sortBy } from '../utils'
 
     export default {
         name: 'ListGroupsPage',
@@ -43,7 +43,18 @@
         computed: {
             appointments: sync('appointments/list'),
             exhibitions: sync('exhibitions/list'),
+            filteredGroups () {
+                const today = new Date().toISOString().slice(0, 10)
+                if (this.time === 'next') {
+                    return this.sortedGroups.filter(group => group.date >= today)
+                } else {
+                    return this.sortedGroups.filter(group => group.date < today)
+                }
+            },
             groups: sync('groups/list'),
+            sortedGroups () {
+                return this.groups.sort(sortBy(group => group.date))
+            },
             timeOptions: constant([
                 { label: 'Próximas', value: 'next' },
                 { label: 'Antigas', value: 'previous' },
