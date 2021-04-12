@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <div class="iande-appointment__summary-main">
-                    <h2>{{ name }}</h2>
+                    <h2 :class="status">{{ name }}</h2>
                     <div class="iande-appointment__info">
                         <Icon :icon="['far', 'image']"/>
                         <span>{{ exhibition.title }}</span>
@@ -104,6 +104,7 @@
     import { get } from 'vuex-pathify'
 
     import { formatPhone, isOther } from '../utils'
+    import { assignmentStatus } from '../utils/groups'
 
     const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 
@@ -183,6 +184,9 @@
                     return this.appointment.responsible_role
                 }
             },
+            status () {
+                return assignmentStatus(this.group)
+            }
         },
         methods: {
             formatBinaryOption (option) {
