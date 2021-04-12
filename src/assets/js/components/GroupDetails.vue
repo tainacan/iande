@@ -1,6 +1,6 @@
 <template>
     <section class="iande-group" :class="{ boxed }">
-        <div class="iande-group__summary">
+        <div class="iande-group__summary" :class="{ collapsed }">
             <div>
                 <div class="iande-appointment__date">
                     <div>
@@ -48,9 +48,12 @@
                     </div>
                     Avaliação
                 </div>
+                <div class="iande-appointment__toggle" :aria-label="showDetails ? 'Ocultar detalhes' : 'Exibir detalhes'" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails" v-if="boxed">
+                    <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
+                </div>
             </div>
         </div>
-        <div class="iande-group__details">
+        <div class="iande-group__details" v-if="!collapsed">
             <div class="iande-appointment__boxes">
                 <div class="iande-appointment__box">
                     <div class="iande-appointment__box-title">
@@ -125,6 +128,9 @@
                 const parts = this.group.date.split('-')
                 return parts[2]
             },
+            collapsed () {
+                return this.boxed && !this.showDetails
+            },
             disabilities () {
                 const disabilities = this.group.disabilities
                 if (disabilities.length === 0) {
@@ -183,6 +189,9 @@
                 return option === 'yes' ? 'Sim' : 'Não'
             },
             formatPhone,
+            toggleDetails () {
+                this.showDetails = !this.showDetails
+            }
         }
     }
 </script>

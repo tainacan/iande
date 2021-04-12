@@ -86,6 +86,10 @@
         &__summary {
             background-color: var(--iande-lighter-color);
             border-radius: var(--iande-border-radius) var(--iande-border-radius) 0 0;
+
+            &.collapsed {
+                border-radius: var(--iande-border-radius);
+            }
         }
 
         &__details {
