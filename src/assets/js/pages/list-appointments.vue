@@ -17,7 +17,6 @@
                 </a>
             </div>
         </div>
-
     </article>
 </template>
 
