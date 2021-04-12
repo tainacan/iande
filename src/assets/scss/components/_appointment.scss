@@ -162,9 +162,10 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;
-        margin-top: 20px;
+        margin-top: 10px;
 
         .iande-button {
+            margin-top: 1em;
             width: auto;
 
             & + .iande-button {
