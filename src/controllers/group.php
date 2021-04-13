@@ -37,6 +37,35 @@ class Group extends Controller
     }
 
     /**
+     * Retorna um grupo pelo id
+     *
+     * @param array $params
+     * @return array
+     */
+    function endpoint_get(array $params = [])
+    {
+
+        $this->require_admin();
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro id é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro id deve ser um número inteiro', 'iande'));
+        }
+
+        $group = $this->get_parsed_group($params['ID']);
+
+        if (empty($group)) {
+            return; // 404
+        }
+
+        $this->success($group);
+
+    }
+
+    /**
      * Retorna todos os grupos agendados
      *
      * @param array $params
@@ -74,14 +103,26 @@ class Group extends Controller
     }
 
     /**
+     * Renderiza a tela de check-in
+     *
+     * @param array $params
+     * return void
+     */
+    function view_checkin(array $params = [])
+    {
+        $this->require_admin();
+        $this->render('checkin');
+    }
+
+    /**
      * Renderiza o calendário de grupos para educadores
      *
      * @param array $params
      * @return void
      */
-    function view_calendar(array $params = [])
+    function view_list(array $params = [])
     {
-        $this->require_authentication();
+        $this->require_admin();
         $this->render('list-groups');
     }
 

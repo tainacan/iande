@@ -5,6 +5,7 @@
     "/dist/status-metabox.js": "/dist/status-metabox.js",
     "/dist/estados-municipios.js": "/dist/estados-municipios.js",
     "/dist/change-password-page.js": "/dist/change-password-page.js",
+    "/dist/checkin-page.js": "/dist/checkin-page.js",
     "/dist/confirm-appointment-page.js": "/dist/confirm-appointment-page.js",
     "/dist/create-appointment-page.js": "/dist/create-appointment-page.js",
     "/dist/create-user-page.js": "/dist/create-user-page.js",
