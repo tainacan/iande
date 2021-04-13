@@ -23,6 +23,15 @@
         }
     }
 
+    .iande-hint {
+        display: block;
+        margin: 10px 0;
+
+        b {
+            color: var(--iande-secondary-color);
+        }
+    }
+
     .iande-input {
         border: 2px solid var(--iande-light-color);
         border-radius: var(--iande-border-radius);

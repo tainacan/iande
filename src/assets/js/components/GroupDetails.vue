@@ -16,7 +16,7 @@
                     </div>
                     <div class="iande-appointment__info">
                         <Icon :icon="['far', 'clock']"/>
-                        <span>{{ group.hour }}</span>
+                        <span>{{ group.hour }} - {{ endHour }}</span>
                     </div>
                 </div>
             </div>
@@ -104,6 +104,7 @@
 </template>
 
 <script>
+    import { DateTime } from 'luxon'
     import { get } from 'vuex-pathify'
 
     import { formatPhone, isOther } from '../utils'
@@ -152,7 +153,7 @@
                 }
             },
             endHour () {
-                const delta = { minutes: Number(exhibition.duration) }
+                const delta = { minutes: Number(this.exhibition.duration) }
                 return DateTime.fromFormat(this.group.hour, 'HH:mm').plus(delta).toFormat('HH:mm')
             },
             exhibition () {

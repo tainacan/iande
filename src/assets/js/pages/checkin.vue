@@ -11,7 +11,7 @@
                 <template v-if="showedYes">
                     <div>
                         <label for="hour" class="iande-label">Horário efetivo de início da visita</label>
-                        <div class="iande-hint">A visita foi agendada para ocorrer entre <b>{{ group.hour }}</b>. Informe se o grupo iniciou a visita no horário previsto.</div>
+                        <div class="iande-hint">A visita foi agendada para ocorrer entre <b>{{ group.hour }} - {{ endHour }}</b>. Informe se o grupo iniciou a visita no horário previsto.</div>
                         <RadioGroup id="hour" v-model="checkin.hour" :validations="$v.checkin.hour" :options="binaryOptions"/>
                         <template v-if="checkin.hour === 'no'">
                             <label for="hour-actual" class="iande-hint">Quantas pessoas compareceram efetivamente?</label>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+    import { DateTime } from 'luxon'
     import { required, requiredIf } from 'vuelidate/lib/validators'
 
     import Input from '../components/Input.vue'
@@ -51,6 +52,13 @@
         },
         computed: {
             binaryOptions: constant({ 'Não': 'no', 'Sim': 'yes' }),
+            endHour () {
+                const delta = { minutes: Number(this.exhibition.duration) }
+                return DateTime.fromFormat(this.group.hour, 'HH:mm').plus(delta).toFormat('HH:mm')
+            },
+            exhibition () {
+                return this.exhibitions.find(exhibition => exhibition.ID == this.group.exhibition_id)
+            },
             showedNo () {
                 return this.checkin.showed === 'no'
             },
