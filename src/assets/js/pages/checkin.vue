@@ -45,6 +45,7 @@
                     showed: null,
                 },
                 formError: '',
+                exhibition: null,
                 group: null,
             }
         },
@@ -72,6 +73,8 @@
                 try {
                     const group = await api.get('group/get', { ID: Number(qs.get('ID')) })
                     this.group = { ...this.group, ...group }
+                    const exhibition = await api.get('exhibition/get', { ID: group.exhibition_id })
+                    this.exhibition = exhibition
                 } catch (err) {
                     this.formError = err
                 }
