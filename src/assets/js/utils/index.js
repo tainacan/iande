@@ -24,6 +24,16 @@ export function isOther (term) {
     return String(term).toLowerCase().includes('outr')
 }
 
+export function joinMany (items, separator = ', ', lastSeparator = ' e ') {
+    if (items.length <= 1) {
+        return items[0]
+    } else {
+        const initialItems = items.slice(0, -1)
+        const lastItem = items[items.length - 1]
+        return initialItems.join(separator) + lastSeparator + lastItem
+    }
+}
+
 export function sortBy (fn, asc = true) {
     return (a, b) => {
         const newA = fn(a)
