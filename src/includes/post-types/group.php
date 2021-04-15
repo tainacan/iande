@@ -487,13 +487,18 @@ function register_metabox_group_checkin() {
  */
 function get_group_checkin_metadata_definition() {
 
+    $checkin_noshow_type = [
+        __('Problemas internos', 'iande'),
+        __('Problemas da instituição visitante', 'iande')
+    ];
+    
     $checkin_noshow_reason = [
-        'reason_1' => __('Problemas de deslocamento até a exposição/museu (trânsito, endereço errado, atraso do ônibus, atraso de alunos responsáveis)', 'iande'),
-        'reason_2' => __('O grupo preferiu visitar a exposição sem a presença do educador', 'iande'),
-        'reason_3' => __('O grupo optou por realizar outra atividade na instituição', 'iande'),
-        'reason_4' => __('A visita foi cancelada no mesmo dia', 'iande'),
-        'reason_5' => __('Não sei', 'iande'),
-        'reason_6' => __('Outro', 'iande')
+        __('Problemas de deslocamento até a exposição/museu (trânsito, endereço errado, atraso do ônibus, atraso de alunos responsáveis)', 'iande'),
+        __('O grupo preferiu visitar a exposição sem a presença do educador', 'iande'),
+        __('O grupo optou por realizar outra atividade na instituição', 'iande'),
+        __('A visita foi cancelada no mesmo dia', 'iande'),
+        __('Não sei', 'iande'),
+        __('Outro', 'iande')
     ];
 
     $metadata_definition = [
@@ -585,11 +590,8 @@ function get_group_checkin_metadata_definition() {
             },
             'metabox' => (object) [
                 'name'    => __('A visita não foi realizada porque', 'iande'),
-                'type'    => 'radio',
-                'options' => [
-                    'internal_problems'    => __('Problemas internos', 'iande'),
-                    'institution_problems' => __('Problemas da instituição visitante', 'iande')
-                ]
+                'type'    => 'select',
+                'options' => map_array_to_options($checkin_noshow_type)
             ]
         ],
         'checkin_noshow_reason' => (object) [
@@ -598,7 +600,7 @@ function get_group_checkin_metadata_definition() {
             'metabox'  => (object) [
                 'name'    => __('Qual desafio impossibilitou a visita?', 'iande'),
                 'type'    => 'select',
-                'options' => $checkin_noshow_reason
+                'options' => map_array_to_options($checkin_noshow_reason)
             ]
         ],
         'checkin_noshow_reason_other' => (object) [
