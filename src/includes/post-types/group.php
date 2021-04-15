@@ -4,6 +4,7 @@ namespace IandePlugin;
 
 add_action('init', 'IandePlugin\\register_post_type_group');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group');
+add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_checkin');
 
 /**
  * Registra o Post Type `group`
@@ -46,8 +47,17 @@ function register_post_type_group()
 
     register_post_type('group', $group_args);
 
-    /* Registra os metadados do post type `group` */
-    $metadata_definition = get_group_metadata_definition();
+    /**
+     * Registra os metadados do post type `group`
+     */
+    $group_metadata_definition = get_group_metadata_definition();
+
+    /**
+     * Registra os metadados do post_type `group` relativos ao checkin
+     */
+    $checkin_metadata_definition = get_group_checkin_metadata_definition();
+
+    $metadata_definition = array_merge($group_metadata_definition, $checkin_metadata_definition);
 
     foreach ($metadata_definition as $key => $definition) {
         register_post_meta('group', $key, ['type' => $definition->type]);
@@ -382,4 +392,325 @@ function get_group_metadata_definition() {
     $metadata_definition = \apply_filters('iande.group_metadata_definition', $metadata_definition);
 
     return $metadata_definition;
+}
+
+/**
+ * Registra os metaboxes do checkin do grupo com CMB2
+ *
+ * @filter iande.group_checkin_metabox_fields
+ *
+ * @return void
+ */
+function register_metabox_group_checkin() {
+
+    $metadata_definition = get_group_checkin_metadata_definition();
+
+    $fields = [];
+    $group_metabox = '';
+
+    foreach ($metadata_definition as $key => $definition) {
+
+        if (isset($definition->metabox)) {
+
+            $group_metabox = \new_cmb2_box(array(
+                'id'            => 'group_checkin',
+                'title'         => __('Informações do Checkin', 'iande'),
+                'object_types'  => array('group'),
+                'context'       => 'normal',
+                'priority'      => 'high',
+                'show_names'    => true
+            ));
+
+            /**
+             * Fields parameters
+             *
+             * @link https://cmb2.io/docs/field-parameters
+             */
+
+            $name       = '';
+            $desc       = '';
+            $type       = '';
+            $options    = [];
+            $attributes = [];
+            $repeatable = false;
+
+            if (isset($definition->metabox->name))
+                $name = $definition->metabox->name;
+
+            if (isset($definition->metabox->desc))
+                $desc = $definition->metabox->desc;
+
+            if (isset($definition->metabox->type))
+                $type = $definition->metabox->type;
+
+            if (isset($definition->metabox->options))
+                $options = $definition->metabox->options;
+
+            if (isset($definition->metabox->attributes))
+                $attributes = $definition->metabox->attributes;
+
+            if (isset($definition->metabox->repeatable))
+                $repeatable = $definition->metabox->repeatable;
+
+            $fields[] = [
+                'name'       => $name,
+                'desc'       => $desc,
+                'id'         => $key,
+                'type'       => $type,
+                'options'    => $options,
+                'attributes' => $attributes,
+                'repeatable' => $repeatable
+            ];
+
+        }
+
+    }
+
+    $fields = \apply_filters('iande.group_checkin_metabox_fields', $fields);
+
+    if (is_object($group_metabox)) {
+        foreach ($fields as $field) {
+            $group_metabox->add_field($field);
+        }
+    }
+
+    return $group_metabox;
+
+}
+
+/**
+ * Retorna a definição dos metadados do post type `group` relativos ao checkin
+ *
+ * @filter iande.group_checkin_metadata_definition
+ *
+ * @return array
+ */
+function get_group_checkin_metadata_definition() {
+
+    $checkin_noshow_reason = [
+        'reason_1' => __('Problemas de deslocamento até a exposição/museu (trânsito, endereço errado, atraso do ônibus, atraso de alunos responsáveis)', 'iande'),
+        'reason_2' => __('O grupo preferiu visitar a exposição sem a presença do educador', 'iande'),
+        'reason_3' => __('O grupo optou por realizar outra atividade na instituição', 'iande'),
+        'reason_4' => __('A visita foi cancelada no mesmo dia', 'iande'),
+        'reason_5' => __('Não sei', 'iande'),
+        'reason_6' => __('Outro', 'iande')
+    ];
+
+    $metadata_definition = [
+        'checkin_age_range' => (object) [
+            'type'          => 'string',
+            'required'      => __('Campo obrigatório', 'iande'),
+            'validation'    => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Confirmação de quantidades por faixa etária', 'iande'),
+                'type'    => 'radio',
+                'options'          => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ],
+        'checkin_disabilities' => (object) [
+            'type'       => 'string',
+            'required'   => __('Campo obrigatório', 'iande'),
+            'validation' => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Quantidade efetiva de pessoas com cada tipo de necessidade especial', 'iande'),
+                'type'    => 'radio',
+                'options' => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ],
+        'checkin_hour' => (object) [
+            'type'       => 'string',
+            'required'   => __('Campo obrigatório', 'iande'),
+            'validation' => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Horário efetivo de início da visita', 'iande'),
+                'type'    => 'radio',
+                'options' => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ],
+        'checkin_languages' => (object) [
+            'type'       => 'string',
+            'required'   => __('Campo obrigatório', 'iande'),
+            'validation' => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Quantidade efetiva de pessoas falando outros idiomas diferentes de português', 'iande'),
+                'type'    => 'radio',
+                'options' => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ],
+        'checkin_noshow_type' => (object) [
+            'type'       => 'string',
+            'required'   => __('Campo obrigatório', 'iande'),
+            'validation' => function ($value) {
+                if ($value == 'internal_problems' || $value == 'institution_problems') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('A visita não foi realizada porque', 'iande'),
+                'type'    => 'radio',
+                'options' => [
+                    'internal_problems'    => __('Problemas internos', 'iande'),
+                    'institution_problems' => __('Problemas da instituição visitante', 'iande')
+                ]
+            ]
+        ],
+        'checkin_noshow_reason' => (object) [
+            'type'     => 'string',
+            'required' => __('Campo obrigatório', 'iande'),
+            'metabox'  => (object) [
+                'name'    => __('Qual desafio impossibilitou a visita?', 'iande'),
+                'type'    => 'select',
+                'options' => $checkin_noshow_reason
+            ]
+        ],
+        'checkin_noshow_reason_other' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('A visita não foi realizada porque (outro)', 'iande'),
+                'type'    => 'text'
+            ]
+        ],
+        'checkin_num_people' => (object) [
+            'type'       => 'string',
+            'required'   => __('Campo obrigatório', 'iande'),
+            'validation' => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Quantidade efetiva de integrantes do grupo', 'iande'),
+                'type'    => 'radio',
+                'options' => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ],
+        'checkin_num_people_actual' => (object) [
+            'type'       => 'integer',
+            'required'   => false,
+            'validation' => function ($value) {
+                if (is_numeric($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado não é um número válido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'       => __('Quantas pessoas compareceram efetivamente?', 'iande'),
+                'type'       => 'text',
+                'attributes' => [
+                    'type' => 'number',
+                    'min'  => '0'
+                ]
+            ]
+        ],
+        'checkin_num_responsible' => (object) [
+            'type'       => 'string',
+            'required'   => __('Campo obrigatório', 'iande'),
+            'validation' => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Quantidade efetiva de responsáveis', 'iande'),
+                'type'    => 'radio',
+                'options' => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ],
+        'checkin_num_responsible_actual' => (object) [
+            'type'       => 'integer',
+            'required'   => false,
+            'validation' => function ($value) {
+                if (is_numeric($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado não é um número válido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'       => __('Quantos responsáveis compareceram efetivamente?', 'iande'),
+                'type'       => 'text',
+                'attributes' => [
+                    'type' => 'number',
+                    'min'  => '0',
+                ],
+            ]
+        ],
+        'checkin_showed' => (object) [
+            'type'       => 'string',
+            'required'   => __('Campo obrigatório', 'iande'),
+            'validation' => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('O grupo compareceu para a visita', 'iande'),
+                'type'    => 'radio',
+                'options' => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ]
+    ];
+
+    $metadata_definition = \apply_filters('iande.group_checkin_metadata_definition', $metadata_definition);
+
+    return $metadata_definition;
+
 }
