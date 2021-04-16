@@ -25,7 +25,7 @@ const CreateUserPage = () => import(/* webpackChunkName: 'create-user-page' */ '
 const EditAppointmentPage = () => import(/* webpackChunkName: 'edit-appointment-page' */ './pages/edit-appointment.vue')
 const EditInstitutionPage = () => import(/* webpackChunkName: 'edit-institution-page' */ './pages/edit-institution.vue')
 const EditUserPage = () => import(/* webpackChunkName: 'edit-user-page' */ './pages/edit-user.vue')
-const FeedbackPage = () => import(/* webpackChunkName: 'feedback-page */ './pages/feedback.vue')
+const FeedbackPage = () => import(/* webpackChunkName: 'feedback-page' */ './pages/feedback.vue')
 const ListAppointmentsPage = () => import(/* webpackChunkName: 'list-appointments-page' */ './pages/list-appointments.vue')
 const ListGroupsPage = () => import(/* webpackChunkName: 'list-groups-page' */ './pages/list-groups.vue')
 const ListInstitutionsPage = () => import(/* webpackChunkName: 'list-institutions-page' */ './pages/list-institutions.vue')
