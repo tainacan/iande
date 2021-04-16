@@ -176,7 +176,7 @@ class Group extends Controller
      */
     function set_group_metadata(int $post_id, array $params = [])
     {
-        $metadata_definition = get_group_metadata_definition();
+        $metadata_definition = get_all_group_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
             if (isset($params[$key])) {
@@ -223,7 +223,7 @@ class Group extends Controller
             'post_status' => $group->post_status
         ];
 
-        $metadata_definition = get_group_metadata_definition();
+        $metadata_definition = get_all_group_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
             $parsed_group->$key = isset($metadata[$key][0]) ? \maybe_unserialize($metadata[$key][0]) : null;
@@ -243,7 +243,7 @@ class Group extends Controller
     function validate(array $params = [], $validate_missing_requirements = false, $force = false)
     {
 
-        $metadata_definition = get_group_metadata_definition($params);
+        $metadata_definition = get_all_group_metadata_definition($params);
 
         foreach ($metadata_definition as $key => $definition) {
 
