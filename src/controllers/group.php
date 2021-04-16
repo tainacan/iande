@@ -103,6 +103,35 @@ class Group extends Controller
     }
 
     /**
+     * Atualiza os metadados do grupo
+     *
+     * @param array $params
+     * @return array
+     * 
+     * @todo verificar permissões de edição dos metadados
+     */
+    function endpoint_update(array $params = [])
+    {
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+        
+        $this->validate($params, true, true);
+
+        $this->set_group_metadata($params['ID'], $params);
+
+        $group = $this->get_parsed_group($params['ID']);
+
+        $this->success($group);
+
+    }
+
+    /**
      * Renderiza a tela de check-in
      *
      * @param array $params

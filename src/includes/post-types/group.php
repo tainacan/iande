@@ -50,14 +50,7 @@ function register_post_type_group()
     /**
      * Registra os metadados do post type `group`
      */
-    $group_metadata_definition = get_group_metadata_definition();
-
-    /**
-     * Registra os metadados do post_type `group` relativos ao checkin
-     */
-    $checkin_metadata_definition = get_group_checkin_metadata_definition();
-
-    $metadata_definition = array_merge($group_metadata_definition, $checkin_metadata_definition);
+    $metadata_definition = get_group_metadata_definition();
 
     foreach ($metadata_definition as $key => $definition) {
         register_post_meta('group', $key, ['type' => $definition->type]);
@@ -712,6 +705,20 @@ function get_group_checkin_metadata_definition() {
     ];
 
     $metadata_definition = \apply_filters('iande.group_checkin_metadata_definition', $metadata_definition);
+
+    return $metadata_definition;
+
+}
+
+/**
+ * Adiciona os metadados do post_type `group` relativos ao checkin
+ * no filtro iande.group_metadata_definition
+ */
+\add_filter('iande.group_metadata_definition', 'IandePlugin\\merge_metadata_definition');
+function merge_metadata_definition($metadata_definition) {
+
+    $checkin_metadata_definition = get_group_checkin_metadata_definition();
+    $metadata_definition = array_merge($metadata_definition, $checkin_metadata_definition); 
 
     return $metadata_definition;
 
