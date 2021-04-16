@@ -569,7 +569,7 @@ function get_group_checkin_metadata_definition() {
         __('Problemas internos', 'iande'),
         __('Problemas da instituição visitante', 'iande')
     ];
-    
+
     $checkin_noshow_reason = [
         __('Problemas de deslocamento até a exposição/museu (trânsito, endereço errado, atraso do ônibus, atraso de alunos responsáveis)', 'iande'),
         __('O grupo preferiu visitar a exposição sem a presença do educador', 'iande'),
@@ -580,26 +580,7 @@ function get_group_checkin_metadata_definition() {
     ];
 
     $metadata_definition = [
-        'checkin_age_range' => (object) [
-            'type'          => 'string',
-            'required'      => __('Campo obrigatório', 'iande'),
-            'validation'    => function ($value) {
-                if ($value == 'yes' || $value == 'no') {
-                    return true;
-                } else {
-                    return __('Valor inválido', 'iande');
-                }
-            },
-            'metabox' => (object) [
-                'name'    => __('Confirmação de quantidades por faixa etária', 'iande'),
-                'type'    => 'radio',
-                'options'          => [
-                    'yes' => __('Sim', 'iande'),
-                    'no'  => __('Não', 'iande')
-                ]
-            ]
-        ],
-        'checkin_disabilities' => (object) [
+        'checkin_showed' => (object) [
             'type'       => 'string',
             'required'   => __('Campo obrigatório', 'iande'),
             'validation' => function ($value) {
@@ -610,7 +591,7 @@ function get_group_checkin_metadata_definition() {
                 }
             },
             'metabox' => (object) [
-                'name'    => __('Quantidade efetiva de pessoas com cada tipo de necessidade especial', 'iande'),
+                'name'    => __('O grupo apareceu para a visita?', 'iande'),
                 'type'    => 'radio',
                 'options' => [
                     'yes' => __('Sim', 'iande'),
@@ -635,61 +616,6 @@ function get_group_checkin_metadata_definition() {
                     'yes' => __('Sim', 'iande'),
                     'no'  => __('Não', 'iande')
                 ]
-            ]
-        ],
-        'checkin_languages' => (object) [
-            'type'       => 'string',
-            'required'   => __('Campo obrigatório', 'iande'),
-            'validation' => function ($value) {
-                if ($value == 'yes' || $value == 'no') {
-                    return true;
-                } else {
-                    return __('Valor inválido', 'iande');
-                }
-            },
-            'metabox' => (object) [
-                'name'    => __('Quantidade efetiva de pessoas falando outros idiomas diferentes de português', 'iande'),
-                'type'    => 'radio',
-                'options' => [
-                    'yes' => __('Sim', 'iande'),
-                    'no'  => __('Não', 'iande')
-                ]
-            ]
-        ],
-        'checkin_noshow_type' => (object) [
-            'type'       => 'string',
-            'required'   => __('Campo obrigatório', 'iande'),
-            'validation' => function ($value) {
-                if ($value == 'internal_problems' || $value == 'institution_problems') {
-                    return true;
-                } else {
-                    return __('Valor inválido', 'iande');
-                }
-            },
-            'metabox' => (object) [
-                'name'    => __('A visita não foi realizada porque', 'iande'),
-                'type'    => 'select',
-                'options' => map_array_to_options($checkin_noshow_type)
-            ]
-        ],
-        'checkin_noshow_reason' => (object) [
-            'type'     => 'string',
-            'required' => __('Campo obrigatório', 'iande'),
-            'metabox'  => (object) [
-                'name'    => __('Qual desafio impossibilitou a visita?', 'iande'),
-                'type'    => 'select',
-                'options' => map_array_to_options($checkin_noshow_reason)
-            ]
-        ],
-        'checkin_noshow_reason_other' => (object) [
-            'type'       => 'string',
-            'required'   => false,
-            'validation' => function ($value) {
-                return true;
-            },
-            'metabox' => (object) [
-                'name'    => __('A visita não foi realizada porque (outro)', 'iande'),
-                'type'    => 'text'
             ]
         ],
         'checkin_num_people' => (object) [
@@ -768,7 +694,7 @@ function get_group_checkin_metadata_definition() {
                 ],
             ]
         ],
-        'checkin_showed' => (object) [
+        'checkin_disabilities' => (object) [
             'type'       => 'string',
             'required'   => __('Campo obrigatório', 'iande'),
             'validation' => function ($value) {
@@ -779,12 +705,86 @@ function get_group_checkin_metadata_definition() {
                 }
             },
             'metabox' => (object) [
-                'name'    => __('O grupo compareceu para a visita', 'iande'),
+                'name'    => __('Quantidade efetiva de pessoas com cada tipo de necessidade especial', 'iande'),
                 'type'    => 'radio',
                 'options' => [
                     'yes' => __('Sim', 'iande'),
                     'no'  => __('Não', 'iande')
                 ]
+            ]
+        ],
+        'checkin_languages' => (object) [
+            'type'       => 'string',
+            'required'   => __('Campo obrigatório', 'iande'),
+            'validation' => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Quantidade efetiva de pessoas falando outros idiomas diferentes de português', 'iande'),
+                'type'    => 'radio',
+                'options' => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ],
+        'checkin_age_range' => (object) [
+            'type'          => 'string',
+            'required'      => __('Campo obrigatório', 'iande'),
+            'validation'    => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Confirmação de quantidades por faixa etária', 'iande'),
+                'type'    => 'radio',
+                'options'          => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ],
+        'checkin_noshow_type' => (object) [
+            'type'       => 'string',
+            'required'   => __('Campo obrigatório', 'iande'),
+            'validation' => function ($value) {
+                if ($value == 'internal_problems' || $value == 'institution_problems') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('A visita não foi realizada devido a', 'iande'),
+                'type'    => 'select',
+                'options' => map_array_to_options($checkin_noshow_type)
+            ]
+        ],
+        'checkin_noshow_reason' => (object) [
+            'type'     => 'string',
+            'required' => __('Campo obrigatório', 'iande'),
+            'metabox'  => (object) [
+                'name'    => __('Qual desafio impossibilitou a visita?', 'iande'),
+                'type'    => 'select',
+                'options' => map_array_to_options($checkin_noshow_reason)
+            ]
+        ],
+        'checkin_noshow_reason_other' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('A visita não foi realizada porque (outro)', 'iande'),
+                'type'    => 'text'
             ]
         ]
     ];
