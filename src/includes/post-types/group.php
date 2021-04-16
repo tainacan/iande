@@ -804,6 +804,11 @@ function get_group_checkin_metadata_definition() {
  */
 function get_group_feedback_metadata_definition() {
 
+    /**
+     * Desabilita o campo para usuários sem premissão de edição `manage_iande_options`
+     */
+    $disabled = (\current_user_can('manage_iande_options')) ? false : true;
+    
     $quality_options = [
         __('Muito satisfatória', 'iande'),
         __('Satisfatória', 'iande'),
@@ -848,7 +853,10 @@ function get_group_feedback_metadata_definition() {
             'metabox' => (object) [
                 'name'    => __('O que você achou da visita educativa?', 'iande'),
                 'type'    => 'radio',
-                'options' => map_array_to_options($quality_options)
+                'options' => map_array_to_options($quality_options),
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
             ]
         ],
         'feedback_educator' => (object) [
@@ -860,7 +868,10 @@ function get_group_feedback_metadata_definition() {
             'metabox' => (object) [
                 'name'    => __('O que você achou da atuação do educador?', 'iande'),
                 'type'    => 'radio',
-                'options' => map_array_to_options($quality_options)
+                'options' => map_array_to_options($quality_options),
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
             ]
         ],
         'feedback_mood' => (object) [
@@ -872,7 +883,10 @@ function get_group_feedback_metadata_definition() {
             'metabox' => (object) [
                 'name'    => __('Você acha que a atuação do educador suscitou que tipo de reação do grupo?', 'iande'),
                 'type'    => 'radio',
-                'options' => map_array_to_options($mood_options)
+                'options' => map_array_to_options($mood_options),
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
             ]
         ],
         'feedback_mood_other' => (object) [
@@ -883,7 +897,10 @@ function get_group_feedback_metadata_definition() {
             },
             'metabox' => (object) [
                 'name'    => __('Você acha que a atuação do educador suscitou que tipo de reação do grupo (outro)?', 'iande'),
-                'type'    => 'text'
+                'type'    => 'text',
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
             ]
         ],
         'feedback_liked' => (object) [
@@ -895,7 +912,10 @@ function get_group_feedback_metadata_definition() {
             'metabox' => (object) [
                 'name'    => __('O que você mais gostou na visita?', 'iande'),
                 'type'    => 'radio',
-                'options' => map_array_to_options($liked_options)
+                'options' => map_array_to_options($liked_options),
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
             ]
         ],
         'feedback_liked_other' => (object) [
@@ -906,7 +926,10 @@ function get_group_feedback_metadata_definition() {
             },
             'metabox' => (object) [
                 'name'    => __('O que você mais gostou na visita (outro)?', 'iande'),
-                'type'    => 'text'
+                'type'    => 'text',
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
             ]
         ],
         'feedback_disliked' => (object) [
@@ -918,7 +941,10 @@ function get_group_feedback_metadata_definition() {
             'metabox' => (object) [
                 'name'    => __('O que você mais gostou na visita?', 'iande'),
                 'type'    => 'radio',
-                'options' => map_array_to_options($disliked_options)
+                'options' => map_array_to_options($disliked_options),
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
             ]
         ],
         'feedback_disliked_other' => (object) [
@@ -928,8 +954,11 @@ function get_group_feedback_metadata_definition() {
                 return true;
             },
             'metabox' => (object) [
-                'name'    => __('O que você mais gostou na visita (outro)?', 'iande'),
-                'type'    => 'text'
+                'name'       => __('O que você mais gostou na visita (outro)?', 'iande'),
+                'type'       => 'text',
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
             ]
         ],
         'feedback_comment' => (object) [
@@ -939,8 +968,11 @@ function get_group_feedback_metadata_definition() {
                 return true;
             },
             'metabox' => (object) [
-                'name'    => __('Deixe aqui seus comentários', 'iande'),
-                'type'    => 'textarea'
+                'name'       => __('Deixe aqui seus comentários', 'iande'),
+                'type'       => 'textarea',
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
             ]
         ]
     ];
