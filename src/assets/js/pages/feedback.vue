@@ -3,57 +3,63 @@
         <div class="iande-container narrow iande-stack stack-lg">
             <h1>Avaliação</h1>
             <form class="iande-form iande-stack stack-lg" @submit.prevent="evaluate">
-                <div>
-                    <label for="visit" class="iande-label">O que você achou da visita educativa?</label>
-                    <RadioGroup id="visit" columns v-model="feedback.feedback_visit" :validations="$v.feedback.feedback_visit" :options="qualityOptions"/>
-                </div>
+                <template v-if="submitted">
+                    <p class="text-center">Avaliação realizada com sucesso!</p>
+                </template>
 
-                <div>
-                    <label for="educator" class="iande-label">O que você achou da atuação do educador?</label>
-                    <RadioGroup id="educator" columns v-model="feedback.feedback_educator" :validations="$v.feedback.feedback_educator" :options="qualityOptions"/>
-                </div>
-
-                <div>
-                    <label for="mood" class="iande-label">Você acha que a atuação do educador suscitou que tipo de reação do grupo?</label>
-                    <RadioGroup id="mood" columns v-model="feedback.feedback_mood" :validations="$v.feedback.feedback_mood" :options="moodOptions"/>
-                    <template v-if="isOther(feedback.feedback_mood)">
-                        <label for="mood-other" class="iande-label">Qual?</label>
-                        <Input id="mood-other" type="text" v-model="feedback.feedback_mood_other" :validations="$v.feedback.feedback_mood_other"/>
-                    </template>
-                </div>
-
-                <div>
-                    <label for="liked" class="iande-label">O que você mais gostou na visita?</label>
-                    <RadioGroup id="liked" columns v-model="feedback.feedback_liked" :validations="$v.feedback.feedback_liked" :options="likedOptions"/>
-                    <template v-if="isOther(feedback.feedback_liked)">
-                        <label for="liked-other" class="iande-label">Qual?</label>
-                        <Input id="liked-other" type="text" v-model="feedback.feedback_liked_other" :validations="$v.feedback.feedback_liked_other"/>
-                    </template>
-                </div>
-
-                <div>
-                    <label for="disliked" class="iande-label">O que você mais gostou na visita?</label>
-                    <RadioGroup id="disliked" columns v-model="feedback.feedback_disliked" :validations="$v.feedback.feedback_disliked" :options="dislikedOptions"/>
-                    <template v-if="isOther(feedback.feedback_disliked)">
-                        <label for="disliked-other" class="iande-label">Qual?</label>
-                        <Input id="disliked-other" type="text" v-model="feedback.feedback_disliked_other" :validations="$v.feedback.feedback_disliked_other"/>
-                    </template>
-                </div>
-
-                <div>
-                    <label for="comment" class="iande-label">Deixe aqui seus comentários</label>
-                    <TextArea id="comment" placeholder="Escreva aqui" v-model="feedback.feedback_comment" :validations="$v.feedback.feedback_comment"/>
-                </div>
-
-                <div class="iande-stack stack-md">
-                    <div class="iande-form-error" v-if="formError">
-                        <span>{{ formError }}</span>
+                <template v-else>
+                    <div>
+                        <label for="visit" class="iande-label">O que você achou da visita educativa?</label>
+                        <RadioGroup id="visit" columns v-model="form.feedback_visit" :validations="$v.form.feedback_visit" :options="qualityOptions"/>
                     </div>
-                    <button class="iande-button primary" type="submit">
-                        Enviar
-                        <Icon icon="angle-right"/>
-                    </button>
-                </div>
+
+                    <div>
+                        <label for="educator" class="iande-label">O que você achou da atuação do educador?</label>
+                        <RadioGroup id="educator" columns v-model="form.feedback_educator" :validations="$v.form.feedback_educator" :options="qualityOptions"/>
+                    </div>
+
+                    <div>
+                        <label for="mood" class="iande-label">Você acha que a atuação do educador suscitou que tipo de reação do grupo?</label>
+                        <RadioGroup id="mood" columns v-model="form.feedback_mood" :validations="$v.form.feedback_mood" :options="moodOptions"/>
+                        <template v-if="isOther(form.feedback_mood)">
+                            <label for="mood-other" class="iande-label">Qual?</label>
+                            <Input id="mood-other" type="text" v-model="form.feedback_mood_other" :validations="$v.form.feedback_mood_other"/>
+                        </template>
+                    </div>
+
+                    <div>
+                        <label for="liked" class="iande-label">O que você mais gostou na visita?</label>
+                        <RadioGroup id="liked" columns v-model="form.feedback_liked" :validations="$v.form.feedback_liked" :options="likedOptions"/>
+                        <template v-if="isOther(form.feedback_liked)">
+                            <label for="liked-other" class="iande-label">Qual?</label>
+                            <Input id="liked-other" type="text" v-model="form.feedback_liked_other" :validations="$v.form.feedback_liked_other"/>
+                        </template>
+                    </div>
+
+                    <div>
+                        <label for="disliked" class="iande-label">O que você mais gostou na visita?</label>
+                        <RadioGroup id="disliked" columns v-model="form.feedback_disliked" :validations="$v.form.feedback_disliked" :options="dislikedOptions"/>
+                        <template v-if="isOther(form.feedback_disliked)">
+                            <label for="disliked-other" class="iande-label">Qual?</label>
+                            <Input id="disliked-other" type="text" v-model="form.feedback_disliked_other" :validations="$v.form.feedback_disliked_other"/>
+                        </template>
+                    </div>
+
+                    <div>
+                        <label for="comment" class="iande-label">Deixe aqui seus comentários</label>
+                        <TextArea id="comment" placeholder="Escreva aqui" v-model="form.feedback_comment" :validations="$v.form.feedback_comment"/>
+                    </div>
+
+                    <div class="iande-stack stack-md">
+                        <div class="iande-form-error" v-if="formError">
+                            <span>{{ formError }}</span>
+                        </div>
+                        <button class="iande-button primary" type="submit">
+                            Enviar
+                            <Icon icon="angle-right"/>
+                        </button>
+                    </div>
+                </template>
             </form>
         </div>
     </article>
@@ -76,7 +82,7 @@
         },
         data () {
             return {
-                feedback: {
+                form: {
                     feedback_comment: '',
                     feedback_disliked: null,
                     feedback_disliked_other: '',
@@ -124,7 +130,7 @@
             }),
         },
         validations: {
-            feedback: {
+            form: {
                 feedback_comment: { },
                 feedback_disliked: { required },
                 feedback_disliked_other: { },
