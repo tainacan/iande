@@ -45,10 +45,15 @@
                     <TextArea id="comment" placeholder="Escreva aqui" v-model="feedback.feedback_comment" :validations="$v.feedback.feedback_comment"/>
                 </div>
 
-                <button class="iande-button primary" type="submit">
-                    Enviar
-                    <Icon icon="angle-right"/>
-                </button>
+                <div class="iande-stack stack-md">
+                    <div class="iande-form-error" v-if="formError">
+                        <span>{{ formError }}</span>
+                    </div>
+                    <button class="iande-button primary" type="button">
+                        Enviar
+                        <Icon icon="angle-right"/>
+                    </button>
+                </div>
             </form>
         </div>
     </article>
@@ -154,7 +159,7 @@
                         this.formError = err
                     }
                 }
-            }
+            },
         }
     }
 </script>
