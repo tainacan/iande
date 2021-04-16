@@ -76,14 +76,10 @@
                         </div>
                     </template>
 
-                    <div class="iande-form-grid">
-                        <div/>
-
-                        <button class="iande-button primary" type="submit">
-                            Avançar
-                            <Icon icon="angle-right"/>
-                        </button>
-                    </div>
+                    <button class="iande-button primary" type="submit">
+                        Enviar
+                        <Icon icon="angle-right"/>
+                    </button>
                 </template>
             </form>
         </div>
@@ -193,7 +189,7 @@
             },
         },
         validations () {
-            let v = {
+            return {
                 checkin: {
                     age_range: { required: requiredIf(() => this.showedYes) },
                     disabilities: { required: requiredIf(() => this.showedYes) },
@@ -209,15 +205,13 @@
                     showed: { required },
                 },
             }
-            console.log(v)
-            return v
         },
         async beforeMount () {
             const qs = new URLSearchParams(window.location.search)
             if (qs.has('ID')) {
                 try {
                     const group = await api.get('group/get', { ID: Number(qs.get('ID')) })
-                    this.group = { ...this.group, ...group }
+                    this.group = group
                     const exhibition = await api.get('exhibition/get', { ID: group.exhibition_id })
                     this.exhibition = exhibition
                 } catch (err) {

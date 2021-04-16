@@ -144,6 +144,18 @@ class Group extends Controller
     }
 
     /**
+     * Renderiza a tela de avaliação do usuário
+     *
+     * @param array $params
+     * return void
+     */
+    function view_feedback(array $params = [])
+    {
+        $this->require_authentication();
+        $this->render('feedback');
+    }
+
+    /**
      * Renderiza o calendário de grupos para educadores
      *
      * @param array $params
