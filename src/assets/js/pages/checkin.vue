@@ -80,7 +80,7 @@
                         <div class="iande-form-error" v-if="formError">
                             <span>{{ formError }}</span>
                         </div>
-                        <button class="iande-button primary" type="button">
+                        <button class="iande-button primary" type="submit">
                             Enviar
                             <Icon icon="angle-right"/>
                         </button>

@@ -2,7 +2,7 @@
     <article class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
             <h1>Avaliação</h1>
-            <form class="iande-form iande-stack stack-lg" @submit.prevent="submit">
+            <form class="iande-form iande-stack stack-lg" @submit.prevent="evaluate">
                 <div>
                     <label for="visit" class="iande-label">O que você achou da visita educativa?</label>
                     <RadioGroup id="visit" columns v-model="feedback.feedback_visit" :validations="$v.feedback.feedback_visit" :options="qualityOptions"/>
@@ -49,7 +49,7 @@
                     <div class="iande-form-error" v-if="formError">
                         <span>{{ formError }}</span>
                     </div>
-                    <button class="iande-button primary" type="button">
+                    <button class="iande-button primary" type="submit">
                         Enviar
                         <Icon icon="angle-right"/>
                     </button>
@@ -148,18 +148,18 @@
             }
         },
         methods: {
-            isOther,
-            async submit () {
+            async evaluate () {
                 this.formError = ''
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
                     try {
 
-                    } catch (err) {
-                        this.formError = err
+                        } catch (err) {
+                            this.formError = err
                     }
                 }
             },
+            isOther,
         }
     }
 </script>
