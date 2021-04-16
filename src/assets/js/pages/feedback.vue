@@ -147,7 +147,7 @@
             async submit () {
                 this.formError = ''
                 this.$v.$touch()
-                if (!this.$v.invalid) {
+                if (!this.$v.$invalid) {
                     try {
 
                     } catch (err) {
