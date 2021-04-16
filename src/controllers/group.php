@@ -107,7 +107,7 @@ class Group extends Controller
      *
      * @param array $params
      * @return array
-     * 
+     *
      * @todo verificar permissões de edição dos metadados
      */
     function endpoint_update(array $params = [])
@@ -120,7 +120,7 @@ class Group extends Controller
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
             $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
-        
+
         $this->validate($params, true, true);
 
         $this->set_group_metadata($params['ID'], $params);
@@ -153,6 +153,18 @@ class Group extends Controller
     {
         $this->require_authentication();
         $this->render('feedback');
+    }
+
+    /**
+     * Renderiza a tela de avaliação do educador
+     *
+     * @param array $params
+     * return void
+     */
+    function view_journal(array $params = [])
+    {
+        $this->require_authentication();
+        $this->render('group-journal');
     }
 
     /**
