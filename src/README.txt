@@ -71,4 +71,4 @@ Features:
 == Mais informações ==
 
 Visite nosso site oficial: [Iandé](https://iandecultura.com.br/)
-Contribua com o código fonte:: [Github Iandé](https://gitlab.com/percebe/iande-plugin/)
+Contribua com o código fonte:: [GitLab Iandé](https://gitlab.com/percebe/iande-plugin/)
