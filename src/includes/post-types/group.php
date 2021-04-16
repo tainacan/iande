@@ -5,6 +5,7 @@ namespace IandePlugin;
 add_action('init', 'IandePlugin\\register_post_type_group');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_checkin');
+add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_feedback');
 
 /**
  * Registra o Post Type `group`
@@ -472,6 +473,90 @@ function register_metabox_group_checkin() {
 }
 
 /**
+ * Registra os metaboxes do feedback do grupo com CMB2
+ *
+ * @filter iande.group_feedback_metabox_fields
+ *
+ * @return void
+ */
+function register_metabox_group_feedback() {
+
+    $metadata_definition = get_group_feedback_metadata_definition();
+
+    $fields = [];
+    $group_metabox = '';
+
+    foreach ($metadata_definition as $key => $definition) {
+
+        if (isset($definition->metabox)) {
+
+            $group_metabox = \new_cmb2_box(array(
+                'id'            => 'group_feedback',
+                'title'         => __('Informações da Avaliação', 'iande'),
+                'object_types'  => array('group'),
+                'context'       => 'normal',
+                'priority'      => 'high',
+                'show_names'    => true
+            ));
+
+            /**
+             * Fields parameters
+             *
+             * @link https://cmb2.io/docs/field-parameters
+             */
+
+            $name       = '';
+            $desc       = '';
+            $type       = '';
+            $options    = [];
+            $attributes = [];
+            $repeatable = false;
+
+            if (isset($definition->metabox->name))
+                $name = $definition->metabox->name;
+
+            if (isset($definition->metabox->desc))
+                $desc = $definition->metabox->desc;
+
+            if (isset($definition->metabox->type))
+                $type = $definition->metabox->type;
+
+            if (isset($definition->metabox->options))
+                $options = $definition->metabox->options;
+
+            if (isset($definition->metabox->attributes))
+                $attributes = $definition->metabox->attributes;
+
+            if (isset($definition->metabox->repeatable))
+                $repeatable = $definition->metabox->repeatable;
+
+            $fields[] = [
+                'name'       => $name,
+                'desc'       => $desc,
+                'id'         => $key,
+                'type'       => $type,
+                'options'    => $options,
+                'attributes' => $attributes,
+                'repeatable' => $repeatable
+            ];
+
+        }
+
+    }
+
+    $fields = \apply_filters('iande.group_feedback_metabox_fields', $fields);
+
+    if (is_object($group_metabox)) {
+        foreach ($fields as $field) {
+            $group_metabox->add_field($field);
+        }
+    }
+
+    return $group_metabox;
+
+}
+
+/**
  * Retorna a definição dos metadados do post type `group` relativos ao checkin
  *
  * @filter iande.group_checkin_metadata_definition
@@ -711,14 +796,173 @@ function get_group_checkin_metadata_definition() {
 }
 
 /**
- * Adiciona os metadados do post_type `group` relativos ao checkin
+ * Retorna a definição dos metadados do post type `group` relativos ao feedback
+ *
+ * @filter iande.group_feedback_metadata_definition
+ *
+ * @return array
+ */
+function get_group_feedback_metadata_definition() {
+
+    $quality_options = [
+        __('Muito satisfatória', 'iande'),
+        __('Satisfatória', 'iande'),
+        __('Pouco satisfatória', 'iande'),
+        __('Insatisfatória', 'iande')
+    ];
+
+    $mood_options = [
+        __('Interesse', 'iande'),
+        __('Apatia', 'iande'),
+        __('Indisciplina', 'iande'),
+        __('Tranquilidade', 'iande'),
+        __('Participação', 'iande'),
+        __('Outros', 'iande')
+    ];
+
+    $liked_options = [
+        __('Observar o acervo', 'iande'),
+        __('Interagir com a exposição', 'iande'),
+        __('Ler os textos da exposição', 'iande'),
+        __('Da atuação do educador/visita educativa', 'iande'),
+        __('Dos materiais educativos', 'iande'),
+        __('Outros', 'iande')
+    ];
+
+    $disliked_options = [
+        __('Do acervo exposto', 'iande'),
+        __('Dos textos da exposição', 'iande'),
+        __('Da atuação do educador/visita educativa', 'iande'),
+        __('Do comportamento dos alunos', 'iande'),
+        __('Dos materiais educativos', 'iande'),
+        __('Outros', 'iande')
+    ];
+
+    $metadata_definition = [
+        'feedback_visit' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('O que você achou da visita educativa?', 'iande'),
+                'type'    => 'radio',
+                'options' => map_array_to_options($quality_options)
+            ]
+        ],
+        'feedback_educator' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('O que você achou da atuação do educador?', 'iande'),
+                'type'    => 'radio',
+                'options' => map_array_to_options($quality_options)
+            ]
+        ],
+        'feedback_mood' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('Você acha que a atuação do educador suscitou que tipo de reação do grupo?', 'iande'),
+                'type'    => 'radio',
+                'options' => map_array_to_options($mood_options)
+            ]
+        ],
+        'feedback_mood_other' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('Você acha que a atuação do educador suscitou que tipo de reação do grupo (outro)?', 'iande'),
+                'type'    => 'text'
+            ]
+        ],
+        'feedback_liked' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('O que você mais gostou na visita?', 'iande'),
+                'type'    => 'radio',
+                'options' => map_array_to_options($liked_options)
+            ]
+        ],
+        'feedback_liked_other' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('O que você mais gostou na visita (outro)?', 'iande'),
+                'type'    => 'text'
+            ]
+        ],
+        'feedback_disliked' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('O que você mais gostou na visita?', 'iande'),
+                'type'    => 'radio',
+                'options' => map_array_to_options($disliked_options)
+            ]
+        ],
+        'feedback_disliked_other' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('O que você mais gostou na visita (outro)?', 'iande'),
+                'type'    => 'text'
+            ]
+        ],
+        'feedback_comment' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('Deixe aqui seus comentários', 'iande'),
+                'type'    => 'textarea'
+            ]
+        ]
+    ];
+
+    $metadata_definition = \apply_filters('iande.group_feedback_metadata_definition', $metadata_definition);
+
+    return $metadata_definition;
+
+}
+
+
+/**
+ * Adiciona os metadados do post_type `group` relativos ao checkin e feedback
  * no filtro iande.group_metadata_definition
  */
 \add_filter('iande.group_metadata_definition', 'IandePlugin\\merge_metadata_definition');
 function merge_metadata_definition($metadata_definition) {
 
     $checkin_metadata_definition = get_group_checkin_metadata_definition();
-    $metadata_definition = array_merge($metadata_definition, $checkin_metadata_definition); 
+    $feedback_metadata_definition = get_group_feedback_metadata_definition();
+
+    $metadata_definition = array_merge($metadata_definition, $checkin_metadata_definition, $feedback_metadata_definition); 
 
     return $metadata_definition;
 
