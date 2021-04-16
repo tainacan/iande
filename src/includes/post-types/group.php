@@ -61,86 +61,25 @@ function register_post_type_group()
 /**
  * Registra os metaboxes do grupo com CMB2
  *
- * @filter iande.group_metabox_fields
- *
  * @return void
  */
-function register_metabox_group() {
-
-    /* Registra os metaboxes do post type `group` */
+function register_metabox_group()
+{
 
     $metadata_definition = get_group_metadata_definition();
 
-    $fields = [];
-    $group_metabox = '';
+    $metabox_definition = \new_cmb2_box([
+        'id'           => 'group',
+        'title'        => __('Informações do Grupo', 'iande'),
+        'object_types' => ['group'],
+        'context'      => 'normal',
+        'priority'     => 'high',
+        'show_names'   => true
+    ]);
 
-    foreach ($metadata_definition as $key => $definition) {
+    $fields = get_group_fields_parameters($metadata_definition, $metabox_definition);
 
-        if (isset($definition->metabox)) {
-
-            $group_metabox = \new_cmb2_box(array(
-                'id'            => 'group',
-                'title'         => __('Informações do Grupo', 'iande'),
-                'object_types'  => array('group'),
-                'context'       => 'normal',
-                'priority'      => 'high',
-                'show_names'    => true
-            ));
-
-            /**
-             * Fields parameters
-             *
-             * @link https://cmb2.io/docs/field-parameters
-             */
-
-            $name       = '';
-            $desc       = '';
-            $type       = '';
-            $options    = [];
-            $attributes = [];
-            $repeatable = false;
-
-            if (isset($definition->metabox->name))
-                $name = $definition->metabox->name;
-
-            if (isset($definition->metabox->desc))
-                $desc = $definition->metabox->desc;
-
-            if (isset($definition->metabox->type))
-                $type = $definition->metabox->type;
-
-            if (isset($definition->metabox->options))
-                $options = $definition->metabox->options;
-
-            if (isset($definition->metabox->attributes))
-                $attributes = $definition->metabox->attributes;
-
-            if (isset($definition->metabox->repeatable))
-                $repeatable = $definition->metabox->repeatable;
-
-            $fields[] = [
-                'name'       => $name,
-                'desc'       => $desc,
-                'id'         => $key,
-                'type'       => $type,
-                'options'    => $options,
-                'attributes' => $attributes,
-                'repeatable' => $repeatable
-            ];
-
-        }
-
-    }
-
-    $fields = \apply_filters('iande.group_metabox_fields', $fields);
-
-    if (is_object($group_metabox)) {
-        foreach ($fields as $field) {
-            $group_metabox->add_field($field);
-        }
-    }
-
-    return $group_metabox;
+    return $fields;
 
 }
 
@@ -391,84 +330,25 @@ function get_group_metadata_definition() {
 /**
  * Registra os metaboxes do checkin do grupo com CMB2
  *
- * @filter iande.group_checkin_metabox_fields
- *
  * @return void
  */
-function register_metabox_group_checkin() {
+function register_metabox_group_checkin()
+{
 
     $metadata_definition = get_group_checkin_metadata_definition();
 
-    $fields = [];
-    $group_metabox = '';
+    $metabox_definition = \new_cmb2_box([
+        'id'           => 'group_checkin',
+        'title'        => __('Informações do Checkin', 'iande'),
+        'object_types' => ['group'],
+        'context'      => 'normal',
+        'priority'     => 'high',
+        'show_names'   => true
+    ]);
 
-    foreach ($metadata_definition as $key => $definition) {
+    $fields = get_group_fields_parameters($metadata_definition, $metabox_definition);
 
-        if (isset($definition->metabox)) {
-
-            $group_metabox = \new_cmb2_box(array(
-                'id'            => 'group_checkin',
-                'title'         => __('Informações do Checkin', 'iande'),
-                'object_types'  => array('group'),
-                'context'       => 'normal',
-                'priority'      => 'high',
-                'show_names'    => true
-            ));
-
-            /**
-             * Fields parameters
-             *
-             * @link https://cmb2.io/docs/field-parameters
-             */
-
-            $name       = '';
-            $desc       = '';
-            $type       = '';
-            $options    = [];
-            $attributes = [];
-            $repeatable = false;
-
-            if (isset($definition->metabox->name))
-                $name = $definition->metabox->name;
-
-            if (isset($definition->metabox->desc))
-                $desc = $definition->metabox->desc;
-
-            if (isset($definition->metabox->type))
-                $type = $definition->metabox->type;
-
-            if (isset($definition->metabox->options))
-                $options = $definition->metabox->options;
-
-            if (isset($definition->metabox->attributes))
-                $attributes = $definition->metabox->attributes;
-
-            if (isset($definition->metabox->repeatable))
-                $repeatable = $definition->metabox->repeatable;
-
-            $fields[] = [
-                'name'       => $name,
-                'desc'       => $desc,
-                'id'         => $key,
-                'type'       => $type,
-                'options'    => $options,
-                'attributes' => $attributes,
-                'repeatable' => $repeatable
-            ];
-
-        }
-
-    }
-
-    $fields = \apply_filters('iande.group_checkin_metabox_fields', $fields);
-
-    if (is_object($group_metabox)) {
-        foreach ($fields as $field) {
-            $group_metabox->add_field($field);
-        }
-    }
-
-    return $group_metabox;
+    return $fields;
 
 }
 
@@ -714,84 +594,25 @@ function get_group_checkin_metadata_definition() {
 /**
  * Registra os metaboxes do feedback do grupo com CMB2
  *
- * @filter iande.group_feedback_metabox_fields
- *
  * @return void
  */
-function register_metabox_group_feedback() {
+function register_metabox_group_feedback()
+{
 
     $metadata_definition = get_group_feedback_metadata_definition();
 
-    $fields = [];
-    $group_metabox = '';
+    $metabox_definition = \new_cmb2_box([
+        'id'           => 'group_feedback',
+        'title'        => __('Informações da Avaliação', 'iande'),
+        'object_types' => ['group'],
+        'context'      => 'normal',
+        'priority'     => 'high',
+        'show_names'   => true
+    ]);
 
-    foreach ($metadata_definition as $key => $definition) {
+    $fields = get_group_fields_parameters($metadata_definition, $metabox_definition);
 
-        if (isset($definition->metabox)) {
-
-            $group_metabox = \new_cmb2_box(array(
-                'id'            => 'group_feedback',
-                'title'         => __('Informações da Avaliação', 'iande'),
-                'object_types'  => array('group'),
-                'context'       => 'normal',
-                'priority'      => 'high',
-                'show_names'    => true
-            ));
-
-            /**
-             * Fields parameters
-             *
-             * @link https://cmb2.io/docs/field-parameters
-             */
-
-            $name       = '';
-            $desc       = '';
-            $type       = '';
-            $options    = [];
-            $attributes = [];
-            $repeatable = false;
-
-            if (isset($definition->metabox->name))
-                $name = $definition->metabox->name;
-
-            if (isset($definition->metabox->desc))
-                $desc = $definition->metabox->desc;
-
-            if (isset($definition->metabox->type))
-                $type = $definition->metabox->type;
-
-            if (isset($definition->metabox->options))
-                $options = $definition->metabox->options;
-
-            if (isset($definition->metabox->attributes))
-                $attributes = $definition->metabox->attributes;
-
-            if (isset($definition->metabox->repeatable))
-                $repeatable = $definition->metabox->repeatable;
-
-            $fields[] = [
-                'name'       => $name,
-                'desc'       => $desc,
-                'id'         => $key,
-                'type'       => $type,
-                'options'    => $options,
-                'attributes' => $attributes,
-                'repeatable' => $repeatable
-            ];
-
-        }
-
-    }
-
-    $fields = \apply_filters('iande.group_feedback_metabox_fields', $fields);
-
-    if (is_object($group_metabox)) {
-        foreach ($fields as $field) {
-            $group_metabox->add_field($field);
-        }
-    }
-
-    return $group_metabox;
+    return $fields;
 
 }
 
@@ -984,15 +805,89 @@ function get_group_feedback_metadata_definition() {
 }
 
 /**
+ * Retorna os parametros dos campos para os metadados do post type `group`
+ * 
+ * @param array $metadata_definition com a definição dos metadados
+ * @param object $metabox_definition objeto \new_cmb2_box com a definição do metabox
+ * 
+ * @filter iande.' . $metabox_definition->meta_box['id'] . '_metabox_fields
+ * 
+ * @link https://cmb2.io/docs/field-parameters
+ * 
+ * @return array
+ */
+function get_group_fields_parameters(array $metadata_definition, object $metabox_definition)
+{
+
+    $fields = [];
+
+    foreach ($metadata_definition as $key => $definition) {
+
+        if (isset($definition->metabox)) {
+
+            $name       = '';
+            $desc       = '';
+            $type       = '';
+            $options    = [];
+            $attributes = [];
+            $repeatable = false;
+
+            if (isset($definition->metabox->name))
+                $name = $definition->metabox->name;
+
+            if (isset($definition->metabox->desc))
+                $desc = $definition->metabox->desc;
+
+            if (isset($definition->metabox->type))
+                $type = $definition->metabox->type;
+
+            if (isset($definition->metabox->options))
+                $options = $definition->metabox->options;
+
+            if (isset($definition->metabox->attributes))
+                $attributes = $definition->metabox->attributes;
+
+            if (isset($definition->metabox->repeatable))
+                $repeatable = $definition->metabox->repeatable;
+
+            $fields[] = [
+                'name'       => $name,
+                'desc'       => $desc,
+                'id'         => $key,
+                'type'       => $type,
+                'options'    => $options,
+                'attributes' => $attributes,
+                'repeatable' => $repeatable
+            ];
+
+        }
+
+    }
+
+    $fields = \apply_filters('iande.' . $metabox_definition->meta_box['id'] . '_metabox_fields', $fields);
+
+    if (is_object($metabox_definition)) {
+        foreach ($fields as $field) {
+            $metabox_definition->add_field($field);
+        }
+    }
+
+    return $metabox_definition;
+
+}
+
+/**
  * Retorna todas definições dos metadados po post type `group`
+ * 
+ * @filter iande.group_all_metadata_definition
  * 
  * @return array
  */
 function get_all_group_metadata_definition()
 {
 
-    $group_metadata_definition = get_group_metadata_definition();
-    $checkin_metadata_definition = get_group_checkin_metadata_definition();
+    $group_metadata_definition    = get_group_metadata_definition();
+    $checkin_metadata_definition  = get_group_checkin_metadata_definition();
     $feedback_metadata_definition = get_group_feedback_metadata_definition();
 
     $metadata_definition = array_merge($group_metadata_definition, $checkin_metadata_definition, $feedback_metadata_definition); 
