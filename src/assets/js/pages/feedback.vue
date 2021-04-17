@@ -95,6 +95,7 @@
                 },
                 formError: '',
                 group: null,
+                submitted: false,
             }
         },
         computed: {
@@ -159,9 +160,9 @@
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
                     try {
-
-                        } catch (err) {
-                            this.formError = err
+                        this.submitted = true
+                    } catch (err) {
+                        this.formError = err
                     }
                 }
             },
