@@ -18,7 +18,7 @@
                 </template>
             </template>
             <template #event="{ event }">
-                <div class="iande-educator-agenda__event" :class="assignmentStatus(event.group)">
+                <div class="iande-educator-agenda__event" :class="status(event.group)">
                     <p><b>{{ event.group.name }}</b></p>
                     <p>{{ event.group.hour }} - {{ formatHour(event.end) }}</p>
                     <a href="javascript:void(0)" role="button" tabindex="0" @click="showModal(event.group)">ver mais</a>
@@ -133,7 +133,7 @@
                     'unassigned': 0,
                 }
                 for (const group of groups) {
-                    statuses[this.status(group)] += 1
+                    statuses[this.status(group.group)] += 1
                 }
                 return statuses
             },
