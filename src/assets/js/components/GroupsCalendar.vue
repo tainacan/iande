@@ -122,10 +122,11 @@
                     end: (Number(endHour) * 60) + Number(endMinute),
                 }
             },
+            user: get('users/current'),
         },
         methods: {
             assignmentStatus (group) {
-                return assignmentStatus(group)
+                return assignmentStatus(group, this.user.ID)
             },
             cellGroups (cell) {
                 const groups = this.groupsByDate.get(cell.formattedDate) || []
