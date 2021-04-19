@@ -125,9 +125,6 @@
             user: get('users/current'),
         },
         methods: {
-            assignmentStatus (group) {
-                return assignmentStatus(group, this.user.ID)
-            },
             cellGroups (cell) {
                 const groups = this.groupsByDate.get(cell.formattedDate) || []
                 const statuses = {
@@ -136,7 +133,7 @@
                     'unassigned': 0,
                 }
                 for (const group of groups) {
-                    statuses[assignmentStatus(group)] += 1
+                    statuses[this.status(group)] += 1
                 }
                 return statuses
             },
@@ -145,7 +142,10 @@
             },
             showModal (group) {
                 this.$refs.modal.open(group)
-            }
+            },
+            status (group) {
+                return assignmentStatus(group, this.user.ID)
+            },
         }
     }
 </script>
