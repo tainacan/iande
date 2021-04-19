@@ -6,7 +6,7 @@ add_action('init', 'IandePlugin\\register_post_type_group');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_checkin');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_feedback');
-add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_journal');
+add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_report');
 
 /**
  * Registra o Post Type `group`
@@ -826,17 +826,17 @@ function get_group_feedback_metadata_definition() {
 }
 
 /**
- * Registra os metaboxes do journal do grupo com CMB2
+ * Registra os metaboxes do report do grupo com CMB2
  *
  * @return void
  */
-function register_metabox_group_journal()
+function register_metabox_group_report()
 {
 
-    $metadata_definition = get_group_journal_metadata_definition();
+    $metadata_definition = get_group_report_metadata_definition();
 
     $metabox_definition = \new_cmb2_box([
-        'id'           => 'group_journal',
+        'id'           => 'group_report',
         'title'        => __('Informações da Avaliação do Educador', 'iande'),
         'object_types' => ['group'],
         'context'      => 'normal',
@@ -851,13 +851,13 @@ function register_metabox_group_journal()
 }
 
 /**
- * Retorna a definição dos metadados do post type `group` relativos ao journal
+ * Retorna a definição dos metadados do post type `group` relativos ao report
  *
- * @filter iande.group_journal_metadata_definition
+ * @filter iande.group_report_metadata_definition
  *
  * @return array
  */
-function get_group_journal_metadata_definition() {
+function get_group_report_metadata_definition() {
 
     /**
      * Desabilita o campo para usuários sem premissão de edição `manage_iande_options`
@@ -916,7 +916,7 @@ function get_group_journal_metadata_definition() {
     ];
 
     $metadata_definition = [
-        'journal_type' => (object) [
+        'report_type' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
@@ -932,7 +932,7 @@ function get_group_journal_metadata_definition() {
                 ]
             ]
         ],
-        'journal_interest' => (object) [
+        'report_interest' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
@@ -947,7 +947,7 @@ function get_group_journal_metadata_definition() {
                 ]
             ]
         ],
-        'journal_mood' => (object) [
+        'report_mood' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
@@ -963,7 +963,7 @@ function get_group_journal_metadata_definition() {
                 ]
             ]
         ],
-        'journal_mood_other' => (object) [
+        'report_mood_other' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
@@ -977,7 +977,7 @@ function get_group_journal_metadata_definition() {
                 ]
             ]
         ],
-        'journal_interactive' => (object) [
+        'report_interactive' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
@@ -992,7 +992,7 @@ function get_group_journal_metadata_definition() {
                 ]
             ]
         ],
-        'journal_interaction' => (object) [
+        'report_interaction' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
@@ -1008,7 +1008,7 @@ function get_group_journal_metadata_definition() {
                 ]
             ]
         ],
-        'journal_difficulty' => (object) [
+        'report_difficulty' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
@@ -1024,7 +1024,7 @@ function get_group_journal_metadata_definition() {
                 ]
             ]
         ],
-        'journal_difficulty_other' => (object) [
+        'report_difficulty_other' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
@@ -1038,7 +1038,7 @@ function get_group_journal_metadata_definition() {
                 ]
             ]
         ],
-        'journal_comment' => (object) [
+        'report_comment' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
@@ -1052,7 +1052,7 @@ function get_group_journal_metadata_definition() {
                 ]
             ]
         ],
-        'journal_summary' => (object) [
+        'report_summary' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
@@ -1068,7 +1068,7 @@ function get_group_journal_metadata_definition() {
         ]
     ];
 
-    $metadata_definition = \apply_filters('iande.group_journal_metadata_definition', $metadata_definition);
+    $metadata_definition = \apply_filters('iande.group_report_metadata_definition', $metadata_definition);
 
     return $metadata_definition;
 
@@ -1164,9 +1164,9 @@ function get_all_group_metadata_definition()
     $group_metadata_definition    = get_group_metadata_definition();
     $checkin_metadata_definition  = get_group_checkin_metadata_definition();
     $feedback_metadata_definition = get_group_feedback_metadata_definition();
-    $journal_metadata_definition  = get_group_journal_metadata_definition();
+    $report_metadata_definition  = get_group_report_metadata_definition();
 
-    $metadata_definition = array_merge($group_metadata_definition, $checkin_metadata_definition, $feedback_metadata_definition, $journal_metadata_definition); 
+    $metadata_definition = array_merge($group_metadata_definition, $checkin_metadata_definition, $feedback_metadata_definition, $report_metadata_definition); 
 
     $metadata_definition = \apply_filters('iande.group_all_metadata_definition', $metadata_definition);
 
