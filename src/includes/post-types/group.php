@@ -6,6 +6,7 @@ add_action('init', 'IandePlugin\\register_post_type_group');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_checkin');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_feedback');
+add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_journal');
 
 /**
  * Registra o Post Type `group`
@@ -603,7 +604,7 @@ function register_metabox_group_feedback()
 
     $metabox_definition = \new_cmb2_box([
         'id'           => 'group_feedback',
-        'title'        => __('Informações da Avaliação', 'iande'),
+        'title'        => __('Informações da Avaliação do Visitante', 'iande'),
         'object_types' => ['group'],
         'context'      => 'normal',
         'priority'     => 'high',
@@ -805,6 +806,255 @@ function get_group_feedback_metadata_definition() {
 }
 
 /**
+ * Registra os metaboxes do journal do grupo com CMB2
+ *
+ * @return void
+ */
+function register_metabox_group_journal()
+{
+
+    $metadata_definition = get_group_journal_metadata_definition();
+
+    $metabox_definition = \new_cmb2_box([
+        'id'           => 'group_journal',
+        'title'        => __('Informações da Avaliação do Educador', 'iande'),
+        'object_types' => ['group'],
+        'context'      => 'normal',
+        'priority'     => 'high',
+        'show_names'   => true
+    ]);
+
+    $fields = get_group_fields_parameters($metadata_definition, $metabox_definition);
+
+    return $fields;
+
+}
+
+/**
+ * Retorna a definição dos metadados do post type `group` relativos ao journal
+ *
+ * @filter iande.group_journal_metadata_definition
+ *
+ * @return array
+ */
+function get_group_journal_metadata_definition() {
+
+    /**
+     * Desabilita o campo para usuários sem premissão de edição `manage_iande_options`
+     */
+    $disabled = (\current_user_can('manage_iande_options')) ? false : true;
+
+    $type_options = [
+        __('Mais expositiva', 'iande'),
+        __('Mais dialogada', 'iande'),
+        __('Mais direcionada', 'iande'),
+        __('Mais livre', 'iande'),
+        __('Mais teatral', 'iande'),
+        __('Mais interrogativa', 'iande')
+    ];
+
+    $interest_options = [
+        __('Elevado', 'iande'),
+        __('Mediano', 'iande'),
+        __('Fraco', 'iande')
+    ];
+
+    $mood_options = [
+        __('Interesse', 'iande'),
+        __('Apatia', 'iande'),
+        __('Indisciplina', 'iande'),
+        __('Tranquilidade', 'iande'),
+        __('Participação', 'iande'),
+        __('Outros', 'iande')
+    ];
+
+    $interactive_options = [
+        __('Muito', 'iande'),
+        __('Razoavelmente', 'iande'),
+        __('Pouco', 'iande'),
+        __('Nada', 'iande')
+    ];
+
+    $interaction_options = [
+        __('Observação', 'iande'),
+        __('Leitura', 'iande'),
+        __('Interação com outros membros do grupo', 'iande'),
+        __('Interação com o educador/proposta educativa', 'iande'),
+        __('Interação com os aparatos expositivos/expografia', 'iande'),
+        __('Interação com o material educativo', 'iande')
+    ];
+
+    $difficulty_options = [
+        __('Atraso do grupo', 'iande'),
+        __('Comportamento inadequado do grupo', 'iande'),
+        __('Grupo muito grande', 'iande'),
+        __('Omissão do responsável', 'iande'),
+        __('Problemas relacionados à expografia', 'iande'),
+        __('Museu muito cheio', 'iande'),
+        __('Nenhum problema', 'iande'),
+        __('Outros', 'iande')
+    ];
+
+    $metadata_definition = [
+        'journal_type' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'              => __('Qual foi o grau de interesse da maior parte do grupo durante a visita?', 'iande'),
+                'type'              => 'multicheck',
+                'options'           => map_array_to_options($type_options),
+                'select_all_button' => false,
+                'attributes'        => [
+                    'disabled' => $disabled
+                ]
+            ]
+        ],
+        'journal_interest' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'       => __('Que tipo de visita você realizou? Marque até duas alternativas', 'iande'),
+                'type'       => 'select',
+                'options'    => map_array_to_options($interest_options),
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
+            ]
+        ],
+        'journal_mood' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'              => __('Como você classificaria a postura da maior parte do grupo durante a visita? Marque até duas alternativas', 'iande'),
+                'type'              => 'multicheck',
+                'options'           => map_array_to_options($mood_options),
+                'select_all_button' => false,
+                'attributes'        => [
+                    'disabled' => $disabled
+                ]
+            ]
+        ],
+        'journal_mood_other' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'       => __('Como você classificaria a postura da maior parte do grupo durante a visita (outro)?', 'iande'),
+                'type'       => 'text',
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
+            ]
+        ],
+        'journal_interactive' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'       => __('A visita educativa suscitou interações entre o visitante e a exposição?', 'iande'),
+                'type'       => 'select',
+                'options'    => map_array_to_options($interactive_options),
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
+            ]
+        ],
+        'journal_interaction' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'              => __('Que tipo de visita você realizou? Marque até duas alternativas', 'iande'),
+                'type'              => 'multicheck',
+                'options'           => map_array_to_options($interaction_options),
+                'select_all_button' => false,
+                'attributes'        => [
+                    'disabled' => $disabled
+                ]
+            ]
+        ],
+        'journal_difficulty' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'              => __('Assinale as principais dificuldades encontradas. Marque até duas alternativas', 'iande'),
+                'type'              => 'multicheck',
+                'options'           => map_array_to_options($difficulty_options),
+                'select_all_button' => false,
+                'attributes'        => [
+                    'disabled' => $disabled
+                ]
+            ]
+        ],
+        'journal_difficulty_other' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'       => __('Assinale as principais dificuldades encontradas. Qual?', 'iande'),
+                'type'       => 'text',
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
+            ]
+        ],
+        'journal_comment' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'       => __('Deixe aqui seus comentários (opcional)', 'iande'),
+                'type'       => 'textarea',
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
+            ]
+        ],
+        'journal_summary' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'       => __('Resumo da visita', 'iande'),
+                'type'       => 'textarea',
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
+            ]
+        ]
+    ];
+
+    $metadata_definition = \apply_filters('iande.group_journal_metadata_definition', $metadata_definition);
+
+    return $metadata_definition;
+
+}
+
+/**
  * Retorna os parametros dos campos para os metadados do post type `group`
  * 
  * @param array $metadata_definition com a definição dos metadados
@@ -825,12 +1075,13 @@ function get_group_fields_parameters(array $metadata_definition, object $metabox
 
         if (isset($definition->metabox)) {
 
-            $name       = '';
-            $desc       = '';
-            $type       = '';
-            $options    = [];
-            $attributes = [];
-            $repeatable = false;
+            $name              = '';
+            $desc              = '';
+            $type              = '';
+            $options           = [];
+            $attributes        = [];
+            $repeatable        = false;
+            $select_all_button = false;
 
             if (isset($definition->metabox->name))
                 $name = $definition->metabox->name;
@@ -850,14 +1101,18 @@ function get_group_fields_parameters(array $metadata_definition, object $metabox
             if (isset($definition->metabox->repeatable))
                 $repeatable = $definition->metabox->repeatable;
 
+            if (isset($definition->metabox->select_all_button))
+                $select_all_button = $definition->metabox->select_all_button;
+
             $fields[] = [
-                'name'       => $name,
-                'desc'       => $desc,
-                'id'         => $key,
-                'type'       => $type,
-                'options'    => $options,
-                'attributes' => $attributes,
-                'repeatable' => $repeatable
+                'name'              => $name,
+                'desc'              => $desc,
+                'id'                => $key,
+                'type'              => $type,
+                'options'           => $options,
+                'attributes'        => $attributes,
+                'repeatable'        => $repeatable,
+                'select_all_button' => $select_all_button
             ];
 
         }
@@ -889,8 +1144,9 @@ function get_all_group_metadata_definition()
     $group_metadata_definition    = get_group_metadata_definition();
     $checkin_metadata_definition  = get_group_checkin_metadata_definition();
     $feedback_metadata_definition = get_group_feedback_metadata_definition();
+    $journal_metadata_definition  = get_group_journal_metadata_definition();
 
-    $metadata_definition = array_merge($group_metadata_definition, $checkin_metadata_definition, $feedback_metadata_definition); 
+    $metadata_definition = array_merge($group_metadata_definition, $checkin_metadata_definition, $feedback_metadata_definition, $journal_metadata_definition); 
 
     $metadata_definition = \apply_filters('iande.group_all_metadata_definition', $metadata_definition);
 
