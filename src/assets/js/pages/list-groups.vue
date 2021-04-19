@@ -66,13 +66,15 @@
         },
         async created () {
             try {
-                const exhibitions = await api.get('exhibition/list')
+                const [exhibitions, appointments, groups, educators] = await Promise.all([
+                    api.get('exhibition/list'),
+                    api.get('appointment/list_published'),
+                    api.get('group/list'),
+                    api.get('user/list?cap=manage_iande_options'),
+                ])
                 this.exhibitions = exhibitions
-                const appointments = await api.get('appointment/list_published')
                 this.appointments = appointments
-                const groups = await api.get('group/list')
                 this.groups = groups
-                const educators = await api.get('user/list?cap=manage_iande_options')
                 this.educators = educators
             } catch (err) {
                 console.error(err)
