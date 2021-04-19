@@ -156,18 +156,6 @@ class Group extends Controller
     }
 
     /**
-     * Renderiza a tela de avaliação do educador
-     *
-     * @param array $params
-     * return void
-     */
-    function view_journal(array $params = [])
-    {
-        $this->require_authentication();
-        $this->render('group-journal');
-    }
-
-    /**
      * Renderiza o calendário de grupos para educadores
      *
      * @param array $params
@@ -177,6 +165,18 @@ class Group extends Controller
     {
         $this->require_admin();
         $this->render('list-groups');
+    }
+
+        /**
+     * Renderiza a tela de avaliação do educador
+     *
+     * @param array $params
+     * return void
+     */
+    function view_report(array $params = [])
+    {
+        $this->require_authentication();
+        $this->render('report');
     }
 
     /**

@@ -37,7 +37,7 @@
                     </div>
 
                     <div>
-                        <label for="disliked" class="iande-label">O que você mais gostou na visita?</label>
+                        <label for="disliked" class="iande-label">O que você menos gostou na visita?</label>
                         <RadioGroup id="disliked" columns v-model="form.feedback_disliked" :validations="$v.form.feedback_disliked" :options="dislikedOptions"/>
                         <template v-if="isOther(form.feedback_disliked)">
                             <label for="disliked-other" class="iande-label">Qual?</label>

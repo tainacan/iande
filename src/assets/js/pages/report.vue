@@ -10,50 +10,50 @@
                 <template v-else>
                     <div>
                         <label for="type" class="iande-label">Que tipo de visita você realizou? Marque até duas alternativas</label>
-                        <CheckboxGroup id="type" columns v-model="form.evaluation_type" :validations="$v.form.evaluation_type" :options="typeOptions"/>
+                        <CheckboxGroup id="type" columns v-model="form.report_type" :validations="$v.form.report_type" :options="typeOptions"/>
                     </div>
 
                     <div>
                         <label for="interest" class="iande-label">Qual foi o grau de interesse da maior parte do grupo durante a visita?</label>
-                        <RadioGroup id="interest" columns v-model="form.evaluation_interest" :validations="$v.form.evaluation_interest" :options="interestOptions"/>
+                        <RadioGroup id="interest" columns v-model="form.report_interest" :validations="$v.form.report_interest" :options="interestOptions"/>
                     </div>
 
                     <div>
                         <label for="mood" class="iande-label">Como você classificaria a postura da maior parte do grupo durante a visita? Marque até duas alternativas</label>
-                        <CheckboxGroup id="mood" columns v-model="form.evaluation_mood" :validations="$v.form.evaluation_mood" :options="moodOptions"/>
-                        <template v-if="hasOther(form.evaluation_mood)">
+                        <CheckboxGroup id="mood" columns v-model="form.report_mood" :validations="$v.form.report_mood" :options="moodOptions"/>
+                        <template v-if="hasOther(form.report_mood)">
                             <label for="mood-other" class="iande-label">Qual?</label>
-                            <Input id="mood-other" type="text" v-model="form.evaluation_mood_other" :validations="$v.form.evaluation_mood_other"/>
+                            <Input id="mood-other" type="text" v-model="form.report_mood_other" :validations="$v.form.report_mood_other"/>
                         </template>
                     </div>
 
                     <div>
                         <label for="interactive" class="iande-label">A visita educativa suscitou interações entre o visitante e a exposição?</label>
-                        <RadioGroup id="interactive" columns v-model="form.evaluation_interactive" :validations="$v.form.evaluation_interactive" :options="interactiveOptions"/>
+                        <RadioGroup id="interactive" columns v-model="form.report_interactive" :validations="$v.form.report_interactive" :options="interactiveOptions"/>
                     </div>
 
                     <div>
                         <label for="interaction" class="iande-label">Que tipo de visita você realizou? Marque até duas alternativas</label>
-                        <CheckboxGroup id="interaction" columns v-model="form.evaluation_interaction" :validations="$v.form.evaluation_interaction" :options="interactionOptions"/>
+                        <CheckboxGroup id="interaction" columns v-model="form.report_interaction" :validations="$v.form.report_interaction" :options="interactionOptions"/>
                     </div>
 
                     <div>
                         <label for="difficulty" class="iande-label">Assinale as principais dificuldades encontradas. Marque até duas alternativas</label>
-                        <CheckboxGroup id="difficulty" columns v-model="form.evaluation_difficulty" :validations="$v.form.evaluation_difficulty" :options="difficultyOptions"/>
-                        <template v-if="hasOther(form.evaluation_difficulty)">
+                        <CheckboxGroup id="difficulty" columns v-model="form.report_difficulty" :validations="$v.form.report_difficulty" :options="difficultyOptions"/>
+                        <template v-if="hasOther(form.report_difficulty)">
                             <label for="difficulty-other" class="iande-label">Qual?</label>
-                            <Input id="difficulty-other" type="text" v-model="form.evaluation_difficulty_other" :validations="$v.form.evaluation_difficulty_other"/>
+                            <Input id="difficulty-other" type="text" v-model="form.report_difficulty_other" :validations="$v.form.report_difficulty_other"/>
                         </template>
                     </div>
 
                     <div>
                         <label for="comment" class="iande-label">Deixe aqui seus comentários<span class="iande-label__optional">(opcional)</span></label>
-                        <TextArea id="comment" placeholder="Escreva aqui" v-model="form.evaluation_comment" :validations="$v.form.evaluation_comment"/>
+                        <TextArea id="comment" placeholder="Escreva aqui" v-model="form.report_comment" :validations="$v.form.report_comment"/>
                     </div>
 
                     <div>
                         <label for="summary" class="iande-label">Resumo da visita</label>
-                        <TextArea id="summary" placeholder="Escreva aqui" v-model="form.evaluation_summary" :validations="$v.form.evaluation_summary"/>
+                        <TextArea id="summary" placeholder="Escreva aqui" v-model="form.report_summary" :validations="$v.form.report_summary"/>
                     </div>
 
                     <div class="iande-stack stack-md">
@@ -91,16 +91,16 @@
         data () {
             return {
                 form: {
-                    evaluation_comment: '',
-                    evaluation_difficulty_other: '',
-                    evaluation_difficulty: [],
-                    evaluation_interaction: [],
-                    evaluation_interactive: null,
-                    evaluation_interest: null,
-                    evaluation_mood: [],
-                    evaluation_mood_other: '',
-                    evaluation_summary: '',
-                    evaluation_type: [],
+                    report_comment: '',
+                    report_difficulty_other: '',
+                    report_difficulty: [],
+                    report_interaction: [],
+                    report_interactive: null,
+                    report_interest: null,
+                    report_mood: [],
+                    report_mood_other: '',
+                    report_summary: '',
+                    report_type: [],
                 },
                 formError: '',
                 group: null,
@@ -156,16 +156,16 @@
         },
         validations: {
             form: {
-                evaluation_comment: { },
-                evaluation_difficulty: { maxLength: maxLength(2), required },
-                evaluation_difficulty_other: { },
-                evaluation_interaction: { maxLength: maxLength(2), required },
-                evaluation_interactive: { required },
-                evaluation_interest: { required },
-                evaluation_mood: { maxLength: maxLength(2), required },
-                evaluation_mood_other: { },
-                evaluation_summary: { required },
-                evaluation_type: { maxLength: maxLength(2), required },
+                report_comment: { },
+                report_difficulty: { maxLength: maxLength(2), required },
+                report_difficulty_other: { },
+                report_interaction: { maxLength: maxLength(2), required },
+                report_interactive: { required },
+                report_interest: { required },
+                report_mood: { maxLength: maxLength(2), required },
+                report_mood_other: { },
+                report_summary: { required },
+                report_type: { maxLength: maxLength(2), required },
             },
         },
         async beforeMount () {

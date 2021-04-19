@@ -1,6 +1,6 @@
 <?php $title = 'Avaliação'; ?>
 <?php require 'parts/header.php'; ?>
 
-<iande-group-journal-page></iande-group-journal-page>
+<iande-educator-report-page></iande-educator-report-page>
 
 <?php require 'parts/footer.php'; ?>
