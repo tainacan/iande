@@ -103,6 +103,47 @@ class Group extends Controller
     }
 
     /**
+     * Retorna todos os grupos assinalados pelo educador
+     *
+     * @param array $params
+     * @return array
+     */
+    function endpoint_list_agenda (array $params = [])
+    {
+        $this->require_authentication();
+
+        $args = [
+            'post_type'      => 'group',
+            'post_status'    => ['publish'],
+            'posts_per_page' => -1,
+            'meta_query'     => [[
+                'meta_key'   => 'educator_id',
+                'meta_value' => get_current_user_id()
+            ]]
+        ];
+
+        $groups = get_posts($args);
+
+        if (empty($groups)) {
+            return $this->success([]);
+        }
+
+        $parsed_groups = [];
+
+        foreach ($groups as $key => $group) {
+            $parsed_groups[] = $this->get_parsed_group($group->ID);
+        }
+
+        $parsed_groups = array_filter($parsed_groups);
+
+        if (empty($parsed_groups)) {
+            return $this->success([]);
+        }
+
+        $this->success($parsed_groups);
+    }
+
+    /**
      * Atualiza os metadados do grupo
      *
      * @param array $params
@@ -184,7 +225,7 @@ class Group extends Controller
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
             $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
-  
+
         \delete_post_meta($params['ID'], 'educator_id');
 
         $group = $this->get_parsed_group($params['ID']);
