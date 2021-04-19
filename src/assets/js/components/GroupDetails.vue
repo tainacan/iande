@@ -172,14 +172,14 @@
                     })
                     .join(', ')
             },
+            month() {
+                const parts = this.group.date.split('-')
+                return months[parseInt(parts[1]) - 1]
+            },
             name () {
                 const appointmentName = this.appointment.name || `Agendamento ${this.appointment.ID}`
                 const groupName = this.group.name || `Grupo ${this.group.ID}`
                 return `${appointmentName} / ${groupName}`
-            },
-            month() {
-                const parts = this.group.date.split('-')
-                return months[parseInt(parts[1]) - 1]
             },
             responsibleRole () {
                 if (isOther(this.appointment.responsible_role) && this.appointment.responsible_role_other) {
@@ -189,8 +189,9 @@
                 }
             },
             status () {
-                return assignmentStatus(this.group)
-            }
+                return assignmentStatus(this.group, this.user.ID)
+            },
+            user: get('users/current'),
         },
         methods: {
             formatBinaryOption (option) {
