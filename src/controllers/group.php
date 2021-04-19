@@ -17,7 +17,7 @@ class Group extends Controller
     function endpoint_create(array $params = [])
     {
 
-        $this->validate($params, true);
+        $this->validate($params);
 
         $args = [
             'post_type'   => 'group',
@@ -121,7 +121,7 @@ class Group extends Controller
             $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
 
-        $this->validate($params, true, true);
+        $this->validate($params);
 
         $this->set_group_metadata($params['ID'], $params);
 
@@ -249,10 +249,9 @@ class Group extends Controller
      *
      * @param array     $params Valores dos metadados
      * @param boolean   $validate_missing_requirements Se deve validar a obrigatoriedade dos campos não passados no array $params
-     * @param boolean   $force Defina como true para conseguir validar campos não obrigatórios
      * @return void
      */
-    function validate(array $params = [], $validate_missing_requirements = false, $force = false)
+    function validate(array $params = [], $validate_missing_requirements = false)
     {
 
         $metadata_definition = get_all_group_metadata_definition($params);
@@ -260,19 +259,18 @@ class Group extends Controller
         foreach ($metadata_definition as $key => $definition) {
 
             // validação de campos obrigatórios
-            if ($definition->required && empty($params[$key]) && !$force) {
+            if ($definition->required && empty($params[$key])) {
                 if ($validate_missing_requirements) {
                     $this->error($definition->required);
-                } else if (isset($params[$key]) || empty($params[$key])) {
+                } elseif (isset($params[$key])) {
                     $this->error($definition->required);
                 }
             }
 
             if (!empty($params[$key])) {
-
                 $validation_fn = $definition->validation;
-                $validation = $validation_fn($params[$key], $params);
-                $valid = $validation === true;
+                $validation    = $validation_fn($params[$key], $params);
+                $valid         = $validation === true;
                 if (!$valid) {
                     $this->error($validation);
                 }
