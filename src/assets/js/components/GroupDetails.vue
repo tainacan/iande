@@ -27,7 +27,7 @@
                     </div>
                     <label>
                         <span>Mediação:</span>
-                        <select>
+                        <select v-model="group.educator_id">
                             <option :value="null">Atribuir mediação</option>
                             <option v-for="educator in educators" :key="educator.ID" :value="educator.ID">
                                 {{ educator.display_name }}
@@ -107,7 +107,7 @@
     import { DateTime } from 'luxon'
     import { get } from 'vuex-pathify'
 
-    import { formatPhone, isOther } from '../utils'
+    import { api, formatPhone, isOther } from '../utils'
     import { assignmentStatus } from '../utils/groups'
 
     const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
@@ -192,6 +192,18 @@
                 return assignmentStatus(this.group, this.user.ID)
             },
             user: get('users/current'),
+        },
+        watch: {
+            'group.educator_id': {
+                async handler () {
+                    const { educator_id, ID } = this.group
+                    if (educator_id) {
+                        await api.post('group/assign_educator', { educator_id, ID })
+                    } else {
+                        await api.post('group/unassign_educator', { ID })
+                    }
+                },
+            },
         },
         methods: {
             formatBinaryOption (option) {
