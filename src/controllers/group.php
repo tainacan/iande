@@ -132,6 +132,41 @@ class Group extends Controller
     }
 
     /**
+     * Atribui um educador ao grupo
+     *
+     * @param array $params
+     * @param array $params['ID'] ID do grupo
+     * @param array $params['educator_id'] ID do usuário educador
+     * @return array
+     *
+     */
+    function endpoint_assign_educator(array $params = [])
+    {
+        $this->require_authentication();
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (empty($params['educator_id'])) {
+            $this->error(__('O parâmetro educator_id é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || !is_numeric($params['educator_id']) || intval($params['ID']) != $params['ID'] || intval($params['educator_id']) != $params['educator_id']) {
+            $this->error(__('O parâmetro deve ser um número inteiro', 'iande'));
+        }
+
+        $this->validate($params);
+
+        $this->set_group_metadata($params['ID'], $params);
+
+        $group = $this->get_parsed_group($params['ID']);
+
+        $this->success($group);
+
+    }
+
+    /**
      * Renderiza a tela de check-in
      *
      * @param array $params
