@@ -167,6 +167,33 @@ class Group extends Controller
     }
 
     /**
+     * Remove o educador do grupo
+     *
+     * @param array $params
+     * @param array $params['ID'] ID do grupo
+     * @return array
+     */
+    function endpoint_unassign_educator(array $params = [])
+    {
+        $this->require_authentication();
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+  
+        \delete_post_meta($params['ID'], 'educator_id');
+
+        $group = $this->get_parsed_group($params['ID']);
+
+        $this->success($group);
+
+    }
+
+    /**
      * Renderiza a tela de check-in
      *
      * @param array $params
