@@ -124,6 +124,8 @@ function get_group_metadata_definition() {
         'orderby'        => 'ID',
     ]);
 
+    $users = \get_users();
+
     $metadata_definition = [
 
         'appointment_id' => (object) [
@@ -318,6 +320,22 @@ function get_group_metadata_definition() {
                 'options'    => [
                     'add_row_text' => __('Adicionar Deficiência/Quantidade', 'iande')
                 ]
+            ]
+        ],
+        'educator_id' => (object) [
+            'type'       => 'integer',
+            'required'   => false,
+            'validation' => function ($value) use ($users) {
+                if (is_numeric($value) && in_array($value, array_column($users, 'ID'))) {
+                    return true;
+                } else {
+                    return __('O valor informado não corresponde a um usuário válido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Educador', 'iande'),
+                'type'    => 'select',
+                'options' => map_users_to_options($users)
             ]
         ]
 

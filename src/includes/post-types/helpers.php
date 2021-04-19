@@ -90,3 +90,19 @@ function map_posts_to_options (array $posts) {
 
     return \array_filter($options);
 }
+
+/**
+ * Mapeia uma lista de usuários para opções CMB2
+ *
+ * @param WP_Users[] $args Lista de usuários
+ * @return array
+ */
+function map_users_to_options (array $users) {
+    $options = [];
+
+    foreach ($users as $user) {
+        $options[$user->ID] = $user->data->display_name ?? $user->data->user_nicename;
+    }
+
+    return \array_filter($options);
+}
