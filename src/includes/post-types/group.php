@@ -668,14 +668,18 @@ function get_group_feedback_metadata_definition() {
     $metadata_definition = [
         'feedback_visit' => (object) [
             'type'       => 'string',
-            'required'   => false,
-            'validation' => function ($value) {
-                return true;
+            'required'   => __('O que você achou da visita educativa é obrigatório', 'iande'),
+            'validation' => function ($value) use ($quality_options) {
+                if (in_array($value, $quality_options) && !empty($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado para o que você achou da visita educativa é inválido', 'iande');
+                }
             },
             'metabox' => (object) [
-                'name'    => __('O que você achou da visita educativa?', 'iande'),
-                'type'    => 'radio',
-                'options' => map_array_to_options($quality_options),
+                'name'       => __('O que você achou da visita educativa?', 'iande'),
+                'type'       => 'radio',
+                'options'    => map_array_to_options($quality_options),
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -683,14 +687,18 @@ function get_group_feedback_metadata_definition() {
         ],
         'feedback_educator' => (object) [
             'type'       => 'string',
-            'required'   => false,
-            'validation' => function ($value) {
-                return true;
+            'required'   => __('A atuação do educador é obrigatória', 'iande'),
+            'validation' => function ($value) use ($quality_options) {
+                if (in_array($value, $quality_options) && !empty($value)) {
+                    return true;
+                } else {
+                    return __('A atuação do educador informada é inválida', 'iande');
+                }
             },
             'metabox' => (object) [
-                'name'    => __('O que você achou da atuação do educador?', 'iande'),
-                'type'    => 'radio',
-                'options' => map_array_to_options($quality_options),
+                'name'       => __('O que você achou da atuação do educador?', 'iande'),
+                'type'       => 'radio',
+                'options'    => map_array_to_options($quality_options),
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -698,14 +706,18 @@ function get_group_feedback_metadata_definition() {
         ],
         'feedback_mood' => (object) [
             'type'       => 'string',
-            'required'   => false,
-            'validation' => function ($value) {
-                return true;
+            'required'   => __('O que você acha sobre a atuação do educador sobre a reação do grupo, é obrigatório', 'iande'),
+            'validation' => function ($value) use ($quality_options) {
+                if (in_array($value, $quality_options) && !empty($value)) {
+                    return true;
+                } else {
+                    return __('O que você acha sobre a atuação do educador é inválido', 'iande');
+                }
             },
             'metabox' => (object) [
-                'name'    => __('Você acha que a atuação do educador suscitou que tipo de reação do grupo?', 'iande'),
-                'type'    => 'radio',
-                'options' => map_array_to_options($mood_options),
+                'name'       => __('Você acha que a atuação do educador suscitou que tipo de reação do grupo?', 'iande'),
+                'type'       => 'radio',
+                'options'    => map_array_to_options($mood_options),
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -718,8 +730,8 @@ function get_group_feedback_metadata_definition() {
                 return true;
             },
             'metabox' => (object) [
-                'name'    => __('Você acha que a atuação do educador suscitou que tipo de reação do grupo (outro)?', 'iande'),
-                'type'    => 'text',
+                'name'       => __('Você acha que a atuação do educador suscitou que tipo de reação do grupo (outro)?', 'iande'),
+                'type'       => 'text',
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -727,14 +739,18 @@ function get_group_feedback_metadata_definition() {
         ],
         'feedback_liked' => (object) [
             'type'       => 'string',
-            'required'   => false,
-            'validation' => function ($value) {
-                return true;
+            'required'   => __('O que você mais gostou na visita, é obrigatório', 'iande'),
+            'validation' => function ($value) use ($liked_options) {
+                if (in_array($value, $liked_options) && !empty($value)) {
+                    return true;
+                } else {
+                    return __('O que informou para o que você mais gostou na visita é inválido', 'iande');
+                }
             },
             'metabox' => (object) [
-                'name'    => __('O que você mais gostou na visita?', 'iande'),
-                'type'    => 'radio',
-                'options' => map_array_to_options($liked_options),
+                'name'       => __('O que você mais gostou na visita?', 'iande'),
+                'type'       => 'radio',
+                'options'    => map_array_to_options($liked_options),
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -747,8 +763,8 @@ function get_group_feedback_metadata_definition() {
                 return true;
             },
             'metabox' => (object) [
-                'name'    => __('O que você mais gostou na visita (outro)?', 'iande'),
-                'type'    => 'text',
+                'name'       => __('O que você mais gostou na visita (outro)?', 'iande'),
+                'type'       => 'text',
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -756,14 +772,18 @@ function get_group_feedback_metadata_definition() {
         ],
         'feedback_disliked' => (object) [
             'type'       => 'string',
-            'required'   => false,
-            'validation' => function ($value) {
-                return true;
+            'required'   => __('O que você menos gostou na visita, é obrigatório', 'iande'),
+            'validation' => function ($value) use ($disliked_options) {
+                if (in_array($value, $disliked_options) && !empty($value)) {
+                    return true;
+                } else {
+                    return __('O que informou para o que você menos gostou na visita é inválido', 'iande');
+                }
             },
             'metabox' => (object) [
-                'name'    => __('O que você mais gostou na visita?', 'iande'),
-                'type'    => 'radio',
-                'options' => map_array_to_options($disliked_options),
+                'name'       => __('O que você menos gostou na visita?', 'iande'),
+                'type'       => 'radio',
+                'options'    => map_array_to_options($disliked_options),
                 'attributes' => [
                     'disabled' => $disabled
                 ]
