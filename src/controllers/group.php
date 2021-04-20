@@ -360,6 +360,18 @@ class Group extends Controller
     }
 
     /**
+     * Renderiza a tela de agenda do educador
+     *
+     * @param array $params
+     * return void
+     */
+    function view_agenda(array $params = [])
+    {
+        $this->require_admin();
+        $this->render('agenda');
+    }
+
+    /**
      * Renderiza a tela de check-in
      *
      * @param array $params
