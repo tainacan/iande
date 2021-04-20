@@ -117,8 +117,8 @@ class Group extends Controller
             'post_status'    => ['publish'],
             'posts_per_page' => -1,
             'meta_query'     => [[
-                'meta_key'   => 'educator_id',
-                'meta_value' => get_current_user_id()
+                'key'   => 'educator_id',
+                'value' => \get_current_user_id()
             ]]
         ];
 
