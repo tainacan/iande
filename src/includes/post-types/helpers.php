@@ -95,10 +95,15 @@ function map_posts_to_options (array $posts) {
  * Mapeia uma lista de usuários para opções CMB2
  *
  * @param WP_Users[] $args Lista de usuários
+ * @param boolean $empty_option Exibir opção em branco 
  * @return array
  */
-function map_users_to_options (array $users) {
+function map_users_to_options (array $users, $empty_option = false) {
     $options = [];
+
+    if ($empty_option) {
+        $options[0] = '--';
+    }
 
     foreach ($users as $user) {
         $options[$user->ID] = $user->data->display_name ?? $user->data->user_nicename;

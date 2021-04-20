@@ -335,7 +335,7 @@ function get_group_metadata_definition() {
             'metabox' => (object) [
                 'name'    => __('Educador', 'iande'),
                 'type'    => 'select',
-                'options' => map_users_to_options($users)
+                'options' => map_users_to_options($users, true)
             ]
         ]
 
