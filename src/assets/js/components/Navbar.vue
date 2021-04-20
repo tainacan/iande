@@ -9,7 +9,17 @@
             </a>
             <nav :class="showMenu || 'hidden'" v-if="isLoggedIn">
                 <ul>
-                    <li><a :href="$iandeUrl('appointment/list')">Agendamentos</a></li>
+                    <li class="iande-navbar__dropdown" v-if="userIsAdmin">
+                        <a href="javascript:void(0)" role="button" tabindex="0">
+                            <span>Agendamento</span>
+                            <Icon icon="caret-down"/>
+                        </a>
+                        <ul>
+                            <li><a :href="$iandeUrl('group/list')">Calendário geral</a></li>
+                            <li><a :href="$iandeUrl('group/agenda')">Minha agenda</a></li>
+                        </ul>
+                    </li>
+                    <li v-else><a :href="$iandeUrl('appointment/list')">Agendamentos</a></li>
                     <li><a :href="$iandeUrl('institution/list')">Instituições</a></li>
                     <li class="iande-navbar__dropdown">
                         <a href="javascript:void(0)" role="button" tabindex="0" aria-label="Usuário">
