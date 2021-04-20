@@ -24,7 +24,7 @@
     import AppointmentsFilter from '../components/AppointmentsFilter.vue'
     import GroupsAgenda from '../components/GroupsCalendar.vue'
     import GroupDetails from '../components/GroupDetails.vue'
-    import { api, constant, sortBy } from '../utils'
+    import { api, constant, sortBy, today } from '../utils'
 
     export default {
         name: 'ListGroupsPage',
@@ -44,7 +44,6 @@
             appointments: sync('appointments/list'),
             exhibitions: sync('exhibitions/list'),
             filteredGroups () {
-                const today = new Date().toISOString().slice(0, 10)
                 if (this.time === 'next') {
                     return this.groups.filter(group => group.date >= today)
                 } else {

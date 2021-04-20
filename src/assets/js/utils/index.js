@@ -69,6 +69,8 @@ export function toArray (value) {
     }
 }
 
+export const today = new Date().toISOString().slice(0, 10)
+
 export function watchForOther (vocabulary, other) {
     return function () {
         if (!isOther(this[vocabulary])) {
