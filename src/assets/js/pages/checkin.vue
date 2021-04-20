@@ -231,6 +231,7 @@
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
                     try {
+                        await api.post('group/checkin_update', { ID: this.group.ID, ...this.form })
                         this.submitted = true
                     } catch (err) {
                         this.formError = err
