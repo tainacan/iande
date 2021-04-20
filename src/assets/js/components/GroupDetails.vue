@@ -90,11 +90,15 @@
                     <div v-if="appointment.additional_comment">Comentários: {{ appointment.additional_comment }}</div>
                 </div>
             </div>
-            <div class="iande-appointment__buttons">
-                <button class="iande-button primary">
-                    Check-in
+            <div class="iande-appointment__buttons" v-if="isEducator">
+                <a class="iande-button primary" :href="$iandeUrl(`group/checkin?ID=${group.ID}`)" v-if="canCheckin">
+                    Fazer check-in
                     <Icon icon="check"/>
-                </button>
+                </a>
+                <a class="iande-button primary" :href="$iandeUrl(`group/report?ID=${group.ID}`)" v-else-if="canEvaluate">
+                    Avaliar
+                    <Icon icon="check"/>
+                </a>
             </div>
         </div>
         <div class="iande-group__toggle-button" role="button" tabindex="0" v-if="boxed" @click="toggleDetails" @keypress.enter="toggleDetails">
@@ -107,7 +111,7 @@
     import { DateTime } from 'luxon'
     import { get } from 'vuex-pathify'
 
-    import { api, formatPhone, isOther } from '../utils'
+    import { api, formatPhone, isOther, today } from '../utils'
     import { assignmentStatus } from '../utils/groups'
 
     const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
@@ -132,6 +136,12 @@
             day () {
                 const parts = this.group.date.split('-')
                 return parts[2]
+            },
+            canCheckin () {
+                return this.isEducator && !this.group.has_checkin && this.group.date <= today
+            },
+            canEvaluate () {
+                return this.isEducator && this.group.has_checkin && !this.group.has_report && this.group.date <= today
             },
             collapsed () {
                 return this.boxed && !this.showDetails
@@ -160,6 +170,9 @@
                 return this.exhibitions.find(exhibition => exhibition.ID == this.group.exhibition_id)
             },
             exhibitions: get('exhibitions/list'),
+            isEducator () {
+                return this.status === 'assigned-self'
+            },
             languages () {
                 const languages = this.group.languages
                 return [{ languages_name: 'Português' }, ...languages]
