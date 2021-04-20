@@ -400,20 +400,11 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
-                if ($value == 'yes' || $value == 'no') {
-                    return true;
-                } else {
-                    return __('Valor inválido', 'iande');
-                }
+                return true;
             },
             'metabox' => (object) [
-                'name'    => __('O checkin foi realizado?', 'iande'),
-                'type'    => 'radio',
-                'default' => 'no',
-                'options' => [
-                    'yes' => __('Sim', 'iande'),
-                    'no'  => __('Não', 'iande')
-                ]
+                'name' => __('O checkin foi realizado?', 'iande'),
+                'type' => 'checkbox'
             ]
         ],
         'checkin_showed' => (object) [
@@ -710,20 +701,11 @@ function get_group_feedback_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
-                if ($value == 'yes' || $value == 'no') {
-                    return true;
-                } else {
-                    return __('Valor inválido', 'iande');
-                }
+                return true;
             },
             'metabox' => (object) [
-                'name'    => __('A avaliação do visitante foi realizada?', 'iande'),
-                'type'    => 'radio',
-                'default' => 'no',
-                'options' => [
-                    'yes' => __('Sim', 'iande'),
-                    'no'  => __('Não', 'iande')
-                ]
+                'name' => __('A avaliação do visitante foi realizada?', 'iande'),
+                'type' => 'checkbox'
             ]
         ],
         'feedback_visit' => (object) [
@@ -917,7 +899,8 @@ function register_metabox_group_report()
  *
  * @return array
  */
-function get_group_report_metadata_definition() {
+function get_group_report_metadata_definition()
+{
 
     /**
      * Desabilita o campo para usuários sem premissão de edição `manage_iande_options`
@@ -980,20 +963,11 @@ function get_group_report_metadata_definition() {
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value) {
-                if ($value == 'yes' || $value == 'no') {
-                    return true;
-                } else {
-                    return __('Valor inválido', 'iande');
-                }
+                return true;
             },
             'metabox' => (object) [
-                'name'    => __('A avaliação do educador foi realizada?', 'iande'),
-                'type'    => 'radio',
-                'default' => 'no',
-                'options' => [
-                    'yes' => __('Sim', 'iande'),
-                    'no'  => __('Não', 'iande')
-                ]
+                'name' => __('A avaliação do educador foi realizada?', 'iande'),
+                'type' => 'checkbox'
             ]
         ],
         'report_type' => (object) [
