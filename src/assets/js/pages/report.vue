@@ -81,7 +81,7 @@
     import { api, constant, isOther } from '../utils'
 
     export default {
-        name: 'JournalPage',
+        name: 'EducatorReportPage',
         components: {
             CheckboxGroup,
             Input,
