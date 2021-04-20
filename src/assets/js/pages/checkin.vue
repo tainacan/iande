@@ -122,6 +122,7 @@
                     checkin_num_responsible: null,
                     checkin_num_responsible_actual: null,
                     checkin_showed: null,
+                    has_checkin: 'on',
                 },
                 formError: '',
                 exhibition: null,
@@ -230,6 +231,7 @@
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
                     try {
+                        await api.post('group/checkin_update', { ID: this.group.ID, ...this.form })
                         this.submitted = true
                     } catch (err) {
                         this.formError = err

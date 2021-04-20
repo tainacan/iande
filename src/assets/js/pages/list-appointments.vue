@@ -25,7 +25,7 @@
 
     import AppointmentDetails from '../components/AppointmentDetails.vue'
     import AppointmentsFilter from '../components/AppointmentsFilter.vue'
-    import { api, constant, sortBy } from '../utils'
+    import { api, constant, sortBy, today } from '../utils'
 
     export default {
         name: 'ListAppointmentsPage',
@@ -41,7 +41,6 @@
         computed: {
             appointments: sync('appointments/list'),
             filteredAppointments () {
-                const today = new Date().toISOString().slice(0, 10)
                 if (this.filter === 'next') {
                     return this.sortedAppointments.filter(appointment => {
                         return appointment.groups.some(group => group.date >= today)

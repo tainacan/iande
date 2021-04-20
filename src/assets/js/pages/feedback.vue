@@ -2,7 +2,7 @@
     <article class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
             <h1>Avaliação</h1>
-            <form class="iande-form iande-stack stack-lg" @submit.prevent="evaluate">
+            <form class="iande-form iande-stack stack-lg" @submit.prevent="sendFeedback">
                 <template v-if="submitted">
                     <p class="text-center">Avaliação realizada com sucesso!</p>
                 </template>
@@ -92,6 +92,7 @@
                     feedback_mood: null,
                     feedback_mood_other: '',
                     feedback_visit: null,
+                    has_feedback: 'on',
                 },
                 formError: '',
                 group: null,
@@ -155,18 +156,19 @@
             }
         },
         methods: {
-            async evaluate () {
+            isOther,
+            async sendFeedback () {
                 this.formError = ''
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
                     try {
+                        await api.post('group/feedback_update', { ID: this.group.ID, ...this.form })
                         this.submitted = true
                     } catch (err) {
                         this.formError = err
                     }
                 }
             },
-            isOther,
         }
     }
 </script>

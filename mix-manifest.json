@@ -14,6 +14,7 @@
     "/dist/edit-user-page.js": "/dist/edit-user-page.js",
     "/dist/educator-report-page.js": "/dist/educator-report-page.js",
     "/dist/feedback-page.js": "/dist/feedback-page.js",
+    "/dist/groups-agenda-page.js": "/dist/groups-agenda-page.js",
     "/dist/list-appointments-page.js": "/dist/list-appointments-page.js",
     "/dist/list-groups-page.js": "/dist/list-groups-page.js",
     "/dist/list-institutions-page.js": "/dist/list-institutions-page.js",

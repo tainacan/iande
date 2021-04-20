@@ -72,7 +72,7 @@ class Group extends Controller
      */
     function endpoint_list (array $params = [])
     {
-        $this->require_authentication();
+        $this->require_admin();
 
         $args = [
             'post_type'      => 'group',
@@ -109,15 +109,15 @@ class Group extends Controller
      */
     function endpoint_list_agenda (array $params = [])
     {
-        $this->require_authentication();
+        $this->require_admin();
 
         $args = [
             'post_type'      => 'group',
             'post_status'    => ['publish'],
             'posts_per_page' => -1,
             'meta_query'     => [[
-                'meta_key'   => 'educator_id',
-                'meta_value' => get_current_user_id()
+                'key'   => 'educator_id',
+                'value' => \get_current_user_id()
             ]]
         ];
 
@@ -151,6 +151,7 @@ class Group extends Controller
      */
     function endpoint_update(array $params = [])
     {
+        $this->require_admin();
 
         $this->require_authentication();
 
@@ -363,6 +364,18 @@ class Group extends Controller
 
         $this->success($group);
 
+    }
+
+    /**
+     * Renderiza a tela de agenda do educador
+     *
+     * @param array $params
+     * return void
+     */
+    function view_agenda(array $params = [])
+    {
+        $this->require_admin();
+        $this->render('agenda');
     }
 
     /**
