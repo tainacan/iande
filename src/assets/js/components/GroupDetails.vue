@@ -37,14 +37,14 @@
                     </label>
                 </div>
                 <div class="iande-group__step">
-                    <div class="iande-group__step-icon">
-                        <Icon icon="minus"/>
+                    <div class="iande-group__step-icon" :class="{ active: !!group.has_checkin }">
+                        <Icon :icon="group.has_checkin ? 'check' : 'minus'"/>
                     </div>
                     Check-in
                 </div>
                 <div class="iande-group__step">
-                    <div class="iande-group__step-icon">
-                        <Icon icon="minus"/>
+                    <div class="iande-group__step-icon" :class="{ active: !!group.has_report }">
+                        <Icon :icon="group.has_report ? 'check' : 'minus'"/>
                     </div>
                     Avaliação
                 </div>
