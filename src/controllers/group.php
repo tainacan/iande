@@ -162,6 +162,131 @@ class Group extends Controller
             $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
 
+        $metadata_definition = get_group_metadata_definition();
+
+        /**
+         * Verifica se os parâmetros ($params) são aceitos nesse endpoint
+         */
+        foreach ($params as $key => $value) {
+            if (!array_key_exists($key, $metadata_definition) && $key != 'ID') {
+                $this->error(__("O parâmetro {$key} é inválido", 'iande'));
+            }
+        }
+
+        $this->validate($params);
+
+        $this->set_group_metadata($params['ID'], $params);
+
+        $group = $this->get_parsed_group($params['ID']);
+
+        $this->success($group);
+
+    }
+
+    /**
+     * Atualiza os metadados de checkin do grupo
+     *
+     * @param array $params
+     * @return array
+     */
+    function endpoint_checkin_update(array $params = [])
+    {
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        $metadata_definition = get_group_checkin_metadata_definition();
+
+        /**
+         * Verifica se os parâmetros ($params) são aceitos nesse endpoint
+         */
+        foreach ($params as $key => $value) {
+            if (!array_key_exists($key, $metadata_definition) && $key != 'ID') {
+                $this->error(__("O parâmetro {$key} é inválido", 'iande'));
+            }
+        }
+
+        $this->validate($params);
+
+        $this->set_group_metadata($params['ID'], $params);
+
+        $group = $this->get_parsed_group($params['ID']);
+
+        $this->success($group);
+
+    }
+
+    /**
+     * Atualiza os metadados de feedback do grupo
+     *
+     * @param array $params
+     * @return array
+     */
+    function endpoint_feedback_update(array $params = [])
+    {
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        $metadata_definition = get_group_feedback_metadata_definition();
+
+        /**
+         * Verifica se os parâmetros ($params) são aceitos nesse endpoint
+         */
+        foreach ($params as $key => $value) {
+            if (!array_key_exists($key, $metadata_definition) && $key != 'ID') {
+                $this->error(__("O parâmetro {$key} é inválido", 'iande'));
+            }
+        }
+
+        $this->validate($params);
+
+        $this->set_group_metadata($params['ID'], $params);
+
+        $group = $this->get_parsed_group($params['ID']);
+
+        $this->success($group);
+
+    }
+
+    /**
+     * Atualiza os metadados de report do grupo
+     *
+     * @param array $params
+     * @return array
+     */
+    function endpoint_report_update(array $params = [])
+    {
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        $metadata_definition = get_group_report_metadata_definition();
+
+        /**
+         * Verifica se os parâmetros ($params) são aceitos nesse endpoint
+         */
+        foreach ($params as $key => $value) {
+            if (!array_key_exists($key, $metadata_definition) && $key != 'ID') {
+                $this->error(__("O parâmetro {$key} é inválido", 'iande'));
+            }
+        }
+
         $this->validate($params);
 
         $this->set_group_metadata($params['ID'], $params);
@@ -356,8 +481,7 @@ class Group extends Controller
      */
     function validate(array $params = [], $validate_missing_requirements = false)
     {
-
-        $metadata_definition = get_all_group_metadata_definition($params);
+        $metadata_definition = get_all_group_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
 

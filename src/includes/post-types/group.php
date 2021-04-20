@@ -1223,7 +1223,7 @@ function get_all_group_metadata_definition()
     $group_metadata_definition    = get_group_metadata_definition();
     $checkin_metadata_definition  = get_group_checkin_metadata_definition();
     $feedback_metadata_definition = get_group_feedback_metadata_definition();
-    $report_metadata_definition  = get_group_report_metadata_definition();
+    $report_metadata_definition   = get_group_report_metadata_definition();
 
     $metadata_definition = array_merge($group_metadata_definition, $checkin_metadata_definition, $feedback_metadata_definition, $report_metadata_definition); 
 
