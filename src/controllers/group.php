@@ -216,6 +216,15 @@ class Group extends Controller
 
         $this->validate($params);
 
+        /**
+         * Permite a criação/edição do checkin apenas após a data da visitação agendada
+         */
+        $date = \get_post_meta($params['ID'], 'date', true);
+
+        if (date('Y-m-d') < $date) {
+            $this->error(__("O checkin não pode ser realizado/alterado antes da data de visitação agendada", 'iande'));
+        }
+
         $this->set_group_metadata($params['ID'], $params);
 
         $group = $this->get_parsed_group($params['ID']);
@@ -255,6 +264,15 @@ class Group extends Controller
         }
 
         $this->validate($params);
+
+        /**
+         * Permite a criação/edição da avaliação do visitante apenas após o checkin
+         */
+        $has_checkin = \get_post_meta($params['ID'], 'has_checkin', true);
+
+        if (!$has_checkin) {
+            $this->error(__("A avaliação do visitante não pode ser realizada antes do checkin", 'iande'));
+        }
 
         $this->set_group_metadata($params['ID'], $params);
 
@@ -296,6 +314,15 @@ class Group extends Controller
 
         $this->validate($params);
 
+        /**
+         * Permite a criação/edição da avaliação do educador apenas após o checkin
+         */
+        $has_checkin = \get_post_meta($params['ID'], 'has_checkin', true);
+
+        if (!$has_checkin) {
+            $this->error(__("A avaliação do educador não pode ser realizada antes do checkin", 'iande'));
+        }
+
         $this->set_group_metadata($params['ID'], $params);
 
         $group = $this->get_parsed_group($params['ID']);
@@ -335,6 +362,15 @@ class Group extends Controller
 
         $this->validate($params);
 
+        /**
+         * Permite a atribuição do educador apenas enquanto o checkin não for realizado
+         */
+        $has_checkin = \get_post_meta($params['ID'], 'has_checkin', true);
+
+        if ($has_checkin) {
+            $this->error(__("A atribuição do educador não pode ser realizada após o checkin", 'iande'));
+        }
+
         $this->set_group_metadata($params['ID'], $params);
 
         $group = $this->get_parsed_group($params['ID']);
@@ -364,6 +400,15 @@ class Group extends Controller
 
         if (!\current_user_can('manage_iande_options')) {
             $this->is_educator($params['ID']);
+        }
+
+        /**
+         * Permite a desatribuição do educador apenas enquanto o checkin não for realizado
+         */
+        $has_checkin = \get_post_meta($params['ID'], 'has_checkin', true);
+
+        if ($has_checkin) {
+            $this->error(__("A desatribuição do educador não pode ser realizada após o checkin", 'iande'));
         }
 
         \delete_post_meta($params['ID'], 'educator_id');
