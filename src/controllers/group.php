@@ -7,7 +7,6 @@ use Controller;
 class Group extends Controller
 {
 
-
     /**
      * Cria um agendamento novo
      *
@@ -149,10 +148,11 @@ class Group extends Controller
      * @param array $params
      * @return array
      *
-     * @todo verificar permissões de edição dos metadados
      */
     function endpoint_update(array $params = [])
     {
+
+        $this->require_authentication();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));
@@ -200,6 +200,8 @@ class Group extends Controller
             $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
 
+        $this->is_educator($params['ID']);
+        
         $metadata_definition = get_group_checkin_metadata_definition();
 
         /**
@@ -240,6 +242,8 @@ class Group extends Controller
 
         $metadata_definition = get_group_feedback_metadata_definition();
 
+        $this->is_owner_group($params['ID']);
+
         /**
          * Verifica se os parâmetros ($params) são aceitos nesse endpoint
          */
@@ -275,6 +279,8 @@ class Group extends Controller
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
             $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
+
+        $this->is_educator($params['ID']);
 
         $metadata_definition = get_group_report_metadata_definition();
 
@@ -504,6 +510,58 @@ class Group extends Controller
             }
 
         }
+    }
+
+    /**
+     * Verifica se o usuário está assinalado como educador do grupo
+     * 
+     * @param int $group_id ID do grupo para verificação
+     * @param int $user_id ID do usuário para verificação ou vazio para verificar o usuário lodado
+     */
+    function is_educator($group_id, $user_id = '') {
+
+        $educator_id = \get_post_meta($group_id, 'educator_id', true);
+
+        if (empty($user_id))
+            $user_id = \get_current_user_id();
+
+        if ($user_id != $educator_id) {
+            if (\wp_is_json_request()) {
+                $error_message = $error_message ?: __('This action requires admin permission', 'iande');
+                $this->error($error_message, 403);
+            } else {
+                $this->render('login', ['next' => $_SERVER['REQUEST_URI']]);
+            }
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Verifica se o usuário é autor do grupo
+     * 
+     * @param int $group_id ID do grupo para verificação
+     * @param int $user_id ID do usuário para verificação ou vazio para verificar o usuário lodado
+     */
+    function is_owner_group($group_id, $user_id = '') {
+
+        $group = \get_post($group_id);
+
+        if (empty($user_id))
+            $user_id = \get_current_user_id();
+
+        if ($user_id != $group->post_author) {
+            if (\wp_is_json_request()) {
+                $error_message = $error_message ?: __('This action requires admin permission', 'iande');
+                $this->error($error_message, 403);
+            } else {
+                $this->render('login', ['next' => $_SERVER['REQUEST_URI']]);
+            }
+        }
+
+        return true;
+
     }
 
 }

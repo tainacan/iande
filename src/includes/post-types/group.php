@@ -362,7 +362,8 @@ function register_metabox_group_checkin()
         'object_types' => ['group'],
         'context'      => 'normal',
         'priority'     => 'high',
-        'show_names'   => true
+        'show_names'   => true,
+        'show_on_cb'   => \current_user_can('manage_iande_options')
     ]);
 
     $fields = get_group_fields_parameters($metadata_definition, $metabox_definition);
@@ -638,7 +639,8 @@ function register_metabox_group_feedback()
         'object_types' => ['group'],
         'context'      => 'normal',
         'priority'     => 'high',
-        'show_names'   => true
+        'show_names'   => true,
+        'show_on_cb'   => \current_user_can('manage_iande_options')
     ]);
 
     $fields = get_group_fields_parameters($metadata_definition, $metabox_definition);
@@ -883,7 +885,8 @@ function register_metabox_group_report()
         'object_types' => ['group'],
         'context'      => 'normal',
         'priority'     => 'high',
-        'show_names'   => true
+        'show_names'   => true,
+        'show_on_cb'   => \current_user_can('manage_iande_options')
     ]);
 
     $fields = get_group_fields_parameters($metadata_definition, $metabox_definition);
