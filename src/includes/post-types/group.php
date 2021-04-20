@@ -378,7 +378,8 @@ function register_metabox_group_checkin()
  *
  * @return array
  */
-function get_group_checkin_metadata_definition() {
+function get_group_checkin_metadata_definition()
+{
 
     $checkin_noshow_type = [
         __('Problemas internos', 'iande'),
@@ -395,6 +396,26 @@ function get_group_checkin_metadata_definition() {
     ];
 
     $metadata_definition = [
+        'has_checkin' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('O checkin foi realizado?', 'iande'),
+                'type'    => 'radio',
+                'default' => 'no',
+                'options' => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ],
         'checkin_showed' => (object) [
             'type'       => 'string',
             'required'   => __('Campo obrigatório', 'iande'),
@@ -642,7 +663,8 @@ function register_metabox_group_feedback()
  *
  * @return array
  */
-function get_group_feedback_metadata_definition() {
+function get_group_feedback_metadata_definition()
+{
 
     /**
      * Desabilita o campo para usuários sem premissão de edição `manage_iande_options`
@@ -684,6 +706,26 @@ function get_group_feedback_metadata_definition() {
     ];
 
     $metadata_definition = [
+        'has_feedback' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('A avaliação do visitante foi realizada?', 'iande'),
+                'type'    => 'radio',
+                'default' => 'no',
+                'options' => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ],
         'feedback_visit' => (object) [
             'type'       => 'string',
             'required'   => __('O que você achou da visita educativa é obrigatório', 'iande'),
@@ -934,6 +976,26 @@ function get_group_report_metadata_definition() {
     ];
 
     $metadata_definition = [
+        'has_report' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('A avaliação do educador foi realizada?', 'iande'),
+                'type'    => 'radio',
+                'default' => 'no',
+                'options' => [
+                    'yes' => __('Sim', 'iande'),
+                    'no'  => __('Não', 'iande')
+                ]
+            ]
+        ],
         'report_type' => (object) [
             'type'       => 'string',
             'required'   => false,
@@ -1115,6 +1177,7 @@ function get_group_fields_parameters(array $metadata_definition, object $metabox
 
             $name              = '';
             $desc              = '';
+            $default           = '';
             $type              = '';
             $options           = [];
             $attributes        = [];
@@ -1126,6 +1189,9 @@ function get_group_fields_parameters(array $metadata_definition, object $metabox
 
             if (isset($definition->metabox->desc))
                 $desc = $definition->metabox->desc;
+
+            if (isset($definition->metabox->default))
+                $default = $definition->metabox->default;
 
             if (isset($definition->metabox->type))
                 $type = $definition->metabox->type;
@@ -1145,6 +1211,7 @@ function get_group_fields_parameters(array $metadata_definition, object $metabox
             $fields[] = [
                 'name'              => $name,
                 'desc'              => $desc,
+                'default'           => $default,
                 'id'                => $key,
                 'type'              => $type,
                 'options'           => $options,
