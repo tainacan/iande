@@ -73,7 +73,7 @@ class Group extends Controller
      */
     function endpoint_list (array $params = [])
     {
-        $this->require_authentication();
+        $this->require_admin();
 
         $args = [
             'post_type'      => 'group',
@@ -110,7 +110,7 @@ class Group extends Controller
      */
     function endpoint_list_agenda (array $params = [])
     {
-        $this->require_authentication();
+        $this->require_admin();
 
         $args = [
             'post_type'      => 'group',
@@ -153,6 +153,7 @@ class Group extends Controller
      */
     function endpoint_update(array $params = [])
     {
+        $this->require_admin();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));
