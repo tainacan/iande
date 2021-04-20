@@ -91,6 +91,7 @@
         data () {
             return {
                 form: {
+                    has_report: 'on',
                     report_comment: '',
                     report_difficulty_other: '',
                     report_difficulty: [],

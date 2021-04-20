@@ -122,6 +122,7 @@
                     checkin_num_responsible: null,
                     checkin_num_responsible_actual: null,
                     checkin_showed: null,
+                    has_checkin: 'on',
                 },
                 formError: '',
                 exhibition: null,

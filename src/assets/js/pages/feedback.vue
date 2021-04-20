@@ -92,6 +92,7 @@
                     feedback_mood: null,
                     feedback_mood_other: '',
                     feedback_visit: null,
+                    has_feedback: 'on',
                 },
                 formError: '',
                 group: null,
