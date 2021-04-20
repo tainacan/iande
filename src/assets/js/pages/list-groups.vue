@@ -46,14 +46,14 @@
             filteredGroups () {
                 const today = new Date().toISOString().slice(0, 10)
                 if (this.time === 'next') {
-                    return this.sortedGroups.filter(group => group.date >= today)
+                    return this.groups.filter(group => group.date >= today)
                 } else {
-                    return this.sortedGroups.filter(group => group.date < today)
+                    return this.groups.filter(group => group.date < today)
                 }
             },
             groups: sync('groups/list'),
             sortedGroups () {
-                return this.groups.sort(sortBy(group => group.date))
+                return this.groups.sort(sortBy(group => group.date, this.time === 'next'))
             },
             timeOptions: constant([
                 { label: 'Próximas', value: 'next' },
