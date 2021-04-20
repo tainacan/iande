@@ -329,6 +329,10 @@ class Group extends Controller
             $this->error(__('O parâmetro deve ser um número inteiro', 'iande'));
         }
 
+        if (!\current_user_can('manage_iande_options')) {
+            $this->is_educator($params['ID']);
+        }
+
         $this->validate($params);
 
         $this->set_group_metadata($params['ID'], $params);
@@ -356,6 +360,10 @@ class Group extends Controller
 
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
             $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        if (!\current_user_can('manage_iande_options')) {
+            $this->is_educator($params['ID']);
         }
 
         \delete_post_meta($params['ID'], 'educator_id');
