@@ -197,3 +197,22 @@ function redirect_to_iande_frontend () {
     }
 }
 \add_action( 'admin_init', 'IandePlugin\\redirect_to_iande_frontend', 1 );
+
+
+/**
+ * Redireciona usuários com a role `iande_admin` para a área administrativa do plugin
+ */
+function login_redirect_iande_admin( $redirect_to, $request, $user )
+{
+	return ( isset( $user->roles ) && is_array( $user->roles ) && in_array( 'iande_admin', $user->roles ) ) ? \admin_url( 'edit.php?post_type=appointment' ) : \admin_url();
+}
+\add_filter( 'login_redirect', 'IandePlugin\\login_redirect_iande_admin', 10, 3 );
+
+/**
+ * Redireciona usuários com a role `iande_admin` para o front end  `/iande/ `após logout
+ */
+function logout_redirect_iande_admin( $redirect_to, $requested_redirect_to, $user )
+{
+    return ( is_array( $user->roles ) && in_array( 'iande_admin', $user->roles ) ) ? \home_url( '/iande/' ) : $redirect_to;
+}
+\add_filter( 'logout_redirect', 'IandePlugin\\logout_redirect_iande_admin', 10, 3);
