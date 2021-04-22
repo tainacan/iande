@@ -5,8 +5,8 @@ namespace IandePlugin;
 add_action('init', 'IandePlugin\\register_post_type_group');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_checkin');
-add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_feedback');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_report');
+add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_group_feedback');
 
 /**
  * Registra o Post Type `group`
