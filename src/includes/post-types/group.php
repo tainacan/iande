@@ -954,10 +954,10 @@ function get_group_feedback_metadata_definition()
     $disabled = true;
 
     $quality_options = [
-        __('Muito satisfatória', 'iande'),
-        __('Satisfatória', 'iande'),
-        __('Pouco satisfatória', 'iande'),
-        __('Insatisfatória', 'iande')
+        4 => __('Muito satisfatória', 'iande'),
+        3 => __('Satisfatória', 'iande'),
+        2 => __('Pouco satisfatória', 'iande'),
+        1 => __('Insatisfatória', 'iande')
     ];
 
     $mood_options = [
@@ -1005,8 +1005,8 @@ function get_group_feedback_metadata_definition()
         'feedback_visit' => (object) [
             'type'       => 'string',
             'required'   => __('O que você achou da visita educativa é obrigatório', 'iande'),
-            'validation' => function ($value) use ($quality_options) {
-                if (in_array($value, $quality_options) && !empty($value)) {
+            'validation' => function ($value) {
+                if (is_numeric($value) && intval($value) == $value && $value >= 1 && $value <= 4) {
                     return true;
                 } else {
                     return __('O valor informado para o que você achou da visita educativa é inválido', 'iande');
@@ -1015,7 +1015,7 @@ function get_group_feedback_metadata_definition()
             'metabox' => (object) [
                 'name'       => __('O que você achou da visita educativa?', 'iande'),
                 'type'       => 'radio',
-                'options'    => map_array_to_options($quality_options),
+                'options'    => $quality_options,
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -1024,8 +1024,8 @@ function get_group_feedback_metadata_definition()
         'feedback_educator' => (object) [
             'type'       => 'string',
             'required'   => __('A atuação do educador é obrigatória', 'iande'),
-            'validation' => function ($value) use ($quality_options) {
-                if (in_array($value, $quality_options) && !empty($value)) {
+            'validation' => function ($value) {
+                if (is_numeric($value) && intval($value) == $value && $value >= 1 && $value <= 4) {
                     return true;
                 } else {
                     return __('A atuação do educador informada é inválida', 'iande');
@@ -1034,7 +1034,7 @@ function get_group_feedback_metadata_definition()
             'metabox' => (object) [
                 'name'       => __('O que você achou da atuação do educador?', 'iande'),
                 'type'       => 'radio',
-                'options'    => map_array_to_options($quality_options),
+                'options'    => $quality_options,
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -1043,8 +1043,8 @@ function get_group_feedback_metadata_definition()
         'feedback_mood' => (object) [
             'type'       => 'string',
             'required'   => __('O que você acha sobre a atuação do educador sobre a reação do grupo, é obrigatório', 'iande'),
-            'validation' => function ($value) use ($quality_options) {
-                if (in_array($value, $quality_options) && !empty($value)) {
+            'validation' => function ($value) use ($mood_options) {
+                if (in_array($value, $mood_options) && !empty($value)) {
                     return true;
                 } else {
                     return __('O que você acha sobre a atuação do educador é inválido', 'iande');
