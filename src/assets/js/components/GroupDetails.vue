@@ -148,7 +148,7 @@
             },
             disabilities () {
                 const disabilities = this.group.disabilities
-                if (disabilities.length === 0) {
+                if (!disabilities || disabilities.length === 0) {
                     return 'não'
                 } else {
                     return disabilities
@@ -175,7 +175,7 @@
             },
             languages () {
                 const languages = this.group.languages
-                return [{ languages_name: 'Português' }, ...languages]
+                return [{ languages_name: 'Português' }, ...(languages ?? [])]
                     .map(language => {
                         if (isOther(language.languages_name) && language.languages_other) {
                             return `${language.languages_name} / ${language.languages_other}`
