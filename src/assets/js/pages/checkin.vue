@@ -134,7 +134,7 @@
             binaryOptions: constant({ 'Não': 'no', 'Sim': 'yes' }),
             disabilities () {
                 const disabilities = this.group.disabilities
-                if (disabilities.length === 0) {
+                if (!disabilities || disabilities.length === 0) {
                     return '<b>nenhuma pessoa com necessidade especial</b>'
                 } else {
                     return joinMany(disabilities.map(disability => {
@@ -154,7 +154,7 @@
             },
             languages () {
                 const languages = this.group.languages
-                if (languages.length === 0) {
+                if (!languages || languages.length === 0) {
                     return '<b>apenas português</b>'
                 } else {
                     return joinMany(languages.map(language => {
