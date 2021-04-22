@@ -410,7 +410,7 @@ function get_group_checkin_metadata_definition()
         ],
         'checkin_showed' => (object) [
             'type'       => 'string',
-            'required'   => __('Campo obrigatório', 'iande'),
+            'required'   => __('É necessário saber se o grupo apareceu', 'iande'),
             'validation' => function ($value) {
                 if ($value == 'yes' || $value == 'no') {
                     return true;
@@ -448,8 +448,11 @@ function get_group_checkin_metadata_definition()
         ],
         'checkin_num_people' => (object) [
             'type'       => 'string',
-            'required'   => __('Campo obrigatório', 'iande'),
-            'validation' => function ($value) {
+            'required'   => false,
+            'validation' => function ($value, $params) {
+                if ($params['group_showed'] == 'yes' && empty($value)) {
+                    return __('O número de pessoas é obrigatório', 'iande');
+                }
                 if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
@@ -486,8 +489,11 @@ function get_group_checkin_metadata_definition()
         ],
         'checkin_num_responsible' => (object) [
             'type'       => 'string',
-            'required'   => __('Campo obrigatório', 'iande'),
-            'validation' => function ($value) {
+            'required'   => false,
+            'validation' => function ($value, $params) {
+                if ($params['group_showed'] == 'yes' && empty($value)) {
+                    return __('O número de responsáveis é obrigatório', 'iande');
+                }
                 if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
@@ -524,8 +530,11 @@ function get_group_checkin_metadata_definition()
         ],
         'checkin_disabilities' => (object) [
             'type'       => 'string',
-            'required'   => __('Campo obrigatório', 'iande'),
-            'validation' => function ($value) {
+            'required'   => false,
+            'validation' => function ($value, $params) {
+                if ($params['group_showed'] == 'yes' && empty($value)) {
+                    return __('O número de pessoas com necessidade especial é obrigatório', 'iande');
+                }
                 if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
@@ -543,8 +552,11 @@ function get_group_checkin_metadata_definition()
         ],
         'checkin_languages' => (object) [
             'type'       => 'string',
-            'required'   => __('Campo obrigatório', 'iande'),
-            'validation' => function ($value) {
+            'required'   => false,
+            'validation' => function ($value, $params) {
+                if ($params['group_showed'] == 'yes' && empty($value)) {
+                    return __('O número de pessoas falando outros idiomas é obrigatório', 'iande');
+                }
                 if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
@@ -562,8 +574,11 @@ function get_group_checkin_metadata_definition()
         ],
         'checkin_age_range' => (object) [
             'type'          => 'string',
-            'required'      => __('Campo obrigatório', 'iande'),
-            'validation'    => function ($value) {
+            'required'      => false,
+            'validation'    => function ($value, $params) {
+                if ($params['group_showed'] == 'yes' && empty($value)) {
+                    return __('A quantidade por faixa etária é obrigatória', 'iande');
+                }
                 if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
@@ -581,8 +596,11 @@ function get_group_checkin_metadata_definition()
         ],
         'checkin_noshow_type' => (object) [
             'type'       => 'string',
-            'required'   => __('Campo obrigatório', 'iande'),
-            'validation' => function ($value) {
+            'required'   => false,
+            'validation' => function ($value, $params) {
+                if ($params['group_showed'] == 'no' && empty($value)) {
+                    return __('O motivo da não realização é obrigatório', 'iande');
+                }
                 if ($value == 'internal_problems' || $value == 'institution_problems') {
                     return true;
                 } else {
@@ -596,8 +614,15 @@ function get_group_checkin_metadata_definition()
             ]
         ],
         'checkin_noshow_reason' => (object) [
-            'type'     => 'string',
-            'required' => __('Campo obrigatório', 'iande'),
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value, $params) {
+                if ($params['group_showed'] == 'no' && empty($value)) {
+                    return __('O motivo da não realização é obrigatório', 'iande');
+                } else {
+                    return true;
+                }
+            },
             'metabox'  => (object) [
                 'name'    => __('Qual desafio impossibilitou a visita?', 'iande'),
                 'type'    => 'select',
@@ -665,7 +690,7 @@ function get_group_feedback_metadata_definition()
      * Desabilita edição de todos campos do feedback
      */
     $disabled = true;
-    
+
     $quality_options = [
         __('Muito satisfatória', 'iande'),
         __('Satisfatória', 'iande'),
@@ -1138,14 +1163,14 @@ function get_group_report_metadata_definition()
 
 /**
  * Retorna os parametros dos campos para os metadados do post type `group`
- * 
+ *
  * @param array $metadata_definition com a definição dos metadados
  * @param object $metabox_definition objeto \new_cmb2_box com a definição do metabox
- * 
+ *
  * @filter iande.' . $metabox_definition->meta_box['id'] . '_metabox_fields
- * 
+ *
  * @link https://cmb2.io/docs/field-parameters
- * 
+ *
  * @return array
  */
 function get_group_fields_parameters(array $metadata_definition, object $metabox_definition)
@@ -1220,9 +1245,9 @@ function get_group_fields_parameters(array $metadata_definition, object $metabox
 
 /**
  * Retorna todas definições dos metadados po post type `group`
- * 
+ *
  * @filter iande.group_all_metadata_definition
- * 
+ *
  * @return array
  */
 function get_all_group_metadata_definition()
@@ -1233,7 +1258,7 @@ function get_all_group_metadata_definition()
     $feedback_metadata_definition = get_group_feedback_metadata_definition();
     $report_metadata_definition   = get_group_report_metadata_definition();
 
-    $metadata_definition = array_merge($group_metadata_definition, $checkin_metadata_definition, $feedback_metadata_definition, $report_metadata_definition); 
+    $metadata_definition = array_merge($group_metadata_definition, $checkin_metadata_definition, $feedback_metadata_definition, $report_metadata_definition);
 
     $metadata_definition = \apply_filters('iande.group_all_metadata_definition', $metadata_definition);
 
