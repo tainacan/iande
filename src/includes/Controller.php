@@ -188,8 +188,6 @@ abstract class Controller
     protected function email(string $email_template, array $params)
     {
 
-        $this->require_authentication();
-
         if (empty($params['email'])) {
             $this->error(__('O endereço de e-mail é obrigatório', 'iande'));
         }
