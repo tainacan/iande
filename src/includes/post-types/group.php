@@ -640,7 +640,9 @@ function register_metabox_group_feedback()
         'context'      => 'normal',
         'priority'     => 'high',
         'show_names'   => true,
-        'show_on_cb'   => \current_user_can('manage_iande_options')
+        'show_on_cb'   => function () {
+            return \current_user_can( 'read_feedback' );
+        }
     ]);
 
     $fields = get_group_fields_parameters($metadata_definition, $metabox_definition);
@@ -660,9 +662,9 @@ function get_group_feedback_metadata_definition()
 {
 
     /**
-     * Desabilita o campo para usuários sem premissão de edição `manage_iande_options`
+     * Desabilita edição de todos campos do feedback
      */
-    $disabled = (\current_user_can('manage_iande_options')) ? false : true;
+    $disabled = true;
     
     $quality_options = [
         __('Muito satisfatória', 'iande'),
@@ -707,7 +709,10 @@ function get_group_feedback_metadata_definition()
             },
             'metabox' => (object) [
                 'name' => __('A avaliação do visitante foi realizada?', 'iande'),
-                'type' => 'checkbox'
+                'type' => 'checkbox',
+                'attributes' => [
+                    'disabled' => $disabled
+                ]
             ]
         ],
         'feedback_visit' => (object) [

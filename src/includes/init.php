@@ -198,7 +198,6 @@ function redirect_to_iande_frontend () {
 }
 \add_action( 'admin_init', 'IandePlugin\\redirect_to_iande_frontend', 1 );
 
-
 /**
  * Redireciona usuários com a role `iande_admin` para a área administrativa do plugin
  */
