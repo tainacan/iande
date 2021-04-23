@@ -91,13 +91,11 @@
                 </div>
             </div>
             <div class="iande-appointment__buttons" v-if="isEducator">
-                <a class="iande-button primary" :href="$iandeUrl(`group/checkin?ID=${group.ID}`)" v-if="canCheckin">
-                    Fazer check-in
-                    <Icon icon="check"/>
+                <a class="iande-button" :class="canEvaluate ? 'primary' : 'solid'" :href="$iandeUrl(`group/checkin?ID=${group.ID}`)" v-if="canCheckin">
+                    {{ group.has_checkin === 'on' ? 'Editar check-in' : 'Fazer-checkin' }}
                 </a>
-                <a class="iande-button primary" :href="$iandeUrl(`group/report?ID=${group.ID}`)" v-else-if="canEvaluate">
-                    Avaliar
-                    <Icon icon="check"/>
+                <a class="iande-button primary" :href="$iandeUrl(`group/report?ID=${group.ID}`)" v-if="canEvaluate">
+                    Avaliar visita
                 </a>
             </div>
         </div>
@@ -138,7 +136,7 @@
                 return parts[2]
             },
             canCheckin () {
-                return this.isEducator && !this.group.has_checkin && this.group.date <= today
+                return this.isEducator && this.group.date <= today
             },
             canEvaluate () {
                 return this.isEducator && this.group.has_checkin && !this.group.has_report && this.group.date <= today
