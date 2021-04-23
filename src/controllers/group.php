@@ -675,9 +675,4 @@ class Group extends Controller
 
     }
 
-    public function endpoint_force() {
-        \update_post_meta(56, 'has_checkin', '');
-        \update_post_meta(56, 'confirmation_sent_after_visiting', '');
-    }
-
 }
