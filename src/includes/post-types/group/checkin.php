@@ -292,7 +292,7 @@ function get_group_checkin_metadata_definition()
             },
             'metabox' => (object) [
                 'name'    => __('Tipo / perfil da instituição', 'iande'),
-                'type'    => 'radio',
+                'type'    => 'select',
                 'options' => map_array_to_options($institution_profile)
             ]
         ],
