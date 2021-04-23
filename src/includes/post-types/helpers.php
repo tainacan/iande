@@ -111,3 +111,108 @@ function map_users_to_options (array $users, $empty_option = false) {
 
     return \array_filter($options);
 }
+
+/**
+ * Retorna os parametros dos campos para os metadados do post type `group`
+ *
+ * @param array $metadata_definition com a definição dos metadados
+ * @param object $metabox_definition objeto \new_cmb2_box com a definição do metabox
+ *
+ * @filter iande.' . $metabox_definition->meta_box['id'] . '_metabox_fields
+ *
+ * @link https://cmb2.io/docs/field-parameters
+ *
+ * @return array
+ */
+function get_group_fields_parameters(array $metadata_definition, object $metabox_definition)
+{
+
+    $fields = [];
+
+    foreach ($metadata_definition as $key => $definition) {
+
+        if (isset($definition->metabox)) {
+
+            $name              = '';
+            $desc              = '';
+            $default           = '';
+            $type              = '';
+            $options           = [];
+            $attributes        = [];
+            $repeatable        = false;
+            $select_all_button = false;
+
+            if (isset($definition->metabox->name))
+                $name = $definition->metabox->name;
+
+            if (isset($definition->metabox->desc))
+                $desc = $definition->metabox->desc;
+
+            if (isset($definition->metabox->default))
+                $default = $definition->metabox->default;
+
+            if (isset($definition->metabox->type))
+                $type = $definition->metabox->type;
+
+            if (isset($definition->metabox->options))
+                $options = $definition->metabox->options;
+
+            if (isset($definition->metabox->attributes))
+                $attributes = $definition->metabox->attributes;
+
+            if (isset($definition->metabox->repeatable))
+                $repeatable = $definition->metabox->repeatable;
+
+            if (isset($definition->metabox->select_all_button))
+                $select_all_button = $definition->metabox->select_all_button;
+
+            $fields[] = [
+                'name'              => $name,
+                'desc'              => $desc,
+                'default'           => $default,
+                'id'                => $key,
+                'type'              => $type,
+                'options'           => $options,
+                'attributes'        => $attributes,
+                'repeatable'        => $repeatable,
+                'select_all_button' => $select_all_button
+            ];
+
+        }
+
+    }
+
+    $fields = \apply_filters('iande.' . $metabox_definition->meta_box['id'] . '_metabox_fields', $fields);
+
+    if (is_object($metabox_definition)) {
+        foreach ($fields as $field) {
+            $metabox_definition->add_field($field);
+        }
+    }
+
+    return $metabox_definition;
+
+}
+
+/**
+ * Retorna todas definições dos metadados po post type `group`
+ *
+ * @filter iande.group_all_metadata_definition
+ *
+ * @return array
+ */
+function get_all_group_metadata_definition()
+{
+
+    $group_metadata_definition    = get_group_metadata_definition();
+    $checkin_metadata_definition  = get_group_checkin_metadata_definition();
+    $feedback_metadata_definition = get_group_feedback_metadata_definition();
+    $report_metadata_definition   = get_group_report_metadata_definition();
+
+    $metadata_definition = array_merge($group_metadata_definition, $checkin_metadata_definition, $feedback_metadata_definition, $report_metadata_definition);
+
+    $metadata_definition = \apply_filters('iande.group_all_metadata_definition', $metadata_definition);
+
+    return $metadata_definition;
+
+}
