@@ -646,32 +646,30 @@ class Group extends Controller
     function email_after_visiting( $group_id )
     {
 
-        $has_checkin = \get_post_meta( $group_id, 'has_checkin', true );
-        $confirmation_sent_after_visiting = \get_post_meta( $group_id, 'confirmation_sent_after_visiting', true );
+        $group       = \get_post( $group_id );
+        $appointment = \get_post( $group->appointment_id );
 
-        if ( ! $confirmation_sent_after_visiting && $has_checkin ) {
+        if ( is_null( $group ) || is_null( $appointment ) )
+            return null;
 
-            $appointment_id = \get_post_meta( $group_id, 'appointment_id', true );
-            $exhibition_id  = \get_post_meta( $group_id, 'exhibition_id', true );
+        if ( ! $group->confirmation_sent_after_visiting && $group->has_checkin ) {
             
             $email_params = [
-                'email'          => \get_post_meta( $appointment_id, 'responsible_email', true ),
-                'cc'             => \get_the_author_meta( 'user_email', \get_post( $appointment_id )->post_author ),
+                'email'          => $appointment->responsible_email,
+                'cc'             => \get_the_author_meta( 'user_email', $appointment->post_author ),
                 'interpolations' => [
-                    'nome'      => \get_post_meta( $appointment_id, 'responsible_first_name', true ),
-                    'data'      => date( 'd/m/Y', strtotime( \get_post_meta( $group_id, 'date', true ) ) ),
-                    'exposicao' => \get_the_title( $exhibition_id ),
-                    'link'      => \home_url( '/iande/group/feedback/?ID=' . $group_id )
+                    'nome'      => $appointment->responsible_first_name,
+                    'data'      => date( 'd/m/Y', strtotime( $group->date ) ),
+                    'exposicao' => \get_the_title( $group->exhibition_id ),
+                    'link'      => \home_url( '/iande/group/feedback/?ID=' . $group->ID )
                 ]
             ];
 
             $this->email( 'email_after_visiting', $email_params );
 
-            \update_post_meta( $group_id, 'confirmation_sent_after_visiting', '1' );
+            \update_post_meta( $group->ID, 'confirmation_sent_after_visiting', '1' );
 
         }
-
-        return;
 
     }
 
