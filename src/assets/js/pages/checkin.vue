@@ -113,6 +113,7 @@
 
     import Input from '../components/Input.vue'
     import RadioGroup from '../components/RadioGroup.vue'
+    import Select from '../components/Select.vue'
     import TextArea from '../components/TextArea.vue'
     import { api, constant, isOther, joinMany } from '../utils'
 
@@ -121,6 +122,7 @@
         components: {
             Input,
             RadioGroup,
+            Select,
             TextArea,
         },
         data () {
@@ -128,11 +130,15 @@
                 appointment: null,
                 form: {
                     checkin_age_range: null,
+                    checkin_age_range_actual: null,
                     checkin_disabilities: null,
+                    checkin_disabilities_actual: null,
                     checkin_hour: null,
                     checkin_institutional: null,
                     checkin_institution: null,
+                    checkin_institution_actual: null,
                     checkin_languages: null,
+                    checkin_languages_actual: null,
                     checkin_noshow_reason: '',
                     checkin_noshow_reason_other: '',
                     checkin_noshow_type: null,
@@ -141,6 +147,7 @@
                     checkin_num_responsible: null,
                     checkin_num_responsible_actual: null,
                     checkin_scholarity: null,
+                    checkin_scholarity_actual: null,
                     checkin_showed: null,
                     has_checkin: 'on',
                 },
@@ -221,11 +228,15 @@
             return {
                 form: {
                     checkin_age_range: { required: requiredIf(showedYes) },
+                    checkin_age_range_actual: { },
                     checkin_disabilities: { required: requiredIf(showedYes) },
+                    checkin_disabilities_actual: { },
                     checkin_hour: { required: requiredIf(showedYes) },
                     checkin_institution: { },
+                    checkin_institution_actual: { },
                     checkin_institutional: { required: requiredIf(showedYes) },
                     checkin_languages: { required: requiredIf(showedYes) },
+                    checkin_languages_actual: { },
                     checkin_noshow_reason: { required: requiredIf(showedNo) },
                     checkin_noshow_reason_other: { },
                     checkin_noshow_type: { required: requiredIf(showedNo) },
@@ -234,6 +245,7 @@
                     checkin_num_responsible: { required: requiredIf(showedYes) },
                     checkin_num_responsible_actual: { required: requiredIf(() => this.form.checkin_num_responsible === 'no'), numeric },
                     checkin_scholarity: { required: requiredIf(showedYes) },
+                    checkin_scholarity_actual: { },
                     checkin_showed: { required },
                 },
             }
