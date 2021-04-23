@@ -173,7 +173,7 @@ function get_group_checkin_metadata_definition()
                 'attributes' => [
                     'type' => 'number',
                     'min'  => '0',
-                ],
+                ]
             ]
         ],
         'checkin_disabilities' => (object) [
@@ -217,9 +217,9 @@ function get_group_checkin_metadata_definition()
             ]
         ],
         'checkin_scholarity' => (object) [
-            'type'          => 'string',
-            'required'      => false,
-            'validation'    => function ($value, $params) {
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value, $params) {
                 if ($params['group_showed'] == 'no') {
                     return true;
                 } else if (empty($value)) {
@@ -304,8 +304,8 @@ function get_group_checkin_metadata_definition()
                 return true;
             },
             'metabox' => (object) [
-                'name'    => __('A visita não foi realizada porque (outro)', 'iande'),
-                'type'    => 'text'
+                'name' => __('A visita não foi realizada porque (outro)', 'iande'),
+                'type' => 'text'
             ]
         ]
     ];

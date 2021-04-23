@@ -41,9 +41,9 @@ function get_group_report_metadata_definition()
 {
 
     /**
-     * Desabilita o campo para usuários sem premissão de edição `manage_iande_options`
+     * Define a permissão de edição dos campos
      */
-    $disabled = (\current_user_can('manage_iande_options')) ? false : true;
+    $disabled = ! current_user_is( 'administrator' );
 
     $type_options = [
         __('Mais expositiva', 'iande'),

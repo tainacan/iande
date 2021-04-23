@@ -22,7 +22,7 @@ function register_metabox_group_feedback()
         'priority'     => 'high',
         'show_names'   => true,
         'show_on_cb'   => function () {
-            return \current_user_can( 'read_feedback' );
+            return current_user_is( 'administrator' );
         }
     ]);
 
@@ -43,9 +43,9 @@ function get_group_feedback_metadata_definition()
 {
 
     /**
-     * Desabilita edição de todos campos do feedback
+     * Define a permissão de edição dos campos
      */
-    $disabled = true;
+    $disabled = ! current_user_is( 'administrator' );
 
     $quality_options = [
         4 => __('Muito satisfatória', 'iande'),
