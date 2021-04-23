@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import { call, get, sync } from 'vuex-pathify'
+    import { call, sync } from 'vuex-pathify'
 
     import CreateInstitution from '../components/CreateInstitution.vue'
     import { api } from '../utils'

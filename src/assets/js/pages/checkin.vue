@@ -63,6 +63,17 @@
                             <div class="iande-hint">O agendamendo prevê <b>{{ group.age_range.toLocaleLowerCase() }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="age-range" v-model="form.checkin_age_range" :validations="$v.form.checkin_age_range" :options="binaryOptions"/>
                         </div>
+
+                        <div>
+                            <label for="institutional" class="iande-label">O grupo é institucional?</label>
+                            <RadioGroup id="institutional" v-model="form.checkin_institutional" :validations="$v.form.checkin_institutional" :options="binaryOptions"/>
+                        </div>
+
+                        <div v-if="form.checkin_institutional === 'yes'">
+                            <label for="institution" class="iande-label">Tipo / perfil da instituição</label>
+                            <div class="iande-hint" v-if="institution && appointment.group_nature === 'institutional'">O agendamendo prevê <b>{{ institution.profile }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
+                            <RadioGroup id="institution" columns v-model="form.checkin_institution" :validations="$v.form.checkin_institution" :options="$iande.profiles"/>
+                        </div>
                     </template>
 
                     <template v-else-if="showedNo">
@@ -114,10 +125,13 @@
         },
         data () {
             return {
+                appointment: null,
                 form: {
                     checkin_age_range: null,
                     checkin_disabilities: null,
                     checkin_hour: null,
+                    checkin_institutional: null,
+                    checkin_institution: null,
                     checkin_languages: null,
                     checkin_noshow_reason: '',
                     checkin_noshow_reason_other: '',
@@ -133,6 +147,7 @@
                 formError: '',
                 exhibition: null,
                 group: null,
+                institution: null,
                 submitted: false,
             }
         },
@@ -201,20 +216,24 @@
             },
         },
         validations () {
+            const showedNo = () => this.showedNo
+            const showedYes = () => this.showedYes
             return {
                 form: {
-                    checkin_age_range: { required: requiredIf(() => this.showedYes) },
-                    checkin_disabilities: { required: requiredIf(() => this.showedYes) },
-                    checkin_hour: { required: requiredIf(() => this.showedYes) },
-                    checkin_languages: { required: requiredIf(() => this.showedYes) },
-                    checkin_noshow_reason: { required: requiredIf(() => this.showedNo) },
+                    checkin_age_range: { required: requiredIf(showedYes) },
+                    checkin_disabilities: { required: requiredIf(showedYes) },
+                    checkin_hour: { required: requiredIf(showedYes) },
+                    checkin_institution: { },
+                    checkin_institutional: { required: requiredIf(showedYes) },
+                    checkin_languages: { required: requiredIf(showedYes) },
+                    checkin_noshow_reason: { required: requiredIf(showedNo) },
                     checkin_noshow_reason_other: { },
-                    checkin_noshow_type: { required: requiredIf(() => this.showedNo) },
-                    checkin_num_people: { required: requiredIf(() => this.showedYes) },
+                    checkin_noshow_type: { required: requiredIf(showedNo) },
+                    checkin_num_people: { required: requiredIf(showedYes) },
                     checkin_num_people_actual: { required: requiredIf(() => this.form.checkin_num_people === 'no'), numeric },
-                    checkin_num_responsible: { required: requiredIf(() => this.showedYes) },
+                    checkin_num_responsible: { required: requiredIf(showedYes) },
                     checkin_num_responsible_actual: { required: requiredIf(() => this.form.checkin_num_responsible === 'no'), numeric },
-                    checkin_scholarity: { required: requiredIf(() => this.showedYes) },
+                    checkin_scholarity: { required: requiredIf(showedYes) },
                     checkin_showed: { required },
                 },
             }
@@ -228,8 +247,14 @@
                     if (group.has_checkin === 'on') {
                         this.mergeCheckins()
                     }
-                    const exhibition = await api.get('exhibition/get', { ID: group.exhibition_id })
+                    const appointment = await api.get('appointment/get', { ID: group.appointment_id })
+                    this.appointment = appointment
+                    const [exhibition, institution] = await Promise.all([
+                        api.get('exhibition/get', { ID: group.exhibition_id }),
+                        appointment.institution_id ? api.get('institution/get', { ID: appointment.institution_id }) : null,
+                    ])
                     this.exhibition = exhibition
+                    this.institution = institution
                 } catch (err) {
                     this.formError = err
                 }
