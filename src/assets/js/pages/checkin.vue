@@ -149,7 +149,7 @@
                 }
             },
             endHour () {
-                const delta = { minutes: Number(this.exhibition.duration) }
+                const delta = { minutes: Number(this.exhibition?.duration ?? 30) }
                 return DateTime.fromFormat(this.group.hour, 'HH:mm').plus(delta).toFormat('HH:mm')
             },
             languages () {
@@ -218,6 +218,9 @@
                 try {
                     const group = await api.get('group/get', { ID: Number(qs.get('ID')) })
                     this.group = group
+                    if (group.has_checkin === 'on') {
+                        this.mergeCheckins()
+                    }
                     const exhibition = await api.get('exhibition/get', { ID: group.exhibition_id })
                     this.exhibition = exhibition
                 } catch (err) {
@@ -239,6 +242,13 @@
                 }
             },
             isOther,
+            mergeCheckins () {
+                for (const key of Object.keys(this.form)) {
+                    if (this.group[key]) {
+                        this.form[key] = this.group[key]
+                    }
+                }
+            },
         },
     }
 </script>
