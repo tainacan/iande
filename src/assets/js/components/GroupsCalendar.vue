@@ -144,7 +144,7 @@
                 this.$refs.modal.open(group)
             },
             status (group) {
-                return assignmentStatus(group, this.user.ID)
+                return assignmentStatus(group, this.user?.ID)
             },
         }
     }
