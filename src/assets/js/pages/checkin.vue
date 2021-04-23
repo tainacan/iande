@@ -53,7 +53,13 @@
                         </div>
 
                         <div>
-                            <label for="age-range" class="iande-label">Confirmação de quantidades por faixa etária</label>
+                            <label for="scholarity" class="iande-label">Confirmação de escolaridade</label>
+                            <div class="iande-hint">O agendamendo prevê <b>{{ group.scholarity }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
+                            <RadioGroup id="scholarity" v-model="form.checkin_scholarity" :validations="$v.form.checkin_scholarity" :options="binaryOptions"/>
+                        </div>
+
+                        <div>
+                            <label for="age-range" class="iande-label">Confirmação de faixa etária</label>
                             <div class="iande-hint">O agendamendo prevê <b>{{ group.age_range.toLocaleLowerCase() }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="age-range" v-model="form.checkin_age_range" :validations="$v.form.checkin_age_range" :options="binaryOptions"/>
                         </div>
@@ -68,11 +74,10 @@
                         <div v-if="form.checkin_noshow_type">
                             <label for="noshow-reason" class="iande-label">Qual desafio impossibilitou a visita?</label>
                             <RadioGroup id="noshow-reason" columns v-model="form.checkin_noshow_reason" :validations="$v.form.checkin_noshow_reason" :options="noshowReasonOptions"/>
-                        </div>
-
-                        <div v-if="isOther(form.checkin_noshow_reason)">
-                            <label for="noshow-reason-other" class="iande-label">Qual?</label>
-                            <TextArea id="noshow-reason-other" columns v-model="form.checkin_noshow_reason_other" :validations="$v.form.checkin_noshow_reason_other"/>
+                            <template v-if="isOther(form.checkin_noshow_reason)">
+                                <label for="noshow-reason-other" class="iande-label">Qual?</label>
+                                <TextArea id="noshow-reason-other" columns v-model="form.checkin_noshow_reason_other" :validations="$v.form.checkin_noshow_reason_other"/>
+                            </template>
                         </div>
                     </template>
 
@@ -121,6 +126,7 @@
                     checkin_num_people_actual: null,
                     checkin_num_responsible: null,
                     checkin_num_responsible_actual: null,
+                    checkin_scholarity: null,
                     checkin_showed: null,
                     has_checkin: 'on',
                 },
@@ -208,6 +214,7 @@
                     checkin_num_people_actual: { required: requiredIf(() => this.form.checkin_num_people === 'no'), numeric },
                     checkin_num_responsible: { required: requiredIf(() => this.showedYes) },
                     checkin_num_responsible_actual: { required: requiredIf(() => this.form.checkin_num_responsible === 'no'), numeric },
+                    checkin_scholarity: { required: requiredIf(() => this.showedYes) },
                     checkin_showed: { required },
                 },
             }

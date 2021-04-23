@@ -40,6 +40,11 @@ function register_metabox_group_checkin()
 function get_group_checkin_metadata_definition()
 {
 
+    $binary_options = [
+        'yes' => __('Sim', 'iande'),
+        'no'  => __('Não', 'iande')
+    ];
+
     $checkin_noshow_reason = [
         __('Problemas de deslocamento até a exposição/museu (trânsito, endereço errado, atraso do ônibus, atraso de alunos responsáveis)', 'iande'),
         __('O grupo preferiu visitar a exposição sem a presença do educador', 'iande'),
@@ -74,10 +79,7 @@ function get_group_checkin_metadata_definition()
             'metabox' => (object) [
                 'name'    => __('O grupo apareceu para a visita?', 'iande'),
                 'type'    => 'radio',
-                'options' => [
-                    'yes' => __('Sim', 'iande'),
-                    'no'  => __('Não', 'iande')
-                ]
+                'options' => $binary_options
             ]
         ],
         'checkin_hour' => (object) [
@@ -93,10 +95,7 @@ function get_group_checkin_metadata_definition()
             'metabox' => (object) [
                 'name'    => __('Horário efetivo de início da visita', 'iande'),
                 'type'    => 'radio',
-                'options' => [
-                    'yes' => __('Sim', 'iande'),
-                    'no'  => __('Não', 'iande')
-                ]
+                'options' => $binary_options
             ]
         ],
         'checkin_num_people' => (object) [
@@ -116,10 +115,7 @@ function get_group_checkin_metadata_definition()
             'metabox' => (object) [
                 'name'    => __('Quantidade efetiva de integrantes do grupo', 'iande'),
                 'type'    => 'radio',
-                'options' => [
-                    'yes' => __('Sim', 'iande'),
-                    'no'  => __('Não', 'iande')
-                ]
+                'options' => $binary_options
             ]
         ],
         'checkin_num_people_actual' => (object) [
@@ -158,10 +154,7 @@ function get_group_checkin_metadata_definition()
             'metabox' => (object) [
                 'name'    => __('Quantidade efetiva de responsáveis', 'iande'),
                 'type'    => 'radio',
-                'options' => [
-                    'yes' => __('Sim', 'iande'),
-                    'no'  => __('Não', 'iande')
-                ]
+                'options' => $binary_options
             ]
         ],
         'checkin_num_responsible_actual' => (object) [
@@ -200,10 +193,7 @@ function get_group_checkin_metadata_definition()
             'metabox' => (object) [
                 'name'    => __('Quantidade efetiva de pessoas com cada tipo de necessidade especial', 'iande'),
                 'type'    => 'radio',
-                'options' => [
-                    'yes' => __('Sim', 'iande'),
-                    'no'  => __('Não', 'iande')
-                ]
+                'options' => $binary_options
             ]
         ],
         'checkin_languages' => (object) [
@@ -223,10 +213,27 @@ function get_group_checkin_metadata_definition()
             'metabox' => (object) [
                 'name'    => __('Quantidade efetiva de pessoas falando outros idiomas diferentes de português', 'iande'),
                 'type'    => 'radio',
-                'options' => [
-                    'yes' => __('Sim', 'iande'),
-                    'no'  => __('Não', 'iande')
-                ]
+                'options' => $binary_options
+            ]
+        ],
+        'checkin_scholarity' => (object) [
+            'type'          => 'string',
+            'required'      => false,
+            'validation'    => function ($value, $params) {
+                if ($params['group_showed'] == 'no') {
+                    return true;
+                } else if (empty($value)) {
+                    return __('A escolaridade é obrigatória', 'iande');
+                } else if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Confirmação de escolaridade', 'iande'),
+                'type'    => 'radio',
+                'options' => $binary_options
             ]
         ],
         'checkin_age_range' => (object) [
@@ -244,13 +251,9 @@ function get_group_checkin_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'name'    => __('Confirmação de quantidades por faixa etária', 'iande'),
+                'name'    => __('Confirmação de faixa etária', 'iande'),
                 'type'    => 'radio',
-                'options'          => [
-                    'yes' => __('Sim', 'iande'),
-                    'no'  => __('Não', 'iande')
-                ]
-            ]
+                'options' => $binary_options
         ],
         'checkin_noshow_type' => (object) [
             'type'       => 'string',
