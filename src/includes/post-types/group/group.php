@@ -335,6 +335,13 @@ function get_group_metadata_definition()
                 'type'    => 'select',
                 'options' => map_users_to_options($users, true)
             ]
+        ],
+        'confirmation_sent_after_visiting' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            }
         ]
 
     ];

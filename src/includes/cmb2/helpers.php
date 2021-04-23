@@ -395,6 +395,28 @@ Caso queira fazer um novo agendamento, <a href='%link%'>clique aqui</a>.";
 
     }
 
+    /**
+     * E-mail 1.6 - Pós visita
+     */
+    if (empty($emails_settings['email_after_visiting_title'])) {
+        $title = "Agradecemos sua visita";
+        cmb2_update_option('iande_emails_settings', 'email_after_visiting_title', $title);
+    }
+
+    if (empty($emails_settings['email_after_visiting'])) {
+
+        $message = "Olá %nome%,
+
+Agradecemos por sua visita à exposição %exposicao%, no dia %data%
+
+Por favor, acesse <a href='%link%'>esse link</a> e faça uma avaliação de sua visitação. Ela é muito importante para que possamos diagnosticar e aplicar melhorias em nossos procedimentos.
+
+Nos vemos em sua próxima visita!";
+
+        cmb2_update_option('iande_emails_settings', 'email_after_visiting', $message);
+
+    }
+
 }
 
 /**
