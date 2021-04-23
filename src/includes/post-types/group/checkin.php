@@ -254,6 +254,7 @@ function get_group_checkin_metadata_definition()
                 'name'    => __('Confirmação de faixa etária', 'iande'),
                 'type'    => 'radio',
                 'options' => $binary_options
+            ]
         ],
         'checkin_noshow_type' => (object) [
             'type'       => 'string',
