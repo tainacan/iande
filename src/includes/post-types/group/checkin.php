@@ -40,11 +40,6 @@ function register_metabox_group_checkin()
 function get_group_checkin_metadata_definition()
 {
 
-    $checkin_noshow_type = [
-        __('Problemas internos', 'iande'),
-        __('Problemas da instituição visitante', 'iande')
-    ];
-
     $checkin_noshow_reason = [
         __('Problemas de deslocamento até a exposição/museu (trânsito, endereço errado, atraso do ônibus, atraso de alunos responsáveis)', 'iande'),
         __('O grupo preferiu visitar a exposição sem a presença do educador', 'iande'),
@@ -259,7 +254,7 @@ function get_group_checkin_metadata_definition()
                 if ($params['group_showed'] == 'no' && empty($value)) {
                     return __('O motivo da não realização é obrigatório', 'iande');
                 }
-                if ($value == 'internal_problems' || $value == 'institution_problems') {
+                if ($value == 'internal' || $value == 'visitor') {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -268,7 +263,10 @@ function get_group_checkin_metadata_definition()
             'metabox' => (object) [
                 'name'    => __('A visita não foi realizada devido a', 'iande'),
                 'type'    => 'select',
-                'options' => map_array_to_options($checkin_noshow_type)
+                'options' => [
+                    'internal' =>__('Problemas internos', 'iande'),
+                    'visitor'  => __('Problemas da instituição visitante', 'iande'),
+                ]
             ]
         ],
         'checkin_noshow_reason' => (object) [
