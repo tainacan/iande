@@ -103,10 +103,11 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'yes' && empty($value)) {
+                if ($params['group_showed'] == 'no') {
+                    return true;
+                } else if (empty($value)) {
                     return __('O número de pessoas é obrigatório', 'iande');
-                }
-                if ($value == 'yes' || $value == 'no') {
+                } else if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -144,10 +145,11 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'yes' && empty($value)) {
+                if ($params['group_showed'] == 'no') {
+                    return true;
+                } else if (empty($value)) {
                     return __('O número de responsáveis é obrigatório', 'iande');
-                }
-                if ($value == 'yes' || $value == 'no') {
+                } else if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -185,10 +187,11 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'yes' && empty($value)) {
-                    return __('O número de pessoas com necessidade especial é obrigatório', 'iande');
-                }
-                if ($value == 'yes' || $value == 'no') {
+                if ($params['group_showed'] == 'no') {
+                    return true;
+                } else if (empty($value)) {
+                    return __('O número de pessoas com necessidades especiais é obrigatório', 'iande');
+                } else if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -207,10 +210,11 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'yes' && empty($value)) {
+                if ($params['group_showed'] == 'no') {
+                    return true;
+                } else if (empty($value)) {
                     return __('O número de pessoas falando outros idiomas é obrigatório', 'iande');
-                }
-                if ($value == 'yes' || $value == 'no') {
+                } else if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -229,10 +233,11 @@ function get_group_checkin_metadata_definition()
             'type'          => 'string',
             'required'      => false,
             'validation'    => function ($value, $params) {
-                if ($params['group_showed'] == 'yes' && empty($value)) {
-                    return __('A quantidade por faixa etária é obrigatória', 'iande');
-                }
-                if ($value == 'yes' || $value == 'no') {
+                if ($params['group_showed'] == 'no') {
+                    return true;
+                } else if (empty($value)) {
+                    return __('A faixa etária é obrigatória', 'iande');
+                } else if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -251,10 +256,11 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'no' && empty($value)) {
+                if ($params['group_showed'] == 'yes') {
+                    return true;
+                } else if (empty($value)) {
                     return __('O motivo da não realização é obrigatório', 'iande');
-                }
-                if ($value == 'internal' || $value == 'visitor') {
+                } else if ($value == 'internal' || $value == 'visitor') {
                     return true;
                 } else {
                     return __('Valor inválido', 'iande');
@@ -273,7 +279,9 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'no' && empty($value)) {
+                if ($params['group_showed'] == 'yes') {
+                    return true;
+                } else if (empty($value)) {
                     return __('O motivo da não realização é obrigatório', 'iande');
                 } else {
                     return true;
