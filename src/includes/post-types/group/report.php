@@ -40,11 +40,6 @@ function register_metabox_group_report()
 function get_group_report_metadata_definition()
 {
 
-    /**
-     * Define a permissão de edição dos campos
-     */
-    $disabled = ! current_user_is( 'administrator' );
-
     $type_options = [
         __('Mais expositiva', 'iande'),
         __('Mais dialogada', 'iande'),
@@ -118,10 +113,7 @@ function get_group_report_metadata_definition()
                 'name'              => __('Qual foi o grau de interesse da maior parte do grupo durante a visita?', 'iande'),
                 'type'              => 'multicheck',
                 'options'           => map_array_to_options($type_options),
-                'select_all_button' => false,
-                'attributes'        => [
-                    'disabled' => $disabled
-                ]
+                'select_all_button' => false
             ]
         ],
         'report_interest' => (object) [
@@ -133,10 +125,7 @@ function get_group_report_metadata_definition()
             'metabox' => (object) [
                 'name'       => __('Que tipo de visita você realizou? Marque até duas alternativas', 'iande'),
                 'type'       => 'select',
-                'options'    => map_array_to_options($interest_options),
-                'attributes' => [
-                    'disabled' => $disabled
-                ]
+                'options'    => map_array_to_options($interest_options)
             ]
         ],
         'report_mood' => (object) [
@@ -149,10 +138,7 @@ function get_group_report_metadata_definition()
                 'name'              => __('Como você classificaria a postura da maior parte do grupo durante a visita? Marque até duas alternativas', 'iande'),
                 'type'              => 'multicheck',
                 'options'           => map_array_to_options($mood_options),
-                'select_all_button' => false,
-                'attributes'        => [
-                    'disabled' => $disabled
-                ]
+                'select_all_button' => false
             ]
         ],
         'report_mood_other' => (object) [
@@ -163,10 +149,7 @@ function get_group_report_metadata_definition()
             },
             'metabox' => (object) [
                 'name'       => __('Como você classificaria a postura da maior parte do grupo durante a visita (outro)?', 'iande'),
-                'type'       => 'text',
-                'attributes' => [
-                    'disabled' => $disabled
-                ]
+                'type'       => 'text'
             ]
         ],
         'report_interactive' => (object) [
@@ -178,10 +161,7 @@ function get_group_report_metadata_definition()
             'metabox' => (object) [
                 'name'       => __('A visita educativa suscitou interações entre o visitante e a exposição?', 'iande'),
                 'type'       => 'select',
-                'options'    => map_array_to_options($interactive_options),
-                'attributes' => [
-                    'disabled' => $disabled
-                ]
+                'options'    => map_array_to_options($interactive_options)
             ]
         ],
         'report_interaction' => (object) [
@@ -194,10 +174,7 @@ function get_group_report_metadata_definition()
                 'name'              => __('Que tipo de visita você realizou? Marque até duas alternativas', 'iande'),
                 'type'              => 'multicheck',
                 'options'           => map_array_to_options($interaction_options),
-                'select_all_button' => false,
-                'attributes'        => [
-                    'disabled' => $disabled
-                ]
+                'select_all_button' => false
             ]
         ],
         'report_difficulty' => (object) [
@@ -210,10 +187,7 @@ function get_group_report_metadata_definition()
                 'name'              => __('Assinale as principais dificuldades encontradas. Marque até duas alternativas', 'iande'),
                 'type'              => 'multicheck',
                 'options'           => map_array_to_options($difficulty_options),
-                'select_all_button' => false,
-                'attributes'        => [
-                    'disabled' => $disabled
-                ]
+                'select_all_button' => false
             ]
         ],
         'report_difficulty_other' => (object) [
@@ -224,10 +198,7 @@ function get_group_report_metadata_definition()
             },
             'metabox' => (object) [
                 'name'       => __('Assinale as principais dificuldades encontradas. Qual?', 'iande'),
-                'type'       => 'text',
-                'attributes' => [
-                    'disabled' => $disabled
-                ]
+                'type'       => 'text'
             ]
         ],
         'report_summary' => (object) [
@@ -238,10 +209,7 @@ function get_group_report_metadata_definition()
             },
             'metabox' => (object) [
                 'name'       => __('Resumo da visita', 'iande'),
-                'type'       => 'textarea',
-                'attributes' => [
-                    'disabled' => $disabled
-                ]
+                'type'       => 'textarea'
             ]
         ]
     ];

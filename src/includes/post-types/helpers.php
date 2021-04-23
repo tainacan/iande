@@ -138,6 +138,7 @@ function get_group_fields_parameters(array $metadata_definition, object $metabox
             $default           = '';
             $type              = '';
             $options           = [];
+            $save_field        = false;
             $attributes        = [];
             $repeatable        = false;
             $select_all_button = false;
@@ -157,6 +158,9 @@ function get_group_fields_parameters(array $metadata_definition, object $metabox
             if (isset($definition->metabox->options))
                 $options = $definition->metabox->options;
 
+            if (isset($definition->metabox->save_field))
+                $save_field = $definition->metabox->save_field;
+
             if (isset($definition->metabox->attributes))
                 $attributes = $definition->metabox->attributes;
 
@@ -173,6 +177,7 @@ function get_group_fields_parameters(array $metadata_definition, object $metabox
                 'id'                => $key,
                 'type'              => $type,
                 'options'           => $options,
+                'save_field'        => $save_field,
                 'attributes'        => $attributes,
                 'repeatable'        => $repeatable,
                 'select_all_button' => $select_all_button

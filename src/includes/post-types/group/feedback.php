@@ -45,7 +45,8 @@ function get_group_feedback_metadata_definition()
     /**
      * Define a permissão de edição dos campos
      */
-    $disabled = ! current_user_is( 'administrator' );
+    $disabled   = true;
+    $save_field = false;
 
     $quality_options = [
         4 => __('Muito satisfatória', 'iande'),
@@ -89,8 +90,9 @@ function get_group_feedback_metadata_definition()
                 return true;
             },
             'metabox' => (object) [
-                'name' => __('A avaliação do visitante foi realizada?', 'iande'),
-                'type' => 'checkbox',
+                'name'       => __('A avaliação do visitante foi realizada?', 'iande'),
+                'type'       => 'checkbox',
+                'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -110,6 +112,7 @@ function get_group_feedback_metadata_definition()
                 'name'       => __('O que você achou da visita educativa?', 'iande'),
                 'type'       => 'radio',
                 'options'    => $quality_options,
+                'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -129,6 +132,7 @@ function get_group_feedback_metadata_definition()
                 'name'       => __('O que você achou da atuação do educador?', 'iande'),
                 'type'       => 'radio',
                 'options'    => $quality_options,
+                'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -148,6 +152,7 @@ function get_group_feedback_metadata_definition()
                 'name'       => __('Você acha que a atuação do educador suscitou que tipo de reação do grupo?', 'iande'),
                 'type'       => 'radio',
                 'options'    => map_array_to_options($mood_options),
+                'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -162,6 +167,7 @@ function get_group_feedback_metadata_definition()
             'metabox' => (object) [
                 'name'       => __('Você acha que a atuação do educador suscitou que tipo de reação do grupo (outro)?', 'iande'),
                 'type'       => 'text',
+                'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -181,6 +187,7 @@ function get_group_feedback_metadata_definition()
                 'name'       => __('O que você mais gostou na visita?', 'iande'),
                 'type'       => 'radio',
                 'options'    => map_array_to_options($liked_options),
+                'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -195,6 +202,7 @@ function get_group_feedback_metadata_definition()
             'metabox' => (object) [
                 'name'       => __('O que você mais gostou na visita (outro)?', 'iande'),
                 'type'       => 'text',
+                'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -214,6 +222,7 @@ function get_group_feedback_metadata_definition()
                 'name'       => __('O que você menos gostou na visita?', 'iande'),
                 'type'       => 'radio',
                 'options'    => map_array_to_options($disliked_options),
+                'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -228,6 +237,7 @@ function get_group_feedback_metadata_definition()
             'metabox' => (object) [
                 'name'       => __('O que você mais gostou na visita (outro)?', 'iande'),
                 'type'       => 'text',
+                'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled
                 ]
@@ -242,6 +252,7 @@ function get_group_feedback_metadata_definition()
             'metabox' => (object) [
                 'name'       => __('Deixe aqui seus comentários', 'iande'),
                 'type'       => 'textarea',
+                'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled
                 ]
