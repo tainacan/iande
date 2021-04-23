@@ -407,7 +407,7 @@ Caso queira fazer um novo agendamento, <a href='%link%'>clique aqui</a>.";
 
         $message = "Olá %nome%,
 
-Agradecemos por sua visita à exposição %exposicao%, no dia %data%
+Agradecemos por sua visita à exposição %exposicao%, no dia %data%.
 
 Por favor, acesse <a href='%link%'>esse link</a> e faça uma avaliação de sua visitação. Ela é muito importante para que possamos diagnosticar e aplicar melhorias em nossos procedimentos.
 
