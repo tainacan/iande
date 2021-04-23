@@ -54,6 +54,14 @@ function get_group_checkin_metadata_definition()
         __('Outro', 'iande')
     ];
 
+    // Perfil
+    $institution_profile = get_option('iande_institution', []);
+    if (array_key_exists('institution_profile', $institution_profile)) {
+        $institution_profile = $institution_profile['institution_profile'];
+    } else {
+        $institution_profile = [];
+    }
+
     $metadata_definition = [
         'has_checkin' => (object) [
             'type'       => 'string',
@@ -102,7 +110,7 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'no') {
+                if ($params['checkin_showed'] == 'no') {
                     return true;
                 } else if (empty($value)) {
                     return __('O número de pessoas é obrigatório', 'iande');
@@ -141,7 +149,7 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'no') {
+                if ($params['checkin_showed'] == 'no') {
                     return true;
                 } else if (empty($value)) {
                     return __('O número de responsáveis é obrigatório', 'iande');
@@ -180,7 +188,7 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'no') {
+                if ($params['checkin_showed'] == 'no') {
                     return true;
                 } else if (empty($value)) {
                     return __('O número de pessoas com necessidades especiais é obrigatório', 'iande');
@@ -200,7 +208,7 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'no') {
+                if ($params['checkin_showed'] == 'no') {
                     return true;
                 } else if (empty($value)) {
                     return __('O número de pessoas falando outros idiomas é obrigatório', 'iande');
@@ -220,7 +228,7 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'no') {
+                if ($params['checkin_showed'] == 'no') {
                     return true;
                 } else if (empty($value)) {
                     return __('A escolaridade é obrigatória', 'iande');
@@ -240,7 +248,7 @@ function get_group_checkin_metadata_definition()
             'type'          => 'string',
             'required'      => false,
             'validation'    => function ($value, $params) {
-                if ($params['group_showed'] == 'no') {
+                if ($params['checkin_showed'] == 'no') {
                     return true;
                 } else if (empty($value)) {
                     return __('A faixa etária é obrigatória', 'iande');
@@ -256,11 +264,43 @@ function get_group_checkin_metadata_definition()
                 'options' => $binary_options
             ]
         ],
+        'checkin_institutional' => (object) [
+            'type'          => 'string',
+            'required'      => false,
+            'validation'    => function ($value, $params) {
+                if ($params['checkin_showed'] == 'no') {
+                    return true;
+                } else if (empty($value)) {
+                    return __('O tipo de instituição é obrigatório', 'iande');
+                } else if ($value == 'yes' || $value == 'no') {
+                    return true;
+                } else {
+                    return __('Valor inválido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('O grupo é institucional?', 'iande'),
+                'type'    => 'radio',
+                'options' => $binary_options
+            ]
+        ],
+        'checkin_institution' => (object) [
+            'type'          => 'string',
+            'required'      => false,
+            'validation'    => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('Tipo / perfil da instituição', 'iande'),
+                'type'    => 'select',
+                'options' => map_array_to_options($institution_profile)
+            ]
+        ],
         'checkin_noshow_type' => (object) [
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'yes') {
+                if ($params['checkin_showed'] == 'yes') {
                     return true;
                 } else if (empty($value)) {
                     return __('O motivo da não realização é obrigatório', 'iande');
@@ -283,7 +323,7 @@ function get_group_checkin_metadata_definition()
             'type'       => 'string',
             'required'   => false,
             'validation' => function ($value, $params) {
-                if ($params['group_showed'] == 'yes') {
+                if ($params['checkin_showed'] == 'yes') {
                     return true;
                 } else if (empty($value)) {
                     return __('O motivo da não realização é obrigatório', 'iande');

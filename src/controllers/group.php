@@ -44,7 +44,7 @@ class Group extends Controller
     function endpoint_get(array $params = [])
     {
 
-        $this->require_admin();
+        $this->require_authentication();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro id é obrigatório', 'iande'));
@@ -55,6 +55,10 @@ class Group extends Controller
         }
 
         $group = $this->get_parsed_group($params['ID']);
+
+        if (!\current_user_can('manage_iande_options') && $group->user_id != \get_current_user_id()) {
+            $this->error(__('This action requires admin permission', 'iande'));
+        }
 
         if (empty($group)) {
             return; // 404
