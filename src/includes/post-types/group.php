@@ -874,20 +874,6 @@ function get_group_report_metadata_definition()
                 ]
             ]
         ],
-        'report_comment' => (object) [
-            'type'       => 'string',
-            'required'   => false,
-            'validation' => function ($value) {
-                return true;
-            },
-            'metabox' => (object) [
-                'name'       => __('Deixe aqui seus comentários (opcional)', 'iande'),
-                'type'       => 'textarea',
-                'attributes' => [
-                    'disabled' => $disabled
-                ]
-            ]
-        ],
         'report_summary' => (object) [
             'type'       => 'string',
             'required'   => false,

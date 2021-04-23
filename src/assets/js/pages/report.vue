@@ -47,12 +47,7 @@
                     </div>
 
                     <div>
-                        <label for="comment" class="iande-label">Deixe aqui seus comentários<span class="iande-label__optional">(opcional)</span></label>
-                        <TextArea id="comment" placeholder="Escreva aqui" v-model="form.report_comment" :validations="$v.form.report_comment"/>
-                    </div>
-
-                    <div>
-                        <label for="summary" class="iande-label">Resumo da visita</label>
+                        <label for="summary" class="iande-label">Resumo da visita<span class="iande-label__optional">(opcional)</span></label>
                         <TextArea id="summary" placeholder="Escreva aqui" v-model="form.report_summary" :validations="$v.form.report_summary"/>
                     </div>
 
@@ -92,7 +87,6 @@
             return {
                 form: {
                     has_report: 'on',
-                    report_comment: '',
                     report_difficulty_other: '',
                     report_difficulty: [],
                     report_interaction: [],
@@ -157,7 +151,6 @@
         },
         validations: {
             form: {
-                report_comment: { },
                 report_difficulty: { maxLength: maxLength(2), required },
                 report_difficulty_other: { },
                 report_interaction: { maxLength: maxLength(2), required },
@@ -165,7 +158,7 @@
                 report_interest: { required },
                 report_mood: { maxLength: maxLength(2), required },
                 report_mood_other: { },
-                report_summary: { required },
+                report_summary: { },
                 report_type: { maxLength: maxLength(2), required },
             },
         },
