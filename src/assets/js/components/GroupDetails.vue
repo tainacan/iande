@@ -202,10 +202,7 @@
                 }
             },
             status () {
-                if (!this.user) {
-                    return 'unassigned'
-                }
-                return assignmentStatus(this.group, this.user.ID)
+                return assignmentStatus(this.group, this.user?.ID)
             },
             user: get('users/current'),
         },
