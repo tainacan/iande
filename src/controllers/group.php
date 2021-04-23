@@ -202,7 +202,7 @@ class Group extends Controller
         }
 
         $this->is_educator($params['ID']);
-        
+
         $metadata_definition = get_group_checkin_metadata_definition();
 
         /**
@@ -580,11 +580,12 @@ class Group extends Controller
 
     /**
      * Verifica se o usuário está assinalado como educador do grupo
-     * 
+     *
      * @param int $group_id ID do grupo para verificação
-     * @param int $user_id ID do usuário para verificação ou vazio para verificar o usuário lodado
+     * @param int $user_id ID do usuário para verificação ou vazio para verificar o usuário logado
+     * @param string $error_message Mensagem de erro
      */
-    function is_educator($group_id, $user_id = '') {
+    function is_educator($group_id, $user_id = '', $error_message = '') {
 
         $educator_id = \get_post_meta($group_id, 'educator_id', true);
 
@@ -606,11 +607,12 @@ class Group extends Controller
 
     /**
      * Verifica se o usuário é autor do grupo
-     * 
+     *
      * @param int $group_id ID do grupo para verificação
      * @param int $user_id ID do usuário para verificação ou vazio para verificar o usuário lodado
+     * @param string $error_message Mensagem de erro
      */
-    function is_owner_group($group_id, $user_id = '') {
+    function is_owner_group($group_id, $user_id = '', $error_message = '') {
 
         $group = \get_post($group_id);
 
