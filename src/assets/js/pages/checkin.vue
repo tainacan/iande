@@ -56,12 +56,20 @@
                             <label for="scholarity" class="iande-label">Confirmação de escolaridade</label>
                             <div class="iande-hint">O agendamendo prevê <b>{{ group.scholarity }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="scholarity" v-model="form.checkin_scholarity" :validations="$v.form.checkin_scholarity" :options="binaryOptions"/>
+                            <template v-if="form.checkin_scholarity === 'no'">
+                                <label for="scholarity-actual" class="iande-hint">Qual a escolaridade do grupo efetivamente?</label>
+                                <Select id="scholarity-actual" v-model="form.checkin_scholarity_actual" :validations="$v.form.checkin_scholarity_actual" :options="$iande.scholarity"/>
+                            </template>
                         </div>
 
                         <div>
                             <label for="age-range" class="iande-label">Confirmação de faixa etária</label>
                             <div class="iande-hint">O agendamendo prevê <b>{{ group.age_range.toLocaleLowerCase() }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="age-range" v-model="form.checkin_age_range" :validations="$v.form.checkin_age_range" :options="binaryOptions"/>
+                            <template v-if="form.checkin_age_range === 'no'">
+                                <label for="age-actual-actual" class="iande-hint">Qual a faixa etária efetivamente?</label>
+                                <Select id="age-range-actual" v-model="form.checkin_age_range_actual" :validations="$v.form.checkin_age_range_actual" :options="$iande.ageRanges"/>
+                            </template>
                         </div>
 
                         <div>
@@ -72,7 +80,11 @@
                         <div v-if="form.checkin_institutional === 'yes'">
                             <label for="institution" class="iande-label">Tipo / perfil da instituição</label>
                             <div class="iande-hint" v-if="institution && appointment.group_nature === 'institutional'">O agendamendo prevê <b>{{ institution.profile }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
-                            <RadioGroup id="institution" columns v-model="form.checkin_institution" :validations="$v.form.checkin_institution" :options="$iande.profiles"/>
+                            <RadioGroup id="institution" v-model="form.checkin_institution" :validations="$v.form.checkin_institution" :options="binaryOptions"/>
+                            <template v-if="form.institution === 'no'">
+                                <label for="institution-actual" class="iande-hint">Qual o perfil da instituição efetivamente?</label>
+                                <Select id="institution-actual" v-model="form.checkin_institution_actual" :validations="$v.form.checkin_institution_actual" :options="$iande.profiles"/>
+                            </template>
                         </div>
                     </template>
 
@@ -232,7 +244,7 @@
                     checkin_disabilities: { required: requiredIf(showedYes) },
                     checkin_disabilities_actual: { },
                     checkin_hour: { required: requiredIf(showedYes) },
-                    checkin_institution: { },
+                    checkin_institution: { required: requiredIf(() => this.form.checkin_institutional === 'yes') },
                     checkin_institution_actual: { },
                     checkin_institutional: { required: requiredIf(showedYes) },
                     checkin_languages: { required: requiredIf(showedYes) },
