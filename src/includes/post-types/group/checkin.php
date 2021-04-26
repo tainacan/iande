@@ -54,12 +54,28 @@ function get_group_checkin_metadata_definition()
         __('Outro', 'iande')
     ];
 
-    // Perfil
-    $institution_profile = get_option('iande_institution', []);
-    if (array_key_exists('institution_profile', $institution_profile)) {
-        $institution_profile = $institution_profile['institution_profile'];
+    // Opções das instituições
+    $iande_institution = get_option('iande_institution', []);
+    
+    // Perfil da instituições
+    if (array_key_exists('institution_profile', $iande_institution)) {
+        $institution_profile = $iande_institution['institution_profile'];
     } else {
         $institution_profile = [];
+    }
+
+    // Perfil etário
+    if (array_key_exists('institution_age_range', $iande_institution)) {
+        $institution_age_range = $iande_institution['institution_age_range'];
+    } else {
+        $institution_age_range = [];
+    }
+
+    // Escolaridade
+    if (array_key_exists('institution_scholarity', $iande_institution)) {
+        $institution_scholarity = $iande_institution['institution_scholarity'];
+    } else {
+        $institution_scholarity = [];
     }
 
     $metadata_definition = [
@@ -204,6 +220,25 @@ function get_group_checkin_metadata_definition()
                 'options' => $binary_options
             ]
         ],
+        'checkin_disabilities_actual' => (object) [
+            'type'       => 'object',
+            'required'   => false,
+            'validation' => function ($value) {
+                if (is_string($value) || is_array($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado não é válido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'       => __('Deficiências', 'iande'),
+                'type'       => 'disabilities',
+                'repeatable' => true,
+                'options'    => [
+                    'add_row_text' => __('Adicionar Deficiência/Quantidade', 'iande')
+                ]
+            ]
+        ],
         'checkin_languages' => (object) [
             'type'       => 'string',
             'required'   => false,
@@ -222,6 +257,25 @@ function get_group_checkin_metadata_definition()
                 'name'    => __('Quantidade efetiva de pessoas falando outros idiomas diferentes de português', 'iande'),
                 'type'    => 'radio',
                 'options' => $binary_options
+            ]
+        ],
+        'checkin_languages_actual' => (object) [
+            'type'       => 'object',
+            'required'   => false,
+            'validation' => function ($value) {
+                if (is_string($value) || is_array($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado não é válido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'       => __('Confirmação dos idiomas', 'iande'),
+                'type'       => 'languages',
+                'repeatable' => true,
+                'options'    => [
+                    'add_row_text' => __('Adicionar Idioma', 'iande')
+                ]
             ]
         ],
         'checkin_scholarity' => (object) [
@@ -244,6 +298,26 @@ function get_group_checkin_metadata_definition()
                 'options' => $binary_options
             ]
         ],
+        'checkin_scholarity_actual' => (object) [
+            'type'       => 'string',
+            'required'   => __('A escolaridade é obrigatória', 'iande'),
+            'validation' => function ($value) use ($institution_scholarity) {
+                if (is_string($value) || is_array($value)) {
+                    if (in_array($value, $institution_scholarity)) {
+                        return true;
+                    } else {
+                        return __('Escolaridade inválida', 'iande');
+                    }
+                } else {
+                    return __('O valor informado não é uma string válida', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Escolaridade', 'iande'),
+                'type'    => 'select',
+                'options' => map_array_to_options($institution_scholarity)
+            ]
+        ],
         'checkin_age_range' => (object) [
             'type'          => 'string',
             'required'      => false,
@@ -262,6 +336,26 @@ function get_group_checkin_metadata_definition()
                 'name'    => __('Confirmação de faixa etária', 'iande'),
                 'type'    => 'radio',
                 'options' => $binary_options
+            ]
+        ],
+        'checkin_age_range_actual' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) use ($institution_age_range) {
+                if (is_string($value) || is_array($value)) {
+                    if (in_array($value, $institution_age_range)) {
+                        return true;
+                    } else {
+                        return __('Faixa etária inválida', 'iande');
+                    }
+                } else {
+                    return __('O valor informado não é uma string válida', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Confirmação de faixa etária ', 'iande'),
+                'type'    => 'select',
+                'options' => map_array_to_options($institution_age_range)
             ]
         ],
         'checkin_institutional' => (object) [
@@ -295,6 +389,18 @@ function get_group_checkin_metadata_definition()
                 'type'    => 'select',
                 'options' => map_array_to_options($institution_profile)
             ]
+        ],
+        'checkin_institution_actual' => (object) [
+            'type'          => 'string',
+            'required'      => false,
+            'validation'    => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'    => __('Confirmação do tipo / perfil da instituição', 'iande'),
+                'type'    => 'select',
+                'options' => map_array_to_options($institution_profile)
+            ]            
         ],
         'checkin_noshow_type' => (object) [
             'type'       => 'string',
