@@ -56,7 +56,7 @@ function get_group_checkin_metadata_definition()
 
     // Opções das instituições
     $iande_institution = get_option('iande_institution', []);
-    
+
     // Perfil da instituições
     if (array_key_exists('institution_profile', $iande_institution)) {
         $institution_profile = $iande_institution['institution_profile'];
@@ -231,11 +231,11 @@ function get_group_checkin_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'name'       => __('Deficiências', 'iande'),
+                'name'       => __('Necessidades especiais', 'iande'),
                 'type'       => 'disabilities',
                 'repeatable' => true,
                 'options'    => [
-                    'add_row_text' => __('Adicionar Deficiência/Quantidade', 'iande')
+                    'add_row_text' => __('Adicionar Necessidade/Quantidade', 'iande')
                 ]
             ]
         ],
@@ -400,7 +400,7 @@ function get_group_checkin_metadata_definition()
                 'name'    => __('Confirmação do tipo / perfil da instituição', 'iande'),
                 'type'    => 'select',
                 'options' => map_array_to_options($institution_profile)
-            ]            
+            ]
         ],
         'checkin_noshow_type' => (object) [
             'type'       => 'string',

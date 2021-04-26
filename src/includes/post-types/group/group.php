@@ -312,11 +312,11 @@ function get_group_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'name'       => __('Deficiências', 'iande'),
+                'name'       => __('Necessidades especiais', 'iande'),
                 'type'       => 'disabilities',
                 'repeatable' => true,
                 'options'    => [
-                    'add_row_text' => __('Adicionar Deficiência/Quantidade', 'iande')
+                    'add_row_text' => __('Adicionar Necessidade/Quantidade', 'iande')
                 ]
             ]
         ],
