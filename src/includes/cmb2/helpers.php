@@ -68,7 +68,7 @@ function iande_institution_settings() {
             'profiles'         => $profiles,
             'purposes'         => $purposes,
             'responsibleRoles' => $responsible_role,
-            'deficiencies'     => $deficiency,
+            'disabilities'     => $deficiency,
             'languages'        => $language,
             'ageRanges'        => $age_range,
             'scholarity'       => $scholarity,
