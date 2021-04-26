@@ -90,6 +90,13 @@
         }
     }
 
+    .iande-complex-field {
+        background-color: var(--iande-lighter-color);
+        border-radius: var(--iande-border-radius);
+        margin-top: 20px;
+        padding: 1em;
+    }
+
     .iande-form-link {
         color: var(--iande-secondary-color);
         display: block;
