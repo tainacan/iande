@@ -77,7 +77,7 @@
                             password: this.password,
                             recaptcha: recaptchaToken,
                         })
-                        await this.$store.set('user/user', user)
+                        await this.$store.set('users/current', user)
                         window.location.assign(`${this.$iande.siteUrl}${this.next}`)
                     } catch (err) {
                         this.formError = err

@@ -1,6 +1,10 @@
 .iande {
 
     // Typography
+    .text-center {
+        text-align: center;
+    }
+
     .text-secondary {
         color: var(--iande-secondary-color);
     }

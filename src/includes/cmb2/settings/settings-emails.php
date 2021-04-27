@@ -190,4 +190,26 @@ function iande_settings_emails() {
         'options'     => $options
     ]);
 
+    // E-mail 1.6 - Pós visita
+    $iande_emails_options->add_field([
+        'name'       => __('Pós visita', 'iande'),
+        'id'         => 'email_after_visiting_heading',
+        'type'       => 'title'
+    ]);
+    $iande_emails_options->add_field([
+        'id'         => 'email_after_visiting_title',
+        'show_names' => false,
+        'type'       => 'text',
+        'attributes' => [
+            'placeholder' => __('Título da pós visita', 'iande')
+        ]
+    ]);
+    $iande_emails_options->add_field([
+        'id'          => 'email_after_visiting',
+        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%data%</b>, <b>%exposicao%</b>, <b>%link%</b>.', 'iande'),
+        'type'        => 'wysiwyg',
+        'show_names'  => false,
+        'options'     => $options
+    ]);
+
 }

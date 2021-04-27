@@ -1,0 +1,46 @@
+@use '../settings/abstract';
+
+.iande-groups-legend {
+    background-color: var(--iande-lighter-color);
+    border-radius: var(--iande-border-radius);
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 2;
+    padding: 10px 20px;
+
+    & > * {
+        margin-right: 2em;
+    }
+
+    &__label {
+        font-weight: bold;
+    }
+
+    &__entry {
+        align-items: center;
+        display: flex;
+
+        &:before {
+            border-radius: 50%;
+            border-style: solid;
+            border-width: 1px;
+            content: '';
+            display: inline-block;
+            height: 0.75em;
+            margin-right: 0.5em;
+            width: 0.75em;
+        }
+
+        &.assigned-other:before {
+            @extend %assigned-other;
+        }
+
+        &.assigned-self:before {
+            @extend %assigned-self;
+        }
+
+        &.unassigned:before {
+            @extend %unassigned;
+        }
+    }
+}

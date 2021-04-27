@@ -1,5 +1,5 @@
 <template>
-    <Modal ref="modal" @close="close">
+    <Modal ref="modal" narrow @close="close">
         <div class="iande-stack">
             <h1>Agendamento enviado com sucesso!</h1>
             <p>Os dados do seu agendamento foram enviados para o museu. Assim que a sua visita for confirmada, você receberá um email com todos os detalhes.</p>

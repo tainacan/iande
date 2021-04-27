@@ -1,0 +1,18 @@
+// Assignemnt status
+%assigned-other {
+    background-color: var(--iande-tertiary-color);
+    border-color: var(--iande-tertiary-color);
+    color: white;
+}
+
+%assigned-self {
+    background-color: var(--iande-success-color);
+    border-color: var(--iande-success-color);
+    color: white;
+}
+
+%unassigned {
+    background-color: inherit;
+    border-color: var(--iande-success-color);
+    color: var(--iande-success-color);
+}

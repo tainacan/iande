@@ -1,6 +1,6 @@
 <template>
     <div class="iande-field">
-        <div class="iande-radio-group" :id="id" :class="fieldClass" role="radiogroup" :aria-describedby="errorId">
+        <div class="iande-radio-group" :id="id" :class="{ columns, fieldClass }" role="radiogroup" :aria-describedby="errorId">
             <label class="iande-radio" v-for="(option, label) of normalizedOptions" :key="label">
                 <input type="radio" :name="id" :value="option" v-model="modelValue">
                 <span>{{ label }}</span>
@@ -17,6 +17,7 @@
         name: 'RadioGroup',
         mixins: [CustomField],
         props: {
+            columns: { type: Boolean, default: false },
             options: { type: [Array, Object], required: true },
         },
         computed: {

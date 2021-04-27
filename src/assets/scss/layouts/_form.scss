@@ -23,6 +23,15 @@
         }
     }
 
+    .iande-hint {
+        display: block;
+        margin: 5px 0;
+
+        b {
+            color: var(--iande-secondary-color);
+        }
+    }
+
     .iande-input {
         border: 2px solid var(--iande-light-color);
         border-radius: var(--iande-border-radius);
@@ -47,6 +56,11 @@
     .iande-radio-group {
         display: flex;
         flex-wrap: wrap;
+
+        &.columns {
+            flex-direction: column;
+            margin: 0;
+        }
 
         @media screen and (max-width: 600px) {
             flex-direction: column;
@@ -74,6 +88,13 @@
             font-size: 0.875em;
             text-align: left;
         }
+    }
+
+    .iande-complex-field {
+        background-color: var(--iande-lighter-color);
+        border-radius: var(--iande-border-radius);
+        margin-top: 20px;
+        padding: 1em;
     }
 
     .iande-form-link {

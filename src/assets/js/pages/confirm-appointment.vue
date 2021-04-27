@@ -27,7 +27,7 @@
                 </div>
             </form>
         </div>
-        <Modal ref="firstModal" @close="listAppointments">
+        <Modal ref="firstModal" narrow @close="listAppointments">
             <div class="iande-stack iande-form">
                 <h1>Preenchimento finalizado</h1>
                 <p>Agradecemos pelo seu tempo em completar detalhadamente todas as etapas do agendamento. Você pode revisar o agendamento ou já enviar a solicitação para o museu.</p>
@@ -46,7 +46,6 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { get, sync } from 'vuex-pathify'
 
     import AppointmentSuccessModal from '../components/AppointmentSuccessModal.vue'
@@ -74,7 +73,6 @@
         name: 'ConfirmAppointmentPage',
         components: {
             AppointmentSuccessModal,
-            Icon: FontAwesomeIcon,
             Modal,
             StepsIndicator,
         },

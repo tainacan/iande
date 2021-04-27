@@ -68,7 +68,7 @@ function iande_institution_settings() {
             'profiles'         => $profiles,
             'purposes'         => $purposes,
             'responsibleRoles' => $responsible_role,
-            'deficiencies'     => $deficiency,
+            'disabilities'     => $deficiency,
             'languages'        => $language,
             'ageRanges'        => $age_range,
             'scholarity'       => $scholarity,
@@ -172,7 +172,7 @@ function iande_cmb2_settings_init() {
     }
 
     /**
-     * Deficiências
+     * Necessidades especiais
      */
     $institution_deficiency_default = [
         'Pessoa com deficiência intelectual',
@@ -312,7 +312,7 @@ Lembramos que a gratuidade se aplica aos seguintes casos:
 
 <li>Idosos acima de 60 anos</li>
 <li>Crianças até 6 anos</li>
-<li>Deficientes</li>
+<li>Pessoas com necessidades especiais</li>
 <li>Alunos da rede pública</li>
 <li>Acompanhantes de grupos com visitas agendadas</li>
 <li>Membros do ICOM, mediante apresentação de comprovante</li>
@@ -392,6 +392,28 @@ Dados da visita cancelada:
 Caso queira fazer um novo agendamento, <a href='%link%'>clique aqui</a>.";
 
         cmb2_update_option('iande_emails_settings', 'email_canceled', $message);
+
+    }
+
+    /**
+     * E-mail 1.6 - Pós visita
+     */
+    if (empty($emails_settings['email_after_visiting_title'])) {
+        $title = "Agradecemos sua visita";
+        cmb2_update_option('iande_emails_settings', 'email_after_visiting_title', $title);
+    }
+
+    if (empty($emails_settings['email_after_visiting'])) {
+
+        $message = "Olá %nome%,
+
+Agradecemos por sua visita à exposição %exposicao%, no dia %data%.
+
+Por favor, acesse <a href='%link%'>esse link</a> e faça uma avaliação de sua visitação. Ela é muito importante para que possamos diagnosticar e aplicar melhorias em nossos procedimentos.
+
+Nos vemos em sua próxima visita!";
+
+        cmb2_update_option('iande_emails_settings', 'email_after_visiting', $message);
 
     }
 

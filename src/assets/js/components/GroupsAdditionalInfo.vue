@@ -12,7 +12,6 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { integer, maxValue, minLength, required } from 'vuelidate/lib/validators'
     import { get, sync } from 'vuex-pathify'
 
@@ -25,7 +24,6 @@
         components: {
             FormError,
             GroupAdditionalInfo,
-            Icon: FontAwesomeIcon,
             Repeater,
         },
         computed: {
@@ -33,7 +31,7 @@
             groups: sync('appointments/current@groups'),
         },
         validations () {
-            const maxPeople = this.exhibition ? this.exhibition.group_size : 100
+            const maxPeople = this.exhibition?.group_size ? Number(this.exhibition.group_size) : 100
             return {
                 groups: {
                     minGroups: minLength(1),

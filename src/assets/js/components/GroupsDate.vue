@@ -43,7 +43,8 @@
         },
         created () {
             if (this.groups.length === 0) {
-                const numGroups = Math.ceil(this.numPeople / this.exhibition.group_size)
+                const groupSize = this.exhibition?.group_size ? Number(this.exhibition.group_size) : 100
+                const numGroups = Math.ceil(this.numPeople / groupSize)
                 this.groups = [...new Array(numGroups)].map(this.newGroup)
             }
         },

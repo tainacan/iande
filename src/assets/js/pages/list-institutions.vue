@@ -17,7 +17,6 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { sync } from 'vuex-pathify'
 
     import InstitutionDetails from '../components/InstitutionDetails.vue'
@@ -26,7 +25,6 @@
     export default {
         name: 'ListInstitutionsPage',
         components: {
-            Icon: FontAwesomeIcon,
             InstitutionDetails,
         },
         computed: {

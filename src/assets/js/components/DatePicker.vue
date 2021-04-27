@@ -38,7 +38,6 @@
                     .fromObject({ hour: 0, minute: 0, second: 0, millisecond: 0 })
                     .plus({ days: daysInAdvance })
                     .toJSDate()
-                console.log(to)
                 return { customPredictor, to }
             },
             dateValue: {

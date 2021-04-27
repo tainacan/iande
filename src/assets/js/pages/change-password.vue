@@ -42,7 +42,7 @@
             }
         },
         computed: {
-            user: get('user/user'),
+            user: get('users/current'),
         },
         validations: {
             confirmPassword: { minChar: minLength(6), required, samePassword: sameAs('password') },

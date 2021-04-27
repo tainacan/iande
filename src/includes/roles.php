@@ -19,6 +19,10 @@ function add_custom_roles_and_capabilities () {
     set_iande_admin_capabilities('administrator', 'exception', 'exceptions');
     set_iande_admin_capabilities('administrator', 'group', 'groups');
 
+    // adiciona capability `read_feedback` à role `administrator`
+    $administrator = \get_role('administrator');
+    $administrator->add_cap('read_feedback');
+
 }
 \add_action('init', 'IandePlugin\\add_custom_roles_and_capabilities');
 

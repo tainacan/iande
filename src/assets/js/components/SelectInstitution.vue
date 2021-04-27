@@ -45,7 +45,6 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { email, required, requiredUnless } from 'vuelidate/lib/validators'
     import { get, sync } from 'vuex-pathify'
 
@@ -61,7 +60,6 @@
     export default {
         name: 'SelectInstitution',
         components: {
-            Icon: FontAwesomeIcon,
             Input,
             MaskedInput,
             RadioGroup,
@@ -103,7 +101,7 @@
             }),
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
             requireExemption: constant(requireExemption),
-            user: get('user/user'),
+            user: get('users/current'),
         },
         validations: {
             firstName: { required },

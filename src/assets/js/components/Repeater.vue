@@ -11,15 +11,10 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
     import CustomField from './mixins/CustomField'
 
     export default {
         name: 'Repeater',
-        components: {
-            Icon: FontAwesomeIcon,
-        },
         mixins: [CustomField],
         props: {
             factory: { type: Function, required: true },

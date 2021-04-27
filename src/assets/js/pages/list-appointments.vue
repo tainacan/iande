@@ -3,19 +3,7 @@
         <div class="iande-container iande-stack stack-lg">
             <h1>Seus agendamentos</h1>
             <div class="iande-appointments-toolbar">
-                <fieldset class="iande-appointments-filter iande-form" aria-labelledby="filters-label">
-                    <div class="iande-appointments-filter__row">
-                        <div id="filters-label" class="iande-appointments-filter__label">Exibindo:</div>
-                        <input id="filters-next" type="radio" name="filter" value="next" v-model="filter">
-                        <label for="filters-next">
-                            <span class="iande-label">Próximas</span>
-                        </label>
-                        <input id="filters-previous" type="radio" name="filter" value="previous" v-model="filter">
-                        <label for="filters-previous">
-                            <span class="iande-label">Antigas</span>
-                        </label>
-                    </div>
-                </fieldset>
+                <AppointmentsFilter id="time" label="Exibindo" :options="filterOptions" v-model="filter"/>
                 <a class="iande-button small outline" :href="$iandeUrl('appointment/create')" v-if="appointments.length > 0">
                     <Icon icon="plus-circle"/>
                     Criar novo agendamento
@@ -29,22 +17,21 @@
                 </a>
             </div>
         </div>
-
     </article>
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { sync } from 'vuex-pathify'
 
-    import AppointmentDetails from '../components/AppointmentDetails'
-    import { api, sortBy } from '../utils'
+    import AppointmentDetails from '../components/AppointmentDetails.vue'
+    import AppointmentsFilter from '../components/AppointmentsFilter.vue'
+    import { api, constant, sortBy, today } from '../utils'
 
     export default {
         name: 'ListAppointmentsPage',
         components: {
             AppointmentDetails,
-            Icon: FontAwesomeIcon,
+            AppointmentsFilter,
         },
         data () {
             return {
@@ -54,21 +41,25 @@
         computed: {
             appointments: sync('appointments/list'),
             filteredAppointments () {
-                const today = new Date().toISOString().slice(0, 10)
+                const hourFn = appointment => {
+                    const firstGroup = appointment.groups[0]
+                    return `${firstGroup.date} ${firstGroup.hour}`
+                }
                 if (this.filter === 'next') {
-                    return this.sortedAppointments.filter(appointment => {
-                        return appointment.groups.some(group => group.date >= today)
-                    })
+                    return this.appointments
+                        .filter(appointment => appointment.groups.some(group => group.date >= today))
+                        .sort(sortBy(hourFn, true))
                 } else {
-                    return this.sortedAppointments.filter(appointment => {
-                        return appointment.groups.every(group => group.date < today)
-                    })
+                    return this.appointments
+                        .filter(appointment => appointment.groups.every(group => group.date < today))
+                        .sort(sortBy(hourFn, false))
                 }
             },
+            filterOptions: constant([
+                { label: 'Próximas', value: 'next' },
+                { label: 'Antigas', value: 'previous' },
+            ]),
             institutions: sync('institutions/list'),
-            sortedAppointments () {
-                return this.appointments.sort(sortBy(appointment => appointment.date))
-            },
         },
         async created () {
             if (this.appointments.length === 0) {

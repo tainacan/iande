@@ -36,17 +36,12 @@
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
     import { formatCep, formatCnpj, formatPhone, isOther } from '../utils'
 
     const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
 
     export default {
         name: 'InstitutionDetails',
-        components: {
-            Icon: FontAwesomeIcon,
-        },
         props: {
             institution: { type: Object, required: true },
             n: { type: Number, default: 1 },

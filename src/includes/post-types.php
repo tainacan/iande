@@ -7,4 +7,7 @@ require 'post-types/appointment.php';
 require 'post-types/institution.php';
 require 'post-types/exhibition.php';
 require 'post-types/exception.php';
-require 'post-types/group.php';
+require 'post-types/group/group.php';
+require 'post-types/group/checkin.php';
+require 'post-types/group/report.php';
+require 'post-types/group/feedback.php';

@@ -11,11 +11,17 @@ function cmb2_render_languages_field_callback($field, $value, $object_id, $objec
 
     $array_value = (array) $value;
 
+    $name  = $field_id . '_name';
+    $other = $field_id . '_other';
+
+    $_name  = '_' . $name;
+    $_other = '_' . $other;
+
     // make sure we specify each part of the value we need.
-    $value = wp_parse_args($array_value, array(
-        $field_id . '_name' => '',
-        $field_id . '_other' => ''
-    ));
+    $value = wp_parse_args($array_value, [
+        $name  => '',
+        $other => ''
+    ]);
 
     // get languages from settings
     $languages = cmb2_get_option('iande_institution', 'institution_language', []);
@@ -28,7 +34,7 @@ function cmb2_render_languages_field_callback($field, $value, $object_id, $objec
         foreach ($languages as $languages) {
             if (!empty($languages)) {
                 
-                $selected = ($value['languages_name'] == $languages) ? 'selected' : '';
+                $selected = ($value[$name] == $languages) ? 'selected' : '';
                 $languages_options .= '<option value="' . $languages . '" ' . $selected . '>' . $languages . '</option>';
 
             }
@@ -38,21 +44,21 @@ function cmb2_render_languages_field_callback($field, $value, $object_id, $objec
 ?>
 
     <div class="alignleft">
-        <p><label for="<?php echo $field_type->_id('_languages_name'); ?>'"></label></p>
+        <p><label for="<?php echo $field_type->_id( $_name ); ?>'"></label></p>
         <?php echo $field_type->select(array(
-            'name'    => $field_type->_name('[languages_name]'),
-            'id'      => $field_type->_id('_languages_name'),
-            'value'   => $value['languages_name'],
+            'name'    => $field_type->_name( '[' . $name . ']' ),
+            'id'      => $field_type->_id( $_name ),
+            'value'   => $value[$name],
             'options' => $languages_options,
             'desc'    => ''
         )); ?>
     </div>
     <div class="alignleft">
-        <p><label for="<?php echo $field_type->_id('_languages_other'); ?>'"></label></p>
+        <p><label for="<?php echo $field_type->_id( $_other ); ?>'"></label></p>
         <?php echo $field_type->input(array(
-            'name'        => $field_type->_name('[' . $field_id . '_other]'),
-            'id'          => $field_type->_id('_languages_other'),
-            'value'       => $value['languages_other'],
+            'name'        => $field_type->_name( '[' . $other . ']' ),
+            'id'          => $field_type->_id( $_other ),
+            'value'       => $value[$other],
             'placeholder' => __('Outro', 'iande'),
             'desc'        => ''
         )); ?>

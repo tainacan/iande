@@ -46,8 +46,10 @@ function register_post_type_group()
 
     register_post_type('group', $group_args);
 
-    /* Registra os metadados do post type `group` */
-    $metadata_definition = get_group_metadata_definition();
+    /**
+     * Registra os metadados do post type `group`
+     */
+    $metadata_definition = get_all_group_metadata_definition();
 
     foreach ($metadata_definition as $key => $definition) {
         register_post_meta('group', $key, ['type' => $definition->type]);
@@ -57,86 +59,25 @@ function register_post_type_group()
 /**
  * Registra os metaboxes do grupo com CMB2
  *
- * @filter iande.group_metabox_fields
- *
  * @return void
  */
-function register_metabox_group() {
-
-    /* Registra os metaboxes do post type `group` */
+function register_metabox_group()
+{
 
     $metadata_definition = get_group_metadata_definition();
 
-    $fields = [];
-    $group_metabox = '';
+    $metabox_definition = \new_cmb2_box([
+        'id'           => 'group',
+        'title'        => __('Informações do Grupo', 'iande'),
+        'object_types' => ['group'],
+        'context'      => 'normal',
+        'priority'     => 'high',
+        'show_names'   => true
+    ]);
 
-    foreach ($metadata_definition as $key => $definition) {
+    $fields = get_group_fields_parameters($metadata_definition, $metabox_definition);
 
-        if (isset($definition->metabox)) {
-
-            $group_metabox = \new_cmb2_box(array(
-                'id'            => 'group',
-                'title'         => __('Informações do Grupo', 'iande'),
-                'object_types'  => array('group'),
-                'context'       => 'normal',
-                'priority'      => 'high',
-                'show_names'    => true
-            ));
-
-            /**
-             * Fields parameters
-             *
-             * @link https://cmb2.io/docs/field-parameters
-             */
-
-            $name       = '';
-            $desc       = '';
-            $type       = '';
-            $options    = [];
-            $attributes = [];
-            $repeatable = false;
-
-            if (isset($definition->metabox->name))
-                $name = $definition->metabox->name;
-
-            if (isset($definition->metabox->desc))
-                $desc = $definition->metabox->desc;
-
-            if (isset($definition->metabox->type))
-                $type = $definition->metabox->type;
-
-            if (isset($definition->metabox->options))
-                $options = $definition->metabox->options;
-
-            if (isset($definition->metabox->attributes))
-                $attributes = $definition->metabox->attributes;
-
-            if (isset($definition->metabox->repeatable))
-                $repeatable = $definition->metabox->repeatable;
-
-            $fields[] = [
-                'name'       => $name,
-                'desc'       => $desc,
-                'id'         => $key,
-                'type'       => $type,
-                'options'    => $options,
-                'attributes' => $attributes,
-                'repeatable' => $repeatable
-            ];
-
-        }
-
-    }
-
-    $fields = \apply_filters('iande.group_metabox_fields', $fields);
-
-    if (is_object($group_metabox)) {
-        foreach ($fields as $field) {
-            $group_metabox->add_field($field);
-        }
-    }
-
-    return $group_metabox;
+    return $fields;
 
 }
 
@@ -147,7 +88,8 @@ function register_metabox_group() {
  *
  * @return array
  */
-function get_group_metadata_definition() {
+function get_group_metadata_definition()
+{
 
     // perfil etario
     $iande_institution = get_option('iande_institution', []);
@@ -179,6 +121,8 @@ function get_group_metadata_definition() {
         'order'          => 'ASC',
         'orderby'        => 'ID',
     ]);
+
+    $users = \get_users();
 
     $metadata_definition = [
 
@@ -368,13 +312,36 @@ function get_group_metadata_definition() {
                 }
             },
             'metabox' => (object) [
-                'name'       => __('Deficiências', 'iande'),
+                'name'       => __('Necessidades especiais', 'iande'),
                 'type'       => 'disabilities',
                 'repeatable' => true,
                 'options'    => [
-                    'add_row_text' => __('Adicionar Deficiência/Quantidade', 'iande')
+                    'add_row_text' => __('Adicionar Necessidade/Quantidade', 'iande')
                 ]
             ]
+        ],
+        'educator_id' => (object) [
+            'type'       => 'integer',
+            'required'   => false,
+            'validation' => function ($value) use ($users) {
+                if (is_numeric($value) && in_array($value, array_column($users, 'ID'))) {
+                    return true;
+                } else {
+                    return __('O valor informado não corresponde a um usuário válido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'    => __('Educador', 'iande'),
+                'type'    => 'select',
+                'options' => map_users_to_options($users, true)
+            ]
+        ],
+        'confirmation_sent_after_visiting' => (object) [
+            'type'       => 'string',
+            'required'   => false,
+            'validation' => function ($value) {
+                return true;
+            }
         ]
 
     ];

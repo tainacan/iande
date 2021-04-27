@@ -100,7 +100,7 @@
                         <div>previsão de {{ group.num_people }} visitantes</div>
                         <div>{{ group.num_responsible == 1 ? '1 responsável' : `${group.num_responsible} responsáveis` }}</div>
                         <div>{{ group.scholarity }}</div>
-                        <div>Pessoas com deficiência: {{ groupDisabilities(group.disabilities) }}</div>
+                        <div>Necessidades especiais: {{ groupDisabilities(group.disabilities) }}</div>
                         <div>Idiomas: {{ groupLanguages(group.languages) }}</div>
                     </div>
 
@@ -137,15 +137,16 @@
                 </button>
             </div>
         </div>
-        <AppointmentSuccessModal ref="modal"/>
+        <AppointmentCancelModal :appointment="appointment" ref="cancelModal"/>
+        <AppointmentSuccessModal ref="successModal"/>
     </section>
 </template>
 
 <script>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { DateTime } from 'luxon'
     import { get } from 'vuex-pathify'
 
+    import AppointmentCancelModal from './AppointmentCancelModal.vue'
     import AppointmentSuccessModal from './AppointmentSuccessModal.vue'
     import StepsIndicator from './StepsIndicator.vue'
     import { api, formatCep, formatPhone, isOther, sortBy } from '../utils'
@@ -157,8 +158,8 @@
     export default {
         name: 'AppointmentDetails',
         components: {
+            AppointmentCancelModal,
             AppointmentSuccessModal,
-            Icon: FontAwesomeIcon,
             StepsIndicator,
         },
         props: {
@@ -241,12 +242,7 @@
         },
         methods: {
             async cancelAppointment () {
-                try {
-                    await api.post('appointment/cancel', { ID: this.appointment.ID })
-                    window.location.reload()
-                } catch (err) {
-                    console.error(err)
-                }
+                this.$refs.cancelModal.open()
             },
             formatBinaryOption (option) {
                 return option === 'yes' ? 'Sim' : 'Não'
@@ -291,7 +287,7 @@
             },
             async sendConfirmation () {
                 await api.post('appointment/set_status', { ID: this.appointment.ID, post_status: 'pending' })
-                this.$refs.modal.open()
+                this.$refs.successModal.open()
             },
             toggleDetails () {
                 this.showDetails = !this.showDetails

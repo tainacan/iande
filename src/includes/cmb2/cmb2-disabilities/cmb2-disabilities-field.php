@@ -11,12 +11,20 @@ function cmb2_render_disabilities_field_callback($field, $value, $object_id, $ob
 
     $array_value = (array) $value;
 
+    $type  = $field_id . '_type';
+    $other = $field_id . '_other';
+    $count = $field_id . '_count';
+
+    $_type  = '_' . $field_id . '_type';
+    $_other = '_' . $field_id . '_other';
+    $_count = '_' . $field_id . '_count';
+
     // make sure we specify each part of the value we need.
-    $value = wp_parse_args($array_value, array(
-        $field_id . '_type' => '',
-        $field_id . '_other' => '',
-        $field_id . '_count' => ''
-    ));
+    $value = wp_parse_args($array_value, [
+        $type  => '',
+        $other => '',
+        $count => ''
+    ]);
 
     // get disabilities from settings
     $disabilities = cmb2_get_option('iande_institution', 'institution_deficiency', []);
@@ -24,12 +32,12 @@ function cmb2_render_disabilities_field_callback($field, $value, $object_id, $ob
     if (is_array($disabilities)) {
 
         $deficiencies_options = '';
-        $deficiencies_options .= '<option value="" selected>'. __('Selecione uma Deficiência', 'iande') .'</option>';
+        $deficiencies_options .= '<option value="" selected>'. __('Selecione uma Necessidade Especial', 'iande') .'</option>';
 
         foreach ($disabilities as $deficiency) {
             if (!empty($deficiency)) {
-                
-                $selected = ($value['disabilities_type'] == $deficiency) ? 'selected' : '';
+
+                $selected = ($value[$type] == $deficiency) ? 'selected' : '';
                 $deficiencies_options .= '<option value="' . $deficiency . '" ' . $selected . '>' . $deficiency . '</option>';
 
             }
@@ -39,11 +47,11 @@ function cmb2_render_disabilities_field_callback($field, $value, $object_id, $ob
 ?>
 
     <div class="alignleft">
-        <p><label for="<?php echo $field_type->_id('_disabilities_type'); ?>'"></label></p>
+        <p><label for="<?php echo $field_type->_id( $_type ); ?>'"></label></p>
         <?php echo $field_type->select(array(
-            'name'    => $field_type->_name('[disabilities_type]'),
-            'id'      => $field_type->_id('_disabilities_type'),
-            'value'   => $value['disabilities_type'],
+            'name'    => $field_type->_name( '[' . $type . ']' ),
+            'id'      => $field_type->_id( $_type ),
+            'value'   => $value[$type],
             'options' => $deficiencies_options,
             'desc'    => ''
         )); ?>
@@ -51,9 +59,9 @@ function cmb2_render_disabilities_field_callback($field, $value, $object_id, $ob
     <div class="alignleft">
         <p><label for="<?php echo $field_type->_id('_disabilities_other'); ?>'"></label></p>
         <?php echo $field_type->input(array(
-            'name'        => $field_type->_name('[disabilities_other]'),
-            'id'          => $field_type->_id('_disabilities_other'),
-            'value'       => $value['disabilities_other'],
+            'name'        => $field_type->_name('[' . $other . ']'),
+            'id'          => $field_type->_id( $_other ),
+            'value'       => $value[$other],
             'placeholder' => __('Outro', 'iande'),
             'desc'        => ''
         )); ?>
@@ -61,9 +69,9 @@ function cmb2_render_disabilities_field_callback($field, $value, $object_id, $ob
     <div class="alignleft">
         <p><label for="<?php echo $field_type->_id('_disabilities_count'); ?>'"></label></p>
         <?php echo $field_type->input(array(
-            'name'        => $field_type->_name('[disabilities_count]'),
-            'id'          => $field_type->_id('_disabilities_count'),
-            'value'       => $value['disabilities_count'],
+            'name'        => $field_type->_name('[' . $count . ']'),
+            'id'          => $field_type->_id( $_count ),
+            'value'       => $value[$count],
             'placeholder' => __('Quantidade', 'iande'),
             'desc'        => ''
         )); ?>

@@ -1,3 +1,5 @@
+@import '../settings/abstract';
+
 .iande-groups {
     .iande-group {
         border-bottom: 1px solid var(--iande-light-color);
@@ -11,5 +13,154 @@
         padding-bottom: 6px;
         text-align: center;
         text-transform: uppercase;
+    }
+}
+
+// Group details
+.iande-group {
+
+    &__summary {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 20px;
+
+        & > * {
+            display: flex;
+        }
+
+        h2 {
+
+            &:before {
+                border-radius: 50%;
+                border-style: solid;
+                border-width: 1px;
+                content: '';
+                display: inline-block;
+                margin: 0.125em 0.35em 0.125em 0;
+                min-height: 0.5em;
+                min-width: 0.5em;
+            }
+
+            &.assigned-other:before {
+                @extend %assigned-other;
+            }
+
+            &.assigned-self:before {
+                @extend %assigned-self;
+            }
+
+            &.unassigned:before {
+                @extend %unassigned;
+            }
+        }
+    }
+
+    &__steps {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+
+        & > * {
+            margin: 0.5em 1em 0.5em 0;
+        }
+    }
+
+    &__step {
+        align-items: center;
+        color: var(--iande-tertiary-color);
+        display: flex;
+        font-size: 0.75em;
+        font-weight: bold;
+
+        &-icon {
+            align-items: center;
+            background-color: var(--iande-tertiary-color);
+            border: 2px solid var(--iande-tertiary-color);
+            border-radius: 50%;
+            color: white;
+            display: inline-flex;
+            height: 2.5em;
+            justify-content: center;
+            margin-right: 1em;
+            width: 2.5em;
+
+            &.active {
+                background-color: inherit;
+                color: var(--iande-tertiary-color);
+            }
+        }
+
+        label {
+
+            [data-icon] {
+                color: var(--iande-secondary-color);
+            }
+        }
+
+        select {
+            background-color: transparent;
+            border: none;
+            color: var(--iande-secondary-color);
+            font-size: inherit;
+            font-weight: inherit;
+        }
+    }
+
+    &__details {
+        padding: 20px;
+    }
+
+    .iande-appointment__toggle {
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
+    }
+
+    &__toggle-button {
+        align-items: center;
+        background-color: var(--iande-secondary-color);
+        border-radius: 0 0 var(--iande-border-radius) var(--iande-border-radius);
+        color: white;
+        display: none;
+        font-size: 0.75em;
+        font-weight: bold;
+        justify-content: center;
+        padding: 5px;
+        text-transform: lowercase;
+
+        @media screen and (max-width: 600px) {
+            display: flex;
+        }
+    }
+
+    &.boxed & {
+
+        &__summary {
+            background-color: var(--iande-lighter-color);
+            border-radius: var(--iande-border-radius) var(--iande-border-radius) 0 0;
+
+            &.collapsed {
+                @media screen and (min-width: 601px) {
+                    border-radius: var(--iande-border-radius);
+                }
+            }
+        }
+
+        &__details {
+            background-color: var(--iande-lighter-color);
+
+            @media screen and (min-width: 601px) {
+                border-radius: 0 0 var(--iande-border-radius) var(--iande-border-radius);
+            }
+        }
+    }
+
+    .iande-modal & {
+
+        &__summary {
+            background-color: var(--iande-lighter-color);
+            border-radius: var(--iande-border-radius);
+        }
     }
 }

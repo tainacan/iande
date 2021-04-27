@@ -3,16 +3,18 @@ import pathify from 'vuex-pathify'
 
 import appointments from './appointments'
 import exhibitions from './exhibitions'
+import groups from './groups'
 import institutions from './institutions'
-import user from './user'
+import users from './users'
 
 export default function createStore() {
     return new Vuex.Store({
         modules: {
             appointments,
             exhibitions,
+            groups,
             institutions,
-            user,
+            users,
         },
         plugins: [
             pathify.plugin,

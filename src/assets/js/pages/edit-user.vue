@@ -56,7 +56,7 @@
         },
         computed: {
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
-            user: get('user/user'),
+            user: get('users/current'),
         },
         validations: {
             email: { email, required },

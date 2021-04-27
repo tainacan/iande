@@ -90,3 +90,146 @@ function map_posts_to_options (array $posts) {
 
     return \array_filter($options);
 }
+
+/**
+ * Mapeia uma lista de usuários para opções CMB2
+ *
+ * @param WP_Users[] $args Lista de usuários
+ * @param boolean $empty_option Exibir opção em branco
+ * @return array
+ */
+function map_users_to_options (array $users, $empty_option = false) {
+    $options = [];
+
+    if ($empty_option) {
+        $options[0] = '--';
+    }
+
+    foreach ($users as $user) {
+        $options[$user->ID] = $user->data->display_name ?? $user->data->user_nicename;
+    }
+
+    return \array_filter($options);
+}
+
+/**
+ * Retorna os parametros dos campos para os metadados do post type `group`
+ *
+ * @param array $metadata_definition Definição dos metadados
+ * @param object $metabox_definition Objeto \new_cmb2_box com a definição do metabox
+ *
+ * @filter iande.' . $metabox_definition->meta_box['id'] . '_metabox_fields
+ *
+ * @link https://cmb2.io/docs/field-parameters
+ *
+ * @return array
+ */
+function get_group_fields_parameters(array $metadata_definition, object $metabox_definition)
+{
+
+    $fields = [];
+
+    foreach ($metadata_definition as $key => $definition) {
+
+        if (isset($definition->metabox)) {
+
+            $name              = '';
+            $desc              = '';
+            $default           = '';
+            $type              = '';
+            $options           = [];
+            $save_field        = true;
+            $attributes        = [];
+            $repeatable        = false;
+            $select_all_button = false;
+
+            if (isset($definition->metabox->name))
+                $name = $definition->metabox->name;
+
+            if (isset($definition->metabox->desc))
+                $desc = $definition->metabox->desc;
+
+            if (isset($definition->metabox->default))
+                $default = $definition->metabox->default;
+
+            if (isset($definition->metabox->type))
+                $type = $definition->metabox->type;
+
+            if (isset($definition->metabox->options))
+                $options = $definition->metabox->options;
+
+            if (isset($definition->metabox->save_field))
+                $save_field = $definition->metabox->save_field;
+
+            if (isset($definition->metabox->attributes))
+                $attributes = $definition->metabox->attributes;
+
+            if (isset($definition->metabox->repeatable))
+                $repeatable = $definition->metabox->repeatable;
+
+            if (isset($definition->metabox->select_all_button))
+                $select_all_button = $definition->metabox->select_all_button;
+
+            $fields[] = [
+                'name'              => $name,
+                'desc'              => $desc,
+                'default'           => $default,
+                'id'                => $key,
+                'type'              => $type,
+                'options'           => $options,
+                'save_field'        => $save_field,
+                'attributes'        => $attributes,
+                'repeatable'        => $repeatable,
+                'select_all_button' => $select_all_button
+            ];
+
+        }
+
+    }
+
+    $fields = \apply_filters('iande.' . $metabox_definition->meta_box['id'] . '_metabox_fields', $fields);
+
+    if (is_object($metabox_definition)) {
+        foreach ($fields as $field) {
+            $metabox_definition->add_field($field);
+        }
+    }
+
+    return $metabox_definition;
+
+}
+
+/**
+ * Retorna todas definições dos metadados po post type `group`
+ *
+ * @filter iande.group_all_metadata_definition
+ *
+ * @return array
+ */
+function get_all_group_metadata_definition()
+{
+
+    $group_metadata_definition    = get_group_metadata_definition();
+    $checkin_metadata_definition  = get_group_checkin_metadata_definition();
+    $feedback_metadata_definition = get_group_feedback_metadata_definition();
+    $report_metadata_definition   = get_group_report_metadata_definition();
+
+    $metadata_definition = array_merge($group_metadata_definition, $checkin_metadata_definition, $feedback_metadata_definition, $report_metadata_definition);
+
+    $metadata_definition = \apply_filters('iande.group_all_metadata_definition', $metadata_definition);
+
+    return $metadata_definition;
+
+}
+
+/**
+ * Verifica se o usuário é de determinada `role`
+ *
+ * @param string $role A role para verificar com o usuário atual
+ * @return bool
+ */
+function current_user_is( string $role )
+{
+    $user = wp_get_current_user();
+    return in_array($role, (array) $user->roles);
+}
