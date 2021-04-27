@@ -45,7 +45,7 @@
                             <div class="iande-hint">O agendamendo prevê <span v-html="disabilities"/>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="disabilities" v-model="form.checkin_disabilities" :validations="$v.form.checkin_disabilities" :options="binaryOptions"/>
                         </div>
-                        <div v-if="form.checkin_disabilities_actual === 'no'">
+                        <div v-if="form.checkin_disabilities === 'no'">
                             <label for="disabilities-actual" class="iande-hit">Quantas pessoas com necessidades especiais apareceram efetivamente?</label>
                             <div class="iande-complex-field">
                                 <Repeater id="disabilities-actual" v-model="form.checkin_disabilities_actual" :factory="newDisability" :validations="$v.form.checkin_disabilities_actual">
