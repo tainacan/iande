@@ -41,14 +41,18 @@
         computed: {
             appointments: sync('appointments/list'),
             filteredAppointments () {
+                const hourFn = appointment => {
+                    const firstGroup = appointment.groups[0]
+                    return `${firstGroup.date} ${firstGroup.hour}`
+                }
                 if (this.filter === 'next') {
-                    return this.sortedAppointments.filter(appointment => {
-                        return appointment.groups.some(group => group.date >= today)
-                    })
+                    return this.appointments
+                        .filter(appointment => appointment.groups.some(group => group.date >= today))
+                        .sort(sortBy(hourFn, true))
                 } else {
-                    return this.sortedAppointments.filter(appointment => {
-                        return appointment.groups.every(group => group.date < today)
-                    })
+                    return this.appointments
+                        .filter(appointment => appointment.groups.every(group => group.date < today))
+                        .sort(sortBy(hourFn, false))
                 }
             },
             filterOptions: constant([
@@ -56,9 +60,6 @@
                 { label: 'Antigas', value: 'previous' },
             ]),
             institutions: sync('institutions/list'),
-            sortedAppointments () {
-                return this.appointments.sort(sortBy(appointment => appointment.date))
-            },
         },
         async created () {
             if (this.appointments.length === 0) {

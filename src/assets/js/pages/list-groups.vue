@@ -44,16 +44,14 @@
             appointments: sync('appointments/list'),
             exhibitions: sync('exhibitions/list'),
             filteredGroups () {
+                const hourFn = group => `${group.date} ${group.hour}`
                 if (this.time === 'next') {
-                    return this.groups.filter(group => group.date >= today)
+                    return this.groups.filter(group => group.date >= today).sort(sortBy(hourFn, true))
                 } else {
-                    return this.groups.filter(group => group.date < today)
+                    return this.groups.filter(group => group.date < today).sort(sortBy(hourFn, false))
                 }
             },
             groups: sync('groups/list'),
-            sortedGroups () {
-                return this.groups.sort(sortBy(group => group.date, this.time === 'next'))
-            },
             timeOptions: constant([
                 { label: 'Próximas', value: 'next' },
                 { label: 'Antigas', value: 'previous' },
