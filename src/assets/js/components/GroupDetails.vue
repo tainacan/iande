@@ -91,7 +91,7 @@
                 </div>
             </div>
             <div class="iande-appointment__buttons" v-if="isEducator">
-                <a class="iande-button" :class="canEvaluate ? 'primary' : 'solid'" :href="$iandeUrl(`group/checkin?ID=${group.ID}`)" v-if="canCheckin">
+                <a class="iande-button" :class="canEvaluate ? 'solid' : 'primary'" :href="$iandeUrl(`group/checkin?ID=${group.ID}`)" v-if="canCheckin">
                     {{ group.has_checkin === 'on' ? 'Editar check-in' : 'Fazer-checkin' }}
                 </a>
                 <a class="iande-button primary" :href="$iandeUrl(`group/report?ID=${group.ID}`)" v-if="canEvaluate">
