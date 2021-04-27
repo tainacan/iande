@@ -217,15 +217,16 @@
             disabilities () {
                 const disabilities = this.group.disabilities
                 if (!disabilities || disabilities.length === 0) {
-                    return '<b>nenhuma pessoa com necessidade especial</b>'
+                    return '<b>nenhuma</b> pessoa com necessidade especial'
                 } else {
                     return joinMany(disabilities.map(disability => {
-                        let dis = `<b>${disability.disabilities_count} pessoa${disability.disabilities_count ? 's' : ''}`
+                        let dis = '<b>'
                         if (isOther(disability.disabilities_type) && disability.disabilities_other) {
-                            dis += ` com ${disability.disabilities_other}</b>`
+                            dis += disability.disabilities_other
                         } else {
-                            dis += ` com ${disability.disabilities_type}</b>`
+                            dis += disability.disabilities_type
                         }
+                        dis += `</b> (<b>${disability.disabilities_count}</b> pessoa${disability.disabilities_count ? 's' : ''})`
                         return dis
                     }))
                 }
