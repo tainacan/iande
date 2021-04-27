@@ -137,7 +137,8 @@
                 </button>
             </div>
         </div>
-        <AppointmentSuccessModal ref="modal"/>
+        <AppointmentCancelModal :appointment="appointment" ref="cancelModal"/>
+        <AppointmentSuccessModal ref="successModal"/>
     </section>
 </template>
 
@@ -145,6 +146,7 @@
     import { DateTime } from 'luxon'
     import { get } from 'vuex-pathify'
 
+    import AppointmentCancelModal from './AppointmentCancelModal.vue'
     import AppointmentSuccessModal from './AppointmentSuccessModal.vue'
     import StepsIndicator from './StepsIndicator.vue'
     import { api, formatCep, formatPhone, isOther, sortBy } from '../utils'
@@ -156,6 +158,7 @@
     export default {
         name: 'AppointmentDetails',
         components: {
+            AppointmentCancelModal,
             AppointmentSuccessModal,
             StepsIndicator,
         },
@@ -239,12 +242,7 @@
         },
         methods: {
             async cancelAppointment () {
-                try {
-                    await api.post('appointment/cancel', { ID: this.appointment.ID })
-                    window.location.reload()
-                } catch (err) {
-                    console.error(err)
-                }
+                this.$refs.cancelModal.open()
             },
             formatBinaryOption (option) {
                 return option === 'yes' ? 'Sim' : 'Não'
@@ -289,7 +287,7 @@
             },
             async sendConfirmation () {
                 await api.post('appointment/set_status', { ID: this.appointment.ID, post_status: 'pending' })
-                this.$refs.modal.open()
+                this.$refs.successModal.open()
             },
             toggleDetails () {
                 this.showDetails = !this.showDetails
