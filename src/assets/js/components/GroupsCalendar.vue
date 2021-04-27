@@ -1,6 +1,6 @@
 <template>
     <div class="iande-educator-agenda">
-        <Calendar activeView="month" :disableViews="['years', 'year']" :events="events" locale="pt-br" startWeekOnSunday :timeFrom="timeLimits.start" :timeStep="15" :timeTo="timeLimits.end">
+        <Calendar activeView="month" :disableViews="disabledViews" :events="events" locale="pt-br" startWeekOnSunday :timeFrom="timeLimits.start" :timeStep="15" :timeTo="timeLimits.end">
             <template #cell-content="{ cell, view }">
                 <template v-if="view.id === 'month'">
                     <div class="iande-admin-agenda__month">
@@ -51,6 +51,11 @@
         },
         props: {
             educators: { type: Array, default: () => [] },
+        },
+        data () {
+            return {
+                disabledViews: ['years', 'year'],
+            }
         },
         computed: {
             exhibitions: get('exhibitions/list'),
@@ -123,6 +128,11 @@
                 }
             },
             user: get('users/current'),
+        },
+        beforeMount () {
+            if (window.matchMedia?.('(max-width: 800px)').matches) {
+                this.disabledViews = [...this.disabledViews, 'week']
+            }
         },
         methods: {
             cellGroups (cell) {
