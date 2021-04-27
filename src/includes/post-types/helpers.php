@@ -95,7 +95,7 @@ function map_posts_to_options (array $posts) {
  * Mapeia uma lista de usuários para opções CMB2
  *
  * @param WP_Users[] $args Lista de usuários
- * @param boolean $empty_option Exibir opção em branco 
+ * @param boolean $empty_option Exibir opção em branco
  * @return array
  */
 function map_users_to_options (array $users, $empty_option = false) {
@@ -115,8 +115,8 @@ function map_users_to_options (array $users, $empty_option = false) {
 /**
  * Retorna os parametros dos campos para os metadados do post type `group`
  *
- * @param array $metadata_definition com a definição dos metadados
- * @param object $metabox_definition objeto \new_cmb2_box com a definição do metabox
+ * @param array $metadata_definition Definição dos metadados
+ * @param object $metabox_definition Objeto \new_cmb2_box com a definição do metabox
  *
  * @filter iande.' . $metabox_definition->meta_box['id'] . '_metabox_fields
  *
@@ -138,7 +138,7 @@ function get_group_fields_parameters(array $metadata_definition, object $metabox
             $default           = '';
             $type              = '';
             $options           = [];
-            $save_field        = false;
+            $save_field        = true;
             $attributes        = [];
             $repeatable        = false;
             $select_all_button = false;
@@ -224,7 +224,7 @@ function get_all_group_metadata_definition()
 
 /**
  * Verifica se o usuário é de determinada `role`
- * 
+ *
  * @param string $role A role para verificar com o usuário atual
  * @return bool
  */
