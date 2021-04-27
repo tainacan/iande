@@ -63,7 +63,7 @@
                     <div>previsão de {{ group.num_people }} visitantes</div>
                     <div>{{ group.num_responsible == 1 ? '1 responsável' : `${group.num_responsible} responsáveis` }}</div>
                     <div>{{ group.scholarity }}</div>
-                    <div>Pessoas com necessidades especiais: {{ disabilities }}</div>
+                    <div>Necessidades especiais: {{ disabilities }}</div>
                     <div>Idiomas: {{ languages }}</div>
                 </div>
 

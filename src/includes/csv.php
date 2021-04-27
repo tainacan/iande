@@ -225,7 +225,7 @@ function iande_export_visit_groups() {
                 'Escolaridade',
                 'Quantidade prevista de responsáveis',
                 'Idiomas',
-                'Pessoas com necessidades especiais',
+                'Necessidades especiais',
                 'Nome do responsável',
                 'Sobrenome do responsável',
                 'E-mail do responsável',
