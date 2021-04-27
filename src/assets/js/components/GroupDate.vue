@@ -47,7 +47,7 @@
         watch: {
             date () {
                 this.$nextTick(() => {
-                    if (!this.$refs.slots.hours.includes(this.hour)) {
+                    if (!this.$refs.slots?.hours.includes(this.hour)) {
                         this.hour = ''
                     }
                 })
