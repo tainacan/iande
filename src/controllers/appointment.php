@@ -839,7 +839,7 @@ class Appointment extends Controller
         $exhibition_id = \get_post_meta($appointment_id, 'exhibition_id', true);
         $group_size    = \get_post_meta($exhibition_id, 'group_size', true);
 
-        $count_groups = round($num_people / $group_size);
+        $count_groups = ceil($num_people / $group_size);
 
         $name = \get_post_meta($appointment_id, 'name', true);
 
