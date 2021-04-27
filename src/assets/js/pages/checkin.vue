@@ -118,7 +118,7 @@
                             <div class="iande-hint" v-if="institution && appointment.group_nature === 'institutional'">O agendamendo prevê <b>{{ institution.profile }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="institution" v-model="form.checkin_institution" :validations="$v.form.checkin_institution" :options="binaryOptions"/>
                         </div>
-                        <div v-if="form.institution === 'no'">
+                        <div v-if="form.checkin_institution === 'no'">
                             <label for="institution-actual" class="iande-hint">Qual o perfil da instituição efetivamente?</label>
                             <Select id="institution-actual" v-model="form.checkin_institution_actual" :validations="$v.form.checkin_institution_actual" :options="$iande.profiles"/>
                         </div>
