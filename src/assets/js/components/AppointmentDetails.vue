@@ -88,7 +88,7 @@
                 </div>
 
                 <template v-if="appointment.step > 2">
-                    <div class="iande-appointment__box" v-for="(group, i) in appointment.groups" :key="group.id">
+                    <div class="iande-appointment__box" v-for="(group, i) of appointment.groups" :key="group.id">
                         <div class="iande-appointment__box-title">
                             <h3><Icon icon="users"/>Grupo {{ i + 1 }}: {{ group.name }}</h3>
                             <div class="iande-appointment__edit" v-if="editable">

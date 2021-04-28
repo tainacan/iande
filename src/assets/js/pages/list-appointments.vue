@@ -9,7 +9,7 @@
                     Criar novo agendamento
                 </a>
             </div>
-            <AppointmentDetails v-for="appointment in filteredAppointments" :key="appointment.ID" :appointment="appointment"/>
+            <AppointmentDetails v-for="appointment of filteredAppointments" :key="appointment.ID" :appointment="appointment"/>
             <div class="iande-container narrow">
                 <a class="iande-button outline" :href="$iandeUrl('appointment/create')">
                     <Icon icon="plus-circle"/>

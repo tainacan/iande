@@ -3,7 +3,7 @@
         <div class="iande-container iande-stack stack-lg">
             <h1>Suas instituições</h1>
             <div class="iande-institutions">
-                <InstitutionDetails v-for="(institution, n) in institutions" :key="institution.ID" :institution="institution" :n="n + 1"/>
+                <InstitutionDetails v-for="(institution, n) of institutions" :key="institution.ID" :institution="institution" :n="n + 1"/>
             </div>
             <div class="iande-container narrow">
                 <a class="iande-button outline" :href="$iandeUrl('institution/create')">
