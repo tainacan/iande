@@ -1,14 +1,14 @@
 <template>
     <div class="iande-status-metabox">
         <button type="button" class="button button-primary button-large" @click="publish" v-if="postStatus !== 'publish'">
-            Confirmar agendamento
+            {{ __('Confirmar agendamento', 'iande') }}
         </button>
         <div>
-            <label for="cancelattion-reason">Motivo do cancelamento</label>
+            <label for="cancelattion-reason">{{ __('Motivo do cancelamento', 'iande') }}</label>
             <textarea id="cancelattion-reason" v-model="cancellationReason"/>
         </div>
         <button type="button" class="button button-primary button-large button-cancel" @click="cancelPost">
-            Cancelar agendamento
+            {{ __('Cancelar agendamento', 'iande') }}
         </button>
         <p class="form-error" v-if="formError">
             {{ formError }}

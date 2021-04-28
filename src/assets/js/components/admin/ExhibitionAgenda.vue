@@ -9,7 +9,7 @@
                             {{ hour }}
                         </div>
                         <div class="iande-admin-agenda__line" v-if="count > 0">
-                            {{ count }} reserva{{ count > 1 ? 's' : '' }}
+                            {{ sprintf(_n('%s reserva', '%s reservas', count, 'iande'), count) }}
                         </div>
                     </LocalScope>
                 </template>
