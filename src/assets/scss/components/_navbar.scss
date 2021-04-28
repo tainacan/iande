@@ -15,7 +15,7 @@
         display: flex;
         line-height: 1;
         font-weight: bold;
-        padding: 10px;
+        padding: 1em 0;
 
         img {
             margin-right: 1ex;
@@ -24,7 +24,6 @@
 
     nav {
         display: flex;
-        padding-right: 10px;
 
         @media screen and (max-width: 800px) {
             padding-bottom: 1em;
@@ -53,7 +52,7 @@
             align-items: center;
             display: inline-flex;
             list-style: none;
-            padding: 5px 10px;
+            padding: 1em;
         }
 
         a {
@@ -102,7 +101,7 @@
             }
 
             li {
-                padding: 5px 10px;
+                padding: 1em;
             }
         }
 
@@ -121,14 +120,14 @@
             }
 
             &:focus-within, &:hover {
-                background: var(--iande-background-color);
+                background-color: var(--iande-background-color);
 
                 a {
                     color: var(--iande-secondary-color);
                 }
 
                 ul {
-                    background: var(--iande-background-color);
+                    background-color: var(--iande-background-color);
                     display: flex;
                 }
             }
