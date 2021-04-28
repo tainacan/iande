@@ -5,11 +5,11 @@
                 <CreateInstitution ref="form" :edit="editMode"/>
 
                 <div class="iande-form-error" v-if="formError">
-                    <span>{{ formError }}</span>
+                    <span>{{ __(formError, 'iande') }}</span>
                 </div>
 
                 <button class="iande-button primary" type="submit">
-                    Salvar
+                    {{ __('Salvar', 'iande') }}
                 </button>
             </form>
         </div>

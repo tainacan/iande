@@ -7,18 +7,18 @@
                 <component :is="route.component" ref="form" @add-institution="setScreen(4)"/>
 
                 <div class="iande-form-error" v-if="formError">
-                    <span>{{ formError }}</span>
+                    <span>{{ __(formError, 'iande') }}</span>
                 </div>
 
                 <div class="iande-form-grid">
                     <button class="iande-button solid" type="button" v-if="route.previous" @click="previousStep">
                         <Icon icon="angle-left"/>
-                        Voltar
+                        {{ __('Voltar', 'iande') }}
                     </button>
                     <div v-else></div>
 
                     <button class="iande-button primary" type="submit">
-                        Avançar
+                        {{ __('Avançar', 'iande') }}
                         <Icon icon="angle-right"/>
                     </button>
                 </div>
@@ -26,14 +26,14 @@
         </div>
         <Modal ref="modal" :label="__('Sucesso!', 'iande')" narrow @close="listAppointments">
             <div class="iande-stack iande-form">
-                <h1>Reserva enviada com sucesso!</h1>
-                <p>Uma reserva de data e horário foi enviada ao museu, mas para garantir o agendamento é necessário completar formulário com mais informações.</p>
+                <h1>{{ __('Reserva enviada com sucesso!', 'iande') }}</h1>
+                <p>{{ __('Uma reserva de data e horário foi enviada ao museu, mas para garantir o agendamento é necessário completar formulário com mais informações.', 'iande') }}</p>
                 <div class="iande-form-grid">
                     <a class="iande-button solid" :href="$iandeUrl('appointment/list')">
-                        Ver agendamentos
+                        {{ __('Ver agendamentos', 'iande') }}
                     </a>
                     <a class="iande-button primary" :href="$iandeUrl(`appointment/confirm?ID=${appointmentId}`)">
-                        Completar reserva
+                        {{ __('Completar reserva', 'iande') }}
                     </a>
                 </div>
             </div>

@@ -1,29 +1,29 @@
 <template>
     <article id="iande-edit-user" class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
-            <h1>Edição de usuário</h1>
+            <h1>{{ __('Edição de usuário', 'iande') }}</h1>
             <form class="iande-form iande-stack stack-lg" @submit.prevent="updateUser">
                 <div>
-                    <label class="iande-label" for="firstName">Nome</label>
+                    <label class="iande-label" for="firstName">{{ __('Nome', 'iande') }}</label>
                     <Input id="firstName" type="text" v-model="firstName" :validations="$v.firstName"/>
                 </div>
                 <div>
-                    <label class="iande-label" for="lastName">Sobrenome</label>
+                    <label class="iande-label" for="lastName">{{ __('Sobrenome', 'iande') }}</label>
                     <Input id="lastName" type="text" v-model="lastName" :validations="$v.lastName"/>
                 </div>
                 <div>
-                    <label class="iande-label" for="email">E-mail</label>
+                    <label class="iande-label" for="email">{{ __('E-mail', 'iande') }}</label>
                     <Input id="email" type="email" v-model="email" :validations="$v.email"/>
                 </div>
                 <div>
-                    <label class="iande-label" for="phone">Telefone</label>
-                    <MaskedInput id="phone" type="tel" :mask="phoneMask" placeholder="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
+                    <label class="iande-label" for="phone">{{ __('Telefone', 'iande') }}</label>
+                    <MaskedInput id="phone" type="tel" :mask="phoneMask" :placeholder="__('DDD + Telefone', 'iande')" v-model="phone" :validations="$v.phone"/>
                 </div>
                 <div class="iande-form-error" v-if="formError">
-                    <span>{{ formError }}</span>
+                    <span>{{ __(formError, 'iande') }}</span>
                 </div>
                 <button class="iande-button primary" type="submit">
-                    Salvar
+                    {{ __('Salvar', 'iande') }}
                 </button>
             </form>
         </div>

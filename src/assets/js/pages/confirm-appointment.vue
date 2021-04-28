@@ -7,21 +7,21 @@
                 <component :is="route.component" ref="form"/>
 
                 <div class="iande-form-error" v-if="formError">
-                    <span>{{ formError }}</span>
+                    <span>{{ __(formError, 'iande') }}</span>
                 </div>
 
                 <div class="iande-form-grid">
                     <button class="iande-button solid" type="button" v-if="route.previous" @click="previousStep">
                         <Icon icon="angle-left"/>
-                        Voltar
+                        {{ __('Voltar', 'iande') }}
                     </button>
                     <a class="iande-button solid" v-else :href="$iandeUrl('appointment/list')">
                         <Icon icon="angle-left"/>
-                        Voltar
+                        {{ __('Voltar', 'iande') }}
                     </a>
 
                     <button class="iande-button primary" type="submit">
-                        Avançar
+                        {{ __('Avançar', 'iande') }}
                         <Icon icon="angle-right"/>
                     </button>
                 </div>
@@ -29,14 +29,14 @@
         </div>
         <Modal ref="firstModal" :label="__('Sucesso!', 'iande')" narrow @close="listAppointments">
             <div class="iande-stack iande-form">
-                <h1>Preenchimento finalizado</h1>
-                <p>Agradecemos pelo seu tempo em completar detalhadamente todas as etapas do agendamento. Você pode revisar o agendamento ou já enviar a solicitação para o museu.</p>
+                <h1>{{ __('Preenchimento finalizado', 'iande') }}</h1>
+                <p>{{ __('Agradecemos pelo seu tempo em completar detalhadamente todas as etapas do agendamento. Você pode revisar o agendamento ou já enviar a solicitação para o museu.', 'iande') }}</p>
                 <div class="iande-form-grid">
                     <a class="iande-button solid" :href="$iandeUrl('appointment/list')">
-                        Revisar informações
+                        {{ __('Revisar informações', 'iande') }}
                     </a>
                     <button class="iande-button primary" @click="finishAppointment">
-                        Finalizar
+                        {{ __('Finalizar', 'iande') }}
                     </button>
                 </div>
             </div>

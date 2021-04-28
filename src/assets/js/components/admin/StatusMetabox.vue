@@ -11,7 +11,7 @@
             {{ __('Cancelar agendamento', 'iande') }}
         </button>
         <p class="form-error" v-if="formError">
-            {{ formError }}
+            {{ __(formError, 'iande') }}
         </p>
     </div>
 </template>
