@@ -63,11 +63,11 @@ function iande_remove_default_stylesheet()
 
         global $wp_styles;
 
-        $allowedStyles = ['iande', 'tainacan-fonts'];
+        $allowedStyles = ['tainacan-fonts'];
 
         foreach ( $wp_styles->queue as $style ) :
 
-            if (!in_array($style, $allowedStyles)) {
+            if (!in_array($style, $allowedStyles) && strpos($style, 'iande') === false) {
                 \wp_dequeue_style($style);
             }
 
@@ -89,11 +89,11 @@ function iande_remove_default_scripts()
     if(is_iande_page()) {
         global $wp_scripts;
 
-        $allowedScripts = ['iande', 'tainacan-search'];
+        $allowedScripts = ['tainacan-search', 'wp-i18n'];
 
         foreach ($wp_scripts->queue as $script) :
 
-            if (!in_array($script, $allowedScripts)) {
+            if (!in_array($script, $allowedScripts) && strpos($script, 'iande') === false) {
                 \wp_dequeue_script($script);
             }
 
