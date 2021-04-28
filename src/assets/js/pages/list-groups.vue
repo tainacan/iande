@@ -1,17 +1,17 @@
 <template>
     <article class="mt-lg">
         <div class="iande-container iande-stack stack-lg">
-            <h1>Calendário geral</h1>
-            <AppointmentsFilter id="view" label="Modo de visualização" :options="viewModeOptions" v-model="viewMode"/>
+            <h1>{{ __('Calendário geral', 'iande') }}</h1>
+            <AppointmentsFilter id="view" :label="__('Modo de visualização', 'iande')" :options="viewModeOptions" v-model="viewMode"/>
             <div class="iande-groups-legend" aria-hidden="true">
-                <div class="iande-groups-legend__label"><Icon icon="question-circle"/> Legenda da mediação:</div>
-                <div class="iande-groups-legend__entry assigned-other">Com mediação atribuída</div>
-                <div class="iande-groups-legend__entry unassigned">Sem mediação atribuída</div>
-                <div class="iande-groups-legend__entry assigned-self">Mediação atribuída a você</div>
+                <div class="iande-groups-legend__label"><Icon icon="question-circle"/> {{ __('Legenda da mediação:', 'iande') }}</div>
+                <div class="iande-groups-legend__entry assigned-other">{{ __('Com mediação atribuída', 'iande') }}</div>
+                <div class="iande-groups-legend__entry unassigned">{{ __('Sem mediação atribuída', 'iande') }}</div>
+                <div class="iande-groups-legend__entry assigned-self">{{ __('Mediação atribuída a você', 'iande') }}</div>
             </div>
             <GroupsAgenda :educators="educators" v-if="viewMode === 'calendar'"/>
             <template v-else>
-                <AppointmentsFilter id="time" label="Exibindo" :options="timeOptions" v-model="time"/>
+                <AppointmentsFilter id="time" :label="__('Exibindo', 'iande')" :options="timeOptions" v-model="time"/>
                 <GroupDetails v-for="group of filteredGroups" :key="group.ID" boxed :educators="educators" :group="group"/>
             </template>
         </div>
@@ -24,6 +24,7 @@
     import AppointmentsFilter from '../components/AppointmentsFilter.vue'
     import GroupsAgenda from '../components/GroupsCalendar.vue'
     import GroupDetails from '../components/GroupDetails.vue'
+    import { __ } from '../plugins/wp-i18n'
     import { api, constant, sortBy, today } from '../utils'
 
     export default {
@@ -53,12 +54,12 @@
             },
             groups: sync('groups/list'),
             timeOptions: constant([
-                { label: 'Próximas', value: 'next' },
-                { label: 'Antigas', value: 'previous' },
+                { label: __('Próximas', 'iande'), value: 'next' },
+                { label: __('Antigas', 'iande'), value: 'previous' },
             ]),
             viewModeOptions: constant([
-                { label: 'Calendário', icon: ['far', 'calendar'], value: 'calendar' },
-                { label: 'Lista', icon: 'list', value: 'list' },
+                { label: __('Calendário', 'iande'), icon: ['far', 'calendar'], value: 'calendar' },
+                { label: __('Lista', 'iande'), icon: 'list', value: 'list' },
             ]),
         },
         async created () {

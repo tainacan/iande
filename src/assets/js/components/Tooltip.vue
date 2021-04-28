@@ -1,5 +1,5 @@
 <template>
-    <div class="iande-tooltip" v-tooltip="{ content: text, placement, trigger: 'hover click focus' }" aria-label="Saiba mais">
+    <div class="iande-tooltip" v-tooltip="{ content: text, placement, trigger: 'hover click focus' }" :aria-label="__('Saiba mais', 'iande')">
         <Icon icon="question-circle"/>
     </div>
 </template>

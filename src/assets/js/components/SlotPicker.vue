@@ -1,6 +1,6 @@
 <template>
     <div class="iande-field">
-        <Select :id="id" placeholder="Selecione um dos horários disponíveis" :empty="emptyMessage" v-model="modelValue" :validations="validations" :options="options"/>
+        <Select :id="id" :placeholder="__('Selecione um dos horários disponíveis', 'iande')" :empty="emptyMessage" v-model="modelValue" :validations="validations" :options="options"/>
     </div>
 </template>
 
@@ -9,6 +9,7 @@
 
     import Select from './Select.vue'
     import CustomField from './mixins/CustomField'
+    import { __, sprintf } from '../plugins/wp-i18n'
     import { getSlots } from '../utils/agenda'
 
     export default {
@@ -29,9 +30,9 @@
             },
             emptyMessage () {
                 if (!this.day) {
-                    return 'Selecione um dia primeiro'
+                    return __('Selecione um dia primeiro', 'iande')
                 } else {
-                    return 'Nenhum horário disponível'
+                    return __('Nenhum horário disponível', 'iande')
                 }
             },
             exhibition: get('appointments/exhibition'),
@@ -43,7 +44,7 @@
                 const entries = this.availableSlots.map(slot => {
                     const start = slot.start.toFormat('HH:mm')
                     const end = slot.end.toFormat('HH:mm')
-                    return [`${start} a ${end}`, start]
+                    return [sprintf(__('%s a %s', 'iande'), start, end), start]
                 })
                 return Object.fromEntries(entries)
             },

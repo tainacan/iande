@@ -27,7 +27,7 @@
                 </div>
             </form>
         </div>
-        <Modal ref="firstModal" narrow @close="listAppointments">
+        <Modal ref="firstModal" :label="__('Sucesso!', 'iande')" narrow @close="listAppointments">
             <div class="iande-stack iande-form">
                 <h1>Preenchimento finalizado</h1>
                 <p>Agradecemos pelo seu tempo em completar detalhadamente todas as etapas do agendamento. Você pode revisar o agendamento ou já enviar a solicitação para o museu.</p>

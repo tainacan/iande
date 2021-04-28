@@ -1,5 +1,5 @@
 <template>
-    <Modal ref="modal" @close="close">
+    <Modal ref="modal" :label="__('Detalhes do grupo', 'iande')" @close="close">
         <GroupDetails :educators="educators" :group="group" v-if="group"/>
     </Modal>
 </template>

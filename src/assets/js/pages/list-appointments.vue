@@ -1,19 +1,19 @@
 <template>
     <article class="mt-lg">
         <div class="iande-container iande-stack stack-lg">
-            <h1>Seus agendamentos</h1>
+            <h1>{{ __('Seus agendamentos', 'iande') }}</h1>
             <div class="iande-appointments-toolbar">
-                <AppointmentsFilter id="time" label="Exibindo" :options="filterOptions" v-model="filter"/>
+                <AppointmentsFilter id="time" :label="__('Exibindo', 'iande')" :options="filterOptions" v-model="filter"/>
                 <a class="iande-button small outline" :href="$iandeUrl('appointment/create')" v-if="appointments.length > 0">
                     <Icon icon="plus-circle"/>
-                    Criar novo agendamento
+                    {{ __('Criar novo agendamento', 'iande') }}
                 </a>
             </div>
             <AppointmentDetails v-for="appointment in filteredAppointments" :key="appointment.ID" :appointment="appointment"/>
             <div class="iande-container narrow">
                 <a class="iande-button outline" :href="$iandeUrl('appointment/create')">
                     <Icon icon="plus-circle"/>
-                    Criar novo agendamento
+                    {{ __('Criar novo agendamento', 'iande') }}
                 </a>
             </div>
         </div>
@@ -25,6 +25,7 @@
 
     import AppointmentDetails from '../components/AppointmentDetails.vue'
     import AppointmentsFilter from '../components/AppointmentsFilter.vue'
+    import { __ } from '../plugins/wp-i18n'
     import { api, constant, sortBy, today } from '../utils'
 
     export default {
@@ -56,8 +57,8 @@
                 }
             },
             filterOptions: constant([
-                { label: 'Próximas', value: 'next' },
-                { label: 'Antigas', value: 'previous' },
+                { label: __('Próximas', 'iande'), value: 'next' },
+                { label: __('Antigas', 'iande'), value: 'previous' },
             ]),
             institutions: sync('institutions/list'),
         },

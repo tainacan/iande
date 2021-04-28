@@ -3,7 +3,7 @@
         <GlobalEvents @keyup.esc="close"/>
         <div class="iande-modal" :class="{ narrow }" role="dialog" aria-modal="true" :aria-label="label" tabindex="-1">
             <div class="iande-modal__header">
-                <div class="iande-modal__close" role="button" tabindex="0" ref="button" aria-label="Fechar" @click="close" @keypress.enter="close">
+                <div class="iande-modal__close" role="button" tabindex="0" ref="button" :aria-label="__('Fechar', 'iande')" @click="close" @keypress.enter="close">
                     <Icon icon="times"/>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             GlobalEvents,
         },
         props: {
-            label: { type: String, default: 'Sucesso!' },
+            label: { type: String, required: true },
             narrow: { type: Boolean, default: false },
         },
         data () {

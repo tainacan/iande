@@ -1,10 +1,10 @@
 <template>
-    <Modal ref="modal" narrow @close="close">
+    <Modal ref="modal" :label="__('Sucesso!', 'iande')" narrow @close="close">
         <div class="iande-stack">
-            <h1>Agendamento enviado com sucesso!</h1>
-            <p>Os dados do seu agendamento foram enviados para o museu. Assim que a sua visita for confirmada, você receberá um email com todos os detalhes.</p>
+            <h1>{{ __('Agendamento enviado com sucesso!', 'iande') }}</h1>
+            <p>{{ __('Os dados do seu agendamento foram enviados para o museu. Assim que a sua visita for confirmada, você receberá um email com todos os detalhes.', 'iande') }}</p>
             <button class="iande-button solid" @click="close">
-                Voltar aos agendamentos
+                {{ __('Voltar aos agendamentos', 'iande') }}
             </button>
         </div>
     </Modal>

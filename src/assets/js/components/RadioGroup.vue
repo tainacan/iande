@@ -3,7 +3,7 @@
         <div class="iande-radio-group" :id="id" :class="{ columns, fieldClass }" role="radiogroup" :aria-describedby="errorId">
             <label class="iande-radio" v-for="(option, label) of normalizedOptions" :key="label">
                 <input type="radio" :name="id" :value="option" v-model="modelValue">
-                <span>{{ label }}</span>
+                <span>{{ __(label, 'iande') }}</span>
             </label>
         </div>
         <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
