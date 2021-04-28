@@ -1,4 +1,4 @@
-<?php $title = 'Editar usuário'; ?>
+<?php $title = __('Editar usuário', 'iande'); ?>
 <?php require 'parts/header.php'; ?>
 
 <iande-edit-user-page></iande-edit-user-page>

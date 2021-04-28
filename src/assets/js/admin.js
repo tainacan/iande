@@ -2,12 +2,15 @@ import '../scss/admin.scss'
 
 import Vue from 'vue'
 
+import WpI18n from './plugins/wp-i18n'
 import { api } from './utils'
 import { cep } from './utils/validators'
 
 const ExhibitionAgenda = () => import(/* webpackChunkName: 'exhibition-agenda' */ './components/admin/ExhibitionAgenda.vue')
 const StatusMetabox = () => import(/* webpackChunkName: 'status-metabox' */ './components/admin/StatusMetabox.vue')
 const cities = import(/* webpackChunkName: 'estados-municipios' */ '../json/municipios.json')
+
+Vue.use(WpI18n)
 
 Vue.component('iande-exhibition-agenda', ExhibitionAgenda)
 Vue.component('iande-status-metabox', StatusMetabox)

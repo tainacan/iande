@@ -1,4 +1,4 @@
-<?php $title = 'Login'; ?>
+<?php $title = __('Login', 'iande'); ?>
 <?php require 'parts/header.php'; ?>
 
 <?php

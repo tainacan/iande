@@ -1,4 +1,4 @@
-<?php $title = 'Demo Tainacan'; ?>
+<?php $title = __('Demo Tainacan', 'iande'); ?>
 <?php require 'parts/header.php'; ?>
 
 <iande-tainacan></iande-tainacan>

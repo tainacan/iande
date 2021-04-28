@@ -1,4 +1,4 @@
-<?php $title = 'Boas vindas'; ?>
+<?php $title = __('Boas vindas', 'iande'); ?>
 <?php require 'parts/header.php'; ?>
 
 <iande-welcome-page></iande-welcome-page>

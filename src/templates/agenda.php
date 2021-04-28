@@ -1,4 +1,4 @@
-<?php $title = 'Minha agenda'; ?>
+<?php $title = __('Minha agenda', 'iande'); ?>
 <?php require 'parts/header.php'; ?>
 
 <iande-groups-agenda-page></iande-groups-agenda-page>
