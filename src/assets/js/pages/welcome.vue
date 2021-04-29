@@ -31,7 +31,7 @@
             WelcomeOption,
         },
         computed: {
-            user: get('user/user'),
+            user: get('users/current'),
         },
         methods: {
             createAppointment () {
