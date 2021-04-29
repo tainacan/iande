@@ -1,7 +1,7 @@
 <template>
     <div class="iande-container mt-lg iande-stack stack-lg">
         <h1>Tainacan demo</h1>
-        <p>{{ items.length }} itens</p>
+        <p>{{ sprintf(_n('%s item', '%s itens', items.length, 'iande'), items.length) }}</p>
     </div>
 </template>
 

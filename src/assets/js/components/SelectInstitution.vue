@@ -1,44 +1,44 @@
 <template>
     <div class="iande-stack stack-lg">
-        <h1>Natureza do grupo</h1>
-        <p>Escolas, ONGs, fundações e outras instituições devem preencher o campo como <b>Grupo Institucional</b>. Famílias, grupos de amigos ou turistas devem se cadastrar como <b>Outros Grupos</b>.</p>
+        <h1>{{ __('Natureza do grupo', 'iande') }}</h1>
+        <p v-html="__('Escolas, ONGs, fundações e outras instituições devem preencher o campo como <b>Grupo Institucional</b>. Famílias, grupos de amigos ou turistas devem se cadastrar como <b>Outra</b>.', 'iande')"/>
         <div>
-            <label class="iande-label" for="isContact">Você é o contato responsável pela visita?</label>
+            <label class="iande-label" for="isContact">{{ __('Você é o contato responsável pela visita?', 'iande') }}</label>
             <RadioGroup id="isContact" v-model="isContact" :validations="$v.isContact" :options="binaryOptions"/>
         </div>
         <div v-show="isContact !== 'yes'">
-            <div class="iande-label">Informe o contato da pessoa responsável</div>
+            <div class="iande-label">{{ __('Informe o contato da pessoa responsável', 'iande') }}</div>
             <div class="iande-form-grid">
-                <Input id="firstName" type="text" placeholder="Nome" aria-label="Primeiro nome" v-model="firstName" :validations="$v.firstName"/>
-                <Input id="lastName" type="text" placeholder="Sobrenome" aria-label="Sobrenome" v-model="lastName" :validations="$v.lastName"/>
-                <Input id="email" type="email" placeholder="E-mail" aria-label="E-mail" v-model="email" :validations="$v.email"/>
-                <MaskedInput id="phone" type="tel" :mask="phoneMask" placeholder="DDD + Telefone" aria-label="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
+                <Input id="firstName" type="text" :placeholder="__('Nome', 'iande')" :aria-label="__('Primeiro nome', 'iande')" v-model="firstName" :validations="$v.firstName"/>
+                <Input id="lastName" type="text" :placeholder="__('Sobrenome', 'iande')" :aria-label="__('Sobrenome', 'iande')" v-model="lastName" :validations="$v.lastName"/>
+                <Input id="email" type="email" :placeholder="__('E-mail', 'iande')" :aria-label="__('E-mail', 'iande')" v-model="email" :validations="$v.email"/>
+                <MaskedInput id="phone" type="tel" :mask="phoneMask" :placeholder="__('DDD + Telefone', 'iande')" :aria-label="__('DDD + Telefone', 'iande')" v-model="phone" :validations="$v.phone"/>
             </div>
         </div>
         <div v-if="requireExemption">
-            <label class="iande-label" for="requestedExemption">Deseja solicitar formulário de isenção de ingresso?</label>
+            <label class="iande-label" for="requestedExemption">{{ __('Deseja solicitar formulário de isenção de ingresso?', 'iande') }}</label>
             <RadioGroup id="requestedExemption" v-model="requestedExemption" :validations="$v.requestedExemption" :options="binaryOptions"/>
         </div>
         <div>
-            <label class="iande-label" for="nature">Natureza do grupo</label>
+            <label class="iande-label" for="nature">{{ __('Natureza do grupo', 'iande') }}</label>
             <Select id="nature" v-model="nature" :validations="$v.nature" :options="natureOptions"/>
         </div>
         <template v-if="!institutionOptional">
             <div>
-                <label class="iande-label" for="role">Informe sua relação com a instituição</label>
+                <label class="iande-label" for="role">{{ __('Informe sua relação com a instituição', 'iande') }}</label>
                 <Select id="role" v-model="role" :validations="$v.role" :options="$iande.responsibleRoles" />
             </div>
             <div v-if="isOther(role)">
-                <label class="iande-label" for="roleOther">Especifique sua relação com a instituição</label>
+                <label class="iande-label" for="roleOther">{{ __('Especifique sua relação com a instituição', 'iande') }}</label>
                 <Input id="roleOther" type="text" v-model="roleOther" :validations="$v.roleOther"/>
             </div>
             <div>
-                <label class="iande-label" for="institution">Instituição responsável pela visita</label>
-                <Select id="institution" v-model="institution" :validations="$v.institution" empty="Você ainda não possui instituições cadastradas ⚠️" :options="institutionOptions"/>
+                <label class="iande-label" for="institution">{{ __('Instituição responsável pela visita', 'iande') }}</label>
+                <Select id="institution" v-model="institution" :validations="$v.institution" :empty="__('Você ainda não possui instituições cadastradas ⚠️', 'iande')" :options="institutionOptions"/>
             </div>
             <div class="iande-add-item" v-if="canAddInstitution" role="button" tabindex="0" @click="addInstitution">
                 <span><Icon icon="plus-circle"/></span>
-                <div class="iande-label">Adicionar uma instituição</div>
+                <div class="iande-label">{{ __('Adicionar uma instituição', 'iande') }}</div>
             </div>
         </template>
     </div>
@@ -52,6 +52,7 @@
     import MaskedInput from './MaskedInput.vue'
     import RadioGroup from './RadioGroup.vue'
     import Select from './Select.vue'
+    import { __, _x } from '../plugins/wp-i18n'
     import { api, constant, isOther, watchForOther } from '../utils'
     import { phone } from '../utils/validators'
 
@@ -96,8 +97,8 @@
             },
             institutions: sync('institutions/list'),
             natureOptions: constant({
-                'Grupo Institucional': 'institutional',
-                'Outra': 'other'
+                [__('Grupo Institucional', 'iande')]: 'institutional',
+                [_x('Outra', 'group', 'iande')]: 'other'
             }),
             phoneMask: constant(['(##) ####-####', '(##) #####-####']),
             requireExemption: constant(requireExemption),

@@ -1,7 +1,7 @@
 <template>
     <article class="iande-stack stack-lg">
-        <h1>Informações do grupo</h1>
-        <p>Nesta etapa você deve dar informações sobre o grupo que irá visitar o museu.</p>
+        <h1>{{ __('Informações do grupo', 'iande') }}</h1>
+        <p>{{ __('Nesta etapa você deve dar informações sobre o grupo que irá visitar o museu.', 'iande') }}</p>
         <Repeater id="groups" class="iande-groups" v-model="groups" :factory="newGroup" :resizable="false" :validations="$v.groups">
             <template #item="{ id, onUpdate, validations, value }">
                 <GroupAdditionalInfo :key="id" :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>

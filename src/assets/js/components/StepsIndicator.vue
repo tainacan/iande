@@ -3,10 +3,10 @@
         <div class="iande-steps__row" :class="inline || 'iande-container narrow'">
             <div class="iande-steps__step" v-for="i of 2" :key="i" :class="step >= i && 'active'">
                 <div class="iande-steps__step-number">
-                    <span v-if="step > i" :aria-label="`${i}, concluído`">
+                    <span v-if="step > i" :aria-label="sprintf(__('%s, concluído', 'iande'), i)">
                         <Icon icon="check"/>
                     </span>
-                    <span v-else-if="step === i && status === 'canceled'" :aria-label="`${i}, cancelado`">
+                    <span v-else-if="step === i && status === 'canceled'" :aria-label="sprintf(__('%s, cancelado', 'iande'), i)">
                         <Icon icon="times"/>
                     </span>
                     <span v-else>{{ i }}</span>
@@ -15,13 +15,13 @@
             </div>
             <div class="iande-steps__step" :key="3" :class="step === 3 && status !== 'draft' && 'active'">
                 <div class="iande-steps__step-number">
-                    <span v-if="step === 3 && status === 'publish'" aria-label="3, confirmado">
+                    <span v-if="step === 3 && status === 'publish'" :aria-label="__('3, confirmado', 'iande')">
                         <Icon icon="check"/>
                     </span>
-                    <span v-else-if="step === 3 && status === 'canceled'" aria-label="3, cancelado">
+                    <span v-else-if="step === 3 && status === 'canceled'" :aria-label="__('3, cancelado', 'iande')">
                         <Icon icon="times"/>
                     </span>
-                    <span v-else-if="step === 3 && status === 'pending'" aria-label="3, aguardando confirmação">3</span>
+                    <span v-else-if="step === 3 && status === 'pending'" :aria-label="__('3, aguardando confirmação', 'iande')">3</span>
                     <span v-else>3</span>
                 </div>
                 <div class="iande-steps__step-label">
@@ -35,6 +35,7 @@
 
 <script>
     import Tooltip from './Tooltip.vue'
+    import { sprintf, __ } from '../plugins/wp-i18n'
     import { constant } from '../utils'
 
     export default {
@@ -50,12 +51,9 @@
         },
         computed: {
             reasonText () {
-                return `
-                    <p><b>Este agendamento não foi confirmado!</b></p>
-                    <p>${String(this.reason)}</p>
-                `
+                return sprintf(__('<p><b>Este agendamento não foi confirmado</b></p><p>%s</p>', 'iande'), this.reason)
             },
-            stepLabels: constant(['Reserva', 'Detalhes', 'Confirmação'])
+            stepLabels: constant([__('Reserva', 'iande'), __('Detalhes', 'iande'), __('Confirmação', 'iande')])
         }
     }
 </script>
