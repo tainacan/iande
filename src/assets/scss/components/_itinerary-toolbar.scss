@@ -1,0 +1,54 @@
+.iande-itinerary-toolbar {
+    box-shadow: 0 1px 4px 0 rgba(black, 0.1);
+    padding: 0.5em;
+
+    &__row {
+        align-items: center;
+        background-color: var(--iande-background-color);
+        color: var(--iande-secondary-color);
+        display: grid;
+        grid-gap: 1em;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        & > * {
+            display: flex;
+        }
+
+        & > :nth-child(1) {
+            justify-content: flex-start;
+        }
+
+        & > :nth-child(2) {
+            align-items: center;
+            display: flex;
+            font-weight: bold;
+            justify-content: center;
+        }
+
+        & > :nth-child(3) {
+            justify-content: flex-end;
+        }
+
+        @media screen and (max-width: 85em) {
+            grid-template-columns: 2fr 1fr;
+
+            & > :nth-child(1) {
+                display: none;
+            }
+
+            & > :nth-child(2) {
+                justify-content: flex-start;
+            }
+        }
+    }
+
+    &__counter {
+        align-items: center;
+        border: 2px solid var(--iande-primary-color);
+        border-radius: 50%;
+        display: inline-flex;
+        height: 3em;
+        justify-content: center;
+        width: 3em;
+    }
+}

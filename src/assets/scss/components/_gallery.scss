@@ -11,9 +11,11 @@
 .iande-gallery-item {
     background-color: var(--iande-lighter-color);
 
-    &--header {
+    &__header {
         align-items: center;
+        color: var(--iande-secondary-color);
         display: flex;
+        font-weight: bold;
         justify-content: flex-start;
         padding: 10px;
 
@@ -38,7 +40,7 @@
         }
     }
 
-    &--thumbnail {
+    &__thumbnail {
         background-position: center;
         background-size: cover;
         padding-top: 100%;
