@@ -1,5 +1,9 @@
+.iande-itinerary-header {
+    position: relative;
+}
+
 .iande-itinerary-toolbar {
-    box-shadow: 0 1px 4px 0 rgba(black, 0.1);
+    box-shadow: 0 3px 3px 0 rgba(gray, 0.3);
     padding: 0.5em 0;
 
     &__row {
@@ -40,5 +44,50 @@
         height: 2.5em;
         justify-content: center;
         width: 2.5em;
+
+        svg[data-icon] {
+            color: var(--iande-primary-color);
+            font-size: 0.75em;
+            margin-left: 0.25em;
+        }
+    }
+}
+
+.iande-itinerary-table {
+    background-color: var(--iande-lighter-color);
+    box-shadow: 0 3px 3px 0 rgba(gray, 0.3);
+    padding: 0.5em;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+
+    table {
+        font-size: 0.75em;
+        width: 100%;
+
+        thead {
+            th {
+                border-bottom: 1px solid var(--iande-medium-color);
+                padding: 0.5em;
+                text-align: start;
+            }
+        }
+
+        tbody {
+            td {
+                padding: 0.5em;
+                vertical-align: top;
+
+                &:nth-of-type(3) {
+                    font-weight: bold;
+                }
+            }
+
+            img {
+                border-radius: var(--iande-border-radius);
+                height: 64px;
+                width: 64px;
+            }
+        }
     }
 }
