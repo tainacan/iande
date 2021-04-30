@@ -29,7 +29,7 @@
                         <span>Mediação:</span>
                         <select v-model="group.educator_id">
                             <option :value="null">Atribuir mediação</option>
-                            <option v-for="educator in educators" :key="educator.ID" :value="educator.ID">
+                            <option v-for="educator of educators" :key="educator.ID" :value="educator.ID">
                                 {{ educator.display_name }}
                             </option>
                         </select>

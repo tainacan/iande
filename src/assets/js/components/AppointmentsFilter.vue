@@ -2,7 +2,7 @@
     <fieldset class="iande-appointments-filter iande-form" :aria-labelledby="idFor('label')">
         <div class="iande-appointments-filter__row">
             <div :id="idFor('label')" class="iande-appointments-filter__label">{{ label }}:</div>
-            <template v-for="option in options">
+            <template v-for="option of options">
                 <input :id="idFor(option.value)" :key="`input-${option.value}`" type="radio" :name="id" :value="option.value" v-model="modelValue">
                 <label :for="idFor(option.value)" :key="`label-${option.value}`">
                     <span class="iande-label" v-if="option.icon" :aria-label="option.label">
