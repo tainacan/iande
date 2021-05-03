@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .iande-itinerary-header {
     position: relative;
 }
@@ -40,6 +42,7 @@
         align-items: center;
         border: 2px solid var(--iande-primary-color);
         border-radius: 50%;
+        cursor: pointer;
         display: inline-flex;
         height: 2.5em;
         justify-content: center;
@@ -60,6 +63,7 @@
     position: absolute;
     top: 100%;
     width: 100%;
+    z-index: #{math.pow(10, 6)};
 
     table {
         font-size: 0.75em;
@@ -88,6 +92,16 @@
                 height: 64px;
                 width: 64px;
             }
+        }
+    }
+
+    &__controls {
+        display: flex;
+
+        svg[data-icon] {
+            cursor: pointer;
+            font-size: 1.33em;
+            margin: 0.5em;
         }
     }
 }

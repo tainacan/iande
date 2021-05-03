@@ -34,16 +34,23 @@
                             <th>{{ __('Descrição', 'iande') }}</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <Draggable tag="tbody" v-model="items" handle=".-handle" @end="replaceItems">
                         <tr v-for="item of items" :key="item.id">
-                            <td></td>
+                            <td class="iande-itinerary-table__controls">
+                                <div role="button" tabindex="0" :aria-role="__('Remover', 'iande')" @click="removeItem(item)">
+                                    <Icon :icon="['far', 'trash-alt']"/>
+                                </div>
+                                <div class="-handle" aria-hidden="true">
+                                    <Icon icon="grip-vertical"/>
+                                </div>
+                            </td>
                             <td>
                                 <img :src="item.thumbnail.thumbnail[0]" :alt="item.thumbnail_alt" height="64" width="64">
                             </td>
                             <td>{{ item.title }}</td>
                             <td>{{ item.description }}</td>
                         </tr>
-                    </tbody>
+                    </Draggable>
                 </table>
             </div>
         </div>
@@ -51,15 +58,27 @@
 </template>
 
 <script>
-    import { onIandeEvent } from '../utils/events'
+    import Draggable from 'vuedraggable'
+
+    import { dispatchIandeEvent, onIandeEvent } from '../utils/events'
 
     export default {
         name: 'ItineraryToolbar',
+        components: {
+            Draggable,
+        },
         data () {
             return {
                 showItems: false,
                 items: [],
                 unsubscribe: null,
+            }
+        },
+        watch: {
+            items () {
+                if (this.items.length === 0) {
+                    this.showItems = false
+                }
             }
         },
         mounted () {
@@ -68,8 +87,11 @@
                     this.items = [...this.items, item]
                 },
                 removeItem: ({ item }) => {
-                    this.items = this.items.filter(x => x !== item)
-                }
+                    this.items = this.items.filter(i => i !== item)
+                },
+                replaceItems: ({ items }) => {
+                    this.items = items
+                },
             }
             this.unsubscribe = onIandeEvent((type, payload) => {
                 if (iandeEvents[type]) {
@@ -83,6 +105,12 @@
             }
         },
         methods: {
+            removeItem (item) {
+                dispatchIandeEvent('removeItem', { item })
+            },
+            replaceItems () {
+                dispatchIandeEvent('replaceItems', { items: this.items })
+            },
             toggleItems () {
                 if (this.items.length > 0) {
                     this.showItems = !this.showItems

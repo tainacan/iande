@@ -21,7 +21,7 @@
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
     import { __ } from '../plugins/wp-i18n'
-    import { dispatchIandeEvent } from '../utils/events'
+    import { dispatchIandeEvent, onIandeEvent } from '../utils/events'
 
     export default {
         name: 'IandeViewMode',
@@ -42,26 +42,45 @@
         },
         data () {
             return {
-                checkedItems: {},
+                checkedItems: [],
+                unsubscribe: null,
             }
         },
         mounted () {
-            console.log(this.$props)
+            const iandeEvents = {
+                addItem: ({ item }) => {
+                    this.checkedItems = [...this.checkedItems, item]
+                },
+                removeItem: ({ item }) => {
+                    this.checkedItems = this.checkedItems.filter(i => i !== item)
+                },
+                replaceItems: ({ items }) => {
+                    this.checkedItems = items
+                },
+            }
+            this.unsubscribe = onIandeEvent((type, payload) => {
+                if (iandeEvents[type]) {
+                    iandeEvents[type](payload)
+                }
+            })
+        },
+        beforeDestroy () {
+            if (this.unsubscribe) {
+                this.unsubscribe()
+            }
         },
         methods: {
             __,
             addItem (item) {
-                this.checkedItems = { ...this.checkedItems, [item.id]: true }
                 dispatchIandeEvent('addItem', { item })
             },
             isChecked (item) {
-                return !!this.checkedItems[item.id]
+                return this.checkedItems.includes(item)
             },
             thumbnail (item) {
                 return item.thumbnail.medium_large
             },
             removeItem (item) {
-                this.checkedItems = { ...this.checkedItems, [item.id]: false }
                 dispatchIandeEvent('removeItem', { item })
             },
         },
