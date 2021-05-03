@@ -183,13 +183,13 @@ function iande_settings_init() {
 
 function register_custom_view_modes ($helper) {
     if (function_exists('tainacan_register_view_mode')) {
-        $helper->register_vuejs_component('demo-iande', IANDE_PLUGIN_DISTURL . 'tainacan-view-modes.js', ['public' => true, 'deps' => ['wp-i18n']], null, true);
+        $helper->register_vuejs_component('iande-masonry', IANDE_PLUGIN_DISTURL . 'tainacan-view-modes.js', ['public' => true, 'deps' => ['wp-i18n']], null, true);
 
-        \tainacan_register_view_mode('demo-iande', [
+        \tainacan_register_view_mode('iande-masonry', [
             'label' => 'Iandé',
 			'icon' 					=> '<span class="icon"><i><svg fill="var(--tainacan-info-color, #555758)" xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M8.492 6.074h7.016v11.852H8.492zM4.943 7.477h2.806v9.046H4.943zM16.251 7.477h2.807v9.046H16.25zM19.8 8.442h1.884v7.116h-1.883zM2.316 8.442h1.883v7.116H2.316z"/></svg></i></span>',
             'type' 					=> 'component',
-			'component' 			=> 'demo-iande',
+			'component' 			=> 'iande-masonry',
 			'dynamic_metadata' 		=> true,
 			'implements_skeleton' 	=> true
         ]);

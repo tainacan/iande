@@ -1,7 +1,7 @@
 <template>
     <div class="iande-container">
-        <div class="iande-gallery">
-            <div class="iande-gallery-item" v-for="item of items" :key="item.id">
+        <div class="iande-gallery" ref="masonry">
+            <div class="iande-gallery-item" :class="size" v-for="item of items" :key="item.id">
                 <header class="iande-gallery-item__header">
                     <button type="button" class="iande-button selected" :aria-label="__('Remover', 'iande')" @click="removeItem(item)" v-if="isChecked(item)">
                         <Icon :icon="['fas', 'check-circle']"/>
@@ -19,12 +19,13 @@
 
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+    import Masonry from 'masonry-layout'
 
     import { __ } from '../plugins/wp-i18n'
     import { dispatchIandeEvent, onIandeEvent } from '../utils/events'
 
     export default {
-        name: 'IandeViewMode',
+        name: 'IandeMosaicViewMode',
         components: {
             Icon: FontAwesomeIcon,
         },
@@ -43,10 +44,21 @@
         data () {
             return {
                 checkedItems: [],
+                masonry: null,
+                size: 'cols-4',
                 unsubscribe: null,
             }
         },
+        watch: {
+            items () {
+                this.reloadMasonry()
+            }
+        },
         mounted () {
+            if (window.ResizeObserver) {
+                new ResizeObserver(this.onResize).observe(document.querySelector('.items-list-area'))
+            }
+
             const iandeEvents = {
                 addItem: ({ item }) => {
                     this.checkedItems = [...this.checkedItems, item]
@@ -77,11 +89,37 @@
             isChecked (item) {
                 return this.checkedItems.includes(item)
             },
-            thumbnail (item) {
-                return item.thumbnail.medium_large
+            onResize (entries) {
+                const lastEntry = entries[0]
+                const width = lastEntry.contentRect.width
+                if (width > 1200) {
+                    this.size = 'cols-4'
+                } else if (width > 900) {
+                    this.size = 'cols-3'
+                } else if (width > 600) {
+                    this.size = 'cols-2'
+                } else {
+                    this.size = 'cols-1'
+                }
+                this.reloadMasonry()
+            },
+            reloadMasonry () {
+                this.$nextTick(() => {
+                    if (!this.masonry) {
+                        this.masonry = new Masonry(this.$refs.masonry, {
+                            itemSelector: ".iande-gallery-item",
+                        })
+                    } else {
+                        this.masonry.reloadItems()
+                        this.masonry.layout()
+                    }
+                })
             },
             removeItem (item) {
                 dispatchIandeEvent('removeItem', { item })
+            },
+            thumbnail (item) {
+                return item.thumbnail.medium_large
             },
         },
     }

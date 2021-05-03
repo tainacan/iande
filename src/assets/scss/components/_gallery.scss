@@ -1,8 +1,4 @@
 .iande-gallery {
-    display: grid;
-    grid-gap: 40px;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-
     @media screen and (min-width: 779px) {
         margin: 20px 40px;
     }
@@ -11,7 +7,24 @@
 .iande-gallery-item {
     background-color: var(--iande-lighter-color);
     border-radius: var(--iande-border-radius) var(--iande-border-radius) 0 0;
-    transition: all 0.3s ease-out;
+    margin: 0 20px 20px 0;
+    transition: background-color 0.3s ease-out;
+
+    &.cols-4 {
+        width: calc(25% - 20px);
+    }
+
+    &.cols-3 {
+        width: calc(33.33% - 20px);
+    }
+
+    &.cols-2 {
+        width: calc(50% - 20px);
+    }
+
+    &.cols-1 {
+        width: 100%;
+    }
 
     &:hover, &:focus-within {
         background-color: var(--iande-light-color);
