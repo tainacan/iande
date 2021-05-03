@@ -12,6 +12,10 @@
     background-color: var(--iande-lighter-color);
     border-radius: var(--iande-border-radius) var(--iande-border-radius) 0 0;
 
+    &:hover, &:focus-within {
+        background-color: var(--iande-light-color);
+    }
+
     &__header {
         color: var(--iande-secondary-color);
         font-weight: bold;
