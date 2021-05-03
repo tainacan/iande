@@ -47,12 +47,14 @@ abstract class Controller
      *
      * if the
      *
-     * @param [type] $action
-     * @param [type] $params
+     * @param string $action The requested view or method
+     * @param array $params
      * @return void
      */
     function call($action, $params)
     {
+        global $iande_success;
+
         if (\wp_is_json_request()) {
             $method = "endpoint_{$action}";
         } else {
@@ -65,8 +67,10 @@ abstract class Controller
         \do_action("iande.route.{$controller}/{$action}", $params);
 
         if (method_exists($this, $method)) {
+            $iande_success = true;
             $this->$method($params);
 
+            $iande_success = false;
             \do_action("iande.route_not_found", $controller, $action, $params);
 
             set_404();

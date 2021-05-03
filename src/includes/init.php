@@ -8,6 +8,12 @@ if (!defined('WPINC')) {
 }
 
 /**
+ * Indicates if a Iandé route was successfully matched
+ * @var bool
+ */
+$iande_success = false;
+
+/**
  * Adiciona funções na ativação do plugin
  *
  * @link https://developer.wordpress.org/reference/functions/register_activation_hook/
@@ -58,8 +64,9 @@ add_action('admin_notices', 'IandePlugin\\check_dependencies');
  */
 function iande_remove_default_stylesheet()
 {
+    global $iande_success;
 
-    if (is_iande_page()) {
+    if ($iande_success) {
 
         global $wp_styles;
 
@@ -85,8 +92,9 @@ function iande_remove_default_stylesheet()
  */
 function iande_remove_default_scripts()
 {
+    global $iande_success;
 
-    if(is_iande_page()) {
+    if($iande_success) {
         global $wp_scripts;
 
         $allowedScripts = ['tainacan-search', 'wp-i18n'];
