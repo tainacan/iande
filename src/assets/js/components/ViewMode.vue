@@ -3,10 +3,10 @@
         <div class="iande-gallery">
             <div class="iande-gallery-item" v-for="item in items" :key="item.id">
                 <header class="iande-gallery-item__header">
-                    <button type="button" class="iande-button selected" aria-label="Remover" @click="removeItem(item)" v-if="isChecked(item)">
+                    <button type="button" class="iande-button selected" :aria-label="__('Remover', 'iande')" @click="removeItem(item)" v-if="isChecked(item)">
                         <Icon :icon="['fas', 'check-circle']"/>
                     </button>
-                    <button type="button" class="iande-button" aria-label="Adicionar" @click="addItem(item)" v-else>
+                    <button type="button" class="iande-button" :aria-label="__('Adicionar', 'iande')" @click="addItem(item)" v-else>
                         <Icon :icon="['fas', 'plus-circle']"/>
                     </button>
                     <span>{{ item.title }}</span>
@@ -20,6 +20,7 @@
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+    import { __ } from '../plugins/wp-i18n'
     import { dispatchIandeEvent } from '../utils/events'
 
     export default {
@@ -48,6 +49,7 @@
             console.log(this.$props)
         },
         methods: {
+            __,
             addItem (item) {
                 this.checkedItems = { ...this.checkedItems, [item.id]: true }
                 dispatchIandeEvent('addItem', { item })
