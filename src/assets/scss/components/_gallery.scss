@@ -11,6 +11,7 @@
 .iande-gallery-item {
     background-color: var(--iande-lighter-color);
     border-radius: var(--iande-border-radius) var(--iande-border-radius) 0 0;
+    transition: all 0.3s ease-out;
 
     &:hover, &:focus-within {
         background-color: var(--iande-light-color);
@@ -30,6 +31,7 @@
             line-height: 1;
             margin: 0 0.5em 0.5em 0;
             padding: 0.5em;
+            transition: all 0.3s ease-out;
             width: auto;
 
             &.selected {
