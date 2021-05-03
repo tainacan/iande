@@ -11,7 +11,7 @@
                     </button>
                     <span>{{ item.title }}</span>
                 </header>
-                <div class="iande-gallery-item__thumbnail" :style="{ backgroundImage: thumbnail(item) }"/>
+                <img class="iande-gallery-item__thumbnail" :src="thumbnail(item)[0]" :alt="item.thumbnail_alt" :height="thumbnail(item)[2]" :width="thumbnail(item)[1]">
             </div>
         </div>
     </div>
@@ -53,10 +53,10 @@
                 dispatchIandeEvent('addItem', { item })
             },
             isChecked (item) {
-                return Boolean(this.checkedItems[item.id])
+                return !!this.checkedItems[item.id]
             },
             thumbnail (item) {
-                return `url(${item.thumbnail['full'][0]})`
+                return item.thumbnail.medium_large
             },
             removeItem (item) {
                 this.checkedItems = { ...this.checkedItems, [item.id]: false }

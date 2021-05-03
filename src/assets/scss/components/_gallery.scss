@@ -10,11 +10,12 @@
 
 .iande-gallery-item {
     background-color: var(--iande-lighter-color);
+    border-radius: var(--iande-border-radius) var(--iande-border-radius) 0 0;
 
     &__header {
         color: var(--iande-secondary-color);
         font-weight: bold;
-        padding: 10px;
+        padding: 0.5em;
 
         .iande-button {
             background-color: var(--iande-primary-color);
@@ -23,7 +24,7 @@
             color: var(--iande-secondary-color);
             float: left;
             line-height: 1;
-            margin-right: 0.5em;
+            margin: 0 0.5em 0.5em 0;
             padding: 0.5em;
             width: auto;
 
@@ -41,9 +42,7 @@
     }
 
     &__thumbnail {
-        background-position: center;
-        background-size: cover;
-        padding-top: 100%;
+        height: auto;
         width: 100%;
     }
 }
