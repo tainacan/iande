@@ -12,21 +12,19 @@
     background-color: var(--iande-lighter-color);
 
     &__header {
-        align-items: center;
         color: var(--iande-secondary-color);
-        display: flex;
         font-weight: bold;
-        justify-content: flex-start;
         padding: 10px;
 
         .iande-button {
             background-color: var(--iande-primary-color);
             border: none;
-            border-radius: 5px;
+            border-radius: var(--iande-border-radius);
             color: var(--iande-secondary-color);
+            float: left;
             line-height: 1;
-            margin-right: 10px;
-            padding: 7.5px;
+            margin-right: 0.5em;
+            padding: 0.5em;
             width: auto;
 
             &.selected {
@@ -36,7 +34,9 @@
         }
 
         span {
+            display: block;
             font-size: 0.875em;
+            line-height: 2;
         }
     }
 
