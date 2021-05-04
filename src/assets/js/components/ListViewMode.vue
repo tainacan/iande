@@ -12,7 +12,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="item of items" :key="item.id">
-                        <td class="iande-tainacan-table__controls">
+                        <td class="iande-tainacan-list__controls iande-tainacan-table__controls">
                             <button type="button" class="iande-button selected" :aria-label="__('Remover', 'iande')" @click="removeItem(item)" v-if="isChecked(item)">
                                 <Icon :icon="['fas', 'check-circle']"/>
                             </button>

@@ -58,14 +58,6 @@
 }
 
 .iande-itinerary-table, .iande-tainacan-list {
-    background-color: var(--iande-lighter-color);
-    box-shadow: 0 3px 3px 0 rgba(gray, 0.3);
-    overflow: auto;
-    padding: 0.5em;
-    position: absolute;
-    top: 100%;
-    width: 100%;
-    z-index: #{math.pow(10, 6)};
 
     table {
         width: 100%;
@@ -108,6 +100,15 @@
 }
 
 .iande-itinerary-table {
+    background-color: var(--iande-lighter-color);
+    box-shadow: 0 3px 3px 0 rgba(gray, 0.3);
+    overflow: auto;
+    padding: 0.5em;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: #{math.pow(10, 6)};
+
     &__controls {
         display: flex;
 
