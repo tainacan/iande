@@ -1,10 +1,4 @@
-.iande-gallery {
-    @media screen and (min-width: 779px) {
-        margin: 20px 40px;
-    }
-}
-
-.iande-gallery-item {
+.iande-tainacan-masonry-item {
     background-color: var(--iande-lighter-color);
     border-radius: var(--iande-border-radius) var(--iande-border-radius) 0 0;
     margin: 0 20px 20px 0;
@@ -33,24 +27,6 @@
     &__header {
         font-weight: bold;
         padding: 0.5em;
-
-        .iande-button {
-            background-color: var(--iande-primary-color);
-            border: none;
-            border-radius: var(--iande-border-radius);
-            color: var(--iande-secondary-color);
-            float: left;
-            line-height: 1;
-            margin: 0 0.5em 0.5em 0;
-            padding: 0.5em;
-            transition: all 0.3s ease-out;
-            width: auto;
-
-            &.selected {
-                background-color: var(--iande-secondary-color);
-                color: var(--iande-primary-color);
-            }
-        }
 
         span {
             display: block;

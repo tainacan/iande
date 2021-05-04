@@ -1,8 +1,8 @@
 <template>
     <div class="iande-container">
-        <div class="iande-gallery" ref="masonry">
-            <div class="iande-gallery-item" :class="size" v-for="item of items" :key="item.id">
-                <header class="iande-gallery-item__header">
+        <div class="iande-tainacan iande-tainacan-masonry" ref="masonry">
+            <div class="iande-tainacan-masonry-item" :class="size" v-for="item of items" :key="item.id">
+                <header class="iande-tainacan-masonry-item__header">
                     <button type="button" class="iande-button selected" :aria-label="__('Remover', 'iande')" @click="removeItem(item)" v-if="isChecked(item)">
                         <Icon :icon="['fas', 'check-circle']"/>
                     </button>
@@ -11,7 +11,7 @@
                     </button>
                     <span>{{ item.title }}</span>
                 </header>
-                <img class="iande-gallery-item__thumbnail" :src="thumbnail(item)[0]" :alt="item.thumbnail_alt" :height="thumbnail(item)[2]" :width="thumbnail(item)[1]">
+                <img class="iande-tainacan-masonry-item__thumbnail" :src="thumbnail(item)[0]" :alt="item.thumbnail_alt" :height="thumbnail(item)[2]" :width="thumbnail(item)[1]">
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
     import { dispatchIandeEvent, onIandeEvent } from '../utils/events'
 
     export default {
-        name: 'IandeMosaicViewMode',
+        name: 'IandeMasonryViewMode',
         components: {
             Icon: FontAwesomeIcon,
         },
@@ -107,7 +107,7 @@
                 this.$nextTick(() => {
                     if (!this.masonry) {
                         this.masonry = new Masonry(this.$refs.masonry, {
-                            itemSelector: ".iande-gallery-item",
+                            itemSelector: ".iande-tainacan-masonry-item",
                         })
                     } else {
                         this.masonry.reloadItems()
