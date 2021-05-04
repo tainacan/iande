@@ -4,4 +4,23 @@
     &__controls {
         vertical-align: middle;
     }
+
+    table {
+        tr {
+            &:hover, &:focus-within {
+                background-color: var(--iande-lighter-color);
+                transition: background-color 0.3s ease-out;
+
+                td {
+                    &:first-child {
+                        border-radius: var(--iande-border-radius) 0 0 var(--iande-border-radius);
+                    }
+
+                    &:last-child {
+                        border-radius: 0 var(--iande-border-radius) var(--iande-border-radius) 0;
+                    }
+                }
+            }
+        }
+    }
 }
