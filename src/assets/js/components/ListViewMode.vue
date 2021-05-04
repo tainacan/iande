@@ -1,18 +1,33 @@
 <template>
     <div class="iande-container">
         <div class="iande-tainacan iande-tainacan-list">
-            <div class="iande-tainacan-list-item" :class="size" v-for="item of items" :key="item.id">
-                <header class="iande-tainacan-list-item__header">
-                    <button type="button" class="iande-button selected" :aria-label="__('Remover', 'iande')" @click="removeItem(item)" v-if="isChecked(item)">
-                        <Icon :icon="['fas', 'check-circle']"/>
-                    </button>
-                    <button type="button" class="iande-button" :aria-label="__('Adicionar', 'iande')" @click="addItem(item)" v-else>
-                        <Icon :icon="['fas', 'plus-circle']"/>
-                    </button>
-                    <span>{{ item.title }}</span>
-                </header>
-                <img class="iande-tainacan-list-item__thumbnail" :src="thumbnail(item)[0]" :alt="item.thumbnail_alt" :height="thumbnail(item)[2]" :width="thumbnail(item)[1]">
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th :aria-label="__('Controles', 'iande')"/>
+                        <th>{{ __('Miniatura', 'iande') }}</th>
+                        <th>{{ __('Título', 'iande') }}</th>
+                        <th>{{ __('Descrição', 'iande') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item of items" :key="item.id">
+                        <td class="iande-tainacan-table__controls">
+                            <button type="button" class="iande-button selected" :aria-label="__('Remover', 'iande')" @click="removeItem(item)" v-if="isChecked(item)">
+                                <Icon :icon="['fas', 'check-circle']"/>
+                            </button>
+                            <button type="button" class="iande-button" :aria-label="__('Adicionar', 'iande')" @click="addItem(item)" v-else>
+                                <Icon :icon="['fas', 'plus-circle']"/>
+                            </button>
+                        </td>
+                        <td>
+                            <img :src="item.thumbnail.thumbnail[0]" :alt="item.thumbnail_alt" height="64" width="64">
+                        </td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.description }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </template>
@@ -81,7 +96,7 @@
                 dispatchIandeEvent('removeItem', { item })
             },
             thumbnail (item) {
-                return item.thumbnail.medium_large
+                return item.thumbnail.thumbnail
             },
         },
     }

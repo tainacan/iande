@@ -1,3 +1,7 @@
 .iande-tainacan-list {
+    overflow: auto;
 
+    &__controls {
+        vertical-align: middle;
+    }
 }

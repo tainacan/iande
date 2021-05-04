@@ -57,9 +57,10 @@
     }
 }
 
-.iande-itinerary-table {
+.iande-itinerary-table, .iande-tainacan-list {
     background-color: var(--iande-lighter-color);
     box-shadow: 0 3px 3px 0 rgba(gray, 0.3);
+    overflow: auto;
     padding: 0.5em;
     position: absolute;
     top: 100%;
@@ -67,12 +68,12 @@
     z-index: #{math.pow(10, 6)};
 
     table {
-        font-size: 0.75em;
         width: 100%;
 
         thead {
             th {
                 border-bottom: 1px solid var(--iande-medium-color);
+                font-size: 0.75em;
                 padding: 0.5em;
                 text-align: start;
             }
@@ -82,6 +83,10 @@
             td {
                 padding: 0.5em;
                 vertical-align: top;
+
+                &:not(.iande-tainacan-table__controls) {
+                    font-size: 0.75em;
+                }
 
                 &:nth-of-type(3) {
                     font-weight: bold;
@@ -95,13 +100,15 @@
             }
         }
     }
+}
 
+.iande-itinerary-table {
     &__controls {
         display: flex;
 
         svg[data-icon] {
             cursor: pointer;
-            font-size: 1.33em;
+            font-size: 1.25em;
             margin: 0.5em;
         }
     }

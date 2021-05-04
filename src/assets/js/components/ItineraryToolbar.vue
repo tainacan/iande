@@ -26,15 +26,15 @@
                 <table>
                     <thead>
                         <tr>
-                            <th/>
-                            <th>{{ __('Destaque', 'iande') }}</th>
+                            <th :aria-label="__('Controles', 'iande')"/>
+                            <th>{{ __('Miniatura', 'iande') }}</th>
                             <th>{{ __('Título', 'iande') }}</th>
                             <th>{{ __('Descrição', 'iande') }}</th>
                         </tr>
                     </thead>
                     <Draggable tag="tbody" v-model="items" handle=".-handle" @end="replaceItems">
                         <tr v-for="item of items" :key="item.id">
-                            <td class="iande-itinerary-table__controls">
+                            <td class="iande-itinerary-table__controls iande-tainacan-table__controls">
                                 <div role="button" tabindex="0" :aria-role="__('Remover', 'iande')" @click="removeItem(item)">
                                     <Icon :icon="['far', 'trash-alt']"/>
                                 </div>
