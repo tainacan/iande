@@ -7,12 +7,10 @@
                 </div>
                 <div>
                     <span>{{ __('Seu roteiro possui', 'iande') }}</span>
-                    &nbsp;
                     <div class="iande-itinerary-toolbar__counter" role="button" tabindex="0" @click="toggleItems">
                         {{ items.length }}
                         <Icon icon="caret-down" :class="{ 'fa-flip-vertical': showItems }" v-if="items.length > 0"/>
                     </div>
-                    &nbsp;
                     <span>{{ _n('item selecionado', 'itens selecionados', items.length, 'iande') }}</span>
                 </div>
                 <div>
