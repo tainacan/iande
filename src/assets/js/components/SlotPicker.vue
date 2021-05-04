@@ -42,8 +42,8 @@
             },
             options () {
                 const entries = this.availableSlots.map(slot => {
-                    const start = slot.start.toFormat('HH:mm')
-                    const end = slot.end.toFormat('HH:mm')
+                    const start = slot.start.toFormat(__('HH:mm', 'iande'))
+                    const end = slot.end.toFormat(__('HH:mm', 'iande'))
                     return [sprintf(__('%s a %s', 'iande'), start, end), start]
                 })
                 return Object.fromEntries(entries)
