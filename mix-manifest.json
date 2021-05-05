@@ -9,6 +9,7 @@
     "/dist/checkin-page.js": "/dist/checkin-page.js",
     "/dist/confirm-appointment-page.js": "/dist/confirm-appointment-page.js",
     "/dist/create-appointment-page.js": "/dist/create-appointment-page.js",
+    "/dist/create-itinerary-page.js": "/dist/create-itinerary-page.js",
     "/dist/create-user-page.js": "/dist/create-user-page.js",
     "/dist/edit-appointment-page.js": "/dist/edit-appointment-page.js",
     "/dist/edit-institution-page.js": "/dist/edit-institution-page.js",
