@@ -15,6 +15,10 @@
         font-size: 1em;
         font-weight: bold;
 
+        & + .iande-field {
+            margin-top: 0.5em;
+        }
+
         &__optional {
             color: var(--iande-primary-color);
             font-size: 0.875em;

@@ -38,7 +38,7 @@
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
-                    <div>{{ exhibition.title }}</div>
+                    <div>{{ __(exhibition.title, 'iande') }}</div>
                     <div>{{ sprintf(__('Previsão de %s pessoas no total', 'iande'), appointment.num_people) }}</div>
                     <div v-for="(group, i) of appointment.groups" :key="group.ID">
                         <div>{{ sprintf(__('Grupo %s: %s', 'iande'), i + 1, formatDate(group.date)) }}</div>
