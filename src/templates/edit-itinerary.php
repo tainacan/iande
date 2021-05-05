@@ -1,7 +1,7 @@
-<?php $title = __('Demo Tainacan', 'iande'); ?>
+<?php $title = __('Edição de roteiro virtual', 'iande'); ?>
 <?php require 'parts/header.php'; ?>
 
-<iande-tainacan></iande-tainacan>
+<iande-edit-itinerary-page></iande-edit-itinerary-page>
 
 <div class="iande-container">
     <?php tainacan_the_faceted_search([

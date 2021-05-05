@@ -7,11 +7,25 @@ use Controller;
 class Itinerary extends Controller
 {
     /**
-     * Demo
+     * Renderiza a página de criação de roteiro virtual
+     *
+     * @param array $params
+     * @return void
      */
-    function view_demo(array $params = [])
+    function view_create(array $params = []) {
+        $this->require_authentication();
+        $this->render('create-itinerary');
+    }
+
+    /**
+     * Renderiza a página de edição de roteiro virtual
+     *
+     * @param array $params
+     * @return void
+     */
+    function view_edit(array $params = [])
     {
         $this->require_authentication();
-        $this->render('tainacan');
+        $this->render('edit-itinerary');
     }
 }

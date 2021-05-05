@@ -11,7 +11,7 @@
     import ItineraryToolbar from '../components/ItineraryToolbar.vue'
 
     export default {
-        name: 'TainacanDemoPage',
+        name: 'EditItineraryPage',
         components: {
             ItineraryToolbar,
         },
