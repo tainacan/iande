@@ -1,6 +1,6 @@
 <template>
     <section class="iande-group iande-stack stack-lg">
-        <h2 class="iande-group-title">{{ sprinf(__('Grupo %s: %s', 'iande'), n, value.name) }}</h2>
+        <h2 class="iande-group-title">{{ sprintf(__('Grupo %s: %s', 'iande'), n, value.name) }}</h2>
         <div>
             <label :for="`${id}_numPeople`" class="iande-label">{{ __('Quantidade prevista de pessoas', 'iande') }}<span class="iande-label__optional">{{ sprintf(__('Máximo de %s pessoas', 'iande'), maxPeople) }}</span></label>
             <Input :id="`${id}_numPeople`" type="number" :min="minPeople" :max="maxPeople" :placeholder="sprintf(__('Mínimo de %s pessoas', 'iande'), minPeople)" v-model.number="numPeople" :validations="validations.num_people"/>

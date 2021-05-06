@@ -1,6 +1,6 @@
 <template>
     <section class="iande-stack stack-lg">
-        <h2 class="iande-group-title">{{ sprinf(__('Grupo %s:', 'iande'), n) }}</h2>
+        <h2 class="iande-group-title">{{ sprintf(__('Grupo %s:', 'iande'), n) }}</h2>
         <div>
             <label class="iande-label" :for="`${id}_name`">{{ __('Nome do grupo', 'iande') }}</label>
             <Input :id="`${id}_name`" type="text" :placeholder="__('Ex.: 1° ano G - Prof. Marta', 'iande')" v-model="name" :validations="validations.name"/>
