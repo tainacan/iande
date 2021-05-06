@@ -351,7 +351,9 @@
                     }
                 }
             },
-            isOther,
+            isOther (term) {
+                return String(term).toLowerCase().startsWith('outr')
+            },
             mergeCheckins () {
                 for (const key of Object.keys(this.form)) {
                     if (this.group[key]) {
