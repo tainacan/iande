@@ -2,7 +2,7 @@
     <div>
         <article class="mt-lg">
             <div class="iande-container narrow iande-stack stack-lg">
-                <h1 v-if="user">{{ sprintf(__('Olá, %s', 'iande'), user.first_name) }}</h1>
+                <h1 v-if="user">{{ sprintf(__('Olá, %s', 'iande'), user.first_name || '') }}</h1>
                 <p v-html="__(`Boas vindas ao <b class='text-secondary'>iandé</b>, plataforma de agendamento e visitação à museus. Diga abaixo que tipo de visita você prentede realizar.`, 'iande')"/>
 
                 <WelcomeOption :title="__('Ver opções de Roteiros Virtuais', 'iande')">
