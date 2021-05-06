@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .iande-modal {
     background-color: var(--iande-background-color);
     border-radius: var(--iande-border-radius);
@@ -25,7 +27,7 @@
         right: 0;
         top: 0;
         width: 100vw;
-        z-index: 100;
+        z-index: #{math.pow(10, 6)};
     }
 
     &__header {

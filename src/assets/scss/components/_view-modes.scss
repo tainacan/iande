@@ -3,21 +3,36 @@
         margin: 20px;
     }
 
-    .iande-button {
-        background-color: var(--iande-primary-color);
-        border: none;
-        border-radius: var(--iande-border-radius);
-        color: var(--iande-secondary-color);
+    .iande-tainacan-check-button {
         float: left;
-        line-height: 1;
         margin: 0 0.5em 0.5em 0;
-        padding: 0.5em;
-        transition: all 0.3s ease-out;
-        width: auto;
+    }
+}
 
-        &.selected {
-            background-color: var(--iande-secondary-color);
-            color: var(--iande-primary-color);
-        }
+.iande-tainacan-check-button {
+    background-color: var(--iande-primary-color);
+    border: none;
+    border-radius: var(--iande-border-radius);
+    color: var(--iande-secondary-color);
+    line-height: 1;
+    padding: 0.5em;
+    transition: all 0.3s ease-out;
+    width: auto;
+
+    &.selected {
+        background-color: var(--iande-secondary-color);
+        color: var(--iande-primary-color);
+    }
+}
+
+#iande-itinerary-welcome-modal {
+    p .iande-button {
+        display: inline-block;
+    }
+
+    p.page {
+        color: var(--iande-secondary-color);
+        font-weight: bold;
+        text-align: center;
     }
 }

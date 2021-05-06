@@ -13,11 +13,11 @@
                 <tbody>
                     <tr v-for="item of items" :key="item.id">
                         <td class="iande-tainacan-list__controls iande-tainacan-table__controls">
-                            <button type="button" class="iande-button selected" :aria-label="__('Remover', 'iande')" @click="removeItem(item)" v-if="isChecked(item)">
-                                <Icon :icon="['fas', 'check-circle']"/>
+                            <button type="button" class="iande-button iande-tainacan-check-button selected" :aria-label="__('Remover', 'iande')" @click="removeItem(item)" v-if="isChecked(item)">
+                                <Icon icon="check-circle"/>
                             </button>
-                            <button type="button" class="iande-button" :aria-label="__('Adicionar', 'iande')" @click="addItem(item)" v-else>
-                                <Icon :icon="['fas', 'plus-circle']"/>
+                            <button type="button" class="iande-button iande-tainacan-check-button" :aria-label="__('Adicionar', 'iande')" @click="addItem(item)" v-else>
+                                <Icon icon="plus-circle"/>
                             </button>
                         </td>
                         <td>
