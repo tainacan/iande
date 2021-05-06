@@ -236,7 +236,7 @@
                 if (this.appointment.name) {
                     return this.appointment.name
                 } else {
-                    return sprintf(__('Agendamento #%s', 'iande'), this.appointment.ID)
+                    return sprintf(__('Agendamento %s', 'iande'), this.appointment.ID)
                 }
             },
             purpose () {

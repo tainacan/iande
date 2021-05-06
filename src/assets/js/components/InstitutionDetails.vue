@@ -2,24 +2,24 @@
     <section class="iande-institution">
         <div class="iande-institution__summary" :class="showDetails || 'collapsed'">
             <h2>{{ institution.name }}</h2>
-            <div class="iande-institution__toggle" :aria-label="showDetails ? 'Ocultar detalhes' : 'Exibir detalhes'" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
+            <div class="iande-institution__toggle" :aria-label="showDetails ? __('Ocultar detalhes', 'iande') : __('Exibir detalhes', 'iande')" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
                 <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
             </div>
         </div>
         <div class="iande-institution__details" v-if="showDetails">
             <div class="iande-institution__box">
                 <div class="iande-institution__box-title">
-                    <h3><Icon icon="university"/>Instituição</h3>
+                    <h3><Icon icon="university"/>{{ __('Instituição', 'iande') }}</h3>
                     <div class="iande-institution__edit">
-                        <a class="iande-institution__edit-link" :href="$iandeUrl(`institution/edit?ID=${institution.ID}`)">Editar</a>
+                        <a class="iande-institution__edit-link" :href="$iandeUrl(`institution/edit?ID=${institution.ID}`)">{{ __('Editar', 'iande') }}</a>
                         <Icon icon="pencil-alt"/>
                     </div>
                 </div>
                 <div>
                     <div>{{ institutionProfile(institution) }}</div>
-                    <div v-if="institution.cnpj">CNPJ: {{ formatCnpj(institution.cnpj) }}</div>
-                    <div>Telefone: {{ formatPhone(institution.phone) }}</div>
-                    <div>E-mail: {{ institution.email }}</div>
+                    <div v-if="institution.cnpj">{{ __('CNPJ', 'iande') }}: {{ formatCnpj(institution.cnpj) }}</div>
+                    <div>{{ __('Telefone', 'iande') }}: {{ formatPhone(institution.phone) }}</div>
+                    <div>{{ __('E-mail', 'iande') }}: {{ institution.email }}</div>
                 </div>
                 <div>
                     <div>
@@ -28,7 +28,7 @@
                         - {{ institution.district }}
                     </div>
                     <div>{{ city }} - {{ institution.state }}</div>
-                    <div>CEP {{ formatCep(institution.zip_code) }}</div>
+                    <div>{{ __('CEP', 'iande') }} {{ formatCep(institution.zip_code) }}</div>
                 </div>
             </div>
         </div>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+    import { __, sprintf } from '../plugins/wp-i18n'
     import { formatCep, formatCnpj, formatPhone, isOther } from '../utils'
 
     const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
@@ -68,7 +69,7 @@
                 if (this.institution.name) {
                     return this.institution.name
                 } else {
-                    return `Instituição ${this.n}`
+                    return sprintf(__('Instituição %s', 'iande'), this.n)
                 }
             },
         },
@@ -78,9 +79,9 @@
             formatPhone,
             institutionProfile (institution) {
                 if (isOther(institution.profile) && institution.profile_other) {
-                    return institution.profile_other
+                    return __(institution.profile_other, 'iande')
                 } else {
-                    return institution.profile
+                    return __(institution.profile, 'iande')
                 }
             },
             toggleDetails () {
