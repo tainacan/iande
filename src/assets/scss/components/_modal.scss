@@ -36,8 +36,15 @@
     }
 
     &__body {
-        margin: 1em;
         max-height: 100%;
         overflow-y: auto;
+
+        & > :not(.iande-group, & > .iande-steps) {
+            margin: 1em;
+        }
+
+        & > :first-child {
+            margin-top: 0 !important;
+        }
     }
 }
