@@ -6,13 +6,11 @@
                     <div class="iande-admin-agenda__month">
                         <b>{{ cell.content }}</b>
                         <div class="iande-educator-agenda__month-row" aria-hidden="true">
-                            <LocalScope :groups="cellGroups(cell)" v-slot="{ groups }">
-                                <template v-for="count, status of groups">
-                                    <span class="iande-educator-agenda__bubble" :class="status" :key="status" v-if="count > 0">
-                                        {{ count }}
-                                    </span>
-                                </template>
-                            </LocalScope>
+                            <template v-for="count, status of cellGroups(cell)">
+                                <span class="iande-educator-agenda__bubble" :class="status" :key="status" v-if="count > 0">
+                                    {{ count }}
+                                </span>
+                            </template>
                         </div>
                     </div>
                 </template>
@@ -32,7 +30,6 @@
 <script>
     import { DateTime } from 'luxon'
     import Calendar from 'vue-cal'
-    import { LocalScope } from 'vue-local-scope'
     import { get } from 'vuex-pathify'
     import 'vue-cal/dist/i18n/pt-br'
 
@@ -47,7 +44,6 @@
         components: {
             Calendar,
             GroupAssignmentModal,
-            LocalScope,
         },
         props: {
             educators: { type: Array, default: () => [] },
