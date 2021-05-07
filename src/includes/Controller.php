@@ -119,10 +119,10 @@ abstract class Controller
     }
 
     /**
-     * Renderiza a visão
+     * Renderiza a view
      *
      * @param string $template_name nome do template a ser renderizado
-     * @param array $params variáveis para a visão
+     * @param array $params variáveis para a view
      * @param integer $http_status_code status da resposta http. default: 200
      * @return void
      */
@@ -130,6 +130,22 @@ abstract class Controller
     {
         \status_header($http_status_code);
         template_render($template_name, $params);
+        die;
+    }
+
+    /**
+     * Renderiza a view padrão do Iandé
+     *
+     * @param string $title título da página
+     * @param string $component nome do componente a ser renderizado na página
+     * @param array $props props passadas para o componente
+     * @param integer $http_status_code status da resposta http. default: 200
+     * @return void
+     */
+    function render_component(string $title, string $component, array $props = [], $http_status_code = 200)
+    {
+        \status_header($http_status_code);
+        template_render('component', [ 'title' => $title, 'component' => $component, 'props' => $props ]);
         die;
     }
 

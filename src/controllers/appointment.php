@@ -16,7 +16,7 @@ class Appointment extends Controller
     function view_create(array $params = [])
     {
         $this->require_authentication();
-        $this->render('create-appointment');
+        $this->render_component(__('Novo agendamento', 'iande'), 'iande-create-appointment-page');
     }
 
     /**
@@ -28,7 +28,7 @@ class Appointment extends Controller
     function view_confirm(array $params = [])
     {
         $this->require_authentication();
-        $this->render('confirm-appointment');
+        $this->render_component(__('Confirmação de agendamento', 'iande'), 'iande-confirm-appointment-page');
     }
 
     /**
@@ -40,7 +40,7 @@ class Appointment extends Controller
     function view_edit(array $params = [])
     {
         $this->require_authentication();
-        $this->render('edit-appointment');
+        $this->render_component(__('Editar agendamento', 'iande'), 'iande-edit-appointment-page');
     }
 
     /**
@@ -52,7 +52,7 @@ class Appointment extends Controller
     function view_list(array $params = [])
     {
         $this->require_authentication();
-        $this->render('list-appointments');
+        $this->render_component(__('Seus agendamentos', 'iande'), 'iande-list-appointments-page');
     }
 
 
