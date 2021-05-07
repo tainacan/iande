@@ -21,24 +21,36 @@
                 {{ __('Próximo', 'iande') }}
             </button>
         </div>
-        <div class="iande-stack stack-md" v-else>
-            <h1>{{ __('Acompanhe a criação pelo menu superior', 'iande') }}</h1>
-            <p>{{ __('Acompanhe a quantidade de itens selecionados pela barra na parte superior da tela:', 'iande') }}</p>
-            <p>{{ __('Clique no número para visualizar os itens selecionados.', 'iande') }}</p>
-            <p>
-                {{ __('Finalizando a seleção, clique em', 'iande') }}
-                <button type="button" class="iande-button primary small" disabled>
-                    {{ __('Avançar', 'iande') }}
-                    <Icon icon="angle-right"/>
+        <template v-else>
+            <div class="iande-stack stack-md">
+                <h1>{{ __('Acompanhe a criação pelo menu superior', 'iande') }}</h1>
+                <p>{{ __('Acompanhe a quantidade de itens selecionados pela barra na parte superior da tela:', 'iande') }}</p>
+            </div>
+            <div class="iande-itinerary-toolbar-mock -full-width">
+                <span>{{ __('Seu roteiro possui', 'iande') }}</span>
+                <div class="iande-itinerary-toolbar__counter" role="button" aria-disabled="true">
+                    12
+                    <Icon icon="caret-down"/>
+                </div>
+                <span>{{ _n('item selecionado', 'itens selecionados', 12, 'iande') }}</span>
+            </div>
+            <div class="iande-stack stack-md">
+                <p>{{ __('Clique no número para visualizar os itens selecionados.', 'iande') }}</p>
+                <p>
+                    {{ __('Finalizando a seleção, clique em', 'iande') }}
+                    <button type="button" class="iande-button primary small" disabled>
+                        {{ __('Avançar', 'iande') }}
+                        <Icon icon="angle-right"/>
+                    </button>
+                    {{ __('para prosseguir.', 'iande') }}
+                </p>
+                <p>{{ __('Você pode editar seu roteiro a qualquer momento.', 'iande') }}</p>
+                <p class="page">2/2</p>
+                <button type="button" class="iande-button outline" @click="close">
+                    {{ __('Iniciar seleção', 'iande') }}
                 </button>
-                {{ __('para prosseguir.', 'iande') }}
-            </p>
-            <p>{{ __('Você pode editar seu roteiro a qualquer momento.', 'iande') }}</p>
-            <p class="page">2/2</p>
-            <button type="button" class="iande-button outline" @click="close">
-                {{ __('Iniciar seleção', 'iande') }}
-            </button>
-        </div>
+            </div>
+        </template>
     </Modal>
 </template>
 

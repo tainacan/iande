@@ -35,4 +35,16 @@
         font-weight: bold;
         text-align: center;
     }
+
+    .iande-itinerary-toolbar-mock {
+        align-items: center;
+        box-shadow: 0 0 5px 0 rgba(gray, 0.3);
+        color: var(--iande-secondary-color);
+        display: flex;
+        font-size: 0.875em;
+        font-weight: bold;
+        justify-content: center;
+        margin: 20px 0;
+        padding: 0.5em 0;
+    }
 }

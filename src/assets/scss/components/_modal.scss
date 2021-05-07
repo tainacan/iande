@@ -41,7 +41,7 @@
         max-height: 100%;
         overflow-y: auto;
 
-        & > :not(.iande-group, & > .iande-steps) {
+        & > :not(.-full-width) {
             margin: 1em;
         }
 

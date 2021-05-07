@@ -19,9 +19,17 @@
             ItineraryWelcomeModal,
         },
         mounted () {
-            this.$nextTick(() => {
-                this.$refs.modal.open()
-            })
+            try {
+                const modalShown = window.localStorage.getItem('iande.modalShown')
+                if (!modalShown) {
+                    this.$nextTick(() => {
+                        this.$refs.modal.open()
+                        window.localStorage.setItem('iande.modalShown', 'true')
+                    })
+                }
+            } catch (err) {
+                console.error(err)
+            }
         },
     }
 </script>

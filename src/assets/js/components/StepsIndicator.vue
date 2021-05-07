@@ -1,5 +1,5 @@
 <template>
-    <div class="iande-steps" :class="inline ? 'inline' : 'iande-container full-width'">
+    <div class="iande-steps" :class="inline ? 'inline' : 'iande-container full-width -full-width'">
         <div class="iande-steps__row" :class="inline || 'iande-container narrow'">
             <div class="iande-steps__step" v-for="i of 2" :key="i" :class="step >= i && 'active'">
                 <div class="iande-steps__step-number">

@@ -1,5 +1,5 @@
 <template>
-    <section class="iande-group" :class="{ boxed }">
+    <section class="iande-group -full-width" :class="{ boxed }">
         <div class="iande-group__summary" :class="{ collapsed }">
             <div>
                 <div class="iande-appointment__date">
