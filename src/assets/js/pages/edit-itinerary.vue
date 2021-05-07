@@ -20,11 +20,11 @@
         },
         mounted () {
             try {
-                const modalShown = window.localStorage.getItem('iande.modalShown')
+                const modalShown = window.localStorage.getItem('iande.itineraryWelcome')
                 if (!modalShown) {
                     this.$nextTick(() => {
                         this.$refs.modal.open()
-                        window.localStorage.setItem('iande.modalShown', 'true')
+                        window.localStorage.setItem('iande.itineraryWelcome', 'shown')
                     })
                 }
             } catch (err) {

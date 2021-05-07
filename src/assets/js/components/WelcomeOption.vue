@@ -1,9 +1,9 @@
 <template>
     <section class="iande-welcome-option">
-        <button type="button" class="iande-button iande-welcome-option__title" @click="$emit('select')">
+        <a class="iande-button iande-welcome-option__title" :href="href">
             <span>{{ title }}</span>
             <Icon icon="angle-right"/>
-        </button>
+        </a>
         <div class="iande-welcome-option__description">
             <slot/>
         </div>
@@ -19,6 +19,7 @@
             Icon: FontAwesomeIcon,
         },
         props: {
+            href: { type: String, required: true },
             title: { type: String, required: true },
         },
     }

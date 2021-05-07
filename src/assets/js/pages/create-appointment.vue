@@ -24,7 +24,10 @@
                 </div>
             </form>
         </div>
-        <Modal ref="modal" :label="__('Sucesso!', 'iande')" narrow @close="listAppointments">
+
+        <AppointmentWelcomeModal ref="welcomeModal"/>
+
+        <Modal ref="successModal" :label="__('Sucesso!', 'iande')" narrow @close="listAppointments">
             <div class="iande-stack iande-form">
                 <h1>{{ __('Reserva enviada com sucesso!', 'iande') }}</h1>
                 <p>{{ __('Uma reserva de data e horário foi enviada ao museu, mas para garantir o agendamento é necessário completar formulário com mais informações.', 'iande') }}</p>
@@ -44,6 +47,7 @@
 <script>
     import { call, get, sync } from 'vuex-pathify'
 
+    import AppointmentWelcomeModal from '../components/AppointmentWelcomeModal.vue'
     import Modal from '../components/Modal.vue'
     import StepsIndicator from '../components/StepsIndicator.vue'
     import { api } from '../utils'
@@ -84,6 +88,7 @@
     export default {
         name: 'CreateAppointmentPage',
         components: {
+            AppointmentWelcomeModal,
             Modal,
             StepsIndicator,
         },
@@ -115,6 +120,19 @@
                 } catch (err) {
                     this.formError = err
                 }
+            }
+        },
+        mounted () {
+            try {
+                const modalShown = window.localStorage.getItem('iande.appointmentWelcome')
+                if (!modalShown) {
+                    this.$nextTick(() => {
+                        this.$refs.welcomeModal.open()
+                        window.localStorage.setItem('iande.appointmentWelcome', 'shown')
+                    })
+                }
+            } catch (err) {
+                console.error(err)
             }
         },
         methods: {
@@ -175,7 +193,7 @@
                     await api.post('appointment/advance_step', { ID: this.appointmentId })
                     this.$refs.form.$v.$reset()
                     await this.resetInstitution()
-                    this.$refs.modal.open()
+                    this.$refs.successModal.open()
                     return true
                 } catch (err) {
                     this.formError = err

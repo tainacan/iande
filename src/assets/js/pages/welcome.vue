@@ -9,34 +9,26 @@
                     <p>{{ __('Visite roteiros virtuais feitos a partir do acervo digital do museu ou crie seus próprios roteiros!', 'iande') }}</p>
                 </WelcomeOption>
 
-                <WelcomeOption :title="__('Agendar uma Visita Presencial', 'iande')" @select="createAppointment">
+                <WelcomeOption :title="__('Agendar uma Visita Presencial', 'iande')" :href="$iandeUrl('appointment/create')">
                     <p>{{ __('Agende uma visita presencial para você, seus amigos, seus alunos, sua família ou quem você quiser.', 'iande') }}</p>
                 </WelcomeOption>
             </div>
         </article>
-        <AppointmentWelcomeModal ref="appointmentModal"/>
     </div>
 </template>
 
 <script>
     import { get } from 'vuex-pathify'
 
-    import AppointmentWelcomeModal from '../components/AppointmentWelcomeModal.vue'
     import WelcomeOption from '../components/WelcomeOption.vue'
 
     export default {
         name: 'WelcomePage',
         components: {
-            AppointmentWelcomeModal,
             WelcomeOption,
         },
         computed: {
             user: get('users/current'),
-        },
-        methods: {
-            createAppointment () {
-                this.$refs.appointmentModal.open()
-            }
         },
     }
 </script>
