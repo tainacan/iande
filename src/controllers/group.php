@@ -434,7 +434,7 @@ class Group extends Controller
     function view_agenda(array $params = [])
     {
         $this->require_admin();
-        $this->render('agenda');
+        $this->render_component(__('Minha agenda', 'iande'), 'iande-groups-agenda-page');
     }
 
     /**
@@ -446,7 +446,7 @@ class Group extends Controller
     function view_checkin(array $params = [])
     {
         $this->require_admin();
-        $this->render('checkin');
+        $this->render_component(__('Check-in', 'iande'), 'iande-checkin-page');
     }
 
     /**
@@ -458,7 +458,7 @@ class Group extends Controller
     function view_feedback(array $params = [])
     {
         $this->require_authentication();
-        $this->render('feedback');
+        $this->render_component(__('Avaliação', 'iande'), 'iande-feedback-page');
     }
 
     /**
@@ -470,7 +470,7 @@ class Group extends Controller
     function view_list(array $params = [])
     {
         $this->require_admin();
-        $this->render('list-groups');
+        $this->render_component(__('Calendário geral', 'iande'), 'iande-list-groups-page');
     }
 
         /**
@@ -482,7 +482,7 @@ class Group extends Controller
     function view_report(array $params = [])
     {
         $this->require_authentication();
-        $this->render('report');
+        $this->render_component(__('Avaliação', 'iande'), 'iande-educator-report-page');
     }
 
     /**
@@ -640,7 +640,7 @@ class Group extends Controller
 
     /**
      * Envia e-mail pós-visita
-     * 
+     *
      * @param int $group_id ID do grupo para enviar o e-mail
      */
     function email_after_visiting( $group_id )
@@ -653,7 +653,7 @@ class Group extends Controller
             return null;
 
         if ( ! $group->confirmation_sent_after_visiting && $group->has_checkin ) {
-            
+
             $email_params = [
                 'email'          => $appointment->responsible_email,
                 'cc'             => \get_the_author_meta( 'user_email', $appointment->post_author ),

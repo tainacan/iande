@@ -15,7 +15,7 @@ class Institution extends Controller
     function view_create(array $params = [])
     {
         $this->require_authentication();
-        $this->render('create-institution');
+        $this->render_component(__('Cadastro de instituição', 'iande'), 'iande-create-institution-page');
     }
 
     /**
@@ -27,7 +27,7 @@ class Institution extends Controller
     function view_edit(array $params = [])
     {
         $this->require_authentication();
-        $this->render('edit-institution');
+        $this->render_component(__('Editar instituição', 'iande'), 'iande-edit-institution-page');
     }
 
     /**
@@ -39,7 +39,7 @@ class Institution extends Controller
     function view_list(array $params = [])
     {
         $this->require_authentication();
-        $this->render('list-institutions');
+        $this->render_component(__('Suas instituições', 'iande'), 'iande-list-institutions-page');
     }
 
     /**

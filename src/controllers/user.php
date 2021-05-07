@@ -56,7 +56,7 @@ class User extends Controller
      */
     function view_create(array $params = [])
     {
-        $this->render('create-user');
+        $this->render_component(__('Cadastro de usuário', 'iande'), 'iande-create-user-page');
     }
 
     /**
@@ -68,7 +68,7 @@ class User extends Controller
     function view_edit(array $params = [])
     {
         $this->require_authentication();
-        $this->render('edit-user');
+        $this->render_component(__('Editar usuário', 'iande'), 'iande-edit-user-page');
     }
 
     /**
@@ -80,7 +80,19 @@ class User extends Controller
     function view_change_password(array $params = [])
     {
         $this->require_authentication();
-        $this->render('change-password');
+        $this->render_component(__('Alterar senha', 'iande'), 'iande-change-password-page');
+    }
+
+    /**
+     * Renderiza a página de boas-vindas
+     *
+     * @param array $params
+     * @return void
+    */
+    function view_welcome(array $params = [])
+    {
+        $this->require_authentication();
+        $this->render_component(__('Boas vindas', 'iande'), 'iande-welcome-page');
     }
 
     /** Lista os usuários
