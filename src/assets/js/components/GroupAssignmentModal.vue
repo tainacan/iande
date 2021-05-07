@@ -5,8 +5,8 @@
 </template>
 
 <script>
-    import GroupDetails from './GroupDetails.vue'
-    import Modal from './Modal.vue'
+    import GroupDetails from '@components/GroupDetails.vue'
+    import Modal from '@components/Modal.vue'
 
     export default {
         name: 'GroupAssignmentModal',

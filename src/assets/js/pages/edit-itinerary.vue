@@ -9,8 +9,8 @@
 </template>
 
 <script>
-    import ItineraryToolbar from '../components/ItineraryToolbar.vue'
-    import ItineraryWelcomeModal from '../components/ItineraryWelcomeModal.vue'
+    import ItineraryToolbar from '@components/ItineraryToolbar.vue'
+    import ItineraryWelcomeModal from '@components/ItineraryWelcomeModal.vue'
 
     export default {
         name: 'EditItineraryPage',

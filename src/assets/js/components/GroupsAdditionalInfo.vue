@@ -15,9 +15,9 @@
     import { integer, maxValue, minLength, required } from 'vuelidate/lib/validators'
     import { get, sync } from 'vuex-pathify'
 
-    import FormError from './FormError.vue'
-    import GroupAdditionalInfo from './GroupAdditionalInfo.vue'
-    import Repeater from './Repeater.vue'
+    import FormError from '@components/FormError.vue'
+    import GroupAdditionalInfo from '@components/GroupAdditionalInfo.vue'
+    import Repeater from '@components/Repeater.vue'
 
     export default {
         name: 'GroupsAdditionalInfo',

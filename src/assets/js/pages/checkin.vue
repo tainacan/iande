@@ -159,14 +159,14 @@
     import { DateTime } from 'luxon'
     import { integer, numeric, required, requiredIf } from 'vuelidate/lib/validators'
 
-    import DisabilityInfo from '../components/DisabilityInfo.vue'
-    import Input from '../components/Input.vue'
-    import LanguageInfo from '../components/LanguageInfo.vue'
-    import RadioGroup from '../components/RadioGroup.vue'
-    import Repeater from '../components/Repeater.vue'
-    import Select from '../components/Select.vue'
-    import TextArea from '../components/TextArea.vue'
-    import { api, constant, isOther, joinMany } from '../utils'
+    import DisabilityInfo from '@components/DisabilityInfo.vue'
+    import Input from '@components/Input.vue'
+    import LanguageInfo from '@components/LanguageInfo.vue'
+    import RadioGroup from '@components/RadioGroup.vue'
+    import Repeater from '@components/Repeater.vue'
+    import Select from '@components/Select.vue'
+    import TextArea from '@components/TextArea.vue'
+    import { api, constant, isOther, joinMany } from '@utils'
 
     export default {
         name: 'CheckinPage',

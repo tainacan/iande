@@ -68,10 +68,10 @@
 <script>
     import { required } from 'vuelidate/lib/validators'
 
-    import Input from '../components/Input.vue'
-    import RadioGroup from '../components/RadioGroup.vue'
-    import TextArea from '../components/TextArea.vue'
-    import { api, constant, isOther } from '../utils'
+    import Input from '@components/Input.vue'
+    import RadioGroup from '@components/RadioGroup.vue'
+    import TextArea from '@components/TextArea.vue'
+    import { api, constant, isOther } from '@utils'
 
     export default {
         name: 'FeedbackPage',

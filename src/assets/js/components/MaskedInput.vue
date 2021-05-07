@@ -8,7 +8,7 @@
 <script>
     import { TheMask } from 'vue-the-mask'
 
-    import CustomField from './mixins/CustomField'
+    import CustomField from '@mixins/CustomField'
 
     export default {
         name: 'MaskedInput',

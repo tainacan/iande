@@ -61,14 +61,14 @@
 <script>
     import { get } from 'vuex-pathify'
 
-    import DisabilityInfo from './DisabilityInfo.vue'
-    import Input from './Input.vue'
-    import LanguageInfo from './LanguageInfo.vue'
-    import RadioGroup from './RadioGroup.vue'
-    import Repeater from './Repeater.vue'
-    import Select from './Select.vue'
-    import CustomField from './mixins/CustomField'
-    import { constant, subModel } from '../utils'
+    import DisabilityInfo from '@components/DisabilityInfo.vue'
+    import Input from '@components/Input.vue'
+    import LanguageInfo from '@components/LanguageInfo.vue'
+    import RadioGroup from '@components/RadioGroup.vue'
+    import Repeater from '@components/Repeater.vue'
+    import Select from '@components/Select.vue'
+    import CustomField from '@mixins/CustomField'
+    import { constant, subModel } from '@utils'
 
     export default {
         name: 'GroupAdditionalInfo',

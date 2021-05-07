@@ -23,10 +23,10 @@
 <script>
     import { sync } from 'vuex-pathify'
 
-    import AppointmentDetails from '../components/AppointmentDetails.vue'
-    import AppointmentsFilter from '../components/AppointmentsFilter.vue'
-    import { __ } from '../plugins/wp-i18n'
-    import { api, constant, sortBy, today } from '../utils'
+    import AppointmentDetails from '@components/AppointmentDetails.vue'
+    import AppointmentsFilter from '@components/AppointmentsFilter.vue'
+    import { __ } from '@plugins/wp-i18n'
+    import { api, constant, sortBy, today } from '@utils'
 
     export default {
         name: 'ListAppointmentsPage',

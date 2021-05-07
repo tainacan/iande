@@ -35,8 +35,8 @@
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-    import { __ } from '../plugins/wp-i18n'
-    import { dispatchIandeEvent, onIandeEvent } from '../utils/events'
+    import { __ } from '@plugins/wp-i18n'
+    import { dispatchIandeEvent, onIandeEvent } from '@utils/events'
 
     export default {
         name: 'IandeListViewMode',

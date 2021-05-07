@@ -1,4 +1,4 @@
-import FormError from '../FormError.vue'
+import FormError from '@components/FormError.vue'
 
 export default {
     components: {

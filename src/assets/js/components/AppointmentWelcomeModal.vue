@@ -17,8 +17,8 @@
 </template>
 
 <script>
-    import Modal from './Modal.vue'
-    import StepsIndicator from './StepsIndicator.vue'
+    import Modal from '@components/Modal.vue'
+    import StepsIndicator from '@components/StepsIndicator.vue'
 
     export default {
         name: 'AppointmentWelcomeModal',

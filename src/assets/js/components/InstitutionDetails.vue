@@ -36,8 +36,8 @@
 </template>
 
 <script>
-    import { __, sprintf } from '../plugins/wp-i18n'
-    import { formatCep, formatCnpj, formatPhone, isOther } from '../utils'
+    import { __, sprintf } from '@plugins/wp-i18n'
+    import { formatCep, formatCnpj, formatPhone, isOther } from '@utils'
 
     const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
 

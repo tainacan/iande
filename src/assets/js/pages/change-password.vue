@@ -26,8 +26,8 @@
     import { minLength, required, sameAs } from 'vuelidate/lib/validators'
     import { get } from 'vuex-pathify'
 
-    import Input from '../components/Input.vue'
-    import { api } from '../utils'
+    import Input from '@components/Input.vue'
+    import { api } from '@utils'
 
     export default {
         name: 'ChangePasswordPage',

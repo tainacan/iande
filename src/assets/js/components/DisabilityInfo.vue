@@ -16,10 +16,10 @@
 </template>
 
 <script>
-    import Input from './Input.vue'
-    import Select from './Select.vue'
-    import CustomField from './mixins/CustomField'
-    import { isOther, subModel, watchForOther } from '../utils'
+    import Input from '@components/Input.vue'
+    import Select from '@components/Select.vue'
+    import CustomField from '@mixins/CustomField'
+    import { isOther, subModel, watchForOther } from '@utils'
 
     export default {
         name: 'DisabilityInfo',

@@ -20,7 +20,7 @@
 <script>
     import { get } from 'vuex-pathify'
 
-    import WelcomeOption from '../components/WelcomeOption.vue'
+    import WelcomeOption from '@components/WelcomeOption.vue'
 
     export default {
         name: 'WelcomePage',

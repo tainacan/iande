@@ -7,10 +7,10 @@
 <script>
     import { get } from 'vuex-pathify'
 
-    import Select from './Select.vue'
-    import CustomField from './mixins/CustomField'
-    import { __, sprintf } from '../plugins/wp-i18n'
-    import { getSlots } from '../utils/agenda'
+    import Select from '@components/Select.vue'
+    import CustomField from '@mixins/CustomField'
+    import { __, sprintf } from '@plugins/wp-i18n'
+    import { getSlots } from '@utils/agenda'
 
     export default {
         name: 'SlotPicker',

@@ -31,8 +31,8 @@
     import Calendar from 'vue-cal'
     import 'vue-cal/dist/i18n/pt-br'
 
-    import { api } from '../../utils'
-    import { getWorkingHours } from '../../utils/agenda'
+    import { api } from '@utils'
+    import { getWorkingHours } from '@utils/agenda'
 
     export default {
         name: 'ExhibitionAgenda',

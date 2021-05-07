@@ -12,8 +12,8 @@
 </template>
 
 <script>
-    import CustomField from './mixins/CustomField'
-    import { __ } from '../plugins/wp-i18n'
+    import CustomField from '@mixins/CustomField'
+    import { __ } from '@plugins/wp-i18n'
 
     export default {
         name: 'Select',

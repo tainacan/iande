@@ -58,7 +58,7 @@
 <script>
     import Draggable from 'vuedraggable'
 
-    import { dispatchIandeEvent, onIandeEvent } from '../utils/events'
+    import { dispatchIandeEvent, onIandeEvent } from '@utils/events'
 
     export default {
         name: 'ItineraryToolbar',

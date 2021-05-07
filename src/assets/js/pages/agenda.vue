@@ -11,10 +11,10 @@
 <script>
     import { sync } from 'vuex-pathify'
 
-    import AppointmentsFilter from '../components/AppointmentsFilter.vue'
-    import GroupDetails from '../components/GroupDetails.vue'
-    import { __ } from '../plugins/wp-i18n'
-    import { api, constant, sortBy, today } from '../utils'
+    import AppointmentsFilter from '@components/AppointmentsFilter.vue'
+    import GroupDetails from '@components/GroupDetails.vue'
+    import { __ } from '@plugins/wp-i18n'
+    import { api, constant, sortBy, today } from '@utils'
 
     export default {
         name: 'GroupsAgendaPage',

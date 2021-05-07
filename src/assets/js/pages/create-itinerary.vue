@@ -41,11 +41,11 @@
     import { get } from 'vuex-pathify'
 
 
-    import Input from '../components/Input.vue'
-    import RadioGroup from '../components/RadioGroup.vue'
-    import Select from '../components/Select.vue'
-    import { __ } from '../plugins/wp-i18n'
-    import { api, constant } from '../utils'
+    import Input from '@components/Input.vue'
+    import RadioGroup from '@components/RadioGroup.vue'
+    import Select from '@components/Select.vue'
+    import { __ } from '@plugins/wp-i18n'
+    import { api, constant } from '@utils'
 
     export default {
         name: 'EditItineraryPage',

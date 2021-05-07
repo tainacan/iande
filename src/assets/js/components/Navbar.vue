@@ -40,7 +40,7 @@
 <script>
     import { sync } from 'vuex-pathify'
 
-    import { api } from '../utils'
+    import { api } from '@utils'
 
     export default {
         name: 'Navbar',

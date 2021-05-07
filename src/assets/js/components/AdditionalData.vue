@@ -24,9 +24,9 @@
     import { required } from 'vuelidate/lib/validators'
     import { sync } from 'vuex-pathify'
 
-    import RadioGroup from './RadioGroup.vue'
-    import TextArea from './TextArea.vue'
-    import { constant } from '../utils'
+    import RadioGroup from '@components/RadioGroup.vue'
+    import TextArea from '@components/TextArea.vue'
+    import { constant } from '@utils'
 
     export default {
         name: 'AdditionalData',

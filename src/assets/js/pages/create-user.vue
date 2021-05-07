@@ -37,11 +37,11 @@
 <script>
     import { email, minLength, required, sameAs } from 'vuelidate/lib/validators'
 
-    import Input from '../components/Input.vue'
-    import MaskedInput from '../components/MaskedInput.vue'
-    import StepsIndicator from '../components/StepsIndicator.vue'
-    import { api, constant } from '../utils'
-    import { phone } from '../utils/validators'
+    import Input from '@components/Input.vue'
+    import MaskedInput from '@components/MaskedInput.vue'
+    import StepsIndicator from '@components/StepsIndicator.vue'
+    import { api, constant } from '@utils'
+    import { phone } from '@utils/validators'
 
     export default {
         name: 'CreateUserPage',

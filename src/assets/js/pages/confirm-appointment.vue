@@ -48,13 +48,13 @@
 <script>
     import { get, sync } from 'vuex-pathify'
 
-    import AppointmentSuccessModal from '../components/AppointmentSuccessModal.vue'
-    import Modal from '../components/Modal.vue'
-    import StepsIndicator from '../components/StepsIndicator.vue'
-    import { api } from '../utils'
+    import AppointmentSuccessModal from '@components/AppointmentSuccessModal.vue'
+    import Modal from '@components/Modal.vue'
+    import StepsIndicator from '@components/StepsIndicator.vue'
+    import { api } from '@utils'
 
-    const AdditionalData = () => import(/* webpackChunkName: 'additional-data-step' */ '../components/AdditionalData.vue')
-    const GroupsAdditionalInfo = () => import(/* webpackChunkName: 'groups-additional-info-step' */ '../components/GroupsAdditionalInfo.vue')
+    const AdditionalData = () => import(/* webpackChunkName: 'additional-data-step' */ '@components/AdditionalData.vue')
+    const GroupsAdditionalInfo = () => import(/* webpackChunkName: 'groups-additional-info-step' */ '@components/GroupsAdditionalInfo.vue')
 
     const routes = {
         5: {

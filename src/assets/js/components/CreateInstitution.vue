@@ -66,11 +66,11 @@
     import { email, required } from 'vuelidate/lib/validators'
     import { sync } from 'vuex-pathify'
 
-    import Input from './Input.vue'
-    import MaskedInput from './MaskedInput.vue'
-    import Select from './Select.vue'
-    import { api, constant, isOther, sortBy, watchForOther } from '../utils'
-    import { cep, cnpj, phone } from '../utils/validators'
+    import Input from '@components/Input.vue'
+    import MaskedInput from '@components/MaskedInput.vue'
+    import Select from '@components/Select.vue'
+    import { api, constant, isOther, sortBy, watchForOther } from '@utils'
+    import { cep, cnpj, phone } from '@utils/validators'
 
     const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
     const states = import(/* webpackChunkName: 'estados-municipios' */ '../../json/estados.json')

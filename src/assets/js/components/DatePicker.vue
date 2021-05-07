@@ -10,8 +10,8 @@
     import Datepicker from 'vuejs-datepicker'
     import { get } from 'vuex-pathify'
 
-    import CustomField from './mixins/CustomField'
-    import { getWorkingHours } from '../utils/agenda'
+    import CustomField from '@mixins/CustomField'
+    import { getWorkingHours } from '@utils/agenda'
 
     export default {
         name: 'DatePicker',

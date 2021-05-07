@@ -19,8 +19,8 @@
 <script>
     import { sync } from 'vuex-pathify'
 
-    import InstitutionDetails from '../components/InstitutionDetails.vue'
-    import { api, constant } from '../utils'
+    import InstitutionDetails from '@components/InstitutionDetails.vue'
+    import { api } from '@utils'
 
     export default {
         name: 'ListInstitutionsPage',
