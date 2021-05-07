@@ -4,14 +4,12 @@
             <template #cell-content="{ cell, view }">
                 <template v-if="view.id === 'month'">
                     <div class="iande-admin-agenda__month">{{ cell.content }}</div>
-                    <LocalScope :count="cellAppointments(cell).length" :hours="cellHours(cell)" v-slot="{ count, hours }">
-                        <div class="iande-admin-agenda__line" v-for="hour of hours" :key="hour">
-                            {{ hour }}
-                        </div>
-                        <div class="iande-admin-agenda__line" v-if="count > 0">
-                            {{ sprintf(_n('%s reserva', '%s reservas', count, 'iande'), count) }}
-                        </div>
-                    </LocalScope>
+                    <div class="iande-admin-agenda__line" v-for="hour of cellHours(cell)" :key="hour">
+                        {{ hour }}
+                    </div>
+                    <div class="iande-admin-agenda__line" v-if="cellAppointments(cell).length > 0">
+                        {{ sprintf(_n('%s reserva', '%s reservas', cellAppointments(cell).length, 'iande'), cellAppointments(cell).length) }}
+                    </div>
                 </template>
             </template>
             <template #event="{ event }">
@@ -31,7 +29,6 @@
 <script>
     import { DateTime } from 'luxon'
     import Calendar from 'vue-cal'
-    import { LocalScope } from 'vue-local-scope'
     import 'vue-cal/dist/i18n/pt-br'
 
     import { api } from '../../utils'
@@ -41,7 +38,6 @@
         name: 'ExhibitionAgenda',
         components: {
             Calendar,
-            LocalScope,
         },
         props: {
             exhibitionId: { type: Number, required: true },
