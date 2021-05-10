@@ -93,7 +93,7 @@
                 },
             }
         },
-        async beforeMount () {
+        async created () {
             try {
                 const collections = await api.get(`${this.$iande.siteUrl}/wp-json/tainacan/v2/collections`)
                 this.collections = collections

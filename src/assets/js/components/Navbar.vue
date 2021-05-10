@@ -60,7 +60,7 @@
                 return this.user.roles.some(role => role === 'administrator' || role === 'iande_admin')
             },
         },
-        async beforeMount () {
+        async created () {
             try {
                 if (await api.post('user/is_logged_in')) {
                     const user = await api.post('user/get_logged_in')
