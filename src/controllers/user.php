@@ -56,7 +56,7 @@ class User extends Controller
      */
     function view_create(array $params = [])
     {
-        $this->render_component(__('Cadastro de usuário', 'iande'), 'iande-create-user-page');
+        $this->render_vue(__('Cadastro de usuário', 'iande'), 'create-user');
     }
 
     /**
@@ -68,7 +68,7 @@ class User extends Controller
     function view_edit(array $params = [])
     {
         $this->require_authentication();
-        $this->render_component(__('Editar usuário', 'iande'), 'iande-edit-user-page');
+        $this->render_vue(__('Editar usuário', 'iande'), 'edit-user');
     }
 
     /**
@@ -80,7 +80,7 @@ class User extends Controller
     function view_change_password(array $params = [])
     {
         $this->require_authentication();
-        $this->render_component(__('Alterar senha', 'iande'), 'iande-change-password-page');
+        $this->render_vue(__('Alterar senha', 'iande'), 'change-password');
     }
 
     /**
@@ -92,7 +92,7 @@ class User extends Controller
     function view_welcome(array $params = [])
     {
         $this->require_authentication();
-        $this->render_component(__('Boas vindas', 'iande'), 'iande-welcome-page');
+        $this->render_vue(__('Boas vindas', 'iande'), 'welcome');
     }
 
     /** Lista os usuários

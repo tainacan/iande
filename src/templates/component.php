@@ -1,13 +1,5 @@
 <?php require 'parts/header.php'; ?>
 
-<?php
-    $tag = "<$component";
-    foreach ($props as $key => $value) {
-        $tag .= " :$key='" . esc_attr(json_encode($value)) . "'";
-    }
-    $tag .= "></$component>";
-?>
-
-<?= $tag ?>
+<iande-page page="<?= esc_attr($component) ?>" :props="<?= esc_attr(json_encode((object)$props)) ?>"></iande-page>
 
 <?php require 'parts/footer.php'; ?>
