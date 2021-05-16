@@ -14,7 +14,7 @@ class Itinerary extends Controller
      */
     function view_create(array $params = []) {
         $this->require_authentication();
-        $this->render_component(__('Novo roteiro virtual', 'iande'),'iande-create-itinerary-page');
+        $this->render_vue(__('Novo roteiro virtual', 'iande'),'create-itinerary');
     }
 
     /**

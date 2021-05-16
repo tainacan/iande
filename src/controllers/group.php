@@ -434,7 +434,7 @@ class Group extends Controller
     function view_agenda(array $params = [])
     {
         $this->require_admin();
-        $this->render_component(__('Minha agenda', 'iande'), 'iande-groups-agenda-page');
+        $this->render_vue(__('Minha agenda', 'iande'), 'agenda');
     }
 
     /**
@@ -446,7 +446,7 @@ class Group extends Controller
     function view_checkin(array $params = [])
     {
         $this->require_admin();
-        $this->render_component(__('Check-in', 'iande'), 'iande-checkin-page');
+        $this->render_vue(__('Check-in', 'iande'), 'checkin');
     }
 
     /**
@@ -458,7 +458,7 @@ class Group extends Controller
     function view_feedback(array $params = [])
     {
         $this->require_authentication();
-        $this->render_component(__('Avaliação', 'iande'), 'iande-feedback-page');
+        $this->render_vue(__('Avaliação', 'iande'), 'feedback');
     }
 
     /**
@@ -470,7 +470,7 @@ class Group extends Controller
     function view_list(array $params = [])
     {
         $this->require_admin();
-        $this->render_component(__('Calendário geral', 'iande'), 'iande-list-groups-page');
+        $this->render_vue(__('Calendário geral', 'iande'), 'list-groups');
     }
 
         /**
@@ -482,7 +482,7 @@ class Group extends Controller
     function view_report(array $params = [])
     {
         $this->require_authentication();
-        $this->render_component(__('Avaliação', 'iande'), 'iande-educator-report-page');
+        $this->render_vue(__('Avaliação', 'iande'), 'report');
     }
 
     /**
