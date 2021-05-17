@@ -16,8 +16,12 @@
             }
         },
         async created () {
-            const module = await import(/* webpackMode: "lazy", webpackChunkName: "[request]-page" */ `@pages/${this.page}`)
-            this.component = module.default
+            try {
+                const module = await import(/* webpackMode: "lazy", webpackChunkName: "[request]-page" */ `@pages/${this.page}`)
+                this.component = module.default
+            } catch (err) {
+                console.error(err)
+            }
         }
     }
 </script>
