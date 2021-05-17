@@ -138,14 +138,13 @@ abstract class Controller
      *
      * @param string $title título da página
      * @param string $component nome do componente a ser renderizado na página
-     * @param array $props props passadas para o componente
      * @param integer $http_status_code status da resposta http. default: 200
      * @return void
      */
-    function render_vue(string $title, string $component, array $props = [], $http_status_code = 200)
+    function render_vue(string $title, string $component, $http_status_code = 200)
     {
         \status_header($http_status_code);
-        template_render('component', [ 'title' => $title, 'component' => $component, 'props' => $props ]);
+        template_render('component', [ 'title' => $title, 'component' => $component ]);
         die;
     }
 

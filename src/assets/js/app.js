@@ -10,7 +10,7 @@ import Vuelidate from 'vuelidate'
 import Vuex from 'vuex'
 
 import Navbar from '@components/Navbar.vue'
-import Page from '@components/Page.vue'
+import PageLoader from '@components/PageLoader.vue'
 import IandePlugin from '@plugins/iande'
 import WpI18n from '@plugins/wp-i18n'
 import createStore from '@store'
@@ -28,7 +28,7 @@ Vue.use(WpI18n)
 
 Vue.component('iande-login-page', LoginPage)
 Vue.component('iande-navbar', Navbar)
-Vue.component('iande-page', Page)
+Vue.component('iande-page-loader', PageLoader)
 Vue.component('Icon', FontAwesomeIcon)
 
 new Vue({

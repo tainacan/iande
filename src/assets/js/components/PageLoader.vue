@@ -1,15 +1,14 @@
 <template>
     <div>
-        <component :key="page" :is="component" v-if="component" v-bind="props"/>
+        <component :key="page" :is="component" v-if="component"/>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'Page',
+        name: 'PageLoader',
         props: {
             page: { type: String, required: true },
-            props: { type: Object, default: () => ({}) },
         },
         data () {
             return {
@@ -17,7 +16,8 @@
             }
         },
         async created () {
-            this.component = (await import(/* webpackMode: "lazy", webpackChunkName: "[request]-page" */ `@pages/${this.page}`)).default
+            const module = await import(/* webpackMode: "lazy", webpackChunkName: "[request]-page" */ `@pages/${this.page}`)
+            this.component = module.default
         }
     }
 </script>
