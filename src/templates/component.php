@@ -1,5 +1,5 @@
 <?php require 'parts/header.php'; ?>
 
-<iande-page page="<?= esc_attr($component) ?>" :props="<?= esc_attr(json_encode((object)$props)) ?>"></iande-page>
+<iande-page-loader page="<?= esc_attr($component) ?>"></iande-page-loader>
 
 <?php require 'parts/footer.php'; ?>
