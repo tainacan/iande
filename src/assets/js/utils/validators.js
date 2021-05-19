@@ -12,6 +12,10 @@ export function date (value) {
     return typeof value === 'string' && DateTime.fromISO(value).isValid
 }
 
+export function falsy (value) {
+    return !value
+}
+
 export const phone = helpers.regex('phone', /^\d{10,11}$/)
 
 const timeRegex = /^([01][0-9]|2[0-3]):[0-5][0-9]$/
