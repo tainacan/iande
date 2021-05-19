@@ -38,6 +38,7 @@
     import Input from '@components/Input.vue'
     import Select from '@components/Select.vue'
     import { isOther, watchForOther } from '@utils'
+    import { falsy } from '@utils/validators'
 
     export default {
         name: 'SelectExhibition',
@@ -82,7 +83,7 @@
                 numPeople: { integer, minValue: minValue(this.minPeople), required },
                 purpose: { required },
                 purposeOther: { },
-                userIncomplete: { required },
+                userIncomplete: { falsy },
             }
         },
         watch: {
