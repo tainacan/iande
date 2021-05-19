@@ -11,7 +11,10 @@
                     </span>
                     <span v-else>{{ i }}</span>
                 </div>
-                <div class="iande-steps__step-label">{{ stepLabels[i - 1] }}</div>
+                <div class="iande-steps__step-label">
+                    {{ stepLabels[i - 1] }}
+                    <Tooltip v-if="step === i && reason" :text="reasonText"/>
+                </div>
             </div>
             <div class="iande-steps__step" :key="3" :class="step === 3 && status !== 'draft' && 'active'">
                 <div class="iande-steps__step-number">
@@ -26,7 +29,7 @@
                 </div>
                 <div class="iande-steps__step-label">
                     {{ stepLabels[2] }}
-                    <Tooltip v-if="reason" :text="reasonText"/>
+                    <Tooltip v-if="step === 3 && reason" :text="reasonText"/>
                 </div>
             </div>
         </div>
