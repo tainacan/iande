@@ -100,7 +100,7 @@
                         <div>{{ sprintf(__('previsão de %s visitantes', 'iande'), group.num_people) }}</div>
                         <div>{{ sprintf(_n('%s responsável', '%s resposáveis', group.num_responsible, 'iande'), group.num_responsible) }}</div>
                         <div>{{ __(group.scholarity, 'iande') }}</div>
-                        <div>{{ __('Necessidades especiais', 'iande') }}: {{ groupDisabilities(group.disabilities) }}</div>
+                        <div>{{ __('Deficiências', 'iande') }}: {{ groupDisabilities(group.disabilities) }}</div>
                         <div>{{ __('Idiomas', 'iande') }}: {{ groupLanguages(group.languages) }}</div>
                     </div>
 

@@ -1,11 +1,11 @@
 <template>
     <div class="iande-stack stack-lg">
         <div>
-            <label :for="`${id}_type`" class="iande-label">{{ __('Qual tipo de necessidade especial?', 'iande') }}</label>
+            <label :for="`${id}_type`" class="iande-label">{{ __('Qual tipo de deficiência?', 'iande') }}</label>
             <Select :id="`${id}_type`" v-model="type" :validations="validations.disabilities_type" :options="$iande.disabilities"/>
         </div>
         <div v-if="isOther(type)">
-            <label :for="`${id}_other`" class="iande-label">{{ __('Especifique o tipo de necessidade especial', 'iande') }}</label>
+            <label :for="`${id}_other`" class="iande-label">{{ __('Especifique o tipo de deficiência', 'iande') }}</label>
             <Input :id="`${id}_other`" type="text" v-model="other" :validations="validations.disabilities_other"/>
         </div>
         <div>

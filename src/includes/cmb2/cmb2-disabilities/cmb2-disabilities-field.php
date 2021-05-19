@@ -32,7 +32,7 @@ function cmb2_render_disabilities_field_callback($field, $value, $object_id, $ob
     if (is_array($disabilities)) {
 
         $deficiencies_options = '';
-        $deficiencies_options .= '<option value="" selected>'. __('Selecione uma Necessidade Especial', 'iande') .'</option>';
+        $deficiencies_options .= '<option value="" selected>'. __('Selecione uma Deficiência', 'iande') .'</option>';
 
         foreach ($disabilities as $deficiency) {
             if (!empty($deficiency)) {
