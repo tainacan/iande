@@ -82,6 +82,7 @@
                 numPeople: { integer, minValue: minValue(this.minPeople), required },
                 purpose: { required },
                 purposeOther: { },
+                userIncomplete: { required },
             }
         },
         watch: {
