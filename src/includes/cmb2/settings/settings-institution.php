@@ -69,15 +69,15 @@ function iande_institution() {
         ]
     ]);
 
-    // Necessidades especiais
+    // Deficiências
     $iande_institutions_options->add_field([
-        'name' => __('Vocabulário de Necessidades Especiais', 'iande'),
+        'name' => __('Vocabulário de Deficiências', 'iande'),
         'id'   => 'iande_deficiency_title',
         'type' => 'title',
-        'desc' => __('Gerencie abaixo o vocabulário de necessidades atendidas', 'iande')
+        'desc' => __('Gerencie abaixo o vocabulário de deficiências', 'iande')
     ]);
     $iande_institutions_options->add_field([
-        'name'       => __('Necessidades especiais', 'iande'),
+        'name'       => __('Deficiências', 'iande'),
         'id'         => 'institution_deficiency',
         'type'       => 'text',
         'repeatable' => true,

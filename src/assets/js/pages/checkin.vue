@@ -41,12 +41,12 @@
                         </div>
 
                         <div>
-                            <label for="disabilities" class="iande-label">Quantidade efetiva de pessoas com cada tipo de necessidade especial</label>
+                            <label for="disabilities" class="iande-label">Quantidade efetiva de pessoas com cada tipo de deficiência</label>
                             <div class="iande-hint">O agendamendo prevê <span v-html="disabilities"/>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="disabilities" v-model="form.checkin_disabilities" :validations="$v.form.checkin_disabilities" :options="binaryOptions"/>
                         </div>
                         <div v-if="form.checkin_disabilities === 'no'">
-                            <label for="disabilities-actual" class="iande-hit">Quantas pessoas com necessidades especiais apareceram efetivamente?</label>
+                            <label for="disabilities-actual" class="iande-hit">Quantas pessoas com deficiência apareceram efetivamente?</label>
                             <div class="iande-complex-field">
                                 <Repeater id="disabilities-actual" v-model="form.checkin_disabilities_actual" :factory="newDisability" :validations="$v.form.checkin_disabilities_actual">
                                     <template #item="{ id, onUpdate, validations, value }">
@@ -57,7 +57,7 @@
                                     <template #addItem="{ action }">
                                         <div class="iande-add-item" role="button" tabindex="0" @click="action">
                                             <span><Icon icon="plus-circle"/></span>
-                                            <div class="iande-label">Adicionar necessidade especial</div>
+                                            <div class="iande-label">Adicionar deficiência</div>
                                         </div>
                                     </template>
                                 </Repeater>
@@ -217,7 +217,7 @@
             disabilities () {
                 const disabilities = this.group.disabilities
                 if (!disabilities || disabilities.length === 0) {
-                    return '<b>nenhuma</b> pessoa com necessidade especial'
+                    return '<b>nenhuma</b> pessoa com deficiência'
                 } else {
                     return joinMany(disabilities.map(disability => {
                         let dis = '<b>'

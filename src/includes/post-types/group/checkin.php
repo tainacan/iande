@@ -207,7 +207,7 @@ function get_group_checkin_metadata_definition()
                 if ($params['checkin_showed'] == 'no') {
                     return true;
                 } else if (empty($value)) {
-                    return __('O número de pessoas com necessidades especiais é obrigatório', 'iande');
+                    return __('O número de pessoas com deficiência é obrigatório', 'iande');
                 } else if ($value == 'yes' || $value == 'no') {
                     return true;
                 } else {
@@ -215,7 +215,7 @@ function get_group_checkin_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'name'    => __('Quantidade efetiva de pessoas com cada tipo de necessidade especial', 'iande'),
+                'name'    => __('Quantidade efetiva de pessoas com cada tipo de deficiência', 'iande'),
                 'type'    => 'radio',
                 'options' => $binary_options
             ]
@@ -231,11 +231,11 @@ function get_group_checkin_metadata_definition()
                 }
             },
             'metabox' => (object) [
-                'name'       => __('Necessidades especiais', 'iande'),
+                'name'       => __('Deficiências', 'iande'),
                 'type'       => 'disabilities',
                 'repeatable' => true,
                 'options'    => [
-                    'add_row_text' => __('Adicionar Necessidade/Quantidade', 'iande')
+                    'add_row_text' => __('Adicionar Deficiência/Quantidade', 'iande')
                 ]
             ]
         ],

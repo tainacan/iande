@@ -37,7 +37,7 @@
             </Repeater>
         </template>
         <div>
-            <label :for="`${id}_haveDisabilities`" class="iande-label">Há pessoa com necessidade especial no grupo?</label>
+            <label :for="`${id}_haveDisabilities`" class="iande-label">Há pessoa com deficiência no grupo?</label>
             <RadioGroup :id="`${id}_haveDisabilities`" v-model="haveDisabilities" :validations="$v.haveDisabilities" :options="binaryOptions"/>
         </div>
         <template v-if="haveDisabilities">
@@ -50,7 +50,7 @@
                 <template #addItem="{ action }">
                     <div class="iande-add-item" role="button" tabindex="0" @click="action">
                         <span><Icon icon="plus-circle"/></span>
-                        <div class="iande-label">Adicionar necessidade especial</div>
+                        <div class="iande-label">Adicionar deficiência</div>
                     </div>
                 </template>
             </Repeater>
