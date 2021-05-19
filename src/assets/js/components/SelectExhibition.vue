@@ -1,6 +1,10 @@
 <template>
     <div id="iande-visit-date" class="iande-stack stack-lg">
         <h1>{{ __('Sobre a visita', 'iande') }}</h1>
+        <h1>Sobre a visita</h1>
+        <div class="iande-form-error" v-if="userIncomplete">
+            {{ __('Seu perfil está incompleto. Para completá-lo,', 'iande') }} <a :href="$iandeUrl('user/edit')">{{ __('clique aqui', 'iande') }}</a>
+        </div>
         <div>
             <label class="iande-label" for="purpose">{{ __('Qual o objetivo da visita?', 'iande') }}</label>
             <Select id="purpose" v-model="purpose" :validations="$v.purpose" :options="$iande.purposes"/>
@@ -62,6 +66,14 @@
             },
             minPeople () {
                 return this.exhibition?.min_group_size ? Number(this.exhibition.min_group_size) : 5
+            },
+            user: get('users/current'),
+            userIncomplete () {
+                const user = this.user
+                if (!user) {
+                    return false
+                }
+                return !(user.first_name && user.last_name && user.email && user.phone)
             },
         },
         validations () {
