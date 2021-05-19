@@ -41,7 +41,7 @@
                         </div>
 
                         <div>
-                            <label for="disabilities" class="iande-label">Quantidade efetiva de pessoas com cada tipo de deficiências</label>
+                            <label for="disabilities" class="iande-label">Quantidade efetiva de pessoas com cada tipo de deficiência</label>
                             <div class="iande-hint">O agendamendo prevê <span v-html="disabilities"/>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="disabilities" v-model="form.checkin_disabilities" :validations="$v.form.checkin_disabilities" :options="binaryOptions"/>
                         </div>
