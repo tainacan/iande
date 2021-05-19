@@ -181,18 +181,22 @@ function add_iande_menu () {
     // $icon = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(IANDE_PLUGIN_BASEURL . '/assets/img/iande-menu-icon-pb.svg'));
 
     \add_menu_page('Iandé', 'Iandé', 'manage_iande_options', 'iande-main-menu', '', $icon, 100);
+    \add_submenu_page('iande-main-menu', '', __('Check-in', 'iande'), 'manage_iande_options', 'iande_checkin_frontend', '__');
     \add_submenu_page('iande-main-menu', '', __('Front-end', 'iande'), 'read', 'iande_frontend', '__');
 }
 \add_action('admin_menu', 'IandePlugin\\add_iande_menu');
 
 /**
- * Redireciona /admin.php?page=iande_frontend para o front-end do Iandé
+ * Redireciona algumas páginas do plugin para o front-end do Iandé
  */
 function redirect_to_iande_frontend () {
     $menu_redirect = isset($_GET['page']) ? $_GET['page'] : '';
 
     if ($menu_redirect === 'iande_frontend') {
         \wp_safe_redirect(get_site_url(null, '/iande/'));
+        exit;
+    } else if ($menu_redirect === 'iande_checkin_frontend') {
+        \wp_safe_redirect(get_site_url(null, '/iande/group/list/'));
         exit;
     }
 }
