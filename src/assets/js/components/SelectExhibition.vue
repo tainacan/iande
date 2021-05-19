@@ -1,7 +1,6 @@
 <template>
     <div id="iande-visit-date" class="iande-stack stack-lg">
         <h1>{{ __('Sobre a visita', 'iande') }}</h1>
-        <h1>Sobre a visita</h1>
         <div class="iande-form-error" v-if="userIncomplete">
             {{ __('Seu perfil está incompleto. Para completá-lo,', 'iande') }} <a :href="$iandeUrl('user/edit')">{{ __('clique aqui', 'iande') }}</a>
         </div>
