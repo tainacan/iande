@@ -1,3 +1,26 @@
+.iande-navbar-alert {
+    background-color: var(--iande-primary-color);
+    color: var(--iande-secondary-color);
+    padding: 10px;
+
+    .iande-container {
+        display: flex;
+        justify-content: flex-end;
+
+        & > div {
+            display: flex;
+            font-size: 0.875em;
+            justify-content: flex-end;
+            text-align: center;
+        }
+
+        a {
+            color: inherit;
+            margin-left: 1ex;
+        }
+    }
+}
+
 .iande-navbar {
     background-color: var(--iande-secondary-color);
     font-family: var(--iande-title-font);
