@@ -229,10 +229,10 @@ function redirect_to_iande_frontend () {
     $menu_redirect = isset($_GET['page']) ? $_GET['page'] : '';
 
     if ($menu_redirect === 'iande_frontend') {
-        \wp_safe_redirect(get_site_url(null, '/iande/'));
+        \wp_safe_redirect(get_site_url(null, '/iande/?force_view=visitor'));
         exit;
     } else if ($menu_redirect === 'iande_checkin_frontend') {
-        \wp_safe_redirect(get_site_url(null, '/iande/group/list/'));
+        \wp_safe_redirect(get_site_url(null, '/iande/group/list/?force_view=educator'));
         exit;
     }
 }

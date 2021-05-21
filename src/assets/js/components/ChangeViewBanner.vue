@@ -1,0 +1,68 @@
+<template>
+    <div>
+        <div class="iande-navbar-alert" v-if="!dismissed">
+            <div class="iande-container">
+                <div v-if="value === 'educator'">
+                    {{ __('Você está vendo a visualização de educador.', 'iande') }}
+                    <a role="button" href="javascript:void(0)" @click="setViewMode('visitor')" @keypress.enter="setViewMode('visitor')">
+                        {{ __('Alternar para a visualização de visitante', 'iande') }}
+                    </a>
+                </div>
+                <div v-else>
+                    {{ __('Você está vendo a visualização de visitante.', 'iande') }}
+                    <a role="button" href="javascript:void(0)" @click="setViewMode('educator')" @keypress.enter="setViewMode('educator')">
+                        {{ __('Alternar para visualização de educador', 'iande') }}
+                    </a>
+                </div>
+                <a :aria-label="__('Fechar', 'iande')" role="button" href="javascript:void(0)" @click="dismiss" @keypress.enter="dismiss">
+                    <Icon icon="times"/>
+                </a>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'ChangeViewBanner',
+        props: {
+            value: { type: String, required: true },
+        },
+        model: {
+            prop: 'value',
+            event: 'updateValue',
+        },
+        data () {
+            return {
+                dismissed: false,
+            }
+        },
+        beforeMount () {
+            const qs = new URLSearchParams(window.location.search)
+            if (qs.has('force_view')) {
+                const viewMode = qs.get('force_view')
+                window.sessionStorage.setItem('view', viewMode);
+                this.$emit('updateValue', viewMode)
+            } else {
+                const viewMode = window.sessionStorage.getItem('view')
+                if (viewMode) {
+                    this.$emit('updateValue', viewMode)
+                }
+            }
+
+            if (window.sessionStorage.getItem('view_dismissed')) {
+                this.dismissed = true
+            }
+        },
+        methods: {
+            dismiss () {
+                window.sessionStorage.setItem('view_dismissed', '1')
+                this.dismissed = true
+            },
+            setViewMode (viewMode) {
+                window.sessionStorage.setItem('view', viewMode)
+                this.$emit('updateValue', viewMode)
+            },
+        }
+    }
+</script>
