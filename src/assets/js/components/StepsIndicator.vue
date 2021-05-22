@@ -37,8 +37,8 @@
 </template>
 
 <script>
-    import Tooltip from './Tooltip.vue'
-    import { constant } from '../utils'
+    import Tooltip from '@components/Tooltip.vue'
+    import { constant } from '@utils'
 
     export default {
         name: 'StepsIndicator',

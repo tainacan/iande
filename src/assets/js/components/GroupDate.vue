@@ -21,11 +21,11 @@
 <script>
     import { get } from 'vuex-pathify'
 
-    import DatePicker from './DatePicker.vue'
-    import Input from './Input.vue'
-    import SlotPicker from './SlotPicker.vue'
-    import CustomField from './mixins/CustomField'
-    import { subModel } from '../utils'
+    import DatePicker from '@components/DatePicker.vue'
+    import Input from '@components/Input.vue'
+    import SlotPicker from '@components/SlotPicker.vue'
+    import CustomField from '@mixins/CustomField'
+    import { subModel } from '@utils'
 
     export default {
         name: 'GroupDate',

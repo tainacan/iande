@@ -109,8 +109,8 @@
     import { DateTime } from 'luxon'
     import { get } from 'vuex-pathify'
 
-    import { api, formatPhone, isOther, today } from '../utils'
-    import { assignmentStatus } from '../utils/groups'
+    import { api, formatPhone, isOther, today } from '@utils'
+    import { assignmentStatus } from '@utils/groups'
 
     const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 

@@ -16,8 +16,8 @@
 </template>
 
 <script>
-    import Modal from './Modal.vue'
-    import { api } from '../utils'
+    import Modal from '@components/Modal.vue'
+    import { api } from '@utils'
 
     export default {
         name: 'AppointmentCancelModal',

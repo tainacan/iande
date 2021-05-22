@@ -14,10 +14,10 @@
     import { minLength, required } from 'vuelidate/lib/validators'
     import { get, sync } from 'vuex-pathify'
 
-    import FormError from './FormError.vue'
-    import GroupDate from './GroupDate.vue'
-    import Repeater from './Repeater.vue'
-    import { date, time } from '../utils/validators'
+    import FormError from '@components/FormError.vue'
+    import GroupDate from '@components/GroupDate.vue'
+    import Repeater from '@components/Repeater.vue'
+    import { date, time } from '@utils/validators'
 
     export default {
         name: 'GroupsDate',

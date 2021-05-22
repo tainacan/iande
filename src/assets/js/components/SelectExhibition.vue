@@ -35,10 +35,10 @@
     import { integer, minValue, required } from 'vuelidate/lib/validators'
     import { get, sync } from 'vuex-pathify'
 
-    import Input from './Input.vue'
-    import Select from './Select.vue'
-    import { isOther, watchForOther } from '../utils'
-    import { falsy } from '../utils/validators'
+    import Input from '@components/Input.vue'
+    import Select from '@components/Select.vue'
+    import { isOther, watchForOther } from '@utils'
+    import { falsy } from '@utils/validators'
 
     export default {
         name: 'SelectExhibition',

@@ -44,14 +44,14 @@
 <script>
     import { call, get, sync } from 'vuex-pathify'
 
-    import Modal from '../components/Modal.vue'
-    import StepsIndicator from '../components/StepsIndicator.vue'
-    import { api } from '../utils'
+    import Modal from '@components/Modal.vue'
+    import StepsIndicator from '@components/StepsIndicator.vue'
+    import { api } from '@utils'
 
-    const CreateInstitution = () => import(/* webpackChunkName: 'create-institution-step' */ '../components/CreateInstitution.vue')
-    const GroupsDate = () => import(/* webpackChunkName: 'groups-date-step' */ '../components/GroupsDate.vue')
-    const SelectInstitution = () => import(/* webpackChunkName: 'select-institution-step' */ '../components/SelectInstitution.vue')
-    const SelectExhibition = () => import(/* webpackChunkName: 'select-exhibition-step' */ '../components/SelectExhibition.vue')
+    const CreateInstitution = () => import(/* webpackChunkName: 'create-institution-step' */ '@components/CreateInstitution.vue')
+    const GroupsDate = () => import(/* webpackChunkName: 'groups-date-step' */ '@components/GroupsDate.vue')
+    const SelectInstitution = () => import(/* webpackChunkName: 'select-institution-step' */ '@components/SelectInstitution.vue')
+    const SelectExhibition = () => import(/* webpackChunkName: 'select-exhibition-step' */ '@components/SelectExhibition.vue')
 
     const routes = {
         1: {

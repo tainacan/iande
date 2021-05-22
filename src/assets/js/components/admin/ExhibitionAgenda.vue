@@ -34,8 +34,8 @@
     import { LocalScope } from 'vue-local-scope'
     import 'vue-cal/dist/i18n/pt-br'
 
-    import { api } from '../../utils'
-    import { getWorkingHours } from '../../utils/agenda'
+    import { api } from '@utils'
+    import { getWorkingHours } from '@utils/agenda'
 
     export default {
         name: 'ExhibitionAgenda',

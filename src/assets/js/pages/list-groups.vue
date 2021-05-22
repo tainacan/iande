@@ -21,10 +21,10 @@
 <script>
     import { sync } from 'vuex-pathify'
 
-    import AppointmentsFilter from '../components/AppointmentsFilter.vue'
-    import GroupsAgenda from '../components/GroupsCalendar.vue'
-    import GroupDetails from '../components/GroupDetails.vue'
-    import { api, constant, sortBy, today } from '../utils'
+    import AppointmentsFilter from '@components/AppointmentsFilter.vue'
+    import GroupsAgenda from '@components/GroupsCalendar.vue'
+    import GroupDetails from '@components/GroupDetails.vue'
+    import { api, constant, sortBy, today } from '@utils'
 
     export default {
         name: 'ListGroupsPage',

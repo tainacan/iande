@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import CustomField from './mixins/CustomField'
+    import CustomField from '@mixins/CustomField'
 
     export default {
         name: 'Select',

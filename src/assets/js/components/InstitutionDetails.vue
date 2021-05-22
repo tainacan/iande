@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import { formatCep, formatCnpj, formatPhone, isOther } from '../utils'
+    import { formatCep, formatCnpj, formatPhone, isOther } from '@utils'
 
     const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
 

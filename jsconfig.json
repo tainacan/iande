@@ -1,5 +1,18 @@
 {
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": ["src/assets/js/components/*"],
+            "@mixins/*": ["src/assets/js/components/mixins/*"],
+            "@pages/*": ["src/assets/js/pages/*"],
+            "@plugins/*": ["src/assets/js/plugins/*"],
+            "@store/*": ["src/assets/js/store/*"],
+            "@utils/*": ["src/assets/js/utils/*"],
+            "@utils": ["src/assets/js/utils/index"]
+        }
+    },
     "include": [
-        "./src/**/*"
+        "./src/assets/**/*.js",
+        "./src/assets/**/*.vue"
     ]
 }

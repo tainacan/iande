@@ -146,11 +146,11 @@
     import { DateTime } from 'luxon'
     import { get } from 'vuex-pathify'
 
-    import AppointmentCancelModal from './AppointmentCancelModal.vue'
-    import AppointmentSuccessModal from './AppointmentSuccessModal.vue'
-    import StepsIndicator from './StepsIndicator.vue'
-    import { api, formatCep, formatPhone, isOther, sortBy } from '../utils'
-    import { getInterval } from '../utils/agenda'
+    import AppointmentCancelModal from '@components/AppointmentCancelModal.vue'
+    import AppointmentSuccessModal from '@components/AppointmentSuccessModal.vue'
+    import StepsIndicator from '@components/StepsIndicator.vue'
+    import { api, formatCep, formatPhone, isOther, sortBy } from '@utils'
+    import { getInterval } from '@utils/agenda'
 
     const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
     const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']

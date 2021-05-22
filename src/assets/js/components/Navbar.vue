@@ -47,8 +47,8 @@
 <script>
     import { sync } from 'vuex-pathify'
 
-    import ChangeViewBanner from './ChangeViewBanner.vue'
-    import { api } from '../utils'
+    import ChangeViewBanner from '@components/ChangeViewBanner.vue'
+    import { api } from '@utils'
 
     export default {
         name: 'Navbar',

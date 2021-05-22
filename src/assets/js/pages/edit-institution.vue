@@ -19,8 +19,8 @@
 <script>
     import { call, sync } from 'vuex-pathify'
 
-    import CreateInstitution from '../components/CreateInstitution.vue'
-    import { api } from '../utils'
+    import CreateInstitution from '@components/CreateInstitution.vue'
+    import { api } from '@utils'
 
     export default {
         name: 'EditInstitutionPage',

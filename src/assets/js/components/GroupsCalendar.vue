@@ -36,9 +36,9 @@
     import { get } from 'vuex-pathify'
     import 'vue-cal/dist/i18n/pt-br'
 
-    import GroupAssignmentModal from './GroupAssignmentModal.vue'
-    import { toArray } from '../utils'
-    import { assignmentStatus } from '../utils/groups'
+    import GroupAssignmentModal from '@components/GroupAssignmentModal.vue'
+    import { toArray } from '@utils'
+    import { assignmentStatus } from '@utils/groups'
 
     const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 

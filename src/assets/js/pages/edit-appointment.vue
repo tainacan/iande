@@ -23,13 +23,13 @@
 <script>
     import { call, get, sync } from 'vuex-pathify'
 
-    import { api } from '../utils'
+    import { api } from '@utils'
 
-    const AdditionalData = () => import(/* webpackChunkName: 'additional-data-step' */ '../components/AdditionalData.vue')
-    const GroupsAdditionalInfo = () => import(/* webpackChunkName: 'groups-additional-info-step' */ '../components/GroupsAdditionalInfo.vue')
-    const GroupsDate = () => import(/* webpackChunkName: 'groups-date-step' */ '../components/GroupsDate.vue')
-    const SelectInstitution = () => import(/* webpackChunkName: 'select-institution-step' */ '../components/SelectInstitution.vue')
-    const SelectExhibition = () => import(/* webpackChunkName: 'select-exhibition-step' */ '../components/SelectExhibition.vue')
+    const AdditionalData = () => import(/* webpackChunkName: 'additional-data-step' */ '@components/AdditionalData.vue')
+    const GroupsAdditionalInfo = () => import(/* webpackChunkName: 'groups-additional-info-step' */ '@components/GroupsAdditionalInfo.vue')
+    const GroupsDate = () => import(/* webpackChunkName: 'groups-date-step' */ '@components/GroupsDate.vue')
+    const SelectInstitution = () => import(/* webpackChunkName: 'select-institution-step' */ '@components/SelectInstitution.vue')
+    const SelectExhibition = () => import(/* webpackChunkName: 'select-exhibition-step' */ '@components/SelectExhibition.vue')
 
     export default {
         name: 'EditAppointmentPage',

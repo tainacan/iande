@@ -23,9 +23,9 @@
 <script>
     import { sync } from 'vuex-pathify'
 
-    import AppointmentDetails from '../components/AppointmentDetails.vue'
-    import AppointmentsFilter from '../components/AppointmentsFilter.vue'
-    import { api, constant, sortBy, today } from '../utils'
+    import AppointmentDetails from '@components/AppointmentDetails.vue'
+    import AppointmentsFilter from '@components/AppointmentsFilter.vue'
+    import { api, constant, sortBy, today } from '@utils'
 
     export default {
         name: 'ListAppointmentsPage',

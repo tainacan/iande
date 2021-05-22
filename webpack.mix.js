@@ -28,5 +28,16 @@ mix.js(assetsDir + 'js/admin.js', distDir)
             new webpack.EnvironmentPlugin({
                 NODE_ENV: process.env.NODE_ENV,
             }),
-        ]
+        ],
+        resolve: {
+            alias: {
+                '@components': path.resolve(__dirname, assetsDir, 'js/components'),
+                '@mixins': path.resolve(__dirname, assetsDir, 'js/components/mixins'),
+                '@pages': path.resolve(__dirname, assetsDir, 'js/pages'),
+                '@plugins': path.resolve(__dirname, assetsDir, 'js/plugins'),
+                '@store': path.resolve(__dirname, assetsDir, 'js/store'),
+                '@utils': path.resolve(__dirname, assetsDir, 'js/utils'),
+            },
+        }
+
     }))

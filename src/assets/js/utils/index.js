@@ -1,4 +1,4 @@
-import api, { searchParams } from './api'
+import api, { searchParams } from '@utils/api'
 
 export function constant (value) {
     return () => value
