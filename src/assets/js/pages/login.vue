@@ -38,7 +38,7 @@
 
     import Input from '@components/Input.vue'
     import StepsIndicator from '@components/StepsIndicator.vue'
-    import{ api } from '@utils'
+    import { api } from '@utils'
 
     export default {
         name: 'LoginPage',

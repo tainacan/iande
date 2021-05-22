@@ -4,7 +4,7 @@
             <option :value="nullValue" disabled v-if="value === nullValue">{{ placeholder }}</option>
             <option :value="nullValue" disabled v-if="empty && optionsLength === 0">{{ empty }}</option>
             <option v-for="(option, label) of normalizedOptions" :key="label" :value="option">
-                {{ label }}
+                {{ __(label, 'iande') }}
             </option>
         </select>
         <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
@@ -13,6 +13,7 @@
 
 <script>
     import CustomField from '@mixins/CustomField'
+    import { __ } from '@plugins/wp-i18n'
 
     export default {
         name: 'Select',
@@ -20,7 +21,7 @@
         props: {
             empty: { type: String, default: null },
             options: { type: [Array, Object], required: true },
-            placeholder: { type: String, default: 'Selecione uma das opções' },
+            placeholder: { type: String, default: __('Selecione uma das opções', 'iande') },
         },
         computed: {
             classes () {

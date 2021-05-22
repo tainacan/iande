@@ -1,8 +1,8 @@
 <template>
     <article class="mt-lg">
         <div class="iande-container iande-stack stack-lg">
-            <h1>Minha agenda</h1>
-            <AppointmentsFilter id="time" label="Exibindo" :options="timeOptions" v-model="time"/>
+            <h1>{{ __('Minha agenda', 'iande') }}</h1>
+            <AppointmentsFilter id="time" :label="__('Exibindo', 'iande')" :options="timeOptions" v-model="time"/>
             <GroupDetails v-for="group of filteredGroups" :key="group.ID" boxed :educators="educators" :group="group"/>
         </div>
     </article>
@@ -13,6 +13,7 @@
 
     import AppointmentsFilter from '@components/AppointmentsFilter.vue'
     import GroupDetails from '@components/GroupDetails.vue'
+    import { __ } from '@plugins/wp-i18n'
     import { api, constant, sortBy, today } from '@utils'
 
     export default {
@@ -40,8 +41,8 @@
                 }
             },
             timeOptions: constant([
-                { label: 'Próximas', value: 'next' },
-                { label: 'Antigas', value: 'previous' },
+                { label: __('Próximas', 'iande'), value: 'next' },
+                { label: __('Antigas', 'iande'), value: 'previous' },
             ]),
         },
         async created () {

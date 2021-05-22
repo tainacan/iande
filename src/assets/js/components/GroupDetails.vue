@@ -1,5 +1,5 @@
 <template>
-    <section class="iande-group" :class="{ boxed }">
+    <section class="iande-group -full-width" :class="{ boxed }">
         <div class="iande-group__summary" :class="{ collapsed }">
             <div>
                 <div class="iande-appointment__date">
@@ -12,7 +12,7 @@
                     <h2 :class="status">{{ name }}</h2>
                     <div class="iande-appointment__info">
                         <Icon :icon="['far', 'image']"/>
-                        <span>{{ exhibition.title }}</span>
+                        <span>{{ __(exhibition.title, 'title') }}</span>
                     </div>
                     <div class="iande-appointment__info">
                         <Icon :icon="['far', 'clock']"/>

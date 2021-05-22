@@ -4,9 +4,9 @@
         <header class="iande-navbar">
             <div class="iande-container iande-navbar__row">
                 <div class="iande-navbar__site-name">
-                    <img :src="`${$iande.siteUrl}/wp-content/plugins/iande/assets/img/iande-logo.png`" alt="Iandé"> + {{ $iande.siteName }}
+                <img :src="`${$iande.siteUrl}/wp-content/plugins/iande/assets/img/iande-logo.png`" alt="Iandé"> + {{ __($iande.siteName, 'iande') }}
                 </div>
-                <a v-if="isLoggedIn" class="iande-navbar__toggle" href="javascript:void(0)" role="button" tabindex="0" :aria-label="showMenu ? 'Ocultar menu' : 'Exibir menu'" @click="toggleMenu">
+                <a v-if="isLoggedIn" class="iande-navbar__toggle" href="javascript:void(0)" role="button" tabindex="0" :aria-label="showMenu ? __('Ocultar menu', 'iande') : __('Exibir menu', 'iande')" @click="toggleMenu">
                     <Icon icon="bars"/>
                 </a>
                 <nav :class="showMenu || 'hidden'" v-if="isLoggedIn">
@@ -14,27 +14,27 @@
                         <template v-if="userIsAdmin && viewMode === 'educator'">
                             <li class="iande-navbar__dropdown">
                                 <a href="javascript:void(0)" role="button" tabindex="0">
-                                    <span>Agendamentos</span>
+                                    <span>{{ __('Agendamento', 'iande') }}</span>
                                     <Icon icon="caret-down"/>
                                 </a>
                                 <ul>
-                                    <li><a :href="$iandeUrl('group/list')">Calendário geral</a></li>
-                                    <li><a :href="$iandeUrl('group/agenda')">Minha agenda</a></li>
+                                    <li><a :href="$iandeUrl('group/list')">{{ __('Calendário geral', 'iande') }}</a></li>
+                                    <li><a :href="$iandeUrl('group/agenda')">{{ __('Minha agenda', 'iande') }}</a></li>
                                 </ul>
                             </li>
                         </template>
                         <template v-else>
-                            <li><a :href="$iandeUrl('appointment/list')">Agendamentos</a></li>
-                            <li><a :href="$iandeUrl('institution/list')">Instituições</a></li>
+                            <li><a :href="$iandeUrl('appointment/list')">{{ __('Agendamentos', 'iande') }}</a></li>
+                            <li><a :href="$iandeUrl('institution/list')">{{ __('Instituições', 'iande') }}</a></li>
                         </template>
                         <li class="iande-navbar__dropdown">
-                            <a href="javascript:void(0)" role="button" tabindex="0" aria-label="Usuário">
+                            <a href="javascript:void(0)" role="button" tabindex="0" :aria-label="__('Usuário', 'iande')">
                                 <Icon icon="user"/>
                             </a>
                             <ul>
-                                <li><a :href="$iandeUrl('user/edit')">Editar usuário</a></li>
-                                <li><a :href="$iandeUrl('user/change-password')">Alterar senha</a></li>
-                                <li><a href="javascript:void(0)" role="button" tabindex="0" @click="logout">Logout</a></li>
+                                <li><a :href="$iandeUrl('user/edit')">{{ __('Editar usuário', 'iande') }}</a></li>
+                                <li><a :href="$iandeUrl('user/change-password')">{{ __('Alterar senha', 'iande') }}</a></li>
+                                <li><a href="javascript:void(0)" role="button" tabindex="0" @click="logout">{{ __('Logout', 'iande') }}</a></li>
                             </ul>
                         </li>
                     </ul>

@@ -19,7 +19,7 @@
                 <div class="iande-educator-agenda__event" :class="status(event.group)">
                     <p><b>{{ event.group.name }}</b></p>
                     <p>{{ event.group.hour }} - {{ formatHour(event.end) }}</p>
-                    <a href="javascript:void(0)" role="button" tabindex="0" @click="showModal(event.group)">ver mais</a>
+                    <a href="javascript:void(0)" role="button" tabindex="0" @click="showModal(event.group)">{{ __('ver mais', 'iande') }}</a>
                 </div>
             </template>
         </Calendar>

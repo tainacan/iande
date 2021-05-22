@@ -1,14 +1,14 @@
 <template>
-    <Modal ref="modal" narrow @close="close">
+    <Modal ref="modal" :label="__('Cancelar', 'iande')" narrow @close="close">
         <div class="iande-stack">
-            <h1>Cancelar agendamento</h1>
-            <p>Tem certeza de que gostaria de cancelar <b class="text-secondary">{{ name }}</b>?</p>
+            <h1>{{ __('Cancelar agendamento', 'iande') }}</h1>
+            <p>{{ __('Tem certeza de que gostaria de cancelar o agendamento?', 'iande') }}</p>
             <div class="iande-appointment__buttons">
                 <button class="iande-button solid" @click="close">
-                    Voltar
+                    {{ __('Voltar', 'iande') }}
                 </button>
                 <button class="iande-button primary" @click="cancelAppointment">
-                    Confirmar
+                    {{ __('Confirmar', 'iande') }}
                 </button>
             </div>
         </div>

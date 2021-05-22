@@ -1,19 +1,19 @@
 <template>
     <div class="iande-form-error" :id="id" v-if="validations.$error">
-        <span v-if="validations.required === false">Campo obrigatório</span>
-        <span v-else-if="validations.samePassword === false">Senhas não batem</span>
-        <span v-else-if="validations.cep === false">CEP inválido</span>
-        <span v-else-if="validations.cnpj === false">CNPJ inválido</span>
-        <span v-else-if="validations.date === false">Data inválida</span>
-        <span v-else-if="validations.email === false">E-mail inválido</span>
-        <span v-else-if="validations.phone === false">Telefone inválido</span>
-        <span v-else-if="validations.time === false">Horário inválido</span>
-        <span v-else-if="validations.integer === false">Valor não é número inteiro</span>
-        <span v-else-if="validations.maxLength === false">Selecione até {{ validations.$params.maxLength.max }} opções</span>
-        <span v-else-if="validations.maxValue === false">Valor máximo é {{ validations.$params.maxValue.max }}</span>
-        <span v-else-if="validations.minValue === false">Valor mínimo é {{ validations.$params.minValue.min }}</span>
-        <span v-else-if="validations.minChar === false">Campo tem que ter pelo menos {{ validations.$params.minChar.min }} caracteres</span>
-        <span v-else-if="validations.minGroups === false">É necessário pelo menos um grupo</span>
+        <span v-if="validations.required === false">{{ __('Campo obrigatório', 'iande') }}</span>
+        <span v-else-if="validations.samePassword === false">{{ __('Senhas não batem', 'iande') }}</span>
+        <span v-else-if="validations.cep === false">{{ __('CEP inválido', 'iande') }}</span>
+        <span v-else-if="validations.cnpj === false">{{ __('CNPJ inválido', 'iande') }}</span>
+        <span v-else-if="validations.date === false">{{ __('Data inválida', 'iande') }}</span>
+        <span v-else-if="validations.email === false">{{ __('E-mail inválido', 'iande') }}</span>
+        <span v-else-if="validations.phone === false">{{ __('Telefone inválido', 'iande') }}</span>
+        <span v-else-if="validations.time === false">{{ __('Horário inválido', 'iande') }}</span>
+        <span v-else-if="validations.integer === false">{{ __('Valor não é número inteiro', 'iande') }}</span>
+        <span v-else-if="validations.maxLength === false">{{ sprintf(__('Selecione até %s opções', 'iande'), validations.$params.maxLength.max) }}</span>
+        <span v-else-if="validations.maxValue === false">{{ sprintf(__('Valor máximo é %s', 'iande'), validations.$params.maxValue.max) }}</span>
+        <span v-else-if="validations.minValue === false">{{ sprintf(__('Valor mínimo é %s', 'iande'), validations.$params.minValue.min) }}</span>
+        <span v-else-if="validations.minChar === false">{{ sprintf(__('Campo tem que ter pelo menos %s caracteres', 'iande'), validations.$params.minChar.min) }}</span>
+        <span v-else-if="validations.minGroups === false">{{ __('É necessário pelo menos um grupo', 'iande') }}</span>
     </div>
 </template>
 

@@ -1,17 +1,17 @@
 <template>
     <section class="iande-stack stack-lg">
-        <h2 class="iande-group-title">Grupo {{ n }}:</h2>
+        <h2 class="iande-group-title">{{ sprintf(__('Grupo %s:', 'iande'), n) }}</h2>
         <div>
-            <label class="iande-label" :for="`${id}_name`">Nome do grupo</label>
-            <Input :id="`${id}_name`" type="text" placeholder="Ex.: 1° ano G - Prof. Marta" v-model="name" :validations="validations.name"/>
+            <label class="iande-label" :for="`${id}_name`">{{ __('Nome do grupo', 'iande') }}</label>
+            <Input :id="`${id}_name`" type="text" :placeholder="__('Ex.: 1° ano G - Prof. Marta', 'iande')" v-model="name" :validations="validations.name"/>
         </div>
         <template v-if="exhibition">
             <div>
-                <label class="iande-label" :for="`${id}_date`">Data da visitação</label>
-                <DatePicker :id="`${id}_date`" v-model="date" placeholder="Selecione uma data" format="dd/MM/yyyy" :validations="validations.date"/>
+                <label class="iande-label" :for="`${id}_date`">{{ __('Data da visitação', 'iande') }}</label>
+                <DatePicker :id="`${id}_date`" v-model="date" :placeholder="__('Selecione uma data', 'iande')" format="dd/MM/yyyy" :validations="validations.date"/>
             </div>
             <div v-if="date">
-                <label class="iande-label" :for="`${id}_hour`">Horário</label>
+                <label class="iande-label" :for="`${id}_hour`">{{ __('Horário', 'iande') }}</label>
                 <SlotPicker :id="`${id}_hour`" ref="slots" :day="date" v-model="hour" :validations="validations.hour"/>
             </div>
         </template>

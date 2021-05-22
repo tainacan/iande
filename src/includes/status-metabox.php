@@ -2,7 +2,7 @@
 
 function appointment_enqueue_scripts() {
     wp_enqueue_style( 'iande-admin', IANDE_PLUGIN_DISTURL . 'admin.css', [] );
-    wp_enqueue_script( 'iande-admin', IANDE_PLUGIN_DISTURL . 'admin.js' );
+    wp_enqueue_script( 'iande-admin', IANDE_PLUGIN_DISTURL . 'admin.js', ['wp-i18n'] );
 
     $site_url         = get_bloginfo('url');
     $iande_url        = get_site_url(null, '/iande');

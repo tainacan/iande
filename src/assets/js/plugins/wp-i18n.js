@@ -1,19 +1,12 @@
+export const i18n = window.wp.i18n
+export const { __, _x, _n, _nx, sprintf } = i18n
+
 export default {
     install (Vue) {
-        const i18n = window.wp.i18n
-        if (i18n) {
-            Vue.prototype.__ = i18n.__
-            Vue.prototype._x = i18n._x
-            Vue.prototype._n = i18n._n
-            Vue.prototype._nx = i18n._nx
-        } else {
-            /* Very minimal polyfill */
-            const id = (x) => x
-            const sp = (singular, plural, n) => n > 1 ? plural.replace('%s', n) : singular.replace('%s', n)
-            Vue.prototype.__ = id
-            Vue.prototype._x = id
-            Vue.prototype._n = sp
-            Vue.prototype._nx = sp
-        }
+        Vue.prototype.__ = __
+        Vue.prototype._x = _x
+        Vue.prototype._n = _n
+        Vue.prototype._nx = _nx
+        Vue.prototype.sprintf = sprintf
     }
 }

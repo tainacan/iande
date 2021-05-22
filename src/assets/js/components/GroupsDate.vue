@@ -1,6 +1,6 @@
 <template>
     <article class="iande-stack stack-lg">
-        <h1>Reserve dia e horário</h1>
+        <h1>{{ __('Reserve dia e horário', 'iande') }}</h1>
         <Repeater id="groups" class="iande-groups" v-model="groups" :factory="newGroup" :resizable="false" :validations="$v.groups">
             <template #item="{ id, onUpdate, validations, value }">
                 <GroupDate :key="id" :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>

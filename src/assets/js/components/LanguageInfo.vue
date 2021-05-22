@@ -1,11 +1,11 @@
 <template>
     <div class="iande-stack stack-lg">
         <div>
-            <label :for="`${id}_name`" class="iande-label">Qual idioma?</label>
+            <label :for="`${id}_name`" class="iande-label">{{ __('Qual idioma?', 'iande') }}</label>
             <Select :id="`${id}_name`" v-model="name" :validations="validations.languages_name" :options="$iande.languages"/>
         </div>
         <div v-if="isOther(name)">
-            <label :for="`${id}_other`" class="iande-label">Especifique o idioma</label>
+            <label :for="`${id}_other`" class="iande-label">{{ __('Especifique o idioma', 'iande') }}</label>
             <Input :id="`${id}_other`" type="text" v-model="other" :validations="validations.languages_other"/>
         </div>
     </div>

@@ -4,7 +4,7 @@
             <div>
                 <div class="iande-appointment__date">
                     <div>
-                        <div class="iande-appointment__from" v-if="manyDates">a partir de</div>
+                        <div class="iande-appointment__from" v-if="manyDates">{{ __('a partir de', 'iande') }}</div>
                         <div class="iande-appointment__day">{{ day }}</div>
                         <div class="iande-appointment__month">{{ month }}</div>
                     </div>
@@ -23,7 +23,7 @@
             </div>
             <div>
                 <StepsIndicator inline :step="Number(appointment.step)" :status="appointment.post_status" :reason="appointment.reason_cancel"/>
-                <div class="iande-appointment__toggle" :aria-label="showDetails ? 'Ocultar detalhes' : 'Exibir detalhes'" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
+                <div class="iande-appointment__toggle" :aria-label="showDetails ? __('Ocultar detalhes', 'iande') : __('Exibir detalhes', 'iande')" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
                     <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
                 </div>
             </div>
@@ -32,31 +32,31 @@
             <div class="iande-appointment__boxes">
                 <div class="iande-appointment__box">
                     <div class="iande-appointment__box-title">
-                        <h3><Icon :icon="['far', 'calendar']"/>Evento</h3>
+                        <h3><Icon :icon="['far', 'calendar']"/>{{ __('Evento', 'iande') }}</h3>
                         <div class="iande-appointment__edit" v-if="editable">
-                            <a class="iande-appointment__edit-link" :href="gotoScreen(2)">Editar</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(2)">{{ __('Editar', 'iande') }}</a>
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
-                    <div>{{ exhibition.title }}</div>
-                    <div>Previsão de {{ appointment.num_people }} pessoas no total</div>
+                    <div>{{ __(exhibition.title, 'iande') }}</div>
+                    <div>{{ sprintf(__('Previsão de %s pessoas no total', 'iande'), appointment.num_people) }}</div>
                     <div v-for="(group, i) of appointment.groups" :key="group.ID">
-                        <div>Grupo {{ i + 1 }}: {{ formatDate(group.date) }}</div>
-                        <div>{{ formatInterval(group.hour) }} (até {{ exhibition.group_size }} pessoas)</div>
+                        <div>{{ sprintf(__('Grupo %s: %s', 'iande'), i + 1, formatDate(group.date)) }}</div>
+                        <div>{{ formatInterval(group.hour) }} ({{ sprintf(__('até %s pessoas', 'iande'), exhibition.group_size) }})</div>
                     </div>
                 </div>
 
                 <div class="iande-appointment__box">
                     <div class="iande-appointment__box-title">
-                        <h3><Icon icon="user"/>Responsável pela visita</h3>
+                        <h3><Icon icon="user"/>{{ __('Responsável pela visita', 'iande') }}</h3>
                         <div class="iande-appointment__edit" v-if="editable">
-                            <a class="iande-appointment__edit-link" :href="gotoScreen(3)">Editar</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(3)">{{ __('Editar', 'iande') }}</a>
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
                     <div>
                         <div>{{ appointment.responsible_first_name }} {{ appointment.responsible_last_name }}</div>
-                        <div>{{ responsibleRole }}</div>
+                        <div>{{ __(responsibleRole, 'iande') }}</div>
                     </div>
                     <div>
                         <div>{{ appointment.responsible_email }}</div>
@@ -66,9 +66,9 @@
 
                 <div class="iande-appointment__box" v-if="institution">
                     <div class="iande-appointment__box-title">
-                        <h3><Icon icon="university"/>Instituição</h3>
+                        <h3><Icon icon="university"/>{{ __('Instituição', 'iande') }}</h3>
                         <div class="iande-appointment__edit" v-if="editable">
-                            <a class="iande-appointment__edit-link" :href="gotoScreen(3)">Editar</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(3)">{{ __('Editar', 'iande') }}</a>
                             <Icon icon="pencil-alt"/>
                         </div>
                     </div>
@@ -83,56 +83,56 @@
                             - {{ institution.district }}
                         </div>
                         <div>{{ city }} - {{ institution.state }}</div>
-                        <div>CEP {{ formatCep(institution.zip_code) }}</div>
+                        <div>{{ __('CEP', 'iande') }} {{ formatCep(institution.zip_code) }}</div>
                     </div>
                 </div>
 
                 <template v-if="appointment.step > 2">
                     <div class="iande-appointment__box" v-for="(group, i) of appointment.groups" :key="group.id">
                         <div class="iande-appointment__box-title">
-                            <h3><Icon icon="users"/>Grupo {{ i + 1 }}: {{ group.name }}</h3>
+                            <h3><Icon icon="users"/>{{ sprintf(__('Grupo %s: %s', 'iande'), i + 1, group.name) }}</h3>
                             <div class="iande-appointment__edit" v-if="editable">
-                                <a class="iande-appointment__edit-link" :href="gotoScreen(5)">Editar</a>
+                                <a class="iande-appointment__edit-link" :href="gotoScreen(5)">{{ __('Editar', 'iande') }}</a>
                                 <Icon icon="pencil-alt"/>
                             </div>
                         </div>
-                        <div>{{ group.age_range }}</div>
-                        <div>previsão de {{ group.num_people }} visitantes</div>
-                        <div>{{ group.num_responsible == 1 ? '1 responsável' : `${group.num_responsible} responsáveis` }}</div>
-                        <div>{{ group.scholarity }}</div>
-                        <div>Deficiências: {{ groupDisabilities(group.disabilities) }}</div>
-                        <div>Idiomas: {{ groupLanguages(group.languages) }}</div>
+                        <div>{{ __(group.age_range, 'iande') }}</div>
+                        <div>{{ sprintf(__('previsão de %s visitantes', 'iande'), group.num_people) }}</div>
+                        <div>{{ sprintf(_n('%s responsável', '%s resposáveis', group.num_responsible, 'iande'), group.num_responsible) }}</div>
+                        <div>{{ __(group.scholarity, 'iande') }}</div>
+                        <div>{{ __('Deficiências', 'iande') }}: {{ groupDisabilities(group.disabilities) }}</div>
+                        <div>{{ __('Idiomas', 'iande') }}: {{ groupLanguages(group.languages) }}</div>
                     </div>
 
                     <div class="iande-appointment__box">
                         <div class="iande-appointment__box-title">
-                            <h3><Icon :icon="['far', 'address-card']"/>Dados adicionais</h3>
+                            <h3><Icon :icon="['far', 'address-card']"/>{{ __('Dados adicionais', 'iande') }}</h3>
                             <div class="iande-appointment__edit" v-if="editable">
-                                <a class="iande-appointment__edit-link" :href="gotoScreen(6)">Editar</a>
+                                <a class="iande-appointment__edit-link" :href="gotoScreen(6)">{{ __('Editar', 'iande') }}</a>
                                 <Icon icon="pencil-alt"/>
                             </div>
                         </div>
-                        <div>Você já visitou o museu antes: {{ formatBinaryOption(appointment.has_visited_previously) }}</div>
-                        <div>Preparação: {{ formatBinaryOption(appointment.has_prepared_visit) }}</div>
-                        <div v-if="appointment.additional_comment">Comentários: {{ appointment.additional_comment }}</div>
+                        <div>{{ __('Você já visitou o museu antes', 'iande') }}: {{ formatBinaryOption(appointment.has_visited_previously) }}</div>
+                        <div>{{ __('Preparação', 'iande') }}: {{ formatBinaryOption(appointment.has_prepared_visit) }}</div>
+                        <div v-if="appointment.additional_comment">{{ __('Comentários', 'iande') }}: {{ appointment.additional_comment }}</div>
                     </div>
                 </template>
             </div>
             <div class="iande-appointment__buttons">
                 <button class="iande-button solid" @click="cancelAppointment" v-if="cancelable">
-                    Cancelar reserva
+                    {{ __('Cancelar reserva', 'iande') }}
                     <Icon icon="times"/>
                 </button>
                 <a class="iande-button primary" :href="$iandeUrl(`appointment/confirm?ID=${appointment.ID}`)" v-if="editable && appointment.step == 2">
-                    Confirmar reserva
+                    {{ __('Confirmar reserva', 'iande') }}
                     <Icon icon="check"/>
                 </a>
                 <button class="iande-button primary" v-else-if="editable && appointment.step == 3" @click="sendConfirmation">
-                    Finalizar reserva
+                    {{ __('Finalizar reserva', 'iande') }}
                     <Icon icon="check"/>
                 </button>
                 <button class="iande-button disabled" v-if="appointment.post_status === 'pending'" disabled>
-                    Aguardando confirmação
+                    {{ __('Aguardando confirmação', 'iande') }}
                     <Icon icon="spinner" spin/>
                 </button>
             </div>
@@ -149,11 +149,25 @@
     import AppointmentCancelModal from '@components/AppointmentCancelModal.vue'
     import AppointmentSuccessModal from '@components/AppointmentSuccessModal.vue'
     import StepsIndicator from '@components/StepsIndicator.vue'
+    import { __, _x, sprintf } from '@plugins/wp-i18n'
     import { api, formatCep, formatPhone, isOther, sortBy } from '@utils'
     import { getInterval } from '@utils/agenda'
 
     const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
-    const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+    const months = [
+        _x('Jan', 'month', 'iande'),
+        _x('Fev', 'month', 'iande'),
+        _x('Mar', 'month', 'iande'),
+        _x('Abr', 'month', 'iande'),
+        _x('Mai', 'month', 'iande'),
+        _x('Jun', 'month', 'iande'),
+        _x('Jul', 'month', 'iande'),
+        _x('Ago', 'month', 'iande'),
+        _x('Set', 'month', 'iande'),
+        _x('Out', 'month', 'iande'),
+        _x('Nov', 'month', 'iande'),
+        _x('Dez', 'month', 'iande')
+    ]
 
     export default {
         name: 'AppointmentDetails',
@@ -222,21 +236,21 @@
                 if (this.appointment.name) {
                     return this.appointment.name
                 } else {
-                    return `Agendamento #${this.appointment.ID}`
+                    return sprintf(__('Agendamento %s', 'iande'), this.appointment.ID)
                 }
             },
             purpose () {
                 if (isOther(this.appointment.purpose) && this.appointment.purpose_other) {
-                    return this.appointment.purpose_other
+                    return __(this.appointment.purpose_other, 'iande')
                 } else {
-                    return this.appointment.purpose
+                    return __(this.appointment.purpose, 'iande')
                 }
             },
             responsibleRole () {
                 if (isOther(this.appointment.responsible_role) && this.appointment.responsible_role_other) {
-                    return this.appointment.responsible_role_other
+                    return __(this.appointment.responsible_role_other, 'iande')
                 } else {
-                    return this.appointment.responsible_role
+                    return __(this.appointment.responsible_role, 'iande')
                 }
             },
         },
@@ -245,7 +259,7 @@
                 this.$refs.cancelModal.open()
             },
             formatBinaryOption (option) {
-                return option === 'yes' ? 'Sim' : 'Não'
+                return option === 'yes' ? __('Sim', 'iande') : __('Não', 'iande')
             },
             formatCep,
             formatDate (date) {
@@ -253,7 +267,7 @@
             },
             formatInterval (time) {
                 const interval = getInterval(this.exhibition, time)
-                return `${interval.start.toFormat('HH:mm')} - ${interval.end.toFormat('HH:mm')}`
+                return `${interval.start.toFormat(__('HH:mm', 'iande'))} - ${interval.end.toFormat(__('HH:mm', 'iande'))}`
             },
             formatPhone,
             gotoScreen (screen) {
@@ -261,26 +275,26 @@
             },
             groupDisabilities (disabilities) {
                 if (disabilities.length === 0) {
-                    return 'não'
+                    return __('Não', 'iande')
                 } else {
                     return disabilities
                         .map(disability => {
                             if (isOther(disability.disabilities_type) && disability.disabilities_other) {
-                                return `${disability.disabilities_type} / ${disability.disabilities_other} (${disability.disabilities_count})`
+                                return `${__(disability.disabilities_type, 'iande')} / ${__(disability.disabilities_other, 'iande')} (${disability.disabilities_count})`
                             } else {
-                                return `${disability.disabilities_type} (${disability.disabilities_count})`
+                                return `${__(disability.disabilities_type, 'iande')} (${disability.disabilities_count})`
                             }
                         })
                         .join(', ')
                 }
             },
             groupLanguages (languages) {
-                return [{ languages_name: 'Português' }, ...languages]
+                return [{ languages_name: __('Português', 'iande') }, ...languages]
                     .map(language => {
                         if (isOther(language.languages_name) && language.languages_other) {
-                            return `${language.languages_name} / ${language.languages_other}`
+                            return `${__(language.languages_name, 'iande')} / ${__(language.languages_other, 'iande')}`
                         } else {
-                            return language.languages_name
+                            return __(language.languages_name, 'iande')
                         }
                     })
                     .join(', ')

@@ -19,7 +19,6 @@
     "/dist/list-groups-page.js": "/dist/list-groups-page.js",
     "/dist/list-institutions-page.js": "/dist/list-institutions-page.js",
     "/dist/report-page.js": "/dist/report-page.js",
-    "/dist/view-item-page.js": "/dist/view-item-page.js",
     "/dist/vue-recaptcha-v3.js": "/dist/vue-recaptcha-v3.js",
     "/dist/additional-data-step.js": "/dist/additional-data-step.js",
     "/dist/groups-additional-info-step.js": "/dist/groups-additional-info-step.js",

@@ -1,24 +1,24 @@
 <template>
     <section class="iande-group iande-stack stack-lg">
-        <h2 class="iande-group-title">Grupo {{ n }}: {{ value.name }}</h2>
+        <h2 class="iande-group-title">{{ sprintf(__('Grupo %s: %s', 'iande'), n, value.name) }}</h2>
         <div>
-            <label :for="`${id}_numPeople`" class="iande-label">Quantidade prevista de pessoas<span class="iande-label__optional">Máximo de {{ maxPeople }} pessoas</span></label>
-            <Input :id="`${id}_numPeople`" type="number" :min="minPeople" :max="maxPeople" :placeholder="`Mínimo de ${minPeople} pessoas`" v-model.number="numPeople" :validations="validations.num_people"/>
+            <label :for="`${id}_numPeople`" class="iande-label">{{ __('Quantidade prevista de pessoas', 'iande') }}<span class="iande-label__optional">{{ sprintf(__('Máximo de %s pessoas', 'iande'), maxPeople) }}</span></label>
+            <Input :id="`${id}_numPeople`" type="number" :min="minPeople" :max="maxPeople" :placeholder="sprintf(__('Mínimo de %s pessoas', 'iande'), minPeople)" v-model.number="numPeople" :validations="validations.num_people"/>
         </div>
         <div>
-            <label :for="`${id}_ageRange`" class="iande-label">Perfil etário</label>
+            <label :for="`${id}_ageRange`" class="iande-label">{{ __('Perfil etário', 'iande') }}</label>
             <Select :id="`${id}_ageRange`" v-model="ageRange" :validations="validations.age_range" :options="$iande.ageRanges"/>
         </div>
         <div>
-            <label :for="`${id}_scholarity`" class="iande-label">Escolaridade</label>
+            <label :for="`${id}_scholarity`" class="iande-label">{{ __('Escolaridade', 'iande') }}</label>
             <Select :id="`${id}_scholarity`" v-model="scholarity" :validations="validations.scholarity" :options="$iande.scholarity"/>
         </div>
         <div>
-            <label :for="`${id}_numResponsible`" class="iande-label">Quantidade prevista de responsáveis</label>
-            <Input :id="`${id}_numResponsible`" type="number" min="1" max="2" placeholder="Mínimo de 1 e máximo de 2 pessoas" v-model.number="numResponsible" :validations="validations.num_responsible"/>
+            <label :for="`${id}_numResponsible`" class="iande-label">{{ __('Quantidade prevista de responsáveis', 'iande') }}</label>
+            <Input :id="`${id}_numResponsible`" type="number" min="1" max="2" :placeholder="__('Mínimo de 1 e máximo de 2 pessoas', 'iande')" v-model.number="numResponsible" :validations="validations.num_responsible"/>
         </div>
         <div>
-            <label :for="`${id}_otherLanguages`" class="iande-label">O grupo fala algum idioma diferente de português?</label>
+            <label :for="`${id}_otherLanguages`" class="iande-label">{{ __('O grupo fala algum idioma diferente de português?', 'iande') }}</label>
             <RadioGroup :id="`${id}_otherLanguages`" v-model="otherLanguages" :validations="$v.otherLanguages" :options="binaryOptions"/>
         </div>
         <template v-if="otherLanguages">
@@ -31,13 +31,13 @@
                 <template #addItem="{ action }">
                     <div class="iande-add-item" role="button" tabindex="0" @click="action">
                         <span><Icon icon="plus-circle"/></span>
-                        <div class="iande-label">Adicionar idioma</div>
+                        <div class="iande-label">{{ __('Adicionar idioma', 'iande') }}</div>
                     </div>
                 </template>
             </Repeater>
         </template>
         <div>
-            <label :for="`${id}_haveDisabilities`" class="iande-label">Há pessoa com deficiência no grupo?</label>
+            <label :for="`${id}_haveDisabilities`" class="iande-label">{{ __('Há pessoa com deficiência no grupo?', 'iande') }}</label>
             <RadioGroup :id="`${id}_haveDisabilities`" v-model="haveDisabilities" :validations="$v.haveDisabilities" :options="binaryOptions"/>
         </div>
         <template v-if="haveDisabilities">
@@ -50,7 +50,7 @@
                 <template #addItem="{ action }">
                     <div class="iande-add-item" role="button" tabindex="0" @click="action">
                         <span><Icon icon="plus-circle"/></span>
-                        <div class="iande-label">Adicionar deficiência</div>
+                        <div class="iande-label">{{ __('Adicionar deficiência', 'iande') }}</div>
                     </div>
                 </template>
             </Repeater>

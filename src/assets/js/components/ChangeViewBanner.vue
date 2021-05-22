@@ -3,18 +3,18 @@
         <div class="iande-navbar-alert" v-if="!dismissed">
             <div class="iande-container">
                 <div v-if="value === 'educator'">
-                    Você está vendo a visualização de educador.
+                    {{ __('Você está vendo a visualização de educador.', 'iande') }}
                     <a role="button" href="javascript:void(0)" @click="setViewMode('visitor')" @keypress.enter="setViewMode('visitor')">
-                        Alternar para a visualização de visitante
+                        {{ __('Alternar para a visualização de visitante', 'iande') }}
                     </a>
                 </div>
                 <div v-else>
-                    Você está vendo a visualização de visitante.
+                    {{ __('Você está vendo a visualização de visitante.', 'iande') }}
                     <a role="button" href="javascript:void(0)" @click="setViewMode('educator')" @keypress.enter="setViewMode('educator')">
-                        Alternar para visualização de educador
+                        {{ __('Alternar para visualização de educador', 'iande') }}
                     </a>
                 </div>
-                <a aria-label="Fechar" role="button" href="javascript:void(0)" @click="dismiss" @keypress.enter="dismiss">
+                <a :aria-label="__('Fechar', 'iande')" role="button" href="javascript:void(0)" @click="dismiss" @keypress.enter="dismiss">
                     <Icon icon="times"/>
                 </a>
             </div>

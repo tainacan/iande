@@ -33,5 +33,5 @@ Vue.component('Icon', FontAwesomeIcon)
 
 new Vue({
     el: '#iande-app',
-    store: createStore()
+    store: createStore(),
 })
