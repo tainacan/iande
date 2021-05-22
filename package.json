@@ -24,12 +24,12 @@
   "homepage": "https://gitlab.com/percebe/iande-plugin#readme",
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "laravel-mix": "^6.0.10",
-    "postcss": "^8.2.4",
+    "laravel-mix": "^6.0.19",
+    "postcss": "^8.3.0",
     "resolve-url-loader": "^3.1.2",
-    "sass": "^1.32.5",
+    "sass": "^1.34.0",
     "sass-loader": "^8.0.2",
-    "vue-loader": "^15.9.6",
+    "vue-loader": "^15.9.7",
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
@@ -37,7 +37,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.2",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/vue-fontawesome": "^0.1.10",
-    "luxon": "^1.25.0",
+    "luxon": "^1.27.0",
     "v-tooltip": "^2.1.2",
     "vue": "^2.6.12",
     "vue-async-computed": "^3.9.0",
