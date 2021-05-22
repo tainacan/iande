@@ -39,5 +39,5 @@ mix.js(assetsDir + 'js/admin.js', distDir)
                 '@store': path.resolve(__dirname, assetsDir, 'js/store'),
                 '@utils': path.resolve(__dirname, assetsDir, 'js/utils'),
             },
-        }
+        },
     }))

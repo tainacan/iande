@@ -1,4 +1,5 @@
 import { DateTime, Interval } from 'luxon'
+
 import { toArray } from '@utils/index'
 
 const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday',
