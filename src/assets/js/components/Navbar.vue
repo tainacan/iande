@@ -59,7 +59,7 @@
             return {
                 isLoggedIn: false,
                 showMenu: false,
-                viewMode: 'educator',
+                viewMode: 'visitor',
             }
         },
         computed: {
