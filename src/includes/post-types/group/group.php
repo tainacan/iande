@@ -122,7 +122,16 @@ function get_group_metadata_definition()
         'orderby'        => 'ID',
     ]);
 
-    $users = \get_users();
+    $staff_roles = [];
+    foreach (\wp_roles()->roles as $role_slug => $role) {
+        if (!empty($role['capabilities']['manage_iande_options'])) {
+            $staff_roles[] = $role_slug;
+        }
+    }
+
+    $staff_users = \get_users([
+        'role__in' => $staff_roles,
+    ]);
 
     $metadata_definition = [
 
@@ -323,8 +332,8 @@ function get_group_metadata_definition()
         'educator_id' => (object) [
             'type'       => 'integer',
             'required'   => false,
-            'validation' => function ($value) use ($users) {
-                if (is_numeric($value) && in_array($value, array_column($users, 'ID'))) {
+            'validation' => function ($value) use ($staff_users) {
+                if (is_numeric($value) && in_array($value, array_column($staff_users, 'ID'))) {
                     return true;
                 } else {
                     return __('O valor informado não corresponde a um usuário válido', 'iande');
@@ -333,7 +342,7 @@ function get_group_metadata_definition()
             'metabox' => (object) [
                 'name'    => __('Educador', 'iande'),
                 'type'    => 'select',
-                'options' => map_users_to_options($users, true)
+                'options' => map_users_to_options($staff_users, true)
             ]
         ],
         'confirmation_sent_after_visiting' => (object) [
