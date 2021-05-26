@@ -10,7 +10,7 @@
                 </a>
             </div>
             <AppointmentDetails v-for="appointment of filteredAppointments" :key="appointment.ID" :appointment="appointment"/>
-            <div class="iande-container narrow">
+            <div class="iande-container narrow" v-if="filteredAppointments.length > 0">
                 <a class="iande-button outline" :href="$iandeUrl('appointment/create')">
                     <Icon icon="plus-circle"/>
                     {{ __('Criar novo agendamento', 'iande') }}
