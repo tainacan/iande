@@ -32,13 +32,27 @@
                 }
             },
             disabledDates () {
-                const customPredictor = this.disabledDatesPredictor
-                const daysInAdvance = this.exhibition?.days_advance ? Number(this.exhibition.days_advance) : 1
-                const to = DateTime
-                    .fromObject({ hour: 0, minute: 0, second: 0, millisecond: 0 })
-                    .plus({ days: daysInAdvance })
-                    .toJSDate()
-                return { customPredictor, to }
+                const disabledDates = {
+                    customPredictor: this.disabledDatesPredictor,
+                }
+                if (this.exhibition) {
+                    const daysInAdvance = this.exhibition.days_advance ? Number(this.exhibition.days_advance) : 1
+                    const minAdvance = DateTime
+                        .fromObject({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+                        .plus({ days: daysInAdvance })
+                        .toJSDate()
+                    const startDate = DateTime.fromISO(this.exhibition.date_from).toJSDate()
+                    if (startDate > minAdvance) {
+                        disabledDates.to = startDate
+                    } else {
+                        disabledDates.to = minAdvance
+                    }
+                    if (this.exhibition.date_to) {
+                        const endDate = DateTime.fromISO(this.exhibition.date_to).toJSDate()
+                        disabledDates.from = endDate
+                    }
+                }
+                return disabledDates
             },
             dateValue: {
                 get () {
