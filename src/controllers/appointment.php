@@ -797,7 +797,7 @@ class Appointment extends Controller
                     'post_type'   => 'group',
                     'post_author' => \get_current_user_id(),
                     'post_title'  => $title,
-                    'post_status' => 'pending',
+                    'post_status' => 'draft',
                     'meta_input'  => $meta_input
                 ];
 
