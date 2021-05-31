@@ -35,7 +35,7 @@
             filteredAppointments () {
                 return this.rawData.appointments
             },
-            rawData: constant(data),
+            rawData: constant(window.IandeReports),
         }
     }
 </script>

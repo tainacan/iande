@@ -37,10 +37,10 @@ function parse_report_data ($post_type, $definitions) {
 function localize_reports() {
 
     $array = [
-        //'appointments' => parse_report_data('appointment', get_appointment_metadata_definition()),
+        'appointments' => parse_report_data('appointment', get_appointment_metadata_definition()),
         'exhibitions'  => parse_report_data('exhibition', get_exhibition_metadata_definition()),
-        //'institutions' => parse_report_data('institution', get_institution_metadata_definition()),
-        //'groups'       => parse_report_data('group', get_group_metadata_definition())
+        'groups'       => parse_report_data('group', get_group_metadata_definition()),
+        'institutions' => parse_report_data('institution', get_institution_metadata_definition()),
     ];
 
     return \array_filter($array);
