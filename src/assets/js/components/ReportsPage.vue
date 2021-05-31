@@ -1,6 +1,8 @@
 <template>
     <div class="iande-charts-wrapper">
-        <InstitutionalGroupsChart :appointments="filteredAppointments"/>
+        <div class="iande-charts-grid">
+            <InstitutionalGroupsChart :appointments="filteredAppointments"/>
+        </div>
     </div>
 </template>
 
