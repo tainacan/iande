@@ -271,7 +271,7 @@ class Institution extends Controller
      */
     function parse_institution(\WP_Post $institution, array $metadata = [])
     {
-        $pased_institution = (object) [
+        $parsed_institution = (object) [
             'ID' => $institution->ID,
             'user_id' => $institution->post_author,
             'title' => $institution->post_title,
@@ -280,12 +280,12 @@ class Institution extends Controller
         $metadata_definition = get_institution_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
-            $pased_institution->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
+            $parsed_institution->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
         }
 
-        $pased_institution = \apply_filters('iande.parse_institution', $pased_institution, $institution, $metadata);
+        $parsed_institution = \apply_filters('iande.parse_institution', $parsed_institution, $institution, $metadata);
 
-        return $pased_institution;
+        return $parsed_institution;
     }
 
     /**

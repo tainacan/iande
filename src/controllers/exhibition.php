@@ -124,7 +124,7 @@ class Exhibition extends Controller
     function parse_exhibition(\WP_Post $exhibition, array $metadata = [])
     {
 
-        $pased_exhibition = (object) [
+        $parsed_exhibition = (object) [
             'ID'      => $exhibition->ID,
             'title'   => $exhibition->post_title,
         ];
@@ -153,22 +153,22 @@ class Exhibition extends Controller
                     ];
 
                 }
-                $pased_exhibition->$key = $exceptions;
+                $parsed_exhibition->$key = $exceptions;
 
             } elseif ( in_array($key, $days) && isset($metadata[$key][0])) {
 
                 $day                    = unserialize($metadata[$key][0]);
-                $pased_exhibition->$key = (object) $day;
+                $parsed_exhibition->$key = (object) $day;
 
             } else {
-                $pased_exhibition->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
+                $parsed_exhibition->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
             }
 
         }
 
-        $pased_exhibition = \apply_filters('iande.parse_exhibition', $pased_exhibition, $exhibition, $metadata);
+        $parsed_exhibition = \apply_filters('iande.parse_exhibition', $parsed_exhibition, $exhibition, $metadata);
 
-        return $pased_exhibition;
+        return $parsed_exhibition;
 
     }
 
