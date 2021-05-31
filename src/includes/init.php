@@ -191,9 +191,31 @@ function add_iande_menu () {
     \add_menu_page('Iandé', 'Iandé', 'manage_iande_options', 'iande-main-menu', '', $icon, 100);
     \add_submenu_page('iande-main-menu', '', __('Check-in', 'iande'), 'manage_iande_options', 'iande_checkin_frontend', '__');
     \add_submenu_page('iande-main-menu', '', __('Front-end', 'iande'), 'read', 'iande_frontend', '__');
-    \add_submenu_page('iande-main-menu', __('Relatórios', 'iande'), __('Relatórios', 'iande'), 'manage_iande_options', 'iande_reports', 'IandePlugin\\render_iande_reports_page');
+
+    // Adiciona menu de relatórios no admin
+    $reports = \add_submenu_page('iande-main-menu', __('Relatórios', 'iande'), __('Relatórios', 'iande'), 'manage_iande_options', 'iande_reports', 'IandePlugin\\render_iande_reports_page');
+    \add_action('admin_print_scripts-' . $reports, 'IandePlugin\\add_assets_reports');
 }
 \add_action('admin_menu', 'IandePlugin\\add_iande_menu');
+
+/**
+ * Adiciona os assets da página de relatórios no admin
+ */
+function add_assets_reports() {
+    wp_enqueue_style( 'iande-reports-admin', IANDE_PLUGIN_DISTURL . 'reports.css', [] );
+    wp_enqueue_script('iande-reports-admin', IANDE_PLUGIN_DISTURL . 'reports.js', []);
+
+    $localize_reports = localize_reports();
+
+    if (!empty($localize_reports)) {
+        wp_localize_script(
+            'iande-reports-admin',
+            'IandeReports',
+            $localize_reports
+        );
+    }
+
+}
 
 /**
  * Redireciona algumas páginas do plugin para o front-end do Iandé
