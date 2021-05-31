@@ -9,6 +9,6 @@ $appointments = parse_report_data('appointment', get_appointment_metadata_defini
     <pre>
     <?php var_dump($appointments) ?>
     </pre>
-    <div id="vue-app">
+    <div id="iande-reports-app">
     </div>
 </div>
