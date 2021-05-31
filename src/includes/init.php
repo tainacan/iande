@@ -191,6 +191,7 @@ function add_iande_menu () {
     \add_menu_page('Iandé', 'Iandé', 'manage_iande_options', 'iande-main-menu', '', $icon, 100);
     \add_submenu_page('iande-main-menu', '', __('Check-in', 'iande'), 'manage_iande_options', 'iande_checkin_frontend', '__');
     \add_submenu_page('iande-main-menu', '', __('Front-end', 'iande'), 'read', 'iande_frontend', '__');
+    \add_submenu_page('iande-main-menu', __('Relatórios', 'iande'), __('Relatórios', 'iande'), 'manage_iande_options', 'iande_reports', 'IandePlugin\\render_iande_reports_page');
 }
 \add_action('admin_menu', 'IandePlugin\\add_iande_menu');
 
@@ -209,6 +210,13 @@ function redirect_to_iande_frontend () {
     }
 }
 \add_action( 'admin_init', 'IandePlugin\\redirect_to_iande_frontend', 1 );
+
+/**
+ * Renderiza a página de relatórios
+ */
+function render_iande_reports_page () {
+    require_once 'reports.php';
+}
 
 /**
  * Redireciona usuários com a role `iande_admin` para a área administrativa do plugin
