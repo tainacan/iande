@@ -4,6 +4,7 @@ namespace IandePlugin;
 
 /**
  * Retorna todos um post de um post_type, devidamente serializado
+ *
  * @param string $post_type O 'post_type' escolhido
  * @param array $definitions As definições dos campos do post_type
  * @return array A array de posts
