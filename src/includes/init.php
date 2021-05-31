@@ -202,8 +202,8 @@ function add_iande_menu () {
  * Adiciona os assets da página de relatórios no admin
  */
 function add_assets_reports() {
-    wp_enqueue_style( 'iande-reports-admin', IANDE_PLUGIN_DISTURL . 'reports.css', [] );
-    wp_enqueue_script('iande-reports-admin', IANDE_PLUGIN_DISTURL . 'reports.js', []);
+    \wp_enqueue_style( 'iande-reports-admin', IANDE_PLUGIN_DISTURL . 'reports.css', [] );
+    \wp_enqueue_script('iande-reports-admin', IANDE_PLUGIN_DISTURL . 'reports.js', ['wp-i18n']);
 
     $localize_reports = localize_reports();
 

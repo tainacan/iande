@@ -8,5 +8,6 @@ namespace IandePlugin;
     <h1><?= __('Relatórios', 'iande') ?></h1>
 
     <div id="iande-reports-app">
+        <iande-reports-page></iande-reports-page>
     </div>
 </div>
