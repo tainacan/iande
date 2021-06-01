@@ -6,6 +6,9 @@
         <div class="iande-charts-grid">
             <RecurringVisitorsChart :appointments="filteredAppointments"/>
         </div>
+        <div class="iande-charts-grid">
+            <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="institutionsMap" />
+        </div>
     </div>
 </template>
 
@@ -14,13 +17,16 @@
 
     import InstitutionalGroupsChart from '@components/charts/InstitutionalGroups.vue'
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
+    import GroupsByInstitutionChart from '@components/charts/GroupsByInstitution.vue'
+
     import { arrayToMap, constant, today } from '@utils'
 
     export default {
         name: 'ReportsPage',
         components: {
             InstitutionalGroupsChart,
-            RecurringVisitorsChart
+            RecurringVisitorsChart,
+            GroupsByInstitutionChart
         },
         data () {
             return {
