@@ -233,3 +233,16 @@ function current_user_is( string $role )
     $user = wp_get_current_user();
     return in_array($role, (array) $user->roles);
 }
+
+/**
+ * Verifica se o usuário atual possui a capability `manage_iande_options`
+ */
+function is_iande_admin() {
+
+    if (\current_user_can('manage_iande_options')) {
+        return true;
+    }
+
+    return false;
+
+}
