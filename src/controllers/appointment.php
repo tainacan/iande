@@ -529,7 +529,7 @@ class Appointment extends Controller
 
         $user_id = $appointment instanceof \WP_Post ? $appointment->post_author : $appointment->user_id;
 
-        if ($user_id != get_current_user_id() && !\current_user_can('manage_iande_options')) {
+        if ($user_id != get_current_user_id() && !is_iande_admin()) {
             $this->error(__('Você não tem permissão para ver este agendamento', 'iande'), 403);
         }
     }
