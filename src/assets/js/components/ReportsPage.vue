@@ -10,7 +10,7 @@
     import { DateTime } from 'luxon'
 
     import InstitutionalGroupsChart from '@components/charts/InstitutionalGroups.vue'
-    import { constant, today } from '@utils'
+    import { arrayToMap, constant, today } from '@utils'
 
     const data = {
         appointments: [
@@ -32,6 +32,9 @@
             }
         },
         computed: {
+            appointmentsMap () {
+                return arrayToMap(this.rawData.appointments, 'ID')
+            },
             filteredAppointments () {
                 return this.rawData.appointments
             },
@@ -39,6 +42,9 @@
                 return this.rawData.groups.filter(group => {
                     return group.date >= this.dateFrom && group.date <= this.dateTo
                 })
+            },
+            groupsMap () {
+                return arrayToMap(this.rawData.groups, 'ID')
             },
             rawData: constant(window.IandeReports),
         }

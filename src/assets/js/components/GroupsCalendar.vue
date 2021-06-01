@@ -34,7 +34,7 @@
     import 'vue-cal/dist/i18n/pt-br'
 
     import GroupAssignmentModal from '@components/GroupAssignmentModal.vue'
-    import { toArray } from '@utils'
+    import { arrayToMap, toArray } from '@utils'
     import { assignmentStatus } from '@utils/groups'
 
     const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
@@ -71,7 +71,7 @@
             },
             events () {
                 return this.groups.map(group => {
-                    const exhibition = this.exhibitionsList.get(Number(group.exhibition_id)) ?? 60
+                    const exhibition = this.exhibitionsMap.get(group.exhibition_id) ?? 60
                     const start = group.hour
                     const delta = { minutes: Number(exhibition.duration) }
                     const end = DateTime.fromFormat(start, 'HH:mm').plus(delta).toFormat('HH:mm')
@@ -82,8 +82,8 @@
                     }
                 })
             },
-            exhibitionsList () {
-                return new Map(this.exhibitions.map(exhibition => [Number(exhibition.ID), exhibition]))
+            exhibitionsMap () {
+                return arrayToMap(this.exhibitions, 'ID')
             },
             timeLimits () {
                 let start = '24:00'
