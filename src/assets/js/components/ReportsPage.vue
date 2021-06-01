@@ -12,14 +12,6 @@
     import InstitutionalGroupsChart from '@components/charts/InstitutionalGroups.vue'
     import { arrayToMap, constant, today } from '@utils'
 
-    const data = {
-        appointments: [
-            { ID: 1, group_nature: 'institutional' },
-            { ID: 2, group_nature: 'institutional' },
-            { ID: 3, group_nature: 'other' },
-        ]
-    }
-
     export default {
         name: 'ReportsPage',
         components: {
