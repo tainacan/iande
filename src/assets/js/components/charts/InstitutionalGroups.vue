@@ -11,7 +11,7 @@
     export default {
         name: 'InstitutionalGroupsChart',
         props: {
-            appointments: { type: Array, required: true },
+            groups: { type: Array, required: true },
         },
         computed: {
             options () {
@@ -23,8 +23,10 @@
                 let institutionalNature = 0
                 let otherNature = 0
 
-                for (const appointment of this.appointments) {
-                    if (appointment.group_nature === 'institutional') {
+                for (const group of this.groups) {
+                    if (!group.checkin_institutional) {
+                        continue
+                    } else if (group.checkin_institutional === 'yes') {
                         institutionalNature++
                     } else {
                         otherNature++

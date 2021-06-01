@@ -1,7 +1,7 @@
 <template>
     <div class="iande-charts-wrapper">
         <div class="iande-charts-grid">
-            <InstitutionalGroupsChart :appointments="filteredAppointments"/>
+            <InstitutionalGroupsChart :groups="filteredGroups"/>
         </div>
     </div>
 </template>
@@ -34,6 +34,11 @@
         computed: {
             filteredAppointments () {
                 return this.rawData.appointments
+            },
+            filteredGroups () {
+                return this.rawData.groups.filter(group => {
+                    return group.date >= this.dateFrom && group.date <= this.dateTo
+                })
             },
             rawData: constant(window.IandeReports),
         }
