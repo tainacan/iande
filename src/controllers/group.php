@@ -56,7 +56,7 @@ class Group extends Controller
 
         $group = $this->get_parsed_group($params['ID']);
 
-        if (!\current_user_can('manage_iande_options') && $group->user_id != \get_current_user_id()) {
+        if (!is_iande_admin() && $group->user_id != \get_current_user_id()) {
             $this->error(__('This action requires admin permission', 'iande'));
         }
 
@@ -362,7 +362,7 @@ class Group extends Controller
             $this->error(__('O parâmetro deve ser um número inteiro', 'iande'));
         }
 
-        if (!\current_user_can('manage_iande_options')) {
+        if (!is_iande_admin()) {
             $this->is_educator($params['ID']);
         }
 
@@ -404,7 +404,7 @@ class Group extends Controller
             $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
 
-        if (!\current_user_can('manage_iande_options')) {
+        if (!is_iande_admin()) {
             $this->is_educator($params['ID']);
         }
 
