@@ -46,7 +46,7 @@
                 return arrayToMap(this.rawData.groups, 'ID')
             },
             institutionsMap () {
-                return arrayToMap(this.rawData.institutions, 'ID')
+                return this.rawData.institutions
             },
             rawData: constant(window.IandeReports),
         }
