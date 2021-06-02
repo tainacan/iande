@@ -51,7 +51,7 @@ function serialize_post_type ($post_type, $definitions) {
  *
  * @return array
  */
-function prepare_report_data() {
+function prepare_report_data () {
     return [
         'appointments' => serialize_post_type('appointment', get_appointment_metadata_definition()),
         'exhibitions'  => serialize_post_type('exhibition', get_exhibition_metadata_definition()),
