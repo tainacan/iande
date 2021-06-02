@@ -66,5 +66,5 @@ function prepare_report_data() {
  * @return void
  */
 function localize_reports_assets () {
-    \wp_localize_script('iande-admin', 'IandeReports', prepare_report_data));
+    \wp_localize_script('iande-admin', 'IandeReports', prepare_report_data());
 }
