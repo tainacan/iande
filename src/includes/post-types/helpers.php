@@ -3,35 +3,6 @@
 namespace IandePlugin;
 
 /**
- * Retorna todos um post de um post_type, devidamente serializado
- *
- * @param string $post_type O 'post_type' escolhido
- * @param array $definitions As definições dos campos do post_type
- * @return array A array de posts
- */
-function parse_report_data ($post_type, $definitions) {
-    global $wpdb;
-
-    $posts_results = $wpdb->get_results($wpdb->prepare("SELECT ID, post_title, post_type, post_status, post_author, post_date FROM $wpdb->posts WHERE post_type = %s", $post_type));
-    $meta_results = $wpdb->get_results($wpdb->prepare("SELECT pm.post_id, pm.meta_key, pm.meta_value FROM $wpdb->postmeta pm INNER JOIN $wpdb->posts p ON p.ID = pm.post_id WHERE p.post_type = %s", $post_type));
-
-    $posts = [];
-    foreach ($posts_results as $post) {
-        $posts[$post->ID] = $post;
-    }
-
-    foreach ($meta_results as $meta) {
-        $postId = $meta->post_id;
-        $metaKey = $meta->meta_key;
-        if (\key_exists($postId, $posts) && \key_exists($metaKey, $definitions)) {
-            $posts[$postId]->$metaKey = \maybe_unserialize($meta->meta_value);
-        }
-    }
-
-    return \array_values($posts);
-}
-
-/**
  * Determina se um post existe numa array de posts
  *
  * @param int $post_id ID do post procurado
