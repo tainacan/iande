@@ -184,7 +184,7 @@ function iande_settings_emails() {
     ]);
     $iande_emails_options->add_field([
         'id'          => 'email_canceled',
-        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%exposicao%</b>, <b>%grupos%</b>, <b>%link%</b>.', 'iande'),
+        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%exposicao%</b>, <b>%grupos%</b>, <b>%link%</b>, <b>%motivo%</b>.', 'iande'),
         'type'        => 'wysiwyg',
         'show_names'  => false,
         'options'     => $options

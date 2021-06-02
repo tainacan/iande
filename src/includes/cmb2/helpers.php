@@ -387,7 +387,8 @@ Sua visita foi cancelada.
 Dados da visita cancelada:
 
 <b>Exposição:</b> %exposicao%
-<b>Grupo(s): </b> %grupos%
+<b>Grupo(s):</b> %grupos%
+<b>Motivo do cancelament:</b> %motivo%
 
 Caso queira fazer um novo agendamento, <a href='%link%'>clique aqui</a>.";
 

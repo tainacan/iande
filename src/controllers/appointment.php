@@ -176,11 +176,11 @@ class Appointment extends Controller
 
             \do_action('iande.before_cancel_appointment', $params);
 
+            $cancel_reason = __('Cancelado pelo usuário', 'iande');
             if (!empty($params['reason'])) {
-                \update_post_meta($params['ID'], 'reason_cancel', $params['reason'], '');
-            } else {
-                \update_post_meta($params['ID'], 'reason_cancel', __('Cancelado pelo usuário', 'iande'), '');
+                $cancel_reason = $params['reason'];
             }
+            \update_post_meta($params['ID'], 'reason_cancel', $cancel_reason, '');
 
             $update_appointment = [
                 'ID'          => $params['ID'],
@@ -208,7 +208,8 @@ class Appointment extends Controller
                     'nome'       => $appointment->responsible_first_name,
                     'exposicao'  => \get_the_title($appointment->exhibition_id),
                     'grupos'     => $groups,
-                    'link'       => \home_url('/iande/appointment/create/')
+                    'link'       => \home_url('/iande/appointment/create/'),
+                    'motivo'     => $cancel_reason,
                 ]
             ];
             $this->email('email_canceled', $email_params);
