@@ -2,11 +2,7 @@
     <div class="iande-charts-wrapper">
         <div class="iande-charts-grid">
             <InstitutionalGroupsChart :groups="filteredGroups"/>
-        </div>
-        <div class="iande-charts-grid">
             <RecurringVisitorsChart :appointments="filteredAppointments"/>
-        </div>
-        <div class="iande-charts-grid">
             <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="institutionsMap" />
         </div>
     </div>
@@ -48,6 +44,9 @@
             },
             groupsMap () {
                 return arrayToMap(this.rawData.groups, 'ID')
+            },
+            institutionsMap () {
+                return arrayToMap(this.rawData.institutions, 'ID')
             },
             rawData: constant(window.IandeReports),
         }

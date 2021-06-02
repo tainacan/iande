@@ -6,13 +6,11 @@
 </template>
 
 <script>
-    import { __, _x } from '@plugins/wp-i18n'
-
     export default {
         name: 'GroupsByInstitutionChart',
         props: {
             appointments: { type: Array, required: true },
-            institutions: { type: Array, required: true },
+            institutions: { type: Map, required: true },
         },
         computed: {
             categories () {

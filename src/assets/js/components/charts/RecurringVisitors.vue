@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    import { __, _x } from '@plugins/wp-i18n'
+    import { __ } from '@plugins/wp-i18n'
 
     export default {
         name: 'RecurringVisitorsChart',
