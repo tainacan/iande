@@ -1,3 +1,5 @@
+import { __ } from '@plugins/wp-i18n'
+
 const baseUrl = window.IandeSettings.iandeUrl + '/'
 
 export function searchParams (object) {
@@ -24,12 +26,16 @@ async function client (method, relativeUrl, body, headers) {
     const request = !body || body instanceof URLSearchParams
         ? { method, headers: { ...headers, 'Accept': 'application/json' } }
         : { method, body: JSON.stringify(body), headers: { ...headers, 'Content-Type': 'application/json' } }
-    const response = await window.fetch(url, request)
-    const data = await response.json()
-    if (response.ok) {
-        return data
-    } else {
-        return Promise.reject(data)
+    try {
+        const response = await window.fetch(url, request)
+        const data = await response.json()
+        if (response.ok) {
+            return data
+        } else {
+            return Promise.reject(data)
+        }
+    } catch {
+        return Promise.reject(__('Erro inesperado do servidor', 'iande'))
     }
 }
 
