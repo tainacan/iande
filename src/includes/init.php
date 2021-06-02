@@ -199,25 +199,6 @@ function add_iande_menu () {
 \add_action('admin_menu', 'IandePlugin\\add_iande_menu');
 
 /**
- * Adiciona os assets da página de relatórios no admin
- */
-function add_assets_reports() {
-    \wp_enqueue_style( 'iande-reports-admin', IANDE_PLUGIN_DISTURL . 'reports.css', [] );
-    \wp_enqueue_script('iande-reports-admin', IANDE_PLUGIN_DISTURL . 'reports.js', ['wp-i18n']);
-
-    $localize_reports = localize_reports();
-
-    if (!empty($localize_reports)) {
-        wp_localize_script(
-            'iande-reports-admin',
-            'IandeReports',
-            $localize_reports
-        );
-    }
-
-}
-
-/**
  * Redireciona algumas páginas do plugin para o front-end do Iandé
  */
 function redirect_to_iande_frontend () {
@@ -232,13 +213,6 @@ function redirect_to_iande_frontend () {
     }
 }
 \add_action( 'admin_init', 'IandePlugin\\redirect_to_iande_frontend', 1 );
-
-/**
- * Renderiza a página de relatórios
- */
-function render_iande_reports_page () {
-    require_once 'reports.php';
-}
 
 /**
  * Redireciona usuários com a role `iande_admin` para a área administrativa do plugin
