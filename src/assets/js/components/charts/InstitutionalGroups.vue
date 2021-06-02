@@ -6,10 +6,15 @@
 </template>
 
 <script>
+    import ApexChart from 'vue-apexcharts'
+
     import { __, _x } from '@plugins/wp-i18n'
 
     export default {
         name: 'InstitutionalGroupsChart',
+        components: {
+            ApexChart,
+        },
         props: {
             groups: { type: Array, required: true },
         },
@@ -35,6 +40,6 @@
 
                 return [institutionalNature, otherNature]
             },
-        }
+        },
     }
 </script>

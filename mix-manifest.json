@@ -1,8 +1,8 @@
 {
     "/dist/admin.js": "/dist/admin.js",
     "/dist/app.js": "/dist/app.js",
-    "/dist/reports.js": "/dist/reports.js",
     "/dist/exhibition-agenda.js": "/dist/exhibition-agenda.js",
+    "/dist/reports-page.js": "/dist/reports-page.js",
     "/dist/status-metabox.js": "/dist/status-metabox.js",
     "/dist/estados-municipios.js": "/dist/estados-municipios.js",
     "/dist/login-page.js": "/dist/login-page.js",
@@ -28,6 +28,5 @@
     "/dist/select-institution-step.js": "/dist/select-institution-step.js",
     "/dist/select-exhibition-step.js": "/dist/select-exhibition-step.js",
     "/dist/app.css": "/dist/app.css",
-    "/dist/reports.css": "/dist/reports.css",
     "/dist/admin.css": "/dist/admin.css"
 }

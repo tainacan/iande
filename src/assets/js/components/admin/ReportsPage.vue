@@ -3,7 +3,7 @@
         <div class="iande-charts-grid">
             <InstitutionalGroupsChart :groups="filteredGroups"/>
             <RecurringVisitorsChart :appointments="filteredAppointments"/>
-            <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="rawData.institutions || []" />
+            <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="rawData.institutions" />
         </div>
     </div>
 </template>

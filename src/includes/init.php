@@ -194,7 +194,7 @@ function add_iande_menu () {
 
     // Adiciona menu de relatórios no admin
     $reports = \add_submenu_page('iande-main-menu', __('Relatórios', 'iande'), __('Relatórios', 'iande'), 'manage_iande_options', 'iande_reports', 'IandePlugin\\render_iande_reports_page');
-    \add_action('admin_print_scripts-' . $reports, 'IandePlugin\\add_assets_reports');
+    \add_action('admin_print_scripts-' . $reports, 'IandePlugin\\localize_reports_assets');
 }
 \add_action('admin_menu', 'IandePlugin\\add_iande_menu');
 

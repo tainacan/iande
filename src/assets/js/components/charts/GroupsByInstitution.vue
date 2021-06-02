@@ -6,15 +6,22 @@
 </template>
 
 <script>
+    import ApexChart from 'vue-apexcharts'
+
+    import { __ } from '@plugins/wp-i18n'
+
     export default {
         name: 'GroupsByInstitutionChart',
+        components: {
+            ApexChart,
+        },
         props: {
             appointments: { type: Array, required: true },
             institutions: { type: Array, required: true },
         },
         computed: {
             categories () {
-                let categories = [];
+                let categories = []
                 for (const institution of this.institutions) {
                     categories.push(institution.post_title)
                 }
@@ -33,9 +40,7 @@
                     },
                     dataLabels: {
                         enabled: true,
-                        formatter: function (val) {
-                            return val;
-                        },
+                        formatter: val => val,
                         offsetY: -20,
                         style: {
                             fontSize: '12px',
@@ -49,9 +54,7 @@
                     yaxis: {
                         labels: {
                             show: true,
-                            formatter: function (val) {
-                                return val;
-                            }
+                            formatter: val => val,
                         }
                     },
                     fill: {
@@ -68,19 +71,19 @@
                 }
             },
             series () {
-                let data = [];
+                let data = []
 
                 for (const appointment of this.appointments) {
                     if (appointment.institution_id) {
-                        data.push(appointment.groups.length);
+                        data.push(appointment.groups.length)
                     }
                 }
 
                 return [{
-                    name: 'Grupos',
+                    name: __('Grupos', 'iande'),
                     data: data
                 }]
             },
-        }
+        },
     }
 </script>

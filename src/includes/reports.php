@@ -10,7 +10,7 @@ function render_iande_reports_page () {
     <div class="wrap">
         <h1><?= __('Relatórios', 'iande') ?></h1>
 
-        <div id="iande-reports-app">
+        <div class="iande-admin-app">
             <iande-reports-page></iande-reports-page>
         </div>
     </div>
@@ -24,7 +24,7 @@ function render_iande_reports_page () {
  * @param array $definitions As definições dos campos do post_type
  * @return array A array de posts
  */
-function parse_report_data ($post_type, $definitions) {
+function serialize_post_type ($post_type, $definitions) {
     global $wpdb;
 
     $posts_results = $wpdb->get_results($wpdb->prepare("SELECT ID, post_title, post_type, post_status, post_author, post_date FROM $wpdb->posts WHERE post_type = %s", $post_type));
@@ -47,35 +47,24 @@ function parse_report_data ($post_type, $definitions) {
 }
 
 /**
- * Organiza os dados dos relatórios para o `wp_localize_script`
+ * Organiza os dados dos relatórios
+ *
+ * @return array
  */
-function localize_reports() {
-
-    $array = [
-        'appointments' => parse_report_data('appointment', get_appointment_metadata_definition()),
-        'exhibitions'  => parse_report_data('exhibition', get_exhibition_metadata_definition()),
-        'groups'       => parse_report_data('group', get_all_group_metadata_definition()),
-        'institutions' => parse_report_data('institution', get_institution_metadata_definition()),
+function prepare_report_data() {
+    return [
+        'appointments' => serialize_post_type('appointment', get_appointment_metadata_definition()),
+        'exhibitions'  => serialize_post_type('exhibition', get_exhibition_metadata_definition()),
+        'groups'       => serialize_post_type('group', get_all_group_metadata_definition()),
+        'institutions' => serialize_post_type('institution', get_institution_metadata_definition()),
     ];
-
-    return \array_filter($array);
-
 }
 
 /**
- * Adiciona os assets da página de relatórios no admin
+ * Localiza os assets da página de relatórios no admin
+ *
+ * @return void
  */
-function add_assets_reports() {
-    \wp_enqueue_style( 'iande-reports-admin', IANDE_PLUGIN_DISTURL . 'reports.css', [] );
-    \wp_enqueue_script('iande-reports-admin', IANDE_PLUGIN_DISTURL . 'reports.js', ['wp-i18n']);
-
-    $localize_reports = localize_reports();
-
-    if (!empty($localize_reports)) {
-        wp_localize_script(
-            'iande-reports-admin',
-            'IandeReports',
-            $localize_reports
-        );
-    }
+function localize_reports_assets () {
+    \wp_localize_script('iande-admin', 'IandeReports', prepare_report_data));
 }
