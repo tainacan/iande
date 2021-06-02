@@ -4,7 +4,7 @@ Tags: Reservation system, scheduling, schedule, group visits, virtual group tour
 Requires at least: 5.5.3
 Tested up to: 5.7
 Requires PHP: 7.2
-Stable tag: 0.6.0
+Stable tag: 0.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,15 @@ Features:
 
 
 == Changelog ==
+
+= 0.7.0 =
+* Permitir a usuários administradores alternar entre modo de visitante e educador
+* Adicionar link de check-in ao menu
+* Adicionar aviso de perfil do usuário administrador está incompleto
+* Permitir adicionar motivo no e-mail de cancelamento
+* Correção de bug: adicionar tooltip à etapa correta
+* Correção de bug: bloquear agendamentos antes do início da exposição ou depois de seu fim
+* Correção de bug: grupos recém-criados não travam horário
 
 = 0.6.0 =
 * Suporte para check-in, avaliação pelo educador e avaliação pelo usuário
