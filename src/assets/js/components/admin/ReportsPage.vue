@@ -1,6 +1,7 @@
 <template>
     <div class="iande-charts-wrapper">
         <div class="iande-charts-grid">
+            <GroupsAndVisitorsChart :groups="filteredGroups"/>
             <InstitutionalGroupsChart :groups="filteredGroups"/>
             <RecurringVisitorsChart :appointments="filteredAppointments"/>
             <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="rawData.institutions" />
@@ -11,6 +12,7 @@
 <script>
     import { DateTime } from 'luxon'
 
+    import GroupsAndVisitorsChart from '@components/charts/GroupsAndVisitors.vue'
     import InstitutionalGroupsChart from '@components/charts/InstitutionalGroups.vue'
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
     import GroupsByInstitutionChart from '@components/charts/GroupsByInstitution.vue'
@@ -20,6 +22,7 @@
     export default {
         name: 'ReportsPage',
         components: {
+            GroupsAndVisitorsChart,
             InstitutionalGroupsChart,
             RecurringVisitorsChart,
             GroupsByInstitutionChart

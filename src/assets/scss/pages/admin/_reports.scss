@@ -1,8 +1,21 @@
-.iande-charts-wrapper {
-
+:root {
+    --iande-border-radius: 10px;
+    --iande-primary-color: #A8DBBC;
+    --iande-secondary-color: #1E2E55;
+    --iande-tertiary-color: #7DB6C5;
+    --iande-background-color: white;
+    --iande-lighter-color: #F5F5F5;
+    --iande-light-color: #DDDDDD;
+    --iande-medium-color: #999999;
+    --iande-text-color: #666666;
+    --iande-error-color: #E53E3E;
+    --iande-success-color: #238B19;
+    --iande-text-font: Open Sans, sans-serif;
+    --iande-title-font: Quicksand, Open Sans, sans-serif;
 }
 
 .iande-chart-wrapper {
-    background-color: white;
-    padding: 20px;
+    border: 1px solid #DDDDDD;
+    margin-bottom: 30px;
+    padding: 20px 30px;
 }
