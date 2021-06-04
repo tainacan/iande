@@ -6,15 +6,10 @@
 </template>
 
 <script>
-    import ApexChart from 'vue-apexcharts'
-
     import { __ } from '@plugins/wp-i18n'
 
     export default {
         name: 'GroupsAndVisitorsChart',
-        components: {
-            ApexChart,
-        },
         props: {
             groups: { type: Array, required: true },
         },

@@ -6,6 +6,7 @@ import WpI18n from '@plugins/wp-i18n'
 import { api } from '@utils'
 import { cep } from '@utils/validators'
 
+const ApexChart = () => import(/* webpackChunkName: 'reports-page' */ 'vue-apexcharts')
 const ExhibitionAgenda = () => import(/* webpackChunkName: 'exhibition-agenda' */ '@components/admin/ExhibitionAgenda.vue')
 const ReportsPage = () => import(/* webpackChunkName: 'reports-page' */ '@components/admin/ReportsPage.vue')
 const StatusMetabox = () => import(/* webpackChunkName: 'status-metabox' */ '@components/admin/StatusMetabox.vue')
@@ -13,6 +14,7 @@ const cities = import(/* webpackChunkName: 'estados-municipios' */ '../json/muni
 
 Vue.use(WpI18n)
 
+Vue.component('ApexChart', ApexChart)
 Vue.component('iande-exhibition-agenda', ExhibitionAgenda)
 Vue.component('iande-reports-page', ReportsPage)
 Vue.component('iande-status-metabox', StatusMetabox)

@@ -6,15 +6,10 @@
 </template>
 
 <script>
-    import ApexChart from 'vue-apexcharts'
-
     import { __ } from '@plugins/wp-i18n'
 
     export default {
         name: 'GroupsByInstitutionChart',
-        components: {
-            ApexChart,
-        },
         props: {
             appointments: { type: Array, required: true },
             institutions: { type: Array, required: true },
