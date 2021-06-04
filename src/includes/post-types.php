@@ -11,3 +11,4 @@ require 'post-types/group/group.php';
 require 'post-types/group/checkin.php';
 require 'post-types/group/report.php';
 require 'post-types/group/feedback.php';
+require 'post-types/itinerary.php';

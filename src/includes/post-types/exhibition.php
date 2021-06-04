@@ -17,7 +17,7 @@ function register_post_type_exhibition()
         'name_admin_bar'     => _x('Exposição', 'add new on admin bar', 'iande'),
         'add_new'            => _x('Adicionar nova', 'exposição', 'iande'),
         'add_new_item'       => __('Adicionar Nova Exposição', 'iande'),
-        'new_item'           => __('Novo Exposição', 'iande'),
+        'new_item'           => __('Nova Exposição', 'iande'),
         'edit_item'          => __('Editar Exposição', 'iande'),
         'view_item'          => __('Ver Exposição', 'iande'),
         'all_items'          => _x('Exposições', 'all items', 'iande'),
