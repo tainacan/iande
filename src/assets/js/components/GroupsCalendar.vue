@@ -62,7 +62,7 @@
                     const data = { group }
                     const date = dates.get(group.date)
                     if (date) {
-                        dates.push(data)
+                        date.push(data)
                     } else {
                         dates.set(group.date, [data])
                     }

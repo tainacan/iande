@@ -4,13 +4,13 @@
             <h1>{{ __('Seus agendamentos', 'iande') }}</h1>
             <div class="iande-appointments-toolbar">
                 <AppointmentsFilter id="time" :label="__('Exibindo', 'iande')" :options="filterOptions" v-model="filter"/>
-                <a class="iande-button small outline" :href="$iandeUrl('appointment/create')" v-if="appointments.length > 0">
+                <a class="iande-button small outline" :href="$iandeUrl('appointment/create')">
                     <Icon icon="plus-circle"/>
                     {{ __('Criar novo agendamento', 'iande') }}
                 </a>
             </div>
             <AppointmentDetails v-for="appointment of filteredAppointments" :key="appointment.ID" :appointment="appointment"/>
-            <div class="iande-container narrow">
+            <div class="iande-container narrow" v-if="filteredAppointments.length > 0">
                 <a class="iande-button outline" :href="$iandeUrl('appointment/create')">
                     <Icon icon="plus-circle"/>
                     {{ __('Criar novo agendamento', 'iande') }}

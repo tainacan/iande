@@ -73,7 +73,7 @@
                 if (!user) {
                     return false
                 }
-                return !(user.first_name && user.last_name && user.email && user.phone)
+                return !(user.first_name && user.last_name && user.user_email && user.phone)
             },
         },
         validations () {

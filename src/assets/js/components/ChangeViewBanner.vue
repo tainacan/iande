@@ -3,14 +3,14 @@
         <div class="iande-navbar-alert" v-if="!dismissed">
             <div class="iande-container">
                 <div v-if="value === 'educator'">
-                    {{ __('Você está vendo a visualização de educador.', 'iande') }}
-                    <a role="button" href="javascript:void(0)" @click="setViewMode('visitor')" @keypress.enter="setViewMode('visitor')">
+                    {{ __('Você está na visualização de educador.', 'iande') }}
+                    <a :href="$iandeUrl('appointment/list?force_view=visitor')">
                         {{ __('Alternar para a visualização de visitante', 'iande') }}
                     </a>
                 </div>
                 <div v-else>
-                    {{ __('Você está vendo a visualização de visitante.', 'iande') }}
-                    <a role="button" href="javascript:void(0)" @click="setViewMode('educator')" @keypress.enter="setViewMode('educator')">
+                    {{ __('Você está na visualização de visitante.', 'iande') }}
+                    <a :href="$iandeUrl('group/list?force_view=educator')">
                         {{ __('Alternar para visualização de educador', 'iande') }}
                     </a>
                 </div>
@@ -58,10 +58,6 @@
             dismiss () {
                 window.sessionStorage.setItem('view_dismissed', '1')
                 this.dismissed = true
-            },
-            setViewMode (viewMode) {
-                window.sessionStorage.setItem('view', viewMode)
-                this.$emit('updateValue', viewMode)
             },
         }
     }

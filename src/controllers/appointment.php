@@ -176,11 +176,11 @@ class Appointment extends Controller
 
             \do_action('iande.before_cancel_appointment', $params);
 
+            $cancel_reason = __('Cancelado pelo usuário', 'iande');
             if (!empty($params['reason'])) {
-                \update_post_meta($params['ID'], 'reason_cancel', $params['reason'], '');
-            } else {
-                \update_post_meta($params['ID'], 'reason_cancel', __('Cancelado pelo usuário', 'iande'), '');
+                $cancel_reason = $params['reason'];
             }
+            \update_post_meta($params['ID'], 'reason_cancel', $cancel_reason, '');
 
             $update_appointment = [
                 'ID'          => $params['ID'],
@@ -208,7 +208,8 @@ class Appointment extends Controller
                     'nome'       => $appointment->responsible_first_name,
                     'exposicao'  => \get_the_title($appointment->exhibition_id),
                     'grupos'     => $groups,
-                    'link'       => \home_url('/iande/appointment/create/')
+                    'link'       => \home_url('/iande/appointment/create/'),
+                    'motivo'     => $cancel_reason,
                 ]
             ];
             $this->email('email_canceled', $email_params);
@@ -529,7 +530,7 @@ class Appointment extends Controller
 
         $user_id = $appointment instanceof \WP_Post ? $appointment->post_author : $appointment->user_id;
 
-        if ($user_id != get_current_user_id()) {
+        if ($user_id != get_current_user_id() && !is_iande_admin()) {
             $this->error(__('Você não tem permissão para ver este agendamento', 'iande'), 403);
         }
     }
@@ -797,7 +798,7 @@ class Appointment extends Controller
                     'post_type'   => 'group',
                     'post_author' => \get_current_user_id(),
                     'post_title'  => $title,
-                    'post_status' => 'pending',
+                    'post_status' => 'draft',
                     'meta_input'  => $meta_input
                 ];
 
