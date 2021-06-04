@@ -21,7 +21,7 @@ function register_metabox_group_checkin()
         'context'      => 'normal',
         'priority'     => 'high',
         'show_names'   => true,
-        'show_on_cb'   => \current_user_can('manage_iande_options')
+        'show_on_cb'   => 'IandePlugin\\is_iande_admin'
     ]);
 
     $fields = get_group_fields_parameters($metadata_definition, $metabox_definition);
