@@ -23,8 +23,8 @@ function register_post_type_group()
         'all_items'          => _x('Grupos', 'all items', 'iande'),
         'search_items'       => __('Buscar Grupos', 'iande'),
         'parent_item_colon'  => __('Grupos Pais:', 'iande'),
-        'not_found'          => __('Nenhum Grupo encontrado.', 'iande'),
-        'not_found_in_trash' => __('Nenhum Grupo encontrado na lixeira.', 'iande')
+        'not_found'          => __('Nenhum grupo encontrado.', 'iande'),
+        'not_found_in_trash' => __('Nenhum grupo encontrado na lixeira.', 'iande')
     ];
 
     $group_args = [

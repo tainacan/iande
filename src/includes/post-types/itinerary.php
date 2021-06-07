@@ -21,8 +21,8 @@ function register_post_type_itinerary() {
         'all_items'          => _x('Roteiros', 'all items', 'iande'),
         'search_items'       => __('Buscar Roteiro', 'iande'),
         'parent_item_colon'  => __('Roteiros Pais:', 'iande'),
-        'not_found'          => __('Nenhum Roteiro encontrado.', 'iande'),
-        'not_found_in_trash' => __('Nenhum Roteiro encontrado na lixeira.', 'iande')
+        'not_found'          => __('Nenhum roteiro encontrado.', 'iande'),
+        'not_found_in_trash' => __('Nenhum roteiro encontrado na lixeira.', 'iande')
     ];
 
     $itinerary_args = [

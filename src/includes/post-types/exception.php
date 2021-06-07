@@ -24,8 +24,8 @@ function register_post_type_exception()
         'all_items'          => _x('Exceções', 'all items', 'iande'),
         'search_items'       => __('Buscar Exceções', 'iande'),
         'parent_item_colon'  => __('Exceções Pais:', 'iande'),
-        'not_found'          => __('Nenhuma Exceção encontrada.', 'iande'),
-        'not_found_in_trash' => __('Nenhuma Exceção encontrada na lixeira.', 'iande')
+        'not_found'          => __('Nenhuma exceção encontrada.', 'iande'),
+        'not_found_in_trash' => __('Nenhuma exceção encontrada na lixeira.', 'iande')
     ];
 
     $exception_args = [

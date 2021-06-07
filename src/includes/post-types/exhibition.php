@@ -23,8 +23,8 @@ function register_post_type_exhibition()
         'all_items'          => _x('Exposições', 'all items', 'iande'),
         'search_items'       => __('Buscar Exposições', 'iande'),
         'parent_item_colon'  => __('Exposições Pais:', 'iande'),
-        'not_found'          => __('Nenhuma Exposição encontrada.', 'iande'),
-        'not_found_in_trash' => __('Nenhuma Exposição encontrada na lixeira.', 'iande')
+        'not_found'          => __('Nenhuma exposição encontrada.', 'iande'),
+        'not_found_in_trash' => __('Nenhuma exposição encontrada na lixeira.', 'iande')
     ];
 
     $exhibition_args = [
