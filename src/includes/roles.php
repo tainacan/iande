@@ -11,6 +11,7 @@ function add_custom_roles_and_capabilities () {
     set_iande_admin_capabilities('iande_admin', 'institution', 'institutions');
     set_iande_admin_capabilities('iande_admin', 'exception', 'exceptions');
     set_iande_admin_capabilities('iande_admin', 'group', 'groups');
+    set_iande_admin_capabilities('iande_admin', 'itinerary', 'itineraries');
 
     // administrator
     set_iande_admin_capabilities('administrator', 'appointment', 'appointments');
@@ -18,6 +19,7 @@ function add_custom_roles_and_capabilities () {
     set_iande_admin_capabilities('administrator', 'institution', 'institutions');
     set_iande_admin_capabilities('administrator', 'exception', 'exceptions');
     set_iande_admin_capabilities('administrator', 'group', 'groups');
+    set_iande_admin_capabilities('administrator', 'itinerary', 'itineraries');
 
     // adiciona capability `read_feedback` à role `administrator`
     $administrator = \get_role('administrator');

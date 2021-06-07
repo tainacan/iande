@@ -34,7 +34,7 @@ function register_post_type_itinerary() {
         'show_in_menu'       => 'iande-main-menu',
         'query_var'          => true,
         'rewrite'            => ['slug' => 'itinerary'],
-        'capability_type'    => 'itinerary',
+        'capability_type'    => ['itinerary', 'itineraries'],
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
