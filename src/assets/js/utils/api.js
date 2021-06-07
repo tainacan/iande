@@ -39,5 +39,5 @@ export default {
     },
     post (url, body = null, headers = {}) {
         return client('POST', url, body, headers)
-    }
+    },
 }

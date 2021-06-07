@@ -42,6 +42,7 @@ function iande_institution_settings() {
     $site_name        = get_bloginfo('name');
     $site_url         = get_bloginfo('url');
     $iande_url        = get_site_url(null, '/iande');
+    $tainacan_url     = get_site_url(null, '/wp-json/tainacan/v2');
     $purposes         = cmb2_get_option('iande_appointments_settings', 'appointment_purpose', []);
     $profiles         = cmb2_get_option('iande_institution', 'institution_profile', []);
     $responsible_role = cmb2_get_option('iande_institution', 'institution_responsible_role', []);
@@ -65,6 +66,7 @@ function iande_institution_settings() {
             'siteName'         => $site_name,
             'siteUrl'          => $site_url,
             'iandeUrl'         => $iande_url,
+            'tainacanUrl'      => $tainacan_url,
             'profiles'         => $profiles,
             'purposes'         => $purposes,
             'responsibleRoles' => $responsible_role,
