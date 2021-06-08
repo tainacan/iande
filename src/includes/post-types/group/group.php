@@ -28,20 +28,20 @@ function register_post_type_group()
     ];
 
     $group_args = [
-        'labels'             => $group_labels,
-        'description'        => __('Grupos para as visitas/agendamentos.', 'iande'),
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => 'iande-main-menu',
-        'query_var'          => true,
-        'rewrite'            => ['slug' => 'group'],
-        'capability_type'    => 'group',
-        'has_archive'        => true,
-        'hierarchical'       => false,
-        'menu_position'      => null,
-        'menu_icon'          => 'dashicons-groups',
-        'supports'           => ['title', 'author', /* 'custom-fields' */]
+        'labels'              => $group_labels,
+        'description'         => __('Grupos para as visitas/agendamentos.', 'iande'),
+        'publicly_queryable'  => false,
+        'exclude_from_search' => true,
+        'show_ui'             => true,
+        'show_in_menu'        => 'iande-main-menu',
+        'query_var'           => true,
+        'rewrite'             => ['slug' => 'group'],
+        'capability_type'     => 'group',
+        'has_archive'         => false,
+        'hierarchical'        => false,
+        'menu_position'       => null,
+        'menu_icon'           => 'dashicons-groups',
+        'supports'            => ['title', 'author', /* 'custom-fields' */]
     ];
 
     register_post_type('group', $group_args);

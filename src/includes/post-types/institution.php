@@ -28,20 +28,20 @@ function register_post_type_institution()
     ];
 
     $institution_args = [
-        'labels'             => $institution_labels,
-        'description'        => __('Instituições adicionadas pelos usuários.', 'iande'),
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => 'iande-main-menu',
-        'query_var'          => true,
-        'rewrite'            => ['slug' => 'institution'],
-        'capability_type'    => 'institution',
-        'has_archive'        => true,
-        'hierarchical'       => false,
-        'menu_position'      => null,
-        'menu_icon'          => 'dashicons-building',
-        'supports'           => ['title', 'author', /* 'custom-fields' */]
+        'labels'              => $institution_labels,
+        'description'         => __('Instituições adicionadas pelos usuários.', 'iande'),
+        'publicly_queryable'  => false,
+        'exclude_from_search' => true,
+        'show_ui'             => true,
+        'show_in_menu'        => 'iande-main-menu',
+        'query_var'           => true,
+        'rewrite'             => ['slug' => 'institution'],
+        'capability_type'     => 'institution',
+        'has_archive'         => false,
+        'hierarchical'        => false,
+        'menu_position'       => null,
+        'menu_icon'           => 'dashicons-building',
+        'supports'            => ['title', 'author', /* 'custom-fields' */]
     ];
 
     register_post_type('institution', $institution_args);
