@@ -423,26 +423,6 @@ Nos vemos em sua próxima visita!";
 }
 
 /**
- * Adiciona post_status "canceled"
- * @see https://developer.wordpress.org/reference/functions/register_post_status/
- * @see https://wordpress.org/support/article/post-status/#custom-status
- */
-add_action('init', 'iande_register_status');
-
-function iande_register_status() {
-
-    register_post_status('canceled', [
-        'label'                     => _x('Cancelado', 'post'),
-        'public'                    => true,
-        'exclude_from_search'       => true,
-        'show_in_admin_all_list'    => true,
-        'show_in_admin_status_list' => true,
-        'label_count'               => _n_noop('Cancelado <span class="count">(%s)</span>', 'Cancelado <span class="count">(%s)</span>'),
-    ]);
-
-}
-
-/**
  * Adiciona CMB2 calendar_appointments
  * @see https://cmb2.io/docs/adding-your-own-field-types
  */
