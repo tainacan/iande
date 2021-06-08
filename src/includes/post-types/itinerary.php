@@ -26,20 +26,21 @@ function register_post_type_itinerary() {
     ];
 
     $itinerary_args = [
-        'labels'             => $itinerary_labels,
-        'description'        => __('Roteiros virtuais criados por educadores ou visitantes.', 'iande'),
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => 'iande-main-menu',
-        'query_var'          => true,
-        'rewrite'            => ['slug' => 'itinerary'],
-        'capability_type'    => ['itinerary', 'itineraries'],
-        'has_archive'        => true,
-        'hierarchical'       => false,
-        'menu_position'      => null,
-        'menu_icon'          => 'dashicons-format-image',
-        'supports'           => ['title', /* 'author', 'custom-fields' */]
+        'labels'              => $itinerary_labels,
+        'description'         => __('Roteiros virtuais criados por educadores ou visitantes.', 'iande'),
+        'public'              => true,
+        'publicly_queryable'  => false,
+        'exclude_from_search' => true,
+        'show_ui'             => true,
+        'show_in_menu'        => 'iande-main-menu',
+        'query_var'           => true,
+        'rewrite'             => ['slug' => 'itinerary'],
+        'capability_type'     => ['itinerary', 'itineraries'],
+        'has_archive'         => false,
+        'hierarchical'        => false,
+        'menu_position'       => null,
+        'menu_icon'           => 'dashicons-format-image',
+        'supports'            => ['title', /* 'author', 'custom-fields' */]
     ];
 
     \register_post_type('itinerary', $itinerary_args);
