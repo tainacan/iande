@@ -5,6 +5,7 @@
             <InstitutionalGroupsChart :groups="filteredGroups"/>
             <RecurringVisitorsChart :appointments="filteredAppointments"/>
             <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="rawData.institutions" />
+            <GroupsAndVisitorsByExhibitionChart :groups="filteredGroups" :exhibitions="filteredExhibitions"/>
         </div>
     </div>
 </template>
@@ -16,6 +17,7 @@
     import InstitutionalGroupsChart from '@components/charts/InstitutionalGroups.vue'
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
     import GroupsByInstitutionChart from '@components/charts/GroupsByInstitution.vue'
+    import GroupsAndVisitorsByExhibitionChart from '@components/charts/GroupsAndVisitorsByExhibition.vue'
 
     import { arrayToMap, constant, today } from '@utils'
 
@@ -25,7 +27,8 @@
             GroupsAndVisitorsChart,
             InstitutionalGroupsChart,
             RecurringVisitorsChart,
-            GroupsByInstitutionChart
+            GroupsByInstitutionChart,
+            GroupsAndVisitorsByExhibitionChart
         },
         data () {
             return {
@@ -39,6 +42,9 @@
             },
             filteredAppointments () {
                 return this.rawData.appointments
+            },
+            filteredExhibitions () {
+                return this.rawData.exhibitions
             },
             filteredGroups () {
                 return this.rawData.groups.filter(group => {
