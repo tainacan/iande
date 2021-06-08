@@ -28,20 +28,20 @@ function register_post_type_exhibition()
     ];
 
     $exhibition_args = [
-        'labels'             => $exhibition_labels,
-        'description'        => __('Exposições adicionadas pelo museu.', 'iande'),
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => 'iande-main-menu',
-        'query_var'          => true,
-        'rewrite'            => ['slug' => 'exhibition'],
-        'capability_type'    => 'exhibition',
-        'has_archive'        => true,
-        'hierarchical'       => false,
-        'menu_position'      => null,
-        'menu_icon'          => 'dashicons-format-image',
-        'supports'           => ['title', /* 'author', 'custom-fields' */]
+        'labels'              => $exhibition_labels,
+        'description'         => __('Exposições adicionadas pelo museu.', 'iande'),
+        'publicly_queryable'  => false,
+        'exclude_from_search' => true,
+        'show_ui'             => true,
+        'show_in_menu'        => 'iande-main-menu',
+        'query_var'           => true,
+        'rewrite'             => ['slug' => 'exhibition'],
+        'capability_type'     => 'exhibition',
+        'has_archive'         => false,
+        'hierarchical'        => false,
+        'menu_position'       => null,
+        'menu_icon'           => 'dashicons-format-image',
+        'supports'            => ['title', /* 'author', 'custom-fields' */]
     ];
 
     register_post_type('exhibition', $exhibition_args);

@@ -4,8 +4,8 @@
             {{ __('Confirmar agendamento', 'iande') }}
         </button>
         <div>
-            <label for="cancelattion-reason">{{ __('Motivo do cancelamento', 'iande') }}</label>
-            <textarea id="cancelattion-reason" v-model="cancellationReason"/>
+            <label for="cancellation-reason">{{ __('Motivo do cancelamento', 'iande') }}</label>
+            <textarea id="cancellation-reason" v-model="cancellationReason"/>
         </div>
         <button type="button" class="button button-primary button-large button-cancel" @click="cancelPost">
             {{ __('Cancelar agendamento', 'iande') }}
