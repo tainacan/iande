@@ -14,26 +14,47 @@
             groups: { type: Array, required: true },
         },
         computed: {
+            filterData () {
+
+                let chartData = this.groups.reduce( (initValue, group) => {
+                    if (typeof initValue[group.date] !== 'undefined') {
+                        initValue[group.date] = {
+                            num_people: parseInt(initValue[group.date].num_people) + parseInt(group.num_people),
+                            num_group: parseInt(initValue[group.date].num_group) + 1,
+                        }
+                    } else {
+                        initValue[group.date] = {
+                            num_people: parseInt(group.num_people),
+                            num_group: 1,
+                        }
+                    }
+                    return initValue
+                }, [])
+
+                return chartData
+
+            },
             options () {
+
                 return {
                     chart: {
                         zoom: {
-                            enabled: false
+                            enabled: false,
                         }
                     },
                     dataLabels: {
-                        enabled: false
+                        enabled: false,
                     },
                     stroke: {
                         curve: 'straight',
-                        width: 7
+                        width: 7,
                     },
-                    labels: ['Mar 20', 'Abr 20', 'Mai 20', 'Jun 20', 'Jul 20', 'Ago 20', 'Set 20', 'Out 20'],
+                    labels: Object.keys(this.filterData).sort(),
                     xaxis: {
                         // type: 'datetime',
                     },
                     yaxis: {
-                        opposite: false
+                        opposite: false,
                     },
                     legend: {
                         position: 'top',
@@ -46,30 +67,42 @@
                         itemMargin: {
                             horizontal: 10,
                             vertical: 10,
-                        },
+                        }
                     },
-                    colors: ['#7DB6C5', '#A8DBBC'],
+                    colors: ['#A8DBBC', '#7DB6C5'],
                     fill: {
-                        colors: ['#7DB6C5', 'transparent'],
+                        colors: ['transparent', '#7DB6C5'],
                         opacity: 0.4,
                         type: 'solid',
-                    },
+                    }
                 }
             },
             series () {
+
+                let dates = Object.keys(this.filterData).sort()
+
+                let groups = []
+                let peoples = []
+
+                for(const date in dates) {
+                    groups.push(this.filterData[dates[date]].num_group)
+                    peoples.push(this.filterData[dates[date]].num_people)
+                }
+
                 return [
                     {
                         type: 'area',
-                        name: "Grupos",
-                        data: ['12', '45', '23', '29', '34', '43', '45', '62'],
+                        name: "Visitantes",
+                        data: peoples,
                     },
                     {
                         type: 'area',
-                        name: "Visitantes",
-                        data: ['40', '80', '88', '40', '47', '77', '45', '20'],
+                        name: "Grupos",
+                        data: groups,
                     }
+                    
                 ]
-            },
+            }
         }
     }
 </script>
