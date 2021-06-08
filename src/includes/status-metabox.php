@@ -45,14 +45,3 @@ function build_status_metabox($post)
     </div>
 <?php
 }
-
-/**
- * Save metabox data
- *
- * @param int $post_id The post ID.
- * @link https://codex.wordpress.org/Plugin_API/Action_Reference/save_post
- */
-function save_status_metabox($post_id)
-{
-}
-add_action('save_post_appointment', 'save_status_metabox');
