@@ -29,20 +29,20 @@ function register_post_type_exception()
     ];
 
     $exception_args = [
-        'labels'             => $exception_labels,
-        'description'        => __('Exceções para o horário de funcionamento das exposições.', 'iande'),
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => 'iande-main-menu',
-        'query_var'          => true,
-        'rewrite'            => ['slug' => 'exception'],
-        'capability_type'    => 'exception',
-        'has_archive'        => true,
-        'hierarchical'       => false,
-        'menu_position'      => null,
-        'menu_icon'          => 'dashicons-hidden',
-        'supports'           => ['title', /* 'author', 'custom-fields' */]
+        'labels'              => $exception_labels,
+        'description'         => __('Exceções para o horário de funcionamento das exposições.', 'iande'),
+        'publicly_queryable'  => false,
+        'exclude_from_search' => true,
+        'show_ui'             => true,
+        'show_in_menu'        => 'iande-main-menu',
+        'query_var'           => true,
+        'rewrite'             => ['slug' => 'exception'],
+        'capability_type'     => 'exception',
+        'has_archive'         => false,
+        'hierarchical'        => false,
+        'menu_position'       => null,
+        'menu_icon'           => 'dashicons-hidden',
+        'supports'            => ['title', /* 'author', 'custom-fields' */]
     ];
 
     register_post_type('exception', $exception_args);
