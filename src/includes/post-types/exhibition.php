@@ -5,6 +5,8 @@ namespace IandePlugin;
 add_action('init', 'IandePlugin\\register_post_type_exhibition');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_exhibition');
 
+require IANDE_PLUGIN_BASEPATH . 'includes/itinerary-metabox.php';
+
 /**
  * Registra o Post Type Exhibition
  */

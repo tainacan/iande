@@ -6,6 +6,7 @@ function appointment_enqueue_scripts() {
 
     $site_url         = get_bloginfo('url');
     $iande_url        = get_site_url(null, '/iande');
+    $tainacan_url     = get_site_url(null, '/wp-json/tainacan/v2');
 
     wp_localize_script(
         'iande-admin',
@@ -13,6 +14,7 @@ function appointment_enqueue_scripts() {
         [
             'siteUrl'           => $site_url,
             'iandeUrl'          => $iande_url,
+            'tainacanUrl'       => $tainacan_url,
         ]
     );
 }
@@ -24,13 +26,12 @@ add_action( 'admin_enqueue_scripts', 'appointment_enqueue_scripts' );
  * @param post $post The post object
  * @link https://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes
  */
-function status_metaboxes($post)
-{
+function status_metabox($post) {
     if ($post->post_status === 'pending' || $post->post_status === 'publish') {
-        add_meta_box('status_metaboxes', __('Status', 'iande'), 'build_status_metabox', 'appointment', 'side', 'low');
+        add_meta_box('status_metabox', __('Status', 'iande'), 'build_status_metabox', 'appointment', 'side', 'low');
     }
 }
-add_action('add_meta_boxes_appointment', 'status_metaboxes');
+add_action('add_meta_boxes_appointment', 'status_metabox');
 
 /**
  * Build custom field meta box

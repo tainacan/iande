@@ -8,11 +8,13 @@ import { cep } from '@utils/validators'
 
 const ExhibitionAgenda = () => import(/* webpackChunkName: 'exhibition-agenda' */ '@components/admin/ExhibitionAgenda.vue')
 const StatusMetabox = () => import(/* webpackChunkName: 'status-metabox' */ '@components/admin/StatusMetabox.vue')
+const ItineraryMetabox = () => import(/* webpackChunkName: 'itinerary-metabox' */ '@components/admin/ItineraryMetabox.vue')
 const cities = import(/* webpackChunkName: 'estados-municipios' */ '../json/municipios.json')
 
 Vue.use(WpI18n)
 
 Vue.component('iande-exhibition-agenda', ExhibitionAgenda)
+Vue.component('iande-itinerary-metabox', ItineraryMetabox)
 Vue.component('iande-status-metabox', StatusMetabox)
 
 async function populateCityOptions (state, city) {
