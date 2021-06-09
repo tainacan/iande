@@ -14,8 +14,40 @@
     --iande-title-font: Quicksand, Open Sans, sans-serif;
 }
 
-.iande-chart-wrapper {
-    border: 1px solid #DDDDDD;
-    margin-bottom: 30px;
-    padding: 20px 30px;
+.iande_page_iande_reports {
+    h1 {
+        padding-bottom: 40px;
+    }
+}
+
+.iande-charts-grid {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+
+    .iande-chart-wrapper {
+        border: 1px solid #DDDDDD;
+        margin-bottom: 30px;
+        padding: 20px 30px;
+
+        &:nth-child(1),
+        &:last-child {
+            grid-column: 1 / -1;
+        }
+
+        .apexcharts-toolbar {
+            top: -40px !important; // overwrite inline css
+        }
+
+        .apexcharts-legend.position-top.apexcharts-align-left {
+            padding-left: 0;
+
+            .apexcharts-legend-series {
+                margin: 3px 10px 3px 0 !important; // overwrite inline css
+                width: 100%;
+            }
+        }
+
+    }
+
 }
