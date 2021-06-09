@@ -172,7 +172,7 @@ class Appointment extends Controller
 
             $this->error(__('Agendamento não encontrado', 'iande'));
 
-        } elseif (\get_current_user_id() == $appointment->post_author || \current_user_can('manage_options')) {
+        } elseif (\get_current_user_id() == $appointment->post_author || is_iande_admin()) {
 
             \do_action('iande.before_cancel_appointment', $params);
 
