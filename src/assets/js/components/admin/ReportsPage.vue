@@ -4,9 +4,9 @@
             <GroupsAndVisitorsChart :groups="filteredGroups"/>
             <InstitutionalGroupsChart :groups="filteredGroups"/>
             <RecurringVisitorsChart :appointments="filteredAppointments"/>
-            <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="rawData.institutions" />
             <PurposeVisitChart :appointments="filteredAppointments" />
             <GroupsAndVisitorsByExhibitionChart :groups="filteredGroups" :exhibitions="filteredExhibitions"/>
+            <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="rawData.institutions" />
         </div>
     </div>
 </template>
@@ -17,9 +17,9 @@
     import GroupsAndVisitorsChart from '@components/charts/GroupsAndVisitors.vue'
     import InstitutionalGroupsChart from '@components/charts/InstitutionalGroups.vue'
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
-    import GroupsByInstitutionChart from '@components/charts/GroupsByInstitution.vue'
     import PurposeVisitChart from '@components/charts/PurposeVisit.vue'
     import GroupsAndVisitorsByExhibitionChart from '@components/charts/GroupsAndVisitorsByExhibition.vue'
+    import GroupsByInstitutionChart from '@components/charts/GroupsByInstitution.vue'
 
     import { arrayToMap, constant, today } from '@utils'
 
@@ -29,9 +29,9 @@
             GroupsAndVisitorsChart,
             InstitutionalGroupsChart,
             RecurringVisitorsChart,
-            GroupsByInstitutionChart,
             PurposeVisitChart,
             GroupsAndVisitorsByExhibitionChart,
+            GroupsByInstitutionChart,
         },
         data () {
             return {
