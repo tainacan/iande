@@ -15,22 +15,23 @@ import appointments from '@store/appointments';
             appointments: { type: Array, required: true },
         },
         computed: {
-            purpose () {
-                let chartData = this.appointments.reduce((initValue, appointment) => {
-                    if (typeof initValue[appointment.purpose] !== 'undefined') {
-                        initValue[appointment.purpose] = {
-                            num_appointment: parseInt(initValue[appointment.purpose].num_appointment) + parseInt(appointment.num_people)
-                        }
+            chartData () {
+
+                let chartData = this.appointments.reduce((increment, appointment) => {
+
+                    if (typeof increment[appointment.purpose] !== 'undefined') {
+                        increment[appointment.purpose].data = increment[appointment.purpose].data + 1
                     } else {
-                        initValue[appointment.purpose] = {
-                            num_appointment: 1
+                        increment[appointment.purpose] = {
+                            data: 1
                         }
                     }
 
-                    return initValue
-
+                    return increment
                 }, [])
-                return chartData;
+
+                return chartData
+
             },
             options () {
                 return {
@@ -47,16 +48,11 @@ import appointments from '@store/appointments';
                             vertical: 3,
                         }
                     },
-                    labels: [
-                        'Desenvolver a cultura geral do grupo',
-                        'Ilustrar os conteúdos que estou trabalhando com esse grupo',
-                        'Iniciar a exploração/descoberta de um novo tema',
-                        'Promover uma atividade de lazer',
-                    ],
+                    labels: Object.keys(this.chartData),
                 }
             },
             series () {
-                return [12, 23, 34, 77]
+                return Object.values(this.chartData).map(d => d.data)
             },
         },
     }
