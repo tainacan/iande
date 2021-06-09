@@ -27,7 +27,7 @@
                 return {
                     plotOptions: {
                         bar: {
-                            borderRadius: 10,
+                            borderRadius: 0,
                             dataLabels: {
                                 position: 'top', // top, center, bottom
                             }
@@ -36,7 +36,7 @@
                     dataLabels: {
                         enabled: true,
                         formatter: val => val,
-                        offsetY: -20,
+                        offsetY: -30,
                         style: {
                             fontSize: '12px',
                             colors: ['var(--iande-text-color)']
