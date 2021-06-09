@@ -15,13 +15,30 @@
             institutions: { type: Array, required: true },
         },
         computed: {
-            categories () {
-                let categories = []
-                for (const institution of this.institutions) {
-                    categories.push(institution.post_title)
-                }
 
-                return categories
+            chartData () {
+                let appointmentsWithInstitution = this.appointments.filter((appointment) => {
+                    return typeof appointment.institution_id !== 'undefined'
+                })
+
+                let chartData = appointmentsWithInstitution.reduce((increment, appointment) => {
+                    let searchInstitution = this.institutions.map(function(e) {return e.ID}).indexOf(appointment.institution_id)
+                    let institution = this.institutions[searchInstitution]
+
+                    if (typeof increment[institution.ID] !== 'undefined') {
+                        increment[institution.ID].data = increment[institution.ID].data + appointment.groups.length
+                    } else {
+                        increment[institution.ID] = {
+                            name: institution.post_title,
+                            data: appointment.groups.length
+
+                        }
+                    }
+
+                    return increment
+                }, [])
+
+                return chartData.filter(String)
             },
             options () {
                 return {
@@ -43,7 +60,7 @@
                         }
                     },
                     xaxis: {
-                        categories: this.categories,
+                        categories: this.chartData.map(d => d.name),
                         position: 'bottom',
                     },
                     yaxis: {
@@ -66,17 +83,9 @@
                 }
             },
             series () {
-                let data = []
-
-                for (const appointment of this.appointments) {
-                    if (appointment.institution_id) {
-                        data.push(appointment.groups.length)
-                    }
-                }
-
                 return [{
                     name: __('Grupos', 'iande'),
-                    data: data
+                    data: this.chartData.map(d => d.data)
                 }]
             },
         },
