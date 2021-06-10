@@ -59,6 +59,14 @@ import appointments from '@store/appointments';
                         show: false,
                         width: 0
                     },
+                    states: {
+                        hover: {
+                            filter: {
+                                type: 'darken',
+                                value: 0.9,
+                            },
+                        },
+                    },
                 }
             },
             series () {
