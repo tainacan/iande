@@ -2,10 +2,11 @@
     <div class="iande-charts-wrapper">
         <div class="iande-charts-grid">
             <GroupsAndVisitorsChart :groups="filteredGroups"/>
+            <GroupsAndVisitorsByExhibitionChart :groups="filteredGroups" :exhibitions="filteredExhibitions"/>
             <InstitutionalGroupsChart :groups="filteredGroups"/>
             <RecurringVisitorsChart :appointments="filteredAppointments"/>
             <PurposeVisitChart :appointments="filteredAppointments" />
-            <GroupsAndVisitorsByExhibitionChart :groups="filteredGroups" :exhibitions="filteredExhibitions"/>
+            
             <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="rawData.institutions" />
         </div>
     </div>
@@ -15,10 +16,10 @@
     import { DateTime } from 'luxon'
 
     import GroupsAndVisitorsChart from '@components/charts/GroupsAndVisitors.vue'
+    import GroupsAndVisitorsByExhibitionChart from '@components/charts/GroupsAndVisitorsByExhibition.vue'
     import InstitutionalGroupsChart from '@components/charts/InstitutionalGroups.vue'
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
     import PurposeVisitChart from '@components/charts/PurposeVisit.vue'
-    import GroupsAndVisitorsByExhibitionChart from '@components/charts/GroupsAndVisitorsByExhibition.vue'
     import GroupsByInstitutionChart from '@components/charts/GroupsByInstitution.vue'
 
     import { arrayToMap, constant, today } from '@utils'
@@ -27,10 +28,10 @@
         name: 'ReportsPage',
         components: {
             GroupsAndVisitorsChart,
+            GroupsAndVisitorsByExhibitionChart,
             InstitutionalGroupsChart,
             RecurringVisitorsChart,
             PurposeVisitChart,
-            GroupsAndVisitorsByExhibitionChart,
             GroupsByInstitutionChart,
         },
         data () {
