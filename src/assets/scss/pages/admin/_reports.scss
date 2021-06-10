@@ -27,7 +27,6 @@
 
     .iande-chart-wrapper {
         border: 1px solid #DDDDDD;
-        margin-bottom: 30px;
         padding: 20px 30px;
 
         &:nth-child(1),
@@ -39,13 +38,18 @@
             top: -40px !important; // overwrite inline css
         }
 
-        .apexcharts-legend.position-top.apexcharts-align-left {
+        .apexcharts-legend.position-top.apexcharts-align-left,
+            .apexcharts-legend.position-bottom.apexcharts-align-left {
             padding-left: 0;
 
             .apexcharts-legend-series {
                 margin: 3px 10px 3px 0 !important; // overwrite inline css
                 width: 100%;
             }
+        }
+
+        .apexcharts-inner {
+            margin: 100px auto;
         }
 
     }

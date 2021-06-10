@@ -1,7 +1,7 @@
 <template>
     <div class="iande-chart-wrapper">
         <h2>{{ __('Objetivos da visita', 'iande') }}</h2>
-        <ApexChart type="donut" height="450" :series="series" :options="options"/>
+        <ApexChart type="donut" :series="series" :options="options"/>
     </div>
 </template>
 
@@ -36,7 +36,7 @@ import appointments from '@store/appointments';
             options () {
                 return {
                     legend: {
-                        position: 'top',
+                        position: 'bottom',
                         horizontalAlign: 'left',
                         markers: {
                             width: 18,
@@ -48,7 +48,17 @@ import appointments from '@store/appointments';
                             vertical: 3,
                         }
                     },
+                    dataLabels: {
+                        dropShadow: {
+                            enabled: false,
+                        },
+                    },
                     labels: Object.keys(this.chartData),
+                    colors: ['#238B19', '#7DB6C5', '#A8DBBC', '#1E2E55', '#D49025', '#EBC891', '#FFAAAA', '#EC3F3F'],
+                    stroke: {
+                        show: false,
+                        width: 0
+                    },
                 }
             },
             series () {
