@@ -5,9 +5,9 @@
             <GroupsAndVisitorsByExhibitionChart :groups="filteredGroups" :exhibitions="filteredExhibitions"/>
             <InstitutionalGroupsChart :groups="filteredGroups"/>
             <RecurringVisitorsChart :appointments="filteredAppointments"/>
-            <PurposeVisitChart :appointments="filteredAppointments" />
-            
-            <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="rawData.institutions" />
+            <GroupsAgeRangeChart :groups="filteredGroups"/>
+            <PurposeVisitChart :appointments="filteredAppointments"/>
+            <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="rawData.institutions"/>
         </div>
     </div>
 </template>
@@ -19,6 +19,7 @@
     import GroupsAndVisitorsByExhibitionChart from '@components/charts/GroupsAndVisitorsByExhibition.vue'
     import InstitutionalGroupsChart from '@components/charts/InstitutionalGroups.vue'
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
+    import GroupsAgeRangeChart from '@components/charts/GroupsAgeRange.vue'
     import PurposeVisitChart from '@components/charts/PurposeVisit.vue'
     import GroupsByInstitutionChart from '@components/charts/GroupsByInstitution.vue'
 
@@ -31,6 +32,7 @@
             GroupsAndVisitorsByExhibitionChart,
             InstitutionalGroupsChart,
             RecurringVisitorsChart,
+            GroupsAgeRangeChart,
             PurposeVisitChart,
             GroupsByInstitutionChart,
         },
