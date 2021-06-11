@@ -40,16 +40,23 @@ class Exhibition extends Controller
     }
 
     /**
-     * Retorna todas exposições públicas
+     * Retorna a lista de exposições. Por padrão, exibe apenas exposições
+     * públicas, mas pode retornar exposições privadas também.
      *
+     * @param array $params
      * @return void
      */
-    function endpoint_list()
+    function endpoint_list(array $params = [])
     {
+        $post_statuses = ['publish'];
+
+        if (!empty($params['show_private']) && $params['show_private'] == '1') {
+            $post_statuses[] = 'private';
+        }
 
         $args = array(
             'post_type'      => 'exhibition',
-            'post_status'    => ['publish'],
+            'post_status'    => $post_statuses,
             'posts_per_page' => -1,
             'order'          => 'ASC',
             'orderby'        => 'ID',

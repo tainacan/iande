@@ -31,7 +31,7 @@
         },
         computed: {
             appointments: sync('appointments/list'),
-            exhibitions: sync('exhibitions/list'),
+            exhibitions: sync('exhibitions/list?show_private=1'),
             filteredGroups () {
                 const hourFn = group => `${group.date} ${group.hour}`
                 if (this.time === 'next') {

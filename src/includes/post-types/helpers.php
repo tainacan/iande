@@ -246,3 +246,33 @@ function is_iande_admin() {
     return false;
 
 }
+
+/**
+ * Adiciona post_status "canceled"
+ * @see https://developer.wordpress.org/reference/functions/register_post_status/
+ * @see https://wordpress.org/support/article/post-status/#custom-status
+ */
+function iande_register_status() {
+
+    register_post_status('canceled', [
+        'label'                     => _x('Cancelado', 'post', 'iande'),
+        'public'                    => true,
+        'exclude_from_search'       => true,
+        'show_in_admin_all_list'    => true,
+        'show_in_admin_status_list' => true,
+        'label_count'               => _n_noop('Cancelado <span class="count">(%s)</span>', 'Cancelado <span class="count">(%s)</span>', 'iande'),
+    ]);
+
+}
+add_action('init', 'IandePlugin\\iande_register_status');
+
+/**
+ * Adiciona `-- Cancelado` depois do nome do post se seu status for "canceled"
+ */
+function iande_display_post_states ($post_states, $post) {
+    if ($post->post_status == 'canceled') {
+        $post_states['canceled'] = _x('Cancelado', 'post', 'iande');
+    }
+    return $post_states;
+}
+add_filter('display_post_states', 'IandePlugin\\iande_display_post_states', 10, 2);

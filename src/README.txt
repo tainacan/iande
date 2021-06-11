@@ -4,7 +4,7 @@ Tags: Reservation system, scheduling, schedule, group visits, virtual group tour
 Requires at least: 5.5.3
 Tested up to: 5.7
 Requires PHP: 7.2
-Stable tag: 0.7.1
+Stable tag: 0.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,14 @@ Features:
 
 
 == Changelog ==
+
+= 0.7.3 =
+* Add source maps
+
+= 0.7.2 =
+* Exibir exposições privadas no calendário do educador
+* Desabilitar botão "Ver" para post-types do Iandé
+* Melhora na exibição de posts cancelados na listagem de agendamentos e grupos
 
 = 0.7.0 =
 * Permitir a usuários administradores alternar entre modo de visitante e educador
