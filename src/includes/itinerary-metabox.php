@@ -24,7 +24,7 @@ function itinerary_metabox($post)
 function build_itinerary_metabox($post) {
 ?>
     <div class="iande-admin-app">
-        <iande-itinerary-metabox id="<?php echo get_the_ID(); ?>"></iande-itinerary-metabox>
+        <iande-itinerary-metabox :previous="<?= \esc_attr(\get_post_meta($post->ID, 'tainacan_meta', true)) ?>"></iande-itinerary-metabox>
     </div>
 <?php
 }
@@ -36,5 +36,8 @@ function build_itinerary_metabox($post) {
  * @link https://codex.wordpress.org/Plugin_API/Action_Reference/save_post
  */
 function save_itinerary_metabox($post_id) {
+    if (!empty($_POST['tainacan-meta'])) {
+        \update_post_meta($post_id, 'tainacan_meta', $_POST['tainacan-meta']);
+    }
 }
-\add_action('save_post_exhibition', 'IandePlugin\\save_itinerary_metabox');
+\add_action('save_post_exhibition', 'IandePlugin\\save_itinerary_metabox', 10, 1);

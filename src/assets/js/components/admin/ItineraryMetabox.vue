@@ -22,6 +22,8 @@
                 <option v-for="metavalue of terms" :key="metavalue.value" :value="metavalue.value">{{ metavalue.label }} ({{ metavalue.total_items }})</option>
             </select>
         </div>
+
+        <input type="hidden" id="tainacan-meta" name="tainacan-meta" :value="JSON.stringify(form)">
     </div>
 </template>
 
@@ -33,12 +35,13 @@
     export default {
         name: 'ItineraryMetabox',
         props: {
-            id: { type: [Number, String], required: true },
+            previous: { type: Object, required: true },
         },
         data () {
             return {
                 collections: [],
                 facetsCache: {},
+                fetched: false,
                 form: {
                     collection: null,
                     metakey: null,
@@ -65,44 +68,29 @@
             },
         },
         watch: {
-            async 'form.collection' () {
-                const { collection } = this.form
-                if (collection) {
-                    if (!this.metadataCache[collection]) {
-                        try {
-                            const metadata = await api.get(`${tainacanUrl}/collection/${collection}/metadata`)
-                            this.$set(this.metadataCache, collection, metadata)
-                        } catch (err) {
-                            console.error(err)
-                        }
-                    }
+            'form.collection' () {
+                if (this.form.collection && !this.metadataCache[this.form.collection]) {
+                    this.fetchMetadata(this.form)
                 }
             },
-            async 'form.metakey' () {
-                const { collection, metakey } = this.form
-                if (metakey) {
-                    if (!this.facetsCache[metakey]) {
-                        try {
-                            const fragment = collection ? `collection/${collection}/facets/${metakey}` : `facets/${metakey}`
-                            const facets = await api.get(`${tainacanUrl}/${fragment}?hideempty=0`)
-                            this.$set(this.facetsCache, metakey, facets.values)
-                        } catch (err) {
-                            console.error(err)
-                        }
-                    }
+            'form.metakey' () {
+                if (this.form.metakey && !this.facetsCache[this.form.metakey]) {
+                    this.fetchFacets(this.form)
                 }
             },
             metadata () {
-                if (!this.metadata.find(metakey => metakey.id === this.form.metakey)) {
+                if (this.fetched && !this.metadata.find(metakey => metakey.id === this.form.metakey)) {
                     this.form.metakey = null
                     this.form.metavalue = null
                 }
             },
             terms () {
-                this.form.metavalue = null
+                if (this.fetched) {
+                    this.form.metavalue = null
+                }
             },
         },
-        async beforeMount () {
+        async created () {
             try {
                 const [collections, metadata] = await Promise.all([
                     api.get(`${tainacanUrl}/collections`),
@@ -110,9 +98,42 @@
                 ])
                 this.collections = collections
                 this.globalMetadata = metadata
+
+                if (this.previous) {
+                    await Promise.all([
+                        this.previous.collection ? this.fetchMetadata(this.previous) : null,
+                        this.previous.metakey ? this.fetchFacets(this.previous) : null,
+                    ])
+                    this.form = this.previous
+                }
+
+                this.$nextTick(() => {
+                    this.fetched = true
+                })
             } catch (err) {
                 console.error(err)
             }
-        }
+        },
+        methods: {
+            async fetchFacets (form) {
+                const { collection, metakey } = form
+                try {
+                    const fragment = collection ? `collection/${collection}/facets/${metakey}` : `facets/${metakey}`
+                    const facets = await api.get(`${tainacanUrl}/${fragment}?hideempty=0`)
+                    this.$set(this.facetsCache, metakey, facets.values)
+                } catch (err) {
+                    console.error(err)
+                }
+            },
+            async fetchMetadata (form) {
+                const { collection } = form
+                try {
+                    const metadata = await api.get(`${tainacanUrl}/collection/${collection}/metadata`)
+                    this.$set(this.metadataCache, collection, metadata)
+                } catch (err) {
+                    console.error(err)
+                }
+            },
+        },
     }
 </script>
