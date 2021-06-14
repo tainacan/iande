@@ -222,6 +222,9 @@
                 return [...new Set(hours)].sort().join(', ')
             },
             institution () {
+                if (this.appointment.group_nature !== 'institutional') {
+                    return null
+                }
                 return this.institutions.find(institution => institution.ID == this.appointment.institution_id)
             },
             institutions: get('institutions/list'),
