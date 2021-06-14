@@ -42,6 +42,19 @@ function iande_activation_plugin() {
 }
 add_action('admin_init', 'IandePlugin\\iande_activation_plugin');
 
+/**
+ * Retorna se o plugin está ativo
+ *
+ * Essa função é um polyfill do `is_plugin_active` nativo do WordPress,
+ * que funciona apenas no admin
+ *
+ * @param string $plugin O caminho do plugin
+ *
+ * @return boolean
+ */
+function is_plugin_active($plugin) {
+    return \in_array($plugin, \get_option('active_plugins', []));
+}
 
 /**
  * Verifica se o plugin WP Mail SMTP by WPForms está ativo

@@ -10,7 +10,7 @@ namespace IandePlugin;
  */
 function itinerary_metabox($post)
 {
-    if (\is_plugin_active('tainacan/tainacan.php')) {
+    if (is_plugin_active('tainacan/tainacan.php')) {
         \add_meta_box('itinerary_metabox', __('Roteiros', 'iande'), 'IandePlugin\\build_itinerary_metabox', 'exhibition', 'side', 'low');
     }
 }
