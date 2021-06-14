@@ -15,12 +15,12 @@
                 </div>
 
                 <div v-if="form.source === 'exhibition'">
-                    <label for="resource" class="iande-label">{{ __('Selecione uma exposição', 'iande') }}</label>
-                    <Select id="resource" :placeholder="__('Selecione uma exposição', 'iande')" v-model="form.resource" :validations="$v.form.resource" :options="exhibitionOptions"/>
+                    <label for="exhibition" class="iande-label">{{ __('Selecione uma exposição', 'iande') }}</label>
+                    <Select id="exhibition" :placeholder="__('Selecione uma exposição', 'iande')" v-model="form.exhibition" :validations="$v.form.exhibition" :options="exhibitionOptions"/>
                 </div>
                 <div v-else-if="form.source === 'collection'">
-                    <label for="resource" class="iande-label">{{ __('Selecione uma coleção', 'iande') }}</label>
-                    <Select id="resource" :placeholder="__('Selecione uma coleção', 'iande')" v-model="form.resource" :validations="$v.form.resource" :options="collectionOptions"/>
+                    <label for="collection" class="iande-label">{{ __('Selecione uma coleção', 'iande') }}</label>
+                    <Select id="collection" :placeholder="__('Selecione uma coleção', 'iande')" v-model="form.collection" :validations="$v.form.collection" :options="collectionOptions"/>
                 </div>
 
                 <div class="iande-form-error" v-if="formError">
@@ -58,8 +58,9 @@
             return {
                 collections: [],
                 form: {
+                    collection: null,
+                    exhibition: null,
                     name: '',
-                    resource: undefined,
                     source: '',
                 },
                 formError: '',
@@ -80,15 +81,13 @@
                 [__('A partir de uma coleção específica', 'iande')]: 'collection',
                 [__('A partir do repositório completo de itens do museu', 'iande')]: 'all',
             }),
-            specificSource () {
-                return ['collection', 'exhibition'].includes(this.form.source)
-            },
         },
         validations () {
             return {
                 form: {
+                    collection: { required: requiredIf(() => this.source === 'collection') },
+                    exhibition: { required: requiredIf(() => this.source === 'exhibition') },
                     name: { required },
-                    resource: { required: requiredIf('specificSource') },
                     source: { required },
                 },
             }

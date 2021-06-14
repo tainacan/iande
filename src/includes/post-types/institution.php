@@ -57,7 +57,7 @@ function register_post_type_institution()
 }
 
 /**
- * RRegistra os metaboxes do agendamento com CMB2
+ * Registra os metaboxes da instituição com CMB2
  *
  * @filter iande.institution_metabox_fields
  *
@@ -70,15 +70,14 @@ function register_metabox_institution() {
     $metadata_definition = get_institution_metadata_definition();
 
     $fields = [];
-    $institution_metabox = '';
 
     foreach ($metadata_definition as $key => $definition) {
 
         if (isset($definition->metabox)) {
 
-            $appointment_metabox = \new_cmb2_box(array(
+            $institution_metabox = \new_cmb2_box(array(
                 'id'            => 'institution',
-                'title'         => __('Informações do Agendamento', 'iande'),
+                'title'         => __('Informações da Instituição', 'iande'),
                 'object_types'  => array('institution'),
                 'context'       => 'normal',
                 'priority'      => 'high',
@@ -141,13 +140,13 @@ function register_metabox_institution() {
 
     $fields = \apply_filters('iande.institution_metabox_fields', $fields);
 
-    if (is_object($appointment_metabox)) {
+    if (is_object($institution_metabox)) {
         foreach ($fields as $field) {
-            $appointment_metabox->add_field($field);
+            $institution_metabox->add_field($field);
         }
     }
 
-    return $appointment_metabox;
+    return $institution_metabox;
 
 }
 
