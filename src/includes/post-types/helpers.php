@@ -82,13 +82,13 @@ function map_array_to_options (array $array) {
  * @return array
  */
 function map_posts_to_options (array $posts) {
-    $options = [];
+    $options = ['' => ''];
 
     foreach ($posts as $post) {
         $options[$post->ID] = $post->post_title . ' #' . $post->ID;
     }
 
-    return \array_filter($options);
+    return $options;
 }
 
 /**

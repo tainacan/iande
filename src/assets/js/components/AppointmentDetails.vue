@@ -1,30 +1,32 @@
 <template>
     <section class="iande-appointment">
         <div class="iande-appointment__summary" :class="showDetails || 'collapsed'">
-            <div>
-                <div class="iande-appointment__date">
-                    <div>
-                        <div class="iande-appointment__from" v-if="manyDates">{{ __('a partir de', 'iande') }}</div>
-                        <div class="iande-appointment__day">{{ day }}</div>
-                        <div class="iande-appointment__month">{{ month }}</div>
-                    </div>
-                </div>
-                <div class="iande-appointment__summary-main">
-                    <h2>{{ name }}</h2>
-                    <div class="iande-appointment__info">
-                        <Icon icon="map-marker-alt"/>
-                        <span>{{ $iande.siteName }} / #{{ appointment.ID }}</span>
-                    </div>
-                    <div class="iande-appointment__info">
-                        <Icon :icon="['far', 'clock']"/>
-                        <span>{{ hours }}</span>
-                    </div>
+            <div class="iande-appointment__date">
+                <div>
+                    <div class="iande-appointment__from" v-if="manyDates">{{ __('a partir de', 'iande') }}</div>
+                    <div class="iande-appointment__day">{{ day }}</div>
+                    <div class="iande-appointment__month">{{ month }}</div>
                 </div>
             </div>
-            <div>
-                <StepsIndicator inline :step="Number(appointment.step)" :status="appointment.post_status" :reason="appointment.reason_cancel"/>
-                <div class="iande-appointment__toggle" :aria-label="showDetails ? __('Ocultar detalhes', 'iande') : __('Exibir detalhes', 'iande')" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
-                    <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
+            <div class="iande-appointment__summary-main">
+                <h2>{{ name }}</h2>
+                <div class="iande-appointment__summary-row">
+                    <div>
+                        <div class="iande-appointment__info">
+                            <Icon icon="map-marker-alt"/>
+                            <span>{{ $iande.siteName }}</span>
+                        </div>
+                        <div class="iande-appointment__info">
+                            <Icon :icon="['far', 'clock']"/>
+                            <span>{{ hours }}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <StepsIndicator inline :step="Number(appointment.step)" :status="appointment.post_status" :reason="appointment.reason_cancel"/>
+                        <div class="iande-appointment__toggle" :aria-label="showDetails ? __('Ocultar detalhes', 'iande') : __('Exibir detalhes', 'iande')" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
+                            <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -222,6 +224,9 @@
                 return [...new Set(hours)].sort().join(', ')
             },
             institution () {
+                if (this.appointment.group_nature !== 'institutional') {
+                    return null
+                }
                 return this.institutions.find(institution => institution.ID == this.appointment.institution_id)
             },
             institutions: get('institutions/list'),
