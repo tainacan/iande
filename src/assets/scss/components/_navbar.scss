@@ -41,7 +41,11 @@
         padding: 1em 0;
 
         img {
-            margin-right: 1ex;
+            margin: 0 1ex;
+
+            &:first-child {
+                margin-left: 0;
+            }
         }
     }
 
