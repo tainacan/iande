@@ -17,6 +17,7 @@
 
 <script>
     import Modal from '@components/Modal.vue'
+    import { __, sprintf } from '@plugins/wp-i18n'
     import { api } from '@utils'
 
     export default {
@@ -32,7 +33,7 @@
                 if (this.appointment.name) {
                     return this.appointment.name
                 } else {
-                    return `Agendamento #${this.appointment.ID}`
+                    return sprintf(__('Agendamento %s', 'iande'), this.appointment.ID)
                 }
             },
         },

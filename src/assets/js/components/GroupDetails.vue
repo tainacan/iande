@@ -1,55 +1,59 @@
 <template>
     <section class="iande-group -full-width" :class="{ boxed }">
-        <div class="iande-group__summary" :class="{ collapsed }">
-            <div>
-                <div class="iande-appointment__date">
-                    <div>
-                        <div class="iande-appointment__day">{{ day }}</div>
-                        <div class="iande-appointment__month">{{ month }}</div>
-                    </div>
-                </div>
-                <div class="iande-appointment__summary-main">
-                    <h2 :class="status">{{ name }}</h2>
-                    <div class="iande-appointment__info">
-                        <Icon :icon="['far', 'image']"/>
-                        <span>{{ __(exhibition.title, 'title') }}</span>
-                    </div>
-                    <div class="iande-appointment__info">
-                        <Icon :icon="['far', 'clock']"/>
-                        <span>{{ group.hour }} - {{ endHour }}</span>
-                    </div>
+        <div class="iande-appointment__summary iande-group__summary" :class="{ collapsed }">
+            <div class="iande-appointment__date">
+                <div>
+                    <div class="iande-appointment__day">{{ day }}</div>
+                    <div class="iande-appointment__month">{{ month }}</div>
                 </div>
             </div>
-            <div class="iande-group__steps">
-                <div class="iande-group__step">
-                    <div class="iande-group__step-icon active">
-                        <Icon icon="check"/>
+            <div class="iande-appointment__summary-main">
+                <h2 :class="status">{{ name }}</h2>
+                <div class="iande-appointment__summary-row">
+                    <div>
+                        <div class="iande-appointment__info">
+                            <Icon :icon="['far', 'image']"/>
+                            <span>{{ __(exhibition.title, 'title') }}</span>
+                        </div>
+                        <div class="iande-appointment__info">
+                            <Icon :icon="['far', 'clock']"/>
+                            <span>{{ group.hour }} - {{ endHour }}</span>
+                        </div>
                     </div>
-                    <label>
-                        <span>Mediação:</span>
-                        <select v-model="group.educator_id">
-                            <option :value="null">Atribuir mediação</option>
-                            <option v-for="educator of educators" :key="educator.ID" :value="educator.ID">
-                                {{ educator.display_name }}
-                            </option>
-                        </select>
-                        <Icon icon="pencil-alt"/>
-                    </label>
-                </div>
-                <div class="iande-group__step">
-                    <div class="iande-group__step-icon" :class="{ active: !!group.has_checkin }">
-                        <Icon :icon="group.has_checkin ? 'check' : 'minus'"/>
+                    <div>
+                        <div class="iande-group__steps">
+                            <div class="iande-group__step">
+                                <div class="iande-group__step-icon active">
+                                    <Icon icon="check"/>
+                                </div>
+                                <label>
+                                    <span>Mediação:</span>
+                                    <select v-model="group.educator_id">
+                                        <option :value="null">Atribuir mediação</option>
+                                        <option v-for="educator of educators" :key="educator.ID" :value="educator.ID">
+                                            {{ educator.display_name }}
+                                        </option>
+                                    </select>
+                                    <Icon icon="pencil-alt"/>
+                                </label>
+                            </div>
+                            <div class="iande-group__step">
+                                <div class="iande-group__step-icon" :class="{ active: !!group.has_checkin }">
+                                    <Icon :icon="group.has_checkin ? 'check' : 'minus'"/>
+                                </div>
+                                Check-in
+                            </div>
+                            <div class="iande-group__step">
+                                <div class="iande-group__step-icon" :class="{ active: !!group.has_report }">
+                                    <Icon :icon="group.has_report ? 'check' : 'minus'"/>
+                                </div>
+                                Avaliação
+                            </div>
+                            <div class="iande-appointment__toggle" :aria-label="showDetails ? 'Ocultar detalhes' : 'Exibir detalhes'" role="button" tabindex="0" v-if="boxed" @click="toggleDetails" @keypress.enter="toggleDetails">
+                                <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
+                            </div>
+                        </div>
                     </div>
-                    Check-in
-                </div>
-                <div class="iande-group__step">
-                    <div class="iande-group__step-icon" :class="{ active: !!group.has_report }">
-                        <Icon :icon="group.has_report ? 'check' : 'minus'"/>
-                    </div>
-                    Avaliação
-                </div>
-                <div class="iande-appointment__toggle" :aria-label="showDetails ? 'Ocultar detalhes' : 'Exibir detalhes'" role="button" tabindex="0" v-if="boxed" @click="toggleDetails" @keypress.enter="toggleDetails">
-                    <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
                 </div>
             </div>
         </div>
