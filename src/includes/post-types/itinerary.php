@@ -166,6 +166,21 @@ function get_itinerary_metadata_definition() {
     ]);
 
     $metadata_definition = [
+        'name' => (object) [
+            'type'       => 'string',
+            'required'   => true,
+            'validation' => function ($value) {
+                if (strlen(trim($value)) >= 2) {
+                    return true;
+                } else {
+                    return __('O nome informado é muito curto', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name' => __('Nome', 'iande'),
+                'type' => 'text'
+            ]
+        ],
         'source' => (object) [
             'type'       => 'string',
             'required'   => true,

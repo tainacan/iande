@@ -101,12 +101,13 @@
             }
         },
         methods: {
-            createItinerary () {
+            async createItinerary () {
                 this.formError = ''
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
                     try {
-
+                        const itinerary = await api.post('itinerary/create', this.form)
+                        window.location.assign(this.$iandeUrl(`itinerary/edit?ID=${itinerary.ID}`))
                     } catch (err) {
                         this.formError = err
                     }

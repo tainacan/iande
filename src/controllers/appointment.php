@@ -647,7 +647,7 @@ class Appointment extends Controller
     }
 
     /**
-     * Parsea o agendamento para retorno na API
+     * Parseia o agendamento para retorno na API
      *
      * @param \WP_Post $appointment
      * @param array $metadata
