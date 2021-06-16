@@ -34,7 +34,6 @@
                 return Object.keys(this.groupsByDate).sort()
             },
             options () {
-
                 return {
                     chart: {
                         zoom: {
