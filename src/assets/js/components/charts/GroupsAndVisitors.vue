@@ -14,25 +14,24 @@
             groups: { type: Array, required: true },
         },
         computed: {
-            filterData () {
+            groupsByDate () {
+                const chartData = {}
 
-                let chartData = this.groups.reduce( (initValue, group) => {
-                    if (typeof initValue[group.date] !== 'undefined') {
-                        initValue[group.date] = {
-                            num_people: parseInt(initValue[group.date].num_people) + parseInt(group.num_people),
-                            num_group: parseInt(initValue[group.date].num_group) + 1,
+                for (const group of this.groups) {
+                    if (group.date) {
+                        if (!chartData[group.date]) {
+                            chartData[group.date] = { num_group: 0, num_people: 0 }
                         }
-                    } else {
-                        initValue[group.date] = {
-                            num_people: parseInt(group.num_people),
-                            num_group: 1,
-                        }
+                        const dateData = chartData[group.date]
+                        dateData.num_group += 1
+                        dateData.num_people += parseInt(group.num_people) || 0
                     }
-                    return initValue
-                }, [])
+                }
 
                 return chartData
-
+            },
+            labels () {
+                return Object.keys(this.groupsByDate).sort()
             },
             options () {
 
@@ -49,7 +48,7 @@
                         curve: 'straight',
                         width: 7,
                     },
-                    labels: Object.keys(this.filterData).sort(),
+                    labels: this.labels,
                     xaxis: {
                         // type: 'datetime',
                     },
@@ -78,26 +77,18 @@
                 }
             },
             series () {
-
-                let dates = Object.keys(this.filterData).sort()
-
-                let groups = []
-                let peoples = []
-
-                for(const date in dates) {
-                    groups.push(this.filterData[dates[date]].num_group)
-                    peoples.push(this.filterData[dates[date]].num_people)
-                }
+                const groups = this.labels.map(date => this.groupsByDate[date].num_group)
+                const people = this.labels.map(date => this.groupsByDate[date].num_people)
 
                 return [
                     {
                         type: 'area',
-                        name: "Visitantes",
-                        data: peoples,
+                        name: __('Visitantes', 'iande'),
+                        data: people,
                     },
                     {
                         type: 'area',
-                        name: "Grupos",
+                        name: __('Grupos', 'iande'),
                         data: groups,
                     }
 
