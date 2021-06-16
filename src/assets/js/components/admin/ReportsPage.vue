@@ -15,26 +15,26 @@
 <script>
     import { DateTime } from 'luxon'
 
+    import GroupsAgeRangeChart from '@components/charts/GroupsAgeRange.vue'
     import GroupsAndVisitorsChart from '@components/charts/GroupsAndVisitors.vue'
     import GroupsAndVisitorsByExhibitionChart from '@components/charts/GroupsAndVisitorsByExhibition.vue'
-    import InstitutionalGroupsChart from '@components/charts/InstitutionalGroups.vue'
-    import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
-    import GroupsAgeRangeChart from '@components/charts/GroupsAgeRange.vue'
-    import PurposeVisitChart from '@components/charts/PurposeVisit.vue'
     import GroupsByInstitutionChart from '@components/charts/GroupsByInstitution.vue'
+    import InstitutionalGroupsChart from '@components/charts/InstitutionalGroups.vue'
+    import PurposeVisitChart from '@components/charts/PurposeVisit.vue'
+    import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
 
     import { arrayToMap, constant, today } from '@utils'
 
     export default {
         name: 'ReportsPage',
         components: {
+            GroupsAgeRangeChart,
             GroupsAndVisitorsChart,
             GroupsAndVisitorsByExhibitionChart,
-            InstitutionalGroupsChart,
-            RecurringVisitorsChart,
-            GroupsAgeRangeChart,
-            PurposeVisitChart,
             GroupsByInstitutionChart,
+            InstitutionalGroupsChart,
+            PurposeVisitChart,
+            RecurringVisitorsChart,
         },
         data () {
             return {
