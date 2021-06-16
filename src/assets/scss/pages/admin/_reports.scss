@@ -1,22 +1,6 @@
-:root {
-    --iande-border-radius: 10px;
-    --iande-primary-color: #A8DBBC;
-    --iande-secondary-color: #1E2E55;
-    --iande-tertiary-color: #7DB6C5;
-    --iande-background-color: white;
-    --iande-lighter-color: #F5F5F5;
-    --iande-light-color: #DDDDDD;
-    --iande-medium-color: #999999;
-    --iande-text-color: #666666;
-    --iande-error-color: #E53E3E;
-    --iande-success-color: #238B19;
-    --iande-text-font: Open Sans, sans-serif;
-    --iande-title-font: Quicksand, Open Sans, sans-serif;
-}
-
-.iande_page_iande_reports {
+#iande-reports-page {
     h1 {
-        padding-bottom: 40px;
+        margin-bottom: 40px;
     }
 }
 
@@ -26,12 +10,12 @@
     grid-template-columns: 1fr 1fr;
 
     .iande-chart-wrapper {
+        background-color: white;
         border: 1px solid #DDDDDD;
         padding: 20px 30px;
 
-        &:nth-child(1),
-        &:last-child {
-            grid-column: 1 / -1;
+        &.-colspan-2 {
+            grid-column-end: span 2;
         }
 
         .apexcharts-toolbar {

@@ -1,5 +1,5 @@
 <template>
-    <div class="iande-chart-wrapper">
+    <div class="iande-chart-wrapper -colspan-2">
         <h2>{{ __('Quantidade de grupos e visitantes', 'iande') }}</h2>
         <ApexChart type="line" height="450" :series="series" :options="options"/>
     </div>
@@ -100,7 +100,7 @@
                         name: "Grupos",
                         data: groups,
                     }
-                    
+
                 ]
             }
         }

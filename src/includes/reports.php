@@ -7,7 +7,7 @@ namespace IandePlugin;
  */
 function render_iande_reports_page () {
     ?>
-    <div class="wrap">
+    <div class="wrap" id="iande-reports-page">
         <h1><?= __('Relatórios', 'iande') ?></h1>
 
         <div class="iande-admin-app">
