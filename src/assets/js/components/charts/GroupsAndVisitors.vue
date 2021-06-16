@@ -40,39 +40,41 @@
                             enabled: false,
                         }
                     },
+                    colors: ['#A8DBBC', '#7DB6C5'],
                     dataLabels: {
                         enabled: false,
                     },
-                    stroke: {
-                        curve: 'straight',
-                        width: 7,
+                    fill: {
+                        colors: ['transparent', '#7DB6C5'],
+                        opacity: 0.4,
+                        type: 'solid',
                     },
                     labels: this.labels,
-                    xaxis: {
-                        // type: 'datetime',
-                    },
-                    yaxis: {
-                        opposite: false,
-                    },
                     legend: {
-                        position: 'top',
                         horizontalAlign: 'center',
+                            itemMargin: {
+                            horizontal: 10,
+                            vertical: 10,
+                        },
                         markers: {
                             width: 18,
                             height: 18,
                             radius: 0,
                         },
-                        itemMargin: {
-                            horizontal: 10,
-                            vertical: 10,
-                        }
+                        position: 'top',
                     },
-                    colors: ['#A8DBBC', '#7DB6C5'],
-                    fill: {
-                        colors: ['transparent', '#7DB6C5'],
-                        opacity: 0.4,
-                        type: 'solid',
-                    }
+                    stroke: {
+                        curve: 'straight',
+                        width: 7,
+                    },
+                    /*
+                    xaxis: {
+                        type: 'datetime',
+                    },
+                    */
+                    yaxis: {
+                        opposite: false,
+                    },
                 }
             },
             series () {
@@ -81,18 +83,18 @@
 
                 return [
                     {
-                        type: 'area',
-                        name: __('Visitantes', 'iande'),
                         data: people,
+                        name: __('Visitantes', 'iande'),
+                        type: 'area',
                     },
                     {
-                        type: 'area',
-                        name: __('Grupos', 'iande'),
                         data: groups,
+                        name: __('Grupos', 'iande'),
+                        type: 'area',
                     }
 
                 ]
-            }
-        }
+            },
+        },
     }
 </script>
