@@ -6,6 +6,8 @@
 </template>
 
 <script>
+    import { DateTime } from 'luxon'
+
     import { __ } from '@plugins/wp-i18n'
 
     export default {
@@ -14,6 +16,9 @@
             groups: { type: Array, required: true },
         },
         computed: {
+            dates () {
+                return Object.keys(this.groupsByDate).sort()
+            },
             groupsByDate () {
                 const chartData = {}
 
@@ -31,7 +36,7 @@
                 return chartData
             },
             labels () {
-                return Object.keys(this.groupsByDate).sort()
+                return this.dates.map(date => DateTime.fromISO(date).toLocaleString(DateTime.DATE_SHORT))
             },
             options () {
                 return {
@@ -78,8 +83,8 @@
                 }
             },
             series () {
-                const groups = this.labels.map(date => this.groupsByDate[date].num_group)
-                const people = this.labels.map(date => this.groupsByDate[date].num_people)
+                const groups = this.dates.map(date => this.groupsByDate[date].num_group)
+                const people = this.dates.map(date => this.groupsByDate[date].num_people)
 
                 return [
                     {
