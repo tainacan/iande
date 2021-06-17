@@ -24,7 +24,7 @@ function itinerary_metabox($post)
 function build_itinerary_metabox($post) {
 ?>
     <div class="iande-admin-app">
-        <iande-itinerary-metabox :previous="<?= \esc_attr(\get_post_meta($post->ID, 'tainacan_meta', true)) ?>"></iande-itinerary-metabox>
+        <iande-itinerary-metabox :previous="<?php echo \esc_attr(\get_post_meta($post->ID, 'tainacan_meta', true)) ?>"></iande-itinerary-metabox>
     </div>
 <?php
 }
