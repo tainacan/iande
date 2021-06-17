@@ -3,9 +3,9 @@
 
 <?php
     if (!empty($_GET['next'])) {
-        $next = $_GET['next'];
+        $next = esc_attr($_GET['next']);
     }
 ?>
-<iande-login-page next="<?= esc_attr($next) ?>" reset-password="<?= wp_lostpassword_url(get_site_url(null, '/iande/appointment/list')) ?>"></iande-login-page>
+<iande-login-page next="<?php echo $next ?>" reset-password="<?php echo wp_lostpassword_url(get_site_url(null, '/iande/appointment/list')) ?>"></iande-login-page>
 
 <?php require 'parts/footer.php'; ?>
