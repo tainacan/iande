@@ -1,7 +1,6 @@
 <?php
 
 require 'cmb2/core-plugin/init.php';
-require 'cmb2/cmb2-attached-posts/cmb2-attached-posts-field.php';
 require 'cmb2/cmb2-double-text/cmb2-double-text-field.php';
 require 'cmb2/cmb2-disabilities/cmb2-disabilities-field.php';
 require 'cmb2/cmb2-languages/cmb2-languages-field.php';
