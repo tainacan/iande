@@ -147,7 +147,7 @@ function get_group_metadata_definition()
                         return __('Agendamento inválido', 'iande');
                     }
                 } else {
-                    return __('O valor informado para o agendamento deve ser um inteiro', 'iande');
+                    return __('O valor informado para o agendamento deve ser um número inteiro', 'iande');
                 }
             },
             'metabox' => (object) [
@@ -168,7 +168,7 @@ function get_group_metadata_definition()
                         return __('Exposição inválida', 'iande');
                     }
                 } else {
-                    return __('O valor informado para a exposição deve ser um inteiro', 'iande');
+                    return __('O valor informado para a exposição deve ser um número inteiro', 'iande');
                 }
             },
             'metabox' => (object) [
