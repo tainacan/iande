@@ -306,7 +306,7 @@ function get_exhibition_metadata_definition() {
                 if ($d && $d->format("Y-m-d") === $value) {
                     return true;
                 } else {
-                    return __("Formato de data inválido", 'iande');
+                    return __('Formato de data inválido', 'iande');
                 }
             },
             'metabox' => (object) [
@@ -323,7 +323,7 @@ function get_exhibition_metadata_definition() {
                 if ($d && $d->format("Y-m-d") === $value) {
                     return true;
                 } else {
-                    return __("Formato de data inválido", 'iande');
+                    return __('Formato de data inválido', 'iande');
                 }
             },
             'metabox' => (object) [

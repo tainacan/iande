@@ -246,7 +246,7 @@ function get_appointment_metadata_definition() {
                         return __('Exposição inválida', 'iande');
                     }
                 } else {
-                    return __('O valor informado para a exposição deve ser um inteiro', 'iande');
+                    return __('O valor informado para a exposição deve ser um número inteiro', 'iande');
                 }
             },
             'metabox' => (object) [
@@ -433,7 +433,7 @@ function get_appointment_metadata_definition() {
                         return __('Instituição inválida', 'iande');
                     }
                 } else {
-                    return __('O valor informado para a instituição deve ser um inteiro', 'iande');
+                    return __('O valor informado para a instituição deve ser um número inteiro', 'iande');
                 }
             },
             'metabox' => (object) [

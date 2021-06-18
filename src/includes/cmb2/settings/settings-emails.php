@@ -58,9 +58,9 @@ function iande_settings_emails() {
         'options'     => $options
     ]);
 
-    // E-mail 1.1 - Pré agendamento
+    // E-mail 1.1 - Pré-agendamento
     $iande_emails_options->add_field([
-        'name'       => __('Pré agendamento', 'iande'),
+        'name'       => __('Pré-agendamento', 'iande'),
         'id'         => 'email_pre_scheduling_heading',
         'type'       => 'title'
     ]);
@@ -69,7 +69,7 @@ function iande_settings_emails() {
         'show_names' => false,
         'type'       => 'text',
         'attributes' => [
-            'placeholder' => __('Título do pré agendamento', 'iande')
+            'placeholder' => __('Título do pré-agendamento', 'iande')
         ]
     ]);
     $iande_emails_options->add_field([
@@ -80,9 +80,9 @@ function iande_settings_emails() {
         'options'     => $options
     ]);
 
-    // E-mail 1.2 - Pré agendamento + isenção
+    // E-mail 1.2 - Pré-agendamento + isenção
     $iande_emails_options->add_field([
-        'name'       => __('Pré agendamento + isenção', 'iande'),
+        'name'       => __('Pré-agendamento + isenção', 'iande'),
         'id'         => 'email_pre_scheduling_exemption_heading',
         'type'       => 'title'
     ]);
@@ -91,7 +91,7 @@ function iande_settings_emails() {
         'show_names' => false,
         'type'       => 'text',
         'attributes' => [
-            'placeholder' => __('Título do pré agendamento + isenção', 'iande')
+            'placeholder' => __('Título do pré-agendamento + isenção', 'iande')
         ]
     ]);
     $iande_emails_options->add_field([
@@ -190,9 +190,9 @@ function iande_settings_emails() {
         'options'     => $options
     ]);
 
-    // E-mail 1.6 - Pós visita
+    // E-mail 1.6 - Pós-visita
     $iande_emails_options->add_field([
-        'name'       => __('Pós visita', 'iande'),
+        'name'       => __('Pós-visita', 'iande'),
         'id'         => 'email_after_visiting_heading',
         'type'       => 'title'
     ]);
@@ -201,7 +201,7 @@ function iande_settings_emails() {
         'show_names' => false,
         'type'       => 'text',
         'attributes' => [
-            'placeholder' => __('Título da pós visita', 'iande')
+            'placeholder' => __('Título da pós-visita', 'iande')
         ]
     ]);
     $iande_emails_options->add_field([

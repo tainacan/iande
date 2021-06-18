@@ -20,7 +20,7 @@ function iande_institution() {
 
     // Perfil
     $iande_institutions_options->add_field([
-        'name' => __('Perfil da insituição', 'iande'),
+        'name' => __('Perfil da instituição', 'iande'),
         'id'   => 'institution_profile_title',
         'type' => 'title',
         'desc' => __('Gerencie abaixo os perfis disponíveis para as instituições', 'iande')

@@ -18,11 +18,11 @@ class Exhibition extends Controller
     {
 
         if (empty($params['ID'])) {
-            $this->error(__('O parâmetro id é obrigatório', 'iande'));
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
         }
 
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
-            $this->error(__('O parâmetro id deve ser um número inteiro', 'iande'));
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
 
         if (get_post_type($params['ID']) != 'exhibition') {
@@ -100,7 +100,7 @@ class Exhibition extends Controller
             // validação de campos obrigatórios
             if ($definition->required && empty($params[$key])) {
                 if ($validate_missing_requirements) {
-                    $this->error(__('O campo [' . $key . '] é obrigatório'));
+                    $this->error(\sprintf(__('O campo [%s] é obrigatório', 'iande'), \esc_html($key)));
                 } else if (isset($params[$key])) {
                     $this->error($definition->required);
                 }

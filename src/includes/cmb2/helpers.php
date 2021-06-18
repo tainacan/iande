@@ -265,7 +265,7 @@ function iande_cmb2_settings_init() {
     }
 
     /**
-     * E-mail 1.1 - Pré agendamento
+     * E-mail 1.1 - Pré-agendamento
      */
     if (empty($emails_settings['email_pre_scheduling_title'])) {
         $title = "Confirmação de reserva da visita";
@@ -290,7 +290,7 @@ Caso tenha alguma dúvida, entre em contato com o Museu nos dados abaixo.";
     }
 
     /**
-     * E-mail 1.2 - Pré agendamento + isenção
+     * E-mail 1.2 - Pré-agendamento + isenção
      */
     if (empty($emails_settings['email_pre_scheduling_exemption_title'])) {
         $title = "Confirmação de reserva da visita";
@@ -399,7 +399,7 @@ Caso queira fazer um novo agendamento, <a href='%link%'>clique aqui</a>.";
     }
 
     /**
-     * E-mail 1.6 - Pós visita
+     * E-mail 1.6 - Pós-visita
      */
     if (empty($emails_settings['email_after_visiting_title'])) {
         $title = "Agradecemos sua visita";
