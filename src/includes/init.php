@@ -202,7 +202,7 @@ function add_iande_menu () {
  * Redireciona algumas páginas do plugin para o front-end do Iandé
  */
 function redirect_to_iande_frontend () {
-    $menu_redirect = isset($_GET['page']) ? $_GET['page'] : '';
+    $menu_redirect = isset($_GET['page']) ? \filter_var($_GET['page']) : '';
 
     if ($menu_redirect === 'iande_frontend') {
         \wp_safe_redirect(get_site_url(null, '/iande/?force_view=visitor'));
