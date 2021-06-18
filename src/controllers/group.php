@@ -47,17 +47,17 @@ class Group extends Controller
         $this->require_authentication();
 
         if (empty($params['ID'])) {
-            $this->error(__('O parâmetro id é obrigatório', 'iande'));
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
         }
 
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
-            $this->error(__('O parâmetro id deve ser um número inteiro', 'iande'));
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
 
         $group = $this->get_parsed_group($params['ID']);
 
         if (!is_iande_admin() && $group->user_id != \get_current_user_id()) {
-            $this->error(__('This action requires admin permission', 'iande'));
+            $this->error(__('Essa ação requer privilégios administrativos', 'iande'));
         }
 
         if (empty($group)) {
@@ -174,7 +174,7 @@ class Group extends Controller
          */
         foreach ($params as $key => $value) {
             if (!array_key_exists($key, $metadata_definition) && $key != 'ID') {
-                $this->error(__("O parâmetro {$key} é inválido", 'iande'));
+                $this->error(\sprintf(__("O parâmetro [%s] é inválido", 'iande'), \esc_html($key)));
             }
         }
 
@@ -214,7 +214,7 @@ class Group extends Controller
          */
         foreach ($params as $key => $value) {
             if (!array_key_exists($key, $metadata_definition) && $key != 'ID') {
-                $this->error(__("O parâmetro {$key} é inválido", 'iande'));
+                $this->error(\sprintf(__("O parâmetro [%s] é inválido", 'iande'), \esc_html($key)));
             }
         }
 
@@ -226,7 +226,7 @@ class Group extends Controller
         $date = \get_post_meta($params['ID'], 'date', true);
 
         if (date('Y-m-d') < $date) {
-            $this->error(__("O checkin não pode ser realizado/alterado antes da data de visitação agendada", 'iande'));
+            $this->error(__("O check-in não pode ser realizado/alterado antes da data de visitação agendada", 'iande'));
         }
 
         $this->set_group_metadata($params['ID'], $params);
@@ -265,7 +265,7 @@ class Group extends Controller
          */
         foreach ($params as $key => $value) {
             if (!array_key_exists($key, $metadata_definition) && $key != 'ID') {
-                $this->error(__("O parâmetro {$key} é inválido", 'iande'));
+                $this->error(\sprintf(__("O parâmetro [%s] é inválido", 'iande'), \esc_html($key)));
             }
         }
 
@@ -277,7 +277,7 @@ class Group extends Controller
         $has_checkin = \get_post_meta($params['ID'], 'has_checkin', true);
 
         if (!$has_checkin) {
-            $this->error(__("A avaliação do visitante não pode ser realizada antes do checkin", 'iande'));
+            $this->error(__("A avaliação do visitante não pode ser realizada antes do check-in", 'iande'));
         }
 
         $this->set_group_metadata($params['ID'], $params);
@@ -314,7 +314,7 @@ class Group extends Controller
          */
         foreach ($params as $key => $value) {
             if (!array_key_exists($key, $metadata_definition) && $key != 'ID') {
-                $this->error(__("O parâmetro {$key} é inválido", 'iande'));
+                $this->error(\sprintf(__("O parâmetro [%s] é inválido", 'iande'), \esc_html($key)));
             }
         }
 
@@ -326,7 +326,7 @@ class Group extends Controller
         $has_checkin = \get_post_meta($params['ID'], 'has_checkin', true);
 
         if (!$has_checkin) {
-            $this->error(__("A avaliação do educador não pode ser realizada antes do checkin", 'iande'));
+            $this->error(__("A avaliação do educador não pode ser realizada antes do check-in", 'iande'));
         }
 
         $this->set_group_metadata($params['ID'], $params);
@@ -369,12 +369,12 @@ class Group extends Controller
         $this->validate($params);
 
         /**
-         * Permite a atribuição do educador apenas enquanto o checkin não for realizado
+         * Permite a atribuição do educador apenas enquanto o check-in não for realizado
          */
         $has_checkin = \get_post_meta($params['ID'], 'has_checkin', true);
 
         if ($has_checkin) {
-            $this->error(__("A atribuição do educador não pode ser realizada após o checkin", 'iande'));
+            $this->error(__('A atribuição do educador não pode ser realizada após o check-in', 'iande'));
         }
 
         $this->set_group_metadata($params['ID'], $params);
@@ -414,7 +414,7 @@ class Group extends Controller
         $has_checkin = \get_post_meta($params['ID'], 'has_checkin', true);
 
         if ($has_checkin) {
-            $this->error(__("A desatribuição do educador não pode ser realizada após o checkin", 'iande'));
+            $this->error(__('A desatribuição do educador não pode ser realizada após o check-in', 'iande'));
         }
 
         \delete_post_meta($params['ID'], 'educator_id');
@@ -600,7 +600,7 @@ class Group extends Controller
 
         if ($user_id != $educator_id) {
             if (\wp_is_json_request()) {
-                $error_message = $error_message ?: __('This action requires admin permission', 'iande');
+                $error_message = $error_message ?: __('Essa ação requer privilégios administrativos', 'iande');
                 $this->error($error_message, 403);
             } else {
                 $this->render('login', ['next' => $_SERVER['REQUEST_URI']]);
@@ -627,7 +627,7 @@ class Group extends Controller
 
         if ($user_id != $group->post_author) {
             if (\wp_is_json_request()) {
-                $error_message = $error_message ?: __('This action requires admin permission', 'iande');
+                $error_message = $error_message ?: __('Essa ação requer privilégios administrativos', 'iande');
                 $this->error($error_message, 403);
             } else {
                 $this->render('login', ['next' => $_SERVER['REQUEST_URI']]);

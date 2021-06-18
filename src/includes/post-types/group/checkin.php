@@ -16,7 +16,7 @@ function register_metabox_group_checkin()
 
     $metabox_definition = \new_cmb2_box([
         'id'           => 'group_checkin',
-        'title'        => __('Informações do Checkin', 'iande'),
+        'title'        => __('Informações do Check-in', 'iande'),
         'object_types' => ['group'],
         'context'      => 'normal',
         'priority'     => 'high',
@@ -86,7 +86,7 @@ function get_group_checkin_metadata_definition()
                 return true;
             },
             'metabox' => (object) [
-                'name' => __('O checkin foi realizado?', 'iande'),
+                'name' => __('O check-in foi realizado?', 'iande'),
                 'type' => 'checkbox'
             ]
         ],
