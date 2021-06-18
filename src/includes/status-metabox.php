@@ -12,6 +12,7 @@ function appointment_enqueue_scripts() {
         'IandeSettings',
         [
             'siteUrl'           => $site_url,
+            'iandePath'         => IANDE_PLUGIN_BASEURL,
             'iandeUrl'          => $iande_url,
         ]
     );
