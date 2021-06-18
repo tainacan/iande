@@ -1,4 +1,4 @@
-import '../scss/admin.scss'
+__webpack_public_path__ = window.IandeSettings.iandePath
 
 import Vue from 'vue'
 

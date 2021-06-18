@@ -24,7 +24,6 @@ mix.js(assetsDir + 'js/admin.js', distDir)
         output: {
             chunkFilename: distDir + '[name].js',
             path: path.resolve(__dirname, rootDir),
-            publicPath: '/wp-content/plugins/iande/',
         },
         plugins: [
             new webpack.EnvironmentPlugin({

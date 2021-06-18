@@ -65,6 +65,7 @@ function iande_institution_settings() {
         [
             'siteName'         => $site_name,
             'siteUrl'          => $site_url,
+            'iandePath'        => IANDE_PLUGIN_BASEURL,
             'iandeUrl'         => $iande_url,
             'tainacanUrl'      => $tainacan_url,
             'profiles'         => $profiles,
