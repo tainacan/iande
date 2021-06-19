@@ -26,11 +26,13 @@
                 const chartData = {}
 
                 for (const group of this.groups) {
-                    if (group.exhibition_id) {
-                        if (!chartData[group.exhibition_id]) {
-                            chartData[group.exhibition_id] = { num_group: 0, num_people: 0 }
+                    const exhibitionId = group.exhibition_id
+
+                    if (exhibitionId) {
+                        if (!chartData[exhibitionId]) {
+                            chartData[exhibitionId] = { num_group: 0, num_people: 0 }
                         }
-                        const exhibitionData = chartData[group.exhibition_id]
+                        const exhibitionData = chartData[exhibitionId]
                         exhibitionData.num_group += 1
                         exhibitionData.num_people += parseInt(group.num_people) || 0
                     }

@@ -7,16 +7,15 @@
 
 <script>
     import { __ } from '@plugins/wp-i18n'
-    import { toArray } from '@utils'
 
     export default {
-        name: 'VisitsPurposeChart',
+        name: 'Scholarity',
         props: {
-            appointments: { type: Array, required: true },
+            groups: { type: Array, required: true },
         },
         computed: {
             labels () {
-                return Object.keys(this.purposes).map(purpose => __(purpose, 'iande')).sort()
+                return Object.keys(this.scholarities).map(scholarity => __(scholarity, 'iande')).sort()
             },
             options () {
                 return {
@@ -55,18 +54,17 @@
                     },
                 }
             },
-            purposes () {
+            scholarities () {
                 const chartData = {}
 
-                for (const appointment of this.appointments) {
-                    const purpose = appointment.purpose
+                for (const group of this.groups) {
+                    const scholarity = group.scholarity
 
-                    if (purpose) {
-                        const groups = toArray(appointment.groups).length
-                        if (chartData[purpose]) {
-                            chartData[purpose] += groups
+                    if (scholarity) {
+                        if (chartData[scholarity]) {
+                            chartData[scholarity] += 1
                         } else {
-                            chartData[purpose] = groups
+                            chartData[scholarity] = 1
                         }
                     }
                 }
@@ -74,7 +72,7 @@
                 return chartData
             },
             series () {
-                return this.labels.map(purpose => this.purposes[purpose])
+                return this.labels.map(scholarity => this.scholarities[scholarity])
             },
         },
     }

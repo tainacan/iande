@@ -23,11 +23,13 @@
                 const chartData = {}
 
                 for (const group of this.groups) {
-                    if (group.date) {
-                        if (!chartData[group.date]) {
-                            chartData[group.date] = { num_group: 0, num_people: 0 }
+                    const date = group.date
+
+                    if (date) {
+                        if (!chartData[date]) {
+                            chartData[date] = { num_group: 0, num_people: 0 }
                         }
-                        const dateData = chartData[group.date]
+                        const dateData = chartData[date]
                         dateData.num_group += 1
                         dateData.num_people += parseInt(group.num_people) || 0
                     }
