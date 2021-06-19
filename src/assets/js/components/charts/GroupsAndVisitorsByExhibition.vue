@@ -6,90 +6,86 @@
 </template>
 
 <script>
-    import { __, _x } from '@plugins/wp-i18n'
+    import { __ } from '@plugins/wp-i18n'
+import exhibitions from '@store/exhibitions'
 
     export default {
         name: 'GroupsAndVisitorsByExhibitionChart',
         props: {
+            exhibitions: { type: Object, required: true },
             groups: { type: Array, required: true },
-            exhibitions: { type: Array, required: true },
         },
         computed: {
-            filterData () {
-                let chartData = this.groups.reduce( (initValue, group) => {
+            categories () {
+                return this.exhibitionsList.map(exhibitionId => __(this.exhibitions[exhibitionId].post_title, 'iande'))
+            },
+            exhibitionsList () {
+                return Object.keys(this.groupsByExhibition)
+                    .sort((a, b) => a - b)
+            },
+            groupsByExhibition () {
+                const chartData = {}
 
-                    let searchExhibition = this.exhibitions.map(function(e) {return e.ID}).indexOf(group.exhibition_id)
-                    let exhibition = this.exhibitions[searchExhibition]
-
-                    if (typeof initValue[exhibition.post_title] !== 'undefined') {
-                        initValue[exhibition.post_title] = {
-                            num_people: parseInt(initValue[exhibition.post_title].num_people) + parseInt(group.num_people),
-                            num_group: parseInt(initValue[exhibition.post_title].num_group) + 1,
+                for (const group of this.groups) {
+                    if (group.exhibition_id) {
+                        if (!chartData[group.exhibition_id]) {
+                            chartData[group.exhibition_id] = { num_group: 0, num_people: 0 }
                         }
-                    } else {
-                        initValue[exhibition.post_title] = {
-                            num_people: parseInt(group.num_people),
-                            num_group: 1,
-                        }
+                        const exhibitionData = chartData[group.exhibition_id]
+                        exhibitionData.num_group += 1
+                        exhibitionData.num_people += parseInt(group.num_people) || 0
                     }
-                    return initValue
-                }, [])
+                }
 
                 return chartData
             },
             options () {
                 return {
-                    plotOptions: {
-                        bar: {
-                            horizontal: false,
-                            columnWidth: '90%',
-                            dataLabels: {
-                                position: 'top', // top, center, bottom
-                            }
-                        }
-                    },
+                    colors: ['var(--iande-primary-color)', 'var(--iande-tertiary-color)'],
                     dataLabels: {
                         enabled: true,
                         offsetY: -30,
                         style: {
+                            colors: ['var(--iande-text-color)'],
                             fontSize: '12px',
-                            colors: ['var(--iande-text-color)']
-                        }
+                        },
                     },
-                    xaxis: {
-                        categories: this.exhibitions.map(exhibition => exhibition.post_title),
+                    plotOptions: {
+                        bar: {
+                            columnWidth: '90%',
+                            dataLabels: {
+                                position: 'top', // top, center, bottom
+                            },
+                            horizontal: false,
+                        },
                     },
-                    colors: ['var(--iande-primary-color)', 'var(--iande-tertiary-color)'],
                     states: {
                         hover: {
                             filter: {
                                 type: 'darken',
-                                value: 0.9
-                            }
-                        }
-                    }
-                    
+                                value: 0.9,
+                            },
+                        },
+                    },
+                    xaxis: {
+                        categories: this.categories,
+                    },
                 }
             },
             series () {
-
-                let exhibitions = Object.keys(this.filterData)
-
-                let groups = []
-                let peoples = []
-
-                for(const exhibition in exhibitions) {
-                    groups.push(this.filterData[exhibitions[exhibition]].num_group)
-                    peoples.push(this.filterData[exhibitions[exhibition]].num_people)
-                }
+                const groups = this.exhibitionsList.map(exhibition => this.groupsByExhibition[exhibition].num_group)
+                const people = this.exhibitionsList.map(exhibition => this.groupsByExhibition[exhibition].num_people)
 
                 return [
                     {
+                        data: groups,
                         name: __('Grupos', 'iande'),
-                        data: groups
-                    }, {
+                        type: 'bar',
+                    },
+                    {
+                        data: people,
                         name: __('Visitantes', 'iande'),
-                        data: peoples
+                        type: 'bar',
                     }
                 ]
             },

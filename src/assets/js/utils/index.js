@@ -2,7 +2,7 @@ import api, { searchParams } from '@utils/api'
 
 export function arrayToMap (array, key = 'ID') {
     const entries = toArray(array).map(item => [item[key], item])
-    return new Map(entries)
+    return Object.fromEntries(entries)
 }
 
 export function constant (value) {

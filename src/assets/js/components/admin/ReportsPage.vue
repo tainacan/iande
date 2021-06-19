@@ -2,7 +2,7 @@
     <div class="iande-charts-wrapper">
         <div class="iande-charts-grid">
             <GroupsAndVisitorsChart :groups="filteredGroups"/>
-            <GroupsAndVisitorsByExhibitionChart :groups="filteredGroups" :exhibitions="filteredExhibitions"/>
+            <GroupsAndVisitorsByExhibitionChart :groups="filteredGroups" :exhibitions="exhibitionsMap"/>
             <InstitutionalGroupsChart :groups="filteredGroups"/>
             <RecurringVisitorsChart :appointments="filteredAppointments"/>
             <GroupsAgeRangeChart :groups="filteredGroups"/>
@@ -38,7 +38,7 @@
         },
         data () {
             return {
-                dateFrom: DateTime.fromISO(today).minus({ month: 1 }).toISODate(),
+                dateFrom: DateTime.fromISO(today).minus({ month: 6 }).toISODate(),
                 dateTo: today,
             }
         },
@@ -46,11 +46,11 @@
             appointmentsMap () {
                 return arrayToMap(this.rawData.appointments, 'ID')
             },
+            exhibitionsMap () {
+                return arrayToMap(this.rawData.exhibitions, 'ID')
+            },
             filteredAppointments () {
                 return this.rawData.appointments
-            },
-            filteredExhibitions () {
-                return this.rawData.exhibitions
             },
             filteredGroups () {
                 return this.rawData.groups.filter(group => {
