@@ -6,8 +6,8 @@
 </template>
 
 <script>
-    import { __, _x } from '@plugins/wp-i18n'
-import appointments from '@store/appointments';
+    import { __ } from '@plugins/wp-i18n'
+    import { toArray } from '@utils'
 
     export default {
         name: 'VisitsPurposeChart',
@@ -15,49 +15,35 @@ import appointments from '@store/appointments';
             appointments: { type: Array, required: true },
         },
         computed: {
-            chartData () {
-
-                let chartData = this.appointments.reduce((increment, appointment) => {
-
-                    if (typeof increment[appointment.purpose] !== 'undefined') {
-                        increment[appointment.purpose].data = increment[appointment.purpose].data + 1
-                    } else {
-                        increment[appointment.purpose] = {
-                            data: 1
-                        }
-                    }
-
-                    return increment
-                }, [])
-
-                return chartData
-
+            labels () {
+                return Object.keys(this.purposes).sort()
             },
             options () {
                 return {
-                    legend: {
-                        position: 'bottom',
-                        horizontalAlign: 'left',
-                        markers: {
-                            width: 18,
-                            height: 18,
-                            radius: 0,
-                        },
-                        itemMargin: {
-                            horizontal: 10,
-                            vertical: 3,
-                        }
-                    },
+                    colors: ['#238B19', '#7DB6C5', '#A8DBBC', '#1E2E55', '#D49025', '#EBC891', '#FFAAAA', '#EC3F3F'],
                     dataLabels: {
                         dropShadow: {
                             enabled: false,
                         },
                     },
-                    labels: Object.keys(this.chartData),
-                    colors: ['#238B19', '#7DB6C5', '#A8DBBC', '#1E2E55', '#D49025', '#EBC891', '#FFAAAA', '#EC3F3F'],
+                    labels: this.labels,
+                    legend: {
+                        horizontalAlign: 'left',
+                        itemMargin: {
+                            horizontal: 10,
+                            vertical: 3,
+                        },
+                        markers: {
+                            height: 18,
+                            radius: 0,
+                            width: 18,
+                        },
+                        position: 'bottom',
+
+                    },
                     stroke: {
                         show: false,
-                        width: 0
+                        width: 0,
                     },
                     states: {
                         hover: {
@@ -69,8 +55,24 @@ import appointments from '@store/appointments';
                     },
                 }
             },
+            purposes () {
+                const chartData = {}
+
+                for (const appointment of this.appointments) {
+                    if (appointment.purpose) {
+                        const groups = toArray(appointment.groups).length
+                        if (chartData[appointment.purpose]) {
+                            chartData[appointment.purpose] += groups
+                        } else {
+                            chartData[appointment.purpose] = groups
+                        }
+                    }
+                }
+
+                return chartData
+            },
             series () {
-                return Object.values(this.chartData).map(d => d.data)
+                return this.labels.map(purpose => this.purposes[purpose])
             },
         },
     }
