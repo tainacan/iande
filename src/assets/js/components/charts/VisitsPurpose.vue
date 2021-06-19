@@ -41,10 +41,6 @@
                         position: 'bottom',
 
                     },
-                    stroke: {
-                        show: false,
-                        width: 0,
-                    },
                     states: {
                         hover: {
                             filter: {
@@ -52,6 +48,10 @@
                                 value: 0.9,
                             },
                         },
+                    },
+                    stroke: {
+                        show: false,
+                        width: 0,
                     },
                 }
             },
