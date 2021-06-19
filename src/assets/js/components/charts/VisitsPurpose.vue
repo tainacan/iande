@@ -10,7 +10,7 @@
 import appointments from '@store/appointments';
 
     export default {
-        name: 'PurposeVisitChart',
+        name: 'VisitsPurposeChart',
         props: {
             appointments: { type: Array, required: true },
         },

@@ -9,7 +9,7 @@
     import { __, _x } from '@plugins/wp-i18n'
 
     export default {
-        name: 'InstitutionalGroupsChart',
+        name: 'GroupsNatureChart',
         props: {
             groups: { type: Array, required: true },
         },

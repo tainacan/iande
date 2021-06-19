@@ -1,12 +1,12 @@
 <template>
     <div class="iande-charts-wrapper">
         <div class="iande-charts-grid">
-            <GroupsAndVisitorsChart :groups="filteredGroups"/>
-            <GroupsAndVisitorsByExhibitionChart :groups="filteredGroups" :exhibitions="exhibitionsMap"/>
-            <InstitutionalGroupsChart :groups="filteredGroups"/>
+            <VisitsByDateChart :groups="filteredGroups"/>
+            <VisitsByExhibitionChart :groups="filteredGroups" :exhibitions="exhibitionsMap"/>
+            <GroupsNatureChart :groups="filteredGroups"/>
             <RecurringVisitorsChart :appointments="filteredAppointments"/>
-            <GroupsAgeRangeChart :groups="filteredGroups"/>
-            <PurposeVisitChart :appointments="filteredAppointments"/>
+            <AgeRangeChart :groups="filteredGroups"/>
+            <VisitsPurposeChart :appointments="filteredAppointments"/>
             <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="rawData.institutions"/>
         </div>
     </div>
@@ -15,30 +15,30 @@
 <script>
     import { DateTime } from 'luxon'
 
-    import GroupsAgeRangeChart from '@components/charts/GroupsAgeRange.vue'
-    import GroupsAndVisitorsChart from '@components/charts/GroupsAndVisitors.vue'
-    import GroupsAndVisitorsByExhibitionChart from '@components/charts/GroupsAndVisitorsByExhibition.vue'
+    import AgeRangeChart from '@components/charts/AgeRange.vue'
     import GroupsByInstitutionChart from '@components/charts/GroupsByInstitution.vue'
-    import InstitutionalGroupsChart from '@components/charts/InstitutionalGroups.vue'
-    import PurposeVisitChart from '@components/charts/PurposeVisit.vue'
+    import GroupsNatureChart from '@components/charts/GroupsNature.vue'
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
+    import VisitsByDateChart from '@components/charts/VisitsByDate.vue'
+    import VisitsByExhibitionChart from '@components/charts/VisitsByExhibition.vue'
+    import VisitsPurposeChart from '@components/charts/VisitsPurpose.vue'
 
     import { arrayToMap, constant, today } from '@utils'
 
     export default {
         name: 'ReportsPage',
         components: {
-            GroupsAgeRangeChart,
-            GroupsAndVisitorsChart,
-            GroupsAndVisitorsByExhibitionChart,
+            AgeRangeChart,
             GroupsByInstitutionChart,
-            InstitutionalGroupsChart,
-            PurposeVisitChart,
+            GroupsNatureChart,
             RecurringVisitorsChart,
+            VisitsByDateChart,
+            VisitsByExhibitionChart,
+            VisitsPurposeChart,
         },
         data () {
             return {
-                dateFrom: DateTime.fromISO(today).minus({ month: 6 }).toISODate(),
+                dateFrom: DateTime.fromISO(today).minus({ month: 1 }).toISODate(),
                 dateTo: today,
             }
         },

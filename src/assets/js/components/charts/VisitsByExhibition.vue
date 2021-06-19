@@ -10,7 +10,7 @@
 import exhibitions from '@store/exhibitions'
 
     export default {
-        name: 'GroupsAndVisitorsByExhibitionChart',
+        name: 'VisitsByExhibitionChart',
         props: {
             exhibitions: { type: Object, required: true },
             groups: { type: Array, required: true },
