@@ -44,7 +44,7 @@
                 return {
                     chart: {
                         zoom: {
-                            enabled: false,
+                            enabled: true,
                         }
                     },
                     colors: ['#7DB6C5', '#A8DBBC'],
