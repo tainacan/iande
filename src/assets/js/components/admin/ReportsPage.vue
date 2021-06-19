@@ -3,6 +3,7 @@
         <div class="iande-charts-grid">
             <VisitsByDateChart :groups="filteredGroups"/>
             <VisitsByExhibitionChart :groups="filteredGroups" :exhibitions="exhibitionsMap"/>
+            <ScholarityChart :groups="filteredGroups"/>
             <GroupsNatureChart :groups="filteredGroups"/>
             <RecurringVisitorsChart :appointments="filteredAppointments"/>
             <AgeRangeChart :groups="filteredGroups"/>
@@ -19,6 +20,7 @@
     import GroupsByInstitutionChart from '@components/charts/GroupsByInstitution.vue'
     import GroupsNatureChart from '@components/charts/GroupsNature.vue'
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
+    import ScholarityChart from '@components/charts/Scholarity.vue'
     import VisitsByDateChart from '@components/charts/VisitsByDate.vue'
     import VisitsByExhibitionChart from '@components/charts/VisitsByExhibition.vue'
     import VisitsPurposeChart from '@components/charts/VisitsPurpose.vue'
@@ -32,6 +34,7 @@
             GroupsByInstitutionChart,
             GroupsNatureChart,
             RecurringVisitorsChart,
+            ScholarityChart,
             VisitsByDateChart,
             VisitsByExhibitionChart,
             VisitsPurposeChart,
