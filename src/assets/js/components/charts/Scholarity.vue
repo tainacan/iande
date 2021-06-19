@@ -1,6 +1,6 @@
 <template>
     <div class="iande-chart-wrapper">
-        <h2>{{ __('Objetivos da visita', 'iande') }}</h2>
+        <h2>{{ __('Escolaridade dos grupos', 'iande') }}</h2>
         <ApexChart type="donut" :series="series" :options="options"/>
     </div>
 </template>
