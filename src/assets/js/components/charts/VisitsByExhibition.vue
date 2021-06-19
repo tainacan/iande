@@ -7,7 +7,6 @@
 
 <script>
     import { __ } from '@plugins/wp-i18n'
-import exhibitions from '@store/exhibitions'
 
     export default {
         name: 'VisitsByExhibitionChart',
@@ -41,12 +40,11 @@ import exhibitions from '@store/exhibitions'
             },
             options () {
                 return {
-                    colors: ['var(--iande-primary-color)', 'var(--iande-tertiary-color)'],
+                    colors: ['#7DB6C5', '#A8DBBC'],
                     dataLabels: {
                         enabled: true,
                         offsetY: -30,
                         style: {
-                            colors: ['var(--iande-text-color)'],
                             fontSize: '12px',
                         },
                     },

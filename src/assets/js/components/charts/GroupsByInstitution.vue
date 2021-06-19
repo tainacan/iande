@@ -56,7 +56,6 @@
                         offsetY: -30,
                         style: {
                             fontSize: '12px',
-                            colors: ['var(--iande-text-color)']
                         }
                     },
                     xaxis: {
@@ -70,7 +69,7 @@
                         }
                     },
                     fill: {
-                        colors: ['var(--iande-primary-color)']
+                        colors: ['#A8DBBC']
                     },
                     states: {
                         hover: {

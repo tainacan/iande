@@ -49,7 +49,6 @@
                         offsetY: -30,
                         style: {
                             fontSize: '12px',
-                            colors: ['var(--iande-text-color)']
                         }
                     },
                     xaxis: {

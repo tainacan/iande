@@ -45,13 +45,13 @@
                             enabled: false,
                         }
                     },
-                    colors: ['#A8DBBC', '#7DB6C5'],
+                    colors: ['#7DB6C5', '#A8DBBC'],
                     dataLabels: {
                         enabled: false,
                     },
                     fill: {
-                        colors: ['transparent', '#7DB6C5'],
-                        opacity: 0.4,
+                        colors: ['#BBDEE0', '#EBFAF1'],
+                        opacity: 0.3,
                         type: 'solid',
                     },
                     labels: this.labels,
@@ -88,16 +88,15 @@
 
                 return [
                     {
+                        data: groups,
+                        name: __('Grupos', 'iande'),
+                        type: 'area',
+                    },
+                    {
                         data: people,
                         name: __('Visitantes', 'iande'),
                         type: 'area',
                     },
-                    {
-                        data: groups,
-                        name: __('Grupos', 'iande'),
-                        type: 'area',
-                    }
-
                 ]
             },
         },
