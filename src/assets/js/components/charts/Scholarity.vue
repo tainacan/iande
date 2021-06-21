@@ -9,7 +9,7 @@
     import { __ } from '@plugins/wp-i18n'
 
     export default {
-        name: 'Scholarity',
+        name: 'ScholarityChart',
         props: {
             groups: { type: Array, required: true },
         },
