@@ -22,9 +22,18 @@ function itinerary_metabox($post)
  * @param post $post The post object
  */
 function build_itinerary_metabox($post) {
+    $previous = \get_post_meta($post->ID, 'tainacan_meta', true);
+
+    if (empty($previous)) {
+        $previous = json_encode([
+            'collection' => null,
+            'metakey' => null,
+            'metavalue' => null
+        ]);
+    }
 ?>
     <div class="iande-admin-app">
-        <iande-itinerary-metabox :previous="<?php echo \esc_attr(\get_post_meta($post->ID, 'tainacan_meta', true)) ?>"></iande-itinerary-metabox>
+        <iande-itinerary-metabox :previous="<?php echo \esc_attr($previous) ?>"></iande-itinerary-metabox>
     </div>
 <?php
 }
