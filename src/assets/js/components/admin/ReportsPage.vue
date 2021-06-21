@@ -5,6 +5,8 @@
             <VisitsByExhibitionChart :groups="filteredGroups" :exhibitions="exhibitionsMap"/>
             <ScholarityChart :groups="filteredGroups"/>
             <GroupsNatureChart :groups="filteredGroups"/>
+            <StatesChart :appointments="appointmentsMap" :groups="filteredGroups" :institutions="institutionsMap"/>
+            <CitiesChart :appointments="appointmentsMap" :groups="filteredGroups" :institutions="institutionsMap"/>
             <RecurringVisitorsChart :appointments="filteredAppointments"/>
             <AgeRangeChart :groups="filteredGroups"/>
             <VisitsPurposeChart :appointments="filteredAppointments"/>
@@ -17,10 +19,12 @@
     import { DateTime } from 'luxon'
 
     import AgeRangeChart from '@components/charts/AgeRange.vue'
+    import CitiesChart from '@components/charts/Cities.vue'
     import GroupsByInstitutionChart from '@components/charts/GroupsByInstitution.vue'
     import GroupsNatureChart from '@components/charts/GroupsNature.vue'
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
     import ScholarityChart from '@components/charts/Scholarity.vue'
+    import StatesChart from '@components/charts/States.vue'
     import VisitsByDateChart from '@components/charts/VisitsByDate.vue'
     import VisitsByExhibitionChart from '@components/charts/VisitsByExhibition.vue'
     import VisitsPurposeChart from '@components/charts/VisitsPurpose.vue'
@@ -31,10 +35,12 @@
         name: 'ReportsPage',
         components: {
             AgeRangeChart,
+            CitiesChart,
             GroupsByInstitutionChart,
             GroupsNatureChart,
             RecurringVisitorsChart,
             ScholarityChart,
+            StatesChart,
             VisitsByDateChart,
             VisitsByExhibitionChart,
             VisitsPurposeChart,
@@ -62,6 +68,9 @@
             },
             groupsMap () {
                 return arrayToMap(this.rawData.groups, 'ID')
+            },
+            institutionsMap () {
+                return arrayToMap(this.rawData.institutions, 'ID')
             },
             rawData: constant(window.IandeReports),
         }

@@ -1,42 +1,30 @@
 <template>
     <div class="iande-chart-wrapper">
-        <h2>{{ __('Faixa etária dos grupos', 'iande') }}</h2>
+        <h2>{{ __('Estados de origem dos grupos', 'iande') }}</h2>
         <ApexChart type="bar" :series="series" :options="options"/>
     </div>
 </template>
 
 <script>
     import { __ } from '@plugins/wp-i18n'
-    import { constant, sortBy } from '@utils'
+    import { sortBy } from '@utils'
+
+    import states from '../../../json/estados.json'
 
     export default {
-        name: 'AgeRangeChart',
+        name: 'StatesChart',
         props: {
+            appointments: { type: Object, required: true },
             groups: { type: Array, required: true },
+            institutions: { type: Object, required: true },
         },
         computed: {
-            ageRanges () {
-                const chartData = {}
-
-                for (const group of this.groups) {
-                    const range = this.getRange(group)
-
-                    if (range) {
-                        if (!chartData[range]) {
-                            chartData[range] = 0
-                        }
-                        chartData[range] += 1
-                    }
-                }
-
-                return chartData
-            },
             categories () {
-                return this.rangesList.map(range => __(range, 'iande'))
+                return this.sortedStates.map(state => states[state].nome)
             },
             options () {
                 return {
-                    colors: ['#1E2E55'],
+                    colors: ['#A8DBBC'],
                     dataLabels: {
                         enabled: true,
                         offsetY: -30,
@@ -66,27 +54,50 @@
                     },
                 }
             },
-            rangeOptions: constant(window.IandeSettings.ageRanges),
-            rangesList () {
-                return Object.keys(this.ageRanges).sort(sortBy(range => {
-                    const index = this.rangeOptions.indexOf(range)
-                    return index === -1 ? Number.MAX_SAFE_INTEGER : index
-                }))
-            },
             series () {
-                const ranges = this.rangesList.map(range => this.ageRanges[range])
+                const states = this.sortedStates.map(state => this.states[state])
+
                 return [
                     {
-                        data: ranges,
+                        data: states,
                         name: __('Grupos', 'iande'),
                     }
                 ]
             },
+            sortedStates () {
+                return Object.entries(this.states).sort(sortBy(x => x[1])).map(x => x[0])
+            },
+            states () {
+                const chartData = {}
+
+                for (const group of this.groups) {
+                    const state = this.getState(group)
+
+                    if (state) {
+                        if (!chartData[state]) {
+                            chartData[state] = 0
+                        }
+                        chartData[state] += 1
+                    }
+                }
+
+                return chartData
+            },
         },
         methods: {
-            getRange (group) {
-                return group.age_range
-            },
+            getState (group) {
+                const appointmentId = group.appointment_id
+                if (!appointmentId) {
+                    return null
+                }
+
+                const institutionId = this.appointments[appointmentId].institution_id
+                if (!institutionId) {
+                    return null
+                }
+
+                return this.institutions[institutionId].state
+            }
         },
     }
 </script>

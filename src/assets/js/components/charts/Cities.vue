@@ -1,42 +1,46 @@
 <template>
     <div class="iande-chart-wrapper">
-        <h2>{{ __('Faixa etária dos grupos', 'iande') }}</h2>
+        <h2>{{ __('Cidades de origem dos grupos', 'iande') }}</h2>
         <ApexChart type="bar" :series="series" :options="options"/>
     </div>
 </template>
 
 <script>
     import { __ } from '@plugins/wp-i18n'
-    import { constant, sortBy } from '@utils'
+    import { sortBy } from '@utils'
+
+    import cities from '../../../json/municipios.json'
 
     export default {
-        name: 'AgeRangeChart',
+        name: 'CitiesChart',
         props: {
+            appointments: { type: Object, required: true },
             groups: { type: Array, required: true },
+            institutions: { type: Object, required: true },
         },
         computed: {
-            ageRanges () {
+            categories () {
+                return this.sortedCities.map(city => cities[city])
+            },
+            cities () {
                 const chartData = {}
 
                 for (const group of this.groups) {
-                    const range = this.getRange(group)
+                    const city = this.getCity(group)
 
-                    if (range) {
-                        if (!chartData[range]) {
-                            chartData[range] = 0
+                    if (city) {
+                        if (!chartData[city]) {
+                            chartData[city] = 0
                         }
-                        chartData[range] += 1
+                        chartData[city] += 1
                     }
                 }
 
                 return chartData
             },
-            categories () {
-                return this.rangesList.map(range => __(range, 'iande'))
-            },
             options () {
                 return {
-                    colors: ['#1E2E55'],
+                    colors: ['#7DB6C5'],
                     dataLabels: {
                         enabled: true,
                         offsetY: -30,
@@ -50,7 +54,7 @@
                             dataLabels: {
                                 position: 'top', // top, center, bottom
                             },
-                            horizontal: false,
+                            horizontal: true,
                         }
                     },
                     states: {
@@ -66,27 +70,34 @@
                     },
                 }
             },
-            rangeOptions: constant(window.IandeSettings.ageRanges),
-            rangesList () {
-                return Object.keys(this.ageRanges).sort(sortBy(range => {
-                    const index = this.rangeOptions.indexOf(range)
-                    return index === -1 ? Number.MAX_SAFE_INTEGER : index
-                }))
-            },
             series () {
-                const ranges = this.rangesList.map(range => this.ageRanges[range])
+                const cities = this.sortedCities.map(city => this.cities[city])
+
                 return [
                     {
-                        data: ranges,
+                        data: cities,
                         name: __('Grupos', 'iande'),
                     }
                 ]
             },
+            sortedCities () {
+                return Object.entries(this.cities).sort(sortBy(x => x[1])).map(x => x[0])
+            },
         },
         methods: {
-            getRange (group) {
-                return group.age_range
-            },
+            getCity (group) {
+                const appointmentId = group.appointment_id
+                if (!appointmentId) {
+                    return null
+                }
+
+                const institutionId = this.appointments[appointmentId].institution_id
+                if (!institutionId) {
+                    return null
+                }
+
+                return this.institutions[institutionId].city
+            }
         },
     }
 </script>
