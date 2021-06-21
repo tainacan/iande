@@ -6,14 +6,28 @@ function appointment_enqueue_scripts() {
 
     $site_url         = get_bloginfo('url');
     $iande_url        = get_site_url(null, '/iande');
+    $purposes         = cmb2_get_option('iande_appointments_settings', 'appointment_purpose', []);
+    $profiles         = cmb2_get_option('iande_institution', 'institution_profile', []);
+    $responsible_role = cmb2_get_option('iande_institution', 'institution_responsible_role', []);
+    $deficiency       = cmb2_get_option('iande_institution', 'institution_deficiency', []);
+    $language         = cmb2_get_option('iande_institution', 'institution_language', []);
+    $age_range        = cmb2_get_option('iande_institution', 'institution_age_range', []);
+    $scholarity       = cmb2_get_option('iande_institution', 'institution_scholarity', []);
 
     wp_localize_script(
         'iande-admin',
         'IandeSettings',
         [
-            'siteUrl'           => $site_url,
-            'iandePath'         => IANDE_PLUGIN_BASEURL,
-            'iandeUrl'          => $iande_url,
+            'siteUrl'          => $site_url,
+            'iandePath'        => IANDE_PLUGIN_BASEURL,
+            'iandeUrl'         => $iande_url,
+            'profiles'         => $profiles,
+            'purposes'         => $purposes,
+            'responsibleRoles' => $responsible_role,
+            'disabilities'     => $deficiency,
+            'languages'        => $language,
+            'ageRanges'        => $age_range,
+            'scholarity'       => $scholarity,
         ]
     );
 }

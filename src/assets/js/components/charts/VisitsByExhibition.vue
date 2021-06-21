@@ -19,8 +19,7 @@
                 return this.exhibitionsList.map(exhibitionId => __(this.exhibitions[exhibitionId].post_title, 'iande'))
             },
             exhibitionsList () {
-                return Object.keys(this.groupsByExhibition)
-                    .sort((a, b) => a - b)
+                return Object.keys(this.groupsByExhibition).sort((a, b) => a - b)
             },
             groupsByExhibition () {
                 const chartData = {}

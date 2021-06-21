@@ -6,7 +6,8 @@
 </template>
 
 <script>
-    import { __, _x } from '@plugins/wp-i18n'
+    import { __ } from '@plugins/wp-i18n'
+    import { constant, sortBy } from '@utils'
 
     export default {
         name: 'AgeRangeChart',
@@ -14,36 +15,29 @@
             groups: { type: Array, required: true },
         },
         computed: {
-            chartData () {
+            ageRanges () {
+                const chartData = {}
 
-                let chartData = this.groups.reduce((increment, group) => {
+                for (const group of this.groups) {
+                    const range = this.getRange(group)
 
-                    if (typeof increment[group.age_range] !== 'undefined') {
-                        increment[group.age_range].data = increment[group.age_range].data + 1
-                    } else {
-                        increment[group.age_range] = {
-                            label: group.age_range,
-                            data: 1
+                    if (range) {
+                        if (!chartData[range]) {
+                            chartData[range] = 0
                         }
+                        chartData[range] += 1
                     }
-
-                    return increment
-                }, [])
+                }
 
                 return chartData
 
             },
+            categories () {
+                return this.rangesList.map(range => __(range, 'iande'))
+            },
             options () {
                 return {
-                    plotOptions: {
-                        bar: {
-                            horizontal: false,
-                            columnWidth: '90%',
-                            dataLabels: {
-                                position: 'top', // top, center, bottom
-                            }
-                        }
-                    },
+                    colors: ['#1E2E55'],
                     dataLabels: {
                         enabled: true,
                         offsetY: -30,
@@ -51,27 +45,48 @@
                             fontSize: '12px',
                         }
                     },
-                    xaxis: {
-                        categories: Object.values(this.chartData).map(d => d.label),
+                    plotOptions: {
+                        bar: {
+                            columnWidth: '90%',
+                            dataLabels: {
+                                position: 'top', // top, center, bottom
+                            },
+                            horizontal: false,
+                        }
                     },
-                    colors: ['#1E2E55'],
                     states: {
                         hover: {
                             filter: {
                                 type: 'darken',
-                                value: 0.9
+                                value: 0.9,
                             }
                         }
-                    }
+                    },
+                    xaxis: {
+                        categories: this.categories,
+                    },
                 }
             },
+            rangeOptions: constant(window.IandeSettings.ageRanges),
+            rangesList () {
+                return Object.keys(this.ageRanges).sort(sortBy(range => {
+                    const index = this.rangeOptions.indexOf(range)
+                    return index === -1 ? Number.MAX_SAFE_INTEGER : index
+                }))
+            },
             series () {
+                const ranges = this.rangesList.map(range => this.ageRanges[range])
                 return [
                     {
+                        data: ranges,
                         name: __('Grupos', 'iande'),
-                        data: Object.values(this.chartData).map(d => d.data)
                     }
                 ]
+            },
+        },
+        methods: {
+            getRange (group) {
+                return group.age_range
             },
         },
     }
