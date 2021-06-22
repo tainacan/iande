@@ -32,8 +32,7 @@
             }
 
             if (!empty($exhibition['metakey']) && !empty($exhibition['metavalue'])) {
-                // $search['term_id'] = $exhibition['metakey'];
-                // $search['taxonomy'] = $exhibition['metavalue'];
+                $search['term_id'] = $exhibition['metavalue'];
             }
         }
     }

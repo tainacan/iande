@@ -31,6 +31,7 @@
     import { api } from '@utils'
 
     const tainacanUrl = window.IandeSettings.tainacanUrl
+    const TAXONOMIES_ONLY = 'metaquery[0][key]=metadata_type&metaquery[0][value]=Tainacan%5CMetadata_Types%5CTaxonomy';
 
     export default {
         name: 'ItineraryMetabox',
@@ -94,7 +95,7 @@
             try {
                 const [collections, metadata] = await Promise.all([
                     api.get(`${tainacanUrl}/collections`),
-                    api.get(`${tainacanUrl}/metadata`),
+                    api.get(`${tainacanUrl}/metadata?${TAXONOMIES_ONLY}`),
                 ])
                 this.collections = collections
                 this.globalMetadata = metadata
@@ -128,7 +129,7 @@
             async fetchMetadata (form) {
                 const { collection } = form
                 try {
-                    const metadata = await api.get(`${tainacanUrl}/collection/${collection}/metadata`)
+                    const metadata = await api.get(`${tainacanUrl}/collection/${collection}/metadata?${TAXONOMIES_ONLY}`)
                     this.$set(this.metadataCache, collection, metadata)
                 } catch (err) {
                     console.error(err)
