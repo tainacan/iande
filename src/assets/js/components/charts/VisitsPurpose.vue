@@ -7,12 +7,12 @@
 
 <script>
     import { __ } from '@plugins/wp-i18n'
-    import { toArray } from '@utils'
 
     export default {
         name: 'VisitsPurposeChart',
         props: {
-            appointments: { type: Array, required: true },
+            appointments: { type: Object, required: true },
+            groups: { type: Array, required: true },
         },
         computed: {
             labels () {
@@ -58,15 +58,14 @@
             purposes () {
                 const chartData = {}
 
-                for (const appointment of this.appointments) {
-                    const purpose = appointment.purpose
+                for (const group of this.groups) {
+                    const purpose = this.getPurpose(group)
 
                     if (purpose) {
-                        const groups = toArray(appointment.groups).length
                         if (chartData[purpose]) {
-                            chartData[purpose] += groups
+                            chartData[purpose] += 1
                         } else {
-                            chartData[purpose] = groups
+                            chartData[purpose] = 1
                         }
                     }
                 }
@@ -75,6 +74,17 @@
             },
             series () {
                 return this.labels.map(purpose => this.purposes[purpose])
+            },
+        },
+        methods: {
+            getPurpose (group) {
+                const appointmentId = group.appointment_id
+                if (group.has_checkin === 'on' && appointmentId) {
+                    return this.appointments[appointmentId].purpose || null
+                } else {
+                    return null
+                }
+
             },
         },
     }

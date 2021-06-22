@@ -75,5 +75,14 @@
                 return this.labels.map(scholarity => this.scholarities[scholarity])
             },
         },
+        methods: {
+            getScholarity (group) {
+                if (group.checkin_scholarity === 'no') {
+                    return group.checkin_scholarity_actual || null
+                } else {
+                    return group.age_range
+                }
+            },
+        },
     }
 </script>

@@ -25,7 +25,7 @@
                 const chartData = {}
 
                 for (const group of this.groups) {
-                    const exhibitionId = group.exhibition_id
+                    const exhibitionId = this.getExhibition(group)
 
                     if (exhibitionId) {
                         if (!chartData[exhibitionId]) {
@@ -87,6 +87,15 @@
                         type: 'bar',
                     }
                 ]
+            },
+        },
+        methods: {
+            getExhibition (group) {
+                if (group.has_checkin === 'on' && group.exhibition_id) {
+                    return group.exhibition_id
+                } else {
+                    return null
+                }
             },
         },
     }

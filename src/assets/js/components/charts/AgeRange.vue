@@ -22,10 +22,11 @@
                     const range = this.getRange(group)
 
                     if (range) {
-                        if (!chartData[range]) {
-                            chartData[range] = 0
+                        if (chartData[range]) {
+                            chartData[range] += 1
+                        } else {
+                            chartData[range] = 1
                         }
-                        chartData[range] += 1
                     }
                 }
 
@@ -85,7 +86,11 @@
         },
         methods: {
             getRange (group) {
-                return group.age_range
+                if (group.checkin_age_range === 'no') {
+                    return group.checkin_age_range_actual || null
+                } else {
+                    return group.age_range
+                }
             },
         },
     }

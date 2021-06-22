@@ -4,12 +4,12 @@
             <VisitsByDateChart :groups="filteredGroups"/>
             <VisitsByExhibitionChart :groups="filteredGroups" :exhibitions="exhibitionsMap"/>
             <ScholarityChart :groups="filteredGroups"/>
-            <GroupsNatureChart :groups="filteredGroups"/>
+            <GroupsNatureChart :appointments="appointmentsMap" :groups="filteredGroups"/>
             <StatesChart :appointments="appointmentsMap" :groups="filteredGroups" :institutions="institutionsMap"/>
             <CitiesChart :appointments="appointmentsMap" :groups="filteredGroups" :institutions="institutionsMap"/>
-            <RecurringVisitorsChart :appointments="filteredAppointments"/>
+            <RecurringVisitorsChart :appointments="appointmentsMap" :groups="filteredGroups"/>
             <AgeRangeChart :groups="filteredGroups"/>
-            <VisitsPurposeChart :appointments="filteredAppointments"/>
+            <VisitsPurposeChart :appointments="appointmentsMap" :groups="filteredGroups"/>
             <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="rawData.institutions"/>
         </div>
     </div>
@@ -47,8 +47,8 @@
         },
         data () {
             return {
-                dateFrom: DateTime.fromISO(today).minus({ month: 1 }).toISODate(),
-                dateTo: today,
+                dateFrom: DateTime.fromISO(today).minus({ year: 1 }).toISODate(),
+                dateTo: DateTime.fromISO(today).plus({ year: 1 }).toISODate(),
             }
         },
         computed: {

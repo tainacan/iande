@@ -23,7 +23,7 @@
                 const chartData = {}
 
                 for (const group of this.groups) {
-                    const date = group.date
+                    const date = this.getDate(group)
 
                     if (date) {
                         if (!chartData[date]) {
@@ -100,6 +100,15 @@
                         type: 'area',
                     },
                 ]
+            },
+        },
+        methods: {
+            getDate (group) {
+                if (group.has_checkin === 'on' && group.date) {
+                    return group.date
+                } else {
+                    return null
+                }
             },
         },
     }

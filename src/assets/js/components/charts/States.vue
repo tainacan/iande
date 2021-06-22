@@ -74,10 +74,11 @@
                     const state = this.getState(group)
 
                     if (state) {
-                        if (!chartData[state]) {
-                            chartData[state] = 0
+                        if (chartData[state]) {
+                            chartData[state] += 1
+                        } else {
+                            chartData[state] = 1
                         }
-                        chartData[state] += 1
                     }
                 }
 
@@ -97,7 +98,7 @@
                 }
 
                 return this.institutions[institutionId].state
-            }
+            },
         },
     }
 </script>

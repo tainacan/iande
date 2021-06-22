@@ -29,10 +29,11 @@
                     const city = this.getCity(group)
 
                     if (city) {
-                        if (!chartData[city]) {
-                            chartData[city] = 0
+                        if (chartData[city]) {
+                            chartData[city] += 1
+                        } else {
+                            chartData[city] = 1
                         }
-                        chartData[city] += 1
                     }
                 }
 
@@ -97,7 +98,7 @@
                 }
 
                 return this.institutions[institutionId].city
-            }
+            },
         },
     }
 </script>
