@@ -7,6 +7,7 @@
 
 <script>
     import { __ } from '@plugins/wp-i18n'
+    import { sortBy } from '@utils'
 
     export default {
         name: 'VisitsByInstitutionChart',
@@ -16,41 +17,28 @@
             institutions: { type: Object, required: true },
         },
         computed: {
-
+            categories () {
+                return this.sortedInstitutions.map(institutionId => this.institutions[institutionId].post_title)
+            },
             chartData () {
-                let appointmentsWithInstitution = this.appointments.filter((appointment) => {
-                    return typeof appointment.institution_id !== 'undefined'
-                })
+                const chartData = {}
 
-                let chartData = appointmentsWithInstitution.reduce((increment, appointment) => {
-                    let searchInstitution = this.institutions.map(function(e) {return e.ID}).indexOf(appointment.institution_id)
-                    let institution = this.institutions[searchInstitution]
+                for (const group of this.groups) {
+                    const institutionId = this.getInstitution(group)
 
-                    if (typeof increment[institution.ID] !== 'undefined') {
-                        increment[institution.ID].data = increment[institution.ID].data + appointment.groups.length
-                    } else {
-                        increment[institution.ID] = {
-                            name: institution.post_title,
-                            data: appointment.groups.length
-
+                    if (institutionId) {
+                        if (chartData[institutionId]) {
+                            chartData[institutionId] += 1
+                        } else {
+                            chartData[institutionId] = 1
                         }
                     }
+                }
 
-                    return increment
-                }, [])
-
-                return chartData.filter(String)
+                return chartData
             },
             options () {
                 return {
-                    plotOptions: {
-                        bar: {
-                            borderRadius: 0,
-                            dataLabels: {
-                                position: 'top', // top, center, bottom
-                            }
-                        }
-                    },
                     dataLabels: {
                         enabled: true,
                         formatter: val => val,
@@ -59,34 +47,74 @@
                             fontSize: '12px',
                         }
                     },
-                    xaxis: {
-                        categories: this.chartData.map(d => d.name),
-                        position: 'bottom',
-                    },
-                    yaxis: {
-                        labels: {
-                            show: true,
-                            formatter: val => val,
-                        }
-                    },
                     fill: {
-                        colors: ['#A8DBBC']
+                        colors: ['#A8DBBC'],
+                    },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 0,
+                            dataLabels: {
+                                position: 'top', // top, center, bottom
+                            },
+                        },
                     },
                     states: {
                         hover: {
                             filter: {
                                 type: 'darken',
-                                value: 0.9
-                            }
+                                value: 0.9,
+                            },
+                        },
+                    },
+                    xaxis: {
+                        categories: this.categories,
+                        position: 'bottom',
+                    },
+                    yaxis: {
+                        labels: {
+                            formatter: val => val,
+                            show: true,
                         }
-                    }
+                    },
                 }
             },
             series () {
+                const institutions = this.sortedInstitutions.map(institutionId => this.chartData[institutionId])
+
                 return [{
+                    data: institutions,
                     name: __('Grupos', 'iande'),
-                    data: this.chartData.map(d => d.data)
                 }]
+            },
+            sortedInstitutions () {
+                return Object.entries(this.chartData).sort(sortBy(x => x[1])).map(x => x[0])
+            },
+        },
+        methods: {
+            getInstitution (group) {
+                const appointmentId = group.appointment_id
+                if (!appointmentId) {
+                    return null
+                }
+
+                const appointment = this.appointments[appointmentId]
+                if (this.isInstitutional(group, appointment) !== 'yes') {
+                    return null
+                }
+
+                return appointment.institution_id || null
+            },
+            isInstitutional (group, appointment) {
+                if (group.checkin_institutional) {
+                    return group.checkin_institutional
+                } else {
+                    const nature = appointment.group_nature
+                    if (nature) {
+                        return nature === 'institutional' ? 'yes' : 'no'
+                    } else {
+                        return null
+                    }
+                }
             },
         },
     }
