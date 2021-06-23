@@ -156,8 +156,7 @@ class Institution extends Controller
      *
      * @return void
      */
-    function endpoint_list()
-    {
+    function endpoint_list() {
 
         $this->require_authentication();
 
@@ -191,7 +190,41 @@ class Institution extends Controller
         $this->success($parsed_institutions);
     }
 
+ /**
+     * Retorna todas instituições públicas
+     *
+     * @return void
+     */
+    function endpoint_list_published() {
 
+        $this->require_authentication();
+
+        $args = array(
+            'post_type'      => 'institution',
+            'post_status'    => ['publish'],
+            'posts_per_page' => -1,
+        );
+
+        $institutions = get_posts($args);
+
+        if (empty($institutions)) {
+            return $this->success([]);
+        }
+
+        $parsed_institutions = [];
+
+        foreach ($institutions as $key => $institution) {
+            $parsed_institutions[] = $this->get_parsed_institution($institution->ID);
+        }
+
+        $parsed_institutions = array_filter($parsed_institutions);
+
+        if (empty($parsed_institutions)) {
+            return $this->success([]);
+        }
+
+        $this->success($parsed_institutions);
+    }
 
     /**
      * Verifica se o usuário tem permissão para ver a instituição
