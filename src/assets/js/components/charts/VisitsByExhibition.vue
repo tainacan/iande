@@ -91,11 +91,7 @@
         },
         methods: {
             getExhibition (group) {
-                if (group.has_checkin === 'on' && group.exhibition_id) {
-                    return group.exhibition_id
-                } else {
-                    return null
-                }
+                return group.exhibition_id || null
             },
         },
     }

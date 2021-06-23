@@ -104,11 +104,7 @@
         },
         methods: {
             getDate (group) {
-                if (group.has_checkin === 'on' && group.date) {
-                    return group.date
-                } else {
-                    return null
-                }
+                return group.date || null
             },
         },
     }

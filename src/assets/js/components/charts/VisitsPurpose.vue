@@ -79,7 +79,7 @@
         methods: {
             getPurpose (group) {
                 const appointmentId = group.appointment_id
-                if (group.has_checkin === 'on' && appointmentId) {
+                if (appointmentId) {
                     return this.appointments[appointmentId].purpose || null
                 } else {
                     return null
