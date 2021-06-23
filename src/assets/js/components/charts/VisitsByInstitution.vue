@@ -9,10 +9,11 @@
     import { __ } from '@plugins/wp-i18n'
 
     export default {
-        name: 'GroupsByInstitutionChart',
+        name: 'VisitsByInstitutionChart',
         props: {
-            appointments: { type: Array, required: true },
-            institutions: { type: Array, required: true },
+            appointments: { type: Object, required: true },
+            groups: { type: Array, required: true },
+            institutions: { type: Object, required: true },
         },
         computed: {
 
