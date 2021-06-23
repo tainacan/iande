@@ -34,7 +34,7 @@
             </div>
             <div>
                 <label class="iande-label" for="institution">{{ __('Instituição responsável pela visita', 'iande') }}</label>
-                <Select id="institution" v-model="institution" :validations="$v.institution" :empty="__('Você ainda não possui instituições cadastradas ⚠️', 'iande')" :options="institutionOptions"/>
+                <Select id="institution" v-model="institution" :validations="$v.institution" :options="institutionOptions"/>
             </div>
             <div class="iande-add-item" v-if="canAddInstitution" role="button" tabindex="0" @click="addInstitution">
                 <span><Icon icon="plus-circle"/></span>
@@ -123,7 +123,7 @@
                 this.isContact = 'no'
             }
 
-            const institutions = await api.get('institution/list')
+            const institutions = await api.get('institution/list_published')
             this.institutions = institutions
         },
         watch: {
