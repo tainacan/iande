@@ -8,8 +8,8 @@
         'is_forced_view_mode' => true,
     ];
 
-    $itineraryId = filter_var($_GET['ID'], FILTER_VALIDATE_INT);
-    if (!empty($itineraryId)) {
+    $itineraryId = (int) filter_input(INPUT_GET, 'ID', FILTER_VALIDATE_INT);
+    if ($itineraryId) {
         $source = get_post_meta($itineraryId, 'source', true);
 
         if ($source === 'collection') {

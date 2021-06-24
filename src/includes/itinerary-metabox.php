@@ -45,7 +45,11 @@ function build_itinerary_metabox($post) {
  * @link https://codex.wordpress.org/Plugin_API/Action_Reference/save_post
  */
 function save_itinerary_metabox($post_id) {
-    $tainacan_meta = \filter_var($_POST['tainacan-meta'] ?: '');
+    if (empty($_POST['tainacan_meta'])) {
+        return;
+    }
+
+    $tainacan_meta = \filter_input(INPUT_POST, 'tainacan-meta') ?: '';
     if (!empty($tainacan_meta)) {
         \update_post_meta($post_id, 'tainacan_meta', $tainacan_meta);
     }
