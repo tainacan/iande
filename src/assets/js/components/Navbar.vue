@@ -4,7 +4,7 @@
         <header class="iande-navbar">
             <div class="iande-container iande-navbar__row">
                 <div class="iande-navbar__site-name">
-                <img :src="`${$iande.siteUrl}/wp-content/plugins/iande/assets/img/iande-logo.png`" alt="Iandé"> + {{ __($iande.siteName, 'iande') }}
+                <img :src="`${$iande.iandePath}assets/img/iande-logo.png`" alt="Iandé"> + {{ __($iande.siteName, 'iande') }}
                 </div>
                 <a v-if="isLoggedIn" class="iande-navbar__toggle" href="javascript:void(0)" role="button" tabindex="0" :aria-label="showMenu ? __('Ocultar menu', 'iande') : __('Exibir menu', 'iande')" @click="toggleMenu">
                     <Icon icon="bars"/>
