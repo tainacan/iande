@@ -33,7 +33,7 @@
                         }
                         const exhibitionData = chartData[exhibitionId]
                         exhibitionData.num_group += 1
-                        exhibitionData.num_people += parseInt(group.num_people) || 0
+                        exhibitionData.num_people += this.getNumPeople(group)
                     }
                 }
 
@@ -92,6 +92,13 @@
         methods: {
             getExhibition (group) {
                 return group.exhibition_id || null
+            },
+            getNumPeople (group) {
+                if (group.checkin_num_people === 'no') {
+                    return parseInt(group.checkin_num_people_actual || group.num_people) || 0
+                } else {
+                    return parseInt(group.num_people) || 0
+                }
             },
         },
     }

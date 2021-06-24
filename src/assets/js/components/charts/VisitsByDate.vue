@@ -31,7 +31,7 @@
                         }
                         const dateData = chartData[date]
                         dateData.num_group += 1
-                        dateData.num_people += parseInt(group.num_people) || 0
+                        dateData.num_people += this.getNumPeople(group)
                     }
                 }
 
@@ -105,6 +105,13 @@
         methods: {
             getDate (group) {
                 return group.date || null
+            },
+            getNumPeople (group) {
+                if (group.checkin_num_people === 'no') {
+                    return parseInt(group.checkin_num_people_actual || group.num_people) || 0
+                } else {
+                    return parseInt(group.num_people) || 0
+                }
             },
         },
     }
