@@ -58,7 +58,7 @@ function action__template_redirects()
     $controller_filename = IANDE_PLUGIN_BASEPATH . 'controllers/' . strtolower($controller_name) . '.php';
     $controller_class = 'IandePlugin\\' . ucfirst($controller_name);
 
-    if (file_exists($controller_filename)) {
+    if ($controller_filename === realpath($controller_filename) && file_exists($controller_filename)) {
         require_once $controller_filename;
     } else {
         set_404();
