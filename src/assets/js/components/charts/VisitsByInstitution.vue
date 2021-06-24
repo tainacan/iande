@@ -12,9 +12,9 @@
     export default {
         name: 'VisitsByInstitutionChart',
         props: {
-            appointments: { type: Object, required: true },
             groups: { type: Array, required: true },
             institutions: { type: Object, required: true },
+            map: { type: Object, required: true },
         },
         computed: {
             categories () {
@@ -24,9 +24,11 @@
                 const chartData = {}
 
                 for (const group of this.groups) {
-                    const institutionId = this.getInstitution(group)
+                    const institution = this.getInstitution(group)
 
-                    if (institutionId) {
+                    if (institution) {
+                        const institutionId = institution.ID
+
                         if (chartData[institutionId]) {
                             chartData[institutionId] += 1
                         } else {
@@ -92,29 +94,7 @@
         },
         methods: {
             getInstitution (group) {
-                const appointmentId = group.appointment_id
-                if (!appointmentId) {
-                    return null
-                }
-
-                const appointment = this.appointments[appointmentId]
-                if (this.isInstitutional(group, appointment) !== 'yes') {
-                    return null
-                }
-
-                return appointment.institution_id || null
-            },
-            isInstitutional (group, appointment) {
-                if (group.checkin_institutional) {
-                    return group.checkin_institutional
-                } else {
-                    const nature = appointment.group_nature
-                    if (nature) {
-                        return nature === 'institutional' ? 'yes' : 'no'
-                    } else {
-                        return null
-                    }
-                }
+                return this.map[group.ID] || null
             },
         },
     }

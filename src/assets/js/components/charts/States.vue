@@ -14,7 +14,6 @@
     export default {
         name: 'StatesChart',
         props: {
-            appointments: { type: Object, required: true },
             groups: { type: Array, required: true },
             institutions: { type: Object, required: true },
         },
@@ -87,17 +86,12 @@
         },
         methods: {
             getState (group) {
-                const appointmentId = group.appointment_id
-                if (!appointmentId) {
+                const institution = this.institutions[group.ID]
+                if (!institution) {
                     return null
                 }
 
-                const institutionId = this.appointments[appointmentId].institution_id
-                if (!institutionId) {
-                    return null
-                }
-
-                return this.institutions[institutionId].state
+                return institution.state
             },
         },
     }

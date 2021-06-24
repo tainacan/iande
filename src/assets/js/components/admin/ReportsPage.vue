@@ -5,12 +5,12 @@
             <VisitsByExhibitionChart :exhibitions="exhibitions" :groups="groups"/>
             <ScholarityChart :groups="groups"/>
             <GroupsNatureChart :appointments="appointments" :groups="groups"/>
-            <StatesChart :appointments="appointments" :groups="groups" :institutions="institutions"/>
-            <CitiesChart :appointments="appointments" :groups="groups" :institutions="institutions"/>
+            <StatesChart :groups="groups" :institutions="institutionsMap"/>
+            <CitiesChart :groups="groups" :institutions="institutionsMap"/>
             <RecurringVisitorsChart :appointments="appointments" :groups="groups"/>
             <AgeRangeChart :groups="groups"/>
             <VisitsPurposeChart :appointments="appointments" :groups="groups"/>
-            <VisitsByInstitutionChart :appointments="appointments" :groups="groups" :institutions="institutions"/>
+            <VisitsByInstitutionChart :groups="groups" :institutions="institutions" :map="institutionsMap"/>
         </div>
     </div>
 </template>
@@ -70,6 +70,21 @@
             },
             institutions () {
                 return arrayToMap(this.rawData.institutions, 'ID')
+            },
+            institutionsMap () {
+                const map = {}
+
+                for (const group of this.rawData.groups) {
+                    const appointment = this.appointments[group.appointment_id]
+
+                    if (appointment.group_nature === 'institutional') {
+                        map[group.ID] = this.institutions[appointment.institution_id] || null
+                    } else {
+                        map[group.ID] = null
+                    }
+                }
+
+                return map
             },
             rawData: constant(window.IandeReports),
         }
