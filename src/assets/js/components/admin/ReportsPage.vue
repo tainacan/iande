@@ -55,13 +55,18 @@
             appointments () {
                 return arrayToMap(this.rawData.appointments, 'ID')
             },
-            exhibitions () {
-                return arrayToMap(this.rawData.exhibitions, 'ID')
-            },
-            groups () {
+            filteredGroups () {
                 return this.rawData.groups.filter(group => {
                     return group.date >= this.dateFrom && group.date <= this.dateTo
                 })
+            },
+            groups () {
+                return this.filteredGroups.filter(group => {
+                    return group.post_status === 'publish'
+                })
+            },
+            exhibitions () {
+                return arrayToMap(this.rawData.exhibitions, 'ID')
             },
             institutions () {
                 return arrayToMap(this.rawData.institutions, 'ID')
