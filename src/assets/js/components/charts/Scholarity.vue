@@ -7,6 +7,7 @@
 
 <script>
     import { __ } from '@plugins/wp-i18n'
+    import { constant, sortBy } from '@utils'
 
     export default {
         name: 'ScholarityChart',
@@ -15,7 +16,7 @@
         },
         computed: {
             labels () {
-                return Object.keys(this.scholarities).map(scholarity => __(scholarity, 'iande')).sort()
+                return this.scholaritiesList.map(scholarity => __(scholarity, 'iande')).sort()
             },
             options () {
                 return {
@@ -71,8 +72,15 @@
 
                 return chartData
             },
+            scholaritiesList () {
+                return Object.keys(this.scholarities).sort(sortBy(scholarity => {
+                    const index = this.scholarityOptions.indexOf(scholarity)
+                    return index === -1 ? Number.MAX_SAFE_INTEGER : index
+                }))
+            },
+            scholarityOptions: constant(window.IandeSettings.scholarity),
             series () {
-                return this.labels.map(scholarity => this.scholarities[scholarity])
+                return this.scholaritiesList.map(scholarity => this.scholarities[scholarity])
             },
         },
         methods: {
