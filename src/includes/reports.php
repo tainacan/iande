@@ -8,7 +8,7 @@ namespace IandePlugin;
 function render_iande_reports_page () {
     ?>
     <div class="wrap" id="iande-reports-page">
-        <h1><?php echo \esc_html(__('Relatórios', 'iande')) ?></h1>
+        <h1><?php echo \esc_html__('Relatórios', 'iande') ?></h1>
 
         <div class="iande-admin-app">
             <iande-reports-page></iande-reports-page>
