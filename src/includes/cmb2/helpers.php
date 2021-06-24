@@ -430,7 +430,7 @@ Nos vemos em sua próxima visita!";
 function cmb2_render_callback_for_calendar_appointments($field, $escaped_value, $object_id, $object_type, $field_type_object) {
     ?>
     <div class="iande-admin-app">
-        <iande-exhibition-agenda :exhibition-id="<?php echo \esc_attr($object_id) ?>"></iande-exhibition-agenda>
+        <iande-exhibition-agenda :exhibition-id="<?php echo $object_id ?>"></iande-exhibition-agenda>
     </div>
     <?php
 }
