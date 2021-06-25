@@ -1,7 +1,7 @@
 <template>
     <div class="iande-charts-wrapper">
         <div class="iande-charts-grid">
-            <VisitsByDateChart :groups="groups"/>
+            <ConfirmedGroupsChart :groups="filteredGroups"/>
             <VisitsByExhibitionChart :exhibitions="exhibitions" :groups="groups"/>
             <ScholarityChart :groups="groups"/>
             <GroupsNatureChart :appointments="appointments" :groups="groups"/>
@@ -20,11 +20,11 @@
 
     import AgeRangeChart from '@components/charts/AgeRange.vue'
     import CitiesChart from '@components/charts/Cities.vue'
+    import ConfirmedGroupsChart from '@components/charts/ConfirmedGroups.vue'
     import GroupsNatureChart from '@components/charts/GroupsNature.vue'
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
     import ScholarityChart from '@components/charts/Scholarity.vue'
     import StatesChart from '@components/charts/States.vue'
-    import VisitsByDateChart from '@components/charts/VisitsByDate.vue'
     import VisitsByExhibitionChart from '@components/charts/VisitsByExhibition.vue'
     import VisitsByInstitutionChart from '@components/charts/VisitsByInstitution.vue'
     import VisitsPurposeChart from '@components/charts/VisitsPurpose.vue'
@@ -36,11 +36,11 @@
         components: {
             AgeRangeChart,
             CitiesChart,
+            ConfirmedGroupsChart,
             GroupsNatureChart,
             RecurringVisitorsChart,
             ScholarityChart,
             StatesChart,
-            VisitsByDateChart,
             VisitsByExhibitionChart,
             VisitsByInstitutionChart,
             VisitsPurposeChart,

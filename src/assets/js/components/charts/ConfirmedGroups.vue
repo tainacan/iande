@@ -1,6 +1,6 @@
 <template>
     <div class="iande-chart-wrapper -colspan-2">
-        <h2>{{ __('Quantidade de grupos e visitantes', 'iande') }}</h2>
+        <h2>{{ __('Quantidade de grupos confirmados e cancelados', 'iande') }}</h2>
         <ApexChart type="line" height="450" :series="series" :options="options"/>
     </div>
 </template>
@@ -11,7 +11,7 @@
     import { __ } from '@plugins/wp-i18n'
 
     export default {
-        name: 'VisitsByDateChart',
+        name: 'ConfirmedGroupsChart',
         props: {
             groups: { type: Array, required: true },
         },
@@ -26,12 +26,19 @@
                     const date = this.getDate(group)
 
                     if (date) {
-                        if (!chartData[date]) {
-                            chartData[date] = { num_group: 0, num_people: 0 }
+                        const postStatus = group.post_status
+
+                        if (postStatus === 'publish' || postStatus === 'canceled') {
+                            if (!chartData[date]) {
+                                chartData[date] = { canceled: 0, confirmed: 0 }
+                            }
+
+                            if (group.post_status === 'publish') {
+                                chartData[date].confirmed += 1
+                            } else {
+                                chartData[date].canceled += 1
+                            }
                         }
-                        const dateData = chartData[date]
-                        dateData.num_group += 1
-                        dateData.num_people += this.getNumPeople(group)
                     }
                 }
 
@@ -47,12 +54,12 @@
                             enabled: true,
                         }
                     },
-                    colors: ['#7DB6C5', '#A8DBBC'],
+                    colors: ['#A8DBBC', '#7DB6C5'],
                     dataLabels: {
                         enabled: false,
                     },
                     fill: {
-                        colors: ['#BBDEE0', '#EBFAF1'],
+                        colors: ['#EBFAF1', '#BBDEE0'],
                         opacity: 0.3,
                         type: 'solid',
                     },
@@ -85,18 +92,18 @@
                 }
             },
             series () {
-                const groups = this.dates.map(date => this.groupsByDate[date].num_group)
-                const people = this.dates.map(date => this.groupsByDate[date].num_people)
+                const canceled = this.dates.map(date => this.groupsByDate[date].canceled)
+                const confirmed = this.dates.map(date => this.groupsByDate[date].confirmed)
 
                 return [
                     {
-                        data: groups,
-                        name: __('Grupos', 'iande'),
+                        data: confirmed,
+                        name: __('Grupos confirmados', 'iande'),
                         type: 'area',
                     },
                     {
-                        data: people,
-                        name: __('Visitantes', 'iande'),
+                        data: canceled,
+                        name: __('Grupos cancelados', 'iande'),
                         type: 'area',
                     },
                 ]
@@ -105,13 +112,6 @@
         methods: {
             getDate (group) {
                 return group.date || null
-            },
-            getNumPeople (group) {
-                if (group.checkin_num_people === 'no') {
-                    return parseInt(group.checkin_num_people_actual || group.num_people) || 0
-                } else {
-                    return parseInt(group.num_people) || 0
-                }
             },
         },
     }
