@@ -2,6 +2,7 @@
     <div class="iande-charts-wrapper">
         <div class="iande-charts-grid">
             <ConfirmedGroupsChart :groups="filteredGroups"/>
+            <VisitorsAppearanceChart :groups="groups"/>
             <VisitsByExhibitionChart :exhibitions="exhibitions" :groups="groups"/>
             <ScholarityChart :groups="groups"/>
             <GroupsNatureChart :appointments="appointments" :groups="groups"/>
@@ -25,6 +26,7 @@
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
     import ScholarityChart from '@components/charts/Scholarity.vue'
     import StatesChart from '@components/charts/States.vue'
+    import VisitorsAppearanceChart from '@components/charts/VisitorsAppearance.vue'
     import VisitsByExhibitionChart from '@components/charts/VisitsByExhibition.vue'
     import VisitsByInstitutionChart from '@components/charts/VisitsByInstitution.vue'
     import VisitsPurposeChart from '@components/charts/VisitsPurpose.vue'
@@ -41,6 +43,7 @@
             RecurringVisitorsChart,
             ScholarityChart,
             StatesChart,
+            VisitorsAppearanceChart,
             VisitsByExhibitionChart,
             VisitsByInstitutionChart,
             VisitsPurposeChart,
