@@ -6,7 +6,7 @@
                     <span>{{ __('Criando roteiro de visita virtual', 'iande') }}</span>
                 </div>
                 <div>
-                    <span>{{ __('Seu roteiro possui', 'iande') }}</span>
+                    <span class="hide-sm">{{ __('Seu roteiro possui', 'iande') }}</span>
                     <div class="iande-itinerary-toolbar__counter" role="button" tabindex="0" @click="toggleItems">
                         {{ items.length }}
                         <Icon icon="caret-down" :class="{ 'fa-flip-vertical': showItems }" v-if="items.length > 0"/>

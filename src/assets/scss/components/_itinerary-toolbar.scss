@@ -25,7 +25,7 @@
             justify-self: right;
         }
 
-        @media screen and (max-width: 85em) {
+        @media screen and (max-width: 75em) {
             grid-template-columns: 1fr auto;
 
             & > :nth-child(1) {
@@ -53,6 +53,13 @@
             color: var(--iande-primary-color);
             font-size: 0.75em;
             margin-left: 0.25em;
+        }
+    }
+
+    .hide-sm {
+
+        @media screen and (max-width: 600px) {
+            display: none;
         }
     }
 }
