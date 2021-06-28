@@ -1,4 +1,4 @@
-=== Iande ===
+=== Iandé ===
 Contributors: percebeeduca
 Tags: Reservation system, scheduling, schedule, group visits, virtual group tours, museums, Tainacan
 Requires at least: 5.5.3
