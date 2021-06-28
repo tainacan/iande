@@ -1,5 +1,9 @@
 <template>
     <div class="iande-charts-wrapper">
+        <div class="row">
+            <Datepicker :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateFromRaw"/>
+            <Datepicker :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateToRaw"/>
+        </div>
         <div class="iande-charts-grid">
             <ConfirmedGroupsChart :groups="filteredGroups"/>
             <VisitorsAppearanceChart :groups="groups"/>
@@ -18,6 +22,7 @@
 
 <script>
     import { DateTime } from 'luxon'
+    import Datepicker from 'vuejs-datepicker'
 
     import AgeRangeChart from '@components/charts/AgeRange.vue'
     import CitiesChart from '@components/charts/Cities.vue'
@@ -39,6 +44,7 @@
             AgeRangeChart,
             CitiesChart,
             ConfirmedGroupsChart,
+            Datepicker,
             GroupsNatureChart,
             RecurringVisitorsChart,
             ScholarityChart,
@@ -50,13 +56,19 @@
         },
         data () {
             return {
-                dateFrom: DateTime.fromISO(today).minus({ year: 1 }).toISODate(),
-                dateTo: DateTime.fromISO(today).plus({ year: 1 }).toISODate(),
+                dateFromRaw: DateTime.fromISO(today).minus({ year: 1 }).toJSDate(),
+                dateToRaw: DateTime.fromISO(today).plus({ year: 1 }).toJSDate(),
             }
         },
         computed: {
             appointments () {
                 return arrayToMap(this.rawData.appointments, 'ID')
+            },
+            dateFrom () {
+                return DateTime.fromJSDate(this.dateFromRaw).toISODate()
+            },
+            dateTo () {
+                return DateTime.fromJSDate(this.dateToRaw).toISODate()
             },
             filteredGroups () {
                 return this.rawData.groups.filter(group => {
