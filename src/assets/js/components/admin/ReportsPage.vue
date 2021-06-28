@@ -6,11 +6,11 @@
             <VisitsByExhibitionChart :exhibitions="exhibitions" :groups="groups"/>
             <ScholarityChart :groups="groups"/>
             <GroupsNatureChart :appointments="appointments" :groups="groups"/>
-            <StatesChart :groups="groups" :institutions="institutionsMap"/>
-            <CitiesChart :groups="groups" :institutions="institutionsMap"/>
             <RecurringVisitorsChart :appointments="appointments" :groups="groups"/>
             <AgeRangeChart :groups="groups"/>
             <VisitsPurposeChart :appointments="appointments" :groups="groups"/>
+            <StatesChart :groups="groups" :institutions="institutionsMap"/>
+            <CitiesChart :groups="groups" :institutions="institutionsMap"/>
             <VisitsByInstitutionChart :groups="groups" :institutions="institutions" :map="institutionsMap"/>
         </div>
     </div>
