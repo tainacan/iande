@@ -1,8 +1,15 @@
 <template>
     <div class="iande-charts-wrapper">
-        <div class="row">
-            <Datepicker :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateFromRaw"/>
-            <Datepicker :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateToRaw"/>
+        <div class="row date-range-fields">
+            <p>{{ __('Data de apuração:', 'iande') }}</p>
+            <div>
+                <label for="dateFromRaw" class="iande-label">{{ __('De', 'iande') }}</label>
+                <Datepicker :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateFromRaw"/>
+            </div>
+            <div>
+                <label for="dateToRaw" class="iande-label">{{ __('Até', 'iande') }}</label>
+                <Datepicker :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateToRaw"/>
+            </div>
         </div>
         <div class="iande-charts-grid">
             <ConfirmedGroupsChart :groups="filteredGroups"/>
