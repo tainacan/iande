@@ -91,7 +91,7 @@ abstract class Controller
 
         if (!\current_user_can('manage_iande_options')) {
             if (\wp_is_json_request()) {
-                $error_message = $error_message ?: __('This action requires admin permission');
+                $error_message = $error_message ?: __('Essa ação requer privilégios administrativos', 'iande');
                 $this->error($error_message, 403);
             } else {
                 $this->render('login', ['next' => $_SERVER['REQUEST_URI']]);
@@ -110,7 +110,7 @@ abstract class Controller
     {
         if (!\is_user_logged_in()) {
             if (\wp_is_json_request()) {
-                $error_message = $error_message ?: __('This action requires authentication');
+                $error_message = $error_message ?: __('Essa ação requer autenticação', 'iande');
                 $this->error($error_message, 401);
             } else {
                 $this->render('login', ['next' => $_SERVER['REQUEST_URI']]);

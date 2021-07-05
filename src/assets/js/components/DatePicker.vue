@@ -1,6 +1,6 @@
 <template>
     <div class="iande-field">
-        <Datepicker :disabledDates="disabledDates" format="dd/MM/yyyy" :inputClass="inputClasses" v-bind="inputAttrs" v-model="dateValue"/>
+        <Datepicker :disabledDates="disabledDates" :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" :inputClass="inputClasses" v-bind="inputAttrs" v-model="dateValue"/>
         <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
     </div>
 </template>

@@ -1,64 +1,105 @@
 <template>
     <div class="iande-charts-wrapper">
+        <div class="row">
+            <Datepicker :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateFromRaw"/>
+            <Datepicker :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateToRaw"/>
+        </div>
         <div class="iande-charts-grid">
-            <GroupsAndVisitorsChart :groups="filteredGroups"/>
-            <GroupsAndVisitorsByExhibitionChart :groups="filteredGroups" :exhibitions="filteredExhibitions"/>
-            <InstitutionalGroupsChart :groups="filteredGroups"/>
-            <RecurringVisitorsChart :appointments="filteredAppointments"/>
-            <GroupsAgeRangeChart :groups="filteredGroups"/>
-            <PurposeVisitChart :appointments="filteredAppointments"/>
-            <GroupsByInstitutionChart :appointments="filteredAppointments" :institutions="rawData.institutions"/>
+            <ConfirmedGroupsChart :groups="filteredGroups"/>
+            <VisitorsAppearanceChart :groups="groups"/>
+            <VisitsByExhibitionChart :exhibitions="exhibitions" :groups="groups"/>
+            <ScholarityChart :groups="groups"/>
+            <GroupsNatureChart :appointments="appointments" :groups="groups"/>
+            <RecurringVisitorsChart :appointments="appointments" :groups="groups"/>
+            <AgeRangeChart :groups="groups"/>
+            <VisitsPurposeChart :appointments="appointments" :groups="groups"/>
+            <StatesChart :groups="groups" :institutions="institutionsMap"/>
+            <CitiesChart :groups="groups" :institutions="institutionsMap"/>
+            <VisitsByInstitutionChart :groups="groups" :institutions="institutions" :map="institutionsMap"/>
         </div>
     </div>
 </template>
 
 <script>
     import { DateTime } from 'luxon'
+    import Datepicker from 'vuejs-datepicker'
 
-    import GroupsAndVisitorsChart from '@components/charts/GroupsAndVisitors.vue'
-    import GroupsAndVisitorsByExhibitionChart from '@components/charts/GroupsAndVisitorsByExhibition.vue'
-    import InstitutionalGroupsChart from '@components/charts/InstitutionalGroups.vue'
+    import AgeRangeChart from '@components/charts/AgeRange.vue'
+    import CitiesChart from '@components/charts/Cities.vue'
+    import ConfirmedGroupsChart from '@components/charts/ConfirmedGroups.vue'
+    import GroupsNatureChart from '@components/charts/GroupsNature.vue'
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
-    import GroupsAgeRangeChart from '@components/charts/GroupsAgeRange.vue'
-    import PurposeVisitChart from '@components/charts/PurposeVisit.vue'
-    import GroupsByInstitutionChart from '@components/charts/GroupsByInstitution.vue'
+    import ScholarityChart from '@components/charts/Scholarity.vue'
+    import StatesChart from '@components/charts/States.vue'
+    import VisitorsAppearanceChart from '@components/charts/VisitorsAppearance.vue'
+    import VisitsByExhibitionChart from '@components/charts/VisitsByExhibition.vue'
+    import VisitsByInstitutionChart from '@components/charts/VisitsByInstitution.vue'
+    import VisitsPurposeChart from '@components/charts/VisitsPurpose.vue'
 
     import { arrayToMap, constant, today } from '@utils'
 
     export default {
         name: 'ReportsPage',
         components: {
-            GroupsAndVisitorsChart,
-            GroupsAndVisitorsByExhibitionChart,
-            InstitutionalGroupsChart,
+            AgeRangeChart,
+            CitiesChart,
+            ConfirmedGroupsChart,
+            Datepicker,
+            GroupsNatureChart,
             RecurringVisitorsChart,
-            GroupsAgeRangeChart,
-            PurposeVisitChart,
-            GroupsByInstitutionChart,
+            ScholarityChart,
+            StatesChart,
+            VisitorsAppearanceChart,
+            VisitsByExhibitionChart,
+            VisitsByInstitutionChart,
+            VisitsPurposeChart,
         },
         data () {
             return {
-                dateFrom: DateTime.fromISO(today).minus({ month: 1 }).toISODate(),
-                dateTo: today,
+                dateFromRaw: DateTime.fromISO(today).minus({ year: 1 }).toJSDate(),
+                dateToRaw: DateTime.fromISO(today).plus({ year: 1 }).toJSDate(),
             }
         },
         computed: {
-            appointmentsMap () {
+            appointments () {
                 return arrayToMap(this.rawData.appointments, 'ID')
             },
-            filteredAppointments () {
-                return this.rawData.appointments
+            dateFrom () {
+                return DateTime.fromJSDate(this.dateFromRaw).toISODate()
             },
-            filteredExhibitions () {
-                return this.rawData.exhibitions
+            dateTo () {
+                return DateTime.fromJSDate(this.dateToRaw).toISODate()
             },
             filteredGroups () {
                 return this.rawData.groups.filter(group => {
                     return group.date >= this.dateFrom && group.date <= this.dateTo
                 })
             },
-            groupsMap () {
-                return arrayToMap(this.rawData.groups, 'ID')
+            groups () {
+                return this.filteredGroups.filter(group => {
+                    return group.post_status === 'publish'
+                })
+            },
+            exhibitions () {
+                return arrayToMap(this.rawData.exhibitions, 'ID')
+            },
+            institutions () {
+                return arrayToMap(this.rawData.institutions, 'ID')
+            },
+            institutionsMap () {
+                const map = {}
+
+                for (const group of this.rawData.groups) {
+                    const appointment = this.appointments[group.appointment_id]
+
+                    if (appointment.group_nature === 'institutional') {
+                        map[group.ID] = this.institutions[appointment.institution_id] || null
+                    } else {
+                        map[group.ID] = null
+                    }
+                }
+
+                return map
             },
             rawData: constant(window.IandeReports),
         }

@@ -2,7 +2,6 @@
     <div class="iande-field">
         <select :id="id" :class="classes" :aria-describedby="errorId" v-model="modelValue">
             <option :value="nullValue" disabled v-if="value === nullValue">{{ placeholder }}</option>
-            <option :value="nullValue" disabled v-if="empty && optionsLength === 0">{{ empty }}</option>
             <option v-for="(option, label) of normalizedOptions" :key="label" :value="option">
                 {{ __(label, 'iande') }}
             </option>
@@ -19,7 +18,6 @@
         name: 'Select',
         mixins: [CustomField],
         props: {
-            empty: { type: String, default: null },
             options: { type: [Array, Object], required: true },
             placeholder: { type: String, default: __('Selecione uma das opções', 'iande') },
         },

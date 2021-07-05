@@ -114,7 +114,7 @@ class Appointment extends Controller
         $this->require_authentication();
 
         if (empty($params['ID'])) {
-            $this->error(__('O parâmetro id é obrigatório', 'iande'));
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
         }
 
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
@@ -159,11 +159,11 @@ class Appointment extends Controller
         $this->require_authentication();
 
         if (empty($params['ID'])) {
-            $this->error(__('O parâmetro id é obrigatório', 'iande'));
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
         }
 
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
-            $this->error(__('O parâmetro id deve ser um número inteiro', 'iande'));
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
 
         $appointment = \get_post($params['ID']);
@@ -238,11 +238,11 @@ class Appointment extends Controller
         $this->require_authentication();
 
         if (empty($params['ID'])) {
-            $this->error(__('O parâmetro id é obrigatório', 'iande'));
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
         }
 
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
-            $this->error(__('O parâmetro id deve ser um número inteiro', 'iande'));
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
 
         $appointment = $this->get_parsed_appointment($params['ID']);
@@ -545,20 +545,6 @@ class Appointment extends Controller
      */
     function validate(array $params = [], $validate_missing_requirements = false, $force = false)
     {
-        /* $params
-        'purpose' => (object) [
-            'type' => 'string',
-            'required' => __("O objetivo é obrigatório", 'iande'),
-            'validation' => function ($value) use ($purpose_options) {
-                if (in_array($value, $purpose_options)) {
-                    return true;
-                } else {
-                    return __('Objetivo inválido', 'iande');
-                }
-            }
-        ],
-         */
-
         $metadata_definition = get_appointment_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
@@ -607,7 +593,7 @@ class Appointment extends Controller
                         $metadata = get_post_meta($appointment_id, $key, true);
 
                         if (empty($metadata)) {
-                            $this->error(__('Faltam alguns campos obrigatórios, revise e tente novamente'));
+                            $this->error(__('Faltam alguns campos obrigatórios, revise e tente novamente', 'iande'));
                         }
 
                     }

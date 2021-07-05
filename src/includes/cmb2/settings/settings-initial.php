@@ -27,7 +27,7 @@ function iande_settings()
     $link_email = \admin_url('admin.php?page=iande_emails_settings%2F#email-pre-scheduling-exemption-heading');
     $iande_initial_options->add_field([
         'id'          => 'use_exemption',
-        'description' => __('Marcando essa opção, o museu aceitará solicitações para isenção dos ingressos nos agendamentos. Lembre-se de adicionar o anexo com o modelo de solicitação que será enviado por e-mail para o responsável pelo agendamento que solicitou isenção, <a href="'.$link_email.'">clicando aqui</a>.', 'iande'),
+        'description' => sprintf(__('Marcando essa opção, o museu aceitará solicitações para isenção dos ingressos nos agendamentos. Lembre-se de adicionar o anexo com o modelo de solicitação que será enviado por e-mail para o responsável pelo agendamento que solicitou isenção, <a href="%s">clicando aqui</a>.', 'iande'), esc_url($link_email)),
         'type'        => 'radio_inline',
         'default'     => 'no',
         'options'     => [
@@ -35,11 +35,4 @@ function iande_settings()
             'no'  => __('Não', 'iande')
         ]
     ]);
-
-    // ReCaptcha
-    // $iande_initial_options->add_field([
-    //     'name' => __('Configurações de CAPTCHA', 'iande'),
-    //     'id'   => 'recaptcha_heading',
-    //     'type' => 'title'
-    // ]);
 }

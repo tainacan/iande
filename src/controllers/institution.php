@@ -96,11 +96,11 @@ class Institution extends Controller
         $this->require_authentication();
 
         if (empty($params['ID'])) {
-            $this->error(__('O parâmetro id é obrigatório', 'iande'));
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
         }
 
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
-            $this->error(__('O parâmetro id deve ser um número inteiro', 'iande'));
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
 
         $this->validate($params);
@@ -133,11 +133,11 @@ class Institution extends Controller
         $this->require_authentication();
 
         if (empty($params['ID'])) {
-            $this->error(__('O parâmetro id é obrigatório', 'iande'));
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
         }
 
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
-            $this->error(__('O parâmetro id deve ser um número inteiro', 'iande'));
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
 
         $institution = $this->get_parsed_institution($params['ID']);
@@ -156,8 +156,7 @@ class Institution extends Controller
      *
      * @return void
      */
-    function endpoint_list()
-    {
+    function endpoint_list() {
 
         $this->require_authentication();
 
@@ -191,7 +190,41 @@ class Institution extends Controller
         $this->success($parsed_institutions);
     }
 
+ /**
+     * Retorna todas instituições públicas
+     *
+     * @return void
+     */
+    function endpoint_list_published() {
 
+        $this->require_authentication();
+
+        $args = array(
+            'post_type'      => 'institution',
+            'post_status'    => ['publish'],
+            'posts_per_page' => -1,
+        );
+
+        $institutions = get_posts($args);
+
+        if (empty($institutions)) {
+            return $this->success([]);
+        }
+
+        $parsed_institutions = [];
+
+        foreach ($institutions as $key => $institution) {
+            $parsed_institutions[] = $this->get_parsed_institution($institution->ID);
+        }
+
+        $parsed_institutions = array_filter($parsed_institutions);
+
+        if (empty($parsed_institutions)) {
+            return $this->success([]);
+        }
+
+        $this->success($parsed_institutions);
+    }
 
     /**
      * Verifica se o usuário tem permissão para ver a instituição
@@ -222,20 +255,6 @@ class Institution extends Controller
      */
     function validate(array $params = [], $validate_missing_requirements = false)
     {
-        /* $params
-        'purpose' => (object) [
-            'type' => 'string',
-            'required' => __("O objetivo é obrigatório", 'iande'),
-            'validation' => function ($value) use ($purpose_options) {
-                if (in_array($value, $purpose_options)) {
-                    return true;
-                } else {
-                    return __('Objetivo inválido', 'iande');
-                }
-            }
-        ],
-         */
-
         $metadata_definition = get_institution_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {

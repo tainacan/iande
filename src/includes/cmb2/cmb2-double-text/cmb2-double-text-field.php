@@ -21,7 +21,7 @@ function cmb2_render_double_text_field_callback($field, $value, $object_id, $obj
     ));
 ?>
     <div class="alignleft">
-        <p><label for="<?php echo $field_type->_id($_field_id . '_1'); ?>"><?= $name_1 ?></label></p>
+        <p><label for="<?php echo $field_type->_id($_field_id . '_1'); ?>"><?php echo esc_attr($name_1) ?></label></p>
         <?php echo $field_type->input(array(
             'name'  => $field_type->_name('[' . $field_id . '_1]'),
             'id'    => $field_type->_id($_field_id . '_1'),
@@ -30,7 +30,7 @@ function cmb2_render_double_text_field_callback($field, $value, $object_id, $obj
         )); ?>
     </div>
     <div class="alignleft">
-        <p><label for="<?php echo $field_type->_id($_field_id . '_2'); ?>'"><?= $name_2 ?></label></p>
+        <p><label for="<?php echo $field_type->_id($_field_id . '_2'); ?>'"><?php echo esc_attr($name_2) ?></label></p>
         <?php echo $field_type->input(array(
             'name'  => $field_type->_name('[' . $field_id . '_2]'),
             'id'    => $field_type->_id($_field_id . '_2'),
@@ -83,6 +83,6 @@ function cmb2_types_esc_double_text_field($check, $meta_value, $field_args, $fie
     $new_meta_value = array_map('array_filter', $meta_value);
 
     return $new_meta_value;
-    
+
 }
 add_filter('cmb2_types_esc_double_text', 'cmb2_types_esc_double_text_field', 10, 4);

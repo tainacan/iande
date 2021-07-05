@@ -1,4 +1,4 @@
-import '../scss/app.scss'
+__webpack_public_path__ = window.IandeSettings.iandePath
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAddressCard, faCalendar, faClock, faImage } from '@fortawesome/free-regular-svg-icons'

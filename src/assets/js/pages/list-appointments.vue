@@ -68,7 +68,7 @@
                 this.appointments = appointments
             }
             if (this.institutions.length === 0) {
-                const institutions = await api.get('institution/list')
+                const institutions = await api.get('institution/list_published')
                 this.institutions = institutions
             }
         }

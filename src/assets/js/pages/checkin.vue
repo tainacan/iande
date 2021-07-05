@@ -280,9 +280,9 @@
         validations () {
             return {
                 form: {
-                    checkin_age_range: { required: requiredIf('showedYes') },
+                    checkin_age_range: { required: requiredIf(() => this.showedYes) },
                     checkin_age_range_actual: { },
-                    checkin_disabilities: { required: requiredIf('showedYes') },
+                    checkin_disabilities: { required: requiredIf(() => this.showedYes) },
                     checkin_disabilities_actual: {
                         $each: {
                             disabilities_count: { integer, required },
@@ -290,25 +290,25 @@
                             disabilities_type: { required },
                         },
                     },
-                    checkin_hour: { required: requiredIf('showedYes') },
+                    checkin_hour: { required: requiredIf(() => this.showedYes) },
                     checkin_institution: { required: requiredIf(() => this.form.checkin_institutional === 'yes') },
                     checkin_institution_actual: { },
-                    checkin_institutional: { required: requiredIf('showedYes') },
-                    checkin_languages: { required: requiredIf('showedYes') },
+                    checkin_institutional: { required: requiredIf(() => this.showedYes) },
+                    checkin_languages: { required: requiredIf(() => this.showedYes) },
                     checkin_languages_actual: {
                         $each: {
                             languages_name: { required },
                             languages_other: { },
                         },
                     },
-                    checkin_noshow_reason: { required: requiredIf('showedNo') },
+                    checkin_noshow_reason: { required: requiredIf(() => this.showedNo) },
                     checkin_noshow_reason_other: { },
-                    checkin_noshow_type: { required: requiredIf('showedNo') },
-                    checkin_num_people: { required: requiredIf('showedYes') },
+                    checkin_noshow_type: { required: requiredIf(() => this.showedNo) },
+                    checkin_num_people: { required: requiredIf(() => this.showedYes) },
                     checkin_num_people_actual: { required: requiredIf(() => this.form.checkin_num_people === 'no'), numeric },
-                    checkin_num_responsible: { required: requiredIf('showedYes') },
+                    checkin_num_responsible: { required: requiredIf(() => this.showedYes) },
                     checkin_num_responsible_actual: { required: requiredIf(() => this.form.checkin_num_responsible === 'no'), numeric },
-                    checkin_scholarity: { required: requiredIf('showedYes') },
+                    checkin_scholarity: { required: requiredIf(() => this.showedYes) },
                     checkin_scholarity_actual: { },
                     checkin_showed: { required },
                 },
