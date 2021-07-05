@@ -81,11 +81,9 @@
                         curve: 'straight',
                         width: 7,
                     },
-                    /*
                     xaxis: {
                         type: 'datetime',
                     },
-                    */
                     yaxis: {
                         opposite: false,
                     },
