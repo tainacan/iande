@@ -11,6 +11,55 @@
                 <Datepicker :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateToRaw"/>
             </div>
         </div>
+
+        <div class="iande-charts-header">
+            <div class="mini-chart-box visitors">
+                <div class="header">
+                    <span class="title">{{ __('Visitantes', 'iande') }}</span>
+                </div>
+                <div class="content">
+                    <span class="data">1.245</span>
+                    <div class="icon"></div>
+                </div>
+            </div>
+            <div class="mini-chart-box scheduled-groups">
+                <div class="header">
+                    <span class="title">{{ __('Grupos Agendados', 'iande') }}</span>
+                </div>
+                <div class="content">
+                    <span class="data">578</span>
+                    <div class="icon"></div>
+                </div>
+            </div>
+            <div class="mini-chart-box exhibitions">
+                <div class="header">
+                    <span class="title">{{ __('Exposições', 'iande') }}</span>
+                </div>
+                <div class="content">
+                    <span class="data">43</span>
+                    <div class="icon"></div>
+                </div>
+            </div>
+            <div class="mini-chart-box institutions">
+                <div class="header">
+                    <span class="title">{{ __('Instituições', 'iande') }}</span>
+                </div>
+                <div class="content">
+                    <span class="data">23</span>
+                    <div class="icon"></div>
+                </div>
+            </div>
+            <div class="mini-chart-box canceled">
+                <div class="header">
+                    <span class="title">{{ __('Cancelados', 'iande') }}</span>
+                </div>
+                <div class="content">
+                    <span class="data">12</span>
+                    <div class="icon"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="iande-charts-grid">
             <ConfirmedGroupsChart :groups="filteredGroups"/>
             <VisitorsAppearanceChart :groups="groups"/>
