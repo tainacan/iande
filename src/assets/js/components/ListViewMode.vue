@@ -21,10 +21,12 @@
                             </button>
                         </td>
                         <td>
-                            <img :src="item.thumbnail.thumbnail[0]" :alt="item.thumbnail_alt" height="64" width="64">
+                            <a :href="item.url" target="_blank">
+                                <img :src="item.thumbnail.thumbnail[0]" :alt="item.thumbnail_alt" height="64" width="64">
+                            </a>
                         </td>
-                        <td>{{ item.title }}</td>
-                        <td>{{ item.description }}</td>
+                        <td v-html="getMeta(item, 'title')"/>
+                        <td v-html="getMeta(item, 'description')"/>
                     </tr>
                 </tbody>
             </table>
@@ -88,6 +90,12 @@
             __,
             addItem (item) {
                 dispatchIandeEvent('addItem', { item })
+            },
+            getMeta (item, key) {
+                if (typeof item[key] === 'string') {
+                    return item[key]
+                }
+                return item.metadata[key].value_as_html
             },
             isChecked (item) {
                 return this.checkedItems.includes(item)

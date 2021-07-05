@@ -9,9 +9,11 @@
                     <button type="button" class="iande-button iande-tainacan-check-button" :aria-label="__('Adicionar', 'iande')" @click="addItem(item)" v-else>
                         <Icon icon="plus-circle"/>
                     </button>
-                    <span>{{ item.title }}</span>
+                    <span v-html="getMeta(item, 'title')"/>
                 </header>
-                <img class="iande-tainacan-masonry-item__thumbnail" :src="thumbnail(item)[0]" :alt="item.thumbnail_alt" :height="thumbnail(item)[2]" :width="thumbnail(item)[1]">
+                <a :href="item.url" target="_blank">
+                    <img class="iande-tainacan-masonry-item__thumbnail" :src="thumbnail(item)[0]" :alt="item.thumbnail_alt" :height="thumbnail(item)[2]" :width="thumbnail(item)[1]">
+                </a>
             </div>
         </div>
     </div>
@@ -52,7 +54,7 @@
         watch: {
             items () {
                 this.reloadMasonry()
-            }
+            },
         },
         mounted () {
             if (window.ResizeObserver) {
@@ -85,6 +87,12 @@
             __,
             addItem (item) {
                 dispatchIandeEvent('addItem', { item })
+            },
+            getMeta (item, key) {
+                if (typeof item[key] === 'string') {
+                    return item[key]
+                }
+                return item.metadata[key].value_as_html
             },
             isChecked (item) {
                 return this.checkedItems.includes(item)
