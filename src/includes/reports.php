@@ -27,8 +27,13 @@ function render_iande_reports_page () {
 function serialize_post_type ($post_type, $definitions) {
     global $wpdb;
 
-    $posts_results = $wpdb->get_results($wpdb->prepare("SELECT ID, post_title, post_type, post_status, post_author, post_date FROM $wpdb->posts WHERE post_type = %s", $post_type));
-    $meta_results = $wpdb->get_results($wpdb->prepare("SELECT pm.post_id, pm.meta_key, pm.meta_value FROM $wpdb->postmeta pm INNER JOIN $wpdb->posts p ON p.ID = pm.post_id WHERE p.post_type = %s", $post_type));
+    $post_status = ['publish', 'pending', 'canceled'];
+    $placeholders = array_fill(0, count( $post_status ), '%s');
+    $in_post_status = implode(', ', $placeholders);
+    $prepared_values = array_merge([$post_type], $post_status);
+
+    $posts_results = $wpdb->get_results($wpdb->prepare("SELECT ID, post_title, post_type, post_status, post_author, post_date FROM $wpdb->posts WHERE post_type = %s AND post_status IN ($in_post_status)", $prepared_values));
+    $meta_results = $wpdb->get_results($wpdb->prepare("SELECT pm.post_id, pm.meta_key, pm.meta_value FROM $wpdb->postmeta pm INNER JOIN $wpdb->posts p ON p.ID = pm.post_id WHERE p.post_type = %s AND post_status IN ($in_post_status)", $prepared_values));
 
     $posts = [];
     foreach ($posts_results as $post) {
