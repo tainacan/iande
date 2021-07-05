@@ -72,7 +72,7 @@
                     this.checkedItems = this.checkedItems.filter(i => i !== item)
                 },
                 replaceItems: ({ items }) => {
-                    this.checkedItems = items
+                    this.checkedItems = [...items]
                 },
             }
             this.unsubscribe = onIandeEvent((type, payload) => {

@@ -8,10 +8,10 @@
                 <div>
                     <span class="hide-sm">{{ __('Seu roteiro possui', 'iande') }}</span>
                     <div class="iande-itinerary-toolbar__counter" role="button" tabindex="0" @click="toggleItems">
-                        {{ items.length }}
-                        <Icon icon="caret-down" :class="{ 'fa-flip-vertical': showItems }" v-if="items.length > 0"/>
+                        {{ checkedItems.length }}
+                        <Icon icon="caret-down" :class="{ 'fa-flip-vertical': showItems }" v-if="checkedItems.length > 0"/>
                     </div>
-                    <span>{{ _n('item selecionado', 'itens selecionados', items.length, 'iande') }}</span>
+                    <span>{{ _n('item selecionado', 'itens selecionados', checkedItems.length, 'iande') }}</span>
                 </div>
                 <div>
                     <button type="button" class="iande-button primary small">
@@ -32,8 +32,8 @@
                             <th>{{ __('Descrição', 'iande') }}</th>
                         </tr>
                     </thead>
-                    <Draggable tag="tbody" v-model="items" handle=".-handle" @end="replaceItems">
-                        <tr v-for="item of items" :key="item.id">
+                    <Draggable tag="tbody" v-model="checkedItems" handle=".-handle" @end="replaceItems">
+                        <tr v-for="item of checkedItems" :key="item.id">
                             <td class="iande-itinerary-table__controls iande-tainacan-table__controls">
                                 <div role="button" tabindex="0" :aria-role="__('Remover', 'iande')" @click="removeItem(item)">
                                     <Icon :icon="['far', 'trash-alt']"/>
@@ -67,8 +67,8 @@
         },
         data () {
             return {
+                checkedItems: [],
                 showItems: false,
-                items: [],
                 unsubscribe: null,
             }
         },
@@ -82,13 +82,13 @@
         mounted () {
             const iandeEvents = {
                 addItem: ({ item }) => {
-                    this.items = [...this.items, item]
+                    this.checkedItems = [...this.checkedItems, item]
                 },
                 removeItem: ({ item }) => {
-                    this.items = this.items.filter(i => i !== item)
+                    this.checkedItems = this.checkedItems.filter(i => i !== item)
                 },
                 replaceItems: ({ items }) => {
-                    this.items = items
+                    this.checkedItems = [...items]
                 },
             }
             this.unsubscribe = onIandeEvent((type, payload) => {
@@ -107,10 +107,10 @@
                 dispatchIandeEvent('removeItem', { item })
             },
             replaceItems () {
-                dispatchIandeEvent('replaceItems', { items: this.items })
+                dispatchIandeEvent('replaceItems', { items: this.checkedItems })
             },
             toggleItems () {
-                if (this.items.length > 0) {
+                if (this.checkedItems.length > 0) {
                     this.showItems = !this.showItems
                 }
             },
