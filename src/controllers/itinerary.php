@@ -142,7 +142,7 @@ class Itinerary extends Controller
         if ($name) {
             $title = $name;
         } else {
-            $title = 'Roteiro ' . $itinerary_id;
+            $title = sprintf(__('Roteiro %s', 'iande'), $itinerary_id);
         }
 
         $slug  = \sanitize_title($title);
@@ -172,7 +172,7 @@ class Itinerary extends Controller
             // validação de campos obrigatórios
             if ($definition->required && empty($params[$key])) {
                 if ($validate_missing_requirements) {
-                    $this->error(__('O campo [' . $key . '] é obrigatório'));
+                    $this->error(\sprintf(__('O campo [%s] é obrigatório', 'iande'), \esc_html($key)));
                 } else if (isset($params[$key])) {
                     $this->error($definition->required);
                 }
