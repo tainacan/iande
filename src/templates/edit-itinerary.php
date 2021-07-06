@@ -27,12 +27,10 @@
                 $exhibition = [];
             }
 
-            if (!empty($exhibition['collection'])) {
-                $search['collection_id'] = $exhibition['collection'];
-            }
-
             if (!empty($exhibition['metakey']) && !empty($exhibition['metavalue'])) {
                 $search['term_id'] = $exhibition['metavalue'];
+            } else if (!empty($exhibition['collection'])) {
+                $search['collection_id'] = $exhibition['collection'];
             }
         }
     }
