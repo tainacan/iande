@@ -142,7 +142,7 @@ class Itinerary extends Controller
         if ($name) {
             $title = $name;
         } else {
-            $title = sprintf(__('Roteiro %s', 'iande'), $itinerary_id);
+            $title = \sprintf(__('Roteiro %s', 'iande'), $itinerary_id);
         }
 
         $slug  = \sanitize_title($title);
