@@ -69,7 +69,7 @@
                     this.checkedItems = [...this.checkedItems, item]
                 },
                 removeItem: ({ item }) => {
-                    this.checkedItems = this.checkedItems.filter(i => i !== item)
+                    this.checkedItems = this.checkedItems.filter(i => i.id !== item.id)
                 },
                 replaceItems: ({ items }) => {
                     this.checkedItems = [...items]
@@ -80,6 +80,7 @@
                     iandeEvents[type](payload)
                 }
             })
+            dispatchIandeEvent('mountedViewMode')
         },
         beforeDestroy () {
             if (this.unsubscribe) {
@@ -98,7 +99,7 @@
                 return item.metadata[key].value_as_html
             },
             isChecked (item) {
-                return this.checkedItems.includes(item)
+                return !!this.checkedItems.find(i => i.id === item.id)
             },
             removeItem (item) {
                 dispatchIandeEvent('removeItem', { item })

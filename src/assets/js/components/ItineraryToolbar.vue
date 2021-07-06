@@ -84,8 +84,11 @@
                 addItem: ({ item }) => {
                     this.checkedItems = [...this.checkedItems, item]
                 },
+                mountedViewMode: () => {
+                    this.replaceItems()
+                },
                 removeItem: ({ item }) => {
-                    this.checkedItems = this.checkedItems.filter(i => i !== item)
+                    this.checkedItems = this.checkedItems.filter(i => i.id !== item.id)
                 },
                 replaceItems: ({ items }) => {
                     this.checkedItems = [...items]
