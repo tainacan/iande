@@ -64,6 +64,79 @@ class Itinerary extends Controller
     }
 
     /**
+     * Retorna todos os roteiros do usuário
+     *
+     * @return void
+     */
+    function endpoint_list(array $params = []) {
+        $this->require_authentication();
+
+        $user_id = \get_current_user_id();
+
+        $args = [
+            'author'         => $user_id,
+            'post_type'      => 'itinerary',
+            'post_status'    => ['draft', 'pending', 'publish'],
+            'posts_per_page' => -1,
+        ];
+
+        $itineraries = \get_posts($args);
+
+        if (empty($itineraries)) {
+            return $this->success([]);
+        }
+
+        $parsed_itineraries = [];
+
+        foreach ($itineraries as $key => $itinerary) {
+            $parsed_itineraries[] = $this->get_parsed_itinerary($itinerary->ID);
+        }
+
+        $parsed_itineraries = array_filter($parsed_itineraries);
+
+        if (empty($parsed_itineraries)) {
+            return $this->success([]);
+        }
+
+        $this->success($parsed_itineraries);
+    }
+
+    /**
+     * Retorna todos os roteiros públicos
+     *
+     * @return void
+     */
+    function endpoint_list_published(array $params = []) {
+        $this->require_authentication();
+
+        $args = [
+            'post_type'      => 'itinerary',
+            'post_status'    => ['publish'],
+            'posts_per_page' => -1,
+        ];
+
+        $itineraries = \get_posts($args);
+
+        if (empty($itineraries)) {
+            return $this->success([]);
+        }
+
+        $parsed_itineraries = [];
+
+        foreach ($itineraries as $key => $itinerary) {
+            $parsed_itineraries[] = $this->get_parsed_itinerary($itinerary->ID);
+        }
+
+        $parsed_itineraries = array_filter($parsed_itineraries);
+
+        if (empty($parsed_itineraries)) {
+            return $this->success([]);
+        }
+
+        $this->success($parsed_itineraries);
+    }
+
+    /**
      * Retorna um roteiro parseado
      *
      * @param integer $itinerary_id
