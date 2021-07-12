@@ -37,7 +37,7 @@
             },
             options () {
                 return {
-                    colors: ['#1E2E55'],
+                    colors: ['#7DB6C5'],
                     dataLabels: {
                         enabled: true,
                         offsetY: -30,
