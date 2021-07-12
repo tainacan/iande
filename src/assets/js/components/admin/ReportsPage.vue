@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <ChartsHeader :data="rawData"/>
+        <ChartsHeader :data="rawData" :from="dateFrom" :groups="filteredGroups" :to="dateTo"/>
 
         <div class="iande-charts-grid">
             <ConfirmedGroupsChart :groups="filteredGroups"/>
