@@ -78,7 +78,7 @@
                         position: 'top',
                     },
                     stroke: {
-                        curve: 'straight',
+                        curve: 'smooth',
                         width: 7,
                     },
                     xaxis: {
