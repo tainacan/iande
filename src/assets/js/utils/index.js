@@ -17,6 +17,10 @@ export function formatCnpj (cnpj) {
     return `${cnpj.slice(0, 8)}/${cnpj.slice(8, 12)}-${cnpj.slice(12, 14)}`
 }
 
+export function formatNumber (n) {
+    return new Intl.NumberFormat().format(n)
+}
+
 export function formatPhone (phone) {
     if (phone.length === 10) {
         return `(${phone.slice(0, 2)}) ${phone.slice(2, 6)}-${phone.slice(6, 10)}`

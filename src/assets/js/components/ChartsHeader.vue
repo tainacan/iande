@@ -3,35 +3,35 @@
         <div class="iande-chart-box">
             <div class="iande-chart-box__title">{{ __('Visitantes', 'iande') }}</div>
             <div class="iande-chart-box__content">
-                <span>{{ visitors }}</span>
+                <span>{{ formatNumber(visitors) }}</span>
                 <Icon icon="chart-bar"/>
             </div>
         </div>
         <div class="iande-chart-box">
             <div class="iande-chart-box__title">{{ __('Grupos agendados', 'iande') }}</div>
             <div class="iande-chart-box__content">
-                <span>{{ groupsByStatus.publish.length }}</span>
+                <span>{{ formatNumber(groupsByStatus.publish.length) }}</span>
                 <Icon icon="chart-bar"/>
             </div>
         </div>
         <div class="iande-chart-box">
             <div class="iande-chart-box__title">{{ __('Exposições', 'iande') }}</div>
             <div class="iande-chart-box__content">
-                <span>{{ exhibitions }}</span>
+                <span>{{ formatNumber(exhibitions) }}</span>
                 <Icon icon="chart-bar"/>
             </div>
         </div>
         <div class="iande-chart-box">
             <div class="iande-chart-box__title">{{ __('Instituições', 'iande') }}</div>
             <div class="iande-chart-box__content">
-                <span>{{ institutions }}</span>
+                <span>{{ formatNumber(institutions) }}</span>
                 <Icon icon="chart-bar"/>
             </div>
         </div>
         <div class="iande-chart-box">
             <div class="iande-chart-box__title">{{ __('Grupos cancelados', 'iande') }}</div>
             <div class="iande-chart-box__content">
-                <span>{{ groupsByStatus.canceled.length }}</span>
+                <span>{{ formatNumber(groupsByStatus.canceled.length) }}</span>
                 <Icon icon="chart-bar"/>
             </div>
         </div>
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+    import { formatNumber } from '@utils'
+
     export default {
         name: 'ChartsHeader',
         props: {
@@ -96,6 +98,7 @@
             },
         },
         methods: {
+            formatNumber,
             getNumPeople (group) {
                 if (group.checkin_num_people === 'no') {
                     return parseInt(group.checkin_num_people_actual || group.num_people) || 0
