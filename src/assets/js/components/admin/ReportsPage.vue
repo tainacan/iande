@@ -3,62 +3,16 @@
         <div class="row date-range-fields">
             <p>{{ __('Data de apuração:', 'iande') }}</p>
             <div>
-                <label for="dateFromRaw" class="iande-label">{{ __('De', 'iande') }}</label>
-                <Datepicker :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateFromRaw"/>
+                <label for="date-from" class="iande-label">{{ _x('De', 'range', 'iande') }}</label>
+                <Datepicker id="date-from" :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateFromRaw"/>
             </div>
             <div>
-                <label for="dateToRaw" class="iande-label">{{ __('Até', 'iande') }}</label>
-                <Datepicker :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateToRaw"/>
+                <label for="date-to" class="iande-label">{{ _x('Até', 'range', 'iande') }}</label>
+                <Datepicker id="date-to" :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateToRaw"/>
             </div>
         </div>
 
-        <div class="iande-charts-header">
-            <div class="mini-chart-box visitors">
-                <div class="header">
-                    <span class="title">{{ __('Visitantes', 'iande') }}</span>
-                </div>
-                <div class="content">
-                    <span class="data">1.245</span>
-                    <div class="icon"></div>
-                </div>
-            </div>
-            <div class="mini-chart-box scheduled-groups">
-                <div class="header">
-                    <span class="title">{{ __('Grupos Agendados', 'iande') }}</span>
-                </div>
-                <div class="content">
-                    <span class="data">578</span>
-                    <div class="icon"></div>
-                </div>
-            </div>
-            <div class="mini-chart-box exhibitions">
-                <div class="header">
-                    <span class="title">{{ __('Exposições', 'iande') }}</span>
-                </div>
-                <div class="content">
-                    <span class="data">43</span>
-                    <div class="icon"></div>
-                </div>
-            </div>
-            <div class="mini-chart-box institutions">
-                <div class="header">
-                    <span class="title">{{ __('Instituições', 'iande') }}</span>
-                </div>
-                <div class="content">
-                    <span class="data">23</span>
-                    <div class="icon"></div>
-                </div>
-            </div>
-            <div class="mini-chart-box canceled">
-                <div class="header">
-                    <span class="title">{{ __('Cancelados', 'iande') }}</span>
-                </div>
-                <div class="content">
-                    <span class="data">12</span>
-                    <div class="icon"></div>
-                </div>
-            </div>
-        </div>
+        <ChartsHeader :data="rawData"/>
 
         <div class="iande-charts-grid">
             <ConfirmedGroupsChart :groups="filteredGroups"/>
@@ -81,6 +35,7 @@
     import Datepicker from 'vuejs-datepicker'
 
     import AgeRangeChart from '@components/charts/AgeRange.vue'
+    import ChartsHeader from '@components/ChartsHeader.vue'
     import CitiesChart from '@components/charts/Cities.vue'
     import ConfirmedGroupsChart from '@components/charts/ConfirmedGroups.vue'
     import GroupsNatureChart from '@components/charts/GroupsNature.vue'
@@ -98,6 +53,7 @@
         name: 'ReportsPage',
         components: {
             AgeRangeChart,
+            ChartsHeader,
             CitiesChart,
             ConfirmedGroupsChart,
             Datepicker,

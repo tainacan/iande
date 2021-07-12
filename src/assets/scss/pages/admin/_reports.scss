@@ -54,58 +54,49 @@
         @media screen and (max-width: 768px) {
             display: block;
         }
+    }
 
-        .mini-chart-box {
-            background-color: white;
-            border: 1px solid #DDDDDD;
+    .iande-chart-box {
+        background-color: white;
+        border: 1px solid #DDDDDD;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        margin-right: 20px;
+        padding: 20px 30px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        @media screen and (max-width: 960px) {
+            margin-bottom: 20px;
+            margin-right: 0;
+        }
+
+        &__title {
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+
+            @media screen and (min-width: 768px) and (max-width: 1080px) {
+                text-align: center;
+            }
+        }
+
+        &__content {
+            align-items: center;
             display: flex;
-            flex: 1;
-            flex-direction: column;
-            margin-right: 20px;
-            padding: 20px 30px;
+            font-size: 24px;
+            justify-content: space-between;
 
-            &:last-child {
-                margin-right: 0;
+            span {
+                font-weight: bold;
             }
 
-            @media screen and (max-width: 960px) {
-                margin-bottom: 20px;
-                margin-right: 0;
-            }
-
-            .header {
-                .title {
-                    display: inline-block;
-                    font-size: 16px;
-                    font-weight: bold;
-                    margin-bottom: 20px;
-                    @media screen and (min-width: 768px) and (max-width: 1080px) {
-                        text-align: center;
-                    }
-                }
-            }
-
-            .content {
-                align-items: center;
-                display: flex;
-                justify-content: space-between;
-
-                .data {
-                    font-size: 24px;
-                    font-weight: bold;
-                }
-
-                .icon {
-                    background: url('../assets/img/bars.png') center no-repeat;
-                    background-size: 100%;
-                    height: 55px;
-                    width: 80px;
-
-                    @media screen and (min-width: 768px) and (max-width: 1080px) {
-                        height: 30px;
-                        width: 40px;
-                    }
-                }
+            svg[data-icon] {
+                color: var(--iande-tertiary-color);
             }
         }
     }
@@ -126,7 +117,7 @@
         }
 
         .apexcharts-toolbar {
-            top: -40px !important; // overwrite inline css
+            top: -40px !important; // override inline CSS
         }
 
         .apexcharts-legend.position-top.apexcharts-align-left,
@@ -134,7 +125,7 @@
             padding-left: 0;
 
             .apexcharts-legend-series {
-                margin: 3px 10px 3px 0 !important; // overwrite inline css
+                margin: 3px 10px 3px 0 !important; // override inline CSS
                 width: 100%;
             }
         }
@@ -142,7 +133,5 @@
         .apexcharts-inner {
             margin: 100px auto;
         }
-
     }
-
 }
