@@ -7,13 +7,7 @@ if (!defined('WPINC')) {
     die;
 }
 
-function mtime($filename)
-{
-    filemtime(IANDE_PLUGIN_BASEPATH . 'dist/' . $filename);
-}
-
-function enqueue_assets()
-{
-    \wp_enqueue_style('iande', IANDE_PLUGIN_DISTURL . 'app.css', [], mtime('app.css'));
-    \wp_enqueue_script('iande', IANDE_PLUGIN_DISTURL . 'app.js', ['wp-i18n'], mtime('app.js'), true);
+function enqueue_assets() {
+    \wp_enqueue_style('iande', IANDE_PLUGIN_DISTURL . 'app.css', [], IANDE_PLUGIN_VERSION);
+    \wp_enqueue_script('iande', IANDE_PLUGIN_DISTURL . 'app.js', ['wp-i18n'], IANDE_PLUGIN_VERSION, true);
 }
