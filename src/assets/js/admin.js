@@ -1,21 +1,31 @@
 __webpack_public_path__ = window.IandeSettings.iandePath
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faChartBar } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon  } from '@fortawesome/vue-fontawesome'
 import Vue from 'vue'
 
 import WpI18n from '@plugins/wp-i18n'
 import { api } from '@utils'
 import { cep } from '@utils/validators'
 
+const ApexChart = () => import(/* webpackChunkName: 'reports-page' */ 'vue-apexcharts')
 const ExhibitionAgenda = () => import(/* webpackChunkName: 'exhibition-agenda' */ '@components/admin/ExhibitionAgenda.vue')
+const ReportsPage = () => import(/* webpackChunkName: 'reports-page' */ '@components/admin/ReportsPage.vue')
 const StatusMetabox = () => import(/* webpackChunkName: 'status-metabox' */ '@components/admin/StatusMetabox.vue')
 const ItineraryMetabox = () => import(/* webpackChunkName: 'itinerary-metabox' */ '@components/admin/ItineraryMetabox.vue')
 const cities = import(/* webpackChunkName: 'estados-municipios' */ '../json/municipios.json')
 
+library.add(faChartBar)
+
 Vue.use(WpI18n)
 
+Vue.component('ApexChart', ApexChart)
 Vue.component('iande-exhibition-agenda', ExhibitionAgenda)
 Vue.component('iande-itinerary-metabox', ItineraryMetabox)
+Vue.component('iande-reports-page', ReportsPage)
 Vue.component('iande-status-metabox', StatusMetabox)
+Vue.component('Icon', FontAwesomeIcon)
 
 async function populateCityOptions (state, city) {
     const $city = jQuery('select#city')

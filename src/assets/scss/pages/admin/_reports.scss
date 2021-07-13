@@ -1,0 +1,137 @@
+#iande-reports-page {
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    .date-range-fields {
+        align-items: center;
+        display: flex;
+        //justify-content: flex-end;
+        margin-bottom: 20px;
+
+        @media screen and (max-width: 768px) {
+            display: block;
+        }
+
+        > p {
+            margin-right: 20px;
+
+            @media screen and (max-width: 768px) {
+                font-size: 1.3em;
+                font-weight: bold;
+            }
+        }
+
+        > div {
+            align-items: center;
+            display: flex;
+
+            @media screen and (max-width: 768px) {
+                margin-bottom: 10px;
+            }
+
+            label {
+                font-weight: bold;
+                padding-left: 20px;
+                padding-right: 10px;
+
+                @media screen and (max-width: 768px) {
+                    width: 10%;
+                }
+            }
+        }
+
+        input {
+            background-color: white;
+        }
+    }
+
+    .iande-charts-header {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+
+        @media screen and (max-width: 768px) {
+            display: block;
+        }
+    }
+
+    .iande-chart-box {
+        background-color: white;
+        border: 1px solid #DDDDDD;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        margin-right: 20px;
+        padding: 20px 30px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        @media screen and (max-width: 960px) {
+            margin-bottom: 20px;
+            margin-right: 0;
+        }
+
+        &__title {
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+
+            @media screen and (min-width: 768px) and (max-width: 1080px) {
+                text-align: center;
+            }
+        }
+
+        &__content {
+            align-items: center;
+            display: flex;
+            font-size: 24px;
+            justify-content: space-between;
+
+            span {
+                font-weight: bold;
+            }
+
+            svg[data-icon] {
+                color: var(--iande-tertiary-color);
+            }
+        }
+    }
+}
+
+.iande-charts-grid {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+
+    .iande-chart-wrapper {
+        background-color: white;
+        border: 1px solid #DDDDDD;
+        padding: 20px 30px;
+
+        &.-colspan-2 {
+            grid-column-end: span 2;
+        }
+
+        .apexcharts-toolbar {
+            top: -40px !important; // override inline CSS
+        }
+
+        .apexcharts-legend.position-top.apexcharts-align-left,
+            .apexcharts-legend.position-bottom.apexcharts-align-left {
+            padding-left: 0;
+
+            .apexcharts-legend-series {
+                margin: 3px 10px 3px 0 !important; // override inline CSS
+                width: 100%;
+            }
+        }
+
+        .apexcharts-inner {
+            margin: 100px auto;
+        }
+    }
+}

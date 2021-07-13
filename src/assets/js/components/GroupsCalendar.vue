@@ -71,9 +71,10 @@
             },
             events () {
                 return this.groups.map(group => {
-                    const exhibition = this.exhibitionsList.get(Number(group.exhibition_id)) ?? 60
+                    const exhibition = this.exhibitionsMap.get(Number(group.exhibition_id))
+                    const duration = exhibition?.duration ? Number(exhibition.duration) : 60
                     const start = group.hour
-                    const delta = { minutes: Number(exhibition.duration) }
+                    const delta = { minutes: duration }
                     const end = DateTime.fromFormat(start, 'HH:mm').plus(delta).toFormat('HH:mm')
                     return {
                         start: `${group.date} ${start}`,
@@ -82,7 +83,7 @@
                     }
                 })
             },
-            exhibitionsList () {
+            exhibitionsMap () {
                 return new Map(this.exhibitions.map(exhibition => [Number(exhibition.ID), exhibition]))
             },
             timeLimits () {

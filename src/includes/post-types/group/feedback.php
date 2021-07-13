@@ -22,7 +22,7 @@ function register_metabox_group_feedback()
         'priority'     => 'high',
         'show_names'   => true,
         'show_on_cb'   => function () {
-            return current_user_is( 'administrator' );
+            return current_user_can('read_feedback');
         }
     ]);
 

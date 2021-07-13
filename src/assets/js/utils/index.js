@@ -1,5 +1,10 @@
 import api, { searchParams } from '@utils/api'
 
+export function arrayToMap (array, key = 'ID') {
+    const entries = toArray(array).map(item => [item[key], item])
+    return Object.fromEntries(entries)
+}
+
 export function constant (value) {
     return () => value
 }
@@ -10,6 +15,10 @@ export function formatCep (cep) {
 
 export function formatCnpj (cnpj) {
     return `${cnpj.slice(0, 8)}/${cnpj.slice(8, 12)}-${cnpj.slice(12, 14)}`
+}
+
+export function formatNumber (n) {
+    return new Intl.NumberFormat().format(n)
 }
 
 export function formatPhone (phone) {

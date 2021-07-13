@@ -4,7 +4,7 @@ add_action( 'manage_posts_extra_tablenav', 'iande_export_button', 20, 1);
 function iande_export_button($which) {
     global $typenow;
 
-    if ('appointment' === $typenow && 'top' === $which && \current_user_can( 'manage_options' )) {
+    if ('appointment' === $typenow && 'top' === $which && \current_user_can( 'manage_iande_options' )) {
         ?>
         <input type="submit" name="export_all_appointments" id="export_all_appointments" class="button button-primary" value="Exportar Agendamentos" />
         <input type="submit" name="export_all_groups" id="export_all_groups" class="button button-primary" value="Exportar Grupos" />
@@ -17,7 +17,7 @@ add_action('init', 'iande_export_appointment');
 function iande_export_appointment() {
 
     // Check for current user privileges
-    if (!\current_user_can('manage_options')) {
+    if (!\current_user_can('manage_iande_options')) {
         return;
     }
 
@@ -149,7 +149,7 @@ add_action('init', 'iande_export_visit_groups');
 function iande_export_visit_groups() {
 
     // Check for current user privileges
-    if (!\current_user_can('manage_options')) {
+    if (!\current_user_can('manage_iande_options')) {
         return;
     }
 

@@ -172,7 +172,7 @@ class Appointment extends Controller
 
             $this->error(__('Agendamento não encontrado', 'iande'));
 
-        } elseif (\get_current_user_id() == $appointment->post_author || \current_user_can('manage_options')) {
+        } elseif (\get_current_user_id() == $appointment->post_author || is_iande_admin()) {
 
             \do_action('iande.before_cancel_appointment', $params);
 
@@ -644,7 +644,7 @@ class Appointment extends Controller
      */
     function parse_appointment(\WP_Post $appointment, array $metadata = [])
     {
-        $pased_appointment = (object) [
+        $parsed_appointment = (object) [
             'ID'          => $appointment->ID,
             'user_id'     => $appointment->post_author,
             'title'       => $appointment->post_title,
@@ -655,17 +655,17 @@ class Appointment extends Controller
 
         foreach ($metadata_definition as $key => $definition) {
             if ($key == 'num_people') {
-                $pased_appointment->$key = isset($metadata[$key][0]) ? $this->count_people_appointment($appointment->ID) : null;
+                $parsed_appointment->$key = isset($metadata[$key][0]) ? $this->count_people_appointment($appointment->ID) : null;
             } elseif ($key == 'groups') {
-                $pased_appointment->$key = isset($metadata[$key][0]) ? $this->get_parsed_group(\maybe_unserialize($metadata[$key][0])) : null;
+                $parsed_appointment->$key = isset($metadata[$key][0]) ? $this->get_parsed_group(\maybe_unserialize($metadata[$key][0])) : null;
             } else {
-                $pased_appointment->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
+                $parsed_appointment->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
             }
         }
 
-        $pased_appointment = \apply_filters('iande.parse_appointment', $pased_appointment, $appointment, $metadata);
+        $parsed_appointment = \apply_filters('iande.parse_appointment', $parsed_appointment, $appointment, $metadata);
 
-        return $pased_appointment;
+        return $parsed_appointment;
     }
 
     /**
