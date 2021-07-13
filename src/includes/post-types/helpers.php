@@ -3,6 +3,16 @@
 namespace IandePlugin;
 
 /**
+ * Retorna uma array contendo todos os post-types reconhecidos
+ * pelo Iandé
+ *
+ * @return array
+ */
+function iande_post_types () {
+    return ['appointment', 'exception', 'exhibition', 'group', 'institution', 'itinerary'];
+}
+
+/**
  * Determina se um post existe numa array de posts
  *
  * @param int $post_id ID do post procurado
