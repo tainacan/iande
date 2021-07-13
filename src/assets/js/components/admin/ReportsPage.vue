@@ -102,9 +102,13 @@
                 const map = {}
 
                 for (const group of this.rawData.groups) {
-                    const appointment = this.appointments[group.appointment_id]
+                    const appointmentId = group.appointment_id
+                    if (!appointmentId) {
+                        continue
+                    }
 
-                    if (appointment.group_nature === 'institutional') {
+                    const appointment = this.appointments[appointmentId]
+                    if (appointment?.group_nature === 'institutional') {
                         map[group.ID] = this.institutions[appointment.institution_id] || null
                     } else {
                         map[group.ID] = null

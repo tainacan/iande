@@ -45,7 +45,7 @@
                     return null
                 }
 
-                return this.appointments[appointmentId].has_visited_previously
+                return this.appointments[appointmentId].has_visited_previously || null
             },
         },
     }

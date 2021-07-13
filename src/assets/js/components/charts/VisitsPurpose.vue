@@ -79,12 +79,11 @@
         methods: {
             getPurpose (group) {
                 const appointmentId = group.appointment_id
-                if (appointmentId) {
-                    return this.appointments[appointmentId].purpose || null
-                } else {
+                if (!appointmentId) {
                     return null
                 }
 
+                return this.appointments[appointmentId].purpose || null
             },
         },
     }
