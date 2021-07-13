@@ -68,8 +68,8 @@
         },
         data () {
             return {
-                dateFromRaw: DateTime.fromISO(today).minus({ year: 1 }).toJSDate(),
-                dateToRaw: DateTime.fromISO(today).plus({ year: 1 }).toJSDate(),
+                dateFromRaw: DateTime.fromISO(today).minus({ month: 1 }).toJSDate(),
+                dateToRaw: DateTime.fromISO(today).toJSDate(),
             }
         },
         computed: {
