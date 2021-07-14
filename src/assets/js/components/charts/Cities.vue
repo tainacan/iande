@@ -116,23 +116,27 @@
                 return Object.fromEntries(entries)
             },
         },
-        created () {
-            this.computeMainState()
+        watch: {
+            chartData: {
+                handler () {
+                    if (!this.state) {
+                        let maxCount = 0
+                        let popularState = ''
+
+                        for (const [state, stateData] of Object.entries(this.chartData)) {
+                            if (stateData.count > maxCount) {
+                                popularState = state
+                                maxCount = stateData.count
+                            }
+                        }
+
+                        this.state = popularState
+                    }
+                },
+                immediate: true,
+            },
         },
         methods: {
-            computeMainState () {
-                let maxCount = 0
-                let popularState = ''
-
-                for (const [state, stateData] of Object.entries(this.chartData)) {
-                    if (stateData.count > maxCount) {
-                        popularState = state
-                        maxCount = stateData.count
-                    }
-                }
-
-                this.state = popularState
-            },
             getCity (group) {
                 const institution = this.institutions[group.ID]
                 if (!institution) {
