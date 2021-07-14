@@ -1,7 +1,7 @@
 <template>
     <div class="iande-chart-wrapper -colspan-2">
         <h2>{{ __('Grupos agendados por instituição', 'iande') }}</h2>
-        <ApexChart type="bar" :series="series" :options="options"/>
+        <ApexChart type="bar" height="450" :series="series" :options="options"/>
     </div>
 </template>
 
