@@ -8,6 +8,9 @@
         </div>
         <div class="iande-itinerary-preview__content">
             <h3>{{ itinerary.title }}</h3>
+            <div class="iande-itinerary-preview__bar">
+                <span>{{ sprintf(_n('%s item', '%s itens', numItems, 'iande'), numItems) }}</span>
+            </div>
             <p>{{ itinerary.description }}</p>
         </div>
     </article>
@@ -27,6 +30,9 @@
             },
             editable () {
                 return this.user.ID == this.itinerary.user_id
+            },
+            numItems () {
+                return 0
             },
             user: get('users/current'),
         },

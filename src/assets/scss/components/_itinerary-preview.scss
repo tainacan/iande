@@ -22,7 +22,7 @@
         a {
             background-color: var(--iande-background-color);
             border-radius: var(--iande-border-radius);
-            color: var(--iande-text-color);
+            color: var(--iande-secondary-color);
             line-height: 1;
             opacity: 0.6;
             padding: 0.5em;
@@ -43,6 +43,17 @@
         p {
             font-size: 0.875em;
             margin: 0;
+        }
+    }
+
+    &__bar {
+        font-size: 0.875em;
+        font-weight: bold;
+        margin: 0.5em 0;
+
+        span {
+            display: inline-block;
+            margin-right: 1em;
         }
     }
 }
