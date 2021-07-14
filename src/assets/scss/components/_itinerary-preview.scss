@@ -1,0 +1,47 @@
+.iande-itineraries-preview {
+    display: grid;
+    grid-gap: 2em;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.iande-itinerary-preview {
+    margin: 0 !important;
+
+    &__cover {
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+
+        img {
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        a {
+            background-color: rgba(255, 255, 255, 0.25);
+            border-radius: var(--iande-border-radius);
+            color: var(--iande-gray-color);
+            line-height: 1;
+            padding: var(--iande-border-radius);
+            position: absolute;
+            right: 0.5em;
+            top: 0.5em;
+        }
+    }
+
+    &__content {
+        padding: 0.5em;
+
+        h3 {
+            color: var(--iande-secondary-color);
+            margin: 0;
+        }
+
+        p {
+            font-size: 0.875em;
+            margin: 0;
+        }
+    }
+}

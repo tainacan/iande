@@ -22,9 +22,6 @@ class Itinerary extends Controller
      *
      * @param array $params
      *
-     * @action iande.before_create_itinerary
-     * @action iande.after_create_itinerary
-     *
      * @return void
      */
     function view_edit(array $params = []) {
@@ -33,9 +30,28 @@ class Itinerary extends Controller
     }
 
     /**
+     * Renderiza a página de listagem de roteiros virtuais
+     *
+     * A listagem possui duas seções: uma listagem dos roteiros do usuário
+     * e uma listagem de todos os roteiros públicos
+     *
+     * @param array $params
+     *
+     * @return void
+     */
+    function view_list(array $params = []) {
+        $this->require_authentication();
+        $this->render_vue(__('Roteiros virtuais', 'iande'), 'list-itineraries');
+    }
+
+    /**
      * Cria um roteiro novo
      *
      * @param array $params
+     *
+     * @action iande.before_create_itinerary
+     * @action iande.after_create_itinerary
+     *
      * @return $array O roteiro criado
      */
     function endpoint_create(array $params = []) {

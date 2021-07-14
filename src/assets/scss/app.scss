@@ -14,6 +14,7 @@
 @use './components/group';
 @use './components/groups-legend';
 @use './components/institution';
+@use './components/itinerary-preview';
 @use './components/itinerary-toolbar';
 @use './components/modal';
 @use './components/navbar';
@@ -24,6 +25,7 @@
 @use './components/welcome-option';
 
 @use './pages/create-institution';
+@use './pages/list-itineraries';
 @use './pages/login';
 @use './pages/visit-date';
 
