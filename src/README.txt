@@ -4,7 +4,7 @@ Tags: Reservation system, scheduling, schedule, group visits, virtual group tour
 Requires at least: 5.5.3
 Tested up to: 5.7
 Requires PHP: 7.2
-Stable tag: 0.8.1
+Stable tag: 0.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,9 @@ Features:
 
 
 == Changelog ==
+
+= 0.8.2 =
+* Correção de bug: tolerância a grupos sem agendamento explícito (legados)
 
 = 0.8.1 =
 * Remover source maps
