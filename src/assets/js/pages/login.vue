@@ -3,13 +3,6 @@
         <div class="iande-container narrow iande-stack stack-lg">
             <h1>Boas vindas!</h1>
             <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ $iande.siteName }}.</p>
-            <p>Para agendar uma visita é simples. Basta você se logar e informar os dados solicitados nas 3 etapas a seguir:</p>
-        </div>
-
-        <StepsIndicator :step="0"/>
-
-        <div class="iande-container narrow iande-stack stack-lg">
-            <p>Após a confirmação, você receberá um email com o resumo sobre o agendamento. Vamos lá?</p>
             <form class="iande-form iande-stack stack-lg" @submit.prevent="login">
                 <div>
                     <div class="iande-label">Faça login para começar:</div>
