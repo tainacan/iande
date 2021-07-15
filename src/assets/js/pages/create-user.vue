@@ -2,14 +2,7 @@
     <article id="iande-login" class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
             <h1>Boas vindas!</h1>
-            <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ $iande.siteName }}.</p>
-            <p>Para agendar uma visita é simples. Basta você se logar e informar os dados solicitados nas 3 etapas a seguir:</p>
-        </div>
-
-        <StepsIndicator :step="0"/>
-
-        <div class="iande-container narrow iande-stack stack-lg">
-            <p>Ao fim da etapa 3 você, receberá um email com resumo e informações importantes do agendamento. Vamos lá?</p>
+            <p class="slogan">Você está na plataforma de visitação do <span class="text-secondary">iandé</span>&nbsp;+&nbsp;{{ $iande.siteName }}.</p>
             <form class="iande-form iande-stack stack-lg" @submit.prevent="createUser">
                 <div>
                     <div class="iande-label">Faça login para começar:</div>
@@ -39,7 +32,6 @@
 
     import Input from '@components/Input.vue'
     import MaskedInput from '@components/MaskedInput.vue'
-    import StepsIndicator from '@components/StepsIndicator.vue'
     import { api, constant } from '@utils'
     import { phone } from '@utils/validators'
 
@@ -48,7 +40,6 @@
         components: {
             Input,
             MaskedInput,
-            StepsIndicator,
         },
         data () {
             return {
@@ -92,7 +83,7 @@
                             recaptcha: recaptchaToken,
                         })
                         await this.$store.set('users/current', user)
-                        window.location.assign(this.$iandeUrl('appointment/create'))
+                        window.location.assign(this.$iandeUrl('user/welcome'))
                     } catch (err) {
                         this.formError = err
                     }

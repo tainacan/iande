@@ -30,14 +30,12 @@
     import { required } from 'vuelidate/lib/validators'
 
     import Input from '@components/Input.vue'
-    import StepsIndicator from '@components/StepsIndicator.vue'
     import { api } from '@utils'
 
     export default {
         name: 'LoginPage',
         components: {
             Input,
-            StepsIndicator,
         },
         props: {
             next: { type: String, default: '/iande/user/welcome' },
