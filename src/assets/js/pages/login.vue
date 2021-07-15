@@ -2,7 +2,7 @@
     <article id="iande-login" class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
             <h1>Boas vindas!</h1>
-            <p class="slogan">Você está na plataforma de agendamento <span class="text-secondary">iandé</span> + {{ $iande.siteName }}.</p>
+            <p class="slogan">Você está na plataforma de visitação do <span class="text-secondary">iandé</span>&nbsp;+&nbsp;{{ $iande.siteName }}.</p>
             <form class="iande-form iande-stack stack-lg" @submit.prevent="login">
                 <div>
                     <div class="iande-label">Faça login para começar:</div>
