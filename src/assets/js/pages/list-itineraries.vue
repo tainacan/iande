@@ -11,10 +11,10 @@
                 </a>
             </div>
 
-            <section class="iande-container iande-stack stack-md" v-if="userItineraries.length > 0">
+            <section class="iande-container iande-stack stack-md" v-if="filteredItineraries.length > 0">
                 <h2>{{ __('Seus roteiros', 'iande') }}</h2>
                 <div class="iande-itineraries-preview">
-                    <ItineraryPreview v-for="itinerary of userItineraries" :key="itinerary.ID" :itinerary="itinerary"/>
+                    <ItineraryPreview v-for="itinerary of filteredItineraries" :key="itinerary.ID" :itinerary="itinerary"/>
                 </div>
             </section>
 
@@ -39,7 +39,7 @@
     import AppointmentsFilter from '@components/AppointmentsFilter.vue'
     import ItineraryPreview from '@components/ItineraryPreview.vue'
     import { __ } from '@plugins/wp-i18n'
-    import { api, constant, sortBy } from '@utils'
+    import { api, constant } from '@utils'
 
     export default {
         name: 'ListItinerariesPage',
@@ -55,21 +55,24 @@
             }
         },
         computed: {
+            filteredItineraries () {
+                return this.userItineraries.filter(itinerary => itinerary.post_status === this.filter)
+            },
             statusOptions: constant([
                 { label: __('Publicados', 'iande'), value: 'publish' },
                 { label: __('Rascunhos', 'iande'), value: 'draft' },
             ]),
             totalAppointments () {
-                return this.publicItineraries.length + this.userItineraries.length
+                return this.filteredItineraries.length + this.publicItineraries.length
             },
         },
         async created () {
             try {
-                const [publishedItineraties, userItineraries] = await Promise.all([
+                const [publicItineraries, userItineraries] = await Promise.all([
                     api.get('itinerary/list_published'),
                     api.get('itinerary/list'),
                 ])
-                this.publicItineraries = publishedItineraties
+                this.publicItineraries = publicItineraries
                 this.userItineraries = userItineraries
             } catch (err) {
                 console.error(err)
