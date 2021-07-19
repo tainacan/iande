@@ -4,7 +4,7 @@
             <div class="iande-container">
                 <div v-if="value === 'educator'">
                     {{ __('Você está na visualização de educador.', 'iande') }}
-                    <a :href="$iandeUrl('appointment/list?force_view=visitor')">
+                    <a :href="$iandeUrl('user/welcome?force_view=visitor')">
                         {{ __('Alternar para a visualização de visitante', 'iande') }}
                     </a>
                 </div>
