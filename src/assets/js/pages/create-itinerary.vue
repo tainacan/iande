@@ -10,6 +10,11 @@
                 </div>
 
                 <div>
+                    <label for="description" class="iande-label">{{ __('Descrição breve', 'iande') }}</label>
+                    <TextArea id="description" v-model="form.description" :validations="$v.form.description"/>
+                </div>
+
+                <div>
                     <label for="source" class="iande-label">{{ __('Escolha como você quer montar o roteiro', 'iande') }}</label>
                     <RadioGroup id="source" columns v-model="form.source" :validations="$v.form.source" :options="sourceOptions"/>
                 </div>
@@ -44,6 +49,7 @@
     import Input from '@components/Input.vue'
     import RadioGroup from '@components/RadioGroup.vue'
     import Select from '@components/Select.vue'
+    import TextArea from '@components/TextArea.vue'
     import { __ } from '@plugins/wp-i18n'
     import { api, constant } from '@utils'
 
@@ -53,12 +59,14 @@
             Input,
             RadioGroup,
             Select,
+            TextArea,
         },
         data () {
             return {
                 collections: [],
                 form: {
                     collection: null,
+                    description: '',
                     exhibition: null,
                     name: '',
                     source: '',
@@ -86,6 +94,7 @@
             return {
                 form: {
                     collection: { required: requiredIf(() => this.source === 'collection') },
+                    description: { },
                     exhibition: { required: requiredIf(() => this.source === 'exhibition') },
                     name: { required },
                     source: { required },

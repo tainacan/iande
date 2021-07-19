@@ -181,6 +181,17 @@ function get_itinerary_metadata_definition() {
                 'type' => 'text'
             ]
         ],
+        'description' => (object) [
+            'type'       => 'string',
+            'required'   => true,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name' => __('Descrição', 'iande'),
+                'type' => 'textarea'
+            ]
+        ],
         'source' => (object) [
             'type'       => 'string',
             'required'   => true,
