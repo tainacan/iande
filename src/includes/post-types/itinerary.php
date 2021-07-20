@@ -257,6 +257,25 @@ function get_itinerary_metadata_definition() {
                 'options' => map_posts_to_options($collections),
             ]
         ],
+        'items' => (object) [
+            'type'       => 'object',
+            'required'   => false,
+            'validation' => function ($value) {
+                if (is_string($value) || is_array($value)) {
+                    return true;
+                } else {
+                    return __('O valor informado não é válido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name'       => __('Itens do roteiro', 'iande'),
+                'type'       => 'itinerary_items',
+                'repeatable' => true,
+                'options'    => [
+                    'add_row_text' => __('Adicionar Item ao Roteiro', 'iande')
+                ]
+            ]
+        ],
     ];
 
     $metadata_definition = \apply_filters('iande.itinerary_metadata_definition', $metadata_definition);
