@@ -37,73 +37,15 @@
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-    import { __ } from '@plugins/wp-i18n'
-    import { dispatchIandeEvent, onIandeEvent } from '@utils/events'
+    import ViewMode from '@mixins/ViewMode'
 
     export default {
         name: 'IandeListViewMode',
         components: {
             Icon: FontAwesomeIcon,
         },
-        props: {
-            collectionId: Number,
-            displayedMetadata: Array,
-            items:  {
-                type: Array,
-                default: () => [],
-            },
-            isLoading: false,
-            totalItems: Number,
-            isFiltersMenuCompressed: Boolean,
-            enabledViewModes: Array
-        },
-        data () {
-            return {
-                checkedItems: [],
-                unsubscribe: null,
-            }
-        },
-        mounted () {
-            const iandeEvents = {
-                addItem: ({ item }) => {
-                    this.checkedItems = [...this.checkedItems, item]
-                },
-                removeItem: ({ item }) => {
-                    this.checkedItems = this.checkedItems.filter(i => i.id !== item.id)
-                },
-                replaceItems: ({ items }) => {
-                    this.checkedItems = [...items]
-                },
-            }
-            this.unsubscribe = onIandeEvent((type, payload) => {
-                if (iandeEvents[type]) {
-                    iandeEvents[type](payload)
-                }
-            })
-            dispatchIandeEvent('mountedViewMode')
-        },
-        beforeDestroy () {
-            if (this.unsubscribe) {
-                this.unsubscribe()
-            }
-        },
+        mixins: [ViewMode],
         methods: {
-            __,
-            addItem (item) {
-                dispatchIandeEvent('addItem', { item })
-            },
-            getMeta (item, key) {
-                if (typeof item[key] === 'string') {
-                    return item[key]
-                }
-                return item.metadata[key].value_as_html
-            },
-            isChecked (item) {
-                return !!this.checkedItems.find(i => i.id === item.id)
-            },
-            removeItem (item) {
-                dispatchIandeEvent('removeItem', { item })
-            },
             thumbnail (item) {
                 return item.thumbnail.thumbnail
             },

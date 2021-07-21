@@ -8,10 +8,10 @@
                 <div>
                     <span class="hide-sm">{{ __('Seu roteiro possui', 'iande') }}</span>
                     <div class="iande-itinerary-toolbar__counter" role="button" tabindex="0" @click="toggleItems">
-                        {{ checkedItems.length }}
-                        <Icon icon="caret-down" :class="{ 'fa-flip-vertical': showItems }" v-if="checkedItems.length > 0"/>
+                        {{ displayItems.length }}
+                        <Icon icon="caret-down" :class="{ 'fa-flip-vertical': showItems }" v-if="displayItems.length > 0"/>
                     </div>
-                    <span>{{ _n('item selecionado', 'itens selecionados', checkedItems.length, 'iande') }}</span>
+                    <span>{{ _n('item selecionado', 'itens selecionados', displayItems.length, 'iande') }}</span>
                 </div>
                 <div>
                     <button type="button" class="iande-button primary small">
@@ -32,8 +32,8 @@
                             <th>{{ __('Descrição', 'iande') }}</th>
                         </tr>
                     </thead>
-                    <Draggable tag="tbody" v-model="checkedItems" handle=".-handle" @end="replaceItems">
-                        <tr v-for="item of checkedItems" :key="item.id">
+                    <Draggable tag="tbody" v-model="itinerary.items" handle=".-handle" @end="replaceItems">
+                        <tr v-for="item of displayItems" :key="item.id">
                             <td class="iande-itinerary-table__controls iande-tainacan-table__controls">
                                 <div role="button" tabindex="0" :aria-role="__('Remover', 'iande')" @click="removeItem(item)">
                                     <Icon :icon="['far', 'trash-alt']"/>
@@ -43,7 +43,7 @@
                                 </div>
                             </td>
                             <td>
-                                <img :src="item.thumbnail.thumbnail[0]" :alt="item.thumbnail_alt" height="64" width="64">
+                                <!-- <img :src="item.thumbnail.thumbnail[0]" :alt="item.thumbnail_alt" height="64" width="64"> -->
                             </td>
                             <td>{{ item.title }}</td>
                             <td>{{ item.description }}</td>
@@ -58,6 +58,7 @@
 <script>
     import Draggable from 'vuedraggable'
 
+    import { api, arrayToMap } from '@utils'
     import { dispatchIandeEvent, onIandeEvent } from '@utils/events'
 
     export default {
@@ -67,36 +68,75 @@
         },
         data () {
             return {
-                checkedItems: [],
+                items: [],
+                itinerary: {
+                    items: [],
+                },
                 showItems: false,
                 unsubscribe: null,
             }
         },
+        computed: {
+            displayItems () {
+                return this.itinerary.items.map(item => this.itemsIndex[item.items_id])
+            },
+            itemsIndex () {
+                return arrayToMap(this.items, 'id')
+            },
+        },
         watch: {
-            items () {
-                if (this.items.length === 0) {
+            displayItems () {
+                if (this.displayItems.length === 0) {
                     this.showItems = false
+                }
+            },
+        },
+        async beforeMount () {
+            const qs = new URLSearchParams(window.location.search)
+            if (qs.has('ID')) {
+                try {
+                    const [items, itinerary] = await Promise.all([
+                        api.get(`${this.$iande.tainacanUrl}/items/?perpage=10000`),
+                        api.get('itinerary/get', { ID: Number(qs.get('ID')) }),
+                    ])
+                    if (!itinerary.items) {
+                        itinerary.items = []
+                    }
+                    this.items = items.items
+                    this.itinerary = itinerary
+                    this.$nextTick(() => {
+                        this.replaceItems()
+                    })
+                } catch (err) {
+                    console.error(err)
                 }
             }
         },
         mounted () {
             const iandeEvents = {
-                addItem: ({ item }) => {
-                    this.checkedItems = [...this.checkedItems, item]
+                addItem: ({ id }) => {
+                    const newItem = { items_id: id, items_description: '' }
+                    this.itinerary.items = [...this.itinerary.items, newItem]
                 },
                 mountedViewMode: () => {
                     this.replaceItems()
                 },
-                removeItem: ({ item }) => {
-                    this.checkedItems = this.checkedItems.filter(i => i.id !== item.id)
+                removeItem: ({ id }) => {
+                    this.itinerary.items = this.itinerary.items.filter(item => item.items_id != id)
                 },
-                replaceItems: ({ items }) => {
-                    this.checkedItems = [...items]
+                replaceItems: ({ ids }) => {
+                    const items = this.itinerary.items = ids.map(id => {
+                        return this.itinerary.items.find(item => item.items_id == id)
+                    })
+                    this.itinerary.items = items
                 },
             }
             this.unsubscribe = onIandeEvent((type, payload) => {
                 if (iandeEvents[type]) {
                     iandeEvents[type](payload)
+                    if (type !== 'mountedViewMode') {
+                        this.updateItinerary()
+                    }
                 }
             })
         },
@@ -107,16 +147,20 @@
         },
         methods: {
             removeItem (item) {
-                dispatchIandeEvent('removeItem', { item })
+                dispatchIandeEvent('removeItem', { id: item.id })
             },
             replaceItems () {
-                dispatchIandeEvent('replaceItems', { items: this.checkedItems })
+                const ids = this.itinerary.items.map(item => item.items_id)
+                dispatchIandeEvent('replaceItems', { ids })
             },
             toggleItems () {
-                if (this.checkedItems.length > 0) {
+                if (this.displayItems.length > 0) {
                     this.showItems = !this.showItems
                 }
             },
-        }
+            updateItinerary () {
+                api.post('itinerary/update', this.itinerary)
+            },
+        },
     }
 </script>
