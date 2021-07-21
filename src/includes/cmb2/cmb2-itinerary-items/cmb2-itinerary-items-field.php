@@ -11,8 +11,8 @@ function cmb2_render_itinerary_items_field_callback ($field, $value, $object_id,
     $item_id = $field_id . '_id';
     $item_description = $field_id . '_description';
 
-    $_item_id = '_' . $field_id . '_id';
-    $_item_description = '_' . $field_id . '_description';
+    $_item_id = '_' . $item_id;
+    $_item_description = '_' . $item_description;
 
     $value = wp_parse_args($array_value, [
         $item_id => '',
@@ -20,7 +20,7 @@ function cmb2_render_itinerary_items_field_callback ($field, $value, $object_id,
     ]);
 ?>
     <div class="alignleft">
-        <p><label for="<?php echo $field_type->_id($_item_description) ?>"></label></p>
+        <p><label for="<?php echo $field_type->_id($_item_id) ?>"></label></p>
         <?php echo $field_type->input([
             'desc'        => '',
             'id'          => $field_type->_id($_item_id),
@@ -32,11 +32,12 @@ function cmb2_render_itinerary_items_field_callback ($field, $value, $object_id,
     </div>
     <div class="alignleft">
         <p><label for="<?php echo $field_type->_id($_item_description) ?>"></label></p>
-        <?php echo $field_type->textarea_small([
-            'desc'        => '',
-            'id'          => $field_type->_id($_item_description),
-            'name'        => $field_type->_name('[' . $item_description . ']'),
-            'value'       => $value[$item_description],
+        <?php echo $field_type->textarea([
+            'desc'  => '',
+            'id'    => $field_type->_id($_item_description),
+            'name'  => $field_type->_name('[' . $item_description . ']'),
+            'rows'  => 3,
+            'value' => $value[$item_description],
         ]); ?>
     </div>
     <br class="clear">
