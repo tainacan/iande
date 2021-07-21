@@ -80,6 +80,35 @@ class Itinerary extends Controller
     }
 
     /**
+     * Retorna um roteiro pelo ID
+     *
+     * @param array $params
+     *
+     * @return void
+     */
+    function endpoint_get(array $params = []) {
+        $this->require_authentication();
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        $itinerary = $this->get_parsed_itinerary($params['ID']);
+
+        if (empty($itinerary)) {
+            return; // 404
+        }
+
+        $this->check_user_permission($itinerary);
+
+        $this->success($itinerary);
+    }
+
+    /**
      * Retorna todos os roteiros do usuário
      *
      * @return void
@@ -153,6 +182,62 @@ class Itinerary extends Controller
     }
 
     /**
+     * Atualiza o roteiro
+     *
+     * @param array $params
+     *
+     * @action iande.before_update_itinerary
+     * @action iande.after_update_itinerary
+     *
+     * @return void
+     */
+    function endpoint_update(array $params = []) {
+        $this->require_authentication();
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        $this->validate($params);
+
+        $itinerary = get_post($params['ID']);
+
+        $this->check_user_permission($itinerary);
+
+        \do_action('iande.before_update_itinerary', $params);
+
+        $this->set_itinerary_metadata($params['ID'], $params);
+        $this->set_itinerary_title($params['ID']);
+
+        \do_action('iande.after_update_itinerary', $params);
+
+        $parsed_itinerary = $this->get_parsed_itinerary($params['ID']);
+
+        $this->success($parsed_itinerary);
+    }
+
+    /**
+     * Verifica se o usuário tem permissão para ver o roteiro
+     * Se não tiver permissão retorna o erro na API
+     *
+     * @param WP_Post|object $itinerary
+     *
+     * @return void
+     */
+    function check_user_permission ($itinerary){
+
+        $user_id = $itinerary instanceof \WP_Post ? $itinerary->post_author : $itinerary->user_id;
+
+        if ($user_id != get_current_user_id()) {
+            $this->error(__('Você não tem permissão para ver este roteiro', 'iande'), 403);
+        }
+    }
+
+    /**
      * Retorna um roteiro parseado
      *
      * @param integer $itinerary_id
@@ -192,7 +277,7 @@ class Itinerary extends Controller
         $metadata_definition = get_itinerary_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
-            $parsed_itinerary->$key = isset($metadata[$key][0]) ? $metadata[$key][0] : null;
+            $parsed_itinerary->$key = isset($metadata[$key][0]) ? maybe_unserialize($metadata[$key][0]) : null;
         }
 
         $parsed_itinerary = \apply_filters('iande.parse_itinerary', $parsed_itinerary, $itinerary, $metadata);
