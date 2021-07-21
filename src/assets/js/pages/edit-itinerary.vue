@@ -1,9 +1,7 @@
 <template>
     <div>
         <ItineraryToolbar/>
-        <div class="iande-container mt-lg iande-stack stack-lg">
-            <h1>Tainacan demo</h1>
-        </div>
+        <div class="iande-container mt-lg iande-stack stack-lg"/>
         <ItineraryWelcomeModal ref="modal"/>
     </div>
 </template>
