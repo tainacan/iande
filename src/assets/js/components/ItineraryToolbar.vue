@@ -33,21 +33,7 @@
                         </tr>
                     </thead>
                     <Draggable tag="tbody" v-model="itinerary.items" handle=".-handle" @end="replaceItems">
-                        <tr v-for="item of displayItems" :key="item.id">
-                            <td class="iande-itinerary-table__controls iande-tainacan-table__controls">
-                                <div role="button" tabindex="0" :aria-role="__('Remover', 'iande')" @click="removeItem(item)">
-                                    <Icon :icon="['far', 'trash-alt']"/>
-                                </div>
-                                <div class="-handle" aria-hidden="true">
-                                    <Icon icon="grip-vertical"/>
-                                </div>
-                            </td>
-                            <td>
-                                <!-- <img :src="item.thumbnail.thumbnail[0]" :alt="item.thumbnail_alt" height="64" width="64"> -->
-                            </td>
-                            <td>{{ item.title }}</td>
-                            <td>{{ item.description }}</td>
-                        </tr>
+                        <ItineraryToolbarRow v-for="item of displayItems" :key="item.id" :item="item"/>
                     </Draggable>
                 </table>
             </div>
@@ -58,6 +44,7 @@
 <script>
     import Draggable from 'vuedraggable'
 
+    import ItineraryToolbarRow from '@components/ItineraryToolbarRow.vue'
     import { api, arrayToMap } from '@utils'
     import { dispatchIandeEvent, onIandeEvent } from '@utils/events'
 
@@ -65,6 +52,7 @@
         name: 'ItineraryToolbar',
         components: {
             Draggable,
+            ItineraryToolbarRow,
         },
         data () {
             return {
