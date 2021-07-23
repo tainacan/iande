@@ -1,0 +1,76 @@
+#iande-confirm-itinerary {
+    display: grid;
+    grid-template-columns: 1fr 85em 1fr;
+
+    & > :nth-child(1) {
+        background-color: var(--iande-lighter-color);
+    }
+
+    article {
+        display: grid;
+        height: 100%;
+        grid-template-columns: auto 1fr;
+    }
+
+    h1 {
+        color: var(--iande-secondary-color);
+        font-size: 1.25em;
+        font-weight: normal;
+        margin: 0;
+        text-transform: uppercase;
+        text-align: left;
+    }
+
+    .iande-sidebar {
+        background-color: var(--iande-lighter-color);
+        padding: 1em;
+
+        & > * {
+            margin-top: 40px;
+        }
+
+        .iande-button, a {
+            margin-top: 10px;
+            text-align: left;
+            width: 100%;
+
+            & > span {
+                display: inline-block;
+                padding-left: 1ch;
+            }
+        }
+
+        a {
+            color: var(--iande-secondary-color);
+            display: inline-block;
+            padding: 0 10px;
+            text-decoration: none;
+        }
+
+        #iande-collapse-button {
+
+            @media screen and (min-width: 85em) {
+                display: none;
+            }
+        }
+
+        &.-collapsed {
+
+            @media screen and (max-width: 85em) {
+
+                .iande-button, a {
+                    text-align: center;
+
+                    & > span {
+                        text-indent: -1000vw;
+                        padding: 0;
+                    }
+                }
+
+                a {
+                    display: none;
+                }
+            }
+        }
+    }
+}

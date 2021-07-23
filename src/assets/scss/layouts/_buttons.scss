@@ -35,6 +35,12 @@
         background-color: var(--iande-primary-color);
     }
 
+    &.secondary {
+        background-color: var(--iande-secondary-color);
+        border-color: var(--iande-secondary-color);
+        color: var(--iande-primary-color);
+    }
+
     &.outline {
         background-color: transparent;
     }

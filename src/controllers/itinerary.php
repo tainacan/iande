@@ -4,8 +4,19 @@ namespace IandePlugin;
 
 use Controller;
 
-class Itinerary extends Controller
-{
+class Itinerary extends Controller {
+    /**
+     * Renderiza a página de finalização de roteiro virtual
+     *
+     * @param array $params
+     *
+     * @return void
+     */
+    function view_confirm(array $params = []) {
+        $this->require_authentication();
+        $this->render_vue(__('Novo roteiro virtual', 'iande'), 'confirm-itinerary');
+    }
+
     /**
      * Renderiza a página de criação de roteiro virtual
      *
