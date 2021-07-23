@@ -45,7 +45,7 @@
     import Draggable from 'vuedraggable'
 
     import ItineraryToolbarRow from '@components/ItineraryToolbarRow.vue'
-    import { api, arrayToMap } from '@utils'
+    import { api, arrayToMap, qs } from '@utils'
     import { dispatchIandeEvent, onIandeEvent } from '@utils/events'
 
     export default {
@@ -80,7 +80,6 @@
             },
         },
         async beforeMount () {
-            const qs = new URLSearchParams(window.location.search)
             if (qs.has('ID')) {
                 try {
                     const [items, itinerary] = await Promise.all([

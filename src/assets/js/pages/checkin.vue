@@ -166,7 +166,7 @@
     import Repeater from '@components/Repeater.vue'
     import Select from '@components/Select.vue'
     import TextArea from '@components/TextArea.vue'
-    import { api, constant, isOther, joinMany } from '@utils'
+    import { api, constant, isOther, joinMany, qs } from '@utils'
 
     export default {
         name: 'CheckinPage',
@@ -315,7 +315,6 @@
             }
         },
         async beforeMount () {
-            const qs = new URLSearchParams(window.location.search)
             if (qs.has('ID')) {
                 try {
                     const group = await api.get('group/get', { ID: Number(qs.get('ID')) })

@@ -50,7 +50,7 @@
     import AppointmentWelcomeModal from '@components/AppointmentWelcomeModal.vue'
     import Modal from '@components/Modal.vue'
     import StepsIndicator from '@components/StepsIndicator.vue'
-    import { api } from '@utils'
+    import { api, qs } from '@utils'
 
     const CreateInstitution = () => import(/* webpackChunkName: 'create-institution-step' */ '@components/CreateInstitution.vue')
     const GroupsDate = () => import(/* webpackChunkName: 'groups-date-step' */ '@components/GroupsDate.vue')
@@ -110,7 +110,6 @@
             },
         },
         async beforeMount () {
-            const qs = new URLSearchParams(window.location.search)
             if (qs.has('ID')) {
                 try {
                     const appointment = await api.get('appointment/get', {

@@ -71,7 +71,7 @@
     import Input from '@components/Input.vue'
     import RadioGroup from '@components/RadioGroup.vue'
     import TextArea from '@components/TextArea.vue'
-    import { api, constant, isOther } from '@utils'
+    import { api, constant, isOther, qs } from '@utils'
 
     export default {
         name: 'FeedbackPage',
@@ -145,7 +145,6 @@
             }
         },
         async beforeMount () {
-            const qs = new URLSearchParams(window.location.search)
             if (qs.has('ID')) {
                 try {
                     const group = await api.get('group/get', { ID: Number(qs.get('ID')) })

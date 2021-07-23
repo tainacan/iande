@@ -51,7 +51,7 @@
     import AppointmentSuccessModal from '@components/AppointmentSuccessModal.vue'
     import Modal from '@components/Modal.vue'
     import StepsIndicator from '@components/StepsIndicator.vue'
-    import { api } from '@utils'
+    import { api, qs } from '@utils'
 
     const AdditionalData = () => import(/* webpackChunkName: 'additional-data-step' */ '@components/AdditionalData.vue')
     const GroupsAdditionalInfo = () => import(/* webpackChunkName: 'groups-additional-info-step' */ '@components/GroupsAdditionalInfo.vue')
@@ -90,7 +90,6 @@
             },
         },
         async beforeMount () {
-            const qs = new URLSearchParams(window.location.search)
             if (qs.has('screen')) {
                 this.screen = Number(qs.get('screen'))
             }

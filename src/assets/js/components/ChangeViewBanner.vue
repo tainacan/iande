@@ -23,6 +23,8 @@
 </template>
 
 <script>
+    import { qs } from '@utils'
+
     export default {
         name: 'ChangeViewBanner',
         props: {
@@ -38,7 +40,6 @@
             }
         },
         beforeMount () {
-            const qs = new URLSearchParams(window.location.search)
             if (qs.has('force_view')) {
                 const viewMode = qs.get('force_view')
                 window.sessionStorage.setItem('view', viewMode);

@@ -1,4 +1,5 @@
 import api, { searchParams } from '@utils/api'
+import qs from '@utils/qs'
 
 export function arrayToMap (array, key = 'ID') {
     const entries = toArray(array).map(item => [item[key], item])
@@ -88,4 +89,4 @@ export function watchForOther (vocabulary, other) {
     }
 }
 
-export { api, searchParams }
+export { api, qs, searchParams }

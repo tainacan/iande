@@ -6,6 +6,7 @@
 
 <script>
     import ItineraryToolbar from '@components/ItineraryToolbar.vue'
+    import { qs } from '@utils'
 
     export default {
         name: 'ViewItemPage',
@@ -18,7 +19,6 @@
             }
         },
         async beforeMount () {
-            const qs = new URLSearchParams(window.location.search)
             if (qs.has('ID')) {
                 try {
 

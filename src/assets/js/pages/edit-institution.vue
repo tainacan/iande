@@ -20,7 +20,7 @@
     import { call, sync } from 'vuex-pathify'
 
     import CreateInstitution from '@components/CreateInstitution.vue'
-    import { api } from '@utils'
+    import { api, qs } from '@utils'
 
     export default {
         name: 'EditInstitutionPage',
@@ -37,7 +37,6 @@
             institution: sync('institutions/current'),
         },
         async beforeMount () {
-            const qs = new URLSearchParams(window.location.search)
             if (qs.has('ID')) {
                 try {
                     const institution = await api.get('institution/get', {
