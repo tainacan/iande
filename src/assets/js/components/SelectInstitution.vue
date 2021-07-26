@@ -87,7 +87,7 @@
                 role: 'responsible_role',
                 roleOther: 'responsible_role_other',
             }),
-            binaryOptions: constant({ 'Sim': 'yes', 'Não': 'no' }),
+            binaryOptions: constant({ [__('Sim', 'iande')]: 'yes', [__('Não', 'iande')]: 'no' }),
             institutionOptional () {
                 return (this.nature && this.nature === 'other') || this.skipInstitution
             },

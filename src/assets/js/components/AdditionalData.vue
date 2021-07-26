@@ -26,6 +26,7 @@
 
     import RadioGroup from '@components/RadioGroup.vue'
     import TextArea from '@components/TextArea.vue'
+    import { __ } from '@plugins/wp-i18n'
     import { constant } from '@utils'
 
     export default {
@@ -41,7 +42,7 @@
                hasVisitedPreviously: 'has_visited_previously',
                howPreparedVisit: 'how_prepared_visit',
             }),
-            binaryOptions: constant({ 'Não': 'no', 'Sim': 'yes' }),
+            binaryOptions: constant({ [__('Não', 'iande')]: 'no', [__('Sim', 'iande')]: 'yes' }),
         },
         validations: {
             additionalComment: { },

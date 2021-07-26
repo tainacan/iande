@@ -68,6 +68,7 @@
     import Repeater from '@components/Repeater.vue'
     import Select from '@components/Select.vue'
     import CustomField from '@mixins/CustomField'
+    import { __ } from '@plugins/wp-i18n'
     import { constant, subModel } from '@utils'
 
     export default {
@@ -89,7 +90,7 @@
         },
         computed: {
             ageRange: subModel('age_range'),
-            binaryOptions: constant({ 'Não': false, 'Sim': true }),
+            binaryOptions: constant({ [__('Não', 'iande')]: false, [__('Sim', 'iande')]: true }),
             disabilities: subModel('disabilities'),
             exhibition: get('appointments/exhibition'),
             languages: subModel('languages'),

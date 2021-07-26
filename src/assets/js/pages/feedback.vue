@@ -71,6 +71,7 @@
     import Input from '@components/Input.vue'
     import RadioGroup from '@components/RadioGroup.vue'
     import TextArea from '@components/TextArea.vue'
+    import { __, _x } from '@plugins/wp-i18n'
     import { api, constant, isOther, qs } from '@utils'
 
     export default {
@@ -101,34 +102,34 @@
         },
         computed: {
             dislikedOptions: constant([
-                'Do acervo exposto',
-                'Dos textos da exposição',
-                'Da atuação do educador/visita educativa',
-                'Do comportamento dos alunos',
-                'Dos materiais educativos',
-                'Outros'
+                __('Do acervo exposto', 'iande'),
+                __('Dos textos da exposição', 'iande'),
+                __('Da atuação do educador/visita educativa', 'iande'),
+                __('Do comportamento dos alunos', 'iande'),
+                __('Dos materiais educativos', 'iande'),
+                _x('Outros', 'feedback', 'iande'),
             ]),
             likedOptions: constant([
-                'Observar o acervo',
-                'Interagir com a exposição',
-                'Ler os textos da exposição',
-                'Da atuação do educador/visita educativa',
-                'Dos materiais educativos',
-                'Outros'
+                __('Observar o acervo', 'iande'),
+                __('Interagir com a exposição', 'iande'),
+                __('Ler os textos da exposição', 'iande'),
+                __('Da atuação do educador/visita educativa', 'iande'),
+                __('Dos materiais educativos', 'iande'),
+                _x('Outros', 'feedback', 'iande'),
             ]),
             moodOptions: constant([
-                'Interesse',
-                'Apatia',
-                'Indisciplina',
-                'Tranquilidade',
-                'Participação',
-                'Outros'
+                __('Interesse', 'iande'),
+                __('Apatia', 'iande'),
+                __('Indisciplina', 'iande'),
+                __('Tranquilidade', 'iande'),
+                __('Participação', 'iande'),
+                _x('Outros', 'feedback', 'iande'),
             ]),
             qualityOptions: constant({
-                'Muito satisfatória': 4,
-                'Satisfatória': 3,
-                'Pouco satisfatória': 2,
-                'Insatisfatória': 1
+                [__('Muito satisfatória', 'iande')]: 4,
+                [__('Satisfatória', 'iande')]: 3,
+                [__('Pouco satisfatória', 'iande')]: 2,
+                [__('Insatisfatória', 'iande')]: 1
             }),
         },
         validations: {
