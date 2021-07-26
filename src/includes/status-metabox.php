@@ -41,7 +41,7 @@ add_action('admin_enqueue_scripts', 'appointment_enqueue_scripts');
  * @param post $post The post object
  * @link https://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes
  */
-function status_metaboxes($post) {
+function status_metabox($post) {
     if ($post->post_status === 'pending' || $post->post_status === 'publish') {
         add_meta_box('status_metabox', __('Status', 'iande'), 'build_status_metabox', 'appointment', 'side', 'low');
     }
