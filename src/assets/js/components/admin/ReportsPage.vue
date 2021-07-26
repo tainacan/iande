@@ -1,14 +1,21 @@
 <template>
     <div class="iande-charts-wrapper">
         <div class="row date-range-fields">
-            <p>{{ __('Data de apuração:', 'iande') }}</p>
+            <p>{{ __('Filtrar:', 'iande') }}</p>
             <div>
-                <label for="date-from" class="iande-label">{{ _x('De', 'range', 'iande') }}</label>
+                <label for="date-from" class="iande-label">{{ _x('Início', 'range', 'iande') }}</label>
                 <Datepicker id="date-from" :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateFromRaw"/>
             </div>
             <div>
-                <label for="date-to" class="iande-label">{{ _x('Até', 'range', 'iande') }}</label>
+                <label for="date-to" class="iande-label">{{ _x('Fim', 'range', 'iande') }}</label>
                 <Datepicker id="date-to" :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateToRaw"/>
+            </div>
+            <div>
+                <label for="exhibition" class="iande-label">{{ __('Exposição', 'iande') }}</label>
+                <select id="exhibition" v-model="exhibition">
+                    <option :value="null">{{ __('Todas as exposições', 'iande') }}</option>
+                    <option v-for="e of rawData.exhibitions" :key="e.ID" :value="e.ID">{{ __(e.post_title, 'post_title') }}</option>
+                </select>
             </div>
         </div>
 
@@ -70,6 +77,7 @@
             return {
                 dateFromRaw: DateTime.fromISO(today).minus({ month: 1 }).toJSDate(),
                 dateToRaw: DateTime.fromISO(today).toJSDate(),
+                exhibition: null,
             }
         },
         computed: {
@@ -84,6 +92,9 @@
             },
             filteredGroups () {
                 return this.rawData.groups.filter(group => {
+                    if (this.exhibition && group.exhibition_id != this.exhibition) {
+                        return false
+                    }
                     return group.date >= this.dateFrom && group.date <= this.dateTo
                 })
             },
