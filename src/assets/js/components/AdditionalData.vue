@@ -42,7 +42,10 @@
                hasVisitedPreviously: 'has_visited_previously',
                howPreparedVisit: 'how_prepared_visit',
             }),
-            binaryOptions: constant({ [__('Não', 'iande')]: 'no', [__('Sim', 'iande')]: 'yes' }),
+            binaryOptions: constant({
+                [__('Não', 'iande')]: 'no',
+                [__('Sim', 'iande')]: 'yes',
+            }),
         },
         validations: {
             additionalComment: { },

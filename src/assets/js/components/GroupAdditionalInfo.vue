@@ -90,7 +90,10 @@
         },
         computed: {
             ageRange: subModel('age_range'),
-            binaryOptions: constant({ [__('Não', 'iande')]: false, [__('Sim', 'iande')]: true }),
+            binaryOptions: constant({
+                [__('Não', 'iande')]: false,
+                [__('Sim', 'iande')]: true,
+            }),
             disabilities: subModel('disabilities'),
             exhibition: get('appointments/exhibition'),
             languages: subModel('languages'),
