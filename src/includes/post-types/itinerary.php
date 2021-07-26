@@ -181,6 +181,23 @@ function get_itinerary_metadata_definition() {
                 'type' => 'text'
             ]
         ],
+        'cover' => (object) [
+            'type'       => 'string',
+            'required'   => true,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name'       => __('Imagem de capa', 'iande'),
+                'type'       => 'file',
+                'options'    => [
+                    'url' => false,
+                ],
+                'query_args' => [
+                    'type' => ['image/gif', 'image/jpeg', 'image/png'],
+                ],
+            ]
+        ],
         'description' => (object) [
             'type'       => 'string',
             'required'   => true,
@@ -191,6 +208,53 @@ function get_itinerary_metadata_definition() {
                 'name' => __('Descrição', 'iande'),
                 'type' => 'textarea'
             ]
+        ],
+        'publicly_findable' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                return $value == 'yes' || $value == 'no';
+            },
+            'metabox' => (object) [
+                'name'    => __('O roteiro será aberto ao público ou restrito a quem tiver o link de acesso?', 'iande'),
+                'type'    => 'radio',
+                'options' => [
+                    'yes' => __('Aberto ao público', 'iande'),
+                    'no'  => __('Acesso apenas com link', 'iande'),
+                ],
+            ]
+        ],
+        'shareable' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                return $value == 'yes' || $value == 'no';
+            },
+            'metabox' => (object) [
+                'name'    => __('Você deseja deixar seu roteiro compartilhável?', 'iande'),
+                'type'    => 'radio',
+                'options' => [
+                    'no'  => __('Não', 'iande'),
+                    'yes' => __('Sim', 'iande'),
+                ],
+            ]
+        ],
+        'layout' => (object) [
+            'type' => 'string',
+            'required' => true,
+            'validation' => function ($value) {
+                return true;
+            },
+            'metabox' => (object) [
+                'name' => __('Escolha o layout de visualização desktop do roteiro', 'iande'),
+                'type' => 'radio',
+                'options' => [
+                    '1' => sprintf(__('Opção %s', 'iande'), 1) . ' - ' . __('Indicado para roteiros com quantidade razoável de texto', 'iande'),
+                    '2' => sprintf(__('Opção %s', 'iande'), 2) . ' - ' . __('Indicado para roteiros com pouco texto', 'iande'),
+                    '3' => sprintf(__('Opção %s', 'iande'), 3) . ' - ' . __('Apresenta imagens grandes com os textos sobrepostos', 'iande'),
+                    '4' => sprintf(__('Opção %s', 'iande'), 4) . ' - ' . __('Apresenta imagens grandes e apenas o título atrelado', 'iande'),
+                ]
+            ],
         ],
         'source' => (object) [
             'type'       => 'string',

@@ -1,0 +1,16 @@
+.iande-layout-selector {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+
+    img {
+        display: block;
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    &__description {
+        display: block;
+        font-size: 0.875em;
+    }
+}

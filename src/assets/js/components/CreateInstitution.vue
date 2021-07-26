@@ -7,7 +7,7 @@
             <Input id="name" type="text" :placeholder="__('Nome oficial da instituição', 'iande')" v-model="name" :validations="$v.name"/>
         </div>
         <div>
-            <label class="iande-label" for="cnpj">{{ __('CNPJ da instituição', 'iande') }}<span class="iande-label__optional">(opcional)</span></label>
+            <label class="iande-label" for="cnpj">{{ __('CNPJ da instituição', 'iande') }}<span class="iande-label__optional">{{ __('(opcional)', 'iande') }}</span></label>
             <MaskedInput id="cnpj" type="text" :mask="cnpjMask" :placeholder="__('Digite o CNPJ da instituição', 'iande')" v-model="cnpj" :validations="$v.cnpj"/>
         </div>
         <div>
