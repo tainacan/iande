@@ -47,6 +47,11 @@
                         </div>
 
                         <div>
+                            <label for="cover" class="iande-label">{{ __('Imagem de capa', 'iande') }}</label>
+                            <FileUploader id="cover" accept="image/*" v-model="itinerary.cover" :validations="$v.itinerary.cover"/>
+                        </div>
+
+                        <div>
                             <label for="description" class="iande-label">{{ __('Descrição breve', 'iande') }}<span class="iande-label__optional">{{ __('(opcional)', 'iande') }}</span></label>
                             <TextArea id="description" v-model="itinerary.description" :validations="$v.itinerary.description"/>
                         </div>
@@ -75,6 +80,7 @@
 <script>
     import { required } from 'vuelidate/lib/validators'
 
+    import FileUploader from '@components/FileUploader.vue'
     import Input from '@components/Input.vue'
     import LayoutSelector from '@components/LayoutSelector.vue'
     import RadioGroup from '@components/RadioGroup.vue'
@@ -85,6 +91,7 @@
     export default {
         name: 'ConfirmItineraryPage',
         components: {
+            FileUploader,
             Input,
             LayoutSelector,
             RadioGroup,
@@ -113,6 +120,7 @@
         },
         validations: {
             itinerary: {
+                cover: { },
                 description: { },
                 layout: { required },
                 name: { required },
