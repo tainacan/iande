@@ -4,7 +4,7 @@ Tags: Reservation system, scheduling, schedule, group visits, virtual group tour
 Requires at least: 5.5.3
 Tested up to: 5.7
 Requires PHP: 7.2
-Stable tag: 0.8.2
+Stable tag: 0.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,10 @@ Features:
 
 
 == Changelog ==
+
+= 0.8.3 =
+* Filtrar dados do relatórios por exposição
+* Correção de bug: pré-seleção de estado no gráfico de visitas por cidade
 
 = 0.8.2 =
 * Correção de bug: tolerância a grupos sem agendamento explícito (legados)
@@ -109,5 +113,6 @@ Features:
 
 == Mais informações ==
 
-Visite nosso site oficial: [Iandé](https://iandecultura.com.br/)
-Contribua com o código fonte:: [GitLab Iandé](https://gitlab.com/percebe/iande-plugin/)
+* Leia nosso [manual do usuário](https://iandecultura.com.br/wp-content/uploads/2021/07/Manual-de-Usabilidade-do-Site-IAND%C3%89-Museus.pdf)
+* Visite nosso site oficial: [Iandé](https://iandecultura.com.br/)
+* Contribua com o código fonte: [GitLab](https://gitlab.com/percebe/iande-plugin/)
