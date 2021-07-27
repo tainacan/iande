@@ -10,6 +10,7 @@
         display: grid;
         height: 100%;
         grid-template-columns: auto 1fr;
+        max-width: 100vw;
     }
 
     h1 {

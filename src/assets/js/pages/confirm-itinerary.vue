@@ -18,7 +18,7 @@
                     </button>
                 </div>
                 <div>
-                    <button type="button" class="iande-button small solid">
+                    <button type="button" class="iande-button small solid" @click="update">
                         <Icon :icon="['far', 'save']"/>
                         <span>{{ __('Salvar rascunho', 'iande') }}</span>
                     </button>
@@ -30,7 +30,7 @@
                         <Icon icon="check"/>
                         <span>{{ __('Publicar roteiro', 'iande') }}</span>
                     </button>
-                    <a href="#">
+                    <a :href="$iandeUrl('itinerary/list')">
                         <Icon icon="angle-left"/>
                         <span>{{ __('Voltar à lista de roteiros', 'iande') }}</span>
                     </a>
@@ -69,6 +69,16 @@
                         <div>
                             <label for="layout" class="iande-label">{{ __('Escolha o layout de visualização desktop do roteiro', 'iande') }}</label>
                             <LayoutSelector id="layout" v-model="itinerary.layout" :validations="$v.itinerary.layout"/>
+                        </div>
+
+                        <div class="iande-form-grid">
+                            <a class="iande-button solid" :href="$iandeUrl('itinerary/list')">
+                                {{ __('Cancelar', 'iande') }}
+                            </a>
+
+                            <button type="button" class="iande-button primary">
+                                {{ __('Salvar alterações', 'iande') }}
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -145,5 +155,15 @@
                 }
             }
         },
+        methods: {
+            async update () {
+                try {
+                    await api.post('itinerary/update', this.itinerary)
+                    window.location.assign(this.$iandeUrl('itinerary/list'))
+                } catch (err) {
+                    this.formError = err
+                }
+            },
+        }
     }
 </script>
