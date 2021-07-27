@@ -14,10 +14,10 @@
                     <span>{{ _n('item selecionado', 'itens selecionados', displayItems.length, 'iande') }}</span>
                 </div>
                 <div>
-                    <button type="button" class="iande-button primary small">
+                    <a class="iande-button primary small" :href="$iandeUrl(`itinerary/confirm/?ID=${itinerary.ID}`)">
                         {{ __('Avançar', 'iande') }}
                         <Icon icon="angle-right"/>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
