@@ -7,6 +7,7 @@
     }
 
     &__thumbnail {
+        margin-right: 20px;
 
         img {
             height: 200px;
@@ -21,7 +22,7 @@
         flex: 1;
         flex-direction: column;
         justify-content: flex-end;
-        margin: 10px 20px;
+        margin: 10px 0;
 
         .iande-button {
             height: auto;
