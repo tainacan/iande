@@ -91,6 +91,37 @@ class Itinerary extends Controller {
     }
 
     /**
+     * Manda o roteiro para a lixeira
+     *
+     * @param array $params
+     *
+     * @return void
+     */
+    function endpoint_delete(array $params = []) {
+        $this->require_authentication();
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        $itinerary = $this->get_parsed_itinerary($params['ID']);
+
+        if (empty($itinerary)) {
+            return; // 404
+        }
+
+        $this->check_user_permission($itinerary);
+
+        \wp_delete_post($itinerary->ID, false);
+
+        $this->success(null);
+    }
+
+    /**
      * Retorna um roteiro pelo ID
      *
      * @param array $params

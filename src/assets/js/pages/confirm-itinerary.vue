@@ -22,7 +22,7 @@
                         <Icon :icon="['far', 'save']"/>
                         <span>{{ __('Salvar rascunho', 'iande') }}</span>
                     </button>
-                    <button type="button" class="iande-button small solid">
+                    <button type="button" class="iande-button small solid" @click="remove">
                         <Icon :icon="['far', 'trash-alt']"/>
                         <span>{{ __('Apagar roteiro', 'iande') }}</span>
                     </button>
@@ -156,6 +156,14 @@
             }
         },
         methods: {
+            async remove () {
+                try {
+                    await api.post('itinerary/delete', { ID: this.itinerary.ID })
+                    window.location.assign(this.$iandeUrl('itinerary/list'))
+                } catch (err) {
+                    this.formError = err
+                }
+            },
             async update () {
                 try {
                     await api.post('itinerary/update', this.itinerary)
@@ -164,6 +172,6 @@
                     this.formError = err
                 }
             },
-        }
+        },
     }
 </script>
