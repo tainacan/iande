@@ -3,6 +3,10 @@ namespace IandePlugin;
 
 function add_custom_roles_and_capabilities () {
 
+    \add_role('iande_visitor', __('Visitante do Iandé', 'iande'));
+    $subscriber = \get_role('iande_visitor');
+    $subscriber->add_cap('upload_files');
+
     \add_role('iande_admin', __('Administrador do Iandé', 'iande'));
 
     // iande_admin

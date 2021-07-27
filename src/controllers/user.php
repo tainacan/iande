@@ -265,7 +265,8 @@ class User extends Controller
             'user_pass' => $params['password'],
             'first_name' => $params['first_name'],
             'last_name' => $params['last_name'],
-            'display_name' => $params['first_name'] . ' ' . $params['last_name']
+            'display_name' => $params['first_name'] . ' ' . $params['last_name'],
+            'role' => 'iande_visitor',
         ]);
 
         if ($new_user_id instanceof \WP_Error) {

@@ -76,6 +76,7 @@ function iande_institution_settings() {
             'ageRanges'        => $age_range,
             'scholarity'       => $scholarity,
             'useExemption'     => $use_exemption,
+            'nonce'            => \wp_create_nonce('wp_rest'),
             'recaptchaKey'     => $recaptcha_public_key,
         ]
     );
