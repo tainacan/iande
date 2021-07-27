@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td class="iande-itinerary-table__controls iande-tainacan-table__controls">
-            <div role="button" tabindex="0" :aria-role="__('Remover', 'iande')" @click="$emit('remove', item)">
+            <div role="button" tabindex="0" :aria-role="__('Remover', 'iande')" @click="$emit('remove', item.items_id)">
                 <Icon :icon="['far', 'trash-alt']"/>
             </div>
             <div class="-handle" aria-hidden="true">
@@ -11,8 +11,10 @@
         <td>
             <img :src="thumbnail" alt="" height="64" width="64" v-if="thumbnail">
         </td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.description }}</td>
+        <td>{{ meta.title }}</td>
+        <td>
+            <textarea :placeholder="meta.description" v-model="item.items_description"/>
+        </td>
     </tr>
 </template>
 
@@ -20,9 +22,10 @@
     import { api } from '@utils'
 
     export default {
-        name: 'ItineraryToolbarRow',
+        name: 'ItineraryItemsRow',
         props: {
             item: { type: Object, required: true },
+            meta: { type: Object, required: true },
         },
         data () {
             return {
@@ -38,7 +41,7 @@
             }
         },
         async beforeMount () {
-            const attachments = await api.get(`${this.$iande.tainacanUrl}/items/${this.item.id}/attachments`)
+            const attachments = await api.get(`${this.$iande.tainacanUrl}/items/${this.item.items_id}/attachments`)
             this.attachments = attachments
         },
     }

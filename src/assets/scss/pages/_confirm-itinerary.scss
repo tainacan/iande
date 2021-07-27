@@ -76,4 +76,60 @@
             }
         }
     }
+
+    .iande-appointment__buttons {
+        justify-content: center;
+    }
+
+    table {
+        width: 100%;
+
+        thead {
+            th {
+                border-bottom: 1px solid var(--iande-medium-color);
+                font-size: 0.75em;
+                padding: 0.5em;
+                text-align: start;
+            }
+        }
+
+        tbody {
+            td {
+                padding: 0.5em;
+                vertical-align: top;
+
+                &:not(.iande-tainacan-table__controls) {
+                    font-size: 0.75em;
+                }
+
+                &:nth-of-type(3) {
+                    font-weight: bold;
+                }
+            }
+
+            img {
+                border-radius: var(--iande-border-radius);
+                height: 64px;
+                width: 64px;
+
+                @media screen and (max-width: 600px) {
+                    height: 48px;
+                    width: 48px;
+                }
+            }
+        }
+
+        textarea {
+            border: 2px solid var(--iande-light-color);
+            border-radius: var(--iande-border-radius);
+            background-color: var(--iande-background-color);
+            color: var(--iande-medium-color);
+            display: block;
+            font-family: inherit;
+            font-size: 1em;
+            height: fit-content;
+            padding: 15px 20px;
+            width: 100%;
+        }
+    }
 }

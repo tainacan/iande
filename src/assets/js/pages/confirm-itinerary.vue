@@ -37,12 +37,9 @@
                 </div>
             </aside>
             <main>
-                <div class="iande-container narrow mt-lg" v-if="itinerary">
+                <div v-if="itinerary">
                     <ItineraryDetails :formError="formError" :itinerary="itinerary" :v="$v" @update="update" v-if="view === 'settings'"/>
-                    <div class="iande-stack stack-lg" v-if="view === 'items'">
-                        <h1>{{ __('Finalizando roteiro', 'iande') }}</h1>
-
-                    </div>
+                    <ItineraryItems :formError="formError" :items="items" :itinerary="itinerary" :v="$v" @update="update" v-else-if="view === 'items'"/>
                 </div>
             </main>
         </article>
@@ -53,12 +50,14 @@
     import { required } from 'vuelidate/lib/validators'
 
     import ItineraryDetails from '@components/ItineraryDetails.vue'
+    import ItineraryItems from '@components/ItineraryItems.vue'
     import { api, qs } from '@utils'
 
     export default {
         name: 'ConfirmItineraryPage',
         components: {
             ItineraryDetails,
+            ItineraryItems,
         },
         data () {
             return {

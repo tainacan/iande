@@ -33,7 +33,7 @@
                         </tr>
                     </thead>
                     <Draggable tag="tbody" v-model="itinerary.items" handle=".-handle" @end="replaceItems">
-                        <ItineraryToolbarRow v-for="item of displayItems" :key="item.id" :item="item"/>
+                        <ItineraryToolbarRow v-for="item of displayItems" :key="item.id" :item="item" @remove="removeItem"/>
                     </Draggable>
                 </table>
             </div>
