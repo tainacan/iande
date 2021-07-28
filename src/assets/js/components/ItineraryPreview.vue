@@ -32,7 +32,7 @@
                 return this.user.ID == this.itinerary.user_id
             },
             numItems () {
-                return 0
+                return this.itinerary.items.length
             },
             user: get('users/current'),
         },
