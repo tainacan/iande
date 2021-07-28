@@ -56,6 +56,24 @@ class Itinerary extends Controller {
     }
 
     /**
+     * Renderiza a visualização de roteiro
+     *
+     * @param array $params
+     *
+     * @return void
+     */
+    function view_view(array $params = []) {
+        $this->require_authentication();
+
+        $title = __('Roteiro virtual', 'iande');
+        if (!empty($params['ID'])) {
+            $title = \get_the_title(filter_input(INPUT_GET, 'ID', FILTER_DEFAULT));
+        }
+
+        $this->render_vue($title, 'view-itinerary');
+    }
+
+    /**
      * Cria um roteiro novo
      *
      * @param array $params
