@@ -26,7 +26,7 @@
                         <Icon :icon="['far', 'trash-alt']"/>
                         <span>{{ __('Apagar roteiro', 'iande') }}</span>
                     </button>
-                    <button type="button" class="iande-button small primary">
+                    <button type="button" class="iande-button small primary" @click="publish">
                         <Icon icon="check"/>
                         <span>{{ __('Publicar roteiro', 'iande') }}</span>
                     </button>
@@ -98,18 +98,31 @@
             }
         },
         methods: {
+            async publish () {
+                this.formError = ''
+                this.$v.$touch()
+                if (!this.$v.$invalid) {
+                    try {
+                        await api.post('itinerary/update', this.itinerary)
+                        await api.post('itinerary/set_status', { ID: this.itinerary.ID, post_status: 'pending' })
+                        window.location.assign(this.$iandeUrl(`itinerary/view/?ID=${this.itinerary.ID}`))
+                    } catch (err) {
+                        this.formError = err
+                    }
+                }
+            },
             async remove () {
+                this.formError = ''
                 try {
-                    this.formError = ''
-                    await api.post('itinerary/delete', { ID: this.itinerary.ID })
+                    await api.post('itinerary/set_status', { ID: this.itinerary.ID, post_status: 'trash' })
                     window.location.assign(this.$iandeUrl('itinerary/list'))
                 } catch (err) {
                     this.formError = err
                 }
             },
             async update () {
+                this.formError = ''
                 try {
-                    this.formError = ''
                     await api.post('itinerary/update', this.itinerary)
                     window.location.assign(this.$iandeUrl('itinerary/list'))
                 } catch (err) {

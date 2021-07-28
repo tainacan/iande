@@ -67,7 +67,7 @@ class Itinerary extends Controller {
      */
     function endpoint_create(array $params = []) {
         $this->require_authentication();
-        $this->validate($params, true);
+        $this->validate($params);
 
         \do_action('iande.before_create_itinerary', $params);
 
@@ -88,37 +88,6 @@ class Itinerary extends Controller {
         \do_action('iande.after_create_itinerary', $itinerary_id, $itinerary);
 
         $this->success($itinerary);
-    }
-
-    /**
-     * Manda o roteiro para a lixeira
-     *
-     * @param array $params
-     *
-     * @return void
-     */
-    function endpoint_delete(array $params = []) {
-        $this->require_authentication();
-
-        if (empty($params['ID'])) {
-            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
-        }
-
-        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
-            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
-        }
-
-        $itinerary = $this->get_parsed_itinerary($params['ID']);
-
-        if (empty($itinerary)) {
-            return; // 404
-        }
-
-        $this->check_user_permission($itinerary);
-
-        \wp_delete_post($itinerary->ID, false);
-
-        $this->success(null);
     }
 
     /**
@@ -144,8 +113,6 @@ class Itinerary extends Controller {
         if (empty($itinerary)) {
             return; // 404
         }
-
-        $this->check_user_permission($itinerary);
 
         $this->success($itinerary);
     }
@@ -224,6 +191,52 @@ class Itinerary extends Controller {
     }
 
     /**
+     * Altera o status do roteiro
+     *
+     * @param array $params
+     *
+     * @return void
+     */
+    function endpoint_set_status(array $params = []) {
+        $this->require_authentication();
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        if (empty($params['post_status'])) {
+            $this->error(__('O parâmetro status é obrigatório', 'iande'));
+        }
+
+        $default_post_status = ['publish', 'future', 'draft', 'pending', 'private', 'trash', 'auto-Draft', 'inherit', 'canceled'];
+        if (!in_array(\sanitize_title($params['post_status']), $default_post_status)) {
+            $this->error(__('O parâmetro status informado não é permitido', 'iande'));
+        }
+
+        $itinerary = \get_post($params['ID']);
+
+        if (empty($itinerary)) {
+            return; // 404
+        }
+
+        $this->check_user_permission($itinerary);
+
+        $itinerary_update = \wp_update_post([
+            'ID'          => $params['ID'],
+            'post_status' => $params['post_status'],
+        ]);
+
+        if (!\is_wp_error($itinerary_update) || !\is_null($itinerary_update)) {
+            $parsed_itinerary = $this->get_parsed_itinerary($params['ID']);
+            $this->success($parsed_itinerary);
+        }
+    }
+
+    /**
      * Atualiza o roteiro
      *
      * @param array $params
@@ -246,7 +259,7 @@ class Itinerary extends Controller {
 
         $this->validate($params);
 
-        $itinerary = get_post($params['ID']);
+        $itinerary = \get_post($params['ID']);
 
         $this->check_user_permission($itinerary);
 
@@ -362,7 +375,7 @@ class Itinerary extends Controller {
         }
 
         $slug  = \sanitize_title($title);
-        $slug  = \wp_unique_post_slug($slug, $itinerary_id, get_post_status($itinerary_id), 'itinerary', 0);
+        $slug  = \wp_unique_post_slug($slug, $itinerary_id, \get_post_status($itinerary_id), 'itinerary', 0);
 
         if ($title && $slug) {
             $post = [
