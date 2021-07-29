@@ -90,7 +90,7 @@
     .iande-field {
         .iande-form-error {
             font-size: 0.875em;
-            text-align: left;
+            text-align: start;
         }
     }
 
@@ -105,7 +105,7 @@
         color: var(--iande-secondary-color);
         display: block;
         font-size: 0.875em;
-        text-align: right;
+        text-align: end;
         text-decoration: underline;
 
         &:hover {

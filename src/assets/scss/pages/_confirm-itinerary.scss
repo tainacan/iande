@@ -21,7 +21,7 @@
         font-weight: normal;
         margin: 0;
         text-transform: uppercase;
-        text-align: left;
+        text-align: start;
     }
 
     .iande-sidebar {
@@ -34,7 +34,7 @@
 
         .iande-button, a {
             margin-top: 10px;
-            text-align: left;
+            text-align: start;
             width: 100%;
 
             & > span {
