@@ -36,8 +36,12 @@
         padding: 0.5em;
 
         h3 {
-            color: var(--iande-secondary-color);
             margin: 0;
+
+            a {
+                color: var(--iande-secondary-color);
+                text-decoration: none;
+            }
         }
 
         p {

@@ -7,7 +7,7 @@
             </a>
         </div>
         <div class="iande-itinerary-preview__content">
-            <h3>{{ itinerary.title }}</h3>
+            <h3><a :href="$iandeUrl(`itinerary/view/?ID=${itinerary.ID}`)">{{ itinerary.title }}</a></h3>
             <div class="iande-itinerary-preview__bar">
                 <span>{{ sprintf(_n('%s item', '%s itens', numItems, 'iande'), numItems) }}</span>
             </div>
