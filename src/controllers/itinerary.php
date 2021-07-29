@@ -128,6 +128,10 @@ class Itinerary extends Controller {
 
         $itinerary = $this->get_parsed_itinerary($params['ID']);
 
+        if (empty($params['public']) && $itinerary->post_status !== 'publish') {
+            $this->check_user_permission($params['ID']);
+        }
+
         if (empty($itinerary)) {
             return; // 404
         }

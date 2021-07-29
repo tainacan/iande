@@ -1,8 +1,9 @@
 __webpack_public_path__ = window.IandeSettings.iandePath
 
 import { library } from '@fortawesome/fontawesome-svg-core'
+import { faFacebookF, faTwitter, faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 import { faAddressCard, faCalendar, faClock, faImage, faSave, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
-import { faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faBars, faCaretDown, faCheck, faCheckCircle, faCog, faGripVertical, faList, faMapMarkerAlt, faMinus, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faBars, faCaretDown, faCheck, faCheckCircle, faCog, faGripVertical, faList, faMapMarkerAlt, faMinus, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faShareAlt, faSpinner, faTimes, faUniversity, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Vue from 'vue'
 import VueAsyncComputed from 'vue-async-computed'
@@ -15,8 +16,9 @@ import IandePlugin from '@plugins/iande'
 import WpI18n from '@plugins/wp-i18n'
 import createStore from '@store'
 
+library.add(faFacebookF, faTwitter, faWhatsapp)
 library.add(faAddressCard, faCalendar, faClock, faImage, faSave, faTrashAlt)
-library.add(faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faBars, faCaretDown, faCheck, faCheckCircle, faCog, faGripVertical, faList, faMapMarkerAlt, faMinus, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faSpinner, faTimes, faUniversity, faUser, faUsers)
+library.add(faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faBars, faCaretDown, faCheck, faCheckCircle, faCog, faGripVertical, faList, faMapMarkerAlt, faMinus, faMinusCircle, faPencilAlt, faPlusCircle, faQuestionCircle, faShareAlt, faSpinner, faTimes, faUniversity, faUser, faUsers)
 
 const EditItineraryPage = () => import(/* webpackChunkName: 'edit-itinerary-page' */ '@pages/edit-itinerary.vue')
 const LoginPage = () => import(/* webpackChunkName: 'login-page' */ '@pages/login.vue')

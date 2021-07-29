@@ -1,0 +1,77 @@
+.iande-itinerary-cover {
+
+    &__main {
+        color: var(--iande-background-color);
+        min-height: 100vh;
+        position: relative;
+        width: 100vw;
+
+        &:before {
+            background-blend-mode: overlay;
+            background-color: var(--iande-secondary-color);
+            background-image: var(--itinerary-cover);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            bottom: 0; left: 0; right: 0; top: 0;
+            content: '';
+            height: 100%;
+            filter: brightness(0.75);
+            position: absolute;
+            width: 100%;
+        }
+
+        .iande-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 100%;
+            padding: 20px;
+            position: relative;
+        }
+    }
+
+    &__lead {
+        color: var(--iande-light-color);
+        font-weight: bold;
+        text-transform: lowercase;
+    }
+
+    .iande &__title {
+        color: inherit;
+        font-family: var(--iande-text-font);
+        font-size: 2em;
+        font-weight: bold;
+        margin: 0 0 40px;
+        text-align: start;
+        text-transform: uppercase;
+    }
+
+    &__share {
+        display: flex;
+        margin-top: 40px;
+
+        & > span {
+            color: var(--iande-lighter-color);
+            margin-right: 20px;
+            font-size: 0.875em;
+            text-transform: lowercase;
+        }
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+            margin: 0 20px;
+        }
+
+        a {
+            color: inherit;
+        }
+    }
+}
