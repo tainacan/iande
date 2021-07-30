@@ -1,13 +1,9 @@
 <template>
-    <div>
-        <div class="iande-itinerary-header">
-            <div class="iande-itinerary-toolbar">
-            </div>
-        </div>
-        <div class="iande-itinerary" v-if="itinerary">
-            <div class="iande-itinerary-cover" v-if="cover">
-                <div class="iande-itinerary-cover__main" :style="{ '--itinerary-cover': `url(${itinerary.cover})` }">
-                    <div class="iande-container">
+    <div class="iande-itinerary" v-if="itinerary">
+        <div class="iande-itinerary-cover" v-if="cover">
+            <div class="iande-itinerary-cover__main" :style="{ '--itinerary-cover': `url(${itinerary.cover})` }">
+                <div class="iande-container">
+                    <div>
                         <div class="iande-itinerary-cover__lead">{{ __('Roteiro virtual', 'iande') }}</div>
                         <h1 class="iande-itinerary-cover__title">{{ itinerary.title }}</h1>
                         <p class="iande-itinerary-cover__description">{{ formatText(itinerary.description) }}</p>
@@ -37,6 +33,13 @@
                             </ul>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-else>
+            <div class="iande-itinerary-header">
+                <div class="iande-itinerary-toolbar">
                 </div>
             </div>
         </div>
