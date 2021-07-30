@@ -11,7 +11,9 @@
             <dl v-if="image">
                 <dt>{{ _x('Miniatura', 'tainacan', 'iande') }}</dt>
                 <dd>
-                    <img :src="image.thumbnails.thumbnail[0]" :alt="_x('Miniatura', 'tainacan', 'iande')">
+                    <a :href="image.url" target="_blank">
+                        <img :src="image.thumbnails.thumbnail[0]" :alt="_x('Miniatura', 'tainacan', 'iande')">
+                    </a>
                 </dd>
             </dl>
             <template v-for="(metadatum, key) of item.metadata">
