@@ -80,7 +80,7 @@
                     </button>
                 </div>
 
-                <div class="iande-itinerary-page" :class="`layout-${itinerary.layout}`" v-if="currentItem">
+                <div class="iande-itinerary-page" :class="`layout-${itinerary.layout}`" v-if="currentMeta">
                     <a class="iande-itinerary-page__image" :href="currentMeta.url">
                         <img :src="currentImage.thumbnails.large[0]" :alt="currentImage.alt_text">
                     </a>
@@ -89,7 +89,7 @@
                             <h2 class="iande-itinerary-page__title">{{ currentMeta.title }}</h2>
                             <p class="iande-itinerary-page__description">{{ formatText(currentItem.items_description || currentMeta.description) }}</p>
                         </div>
-                        <button class="iande-button primary">
+                        <button class="iande-button primary" @click="openModal">
                             <Icon icon="info-circle"/>
                             {{ __('Ver ficha completa da obra', 'iande') }}
                         </button>
@@ -97,14 +97,20 @@
                 </div>
             </div>
         </div>
+
+        <ItemDetailsModal ref="modal" :item="currentMeta" v-if="currentMeta"/>
     </div>
 </template>
 
 <script>
+    import ItemDetailsModal from '@components/ItemDetailsModal.vue'
     import { api, qs } from '@utils'
 
     export default {
         name: 'ViewItineraryPage',
+        components: {
+            ItemDetailsModal,
+        },
         data () {
             return {
                 cover: true,
@@ -181,6 +187,11 @@
                     this.gotoCover()
                 } else {
                     this.page++
+                }
+            },
+            openModal () {
+                if (this.$refs.modal) {
+                    this.$refs.modal.open()
                 }
             },
             previousPage () {

@@ -54,7 +54,7 @@
             },
             open () {
                 this.$refs.modal.open()
-            }
-        }
+            },
+        },
     }
 </script>
