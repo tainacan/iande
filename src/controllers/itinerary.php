@@ -58,13 +58,13 @@ class Itinerary extends Controller {
     /**
      * Renderiza a visualização de roteiro
      *
+     * Essa página é pública, isso é, acessível por usuários não logados
+     *
      * @param array $params
      *
      * @return void
      */
     function view_view(array $params = []) {
-        $this->require_authentication();
-
         $title = __('Roteiro virtual', 'iande');
         if (!empty($params['ID'])) {
             $title = \get_the_title(filter_input(INPUT_GET, 'ID', FILTER_DEFAULT));
@@ -116,7 +116,6 @@ class Itinerary extends Controller {
      * @return void
      */
     function endpoint_get(array $params = []) {
-        $this->require_authentication();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));
@@ -129,6 +128,7 @@ class Itinerary extends Controller {
         $itinerary = $this->get_parsed_itinerary($params['ID']);
 
         if (empty($params['public']) && $itinerary->post_status !== 'publish') {
+            $this->require_authentication();
             $this->check_user_permission($params['ID']);
         }
 
@@ -344,9 +344,12 @@ class Itinerary extends Controller {
      */
     function parse_itinerary(\WP_Post $itinerary, array $metadata = [])
     {
+        $user_name = \get_user_by('ID', $itinerary->post_author)->display_name;
+
         $parsed_itinerary = (object) [
             'ID'          => $itinerary->ID,
             'user_id'     => $itinerary->post_author,
+            'user_name'   => $user_name,
             'title'       => $itinerary->post_title,
             'post_status' => $itinerary->post_status
         ];

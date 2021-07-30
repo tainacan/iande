@@ -33,6 +33,18 @@
                             </ul>
                         </div>
                     </div>
+                    <div>
+                        <button @click="cover = false">
+                            {{ __('Iniciar', 'iande') }}
+                            <Icon icon="angle-right"/>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="iande-itinerary-cover__credits">
+                <div class="iande-container">
+                    <div>{{ __('Roteiro criado por', 'iande') }} {{ itinerary.user_name }}</div>
+                    <div>{{ __('Obras pertencem à coleção de', 'iande') }} <b>{{ $iande.siteName }}</b></div>
                 </div>
             </div>
         </div>
