@@ -1,3 +1,15 @@
+.iande-itinerary {
+
+    .iande-itinerary-toolbar {
+        padding: 1em 0;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+    }
+}
+
 .iande-itinerary-cover {
 
     &__main {
@@ -97,6 +109,140 @@
             b {
                 color: var(--iande-secondary-color);
             }
+        }
+    }
+}
+
+.iande-itinerary-navigation {
+    align-items: center;
+    display: flex;
+    margin-bottom: 30px;
+    margin-top: 30px;
+
+    button {
+        background-color: var(--iande-primary-color);
+        border: none;
+        border-radius: 50%;
+        color: var(--iande-secondary-color);
+        height: 2em;
+        width: 2em;
+    }
+
+    progress {
+        border: none;
+        border-radius: 5px;
+        flex: 1;
+        height: 5px;
+        margin: 0 15px;
+
+        &::-webkit-progress-bar {
+            background-color: var(--iande-light-color);
+            border-radius: 5px;
+        }
+
+        &::-webkit-progress-value {
+            background-color: var(--iande-secondary-color);
+            border-radius: 5px;
+        }
+    }
+}
+
+.iande-itinerary-page {
+    height: 100%;
+    margin-bottom: 40px;
+    min-height: 50vh;
+
+    .iande-button {
+        padding: 10px;
+        width: auto;
+    }
+
+    &__image {
+
+        img {
+            width: 100%;
+        }
+    }
+
+    &__title {
+        color: var(--iande-secondary-color);
+        font-family: var(--iande-text-font);
+        font-size: 2em;
+        font-weight: bold;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    &.layout-1, &.layout-2 {
+        display: flex;
+
+        .iande-itinerary-page__details {
+            align-self: center;
+        }
+    }
+
+    &.layout-1 {
+        flex-direction: row-reverse;
+
+        & > * {
+            width: 50%;
+        }
+
+        .iande-itinerary-page__details {
+            margin-right: 20px;
+        }
+    }
+
+    &.layout-2 {
+
+        .iande-itinerary-page__image {
+            width: 70%;
+        }
+
+        .iande-itinerary-page__details {
+            margin-left: 20px;
+            width: 30%;
+        }
+    }
+
+    &.layout-3 {
+
+        .iande-itinerary-page__details {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .iande-itinerary-page__description {
+            display: none;
+        }
+
+        .iande-button {
+            margin-left: 20px;
+        }
+    }
+
+    &.layout-4 {
+        position: relative;
+
+        .iande-itinerary-page__details {
+            align-items: flex-end;
+            bottom: calc(-4em - 40px);
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            padding-bottom: 40px;
+            position: absolute;
+            width: 100%;
+        }
+
+        .iande-itinerary-page__details-main {
+            background-color: rgba(white, 0.85);
+            border-radius: var(--iande-border-radius);
+            box-shadow: 0 2px 14px 0 rgba(black, 0.1);
+            margin: 40px 40px 0;
+            padding: 1em;
         }
     }
 }
