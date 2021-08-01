@@ -23,6 +23,11 @@
                 <div class="iande-itineraries-preview">
                     <ItineraryPreview v-for="itinerary of publicItineraries" :key="itinerary.ID" :itinerary="itinerary"/>
                 </div>
+                <div class="iande-container narrow" v-if="page < maxPages">
+                    <button class="iande-button primary" @click="fetchMoreItineraries">
+                        {{ __('Carregar mais', 'iande') }}
+                    </button>
+                </div>
             </section>
 
             <div class="iande-container narrow" v-if="totalAppointments > 0">
@@ -50,6 +55,8 @@
         data () {
             return {
                 filter: 'publish',
+                maxPages: 1,
+                page: 1,
                 publicItineraries: [],
                 userItineraries: [],
             }
@@ -69,14 +76,27 @@
         async created () {
             try {
                 const [publicItineraries, userItineraries] = await Promise.all([
-                    api.get('itinerary/list_published'),
+                    api.get('itinerary/list_published/?page=1'),
                     api.get('itinerary/list'),
                 ])
-                this.publicItineraries = publicItineraries
+                this.maxPages = publicItineraries.num_pages
+                this.publicItineraries = publicItineraries.items
                 this.userItineraries = userItineraries
             } catch (err) {
                 console.error(err)
             }
         },
+        methods: {
+            async fetchMoreItineraries () {
+                try {
+                    const page = this.page + 1
+                    const publicItineraries = await api.get(`itinerary/list_published/?page=${page}`)
+                    this.page = page
+                    this.publicItineraries = [...this.publicItineraries, ...publicItineraries.items]
+                } catch (err) {
+                    console.error(err)
+                }
+            },
+        }
     }
 </script>

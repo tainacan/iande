@@ -180,15 +180,20 @@ class Itinerary extends Controller {
     /**
      * Retorna todos os roteiros públicos
      *
+     * Esse endpoint é paginado
+     *
      * @return void
      */
     function endpoint_list_published(array $params = []) {
         $this->require_authentication();
 
+        $page = $params['page'] ?? 1;
+
         $args = [
             'post_type'      => 'itinerary',
             'post_status'    => ['publish'],
-            'posts_per_page' => -1,
+            'paged'          => $page,
+            'posts_per_page' => 12,
             'meta_query'     => [
                 [
                     'key'   => 'publicly_findable',
@@ -197,10 +202,15 @@ class Itinerary extends Controller {
             ],
         ];
 
-        $itineraries = \get_posts($args);
+        $query = new \WP_Query($args);
+        $itineraries = $query->posts;
 
         if (empty($itineraries)) {
-            return $this->success([]);
+            return $this->success([
+                'num_pages' => $query->max_num_pages,
+                'page'      => $page,
+                'items'     => [],
+            ]);
         }
 
         $parsed_itineraries = [];
@@ -212,10 +222,18 @@ class Itinerary extends Controller {
         $parsed_itineraries = array_filter($parsed_itineraries);
 
         if (empty($parsed_itineraries)) {
-            return $this->success([]);
+            return $this->success([
+                'num_pages' => $query->max_num_pages,
+                'page'      => $page,
+                'items'     => [],
+            ]);
         }
 
-        $this->success($parsed_itineraries);
+        $this->success([
+            'num_pages' => $query->max_num_pages,
+            'page'      => $page,
+            'items'     => $parsed_itineraries,
+        ]);
     }
 
     /**
