@@ -189,6 +189,12 @@ class Itinerary extends Controller {
             'post_type'      => 'itinerary',
             'post_status'    => ['publish'],
             'posts_per_page' => -1,
+            'meta_query'     => [
+                [
+                    'key'   => 'publicly_findable',
+                    'value' => 'yes',
+                ],
+            ],
         ];
 
         $itineraries = \get_posts($args);
