@@ -7,6 +7,7 @@
                 <img :src="`${$iande.iandePath}assets/img/tainacan-logo_short.png`" alt="">
             </a>
         </header>
+
         <main class="iande-tainacan-modal__details">
             <dl v-if="image">
                 <dt>{{ _x('Miniatura', 'tainacan', 'iande') }}</dt>
@@ -23,6 +24,13 @@
                 </dl>
             </template>
         </main>
+
+        <footer class="iande-tainacan-modal__footer">
+            <a :href="item.url">
+                <span>{{ _x('Ver item no', 'tainacan', 'iande') }} <b>Tainacan</b></span>
+                <img :src="`${$iande.iandePath}assets/img/tainacan-logo_short.png`" alt="">
+            </a>
+        </footer>
     </Modal>
 </template>
 
