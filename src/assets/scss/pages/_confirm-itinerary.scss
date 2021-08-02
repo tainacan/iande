@@ -75,6 +75,14 @@
                 }
             }
         }
+
+        &:not(.-collapsed) {
+
+            @media screen and (max-width: 85em) {
+                width: max-content;
+                z-index: 1;
+            }
+        }
     }
 
     .iande-appointment__buttons {
