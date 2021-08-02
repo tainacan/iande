@@ -37,7 +37,7 @@ export default {
                 iandeEvents[type](payload)
             }
         })
-        dispatchIandeEvent('mountedViewModes')
+        dispatchIandeEvent('mountedViewMode')
     },
     beforeDestroy () {
         if (this.unsubscribe) {
