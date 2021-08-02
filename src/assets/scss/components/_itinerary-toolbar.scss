@@ -76,6 +76,13 @@
                 font-size: 0.75em;
                 padding: 0.5em;
                 text-align: start;
+
+                &:nth-of-type(4) {
+
+                    @media screen and (max-width: 800px) {
+                        display: none;
+                    }
+                }
             }
         }
 
@@ -90,6 +97,13 @@
 
                 &:nth-of-type(3) {
                     font-weight: bold;
+                }
+
+                &:nth-of-type(4) {
+
+                    @media screen and (max-width: 800px) {
+                        display: none;
+                    }
                 }
             }
 
