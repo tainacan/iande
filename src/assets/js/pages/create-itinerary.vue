@@ -2,7 +2,7 @@
     <article class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="createItinerary">
-                <h1>{{ __('Criar roteiro virtual', 'iande') }}</h1>
+                <h1>{{ __('Novo roteiro virtual', 'iande') }}</h1>
 
                 <div>
                     <label for="name" class="iande-label">{{ __('Nome do roteiro', 'iande') }}</label>
