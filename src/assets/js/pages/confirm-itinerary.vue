@@ -31,7 +31,7 @@
                         <span>{{ __('Publicar roteiro', 'iande') }}</span>
                     </button>
                     <a :href="$iandeUrl('itinerary/list')">
-                        <Icon icon="angle-left"/>
+                        <Icon icon="arrow-left"/>
                         <span>{{ __('Voltar à lista de roteiros', 'iande') }}</span>
                     </a>
                 </div>
