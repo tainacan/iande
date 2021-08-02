@@ -4,6 +4,10 @@
     grid-template-columns: 1fr 1fr;
     padding-top: 10px;
 
+    @media screen and (max-width: 400px) {
+        grid-template-columns: 1fr;
+    }
+
     img {
         display: block;
         margin: 10px 0;
