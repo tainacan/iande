@@ -84,6 +84,14 @@
 
     .iande-appointment__buttons {
         justify-content: center;
+
+        @media screen and (max-width: 700px) {
+            flex-direction: column;
+
+            .iande-button {
+                margin: 0.5em 1em;
+            }
+        }
     }
 
     table {
@@ -116,11 +124,6 @@
                 border-radius: var(--iande-border-radius);
                 height: 64px;
                 width: 64px;
-
-                @media screen and (max-width: 600px) {
-                    height: 48px;
-                    width: 48px;
-                }
             }
         }
 
@@ -135,6 +138,27 @@
             height: fit-content;
             padding: 15px 20px;
             width: 100%;
+        }
+
+        @media screen and (max-width: 600px) {
+            border-top: 1px solid var(--iande-medium-color);
+
+            thead {
+                display: none;
+            }
+
+            tr {
+                border-bottom: 1px solid var(--iande-light-color);
+                display: grid;
+                grid-template-columns: auto auto 1fr;
+            }
+
+            td {
+
+                &:nth-child(4) {
+                    grid-column: 2 / span 2;
+                }
+            }
         }
     }
 }
