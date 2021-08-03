@@ -111,6 +111,15 @@
         }
     }
 
+    &__start-button {
+        background-color: transparent;
+        background-image: url('../assets/img/iande-large-button.png');
+        border: none;
+        height: 200px;
+        text-shadow: 0 0 24px 0 rgba(32, 33, 37, 0.7);
+        width: 200px;
+    }
+
     &__credits {
 
         .iande-container {

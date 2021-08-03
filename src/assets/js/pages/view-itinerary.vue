@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div>
-                        <button @click="cover = false">
+                        <button class="iande-button iande-itinerary-cover__start-button" @click="cover = false">
                             {{ __('Iniciar', 'iande') }}
                             <Icon icon="angle-right"/>
                         </button>
