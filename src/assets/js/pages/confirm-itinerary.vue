@@ -39,7 +39,7 @@
             <main>
                 <div v-if="itinerary">
                     <ItineraryDetails :formError="formError" :itinerary="itinerary" :v="$v" @update="update" v-if="view === 'settings'"/>
-                    <ItineraryItems :formError="formError" :items="items" :itinerary="itinerary" :v="$v" @update="update" v-else-if="view === 'items'"/>
+                    <ItineraryItems :formError="formError" :itemsCache="itemsCache" :itinerary="itinerary" :v="$v" @update="update" v-else-if="view === 'items'"/>
                 </div>
             </main>
         </article>
@@ -62,7 +62,7 @@
         data () {
             return {
                 formError: '',
-                items: [],
+                itemsCache: {},
                 itinerary: {
                     items: [],
                 },
@@ -83,14 +83,12 @@
         async beforeMount () {
             if (qs.has('ID')) {
                 try {
-                    const [items, itinerary] = await Promise.all([
-                        api.get(`${this.$iande.tainacanUrl}/items/?perpage=10000`),
-                        api.get('itinerary/get', { ID: Number(qs.get('ID')) }),
-                    ])
+                    const itinerary = await api.get('itinerary/get', { ID: Number(qs.get('ID')) })
                     if (!itinerary.items) {
                         itinerary.items = []
+                    } else {
+                        await Promise.all(itinerary.items.map(item => this.fetchItem(item.items_id)))
                     }
-                    this.items = items.items
                     this.itinerary = itinerary
                 } catch (err) {
                     this.formError = err
@@ -98,6 +96,16 @@
             }
         },
         methods: {
+            async fetchItem (id) {
+                if (!this.itemsCache[id]) {
+                    const [item, attachments] = await Promise.all([
+                        api.get(`${this.$iande.tainacanUrl}/items/${id}`),
+                        api.get(`${this.$iande.tainacanUrl}/items/${id}/attachments`),
+                    ])
+                    item.attachments = attachments
+                    this.$set(this.itemsCache, id, item)
+                }
+            },
             async publish () {
                 this.formError = ''
                 this.$v.$touch()

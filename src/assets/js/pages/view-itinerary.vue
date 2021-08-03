@@ -162,17 +162,15 @@
             }
         },
         methods: {
-            async fetchItem (page) {
-                if (this.itemsCache[page]) {
-                    return
-                } else {
-                    const itemId = this.itinerary.items[page].items_id
+            async fetchItem (index) {
+                if (!this.itemsCache[index]) {
+                    const itemId = this.itinerary.items[index].items_id
                     const [item, attachments] = await Promise.all([
                         api.get(`${this.$iande.tainacanUrl}/items/${itemId}`),
                         api.get(`${this.$iande.tainacanUrl}/items/${itemId}/attachments`),
                     ])
                     item.attachments = attachments
-                    this.$set(this.itemsCache, page, item)
+                    this.$set(this.itemsCache, index, item)
                 }
             },
             formatText (text) {

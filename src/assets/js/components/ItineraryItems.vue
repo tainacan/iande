@@ -13,7 +13,7 @@
                     </tr>
                 </thead>
                 <Draggable tag="tbody" v-model="itinerary.items" handle=".-handle">
-                    <ItineraryItemsRow v-for="item of itinerary.items" :key="item.items_id" :item="item" :meta="itemsIndex[item.items_id]" @remove="removeItem"/>
+                    <ItineraryItemsRow v-for="item of itinerary.items" :key="item.items_id" :item="item" :meta="itemsCache[item.items_id]" @remove="removeItem"/>
                 </Draggable>
             </table>
 
@@ -39,7 +39,6 @@
     import Draggable from 'vuedraggable'
 
     import ItineraryItemsRow from '@components/ItineraryItemsRow.vue'
-    import { arrayToMap } from '@utils'
 
     export default {
         name: 'ItineraryItems',
@@ -49,14 +48,9 @@
         },
         props: {
             formError: { type: String, default: '' },
-            items: { type: Array, required: true },
+            itemsCache: { type: Object, required: true },
             itinerary: { type: Object, required: true },
             v: { type: Object, required: true },
-        },
-        computed: {
-            itemsIndex () {
-                return arrayToMap(this.items, 'id')
-            },
         },
         methods: {
             removeItem (id) {

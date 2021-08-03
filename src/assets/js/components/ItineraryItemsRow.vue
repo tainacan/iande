@@ -19,30 +19,19 @@
 </template>
 
 <script>
-    import { api } from '@utils'
-
     export default {
         name: 'ItineraryItemsRow',
         props: {
             item: { type: Object, required: true },
             meta: { type: Object, required: true },
         },
-        data () {
-            return {
-                attachments: null,
-            }
-        },
         computed: {
             thumbnail () {
-                if (!this.attachments) {
+                if (!this.meta.attachments) {
                     return null
                 }
-                return this.attachments?.[0]?.thumbnails.thumbnail[0]
+                return this.meta.attachments?.[0]?.thumbnails.thumbnail[0]
             }
-        },
-        async beforeMount () {
-            const attachments = await api.get(`${this.$iande.tainacanUrl}/items/${this.item.items_id}/attachments`)
-            this.attachments = attachments
         },
     }
 </script>

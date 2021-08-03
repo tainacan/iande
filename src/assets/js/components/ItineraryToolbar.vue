@@ -45,7 +45,7 @@
     import Draggable from 'vuedraggable'
 
     import ItineraryToolbarRow from '@components/ItineraryToolbarRow.vue'
-    import { api, arrayToMap, qs } from '@utils'
+    import { api, qs } from '@utils'
     import { dispatchIandeEvent, onIandeEvent } from '@utils/events'
 
     export default {
@@ -56,7 +56,7 @@
         },
         data () {
             return {
-                items: [],
+                itemsCache: {},
                 itinerary: {
                     items: [],
                 },
@@ -66,10 +66,7 @@
         },
         computed: {
             displayItems () {
-                return this.itinerary.items.map(item => this.itemsIndex[item.items_id])
-            },
-            itemsIndex () {
-                return arrayToMap(this.items, 'id')
+                return this.itinerary.items.map(item => this.itemsCache[item.items_id]).filter(Boolean)
             },
         },
         watch: {
@@ -82,14 +79,12 @@
         async beforeMount () {
             if (qs.has('ID')) {
                 try {
-                    const [items, itinerary] = await Promise.all([
-                        api.get(`${this.$iande.tainacanUrl}/items/?perpage=10000`),
-                        api.get('itinerary/get', { ID: Number(qs.get('ID')) }),
-                    ])
+                    const itinerary = await api.get('itinerary/get', { ID: Number(qs.get('ID')) })
                     if (!itinerary.items) {
                         itinerary.items = []
+                    } else {
+                        await Promise.all(itinerary.items.map(item => this.fetchItem(item.items_id)))
                     }
-                    this.items = items.items
                     this.itinerary = itinerary
                     this.$nextTick(() => {
                         this.replaceItems()
@@ -101,9 +96,10 @@
         },
         mounted () {
             const iandeEvents = {
-                addItem: ({ id }) => {
+                addItem: async ({ id }) => {
                     const newItem = { items_id: id, items_description: '' }
                     this.itinerary.items = [...this.itinerary.items, newItem]
+                    await this.fetchItem(id)
                 },
                 mountedViewMode: () => {
                     this.replaceItems()
@@ -133,6 +129,16 @@
             }
         },
         methods: {
+            async fetchItem (id) {
+                if (!this.itemsCache[id]) {
+                    const [item, attachments] = await Promise.all([
+                        api.get(`${this.$iande.tainacanUrl}/items/${id}`),
+                        api.get(`${this.$iande.tainacanUrl}/items/${id}/attachments`),
+                    ])
+                    item.attachments = attachments
+                    this.$set(this.itemsCache, id, item)
+                }
+            },
             removeItem (item) {
                 dispatchIandeEvent('removeItem', { id: item.id })
             },

@@ -17,29 +17,18 @@
 </template>
 
 <script>
-    import { api } from '@utils'
-
     export default {
         name: 'ItineraryToolbarRow',
         props: {
             item: { type: Object, required: true },
         },
-        data () {
-            return {
-                attachments: null,
-            }
-        },
         computed: {
             thumbnail () {
-                if (!this.attachments) {
+                if (!this.item.attachments) {
                     return null
                 }
-                return this.attachments?.[0]?.thumbnails.thumbnail[0]
+                return this.item.attachments?.[0]?.thumbnails.thumbnail[0]
             }
-        },
-        async beforeMount () {
-            const attachments = await api.get(`${this.$iande.tainacanUrl}/items/${this.item.id}/attachments`)
-            this.attachments = attachments
         },
     }
 </script>
