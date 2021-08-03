@@ -194,8 +194,8 @@ class Group extends Controller
      * @param array $params
      * @return array
      */
-    function endpoint_checkin_update(array $params = [])
-    {
+    function endpoint_checkin_update(array $params = []) {
+        $this->require_admin();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));
@@ -245,8 +245,8 @@ class Group extends Controller
      * @param array $params
      * @return array
      */
-    function endpoint_feedback_update(array $params = [])
-    {
+    function endpoint_feedback_update(array $params = []) {
+        $this->require_authentication();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));
@@ -294,8 +294,8 @@ class Group extends Controller
      * @param array $params
      * @return array
      */
-    function endpoint_report_update(array $params = [])
-    {
+    function endpoint_report_update(array $params = []) {
+        $this->require_admin();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));
@@ -346,9 +346,8 @@ class Group extends Controller
      * @return array
      *
      */
-    function endpoint_assign_educator(array $params = [])
-    {
-        $this->require_authentication();
+    function endpoint_assign_educator(array $params = []) {
+        $this->require_admin();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));
@@ -392,9 +391,8 @@ class Group extends Controller
      * @param array $params['ID'] ID do grupo
      * @return array
      */
-    function endpoint_unassign_educator(array $params = [])
-    {
-        $this->require_authentication();
+    function endpoint_unassign_educator(array $params = []) {
+        $this->require_admin();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));

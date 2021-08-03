@@ -146,8 +146,6 @@ class Institution extends Controller
             return; // 404
         }
 
-        $this->check_user_permission($institution);
-
         $this->success($institution);
     }
 
