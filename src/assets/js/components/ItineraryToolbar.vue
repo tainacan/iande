@@ -33,17 +33,19 @@
                         </tr>
                     </thead>
                     <Draggable tag="tbody" v-model="itinerary.items" handle=".-handle" @end="replaceItems">
-                        <ItineraryToolbarRow v-for="item of displayItems" :key="item.id" :item="item" @remove="removeItem"/>
+                        <ItineraryToolbarRow v-for="item of displayItems" :key="item.id" :item="item" @details="seeDetails" @remove="removeItem"/>
                     </Draggable>
                 </table>
             </div>
         </div>
+        <ItemDetailsModal ref="modal" :item="selectedItem" v-if="selectedItem"/>
     </div>
 </template>
 
 <script>
     import Draggable from 'vuedraggable'
 
+    import ItemDetailsModal from '@components/ItemDetailsModal.vue'
     import ItineraryToolbarRow from '@components/ItineraryToolbarRow.vue'
     import { api, qs } from '@utils'
     import { dispatchIandeEvent, onIandeEvent } from '@utils/events'
@@ -52,6 +54,7 @@
         name: 'ItineraryToolbar',
         components: {
             Draggable,
+            ItemDetailsModal,
             ItineraryToolbarRow,
         },
         data () {
@@ -60,6 +63,7 @@
                 itinerary: {
                     items: [],
                 },
+                selectedItem: null,
                 showItems: false,
                 unsubscribe: null,
             }
@@ -145,6 +149,12 @@
             replaceItems () {
                 const ids = this.itinerary.items.map(item => item.items_id)
                 dispatchIandeEvent('replaceItems', { ids })
+            },
+            seeDetails (item) {
+                this.selectedItem = item
+                this.$nextTick(() => {
+                    this.$refs.modal.open()
+                })
             },
             toggleItems () {
                 if (this.displayItems.length > 0) {

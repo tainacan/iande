@@ -13,7 +13,7 @@
                     </tr>
                 </thead>
                 <Draggable tag="tbody" v-model="itinerary.items" handle=".-handle">
-                    <ItineraryItemsRow v-for="item of itinerary.items" :key="item.items_id" :item="item" :meta="itemsCache[item.items_id]" @remove="removeItem"/>
+                    <ItineraryItemsRow v-for="item of itinerary.items" :key="item.items_id" :item="item" :meta="itemsCache[item.items_id]" @details="seeDetails" @remove="removeItem"/>
                 </Draggable>
             </table>
 
@@ -32,18 +32,21 @@
                 </button>
             </div>
         </div>
+        <ItemDetailsModal ref="modal" :item="selectedItem" v-if="selectedItem"/>
     </div>
 </template>
 
 <script>
     import Draggable from 'vuedraggable'
 
+    import ItemDetailsModal from '@components/ItemDetailsModal.vue'
     import ItineraryItemsRow from '@components/ItineraryItemsRow.vue'
 
     export default {
         name: 'ItineraryItems',
         components: {
             Draggable,
+            ItemDetailsModal,
             ItineraryItemsRow,
         },
         props: {
@@ -52,9 +55,20 @@
             itinerary: { type: Object, required: true },
             v: { type: Object, required: true },
         },
+        data () {
+            return {
+                selectedItem: null,
+            }
+        },
         methods: {
             removeItem (id) {
                 this.itinerary.items = this.itinerary.items.filter(item => item.items_id != id)
+            },
+            seeDetails (item) {
+                this.selectedItem = item
+                this.$nextTick(() => {
+                    this.$refs.modal.open()
+                })
             },
         },
     }

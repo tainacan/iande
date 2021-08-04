@@ -17,6 +17,7 @@ export default {
     data () {
         return {
             checkedItems: [],
+            selectedItem: null,
             unsubscribe: null,
         }
     },
@@ -57,6 +58,21 @@ export default {
         },
         isChecked (item) {
             return !!this.checkedItems.find(id => item.id == id)
+        },
+        async seeDetails ({ id }) {
+            try {
+                const [item, attachments] = await Promise.all([
+                    window.fetch(`${window.IandeSettings.tainacanUrl}/items/${id}`).then(body => body.json()),
+                    window.fetch(`${window.IandeSettings.tainacanUrl}/items/${id}/attachments`).then(body => body.json()),
+                ])
+                item.attachments = attachments
+                this.selectedItem = item
+                this.$nextTick(() => {
+                    this.$refs.modal.open()
+                })
+            } catch (err) {
+                console.error(err)
+            }
         },
         removeItem (item) {
             dispatchIandeEvent('removeItem', { id: item.id })

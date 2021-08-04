@@ -9,7 +9,7 @@
             </div>
         </td>
         <td>
-            <img :src="thumbnail" alt="" height="64" width="64" v-if="thumbnail">
+            <img :src="thumbnail" alt="" height="64" width="64" @click="$emit('details', meta)">
         </td>
         <td>{{ meta.title }}</td>
         <td>
@@ -28,9 +28,9 @@
         computed: {
             thumbnail () {
                 if (!this.meta.attachments) {
-                    return null
+                    return `${this.$iande.iandePath}assets/img/cover-placeholder.png`
                 }
-                return this.meta.attachments?.[0]?.thumbnails.thumbnail[0]
+                return this.meta.attachments?.[0]?.thumbnails.thumbnail[0] || `${this.$iande.iandePath}assets/img/cover-placeholder.png`
             }
         },
     }

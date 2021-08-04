@@ -21,9 +21,7 @@
                             </button>
                         </td>
                         <td>
-                            <a :href="item.url" target="_blank">
-                                <img :src="item.thumbnail.thumbnail[0]" :alt="item.thumbnail_alt" height="64" width="64">
-                            </a>
+                            <img :src="item.thumbnail.thumbnail[0]" :alt="item.thumbnail_alt" height="64" width="64" @click="seeDetails(item)">
                         </td>
                         <td v-html="getMeta(item, 'title')"/>
                         <td v-html="getMeta(item, 'description')"/>
@@ -31,18 +29,21 @@
                 </tbody>
             </table>
         </div>
+        <ViewModeModal ref="modal" :item="selectedItem" v-if="selectedItem"/>
     </div>
 </template>
 
 <script>
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+    import ViewModeModal from '@components/ViewModeModal.vue'
     import ViewMode from '@mixins/ViewMode'
 
     export default {
         name: 'IandeListViewMode',
         components: {
             Icon: FontAwesomeIcon,
+            ViewModeModal,
         },
         mixins: [ViewMode],
         methods: {

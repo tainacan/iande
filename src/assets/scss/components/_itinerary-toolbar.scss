@@ -110,6 +110,7 @@
             img {
                 border-radius: var(--iande-border-radius);
                 height: 64px;
+                object-fit: cover;
                 width: 64px;
 
                 @media screen and (max-width: 600px) {

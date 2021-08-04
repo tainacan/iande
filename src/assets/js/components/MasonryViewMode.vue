@@ -11,11 +11,10 @@
                     </button>
                     <span v-html="getMeta(item, 'title')"/>
                 </header>
-                <a :href="item.url" target="_blank">
-                    <img class="iande-tainacan-masonry-item__thumbnail" :src="thumbnail(item)[0]" :alt="item.thumbnail_alt" :height="thumbnail(item)[2]" :width="thumbnail(item)[1]">
-                </a>
+                <img class="iande-tainacan-masonry-item__thumbnail" :src="thumbnail(item)[0]" :alt="item.thumbnail_alt" :height="thumbnail(item)[2]" :width="thumbnail(item)[1]" @click="seeDetails(item)">
             </div>
         </div>
+        <ViewModeModal ref="modal" :item="selectedItem" v-if="selectedItem"/>
     </div>
 </template>
 
@@ -23,12 +22,14 @@
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import Masonry from 'masonry-layout'
 
+    import ViewModeModal from '@components/ViewModeModal.vue'
     import ViewMode from '@mixins/ViewMode'
 
     export default {
         name: 'IandeMasonryViewMode',
         components: {
             Icon: FontAwesomeIcon,
+            ViewModeModal,
         },
         mixins: [ViewMode],
         data () {
