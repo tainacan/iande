@@ -63,7 +63,11 @@
         },
         computed: {
             filteredItineraries () {
-                return this.userItineraries.filter(itinerary => itinerary.post_status === this.filter)
+                if (this.filter === 'draft') {
+                    return this.userItineraries.filter(itinerary => itinerary.post_status === 'draft')
+                } else {
+                    return this.userItineraries.filter(itinerary => itinerary.post_status === 'pending' || itinerary.post_status === 'publish')
+                }
             },
             statusOptions: constant([
                 { label: __('Publicados', 'iande'), value: 'publish' },
