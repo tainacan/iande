@@ -132,7 +132,6 @@
                 this.formError = ''
                 try {
                     await api.post('itinerary/update', this.itinerary)
-                    window.location.assign(this.$iandeUrl('itinerary/list'))
                 } catch (err) {
                     this.formError = err
                 }

@@ -1,7 +1,7 @@
 <template>
     <div class="iande-container narrow mt-lg">
         <form class="iande-form iande-stack stack-lg" @submit.prevent>
-            <h1>{{ __('Finalizando roteiro', 'iande') }}</h1>
+            <h1>{{ __('Configuração do roteiro', 'iande') }}</h1>
 
             <div>
                 <label for="name" class="iande-label">{{ __('Título do roteiro', 'iande') }}</label>

@@ -1,7 +1,7 @@
 <template>
     <div class="iande-container mt-lg">
         <div class="iande-stack stack-lg">
-            <h1>{{ __('Finalizando roteiro', 'iande') }}</h1>
+            <h1>{{ __('Descrição dos itens', 'iande') }}</h1>
 
             <table>
                 <thead>
