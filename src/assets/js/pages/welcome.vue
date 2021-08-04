@@ -5,7 +5,7 @@
                 <h1 v-if="user">{{ sprintf(__('Olá, %s', 'iande'), user.first_name || '') }}</h1>
                 <p v-html="__(`Boas vindas ao <b class='text-secondary'>iandé</b>, plataforma de agendamento e visitação à museus. Diga abaixo que tipo de visita você prentede realizar.`, 'iande')"/>
 
-                <WelcomeOption :title="__('Ver opções de Roteiros Virtuais', 'iande')" :href="$iandeUrl('itinerary/list')">
+                <WelcomeOption :title="__('Ver opções de Roteiros Virtuais', 'iande')" :href="$iandeUrl('itinerary/list')" v-if="$iande.tainacanActive">
                     <p>{{ __('Visite roteiros virtuais feitos a partir do acervo digital do museu ou crie seus próprios roteiros!', 'iande') }}</p>
                 </WelcomeOption>
 
