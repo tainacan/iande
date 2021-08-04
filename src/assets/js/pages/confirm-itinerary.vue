@@ -18,7 +18,7 @@
                     </button>
                 </div>
                 <div>
-                    <button type="button" class="iande-button small solid" @click="update">
+                    <button type="button" class="iande-button small solid" v-if="itinerary.post_status === 'draft'" @click="update">
                         <Icon :icon="['far', 'save']"/>
                         <span>{{ __('Salvar rascunho', 'iande') }}</span>
                     </button>
@@ -26,9 +26,13 @@
                         <Icon :icon="['far', 'trash-alt']"/>
                         <span>{{ __('Apagar roteiro', 'iande') }}</span>
                     </button>
-                    <button type="button" class="iande-button small primary" @click="publish">
+                    <button type="button" class="iande-button small primary" v-if="itinerary.post_status === 'draft'" @click="publish">
                         <Icon icon="check"/>
                         <span>{{ __('Publicar roteiro', 'iande') }}</span>
+                    </button>
+                    <button type="button" class="iande-button small primary" v-else @click="publish">
+                        <Icon :icon="['far', 'save']"/>
+                        <span>{{ __('Atualizar roteiro', 'iande') }}</span>
                     </button>
                     <a :href="$iandeUrl('itinerary/list')">
                         <Icon icon="arrow-left"/>
