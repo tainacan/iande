@@ -82,7 +82,7 @@
 
                 <div class="iande-itinerary-page" :class="`layout-${itinerary.layout}`" v-if="currentMeta">
                     <a class="iande-itinerary-page__image" :href="currentMeta.url">
-                        <img :src="currentImage.thumbnails.large[0]" :alt="currentImage.alt_text">
+                        <img :src="currentImage.thumbnails.large[0]" :alt="currentImage.alt_text" v-if="currentImage">
                     </a>
                     <div class="iande-itinerary-page__details">
                         <div class="iande-itinerary-page__details-main">
