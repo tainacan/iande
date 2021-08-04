@@ -28,11 +28,11 @@
                                     <li><a :href="$iandeUrl('group/agenda')">{{ __('Minha agenda', 'iande') }}</a></li>
                                 </ul>
                             </li>
-                            <li><a :href="$iandeUrl('itinerary/list')" v-if="$iande.tainacanUrl">{{ __('Roteiros', 'iande') }}</a></li>
+                            <li><a :href="$iandeUrl('itinerary/list')" v-if="$iande.tainacanActive">{{ __('Roteiros', 'iande') }}</a></li>
                         </template>
                         <template v-else>
                             <li><a :href="$iandeUrl('appointment/list')">{{ __('Agendamentos', 'iande') }}</a></li>
-                            <li><a :href="$iandeUrl('itinerary/list')" v-if="$iande.tainacanUrl">{{ __('Roteiros', 'iande') }}</a></li>
+                            <li><a :href="$iandeUrl('itinerary/list')" v-if="$iande.tainacanActive">{{ __('Roteiros', 'iande') }}</a></li>
                             <li><a :href="$iandeUrl('institution/list')">{{ __('Instituições', 'iande') }}</a></li>
                         </template>
                         <li class="iande-navbar__dropdown">
