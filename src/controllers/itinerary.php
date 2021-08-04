@@ -129,7 +129,7 @@ class Itinerary extends Controller {
 
         if (empty($params['public']) && $itinerary->post_status !== 'publish') {
             $this->require_authentication();
-            $this->check_user_permission($params['ID']);
+            $this->check_user_permission($itinerary);
         }
 
         if (empty($itinerary)) {
