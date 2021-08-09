@@ -140,7 +140,7 @@
                 return `https://twitter.com/intent/tweet?text=${window.encodeURIComponent(this.shareText)}&url=${window.location.href}`
             },
             whatsappLink () {
-                return `whatsapp://send?text=${window.encodeURIComponent(`${this.shareText}\n\n${window.location.href}`)}`
+                return `https://api.whatsapp.com/send?text=${window.encodeURIComponent(`${this.shareText}\n\n${window.location.href}`)}`
             },
         },
         watch: {
