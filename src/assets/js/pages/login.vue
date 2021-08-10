@@ -1,25 +1,25 @@
 <template>
     <article id="iande-login" class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
-            <h1>Boas vindas!</h1>
-            <p class="slogan">Você está na plataforma de visitação do <span class="text-secondary">iandé</span>&nbsp;+&nbsp;{{ $iande.siteName }}.</p>
+            <h1>{{ __('Boas vindas!', 'iande') }}</h1>
+            <p class="slogan">{{ __('Você está na plataforma de visitação do', 'iande') }} <span class="text-secondary">iandé</span>&nbsp;+&nbsp;{{ $iande.siteName }}.</p>
             <form class="iande-form iande-stack stack-lg" @submit.prevent="login">
                 <div>
-                    <div class="iande-label">Faça login para começar:</div>
+                    <div class="iande-label">{{ __('Faça login para começar:', 'iande') }}</div>
                     <div class="iande-form-grid">
-                        <Input id="email" type="text" autocomplete="email" placeholder="E-mail" aria-label="E-mail" v-model="email" :validations="$v.email"/>
+                        <Input id="email" type="text" autocomplete="email" :placeholder="__('E-mail', 'iande')" :aria-label="__('E-mail', 'iande')" v-model="email" :validations="$v.email"/>
                         <div>
-                            <Input id="password" type="password" autocomplete="current-password" placeholder="Senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
-                            <a class="iande-form-link" :href="resetPassword">Não lembro a senha</a>
+                            <Input id="password" type="password" autocomplete="current-password" :placeholder="__('Senha', 'iande')" :aria-label="__('Senha', 'iande')" v-model="password" :validations="$v.password"/>
+                            <a class="iande-form-link" :href="resetPassword">{{ __('Não lembro a senha', 'iande') }}</a>
                         </div>
                     </div>
                 </div>
                 <div class="iande-stack stack-md">
                     <div class="iande-form-error" v-if="formError">
-                        <span>{{ formError }}</span>
+                        <span>{{ __(formError, 'iande') }}</span>
                     </div>
-                    <button class="iande-button primary" type="submit">Fazer login</button>
-                    <a class="iande-button outline" :href="$iandeUrl('user/create')">Criar login</a>
+                    <button class="iande-button primary" type="submit">{{ __('Fazer login', 'iande') }}</button>
+                    <a class="iande-button outline" :href="$iandeUrl('user/create')">{{ __('Criar login', 'iande') }}</a>
                 </div>
             </form>
         </div>

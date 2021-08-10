@@ -1,26 +1,26 @@
 <template>
     <article id="iande-login" class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
-            <h1>Boas vindas!</h1>
-            <p class="slogan">Você está na plataforma de visitação do <span class="text-secondary">iandé</span>&nbsp;+&nbsp;{{ $iande.siteName }}.</p>
+            <h1>{{ __('Boas vindas!', 'iande') }}</h1>
+            <p class="slogan">{{ __('Você está na plataforma de visitação do', 'iande') }} <span class="text-secondary">iandé</span>&nbsp;+&nbsp;{{ $iande.siteName }}.</p>
             <form class="iande-form iande-stack stack-lg" @submit.prevent="createUser">
                 <div>
-                    <div class="iande-label">Faça login para começar:</div>
+                    <div class="iande-label">{{ __('Crie uma conta para começar:', 'iande') }}</div>
                     <div class="iande-form-grid">
-                        <Input id="firstName" type="text" autocomplete="given-name" placeholder="Nome" aria-label="Primeiro nome" v-model="firstName" :validations="$v.firstName"/>
-                        <Input id="lastName" type="text" autocomplete="family-name" placeholder="Sobrenome" aria-label="Sobrenome" v-model="lastName" :validations="$v.lastName"/>
-                        <Input id="email" type="email" autocomplete="email" placeholder="E-mail" aria-label="E-mail" v-model="email" :validations="$v.email"/>
-                        <MaskedInput id="phone" type="tel" autocomplete="tel-national" :mask="phoneMask" placeholder="DDD + Telefone" aria-label="DDD + Telefone" v-model="phone" :validations="$v.phone"/>
-                        <Input id="password" type="password" autocomplete="new-password" placeholder="Senha" aria-label="Senha" v-model="password" :validations="$v.password"/>
-                        <Input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirmar senha" aria-label="Confirmar senha" v-model="confirmPassword" :validations="$v.confirmPassword"/>
+                        <Input id="firstName" type="text" autocomplete="given-name" :placeholder="__('Nome', 'iande')" :aria-label="__('Primeiro nome', 'iande')" v-model="firstName" :validations="$v.firstName"/>
+                        <Input id="lastName" type="text" autocomplete="family-name" :placeholder="__('Sobrenome', 'iande')" :aria-label="__('Sobrenome', 'iande')" v-model="lastName" :validations="$v.lastName"/>
+                        <Input id="email" type="email" autocomplete="email" :placeholder="__('E-mail', 'iande')" :aria-label="__('E-mail', 'iande')" v-model="email" :validations="$v.email"/>
+                        <MaskedInput id="phone" type="tel" autocomplete="tel-national" :mask="phoneMask" :placeholder="__('DDD + Telefone', 'iande')" :aria-label="__('DDD + Telefone', 'iande')" v-model="phone" :validations="$v.phone"/>
+                        <Input id="password" type="password" autocomplete="new-password" :placeholder="__('Senha', 'iande')" :aria-label="__('Senha', 'iande')" v-model="password" :validations="$v.password"/>
+                        <Input id="confirmPassword" type="password" autocomplete="new-password" :placeholder="__('Confirmar senha', 'iande')" :aria-label="__('Confirmar senha', 'iande')" v-model="confirmPassword" :validations="$v.confirmPassword"/>
                     </div>
                 </div>
                 <div class="iande-stack stack-md">
                     <div class="iande-form-error" v-if="formError">
-                        <span>{{ formError }}</span>
+                        <span>{{ __(formError, 'iande') }}</span>
                     </div>
-                    <button class="iande-button primary" type="submit">Criar login</button>
-                    <a class="iande-button outline" :href="$iandeUrl('user/login')">Já tenho login</a>
+                    <button class="iande-button primary" type="submit">{{ __('Criar login', 'iande') }}</button>
+                    <a class="iande-button outline" :href="$iandeUrl('user/login')">{{ __('Já tenho login', 'iande') }}</a>
                 </div>
             </form>
         </div>
