@@ -3,16 +3,16 @@
         <h2 class="iande-group-title">{{ sprintf(__('Grupo %s:', 'iande'), n) }}</h2>
         <div>
             <label class="iande-label" :for="`${id}_name`">{{ __('Nome do grupo', 'iande') }}</label>
-            <Input :id="`${id}_name`" type="text" :placeholder="__('Ex.: 1° ano G - Prof. Marta', 'iande')" v-model="name" :validations="validations.name"/>
+            <Input :id="`${id}_name`" type="text" :placeholder="__('Ex.: 1° ano G - Prof. Marta', 'iande')" v-model="name" :v="v.name"/>
         </div>
         <template v-if="exhibition">
             <div>
                 <label class="iande-label" :for="`${id}_date`">{{ __('Data da visitação', 'iande') }}</label>
-                <DatePicker :id="`${id}_date`" v-model="date" :placeholder="__('Selecione uma data', 'iande')" format="dd/MM/yyyy" :validations="validations.date"/>
+                <DatePicker :id="`${id}_date`" v-model="date" :placeholder="__('Selecione uma data', 'iande')" format="dd/MM/yyyy" :v="v.date"/>
             </div>
             <div v-if="date">
                 <label class="iande-label" :for="`${id}_hour`">{{ __('Horário', 'iande') }}</label>
-                <SlotPicker :id="`${id}_hour`" ref="slots" :day="date" v-model="hour" :validations="validations.hour"/>
+                <SlotPicker :id="`${id}_hour`" ref="slots" :day="date" v-model="hour" :v="v.hour"/>
             </div>
         </template>
     </section>

@@ -5,32 +5,32 @@
 
             <div>
                 <label for="name" class="iande-label">{{ __('Título do roteiro', 'iande') }}</label>
-                <Input id="name" type="text" :placeholder="__('Título do roteiro', 'iande')" v-model="itinerary.name" :validations="v.itinerary.name"/>
+                <Input id="name" type="text" :placeholder="__('Título do roteiro', 'iande')" v-model="itinerary.name" :v="v.itinerary.name"/>
             </div>
 
             <div>
                 <label for="cover" class="iande-label">{{ __('Imagem de capa', 'iande') }}</label>
-                <FileUploader id="cover" accept="image/*" v-model="itinerary.cover" :validations="v.itinerary.cover"/>
+                <FileUploader id="cover" accept="image/*" v-model="itinerary.cover" :v="v.itinerary.cover"/>
             </div>
 
             <div>
                 <label for="description" class="iande-label">{{ __('Descrição breve', 'iande') }}<span class="iande-label__optional">{{ __('(opcional)', 'iande') }}</span></label>
-                <TextArea id="description" v-model="itinerary.description" :validations="v.itinerary.description"/>
+                <TextArea id="description" v-model="itinerary.description" :v="v.itinerary.description"/>
             </div>
 
             <div>
                 <label for="publicly_findable" class="iande-label">{{ __('O roteiro será aberto ao público ou restrito a quem tiver o link de acesso?', 'iande') }}</label>
-                <RadioGroup id="publicly_findable" v-model="itinerary.publicly_findable" :options="publicOptions" :validations="v.itinerary.publicly_findable"/>
+                <RadioGroup id="publicly_findable" v-model="itinerary.publicly_findable" :options="publicOptions" :v="v.itinerary.publicly_findable"/>
             </div>
 
             <div>
                 <label for="shareable" class="iande-label">{{ __('Você deseja deixar seu roteiro compartilhável?', 'iande') }}</label>
-                <RadioGroup id="shareable" v-model="itinerary.shareable" :options="shareOptions" :validations="v.itinerary.shareable"/>
+                <RadioGroup id="shareable" v-model="itinerary.shareable" :options="shareOptions" :v="v.itinerary.shareable"/>
             </div>
 
             <div>
                 <label for="layout" class="iande-label">{{ __('Escolha o layout de visualização desktop do roteiro', 'iande') }}</label>
-                <LayoutSelector id="layout" v-model="itinerary.layout" :validations="v.itinerary.layout"/>
+                <LayoutSelector id="layout" v-model="itinerary.layout" :v="v.itinerary.layout"/>
             </div>
 
             <div class="iande-form-error" v-if="formError">

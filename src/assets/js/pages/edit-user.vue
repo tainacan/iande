@@ -5,19 +5,19 @@
             <form class="iande-form iande-stack stack-lg" @submit.prevent="updateUser">
                 <div>
                     <label class="iande-label" for="firstName">{{ __('Nome', 'iande') }}</label>
-                    <Input id="firstName" type="text" v-model="firstName" :validations="$v.firstName"/>
+                    <Input id="firstName" type="text" v-model="firstName" :v="$v.firstName"/>
                 </div>
                 <div>
                     <label class="iande-label" for="lastName">{{ __('Sobrenome', 'iande') }}</label>
-                    <Input id="lastName" type="text" v-model="lastName" :validations="$v.lastName"/>
+                    <Input id="lastName" type="text" v-model="lastName" :v="$v.lastName"/>
                 </div>
                 <div>
                     <label class="iande-label" for="email">{{ __('E-mail', 'iande') }}</label>
-                    <Input id="email" type="email" v-model="email" :validations="$v.email"/>
+                    <Input id="email" type="email" v-model="email" :v="$v.email"/>
                 </div>
                 <div>
                     <label class="iande-label" for="phone">{{ __('Telefone', 'iande') }}</label>
-                    <MaskedInput id="phone" type="tel" :mask="phoneMask" :placeholder="__('DDD + Telefone', 'iande')" v-model="phone" :validations="$v.phone"/>
+                    <MaskedInput id="phone" type="tel" :mask="phoneMask" :placeholder="__('DDD + Telefone', 'iande')" v-model="phone" :v="$v.phone"/>
                 </div>
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ __(formError, 'iande') }}</span>

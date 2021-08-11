@@ -16,7 +16,7 @@
                     <Icon :icon="['far', 'image']"/>
                     {{ __('Enviar imagem', 'iande') }}
                 </button>
-                <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
+                <FormError :id="errorId" :v="v" v-if="v.$error"/>
                 <div class="iande-form-error" v-else-if="formError">
                     <span>{{ __(formError, 'iande') }}</span>
                 </div>

@@ -7,12 +7,12 @@
                 <div>
                     <div class="iande-label">{{ __('Crie uma conta para começar:', 'iande') }}</div>
                     <div class="iande-form-grid">
-                        <Input id="firstName" type="text" autocomplete="given-name" :placeholder="__('Nome', 'iande')" :aria-label="__('Primeiro nome', 'iande')" v-model="firstName" :validations="$v.firstName"/>
-                        <Input id="lastName" type="text" autocomplete="family-name" :placeholder="__('Sobrenome', 'iande')" :aria-label="__('Sobrenome', 'iande')" v-model="lastName" :validations="$v.lastName"/>
-                        <Input id="email" type="email" autocomplete="email" :placeholder="__('E-mail', 'iande')" :aria-label="__('E-mail', 'iande')" v-model="email" :validations="$v.email"/>
-                        <MaskedInput id="phone" type="tel" autocomplete="tel-national" :mask="phoneMask" :placeholder="__('DDD + Telefone', 'iande')" :aria-label="__('DDD + Telefone', 'iande')" v-model="phone" :validations="$v.phone"/>
-                        <Input id="password" type="password" autocomplete="new-password" :placeholder="__('Senha', 'iande')" :aria-label="__('Senha', 'iande')" v-model="password" :validations="$v.password"/>
-                        <Input id="confirmPassword" type="password" autocomplete="new-password" :placeholder="__('Confirmar senha', 'iande')" :aria-label="__('Confirmar senha', 'iande')" v-model="confirmPassword" :validations="$v.confirmPassword"/>
+                        <Input id="firstName" type="text" autocomplete="given-name" :placeholder="__('Nome', 'iande')" :aria-label="__('Primeiro nome', 'iande')" v-model="firstName" :v="$v.firstName"/>
+                        <Input id="lastName" type="text" autocomplete="family-name" :placeholder="__('Sobrenome', 'iande')" :aria-label="__('Sobrenome', 'iande')" v-model="lastName" :v="$v.lastName"/>
+                        <Input id="email" type="email" autocomplete="email" :placeholder="__('E-mail', 'iande')" :aria-label="__('E-mail', 'iande')" v-model="email" :v="$v.email"/>
+                        <MaskedInput id="phone" type="tel" autocomplete="tel-national" :mask="phoneMask" :placeholder="__('DDD + Telefone', 'iande')" :aria-label="__('DDD + Telefone', 'iande')" v-model="phone" :v="$v.phone"/>
+                        <Input id="password" type="password" autocomplete="new-password" :placeholder="__('Senha', 'iande')" :aria-label="__('Senha', 'iande')" v-model="password" :v="$v.password"/>
+                        <Input id="confirmPassword" type="password" autocomplete="new-password" :placeholder="__('Confirmar senha', 'iande')" :aria-label="__('Confirmar senha', 'iande')" v-model="confirmPassword" :v="$v.confirmPassword"/>
                     </div>
                 </div>
                 <div class="iande-stack stack-md">

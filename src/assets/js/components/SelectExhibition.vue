@@ -6,26 +6,26 @@
         </div>
         <div>
             <label class="iande-label" for="purpose">{{ __('Qual o objetivo da visita?', 'iande') }}</label>
-            <Select id="purpose" v-model="purpose" :validations="$v.purpose" :options="$iande.purposes"/>
+            <Select id="purpose" v-model="purpose" :v="$v.purpose" :options="$iande.purposes"/>
         </div>
         <div v-if="isOther(purpose)">
             <label class="iande-label" for="purposeOther">{{ __('Especifique o objetivo da visita', 'iande') }}</label>
-            <Input id="purposeOther" type="text" v-model="purposeOther" :validations="$v.purposeOther"/>
+            <Input id="purposeOther" type="text" v-model="purposeOther" :v="$v.purposeOther"/>
         </div>
         <div>
             <label class="iande-label" for="name">{{ __('Dê um nome à visita', 'iande') }}<span class="iande-label__optional">{{ __('(opcional)', 'iande') }}</span></label>
-            <Input id="name" type="text" :placeholder="__('Se quiser, atribua um nome para esta visita', 'iande')" v-model="name" :validations="$v.name"/>
+            <Input id="name" type="text" :placeholder="__('Se quiser, atribua um nome para esta visita', 'iande')" v-model="name" :v="$v.name"/>
         </div>
         <div v-if="exhibitions.length > 1">
             <label class="iande-label" for="exhibitionId">{{ __('Qual exposição será visitada?', 'iande') }}</label>
-            <Select id="exhibitionId" v-model="exhibitionId" :validations="$v.exhibitionId" :options="exhibitionOptions"/>
+            <Select id="exhibitionId" v-model="exhibitionId" :v="$v.exhibitionId" :options="exhibitionOptions"/>
             <p class="iande-exhibition-description" v-if="exhibition && exhibition.description">
                 {{ __(exhibition.description, 'iande') }}
             </p>
         </div>
         <div>
             <label class="iande-label" for="numPeople">{{ __('Quantidade prevista de pessoas', 'iande') }}</label>
-            <Input id="numPeople" type="number" :min="minPeople" :placeholder="sprintf(__('Mínimo de %s pessoas', 'iande'), minPeople)" :disabled="groupsCreated" v-model.number="numPeople" :validations="$v.numPeople"/>
+            <Input id="numPeople" type="number" :min="minPeople" :placeholder="sprintf(__('Mínimo de %s pessoas', 'iande'), minPeople)" :disabled="groupsCreated" v-model.number="numPeople" :v="$v.numPeople"/>
             <p class="text-sm">{{ __('Caso seu grupo seja maior do que a capacidade de atendimento do museu, mais grupos serão criados automaticamente', 'iande') }}</p>
         </div>
     </div>

@@ -4,37 +4,37 @@
         <p v-html="__('Escolas, ONGs, fundações e outras instituições devem preencher o campo como <b>Grupo Institucional</b>. Famílias, grupos de amigos ou turistas devem se cadastrar como <b>Outra</b>.', 'iande')"/>
         <div>
             <label class="iande-label" for="isContact">{{ __('Você é o contato responsável pela visita?', 'iande') }}</label>
-            <RadioGroup id="isContact" v-model="isContact" :validations="$v.isContact" :options="binaryOptions"/>
+            <RadioGroup id="isContact" v-model="isContact" :v="$v.isContact" :options="binaryOptions"/>
         </div>
         <div v-show="isContact !== 'yes'">
             <div class="iande-label">{{ __('Informe o contato da pessoa responsável', 'iande') }}</div>
             <div class="iande-form-grid">
-                <Input id="firstName" type="text" :placeholder="__('Nome', 'iande')" :aria-label="__('Primeiro nome', 'iande')" v-model="firstName" :validations="$v.firstName"/>
-                <Input id="lastName" type="text" :placeholder="__('Sobrenome', 'iande')" :aria-label="__('Sobrenome', 'iande')" v-model="lastName" :validations="$v.lastName"/>
-                <Input id="email" type="email" :placeholder="__('E-mail', 'iande')" :aria-label="__('E-mail', 'iande')" v-model="email" :validations="$v.email"/>
-                <MaskedInput id="phone" type="tel" :mask="phoneMask" :placeholder="__('DDD + Telefone', 'iande')" :aria-label="__('DDD + Telefone', 'iande')" v-model="phone" :validations="$v.phone"/>
+                <Input id="firstName" type="text" :placeholder="__('Nome', 'iande')" :aria-label="__('Primeiro nome', 'iande')" v-model="firstName" :v="$v.firstName"/>
+                <Input id="lastName" type="text" :placeholder="__('Sobrenome', 'iande')" :aria-label="__('Sobrenome', 'iande')" v-model="lastName" :v="$v.lastName"/>
+                <Input id="email" type="email" :placeholder="__('E-mail', 'iande')" :aria-label="__('E-mail', 'iande')" v-model="email" :v="$v.email"/>
+                <MaskedInput id="phone" type="tel" :mask="phoneMask" :placeholder="__('DDD + Telefone', 'iande')" :aria-label="__('DDD + Telefone', 'iande')" v-model="phone" :v="$v.phone"/>
             </div>
         </div>
         <div v-if="requireExemption">
             <label class="iande-label" for="requestedExemption">{{ __('Deseja solicitar formulário de isenção de ingresso?', 'iande') }}</label>
-            <RadioGroup id="requestedExemption" v-model="requestedExemption" :validations="$v.requestedExemption" :options="binaryOptions"/>
+            <RadioGroup id="requestedExemption" v-model="requestedExemption" :v="$v.requestedExemption" :options="binaryOptions"/>
         </div>
         <div>
             <label class="iande-label" for="nature">{{ __('Natureza do grupo', 'iande') }}</label>
-            <Select id="nature" v-model="nature" :validations="$v.nature" :options="natureOptions"/>
+            <Select id="nature" v-model="nature" :v="$v.nature" :options="natureOptions"/>
         </div>
         <template v-if="!institutionOptional">
             <div>
                 <label class="iande-label" for="role">{{ __('Informe sua relação com a instituição', 'iande') }}</label>
-                <Select id="role" v-model="role" :validations="$v.role" :options="$iande.responsibleRoles" />
+                <Select id="role" v-model="role" :v="$v.role" :options="$iande.responsibleRoles" />
             </div>
             <div v-if="isOther(role)">
                 <label class="iande-label" for="roleOther">{{ __('Especifique sua relação com a instituição', 'iande') }}</label>
-                <Input id="roleOther" type="text" v-model="roleOther" :validations="$v.roleOther"/>
+                <Input id="roleOther" type="text" v-model="roleOther" :v="$v.roleOther"/>
             </div>
             <div>
                 <label class="iande-label" for="institution">{{ __('Instituição responsável pela visita', 'iande') }}</label>
-                <Select id="institution" v-model="institution" :validations="$v.institution" :options="institutionOptions"/>
+                <Select id="institution" v-model="institution" :v="$v.institution" :options="institutionOptions"/>
             </div>
             <div class="iande-add-item" v-if="canAddInstitution" role="button" tabindex="0" @click="addInstitution">
                 <span><Icon icon="plus-circle"/></span>

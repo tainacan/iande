@@ -6,7 +6,7 @@
                 <span>{{ __(label, 'iande') }}</span>
             </label>
         </div>
-        <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
+        <FormError :id="errorId" :v="v" v-if="v.$error"/>
     </div>
 </template>
 

@@ -11,8 +11,8 @@ export default {
     props: {
         fieldClass: { type: String, default: null },
         id: { type: String, required: true },
+        v: { type: Object, required: true },
         value: { type: null, required: true },
-        validations: { type: Object, required: true }
     },
     computed: {
         errorId () {

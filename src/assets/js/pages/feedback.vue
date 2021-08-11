@@ -10,44 +10,44 @@
                 <template v-else>
                     <div>
                         <label for="visit" class="iande-label">{{ __('O que você achou da visita educativa?', 'iande') }}</label>
-                        <RadioGroup id="visit" columns v-model="form.feedback_visit" :validations="$v.form.feedback_visit" :options="qualityOptions"/>
+                        <RadioGroup id="visit" columns v-model="form.feedback_visit" :v="$v.form.feedback_visit" :options="qualityOptions"/>
                     </div>
 
                     <div>
                         <label for="educator" class="iande-label">{{ __('O que você achou da atuação do educador?', 'iande') }}</label>
-                        <RadioGroup id="educator" columns v-model="form.feedback_educator" :validations="$v.form.feedback_educator" :options="qualityOptions"/>
+                        <RadioGroup id="educator" columns v-model="form.feedback_educator" :v="$v.form.feedback_educator" :options="qualityOptions"/>
                     </div>
 
                     <div>
                         <label for="mood" class="iande-label">{{ __('Você acha que a atuação do educador suscitou que tipo de reação do grupo?', 'iande') }}</label>
-                        <RadioGroup id="mood" columns v-model="form.feedback_mood" :validations="$v.form.feedback_mood" :options="moodOptions"/>
+                        <RadioGroup id="mood" columns v-model="form.feedback_mood" :v="$v.form.feedback_mood" :options="moodOptions"/>
                         <template v-if="isOther(form.feedback_mood)">
                             <label for="mood-other" class="iande-label">{{ __('Qual?', 'iande') }}</label>
-                            <Input id="mood-other" type="text" v-model="form.feedback_mood_other" :validations="$v.form.feedback_mood_other"/>
+                            <Input id="mood-other" type="text" v-model="form.feedback_mood_other" :v="$v.form.feedback_mood_other"/>
                         </template>
                     </div>
 
                     <div>
                         <label for="liked" class="iande-label">{{ __('O que você mais gostou na visita?', 'iande') }}</label>
-                        <RadioGroup id="liked" columns v-model="form.feedback_liked" :validations="$v.form.feedback_liked" :options="likedOptions"/>
+                        <RadioGroup id="liked" columns v-model="form.feedback_liked" :v="$v.form.feedback_liked" :options="likedOptions"/>
                         <template v-if="isOther(form.feedback_liked)">
                             <label for="liked-other" class="iande-label">{{ __('Qual?', 'iande') }}</label>
-                            <Input id="liked-other" type="text" v-model="form.feedback_liked_other" :validations="$v.form.feedback_liked_other"/>
+                            <Input id="liked-other" type="text" v-model="form.feedback_liked_other" :v="$v.form.feedback_liked_other"/>
                         </template>
                     </div>
 
                     <div>
                         <label for="disliked" class="iande-label">{{ __('O que você menos gostou na visita?', 'iande') }}</label>
-                        <RadioGroup id="disliked" columns v-model="form.feedback_disliked" :validations="$v.form.feedback_disliked" :options="dislikedOptions"/>
+                        <RadioGroup id="disliked" columns v-model="form.feedback_disliked" :v="$v.form.feedback_disliked" :options="dislikedOptions"/>
                         <template v-if="isOther(form.feedback_disliked)">
                             <label for="disliked-other" class="iande-label">{{ __('Qual?', 'iande') }}</label>
-                            <Input id="disliked-other" type="text" v-model="form.feedback_disliked_other" :validations="$v.form.feedback_disliked_other"/>
+                            <Input id="disliked-other" type="text" v-model="form.feedback_disliked_other" :v="$v.form.feedback_disliked_other"/>
                         </template>
                     </div>
 
                     <div>
                         <label for="comment" class="iande-label">{{ __('Deixe aqui seus comentários', 'iande') }}</label>
-                        <TextArea id="comment" :placeholder="__('Escreva aqui', 'iande')" v-model="form.feedback_comment" :validations="$v.form.feedback_comment"/>
+                        <TextArea id="comment" :placeholder="__('Escreva aqui', 'iande')" v-model="form.feedback_comment" :v="$v.form.feedback_comment"/>
                     </div>
 
                     <div class="iande-stack stack-md">

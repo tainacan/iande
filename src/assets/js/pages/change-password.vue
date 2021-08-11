@@ -5,11 +5,11 @@
             <form class="iande-form iande-stack stack-lg" @submit.prevent="changePassword">
                 <div>
                     <label class="iande-label" for="password">{{ __('Nova senha', 'iande') }}</label>
-                    <Input id="password" type="password" autocomplete="new-password" v-model="password" :validations="$v.password"/>
+                    <Input id="password" type="password" autocomplete="new-password" v-model="password" :v="$v.password"/>
                 </div>
                 <div>
                     <label class="iande-label" for="confirmPassword">{{ __('Confirmar senha', 'iande') }}</label>
-                    <Input id="confirmPassword" type="password" autocomplete="new-password" v-model="confirmPassword" :validations="$v.confirmPassword"/>
+                    <Input id="confirmPassword" type="password" autocomplete="new-password" v-model="confirmPassword" :v="$v.confirmPassword"/>
                 </div>
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ __(formError, 'iande') }}</span>

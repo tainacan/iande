@@ -1,7 +1,7 @@
 <template>
     <div class="iande-field">
         <Datepicker :disabledDates="disabledDates" :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" :inputClass="inputClasses" v-bind="inputAttrs" v-model="dateValue"/>
-        <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
+        <FormError :id="errorId" :v="v" v-if="v.$error"/>
     </div>
 </template>
 
@@ -68,7 +68,7 @@
             },
             exhibition: get('appointments/exhibition'),
             inputClasses () {
-                return ['iande-input', this.fieldClass, this.validations.$error && 'invalid']
+                return ['iande-input', this.fieldClass, this.v.$error && 'invalid']
             },
             inputAttrs () {
                 return {

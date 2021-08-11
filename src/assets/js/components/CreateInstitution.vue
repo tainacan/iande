@@ -4,59 +4,59 @@
         <p v-if="!edit">{{ __('Aqui você deve cadastrar dados referentes a instituição responsável pela visita. Cada instituição cadastrada ficará salva no seu perfil. Deste modo você poderá criar novas visitas com mais agilidade e menos campos para preencher.', 'iande') }}</p>
         <div>
             <label class="iande-label" for="name">{{ __('Nome da instituição', 'iande') }}</label>
-            <Input id="name" type="text" :placeholder="__('Nome oficial da instituição', 'iande')" v-model="name" :validations="$v.name"/>
+            <Input id="name" type="text" :placeholder="__('Nome oficial da instituição', 'iande')" v-model="name" :v="$v.name"/>
         </div>
         <div>
             <label class="iande-label" for="cnpj">{{ __('CNPJ da instituição', 'iande') }}<span class="iande-label__optional">{{ __('(opcional)', 'iande') }}</span></label>
-            <MaskedInput id="cnpj" type="text" :mask="cnpjMask" :placeholder="__('Digite o CNPJ da instituição', 'iande')" v-model="cnpj" :validations="$v.cnpj"/>
+            <MaskedInput id="cnpj" type="text" :mask="cnpjMask" :placeholder="__('Digite o CNPJ da instituição', 'iande')" v-model="cnpj" :v="$v.cnpj"/>
         </div>
         <div>
             <label class="iande-label" for="profile">{{ __('Perfil da instituição', 'iande') }}</label>
-            <Select id="profile" :placeholder="__('Selecione o perfil da instituição', 'iande')" v-model="profile" :validations="$v.profile" :options="$iande.profiles"/>
+            <Select id="profile" :placeholder="__('Selecione o perfil da instituição', 'iande')" v-model="profile" :v="$v.profile" :options="$iande.profiles"/>
         </div>
         <div v-if="isOther(profile)">
             <label class="iande-label" for="profileOther">{{ __('Especifique o perfil da instituição', 'iande') }}</label>
-            <Input id="profileOther" type="text" v-model="profileOther" :validations="$v.profileOther"/>
+            <Input id="profileOther" type="text" v-model="profileOther" :v="$v.profileOther"/>
         </div>
         <div>
             <label for="phone" class="iande-label">{{ __('Telefone', 'iande') }}</label>
-            <MaskedInput id="phone" type="tel" :mask="phoneMask" :placeholder="__('DDD + Telefone', 'iande')" v-model="phone" :validations="$v.phone"/>
+            <MaskedInput id="phone" type="tel" :mask="phoneMask" :placeholder="__('DDD + Telefone', 'iande')" v-model="phone" :v="$v.phone"/>
         </div>
         <div>
             <label for="email" class="iande-label">{{ __('E-mail', 'iande') }}</label>
-            <Input id="email" type="email" :placeholder="__('E-mail de contato da instituição', 'iande')" v-model="email" :validations="$v.email"/>
+            <Input id="email" type="email" :placeholder="__('E-mail de contato da instituição', 'iande')" v-model="email" :v="$v.email"/>
         </div>
         <div>
             <label for="zipCode" class="iande-label">{{ __('CEP', 'iande') }}</label>
-            <MaskedInput id="zipCode" type="text" :mask="cepMask" v-model="zipCode" :validations="$v.zipCode"/>
+            <MaskedInput id="zipCode" type="text" :mask="cepMask" v-model="zipCode" :v="$v.zipCode"/>
             <a class="iande-form-link" href="http://www.buscacep.correios.com.br/sistemas/buscacep/" target="_blank">{{ __('Descobrir CEP', 'iande') }}</a>
         </div>
         <div>
             <label for="address" class="iande-label">{{ __('Endereço', 'iande') }}</label>
-            <Input id="address" type="text" :placeholder="__('Ex.: Avenida Brasil', 'iande')" v-model="address" :validations="$v.address"/>
+            <Input id="address" type="text" :placeholder="__('Ex.: Avenida Brasil', 'iande')" v-model="address" :v="$v.address"/>
         </div>
         <div class="iande-form-grid">
             <div>
                 <label for="addressNumber" class="iande-label">{{ __('Número', 'iande') }}</label>
-                <Input id="addressNumber" type="text" v-model="addressNumber" :validations="$v.addressNumber"/>
+                <Input id="addressNumber" type="text" v-model="addressNumber" :v="$v.addressNumber"/>
             </div>
             <div>
                 <label for="addressComplement" class="iande-label">{{ __('Complemento', 'iande') }}</label>
-                <Input id="addressComplement" type="text" :placeholder="__('Ex.: Apto 12', 'iande')" v-model="addressComplement" :validations="$v.addressComplement"/>
+                <Input id="addressComplement" type="text" :placeholder="__('Ex.: Apto 12', 'iande')" v-model="addressComplement" :v="$v.addressComplement"/>
             </div>
         </div>
         <div>
             <label for="district" class="iande-label">{{ __('Bairro', 'iande') }}</label>
-            <Input id="district" type="text" v-model="district" :validations="$v.district"/>
+            <Input id="district" type="text" v-model="district" :v="$v.district"/>
         </div>
         <div class="iande-form-grid one-two">
             <div>
                 <label for="state" class="iande-label">{{ __('UF', 'iande') }}</label>
-                <Select id="state" v-model="state" :validations="$v.state" :options="stateOptions"/>
+                <Select id="state" v-model="state" :v="$v.state" :options="stateOptions"/>
             </div>
             <div>
                 <label for="city" class="iande-label">{{ __('Cidade', 'iande') }}</label>
-                <Select id="city" v-model="city" :validations="$v.city" :options="cityOptions"/>
+                <Select id="city" v-model="city" :v="$v.city" :options="cityOptions"/>
             </div>
         </div>
     </div>

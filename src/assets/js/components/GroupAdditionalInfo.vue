@@ -3,29 +3,29 @@
         <h2 class="iande-group-title">{{ sprintf(__('Grupo %s: %s', 'iande'), n, value.name) }}</h2>
         <div>
             <label :for="`${id}_numPeople`" class="iande-label">{{ __('Quantidade prevista de pessoas', 'iande') }}<span class="iande-label__optional">{{ sprintf(__('Máximo de %s pessoas', 'iande'), maxPeople) }}</span></label>
-            <Input :id="`${id}_numPeople`" type="number" :min="minPeople" :max="maxPeople" :placeholder="sprintf(__('Mínimo de %s pessoas', 'iande'), minPeople)" v-model.number="numPeople" :validations="validations.num_people"/>
+            <Input :id="`${id}_numPeople`" type="number" :min="minPeople" :max="maxPeople" :placeholder="sprintf(__('Mínimo de %s pessoas', 'iande'), minPeople)" v-model.number="numPeople" :v="v.num_people"/>
         </div>
         <div>
             <label :for="`${id}_ageRange`" class="iande-label">{{ __('Perfil etário', 'iande') }}</label>
-            <Select :id="`${id}_ageRange`" v-model="ageRange" :validations="validations.age_range" :options="$iande.ageRanges"/>
+            <Select :id="`${id}_ageRange`" v-model="ageRange" :v="v.age_range" :options="$iande.ageRanges"/>
         </div>
         <div>
             <label :for="`${id}_scholarity`" class="iande-label">{{ __('Escolaridade', 'iande') }}</label>
-            <Select :id="`${id}_scholarity`" v-model="scholarity" :validations="validations.scholarity" :options="$iande.scholarity"/>
+            <Select :id="`${id}_scholarity`" v-model="scholarity" :v="v.scholarity" :options="$iande.scholarity"/>
         </div>
         <div>
             <label :for="`${id}_numResponsible`" class="iande-label">{{ __('Quantidade prevista de responsáveis', 'iande') }}</label>
-            <Input :id="`${id}_numResponsible`" type="number" min="1" max="2" :placeholder="__('Mínimo de 1 e máximo de 2 pessoas', 'iande')" v-model.number="numResponsible" :validations="validations.num_responsible"/>
+            <Input :id="`${id}_numResponsible`" type="number" min="1" max="2" :placeholder="__('Mínimo de 1 e máximo de 2 pessoas', 'iande')" v-model.number="numResponsible" :v="v.num_responsible"/>
         </div>
         <div>
             <label :for="`${id}_otherLanguages`" class="iande-label">{{ __('O grupo fala algum idioma diferente de português?', 'iande') }}</label>
-            <RadioGroup :id="`${id}_otherLanguages`" v-model="otherLanguages" :validations="$v.otherLanguages" :options="binaryOptions"/>
+            <RadioGroup :id="`${id}_otherLanguages`" v-model="otherLanguages" :v="$v.otherLanguages" :options="binaryOptions"/>
         </div>
         <template v-if="otherLanguages">
-            <Repeater :id="`${id}_languages`" v-model="languages" :factory="newLanguage" :validations="validations.languages">
+            <Repeater :id="`${id}_languages`" v-model="languages" :factory="newLanguage" :v="v.languages">
                 <template #item="{ id, onUpdate, validations, value }">
                     <div :key="id">
-                        <LanguageInfo :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
+                        <LanguageInfo :id="id" :value="value" :v="validations" @updateValue="onUpdate"/>
                     </div>
                 </template>
                 <template #addItem="{ action }">
@@ -38,13 +38,13 @@
         </template>
         <div>
             <label :for="`${id}_haveDisabilities`" class="iande-label">{{ __('Há pessoa com deficiência no grupo?', 'iande') }}</label>
-            <RadioGroup :id="`${id}_haveDisabilities`" v-model="haveDisabilities" :validations="$v.haveDisabilities" :options="binaryOptions"/>
+            <RadioGroup :id="`${id}_haveDisabilities`" v-model="haveDisabilities" :v="$v.haveDisabilities" :options="binaryOptions"/>
         </div>
         <template v-if="haveDisabilities">
-            <Repeater :id="`${id}_disabilities`" v-model="disabilities" :factory="newDisability" :validations="validations.disabilities">
+            <Repeater :id="`${id}_disabilities`" v-model="disabilities" :factory="newDisability" :v="v.disabilities">
                 <template #item="{ id, onUpdate, validations, value }">
                     <div :key="id">
-                        <DisabilityInfo :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
+                        <DisabilityInfo :id="id" :value="value" :v="validations" @updateValue="onUpdate"/>
                     </div>
                 </template>
                 <template #addItem="{ action }">

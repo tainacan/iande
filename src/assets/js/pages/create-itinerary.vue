@@ -6,26 +6,26 @@
 
                 <div>
                     <label for="name" class="iande-label">{{ __('Nome do roteiro', 'iande') }}</label>
-                    <Input id="name" type="text" :placeholder="__('Título do roteiro', 'iande')" v-model="form.name" :validations="$v.form.name"/>
+                    <Input id="name" type="text" :placeholder="__('Título do roteiro', 'iande')" v-model="form.name" :v="$v.form.name"/>
                 </div>
 
                 <div>
                     <label for="description" class="iande-label">{{ __('Descrição breve', 'iande') }}</label>
-                    <TextArea id="description" v-model="form.description" :validations="$v.form.description"/>
+                    <TextArea id="description" v-model="form.description" :v="$v.form.description"/>
                 </div>
 
                 <div>
                     <label for="source" class="iande-label">{{ __('Escolha como você quer montar o roteiro', 'iande') }}</label>
-                    <RadioGroup id="source" columns v-model="form.source" :validations="$v.form.source" :options="sourceOptions"/>
+                    <RadioGroup id="source" columns v-model="form.source" :v="$v.form.source" :options="sourceOptions"/>
                 </div>
 
                 <div v-if="form.source === 'exhibition'">
                     <label for="exhibition" class="iande-label">{{ __('Selecione uma exposição', 'iande') }}</label>
-                    <Select id="exhibition" :placeholder="__('Selecione uma exposição', 'iande')" v-model="form.exhibition" :validations="$v.form.exhibition" :options="exhibitionOptions"/>
+                    <Select id="exhibition" :placeholder="__('Selecione uma exposição', 'iande')" v-model="form.exhibition" :v="$v.form.exhibition" :options="exhibitionOptions"/>
                 </div>
                 <div v-else-if="form.source === 'collection'">
                     <label for="collection" class="iande-label">{{ __('Selecione uma coleção', 'iande') }}</label>
-                    <Select id="collection" :placeholder="__('Selecione uma coleção', 'iande')" v-model="form.collection" :validations="$v.form.collection" :options="collectionOptions"/>
+                    <Select id="collection" :placeholder="__('Selecione uma coleção', 'iande')" v-model="form.collection" :v="$v.form.collection" :options="collectionOptions"/>
                 </div>
 
                 <div class="iande-form-error" v-if="formError">

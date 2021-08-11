@@ -8,7 +8,7 @@
                 <span class="iande-layout-selector__description">{{ description }}</span>
             </label>
         </div>
-        <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
+        <FormError :id="errorId" :v="v" v-if="v.$error"/>
     </div>
 </template>
 

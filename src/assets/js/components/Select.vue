@@ -6,7 +6,7 @@
                 {{ __(label, 'iande') }}
             </option>
         </select>
-        <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
+        <FormError :id="errorId" :v="v" v-if="v.$error"/>
     </div>
 </template>
 
@@ -23,7 +23,7 @@
         },
         computed: {
             classes () {
-                return ['iande-input', this.fieldClass, this.validations.$error && 'invalid']
+                return ['iande-input', this.fieldClass, this.v.$error && 'invalid']
             },
             normalizedOptions () {
                 if (Array.isArray(this.options)) {

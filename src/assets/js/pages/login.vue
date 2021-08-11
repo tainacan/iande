@@ -7,9 +7,9 @@
                 <div>
                     <div class="iande-label">{{ __('Faça login para começar:', 'iande') }}</div>
                     <div class="iande-form-grid">
-                        <Input id="email" type="text" autocomplete="email" :placeholder="__('E-mail', 'iande')" :aria-label="__('E-mail', 'iande')" v-model="email" :validations="$v.email"/>
+                        <Input id="email" type="text" autocomplete="email" :placeholder="__('E-mail', 'iande')" :aria-label="__('E-mail', 'iande')" v-model="email" :v="$v.email"/>
                         <div>
-                            <Input id="password" type="password" autocomplete="current-password" :placeholder="__('Senha', 'iande')" :aria-label="__('Senha', 'iande')" v-model="password" :validations="$v.password"/>
+                            <Input id="password" type="password" autocomplete="current-password" :placeholder="__('Senha', 'iande')" :aria-label="__('Senha', 'iande')" v-model="password" :v="$v.password"/>
                             <a class="iande-form-link" :href="resetPassword">{{ __('Não lembro a senha', 'iande') }}</a>
                         </div>
                     </div>

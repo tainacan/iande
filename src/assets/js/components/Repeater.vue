@@ -4,7 +4,7 @@
             <div class="iande-repetition__remove" v-if="resizable && value.length > 1" :aria-label="__('Remover item', 'iande')" role="button" tabindex="0" @click="removeItem(i)">
                 <Icon icon="times"/>
             </div>
-            <slot name="item" :id="`${id}_${i}`" :onUpdate="updateItem(i)" :value="item" :validations="validations.$each[i]"/>
+            <slot name="item" :id="`${id}_${i}`" :onUpdate="updateItem(i)" :value="item" :validations="v.$each[i]"/>
         </div>
         <slot name="addItem" :action="addItem" v-if="resizable"/>
     </div>

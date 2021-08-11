@@ -1,12 +1,12 @@
 <template>
     <article class="iande-stack stack-lg">
         <h1>{{ __('Reserve dia e horário', 'iande') }}</h1>
-        <Repeater id="groups" class="iande-groups" v-model="groups" :factory="newGroup" :resizable="false" :validations="$v.groups">
+        <Repeater id="groups" class="iande-groups" v-model="groups" :factory="newGroup" :resizable="false" :v="$v.groups">
             <template #item="{ id, onUpdate, validations, value }">
-                <GroupDate :key="id" :id="id" :value="value" :validations="validations" @updateValue="onUpdate"/>
+                <GroupDate :key="id" :id="id" :value="value" :v="validations" @updateValue="onUpdate"/>
             </template>
         </Repeater>
-        <FormError id="groups__error" :validations="$v.groups" v-if="$v.groups.$error"/>
+        <FormError id="groups__error" :v="$v.groups" v-if="$v.groups.$error"/>
     </article>
 </template>
 

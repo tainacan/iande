@@ -1,7 +1,7 @@
 <template>
     <div class="iande-field">
         <input v-bind="inputAttrs" v-model="modelValue">
-        <FormError :id="errorId" :validations="validations" v-if="validations.$error"/>
+        <FormError :id="errorId" :v="v" v-if="v.$error"/>
     </div>
 </template>
 
@@ -17,7 +17,7 @@
                 return {
                     ...this.$attrs,
                     'aria-describedby': this.errorId,
-                    class: ['iande-input', this.fieldClass, this.validations.$error && 'invalid'],
+                    class: ['iande-input', this.fieldClass, this.v.$error && 'invalid'],
                     id: this.id,
                     name: this.id,
                 }
