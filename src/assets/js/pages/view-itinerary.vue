@@ -192,7 +192,7 @@
             gotoPage (page) {
                 this.cover = false
                 this.page = page
-                window.location.hash = '#' + (page + 1)
+                window.location.hash = `#${page + 1}`
             },
             nextPage () {
                 if (this.page === this.itinerary.items.length - 1) {
