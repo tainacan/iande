@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="iande-button iande-itinerary-cover__start-button" @click="cover = false">
+                        <button class="iande-button iande-itinerary-cover__start-button" @click="gotoPage(0)">
                             {{ __('Iniciar', 'iande') }}
                             <Icon icon="angle-right"/>
                         </button>
@@ -155,7 +155,15 @@
                     const itineraryID = qs.get('ID')
                     const itinerary = await api.get(`itinerary/get/?ID=${itineraryID}&public=1`)
                     this.itinerary = itinerary
-                    await this.fetchItem(0)
+
+                    const hash = window.location.hash ? window.location.hash.slice(1) : NaN
+                    const startPage = Number(hash) - 1
+                    if (!isNaN(startPage) && itinerary.items[startPage]) {
+                        await this.fetchItem(startPage)
+                        this.gotoPage(startPage)
+                    } else {
+                        await this.fetchItem(0)
+                    }
                 } catch (err) {
                     console.error(err)
                 }
@@ -179,12 +187,18 @@
             gotoCover () {
                 this.cover = true
                 this.page = 0
+                window.location.hash = ''
+            },
+            gotoPage (page) {
+                this.cover = false
+                this.page = page
+                window.location.hash = '#' + (page + 1)
             },
             nextPage () {
                 if (this.page === this.itinerary.items.length - 1) {
                     this.gotoCover()
                 } else {
-                    this.page++
+                    this.gotoPage(this.page + 1)
                 }
             },
             openModal () {
@@ -196,7 +210,7 @@
                 if (this.page === 0) {
                     this.gotoCover()
                 } else {
-                    this.page--
+                    this.gotoPage(this.page - 1)
                 }
             },
             share () {
