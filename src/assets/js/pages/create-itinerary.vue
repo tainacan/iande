@@ -5,26 +5,26 @@
                 <h1>{{ __('Novo roteiro virtual', 'iande') }}</h1>
 
                 <div>
-                    <label for="name" class="iande-label">{{ __('Nome do roteiro', 'iande') }}</label>
+                    <Label for="name">{{ __('Nome do roteiro', 'iande') }}</Label>
                     <Input id="name" type="text" :placeholder="__('Título do roteiro', 'iande')" v-model="form.name" :v="$v.form.name"/>
                 </div>
 
                 <div>
-                    <label for="description" class="iande-label">{{ __('Descrição breve', 'iande') }}</label>
+                    <Label for="description">{{ __('Descrição breve', 'iande') }}</Label>
                     <TextArea id="description" v-model="form.description" :v="$v.form.description"/>
                 </div>
 
                 <div>
-                    <label for="source" class="iande-label">{{ __('Escolha como você quer montar o roteiro', 'iande') }}</label>
+                    <Label for="source">{{ __('Escolha como você quer montar o roteiro', 'iande') }}</Label>
                     <RadioGroup id="source" columns v-model="form.source" :v="$v.form.source" :options="sourceOptions"/>
                 </div>
 
                 <div v-if="form.source === 'exhibition'">
-                    <label for="exhibition" class="iande-label">{{ __('Selecione uma exposição', 'iande') }}</label>
+                    <Label for="exhibition">{{ __('Selecione uma exposição', 'iande') }}</Label>
                     <Select id="exhibition" :placeholder="__('Selecione uma exposição', 'iande')" v-model="form.exhibition" :v="$v.form.exhibition" :options="exhibitionOptions"/>
                 </div>
                 <div v-else-if="form.source === 'collection'">
-                    <label for="collection" class="iande-label">{{ __('Selecione uma coleção', 'iande') }}</label>
+                    <Label for="collection">{{ __('Selecione uma coleção', 'iande') }}</Label>
                     <Select id="collection" :placeholder="__('Selecione uma coleção', 'iande')" v-model="form.collection" :v="$v.form.collection" :options="collectionOptions"/>
                 </div>
 
@@ -47,6 +47,7 @@
 
 
     import Input from '@components/Input.vue'
+    import Label from '@components/Label.vue'
     import RadioGroup from '@components/RadioGroup.vue'
     import Select from '@components/Select.vue'
     import TextArea from '@components/TextArea.vue'
@@ -57,6 +58,7 @@
         name: 'EditItineraryPage',
         components: {
             Input,
+            Label,
             RadioGroup,
             Select,
             TextArea,

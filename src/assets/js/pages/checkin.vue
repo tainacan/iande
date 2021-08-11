@@ -9,19 +9,19 @@
 
                 <template v-else>
                     <div>
-                        <label for="showed" class="iande-label">O grupo apareceu para a visita?</label>
+                        <Label for="showed">O grupo apareceu para a visita?</Label>
                         <RadioGroup id="showed" v-model="form.checkin_showed" :v="$v.form.checkin_showed" :options="binaryOptions"/>
                     </div>
 
                     <template v-if="showedYes">
                         <div>
-                            <label for="hour" class="iande-label">Horário efetivo de início da visita</label>
+                            <Label for="hour">Horário efetivo de início da visita</Label>
                             <div class="iande-hint">A visita foi agendada para ocorrer entre <b>{{ group.hour }} - {{ endHour }}</b>. Informe se o grupo iniciou a visita no horário previsto.</div>
                             <RadioGroup id="hour" v-model="form.checkin_hour" :v="$v.form.checkin_hour" :options="binaryOptions"/>
                         </div>
 
                         <div>
-                            <label for="num-people" class="iande-label">Quantidade efetiva de integrantes do grupo</label>
+                            <Label for="num-people">Quantidade efetiva de integrantes do grupo</Label>
                             <div class="iande-hint">O agendamendo considera a previsão de <b>{{ group.num_people }} pessoas</b> no total. Infome se o grupo presente condiz com informações agendadas.</div>
                             <RadioGroup id="num-people" v-model="form.checkin_num_people" :v="$v.form.checkin_num_people" :options="binaryOptions"/>
                         </div>
@@ -31,7 +31,7 @@
                         </div>
 
                         <div>
-                            <label for="num-responsible" class="iande-label">Quantidade efetiva de responsáveis</label>
+                            <Label for="num-responsible">Quantidade efetiva de responsáveis</Label>
                             <div class="iande-hint">O agendamendo considera a previsão de <b>{{ group.num_responsible }} responsáveis</b>. Infome se o grupo presente condiz com informações agendadas.</div>
                             <RadioGroup id="num-responsible" v-model="form.checkin_num_responsible" :v="$v.form.checkin_num_responsible" :options="binaryOptions"/>
                         </div>
@@ -41,12 +41,12 @@
                         </div>
 
                         <div>
-                            <label for="disabilities" class="iande-label">Quantidade efetiva de pessoas com cada tipo de deficiência</label>
+                            <Label for="disabilities">Quantidade efetiva de pessoas com cada tipo de deficiência</Label>
                             <div class="iande-hint">O agendamendo prevê <span v-html="disabilities"/>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="disabilities" v-model="form.checkin_disabilities" :v="$v.form.checkin_disabilities" :options="binaryOptions"/>
                         </div>
                         <div v-if="form.checkin_disabilities === 'no'">
-                            <label for="disabilities-actual" class="iande-hit">Quantas pessoas com deficiência apareceram efetivamente?</label>
+                            <label for="disabilities-actual" class="iande-hint">Quantas pessoas com deficiência apareceram efetivamente?</label>
                             <div class="iande-complex-field">
                                 <Repeater id="disabilities-actual" v-model="form.checkin_disabilities_actual" :factory="newDisability" :v="$v.form.checkin_disabilities_actual">
                                     <template #item="{ id, onUpdate, validations, value }">
@@ -65,12 +65,12 @@
                         </div>
 
                         <div>
-                            <label for="languages" class="iande-label">Quantidade efetiva de pessoas falando outros idiomas diferentes de português</label>
+                            <Label for="languages">Quantidade efetiva de pessoas falando outros idiomas diferentes de português</Label>
                             <div class="iande-hint">O agendamendo prevê <span v-html="languages"/>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="languages" v-model="form.checkin_languages" :v="$v.form.checkin_languages" :options="binaryOptions"/>
                         </div>
                         <div v-if="form.checkin_languages === 'no'">
-                            <label for="languages-actual" class="iande-hit">Quais os idiomas falados pelo grupo efetivamente?</label>
+                            <label for="languages-actual" class="iande-hint">Quais os idiomas falados pelo grupo efetivamente?</label>
                             <div class="iande-complex-field">
                                 <Repeater id="languages-actual" v-model="form.checkin_languages_actual" :factory="newLanguage" :v="$v.form.checkin_languages_actual">
                                     <template #item="{ id, onUpdate, validations, value }">
@@ -89,7 +89,7 @@
                         </div>
 
                         <div>
-                            <label for="scholarity" class="iande-label">Confirmação de escolaridade</label>
+                            <Label for="scholarity">Confirmação de escolaridade</Label>
                             <div class="iande-hint">O agendamendo prevê <b>{{ group.scholarity }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="scholarity" v-model="form.checkin_scholarity" :v="$v.form.checkin_scholarity" :options="binaryOptions"/>
                         </div>
@@ -99,7 +99,7 @@
                         </div>
 
                         <div>
-                            <label for="age-range" class="iande-label">Confirmação de faixa etária</label>
+                            <Label for="age-range">Confirmação de faixa etária</Label>
                             <div class="iande-hint">O agendamendo prevê <b>{{ group.age_range.toLocaleLowerCase() }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="age-range" v-model="form.checkin_age_range" :v="$v.form.checkin_age_range" :options="binaryOptions"/>
                         </div>
@@ -109,12 +109,12 @@
                         </div>
 
                         <div>
-                            <label for="institutional" class="iande-label">O grupo é institucional?</label>
+                            <Label for="institutional">O grupo é institucional?</Label>
                             <RadioGroup id="institutional" v-model="form.checkin_institutional" :v="$v.form.checkin_institutional" :options="binaryOptions"/>
                         </div>
 
                         <div v-if="form.checkin_institutional === 'yes'">
-                            <label for="institution" class="iande-label">Tipo / perfil da instituição</label>
+                            <Label for="institution">Tipo / perfil da instituição</Label>
                             <div class="iande-hint" v-if="institution && appointment.group_nature === 'institutional'">O agendamendo prevê <b>{{ institution.profile }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
                             <RadioGroup id="institution" v-model="form.checkin_institution" :v="$v.form.checkin_institution" :options="binaryOptions"/>
                         </div>
@@ -126,15 +126,15 @@
 
                     <template v-else-if="showedNo">
                         <div>
-                            <label for="noshow-type" class="iande-label">A visita não foi realizada devido a</label>
+                            <Label for="noshow-type">A visita não foi realizada devido a</Label>
                             <RadioGroup id="noshow-type" v-model="form.checkin_noshow_type" :v="$v.form.checkin_noshow_type" :options="noshowTypeOptions"/>
                         </div>
 
                         <div v-if="form.checkin_noshow_type">
-                            <label for="noshow-reason" class="iande-label">Qual desafio impossibilitou a visita?</label>
+                            <Label for="noshow-reason">Qual desafio impossibilitou a visita?</Label>
                             <RadioGroup id="noshow-reason" columns v-model="form.checkin_noshow_reason" :v="$v.form.checkin_noshow_reason" :options="noshowReasonOptions"/>
                             <template v-if="isOther(form.checkin_noshow_reason)">
-                                <label for="noshow-reason-other" class="iande-label">Qual?</label>
+                                <Label for="noshow-reason-other">Qual?</Label>
                                 <TextArea id="noshow-reason-other" columns v-model="form.checkin_noshow_reason_other" :v="$v.form.checkin_noshow_reason_other"/>
                             </template>
                         </div>
@@ -161,6 +161,7 @@
 
     import DisabilityInfo from '@components/DisabilityInfo.vue'
     import Input from '@components/Input.vue'
+    import Label from '@components/Label.vue'
     import LanguageInfo from '@components/LanguageInfo.vue'
     import RadioGroup from '@components/RadioGroup.vue'
     import Repeater from '@components/Repeater.vue'
@@ -173,6 +174,7 @@
         components: {
             DisabilityInfo,
             Input,
+            Label,
             LanguageInfo,
             RadioGroup,
             Repeater,

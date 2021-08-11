@@ -4,11 +4,11 @@
             <h1>{{ __('Alteração de senha', 'iande') }}</h1>
             <form class="iande-form iande-stack stack-lg" @submit.prevent="changePassword">
                 <div>
-                    <label class="iande-label" for="password">{{ __('Nova senha', 'iande') }}</label>
+                    <Label for="password">{{ __('Nova senha', 'iande') }}</Label>
                     <Input id="password" type="password" autocomplete="new-password" v-model="password" :v="$v.password"/>
                 </div>
                 <div>
-                    <label class="iande-label" for="confirmPassword">{{ __('Confirmar senha', 'iande') }}</label>
+                    <Label for="confirmPassword">{{ __('Confirmar senha', 'iande') }}</Label>
                     <Input id="confirmPassword" type="password" autocomplete="new-password" v-model="confirmPassword" :v="$v.confirmPassword"/>
                 </div>
                 <div class="iande-form-error" v-if="formError">
@@ -27,12 +27,14 @@
     import { get } from 'vuex-pathify'
 
     import Input from '@components/Input.vue'
+    import Label from '@components/Label.vue'
     import { api } from '@utils'
 
     export default {
         name: 'ChangePasswordPage',
         components: {
             Input,
+            Label,
         },
         data () {
             return {

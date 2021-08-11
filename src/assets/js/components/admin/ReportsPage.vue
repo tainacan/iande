@@ -3,15 +3,15 @@
         <div class="row date-range-fields">
             <p>{{ __('Filtrar:', 'iande') }}</p>
             <div>
-                <label for="date-from" class="iande-label">{{ _x('Início', 'range', 'iande') }}</label>
+                <Label for="date-from">{{ _x('Início', 'range', 'iande') }}</Label>
                 <Datepicker id="date-from" :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateFromRaw"/>
             </div>
             <div>
-                <label for="date-to" class="iande-label">{{ _x('Fim', 'range', 'iande') }}</label>
+                <Label for="date-to">{{ _x('Fim', 'range', 'iande') }}</Label>
                 <Datepicker id="date-to" :format="_x('dd/MM/yyyy', 'vuejs-datepicker', 'iande')" v-model="dateToRaw"/>
             </div>
             <div>
-                <label for="exhibition" class="iande-label">{{ __('Exposição', 'iande') }}</label>
+                <Label for="exhibition">{{ __('Exposição', 'iande') }}</Label>
                 <select id="exhibition" v-model="exhibition">
                     <option :value="null">{{ __('Todas as exposições', 'iande') }}</option>
                     <option v-for="e of rawData.exhibitions" :key="e.ID" :value="e.ID">{{ __(e.post_title, 'post_title') }}</option>
@@ -46,6 +46,7 @@
     import CitiesChart from '@components/charts/Cities.vue'
     import ConfirmedGroupsChart from '@components/charts/ConfirmedGroups.vue'
     import GroupsNatureChart from '@components/charts/GroupsNature.vue'
+    import Label from '@components/Label.vue'
     import RecurringVisitorsChart from '@components/charts/RecurringVisitors.vue'
     import ScholarityChart from '@components/charts/Scholarity.vue'
     import StatesChart from '@components/charts/States.vue'
@@ -65,6 +66,7 @@
             ConfirmedGroupsChart,
             Datepicker,
             GroupsNatureChart,
+            Label,
             RecurringVisitorsChart,
             ScholarityChart,
             StatesChart,

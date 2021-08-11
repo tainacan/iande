@@ -4,32 +4,32 @@
             <h1>{{ __('Configuração do roteiro', 'iande') }}</h1>
 
             <div>
-                <label for="name" class="iande-label">{{ __('Título do roteiro', 'iande') }}</label>
+                <Label for="name">{{ __('Título do roteiro', 'iande') }}</Label>
                 <Input id="name" type="text" :placeholder="__('Título do roteiro', 'iande')" v-model="itinerary.name" :v="v.itinerary.name"/>
             </div>
 
             <div>
-                <label for="cover" class="iande-label">{{ __('Imagem de capa', 'iande') }}</label>
+                <Label for="cover">{{ __('Imagem de capa', 'iande') }}</Label>
                 <FileUploader id="cover" accept="image/*" v-model="itinerary.cover" :v="v.itinerary.cover"/>
             </div>
 
             <div>
-                <label for="description" class="iande-label">{{ __('Descrição breve', 'iande') }}<span class="iande-label__optional">{{ __('(opcional)', 'iande') }}</span></label>
+                <Label for="description" :side="__('(opcional)', 'iande')">{{ __('Descrição breve', 'iande') }}</Label>
                 <TextArea id="description" v-model="itinerary.description" :v="v.itinerary.description"/>
             </div>
 
             <div>
-                <label for="publicly_findable" class="iande-label">{{ __('O roteiro será aberto ao público ou restrito a quem tiver o link de acesso?', 'iande') }}</label>
+                <Label for="publicly_findable">{{ __('O roteiro será aberto ao público ou restrito a quem tiver o link de acesso?', 'iande') }}</Label>
                 <RadioGroup id="publicly_findable" v-model="itinerary.publicly_findable" :options="publicOptions" :v="v.itinerary.publicly_findable"/>
             </div>
 
             <div>
-                <label for="shareable" class="iande-label">{{ __('Você deseja deixar seu roteiro compartilhável?', 'iande') }}</label>
+                <Label for="shareable">{{ __('Você deseja deixar seu roteiro compartilhável?', 'iande') }}</Label>
                 <RadioGroup id="shareable" v-model="itinerary.shareable" :options="shareOptions" :v="v.itinerary.shareable"/>
             </div>
 
             <div>
-                <label for="layout" class="iande-label">{{ __('Escolha o layout de visualização desktop do roteiro', 'iande') }}</label>
+                <Label for="layout">{{ __('Escolha o layout de visualização desktop do roteiro', 'iande') }}</Label>
                 <LayoutSelector id="layout" v-model="itinerary.layout" :v="v.itinerary.layout"/>
             </div>
 
@@ -53,6 +53,7 @@
 <script>
     import FileUploader from '@components/FileUploader.vue'
     import Input from '@components/Input.vue'
+    import Label from '@components/Label.vue'
     import LayoutSelector from '@components/LayoutSelector.vue'
     import RadioGroup from '@components/RadioGroup.vue'
     import TextArea from '@components/TextArea.vue'
@@ -64,6 +65,7 @@
         components: {
             FileUploader,
             Input,
+            Label,
             LayoutSelector,
             RadioGroup,
             TextArea,

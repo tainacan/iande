@@ -9,45 +9,45 @@
 
                 <template v-else>
                     <div>
-                        <label for="type" class="iande-label">{{ __('Que tipo de visita você realizou? Marque até duas alternativas', 'iande') }}</label>
+                        <Label for="type">{{ __('Que tipo de visita você realizou? Marque até duas alternativas', 'iande') }}</Label>
                         <CheckboxGroup id="type" columns v-model="form.report_type" :v="$v.form.report_type" :options="typeOptions"/>
                     </div>
 
                     <div>
-                        <label for="interest" class="iande-label">{{ __('Qual foi o grau de interesse da maior parte do grupo durante a visita?', 'iande') }}</label>
+                        <Label for="interest">{{ __('Qual foi o grau de interesse da maior parte do grupo durante a visita?', 'iande') }}</Label>
                         <RadioGroup id="interest" columns v-model="form.report_interest" :v="$v.form.report_interest" :options="interestOptions"/>
                     </div>
 
                     <div>
-                        <label for="mood" class="iande-label">{{ __('Como você classificaria a postura da maior parte do grupo durante a visita? Marque até duas alternativas', 'iande') }}</label>
+                        <Label for="mood">{{ __('Como você classificaria a postura da maior parte do grupo durante a visita? Marque até duas alternativas', 'iande') }}</Label>
                         <CheckboxGroup id="mood" columns v-model="form.report_mood" :v="$v.form.report_mood" :options="moodOptions"/>
                         <template v-if="hasOther(form.report_mood)">
-                            <label for="mood-other" class="iande-label">{{ __('Qual?', 'iande') }}</label>
+                            <Label for="mood-other">{{ __('Qual?', 'iande') }}</Label>
                             <Input id="mood-other" type="text" v-model="form.report_mood_other" :v="$v.form.report_mood_other"/>
                         </template>
                     </div>
 
                     <div>
-                        <label for="interactive" class="iande-label">{{ __('A visita educativa suscitou interações entre o visitante e a exposição?', 'iande') }}</label>
+                        <Label for="interactive">{{ __('A visita educativa suscitou interações entre o visitante e a exposição?', 'iande') }}</Label>
                         <RadioGroup id="interactive" columns v-model="form.report_interactive" :v="$v.form.report_interactive" :options="interactiveOptions"/>
                     </div>
 
                     <div>
-                        <label for="interaction" class="iande-label">{{ __('Que tipo de visita você realizou? Marque até duas alternativas', 'iande') }}</label>
+                        <Label for="interaction">{{ __('Que tipo de visita você realizou? Marque até duas alternativas', 'iande') }}</Label>
                         <CheckboxGroup id="interaction" columns v-model="form.report_interaction" :v="$v.form.report_interaction" :options="interactionOptions"/>
                     </div>
 
                     <div>
-                        <label for="difficulty" class="iande-label">{{ __('Assinale as principais dificuldades encontradas. Marque até duas alternativas', 'iande') }}</label>
+                        <Label for="difficulty">{{ __('Assinale as principais dificuldades encontradas. Marque até duas alternativas', 'iande') }}</Label>
                         <CheckboxGroup id="difficulty" columns v-model="form.report_difficulty" :v="$v.form.report_difficulty" :options="difficultyOptions"/>
                         <template v-if="hasOther(form.report_difficulty)">
-                            <label for="difficulty-other" class="iande-label">{{ __('Qual?', 'iande') }}</label>
+                            <Label for="difficulty-other">{{ __('Qual?', 'iande') }}</Label>
                             <Input id="difficulty-other" type="text" v-model="form.report_difficulty_other" :v="$v.form.report_difficulty_other"/>
                         </template>
                     </div>
 
                     <div>
-                        <label for="summary" class="iande-label">{{ __('Resumo da visita', 'iande') }}<span class="iande-label__optional">{{ __('(opcional)', 'iande') }}</span></label>
+                        <Label for="summary" :side="__('(opcional)', 'iande')">{{ __('Resumo da visita', 'iande') }}</Label>
                         <TextArea id="summary" :placeholder="__('Escreva aqui', 'iande')" v-model="form.report_summary" :v="$v.form.report_summary"/>
                     </div>
 
@@ -71,6 +71,7 @@
 
     import CheckboxGroup from '@components/CheckboxGroup.vue'
     import Input from '@components/Input.vue'
+    import Label from '@components/Label.vue'
     import RadioGroup from '@components/RadioGroup.vue'
     import TextArea from '@components/TextArea.vue'
     import { api, constant, isOther, qs } from '@utils'
@@ -80,6 +81,7 @@
         components: {
             CheckboxGroup,
             Input,
+            Label,
             RadioGroup,
             TextArea,
         },

@@ -1,11 +1,11 @@
 <template>
     <div class="iande-stack stack-lg">
         <div>
-            <label :for="`${id}_name`" class="iande-label">{{ __('Qual idioma?', 'iande') }}</label>
+            <Label :for="`${id}_name`">{{ __('Qual idioma?', 'iande') }}</Label>
             <Select :id="`${id}_name`" v-model="name" :v="v.languages_name" :options="$iande.languages"/>
         </div>
         <div v-if="isOther(name)">
-            <label :for="`${id}_other`" class="iande-label">{{ __('Especifique o idioma', 'iande') }}</label>
+            <Label :for="`${id}_other`">{{ __('Especifique o idioma', 'iande') }}</Label>
             <Input :id="`${id}_other`" type="text" v-model="other" :v="v.languages_other"/>
         </div>
     </div>
@@ -13,6 +13,7 @@
 
 <script>
     import Input from '@components/Input.vue'
+    import Label from '@components/Label.vue'
     import Select from '@components/Select.vue'
     import CustomField from '@mixins/CustomField'
     import { isOther, subModel, watchForOther } from '@utils'
@@ -21,6 +22,7 @@
         name: 'LanguageInfo',
         components: {
             Input,
+            Label,
             Select,
         },
         mixins: [CustomField],

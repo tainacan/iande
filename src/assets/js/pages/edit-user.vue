@@ -4,19 +4,19 @@
             <h1>{{ __('Edição de usuário', 'iande') }}</h1>
             <form class="iande-form iande-stack stack-lg" @submit.prevent="updateUser">
                 <div>
-                    <label class="iande-label" for="firstName">{{ __('Nome', 'iande') }}</label>
+                    <Label for="firstName">{{ __('Nome', 'iande') }}</Label>
                     <Input id="firstName" type="text" v-model="firstName" :v="$v.firstName"/>
                 </div>
                 <div>
-                    <label class="iande-label" for="lastName">{{ __('Sobrenome', 'iande') }}</label>
+                    <Label for="lastName">{{ __('Sobrenome', 'iande') }}</Label>
                     <Input id="lastName" type="text" v-model="lastName" :v="$v.lastName"/>
                 </div>
                 <div>
-                    <label class="iande-label" for="email">{{ __('E-mail', 'iande') }}</label>
+                    <Label for="email">{{ __('E-mail', 'iande') }}</Label>
                     <Input id="email" type="email" v-model="email" :v="$v.email"/>
                 </div>
                 <div>
-                    <label class="iande-label" for="phone">{{ __('Telefone', 'iande') }}</label>
+                    <Label for="phone">{{ __('Telefone', 'iande') }}</Label>
                     <MaskedInput id="phone" type="tel" :mask="phoneMask" :placeholder="__('DDD + Telefone', 'iande')" v-model="phone" :v="$v.phone"/>
                 </div>
                 <div class="iande-form-error" v-if="formError">
@@ -35,6 +35,7 @@
     import { get } from 'vuex-pathify'
 
     import Input from '@components/Input.vue'
+    import Label from '@components/Label.vue'
     import MaskedInput from '@components/MaskedInput.vue'
     import { api, constant } from '@utils'
     import { phone } from '@utils/validators'
@@ -43,6 +44,7 @@
         name: 'EditUserPage',
         components: {
             Input,
+            Label,
             MaskedInput,
         },
         data () {

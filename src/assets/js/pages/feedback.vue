@@ -9,44 +9,44 @@
 
                 <template v-else>
                     <div>
-                        <label for="visit" class="iande-label">{{ __('O que você achou da visita educativa?', 'iande') }}</label>
+                        <Label for="visit">{{ __('O que você achou da visita educativa?', 'iande') }}</Label>
                         <RadioGroup id="visit" columns v-model="form.feedback_visit" :v="$v.form.feedback_visit" :options="qualityOptions"/>
                     </div>
 
                     <div>
-                        <label for="educator" class="iande-label">{{ __('O que você achou da atuação do educador?', 'iande') }}</label>
+                        <Label for="educator">{{ __('O que você achou da atuação do educador?', 'iande') }}</Label>
                         <RadioGroup id="educator" columns v-model="form.feedback_educator" :v="$v.form.feedback_educator" :options="qualityOptions"/>
                     </div>
 
                     <div>
-                        <label for="mood" class="iande-label">{{ __('Você acha que a atuação do educador suscitou que tipo de reação do grupo?', 'iande') }}</label>
+                        <Label for="mood">{{ __('Você acha que a atuação do educador suscitou que tipo de reação do grupo?', 'iande') }}</Label>
                         <RadioGroup id="mood" columns v-model="form.feedback_mood" :v="$v.form.feedback_mood" :options="moodOptions"/>
                         <template v-if="isOther(form.feedback_mood)">
-                            <label for="mood-other" class="iande-label">{{ __('Qual?', 'iande') }}</label>
+                            <Label for="mood-other">{{ __('Qual?', 'iande') }}</Label>
                             <Input id="mood-other" type="text" v-model="form.feedback_mood_other" :v="$v.form.feedback_mood_other"/>
                         </template>
                     </div>
 
                     <div>
-                        <label for="liked" class="iande-label">{{ __('O que você mais gostou na visita?', 'iande') }}</label>
+                        <Label for="liked">{{ __('O que você mais gostou na visita?', 'iande') }}</Label>
                         <RadioGroup id="liked" columns v-model="form.feedback_liked" :v="$v.form.feedback_liked" :options="likedOptions"/>
                         <template v-if="isOther(form.feedback_liked)">
-                            <label for="liked-other" class="iande-label">{{ __('Qual?', 'iande') }}</label>
+                            <Label for="liked-other">{{ __('Qual?', 'iande') }}</Label>
                             <Input id="liked-other" type="text" v-model="form.feedback_liked_other" :v="$v.form.feedback_liked_other"/>
                         </template>
                     </div>
 
                     <div>
-                        <label for="disliked" class="iande-label">{{ __('O que você menos gostou na visita?', 'iande') }}</label>
+                        <Label for="disliked">{{ __('O que você menos gostou na visita?', 'iande') }}</Label>
                         <RadioGroup id="disliked" columns v-model="form.feedback_disliked" :v="$v.form.feedback_disliked" :options="dislikedOptions"/>
                         <template v-if="isOther(form.feedback_disliked)">
-                            <label for="disliked-other" class="iande-label">{{ __('Qual?', 'iande') }}</label>
+                            <Label for="disliked-other">{{ __('Qual?', 'iande') }}</Label>
                             <Input id="disliked-other" type="text" v-model="form.feedback_disliked_other" :v="$v.form.feedback_disliked_other"/>
                         </template>
                     </div>
 
                     <div>
-                        <label for="comment" class="iande-label">{{ __('Deixe aqui seus comentários', 'iande') }}</label>
+                        <Label for="comment">{{ __('Deixe aqui seus comentários', 'iande') }}</Label>
                         <TextArea id="comment" :placeholder="__('Escreva aqui', 'iande')" v-model="form.feedback_comment" :v="$v.form.feedback_comment"/>
                     </div>
 
@@ -69,6 +69,7 @@
     import { required } from 'vuelidate/lib/validators'
 
     import Input from '@components/Input.vue'
+    import Label from '@components/Label.vue'
     import RadioGroup from '@components/RadioGroup.vue'
     import TextArea from '@components/TextArea.vue'
     import { __, _x } from '@plugins/wp-i18n'
@@ -78,6 +79,7 @@
         name: 'FeedbackPage',
         components: {
             Input,
+            Label,
             RadioGroup,
             TextArea,
         },

@@ -3,7 +3,7 @@
         <h1>{{ __('Natureza do grupo', 'iande') }}</h1>
         <p v-html="__('Escolas, ONGs, fundações e outras instituições devem preencher o campo como <b>Grupo Institucional</b>. Famílias, grupos de amigos ou turistas devem se cadastrar como <b>Outra</b>.', 'iande')"/>
         <div>
-            <label class="iande-label" for="isContact">{{ __('Você é o contato responsável pela visita?', 'iande') }}</label>
+            <Label for="isContact">{{ __('Você é o contato responsável pela visita?', 'iande') }}</Label>
             <RadioGroup id="isContact" v-model="isContact" :v="$v.isContact" :options="binaryOptions"/>
         </div>
         <div v-show="isContact !== 'yes'">
@@ -16,24 +16,24 @@
             </div>
         </div>
         <div v-if="requireExemption">
-            <label class="iande-label" for="requestedExemption">{{ __('Deseja solicitar formulário de isenção de ingresso?', 'iande') }}</label>
+            <Label for="requestedExemption">{{ __('Deseja solicitar formulário de isenção de ingresso?', 'iande') }}</Label>
             <RadioGroup id="requestedExemption" v-model="requestedExemption" :v="$v.requestedExemption" :options="binaryOptions"/>
         </div>
         <div>
-            <label class="iande-label" for="nature">{{ __('Natureza do grupo', 'iande') }}</label>
+            <Label for="nature">{{ __('Natureza do grupo', 'iande') }}</Label>
             <Select id="nature" v-model="nature" :v="$v.nature" :options="natureOptions"/>
         </div>
         <template v-if="!institutionOptional">
             <div>
-                <label class="iande-label" for="role">{{ __('Informe sua relação com a instituição', 'iande') }}</label>
+                <Label for="role">{{ __('Informe sua relação com a instituição', 'iande') }}</Label>
                 <Select id="role" v-model="role" :v="$v.role" :options="$iande.responsibleRoles" />
             </div>
             <div v-if="isOther(role)">
-                <label class="iande-label" for="roleOther">{{ __('Especifique sua relação com a instituição', 'iande') }}</label>
+                <Label for="roleOther">{{ __('Especifique sua relação com a instituição', 'iande') }}</Label>
                 <Input id="roleOther" type="text" v-model="roleOther" :v="$v.roleOther"/>
             </div>
             <div>
-                <label class="iande-label" for="institution">{{ __('Instituição responsável pela visita', 'iande') }}</label>
+                <Label for="institution">{{ __('Instituição responsável pela visita', 'iande') }}</Label>
                 <Select id="institution" v-model="institution" :v="$v.institution" :options="institutionOptions"/>
             </div>
             <div class="iande-add-item" v-if="canAddInstitution" role="button" tabindex="0" @click="addInstitution">
@@ -49,6 +49,7 @@
     import { get, sync } from 'vuex-pathify'
 
     import Input from '@components/Input.vue'
+    import Label from '@components/Label.vue'
     import MaskedInput from '@components/MaskedInput.vue'
     import RadioGroup from '@components/RadioGroup.vue'
     import Select from '@components/Select.vue'
@@ -62,6 +63,7 @@
         name: 'SelectInstitution',
         components: {
             Input,
+            Label,
             MaskedInput,
             RadioGroup,
             Select,

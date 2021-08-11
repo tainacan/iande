@@ -2,23 +2,23 @@
     <section class="iande-group iande-stack stack-lg">
         <h2 class="iande-group-title">{{ sprintf(__('Grupo %s: %s', 'iande'), n, value.name) }}</h2>
         <div>
-            <label :for="`${id}_numPeople`" class="iande-label">{{ __('Quantidade prevista de pessoas', 'iande') }}<span class="iande-label__optional">{{ sprintf(__('Máximo de %s pessoas', 'iande'), maxPeople) }}</span></label>
+            <Label :for="`${id}_numPeople`" :side="sprintf(__('Máximo de %s pessoas', 'iande'), maxPeople)">{{ __('Quantidade prevista de pessoas', 'iande') }}</Label>
             <Input :id="`${id}_numPeople`" type="number" :min="minPeople" :max="maxPeople" :placeholder="sprintf(__('Mínimo de %s pessoas', 'iande'), minPeople)" v-model.number="numPeople" :v="v.num_people"/>
         </div>
         <div>
-            <label :for="`${id}_ageRange`" class="iande-label">{{ __('Perfil etário', 'iande') }}</label>
+            <Label :for="`${id}_ageRange`">{{ __('Perfil etário', 'iande') }}</Label>
             <Select :id="`${id}_ageRange`" v-model="ageRange" :v="v.age_range" :options="$iande.ageRanges"/>
         </div>
         <div>
-            <label :for="`${id}_scholarity`" class="iande-label">{{ __('Escolaridade', 'iande') }}</label>
+            <Label :for="`${id}_scholarity`">{{ __('Escolaridade', 'iande') }}</Label>
             <Select :id="`${id}_scholarity`" v-model="scholarity" :v="v.scholarity" :options="$iande.scholarity"/>
         </div>
         <div>
-            <label :for="`${id}_numResponsible`" class="iande-label">{{ __('Quantidade prevista de responsáveis', 'iande') }}</label>
+            <Label :for="`${id}_numResponsible`">{{ __('Quantidade prevista de responsáveis', 'iande') }}</Label>
             <Input :id="`${id}_numResponsible`" type="number" min="1" max="2" :placeholder="__('Mínimo de 1 e máximo de 2 pessoas', 'iande')" v-model.number="numResponsible" :v="v.num_responsible"/>
         </div>
         <div>
-            <label :for="`${id}_otherLanguages`" class="iande-label">{{ __('O grupo fala algum idioma diferente de português?', 'iande') }}</label>
+            <Label :for="`${id}_otherLanguages`">{{ __('O grupo fala algum idioma diferente de português?', 'iande') }}</Label>
             <RadioGroup :id="`${id}_otherLanguages`" v-model="otherLanguages" :v="$v.otherLanguages" :options="binaryOptions"/>
         </div>
         <template v-if="otherLanguages">
@@ -37,7 +37,7 @@
             </Repeater>
         </template>
         <div>
-            <label :for="`${id}_haveDisabilities`" class="iande-label">{{ __('Há pessoa com deficiência no grupo?', 'iande') }}</label>
+            <Label :for="`${id}_haveDisabilities`">{{ __('Há pessoa com deficiência no grupo?', 'iande') }}</Label>
             <RadioGroup :id="`${id}_haveDisabilities`" v-model="haveDisabilities" :v="$v.haveDisabilities" :options="binaryOptions"/>
         </div>
         <template v-if="haveDisabilities">
@@ -63,6 +63,7 @@
 
     import DisabilityInfo from '@components/DisabilityInfo.vue'
     import Input from '@components/Input.vue'
+    import Label from '@components/Label.vue'
     import LanguageInfo from '@components/LanguageInfo.vue'
     import RadioGroup from '@components/RadioGroup.vue'
     import Repeater from '@components/Repeater.vue'
@@ -76,6 +77,7 @@
         components: {
             DisabilityInfo,
             Input,
+            Label,
             LanguageInfo,
             RadioGroup,
             Repeater,
