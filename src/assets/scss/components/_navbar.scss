@@ -19,6 +19,10 @@
             margin-left: 1ex;
         }
     }
+
+    @media print {
+        display: none;
+    }
 }
 
 .iande-navbar {
@@ -160,5 +164,9 @@
                 }
             }
         }
+    }
+
+    @media print {
+        display: none;
     }
 }

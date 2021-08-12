@@ -2,7 +2,13 @@
     <article class="mt-lg">
         <div class="iande-container iande-stack stack-lg">
             <h1>{{ __('Calendário geral', 'iande') }}</h1>
-            <AppointmentsFilter id="view" :label="__('Modo de visualização', 'iande')" :options="viewModeOptions" v-model="viewMode"/>
+            <div class="iande-appointments-toolbar">
+                <AppointmentsFilter id="view" :label="__('Modo de visualização', 'iande')" :options="viewModeOptions" v-model="viewMode"/>
+                <a class="iande-button small outline" :href="$iandeUrl('group/print')" target="_blank">
+                    <Icon icon="print"/>
+                    {{ __('Imprimir', 'iande') }}
+                </a>
+            </div>
             <div class="iande-groups-legend" aria-hidden="true">
                 <div class="iande-groups-legend__label"><Icon icon="question-circle"/> {{ __('Legenda da mediação:', 'iande') }}</div>
                 <div class="iande-groups-legend__entry assigned-other">{{ __('Com mediação atribuída', 'iande') }}</div>

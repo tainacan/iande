@@ -460,6 +460,17 @@ class Group extends Controller
     }
 
     /**
+     * Renderiza a listagem de grupos, para impressão
+     *
+     * @param array $params
+     * return void
+     */
+    function view_print(array $params = []) {
+        $this->require_admin();
+        $this->render_vue(__('Próximos grupos', 'iande'), 'print-groups');
+    }
+
+    /**
      * Renderiza o calendário de grupos para educadores
      *
      * @param array $params
@@ -471,7 +482,7 @@ class Group extends Controller
         $this->render_vue(__('Calendário geral', 'iande'), 'list-groups');
     }
 
-        /**
+    /**
      * Renderiza a tela de avaliação do educador
      *
      * @param array $params

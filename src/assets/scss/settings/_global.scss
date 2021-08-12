@@ -33,6 +33,20 @@ body {
         }
     }
 
+    .iande-print-page {
+        margin: auto;
+        width: 100%;
+
+        @media screen {
+            max-width: 297mm;
+            padding: 30px;
+        }
+
+        @media screen and (max-width: 800px) {
+            padding: 30px 20px;
+        }
+    }
+
     article {
         margin-bottom: 40px;
     }
