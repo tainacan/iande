@@ -13,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-                <PrintGroupsRow v-for="group of sortedGroups" :key="group.ID" :educators="educators" :exhibitions="exhibitions" :group="group"/>
+                <PrintGroupsRow v-for="group of sortedGroups" :key="group.ID" :appointments="appointmentsMap" :educators="educatorsMap" :exhibitions="exhibitions" :group="group" :institutions="institutionsMap"/>
             </tbody>
         </table>
     </article>
@@ -21,10 +21,9 @@
 
 <script>
     import { DateTime } from 'luxon'
-    import { sync } from 'vuex-pathify'
 
     import PrintGroupsRow from '@components/PrintGroupsRow.vue'
-    import { api, sortBy } from '@utils'
+    import { api, arrayToMap, sortBy } from '@utils'
 
     export default {
         name: 'PrintGroupsPage',
@@ -33,17 +32,26 @@
         },
         data () {
             return {
+                appointments: [],
                 educators: [],
                 exhibitions: [],
+                groups: [],
+                institutions: [],
                 nextMonday: null,
                 thisMonday: null,
                 twoWeeks: null,
             }
         },
         computed: {
-            appointments: sync('appointments/list'),
-            groups: sync('groups/list'),
-            institutions: sync('institutions/list'),
+            appointmentsMap () {
+                return arrayToMap(this.appointments, 'ID')
+            },
+            educatorsMap () {
+                return arrayToMap(this.educators, 'ID')
+            },
+            institutionsMap () {
+                return arrayToMap(this.institutions, 'ID')
+            },
             sortedGroups () {
                 const { thisMonday, twoWeeks } = this
                 if (!thisMonday) {

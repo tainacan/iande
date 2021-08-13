@@ -24,24 +24,24 @@
 
 <script>
     import { DateTime } from 'luxon'
-    import { get } from 'vuex-pathify'
 
     import { formatPhone } from '@utils/'
 
     export default {
         name: 'PrintGroupsRow',
         props: {
-            educators: { type: Array, default: () => [] },
-            exhibitions: { type: Array, default: () => [] },
+            appointments: { type: Object, required: true },
+            educators: { type: Object, required: true },
+            exhibitions: { type: Array, required: true },
             group: { type: Object, required: true },
+            institutions: { type: Object, required: true },
         },
         computed: {
             appointment () {
-                return this.appointments.find(appointment => appointment.ID == this.group.appointment_id)
+                return this.appointments[this.group.appointment_id]
             },
-            appointments: get('appointments/list'),
             educator () {
-                return this.educators.find(educator => educator.ID == this.group.educator_id)
+                return this.educators[this.group.educator_id]
             },
             exhibition () {
                 return this.exhibitions.find(exhibition => exhibition.ID == this.group.exhibition_id)
@@ -50,9 +50,8 @@
                 if (!this.appointment) {
                     return null
                 }
-                return this.institutions.find(institution => institution.ID == this.appointment.institution_id)
+                return this.institutions[this.appointment.institution_id]
             },
-            institutions: get('institutions/list'),
         },
         methods: {
             formatDate (date) {
