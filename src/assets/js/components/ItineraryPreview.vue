@@ -10,6 +10,12 @@
             <h3><a :href="$iandeUrl(`itinerary/view/?ID=${itinerary.ID}`)">{{ itinerary.title }}</a></h3>
             <div class="iande-itinerary-preview__bar">
                 <span>{{ sprintf(_n('%s item', '%s itens', numItems, 'iande'), numItems) }}</span>
+                <span>
+                    <span :aria-label="__('Visualizações', 'iande')">
+                        <Icon :icon="['far', 'eye']"/>
+                    </span>
+                    <span>{{ itinerary.views || 0 }}</span>
+                </span>
             </div>
             <p>{{ itinerary.description }}</p>
         </div>

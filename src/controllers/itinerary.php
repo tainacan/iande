@@ -322,6 +322,38 @@ class Itinerary extends Controller {
     }
 
     /**
+     * Registra uma visualização ao roteiro
+     *
+     * @param array $params
+     * @return void
+     */
+    function endpoint_view(array $params = []) {
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        $itinerary = \get_post($params['ID']);
+
+        if (empty($itinerary)) {
+            $this->success(false);
+        } else {
+            $views = \get_post_meta($params['ID'], 'views', true);
+
+            if (empty($views)) {
+                \update_post_meta($params['ID'], 'views', 1);
+            } else {
+                \update_post_meta($params['ID'], 'views', \intval($views) + 1);
+            }
+
+            $this->success(true);
+        }
+    }
+
+    /**
      * Verifica se o usuário tem permissão para ver o roteiro
      * Se não tiver permissão retorna o erro na API
      *
@@ -381,8 +413,12 @@ class Itinerary extends Controller {
         $metadata_definition = get_itinerary_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
-            $parsed_itinerary->$key = isset($metadata[$key][0]) ? maybe_unserialize($metadata[$key][0]) : null;
+            $parsed_itinerary->$key = isset($metadata[$key][0]) ? \maybe_unserialize($metadata[$key][0]) : null;
         }
+
+        $parsed_itinerary->metadata = $metadata;
+
+        $parsed_itinerary->views = isset($metadata['views'][0]) ? \intval($metadata['views'][0]) : 0;
 
         $parsed_itinerary = \apply_filters('iande.parse_itinerary', $parsed_itinerary, $itinerary, $metadata);
 

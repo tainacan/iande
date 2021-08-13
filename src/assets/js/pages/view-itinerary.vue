@@ -153,7 +153,10 @@
             if (qs.has('ID')) {
                 try {
                     const itineraryID = qs.get('ID')
-                    const itinerary = await api.get(`itinerary/get/?ID=${itineraryID}&public=1`)
+                    const [itinerary] = await Promise.all([
+                        api.get(`itinerary/get/?ID=${itineraryID}&public=1`),
+                        api.post(`itinerary/view/?ID=${itineraryID}`),
+                    ])
                     this.itinerary = itinerary
 
                     const hash = window.location.hash ? window.location.hash.slice(1) : NaN

@@ -45,6 +45,16 @@ function register_post_type_itinerary() {
     ];
 
     \register_post_type('itinerary', $itinerary_args);
+
+    /**
+     * Registra os metadados do post type itinerary`
+     */
+    $metadata_definition = get_itinerary_metadata_definition();
+
+    foreach ($metadata_definition as $key => $definition) {
+        \register_post_meta('itinerary', $key, ['type' => $definition->type]);
+    }
+    \register_post_meta('itinerary', 'views', ['type' => 'integer']);
 }
 
 /**
