@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: 'label',
+        name: 'Label',
         props: {
             for: { type: String, required: true },
             side: { type: String, default: '' },
