@@ -18,7 +18,7 @@
                 </span>
                 <span @click="like">
                     <span :aria-label="__('Gostou', 'iande')" :title="__('Gostou', 'iande')" v-if="itinerary.liked">
-                        <Icon icon="star"/>
+                        <Icon icon="star" class="gold"/>
                     </span>
                     <span :aria-label="__('Gostar', 'iande')" :title="__('Gostar', 'iande')" v-else>
                         <Icon :icon="['far', 'star']"/>
