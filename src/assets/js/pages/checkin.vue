@@ -49,9 +49,9 @@
                             <label for="disabilities-actual" class="iande-hint">Quantas pessoas com deficiência apareceram efetivamente?</label>
                             <div class="iande-complex-field">
                                 <Repeater id="disabilities-actual" v-model="form.checkin_disabilities_actual" :factory="newDisability" :v="$v.form.checkin_disabilities_actual">
-                                    <template #item="{ id, onUpdate, validations, value }">
+                                    <template #item="{ id, onUpdate, v, value }">
                                         <div :key="id">
-                                            <DisabilityInfo :id="id" :value="value" :v="validations" @updateValue="onUpdate"/>
+                                            <DisabilityInfo :id="id" :value="value" :v="v" @updateValue="onUpdate"/>
                                         </div>
                                     </template>
                                     <template #addItem="{ action }">
@@ -73,9 +73,9 @@
                             <label for="languages-actual" class="iande-hint">Quais os idiomas falados pelo grupo efetivamente?</label>
                             <div class="iande-complex-field">
                                 <Repeater id="languages-actual" v-model="form.checkin_languages_actual" :factory="newLanguage" :v="$v.form.checkin_languages_actual">
-                                    <template #item="{ id, onUpdate, validations, value }">
+                                    <template #item="{ id, onUpdate, v, value }">
                                         <div :key="id">
-                                            <LanguageInfo :id="id" :value="value" :v="validations" @updateValue="onUpdate"/>
+                                            <LanguageInfo :id="id" :value="value" :v="v" @updateValue="onUpdate"/>
                                         </div>
                                     </template>
                                     <template #addItem="{ action }">

@@ -3,8 +3,8 @@
         <h1>{{ __('Informações do grupo', 'iande') }}</h1>
         <p>{{ __('Nesta etapa você deve dar informações sobre o grupo que irá visitar o museu.', 'iande') }}</p>
         <Repeater id="groups" class="iande-groups" v-model="groups" :factory="newGroup" :resizable="false" :v="$v.groups">
-            <template #item="{ id, onUpdate, validations, value }">
-                <GroupAdditionalInfo :key="id" :id="id" :value="value" :v="validations" @updateValue="onUpdate"/>
+            <template #item="{ id, onUpdate, v, value }">
+                <GroupAdditionalInfo :key="id" :id="id" :value="value" :v="v" @updateValue="onUpdate"/>
             </template>
         </Repeater>
         <FormError id="groups__error" :v="$v.groups" v-if="$v.groups.$error"/>

@@ -23,9 +23,9 @@
         </div>
         <template v-if="otherLanguages">
             <Repeater :id="`${id}_languages`" v-model="languages" :factory="newLanguage" :v="v.languages">
-                <template #item="{ id, onUpdate, validations, value }">
+                <template #item="{ id, onUpdate, v, value }">
                     <div :key="id">
-                        <LanguageInfo :id="id" :value="value" :v="validations" @updateValue="onUpdate"/>
+                        <LanguageInfo :id="id" :value="value" :v="v" @updateValue="onUpdate"/>
                     </div>
                 </template>
                 <template #addItem="{ action }">
@@ -42,9 +42,9 @@
         </div>
         <template v-if="haveDisabilities">
             <Repeater :id="`${id}_disabilities`" v-model="disabilities" :factory="newDisability" :v="v.disabilities">
-                <template #item="{ id, onUpdate, validations, value }">
+                <template #item="{ id, onUpdate, v, value }">
                     <div :key="id">
-                        <DisabilityInfo :id="id" :value="value" :v="validations" @updateValue="onUpdate"/>
+                        <DisabilityInfo :id="id" :value="value" :v="v" @updateValue="onUpdate"/>
                     </div>
                 </template>
                 <template #addItem="{ action }">
