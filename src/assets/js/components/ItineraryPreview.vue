@@ -11,10 +11,19 @@
             <div class="iande-itinerary-preview__bar">
                 <span>{{ sprintf(_n('%s item', '%s itens', numItems, 'iande'), numItems) }}</span>
                 <span>
-                    <span :aria-label="__('Visualizações', 'iande')">
+                    <span :aria-label="__('Visualizações', 'iande')" :title="__('Visualizações', 'iande')">
                         <Icon :icon="['far', 'eye']"/>
                     </span>
                     <span>{{ itinerary.views || 0 }}</span>
+                </span>
+                <span @click="like">
+                    <span :aria-label="__('Gostou', 'iande')" :title="__('Gostou', 'iande')" v-if="itinerary.liked">
+                        <Icon icon="star"/>
+                    </span>
+                    <span :aria-label="__('Gostar', 'iande')" :title="__('Gostar', 'iande')" v-else>
+                        <Icon :icon="['far', 'star']"/>
+                    </span>
+                    <span>{{ itinerary.likes || 0 }}</span>
                 </span>
             </div>
             <p>{{ itinerary.description }}</p>
@@ -24,6 +33,8 @@
 
 <script>
     import { get } from 'vuex-pathify'
+
+    import { api } from '@utils'
 
     export default {
         name: 'ItineraryPreview',
@@ -41,6 +52,18 @@
                 return this.itinerary.items.length
             },
             user: get('users/current'),
+        },
+        methods: {
+            async like() {
+                const result = await api.post(`itinerary/like/?ID=${this.itinerary.ID}`)
+                if (result) {
+                    this.itinerary.liked = true
+                    this.itinerary.likes++
+                } else {
+                    this.itinerary.liked = false
+                    this.itinerary.likes--
+                }
+            }
         },
     }
 </script>

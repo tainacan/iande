@@ -140,6 +140,40 @@ class Itinerary extends Controller {
     }
 
     /**
+     * Adiciona/remove like ao roteiro
+     *
+     * @param array $params
+     * @return void
+     */
+    function endpoint_like(array $params = []) {
+        global $wpdb;
+
+        $this->require_authentication();
+
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        $user_id = \get_current_user_id();
+
+        $sql = $wpdb->prepare("SELECT status FROM `{$wpdb->prefix}iande_likes` WHERE post_id = %d AND user_id = %d", $params['ID'], $user_id);
+        $status = $wpdb->get_var($sql);
+
+        if (empty($status)) {
+            $wpdb->insert($wpdb->prefix . 'iande_likes', ['post_id' => $params['ID'], 'user_id' => $user_id, 'status' => 'L'], ['%d', '%d', '%s']);
+            $this->success(true);
+        } else {
+            $liked = $status == 'L';
+            $wpdb->update($wpdb->prefix . 'iande_likes', ['status' => $liked ? 'U' : 'L'], ['post_id' => $params['ID'], 'user_id' => $user_id], ['%s'], ['%d', '%d']);
+            $this->success(!$liked);
+        }
+    }
+
+    /**
      * Retorna todos os roteiros do usuário
      *
      * @return void
@@ -371,6 +405,22 @@ class Itinerary extends Controller {
     }
 
     /**
+     * Retorna o número de likes do roteiro
+     *
+     * @param WP_POST $itinerary
+     *
+     * @return int
+     */
+    function count_likes($itinerary) {
+        global $wpdb;
+
+        $sql = $wpdb->prepare("SELECT COUNT(*) FROM `{$wpdb->prefix}iande_likes` WHERE post_id = %s AND status = 'L'", $itinerary->ID);
+        $query = $wpdb->get_var($sql);
+
+        return \intval($query);
+    }
+
+    /**
      * Retorna um roteiro parseado
      *
      * @param integer $itinerary_id
@@ -386,6 +436,24 @@ class Itinerary extends Controller {
         $meta = \get_post_meta($itinerary_id);
 
         return $this->parse_itinerary($itinerary, $meta);
+    }
+
+        /**
+     * Retorna se o usuário atual deu like ao roteiro
+     *
+     * @param WP_POST $itinerary
+     *
+     * @return bool
+     */
+    function has_like($itinerary) {
+        global $wpdb;
+
+        $user_id = \get_current_user_id();
+
+        $sql = $wpdb->prepare("SELECT * FROM `{$wpdb->prefix}iande_likes` WHERE post_id = %s AND user_id = %s AND status = 'L'", $itinerary->ID, $user_id);
+        $query = $wpdb->get_row($sql);
+
+        return !empty($query);
     }
 
     /**
@@ -418,6 +486,8 @@ class Itinerary extends Controller {
 
         $parsed_itinerary->metadata = $metadata;
 
+        $parsed_itinerary->liked = $this->has_like($itinerary);
+        $parsed_itinerary->likes = $this->count_likes($itinerary);
         $parsed_itinerary->views = isset($metadata['views'][0]) ? \intval($metadata['views'][0]) : 0;
 
         $parsed_itinerary = \apply_filters('iande.parse_itinerary', $parsed_itinerary, $itinerary, $metadata);

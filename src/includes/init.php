@@ -36,6 +36,7 @@ function iande_activation_plugin() {
          */
         iande_cmb2_settings_init();
         iande_settings_init();
+        iande_tables_init();
 
     }
 
@@ -192,6 +193,23 @@ function iande_settings_init() {
 
     \flush_rewrite_rules();
 
+}
+
+/**
+ * Criação de tabelas customizadas do Iandé
+ */
+function iande_tables_init() {
+    global $wpdb;
+
+    $sql = "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}iande_likes` (
+        ID INTEGER NOT NULL AUTO_INCREMENT,
+        post_id INTEGER NOT NULL,
+        user_id INTEGER NOT NULL,
+        status VARCHAR(10) NOT NULL, /* L = like, U = unlike */
+        PRIMARY KEY (ID)
+    ) {$wpdb->get_charset_collate()}";
+
+    $wpdb->query($sql);
 }
 
 function register_custom_view_modes ($helper) {
