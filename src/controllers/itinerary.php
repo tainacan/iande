@@ -219,15 +219,17 @@ class Itinerary extends Controller {
      * @return void
      */
     function endpoint_list_published(array $params = []) {
+        global $wpdb;
+
         $this->require_authentication();
 
-        $page = $params['page'] ?? 1;
+        $page = $params['page'] ? \intval($params['page']) : 1;
+        $PAGE_SIZE = 12;
 
         $args = [
             'post_type'      => 'itinerary',
             'post_status'    => ['publish'],
-            'paged'          => $page,
-            'posts_per_page' => 12,
+            'posts_per_page' => -1,
             'meta_query'     => [
                 [
                     'key'   => 'publicly_findable',
@@ -236,12 +238,16 @@ class Itinerary extends Controller {
             ],
         ];
 
+        $user_likes = $wpdb->get_col(
+            $wpdb->prepare("SELECT post_id FROM {$wpdb->prefix}iande_likes WHERE user_id = %d AND status = 'L'", \get_current_user_id())
+        );
+
         $query = new \WP_Query($args);
         $itineraries = $query->posts;
 
         if (empty($itineraries)) {
             return $this->success([
-                'num_pages' => $query->max_num_pages,
+                'num_pages' => 1,
                 'page'      => $page,
                 'items'     => [],
             ]);
@@ -257,16 +263,34 @@ class Itinerary extends Controller {
 
         if (empty($parsed_itineraries)) {
             return $this->success([
-                'num_pages' => $query->max_num_pages,
+                'num_pages' => 1,
                 'page'      => $page,
                 'items'     => [],
             ]);
         }
 
+        /**
+         * First criteria: liked before not liked
+         * Second criteria: most viewed before least viewed
+         */
+        \usort($parsed_itineraries, function ($a, $b) use ($user_likes) {
+            $liked_a = \in_array($a->ID, $user_likes);
+            $liked_b = \in_array($b->ID, $user_likes);
+
+            if ($liked_a !== $liked_b) {
+                return $liked_a ? -1 : 1;
+            }
+
+            $a_views = $a->views;
+            $b_views = $b->views;
+
+            return $a_views > $b_views ? -1 : ($a_views == $b_views ? 0 : 1);
+        });
+
         $this->success([
-            'num_pages' => $query->max_num_pages,
+            'num_pages' => \ceil(\count($parsed_itineraries) / $PAGE_SIZE),
             'page'      => $page,
-            'items'     => $parsed_itineraries,
+            'items'     => \array_slice($parsed_itineraries, ($page - 1) * $PAGE_SIZE, $PAGE_SIZE),
         ]);
     }
 
