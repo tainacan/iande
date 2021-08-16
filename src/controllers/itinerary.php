@@ -253,7 +253,7 @@ class Itinerary extends Controller {
             $parsed_itineraries[] = $this->get_parsed_itinerary($itinerary->ID);
         }
 
-        $parsed_itineraries = array_filter($parsed_itineraries);
+        $parsed_itineraries = \array_filter($parsed_itineraries);
 
         if (empty($parsed_itineraries)) {
             return $this->success([
@@ -438,7 +438,7 @@ class Itinerary extends Controller {
         return $this->parse_itinerary($itinerary, $meta);
     }
 
-        /**
+    /**
      * Retorna se o usuário atual deu like ao roteiro
      *
      * @param WP_POST $itinerary
