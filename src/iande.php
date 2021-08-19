@@ -7,7 +7,7 @@
  * Plugin Name:       Iandé
  * Plugin URI:        https://iandecultura.com.br/
  * Description:       Agendamento de visitas de grupos para instituições que recebem públicos presencial ou digitalmente.
- * Version:           0.10.0
+ * Version:           0.10.1
  * Author:            Percebe
  * Author URI:        https://percebeeduca.com.br/
  * License:           GPL-2.0+
@@ -26,7 +26,7 @@ if (!defined('WPINC')) {
 /**
  * Currently plugin version.
  */
-define('IANDE_PLUGIN_VERSION', '0.10.0');
+define('IANDE_PLUGIN_VERSION', '0.10.1');
 
 define('IANDE_PLUGIN_BASEPATH', plugin_dir_path(__FILE__));
 define('IANDE_PLUGIN_BASEURL', plugins_url('', __FILE__) . '/');

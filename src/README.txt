@@ -2,9 +2,9 @@
 Contributors: percebeeduca
 Tags: Reservation system, scheduling, schedule, group visits, virtual group tours, museums, Tainacan
 Requires at least: 5.5.3
-Tested up to: 5.7
+Tested up to: 5.8
 Requires PHP: 7.2
-Stable tag: 0.10.0
+Stable tag: 0.10.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
