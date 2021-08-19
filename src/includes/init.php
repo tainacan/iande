@@ -258,6 +258,17 @@ function add_iande_menu () {
 \add_action('admin_menu', 'IandePlugin\\add_iande_menu');
 
 /**
+ * Adiciona CSV à lista de MIME-types permitidos
+ *
+ * Isso permite a importação de instâncias Tainacan via CSV
+ */
+function allow_csv_uploads ($mimes) {
+    $mimes['csv'] = 'text/csv';
+    return $mimes;
+}
+\add_filter('mime_types', 'IandePlugin\\allow_csv_uploads');
+
+/**
  * Redireciona algumas páginas do plugin para o front-end do Iandé
  */
 function redirect_to_iande_frontend ($var) {
