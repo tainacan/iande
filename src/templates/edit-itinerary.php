@@ -5,7 +5,10 @@
     $search = [
         'default_view_mode' => 'iande-masonry',
         'enabled_view_modes' => ['iande-masonry', 'iande-list'],
+        'hide_exposers_button' => true,
         'is_forced_view_mode' => true,
+        'show_filters_button_inside_search_control' => true,
+        'show_inline_view_mode_options' => true,
     ];
 
     $itineraryId = (int) filter_input(INPUT_GET, 'ID', FILTER_VALIDATE_INT);

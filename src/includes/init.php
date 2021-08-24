@@ -223,7 +223,7 @@ function register_custom_view_modes ($helper) {
 			'icon' 				    => '<span class="icon"><i class="tainacan-icon tainacan-icon-viewmasonry tainacan-icon-1-25em"></i></span>',
             'type' 				    => 'component',
 			'component' 		    => 'iande-masonry',
-			'dynamic_metadata' 	    => true,
+			'dynamic_metadata' 	    => false,
 			'implements_skeleton'   => true
         ]);
 
@@ -233,7 +233,7 @@ function register_custom_view_modes ($helper) {
 			'icon' 				    => '<span class="icon"><i class="tainacan-icon tainacan-icon-viewlist tainacan-icon-1-25em"></i></span>',
             'type' 				    => 'component',
 			'component' 		    => 'iande-list',
-			'dynamic_metadata' 	    => true,
+			'dynamic_metadata' 	    => false,
 			'implements_skeleton'   => true
         ]);
     }
