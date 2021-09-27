@@ -81,7 +81,7 @@
                     return false
                 }
                 const adminRoles = ['administrator', 'iande_admin', 'iande_educator']
-                return this.user.roles.some(role => adminRoles.include(role))
+                return this.user.roles.some(role => adminRoles.includes(role))
             },
         },
         async created () {
