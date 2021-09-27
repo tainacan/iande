@@ -4,7 +4,11 @@
         <td>{{ formatDate(group.date) }} {{ group.hour }}</td>
         <td v-if="appointment">{{ appointment.ID }} - {{ appointment.name }}</td>
         <td v-else>{{ __('N/A', 'iande') }}</td>
-        <td>{{ group.ID }} - {{ group.name }}</td>
+        <td>
+            <div>{{ group.ID }} - {{ group.name }}</div>
+            <div>{{ sprintf(__('%s pessoas', 'iande'), group.num_people) }}</div>
+            <div>{{ group.age_range }}</div>
+        </td>
         <td v-if="institution">
             <div>{{ institution.name }}</div>
             <div v-if="institution.phone">{{ formatPhone(institution.phone) }}</div>
