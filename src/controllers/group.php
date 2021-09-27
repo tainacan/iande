@@ -56,7 +56,7 @@ class Group extends Controller
 
         $group = $this->get_parsed_group($params['ID']);
 
-        if (!is_iande_admin() && $group->user_id != \get_current_user_id()) {
+        if (!is_iande_staff() && $group->user_id != \get_current_user_id()) {
             $this->error(__('Essa ação requer privilégios administrativos', 'iande'));
         }
 
@@ -76,7 +76,7 @@ class Group extends Controller
      */
     function endpoint_list (array $params = [])
     {
-        $this->require_admin();
+        $this->require_credentials();
 
         $args = [
             'post_type'      => 'group',
@@ -113,7 +113,7 @@ class Group extends Controller
      */
     function endpoint_list_agenda (array $params = [])
     {
-        $this->require_admin();
+        $this->require_credentials();
 
         $args = [
             'post_type'      => 'group',
@@ -153,11 +153,8 @@ class Group extends Controller
      * @return array
      *
      */
-    function endpoint_update(array $params = [])
-    {
-        $this->require_admin();
-
-        $this->require_authentication();
+    function endpoint_update(array $params = []) {
+        $this->require_credentials();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));
@@ -195,7 +192,7 @@ class Group extends Controller
      * @return array
      */
     function endpoint_checkin_update(array $params = []) {
-        $this->require_admin();
+        $this->require_credentials();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));
@@ -295,7 +292,7 @@ class Group extends Controller
      * @return array
      */
     function endpoint_report_update(array $params = []) {
-        $this->require_admin();
+        $this->require_credentials();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));
@@ -347,7 +344,7 @@ class Group extends Controller
      *
      */
     function endpoint_assign_educator(array $params = []) {
-        $this->require_admin();
+        $this->require_credentials();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));
@@ -359,10 +356,6 @@ class Group extends Controller
 
         if (!is_numeric($params['ID']) || !is_numeric($params['educator_id']) || intval($params['ID']) != $params['ID'] || intval($params['educator_id']) != $params['educator_id']) {
             $this->error(__('O parâmetro deve ser um número inteiro', 'iande'));
-        }
-
-        if (!is_iande_admin()) {
-            $this->is_educator($params['ID']);
         }
 
         $this->validate($params);
@@ -392,7 +385,7 @@ class Group extends Controller
      * @return array
      */
     function endpoint_unassign_educator(array $params = []) {
-        $this->require_admin();
+        $this->require_credentials();
 
         if (empty($params['ID'])) {
             $this->error(__('O parâmetro ID é obrigatório', 'iande'));
@@ -400,10 +393,6 @@ class Group extends Controller
 
         if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
             $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
-        }
-
-        if (!is_iande_admin()) {
-            $this->is_educator($params['ID']);
         }
 
         /**
@@ -431,7 +420,7 @@ class Group extends Controller
      */
     function view_agenda(array $params = [])
     {
-        $this->require_admin();
+        $this->require_credentials();
         $this->render_vue(__('Minha agenda', 'iande'), 'agenda');
     }
 
@@ -443,7 +432,7 @@ class Group extends Controller
      */
     function view_checkin(array $params = [])
     {
-        $this->require_admin();
+        $this->require_credentials();
         $this->render_vue(__('Check-in', 'iande'), 'checkin');
     }
 
@@ -466,7 +455,7 @@ class Group extends Controller
      * return void
      */
     function view_print(array $params = []) {
-        $this->require_admin();
+        $this->require_credentials();
         $this->render_vue(__('Próximos grupos', 'iande'), 'print-groups');
     }
 
@@ -478,7 +467,7 @@ class Group extends Controller
      */
     function view_list(array $params = [])
     {
-        $this->require_admin();
+        $this->require_credentials();
         $this->render_vue(__('Calendário geral', 'iande'), 'list-groups');
     }
 

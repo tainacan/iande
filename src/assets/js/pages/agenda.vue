@@ -51,7 +51,7 @@
                     api.get('exhibition/list'),
                     api.get('appointment/list_published'),
                     api.get('group/list_agenda'),
-                    api.get('user/list?cap=manage_iande_options'),
+                    api.get('user/list?cap=checkin'),
                 ])
                 this.exhibitions = exhibitions
                 this.appointments = appointments

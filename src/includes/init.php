@@ -247,8 +247,8 @@ function add_iande_menu () {
     $icon = IANDE_PLUGIN_BASEURL . '/assets/img/iande-menu-icon.svg';
     // $icon = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(IANDE_PLUGIN_BASEURL . '/assets/img/iande-menu-icon-pb.svg'));
 
-    \add_menu_page('Iandé', 'Iandé', 'manage_iande_options', 'iande-main-menu', '', $icon, 100);
-    \add_submenu_page('iande-main-menu', '', __('Check-in', 'iande'), 'manage_iande_options', 'iande_checkin_frontend', '__');
+    \add_menu_page('Iandé', 'Iandé', 'checkin', 'iande-main-menu', '', $icon, 100);
+    \add_submenu_page('iande-main-menu', '', __('Check-in', 'iande'), 'checkin', 'iande_checkin_frontend', '__');
     \add_submenu_page('iande-main-menu', '', __('Front-end', 'iande'), 'read', 'iande_frontend', '__');
 
     // Adiciona menu de relatórios no admin
@@ -285,19 +285,23 @@ function redirect_to_iande_frontend ($var) {
 \add_action( 'admin_init', 'IandePlugin\\redirect_to_iande_frontend', 1 );
 
 /**
- * Redireciona usuários com a role `iande_admin` para a área administrativa do plugin
+ * Redireciona usuários com a role `iande_admin` ou `iande_educator` para a área administrativa do plugin
  */
-function login_redirect_iande_admin( $redirect_to, $request, $user )
-{
-	return ( isset( $user->roles ) && is_array( $user->roles ) && in_array( 'iande_admin', $user->roles ) ) ? \admin_url( 'edit.php?post_type=appointment' ) : \admin_url();
+function login_redirect_iande_admin($redirect_to, $request, $user) {
+    if (\is_array($user->roles) && (\in_array('iande_admin', $user->roles) || \in_array('iande_educator', $user->roles))) {
+        return \admin_url('edit.php?post_type=appointment');
+    }
+    return \admin_url();
 }
-\add_filter( 'login_redirect', 'IandePlugin\\login_redirect_iande_admin', 10, 3 );
+\add_filter('login_redirect', 'IandePlugin\\login_redirect_iande_admin', 10, 3);
 
 /**
- * Redireciona usuários com a role `iande_admin` para o front end  `/iande/ `após logout
+ * Redireciona usuários com a role `iande_admin` ou `iande_educator` para o front end  `/iande/ `após logout
  */
-function logout_redirect_iande_admin( $redirect_to, $requested_redirect_to, $user )
-{
-    return ( is_array( $user->roles ) && in_array( 'iande_admin', $user->roles ) ) ? \home_url( '/iande/' ) : $redirect_to;
+function logout_redirect_iande_admin($redirect_to, $requested_redirect_to, $user) {
+    if (\is_array($user->roles) && (\in_array('iande_admin', $user->roles) || \in_array('iande_educator', $user->roles))) {
+        return \home_url('/iande/');
+    }
+    return $redirect_to;
 }
-\add_filter( 'logout_redirect', 'IandePlugin\\logout_redirect_iande_admin', 10, 3);
+\add_filter('logout_redirect', 'IandePlugin\\logout_redirect_iande_admin', 10, 3);

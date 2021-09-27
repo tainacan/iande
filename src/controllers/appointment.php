@@ -172,7 +172,7 @@ class Appointment extends Controller
 
             $this->error(__('Agendamento não encontrado', 'iande'));
 
-        } elseif (\get_current_user_id() == $appointment->post_author || is_iande_admin()) {
+        } elseif (\get_current_user_id() == $appointment->post_author || is_iande_staff()) {
 
             \do_action('iande.before_cancel_appointment', $params);
 
@@ -313,7 +313,7 @@ class Appointment extends Controller
     function endpoint_list_published($params)
     {
 
-        $this->require_admin();
+        $this->require_credentials();
 
         $args = [
             'post_type'      => 'appointment',
@@ -530,7 +530,7 @@ class Appointment extends Controller
 
         $user_id = $appointment instanceof \WP_Post ? $appointment->post_author : $appointment->user_id;
 
-        if ($user_id != get_current_user_id() && !is_iande_admin()) {
+        if ($user_id != get_current_user_id() && !is_iande_staff()) {
             $this->error(__('Você não tem permissão para ver este agendamento', 'iande'), 403);
         }
     }

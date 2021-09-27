@@ -71,7 +71,7 @@
                     api.get('exhibition/list/?show_private=1'),
                     api.get('appointment/list_published'),
                     api.get('group/list'),
-                    api.get('user/list/?cap=manage_iande_options'),
+                    api.get('user/list/?cap=checkin'),
                     api.get('institution/list'),
                 ])
                 this.exhibitions = exhibitions

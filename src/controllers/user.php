@@ -100,9 +100,8 @@ class User extends Controller
      * @param array $params
      * @return array
      */
-    function endpoint_list(array $params = [])
-    {
-        $this->require_admin();
+    function endpoint_list(array $params = []) {
+        $this->require_credentials();
 
         $query_args = [];
 

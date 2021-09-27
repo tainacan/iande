@@ -79,17 +79,17 @@ abstract class Controller
     }
 
     /**
-     * Verifica se o usuário está autenticado e tem a capability manage_iande_options
-     * e se não estiver renderiza mensagem de erro
+     * Verifica se o usuário está autenticado e tem a capability,
+     * se não renderiza mensagem de erro
      *
+     * @param string $capability
      * @param string $error_message
      * @return void
      */
-    function require_admin($error_message = '')
-    {
+    function require_credentials($capability = 'checkin', $error_message = '') {
         $this->require_authentication($error_message);
 
-        if (!\current_user_can('manage_iande_options')) {
+        if (!\current_user_can($capability)) {
             if (\wp_is_json_request()) {
                 $error_message = $error_message ?: __('Essa ação requer privilégios administrativos', 'iande');
                 $this->error($error_message, 403);

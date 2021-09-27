@@ -124,7 +124,7 @@ function get_group_metadata_definition()
 
     $staff_roles = [];
     foreach (\wp_roles()->roles as $role_slug => $role) {
-        if (!empty($role['capabilities']['manage_iande_options'])) {
+        if (!empty($role['capabilities']['checkin'])) {
             $staff_roles[] = $role_slug;
         }
     }

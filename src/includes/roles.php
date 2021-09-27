@@ -2,55 +2,74 @@
 namespace IandePlugin;
 
 function add_custom_roles_and_capabilities () {
-
-    \add_role('iande_visitor', __('Visitante do Iandé', 'iande'));
-    $subscriber = \get_role('iande_visitor');
-    $subscriber->add_cap('upload_files');
-
     \add_role('iande_admin', __('Administrador do Iandé', 'iande'));
+    \add_role('iande_educator', __('Educador do iande', 'iande'));
+    \add_role('iande_visitor', __('Visitante do Iandé', 'iande'));
 
-    // iande_admin
-    set_iande_admin_capabilities('iande_admin', 'appointment', 'appointments');
-    set_iande_admin_capabilities('iande_admin', 'exhibition', 'exhibitions');
-    set_iande_admin_capabilities('iande_admin', 'institution', 'institutions');
-    set_iande_admin_capabilities('iande_admin', 'exception', 'exceptions');
-    set_iande_admin_capabilities('iande_admin', 'group', 'groups');
-    set_iande_admin_capabilities('iande_admin', 'itinerary', 'itineraries');
+    set_iande_capabilities('iande_visitor', [
+        'capabilities' => ['upload_files'],
+    ]);
 
-    // administrator
-    set_iande_admin_capabilities('administrator', 'appointment', 'appointments');
-    set_iande_admin_capabilities('administrator', 'exhibition', 'exhibitions');
-    set_iande_admin_capabilities('administrator', 'institution', 'institutions');
-    set_iande_admin_capabilities('administrator', 'exception', 'exceptions');
-    set_iande_admin_capabilities('administrator', 'group', 'groups');
-    set_iande_admin_capabilities('administrator', 'itinerary', 'itineraries');
+    set_iande_capabilities('iande_educator', [
+        'read' => ['exception', 'exhibition'],
+        'manage' => ['appointment', 'group', 'institution', ['itinerary', 'itineraries']],
+        'capabilities' => ['checkin', 'read', 'upload_files'],
+    ]);
 
-    // adiciona capability `read_feedback` à role `administrator`
-    $administrator = \get_role('administrator');
-    $administrator->add_cap('read_feedback');
+    set_iande_capabilities('iande_admin', [
+        'manage' => ['appointment', 'exception', 'exhibition', 'group', 'institution', ['itinerary', 'itineraries']],
+        'capabilities' => ['checkin', 'manage_iande_options', 'read', 'upload_files'],
+    ]);
 
+    set_iande_capabilities('administrator', [
+        'manage' => ['appointment', 'exception', 'exhibition', 'group', 'institution', ['itinerary', 'itineraries']],
+        'capabilities' => ['checkin', 'manage_iande_options', 'read', 'read_feedback', 'upload_files'],
+    ]);
 }
 \add_action('init', 'IandePlugin\\add_custom_roles_and_capabilities');
 
-function set_iande_admin_capabilities($role, $singular, $plural) {
-
+function set_iande_capabilities (string $role, array $options) {
     $set_role = \get_role($role);
 
-    $set_role->add_cap('edit_'.$singular);
-    $set_role->add_cap('read_'.$singular);
-    $set_role->add_cap('delete_'.$singular);
-    $set_role->add_cap('edit_'.$plural);
-    $set_role->add_cap('edit_others_'.$plural);
-    $set_role->add_cap('publish_'.$plural);
-    $set_role->add_cap('read_private_'.$plural);
-    $set_role->add_cap('delete_'.$plural);
-    $set_role->add_cap('delete_private_'.$plural);
-    $set_role->add_cap('delete_published_'.$plural);
-    $set_role->add_cap('delete_others_'.$plural);
-    $set_role->add_cap('edit_private_'.$plural);
-    $set_role->add_cap('edit_published_'.$plural);
-    $set_role->add_cap('manage_iande_options');
-    $set_role->add_cap('read');
-    $set_role->add_cap('upload_files');
+    if (!empty($options['read'])) {
+        foreach ($options['read'] as $post_type) {
+            $singular = $post_type;
+            $plural = $post_type . 's';
 
+            $set_role->add_cap('edit_'.$singular);
+            $set_role->add_cap('read_'.$singular);
+            $set_role->add_cap('edit_'.$plural);
+            $set_role->add_cap('publish_'.$plural);
+        }
+    }
+
+    if (!empty($options['manage'])) {
+        foreach ($options['manage'] as $post_type) {
+            if (is_array($post_type)) {
+                $singular = $post_type[0];
+                $plural = $post_type[1];
+            } else {
+                $singular = $post_type;
+                $plural = $post_type . 's';
+            }
+
+            $set_role->add_cap('edit_'.$singular);
+            $set_role->add_cap('read_'.$singular);
+            $set_role->add_cap('delete_'.$singular);
+            $set_role->add_cap('edit_'.$plural);
+            $set_role->add_cap('edit_others_'.$plural);
+            $set_role->add_cap('publish_'.$plural);
+            $set_role->add_cap('read_private_'.$plural);
+            $set_role->add_cap('delete_'.$plural);
+            $set_role->add_cap('delete_private_'.$plural);
+            $set_role->add_cap('delete_published_'.$plural);
+            $set_role->add_cap('delete_others_'.$plural);
+            $set_role->add_cap('edit_private_'.$plural);
+            $set_role->add_cap('edit_published_'.$plural);
+        }
+    }
+
+    foreach ($options['capabilities'] as $cap) {
+        $set_role->add_cap($cap);
+    }
 }

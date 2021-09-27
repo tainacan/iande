@@ -80,7 +80,8 @@
                 if (!this.user) {
                     return false
                 }
-                return this.user.roles.some(role => role === 'administrator' || role === 'iande_admin')
+                const adminRoles = ['administrator', 'iande_admin', 'iande_educator']
+                return this.user.roles.some(role => adminRoles.include(role))
             },
         },
         async created () {

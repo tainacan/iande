@@ -233,28 +233,14 @@ function get_all_group_metadata_definition()
 }
 
 /**
- * Verifica se o usuário é de determinada `role`
- *
- * @param string $role A role para verificar com o usuário atual
- * @return bool
+ * Verifica se o usuário atual possui a capability `checkin`
  */
-function current_user_is( string $role )
-{
-    $user = wp_get_current_user();
-    return in_array($role, (array) $user->roles);
-}
-
-/**
- * Verifica se o usuário atual possui a capability `manage_iande_options`
- */
-function is_iande_admin() {
-
-    if (\current_user_can('manage_iande_options')) {
+function is_iande_staff() {
+    if (\current_user_can('checkin')) {
         return true;
     }
 
     return false;
-
 }
 
 /**
