@@ -288,7 +288,7 @@ function redirect_to_iande_frontend ($var) {
  * Redireciona usuários com a role `iande_admin` ou `iande_educator` para a área administrativa do plugin
  */
 function login_redirect_iande_admin($redirect_to, $request, $user) {
-    if (\is_array($user->roles) && (\in_array('iande_admin', $user->roles) || \in_array('iande_educator', $user->roles))) {
+    if (isset($user->roles) && \is_array($user->roles) && (\in_array('iande_admin', $user->roles) || \in_array('iande_educator', $user->roles))) {
         return \admin_url('edit.php?post_type=appointment');
     }
     return \admin_url();
