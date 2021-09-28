@@ -420,6 +420,7 @@ function get_group_checkin_metadata_definition()
                 'name'    => __('A visita não foi realizada devido a', 'iande'),
                 'type'    => 'select',
                 'options' => [
+                    ''         => '',
                     'internal' =>__('Problemas internos', 'iande'),
                     'visitor'  => __('Problemas da instituição visitante', 'iande'),
                 ]

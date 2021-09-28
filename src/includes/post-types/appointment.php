@@ -409,8 +409,8 @@ function get_appointment_metadata_definition() {
             'metabox' => (object) [
                 'name'    => __('Natureza do grupo', 'iande'),
                 'type'    => 'select',
-                'default' => 'institutional',
                 'options' => [
+                    ''              => '',
                     'institutional' => __('Grupo institucional', 'iande'),
                     'other'         => _x('Outra', 'group', 'iande')
                 ]

@@ -151,7 +151,7 @@ function get_group_feedback_metadata_definition()
             'metabox' => (object) [
                 'name'       => __('Você acha que a atuação do educador suscitou que tipo de reação do grupo?', 'iande'),
                 'type'       => 'radio',
-                'options'    => map_array_to_options($mood_options),
+                'options'    => map_array_to_options($mood_options, false),
                 'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled
@@ -186,7 +186,7 @@ function get_group_feedback_metadata_definition()
             'metabox' => (object) [
                 'name'       => __('O que você mais gostou na visita?', 'iande'),
                 'type'       => 'radio',
-                'options'    => map_array_to_options($liked_options),
+                'options'    => map_array_to_options($liked_options, false),
                 'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled
@@ -221,7 +221,7 @@ function get_group_feedback_metadata_definition()
             'metabox' => (object) [
                 'name'       => __('O que você menos gostou na visita?', 'iande'),
                 'type'       => 'radio',
-                'options'    => map_array_to_options($disliked_options),
+                'options'    => map_array_to_options($disliked_options, false),
                 'save_field' => $save_field,
                 'attributes' => [
                     'disabled' => $disabled

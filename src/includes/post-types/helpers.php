@@ -73,26 +73,28 @@ function get_state_options () {
  * Mapeia uma array de strings para opções CMB2
  *
  * @param array $array Lista de opções
+ * @param boolean $empty_option Exibir opção em branco
  * @return array
  */
-function map_array_to_options (array $array) {
-    $options = [];
+function map_array_to_options (array $array, bool $empty_option = true) {
+    $options = $empty_option ? ['' => ''] : [];
 
     foreach ($array as $item) {
         $options[$item] = $item;
     }
 
-    return \array_filter($options);
+    return $options;
 }
 
 /**
  * Mapeia uma lista de posts para opções CMB2
  *
  * @param WP_Post[] $args Lista de posts
+ * @param boolean $empty_option Exibir opção em branco
  * @return array
  */
-function map_posts_to_options (array $posts) {
-    $options = ['' => ''];
+function map_posts_to_options (array $posts, bool $empty_option = true) {
+    $options = $empty_option ? ['' => ''] : [];
 
     foreach ($posts as $post) {
         $options[$post->ID] = $post->post_title . ' #' . $post->ID;
@@ -108,12 +110,8 @@ function map_posts_to_options (array $posts) {
  * @param boolean $empty_option Exibir opção em branco
  * @return array
  */
-function map_users_to_options (array $users, $empty_option = false) {
-    $options = [];
-
-    if ($empty_option) {
-        $options[0] = '--';
-    }
+function map_users_to_options (array $users, bool $empty_option = true) {
+    $options = $empty_option ? [0 => '--'] : [];
 
     foreach ($users as $user) {
         $options[$user->ID] = $user->data->display_name ?? $user->data->user_nicename;

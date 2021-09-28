@@ -342,7 +342,7 @@ function get_group_metadata_definition()
             'metabox' => (object) [
                 'name'    => __('Educador', 'iande'),
                 'type'    => 'select',
-                'options' => map_users_to_options($staff_users, true)
+                'options' => map_users_to_options($staff_users),
             ]
         ],
         'confirmation_sent_after_visiting' => (object) [

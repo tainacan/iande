@@ -112,7 +112,7 @@ function get_group_report_metadata_definition()
             'metabox' => (object) [
                 'name'              => __('Qual foi o grau de interesse da maior parte do grupo durante a visita?', 'iande'),
                 'type'              => 'multicheck',
-                'options'           => map_array_to_options($type_options),
+                'options'           => map_array_to_options($type_options, false),
                 'select_all_button' => false
             ]
         ],
@@ -137,7 +137,7 @@ function get_group_report_metadata_definition()
             'metabox' => (object) [
                 'name'              => __('Como você classificaria a postura da maior parte do grupo durante a visita? Marque até duas alternativas', 'iande'),
                 'type'              => 'multicheck',
-                'options'           => map_array_to_options($mood_options),
+                'options'           => map_array_to_options($mood_options, false),
                 'select_all_button' => false
             ]
         ],
@@ -173,7 +173,7 @@ function get_group_report_metadata_definition()
             'metabox' => (object) [
                 'name'              => __('Que tipo de visita você realizou? Marque até duas alternativas', 'iande'),
                 'type'              => 'multicheck',
-                'options'           => map_array_to_options($interaction_options),
+                'options'           => map_array_to_options($interaction_options, false),
                 'select_all_button' => false
             ]
         ],
@@ -186,7 +186,7 @@ function get_group_report_metadata_definition()
             'metabox' => (object) [
                 'name'              => __('Assinale as principais dificuldades encontradas. Marque até duas alternativas', 'iande'),
                 'type'              => 'multicheck',
-                'options'           => map_array_to_options($difficulty_options),
+                'options'           => map_array_to_options($difficulty_options, false),
                 'select_all_button' => false
             ]
         ],
