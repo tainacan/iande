@@ -3,7 +3,7 @@ namespace IandePlugin;
 
 function add_custom_roles_and_capabilities () {
     \add_role('iande_admin', __('Administrador do Iandé', 'iande'));
-    \add_role('iande_educator', __('Educador do Iande', 'iande'));
+    \add_role('iande_educator', __('Educador do Iandé', 'iande'));
     \add_role('iande_visitor', __('Visitante do Iandé', 'iande'));
 
     set_iande_capabilities('iande_visitor', [
