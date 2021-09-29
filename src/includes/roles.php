@@ -37,9 +37,9 @@ function set_iande_capabilities (string $role, array $options) {
             $plural = $post_type . 's';
 
             $set_role->add_cap('edit_'.$singular);
-            $set_role->add_cap('read_'.$singular);
             $set_role->add_cap('edit_'.$plural);
             $set_role->add_cap('publish_'.$plural);
+            $set_role->add_cap('read_'.$singular);
         }
     }
 
@@ -53,19 +53,19 @@ function set_iande_capabilities (string $role, array $options) {
                 $plural = $post_type . 's';
             }
 
-            $set_role->add_cap('edit_'.$singular);
-            $set_role->add_cap('read_'.$singular);
             $set_role->add_cap('delete_'.$singular);
-            $set_role->add_cap('edit_'.$plural);
-            $set_role->add_cap('edit_others_'.$plural);
-            $set_role->add_cap('publish_'.$plural);
-            $set_role->add_cap('read_private_'.$plural);
             $set_role->add_cap('delete_'.$plural);
+            $set_role->add_cap('delete_others_'.$plural);
             $set_role->add_cap('delete_private_'.$plural);
             $set_role->add_cap('delete_published_'.$plural);
-            $set_role->add_cap('delete_others_'.$plural);
+            $set_role->add_cap('edit_'.$singular);
+            $set_role->add_cap('edit_'.$plural);
+            $set_role->add_cap('edit_others_'.$plural);
             $set_role->add_cap('edit_private_'.$plural);
             $set_role->add_cap('edit_published_'.$plural);
+            $set_role->add_cap('publish_'.$plural);
+            $set_role->add_cap('read_'.$singular);
+            $set_role->add_cap('read_private_'.$plural);
         }
     }
 
