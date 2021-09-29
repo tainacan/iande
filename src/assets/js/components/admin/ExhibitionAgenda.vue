@@ -8,7 +8,7 @@
                         {{ hour }}
                     </div>
                     <div class="iande-admin-agenda__line" v-if="cellAppointments(cell).length > 0">
-                        {{ sprintf(_n('%s reserva', '%s reservas', cellAppointments(cell).length, 'iande'), cellAppointments(cell).length) }}
+                        {{ sprintf(_n('%s grupos', '%s grupos', cellAppointments(cell).length, 'iande'), cellAppointments(cell).length) }}
                     </div>
                 </template>
             </template>
