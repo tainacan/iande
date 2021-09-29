@@ -17,7 +17,7 @@
         </div>
 
         <div class="components-base-control__field" v-show="form.metakey">
-            <label for="tainacan-metavalue" class="components-input-control__label">{{ __('Filtro', 'iande') }}</label>
+            <label for="tainacan-metavalue" class="components-input-control__label">{{ __('Valor', 'iande') }}</label>
             <select name="tainacan-metavalue" id="tainacan-metavalue" class="components-select-control__input" v-model="form.metavalue">
                 <option v-for="metavalue of terms" :key="metavalue.value" :value="metavalue.value">{{ metavalue.label }} ({{ metavalue.total_items }})</option>
             </select>

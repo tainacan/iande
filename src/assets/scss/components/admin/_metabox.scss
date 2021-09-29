@@ -28,17 +28,21 @@
             }
         }
 
-        .iande-itinerary-metabox {
-
-            label {
-                display: block;
-            }
-        }
-
         .form-error {
             color: #E53E3E;
         }
     }
+
+    .iande-itinerary-metabox {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: auto 1fr;
+
+        .components-base-control__field {
+            display: contents;
+        }
+    }
+
     .meta-box-sortables {
         .cmb2-wrap {
             input[type='text'],
