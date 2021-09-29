@@ -13,9 +13,15 @@
                 </template>
             </template>
             <template #event="{ event }">
-                <div class="iande-admin-agenda__event">
+                <div class="iande-admin-agenda__event" :class="[event.appointment.post_status]">
                     <a class="iande-admin-agenda__group-link" :href="postLink(event.group)" target="_blank">
-                        {{ event.group.name }}
+                        <span>
+                            {{ event.group.name }}
+                        </span>
+                        <span :title="sprintf(__('%s pessoas', 'iande'), event.group.num_people)">
+                            <Icon icon="users"/>
+                            {{ event.group.num_people }}
+                        </span>
                     </a>
                     <a class="iande-admin-agenda__appointment-link" :href="postLink(event.appointment)" target="_blank">
                         {{ event.appointment.name || `${event.appointment.responsible_first_name} ${event.appointment.responsible_last_name}` }}
