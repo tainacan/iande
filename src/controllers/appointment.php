@@ -308,6 +308,7 @@ class Appointment extends Controller
     /**
      * Retorna todos os agendamentos confirmados
      *
+     * @param array $params
      * @return void
      */
     function endpoint_list_published($params)
@@ -321,6 +322,10 @@ class Appointment extends Controller
             'posts_per_page' => -1,
             'meta_query'     => []
         ];
+
+        if (!empty($params['pending'] && $params['pending'] == '1')) {
+            $args['post_status'][] = 'pending';
+        }
 
         if (!empty($params['exhibition'])) {
             $args['meta_query'][] = [

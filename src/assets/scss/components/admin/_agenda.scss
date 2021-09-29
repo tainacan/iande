@@ -33,6 +33,30 @@
         font-weight: bold;
     }
 
+    &__counters {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    &__counter {
+
+        &.publish {
+
+            svg[data-icon] {
+                color: limegreen;
+            }
+        }
+
+        &.pending {
+
+            svg[data-icon] {
+                color: orange;
+            }
+        }
+    }
+
     .vuecal {
         &__cells.month-view {
 

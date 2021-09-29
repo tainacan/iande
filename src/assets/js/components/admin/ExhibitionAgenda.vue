@@ -7,8 +7,8 @@
                     <div class="iande-admin-agenda__line" v-for="hour of cellHours(cell)" :key="hour">
                         {{ hour }}
                     </div>
-                    <div class="iande-admin-agenda__line" v-if="cellAppointments(cell).length > 0">
-                        {{ sprintf(_n('%s grupos', '%s grupos', cellAppointments(cell).length, 'iande'), cellAppointments(cell).length) }}
+                    <div class="iande-admin-agenda__line" v-if="cellGroups(cell).length > 0">
+                        <GroupsCounter :groups="cellGroups(cell)"/>
                     </div>
                 </template>
             </template>
@@ -31,6 +31,7 @@
     import Calendar from 'vue-cal'
     import 'vue-cal/dist/i18n/pt-br'
 
+    import GroupsCounter from '@components/admin/GroupsCounter.vue'
     import { api } from '@utils'
     import { getWorkingHours } from '@utils/agenda'
 
@@ -38,6 +39,7 @@
         name: 'ExhibitionAgenda',
         components: {
             Calendar,
+            GroupsCounter,
         },
         props: {
             exhibitionId: { type: Number, required: true },
@@ -95,17 +97,14 @@
             try {
                 const exhibition = await api.post('exhibition/get', { ID: this.exhibitionId })
                 this.exhibition = exhibition
-                const appointments = await api.post('appointment/list_published', { exhibition: this.exhibitionId })
+                const appointments = await api.post('appointment/list_published', { exhibition: this.exhibitionId, pending: 1 })
                 this.appointments = appointments
             } catch (err) {
                 console.error(err)
             }
         },
         methods: {
-            postLink (post) {
-                return `${window.IandeSettings.siteUrl}/wp-admin/post.php?post=${post.ID}&action=edit`
-            },
-            cellAppointments (cell) {
+            cellGroups (cell) {
                 return this.groupsByDate.get(cell.formattedDate) || []
             },
             cellHours (cell) {
@@ -113,6 +112,17 @@
                     return []
                 }
                 return getWorkingHours(this.exhibition, cell.startDate).map(interval => `${interval.from} - ${interval.to}`)
+            },
+            confirmedGroups (cell) {
+                const groups = this.cellGroups(cell)
+                return groups.map(groups => groups.group.post_status === 'publish')
+            },
+            pendingGroups (cell) {
+                const groups = this.cellGroups(cell)
+                return groups.map(groups => groups.group.post_status === 'pending')
+            },
+            postLink (post) {
+                return `${window.IandeSettings.siteUrl}/wp-admin/post.php?post=${post.ID}&action=edit`
             },
         }
     }

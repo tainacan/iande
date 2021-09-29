@@ -1,7 +1,7 @@
 __webpack_public_path__ = window.IandeSettings.iandePath
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faChartBar } from '@fortawesome/free-solid-svg-icons'
+import { faChartBar, faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon  } from '@fortawesome/vue-fontawesome'
 import Vue from 'vue'
 
@@ -16,7 +16,7 @@ const StatusMetabox = () => import(/* webpackChunkName: 'status-metabox' */ '@co
 const ItineraryMetabox = () => import(/* webpackChunkName: 'itinerary-metabox' */ '@components/admin/ItineraryMetabox.vue')
 const cities = import(/* webpackChunkName: 'estados-municipios' */ '../json/municipios.json')
 
-library.add(faChartBar)
+library.add(faChartBar, faCheckCircle, faExclamationCircle)
 
 Vue.use(WpI18n)
 
