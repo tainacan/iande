@@ -104,6 +104,11 @@
                         <div>{{ __(group.scholarity, 'iande') }}</div>
                         <div>{{ __('Deficiências', 'iande') }}: {{ groupDisabilities(group.disabilities) }}</div>
                         <div>{{ __('Idiomas', 'iande') }}: {{ groupLanguages(group.languages) }}</div>
+                        <div class="iande-appointment__feedback-link" v-if="group.has_checkin === 'on'">
+                            <a :href="$iandeUrl(`group/feedback/?ID=${group.ID}`)">
+                                {{ __('Avaliar visita', 'iande') }}
+                            </a>
+                        </div>
                     </div>
 
                     <div class="iande-appointment__box">

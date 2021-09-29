@@ -173,6 +173,20 @@
         }
     }
 
+    &__feedback-link {
+        padding-top: 0;
+
+        a {
+            background-color: var(--iande-light-color);
+            color: var(--iande-secondary-color);
+            display: block;
+            font-weight: bold;
+            padding: 5px;
+            text-align: center;
+            text-decoration: none;
+        }
+    }
+
     &__buttons {
         display: flex;
         flex-wrap: wrap;
