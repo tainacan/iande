@@ -4,7 +4,7 @@ Tags: Reservation system, scheduling, schedule, group visits, virtual group tour
 Requires at least: 5.5.3
 Tested up to: 5.8
 Requires PHP: 7.2
-Stable tag: 0.10.2
+Stable tag: 0.11.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,14 @@ Features:
 
 
 == Changelog ==
+
+= 0.11.0
+* Adiciona novo role "Educador do Iandé", renomeia "Administrador do Iandé" para "Coordenador do Iandé"
+* Adiciona quantidade de pessoas e faixa etária à versão imprimível da lista de grupos
+* Nova visualização do calendário da exposição, mostrando agendamentos pendentes
+* Melhora placeholder para o nome do agendamento
+* Adiciona link de avaliação na visualização do usuário
+* Correção de bug: opção padrão dos campos de seleção do admin devem ser vazios
 
 = 0.10.2 =
 * Correção de bug: suporte às novas versões do Tainacan
