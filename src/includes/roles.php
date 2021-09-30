@@ -8,22 +8,26 @@ function add_custom_roles_and_capabilities () {
 
     set_iande_capabilities('iande_visitor', [
         'capabilities' => ['upload_files'],
+        'edit_posts' => false,
     ]);
 
     set_iande_capabilities('iande_educator', [
         'read' => ['exception', 'exhibition'],
         'manage' => ['appointment', 'group', 'institution', ['itinerary', 'itineraries']],
         'capabilities' => ['checkin', 'read', 'upload_files'],
+        'edit_posts' => true,
     ]);
 
     set_iande_capabilities('iande_admin', [
         'manage' => ['appointment', 'exception', 'exhibition', 'group', 'institution', ['itinerary', 'itineraries']],
-        'capabilities' => ['checkin', 'manage_iande_options', 'read', 'upload_files'],
+        'capabilities' => ['checkin', 'manage_iande_options', 'read', 'read_feedback', 'upload_files'],
+        'edit_posts' => true,
     ]);
 
     set_iande_capabilities('administrator', [
         'manage' => ['appointment', 'exception', 'exhibition', 'group', 'institution', ['itinerary', 'itineraries']],
         'capabilities' => ['checkin', 'manage_iande_options', 'read', 'read_feedback', 'upload_files'],
+        'edit_posts' => true,
     ]);
 }
 \add_action('init', 'IandePlugin\\add_custom_roles_and_capabilities');
@@ -71,5 +75,11 @@ function set_iande_capabilities (string $role, array $options) {
 
     foreach ($options['capabilities'] as $cap) {
         $set_role->add_cap($cap);
+    }
+
+    if ($options['edit_posts']) {
+        $set_role->add_cap('edit_posts');
+    } else {
+        $set_role->remove_cap('edit_posts');
     }
 }
