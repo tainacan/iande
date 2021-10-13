@@ -54,7 +54,6 @@ Features:
 * Adiciona quantidade de pessoas e faixa etária à versão imprimível da lista de grupos
 * Nova visualização do calendário da exposição, mostrando agendamentos pendentes
 * Melhora placeholder para o nome do agendamento
-* Adiciona link de avaliação na visualização do usuário
 * Correção de bug: opção padrão dos campos de seleção do admin devem ser vazios
 
 = 0.10.2 =
