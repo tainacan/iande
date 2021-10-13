@@ -49,7 +49,7 @@ Features:
 
 == Changelog ==
 
-= 0.11.0
+= 0.11.0 =
 * Adiciona novo role "Educador do Iandé", renomeia "Administrador do Iandé" para "Coordenador do Iandé"
 * Adiciona quantidade de pessoas e faixa etária à versão imprimível da lista de grupos
 * Nova visualização do calendário da exposição, mostrando agendamentos pendentes
