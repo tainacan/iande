@@ -650,7 +650,7 @@ class Group extends Controller
         if ( is_null( $group ) || is_null( $appointment ) )
             return null;
 
-        if ( ! $group->confirmation_sent_after_visiting && $group->has_checkin ) {
+        if ( ! $group->confirmation_sent_after_visiting && $group->has_checkin && $group->checkin_showed === 'yes' ) {
 
             $email_params = [
                 'email'          => $appointment->responsible_email,
