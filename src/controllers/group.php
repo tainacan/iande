@@ -274,7 +274,15 @@ class Group extends Controller
         $has_checkin = \get_post_meta($params['ID'], 'has_checkin', true);
 
         if (!$has_checkin) {
-            $this->error(__("A avaliação do visitante não pode ser realizada antes do check-in", 'iande'));
+            $this->error(__('A avaliação do visitante não pode ser realizada antes do check-in', 'iande'));
+        }
+
+        /**
+         * Permite a criação/edição da avaliação apenas para grupos que compareceram à visita
+         */
+        $checkin_showed = \get_post_meta($params['ID'], 'checkin_showed', true);
+        if ($checkin_showed !== 'yes') {
+            $this->error(__('A avaliação do visitante não pode ser realizada se grupo não compareceu à visita', 'iande'));
         }
 
         $this->set_group_metadata($params['ID'], $params);
@@ -323,7 +331,16 @@ class Group extends Controller
         $has_checkin = \get_post_meta($params['ID'], 'has_checkin', true);
 
         if (!$has_checkin) {
-            $this->error(__("A avaliação do educador não pode ser realizada antes do check-in", 'iande'));
+            $this->error(__('A avaliação do educador não pode ser realizada antes do check-in', 'iande'));
+        }
+
+        /**
+         * Permite a criação/edição da avaliação apenas para grupos que compareceram à visita
+         */
+        $checkin_showed = \get_post_meta($params['ID'], 'checkin_showed', true);
+
+        if ($checkin_showed !== 'yes') {
+            $this->error(__('A avaliação do educador não pode ser realizada se grupo não compareceu à visita', 'iande'));
         }
 
         $this->set_group_metadata($params['ID'], $params);
