@@ -157,7 +157,7 @@
                 return this.isEducator && this.group.date <= today
             },
             canEvaluate () {
-                return this.isEducator && this.group.has_checkin && !this.group.has_report && this.group.date <= today
+                return this.isEducator && this.group.has_checkin && this.group.checkin_showed === 'yes' && !this.group.has_report && this.group.date <= today
             },
             collapsed () {
                 return this.boxed && !this.showDetails
