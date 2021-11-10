@@ -104,7 +104,7 @@
                         <div>{{ __(group.scholarity, 'iande') }}</div>
                         <div>{{ __('Deficiências', 'iande') }}: {{ groupDisabilities(group.disabilities) }}</div>
                         <div>{{ __('Idiomas', 'iande') }}: {{ groupLanguages(group.languages) }}</div>
-                        <div class="iande-appointment__feedback-link" v-if="group.has_checkin === 'on'">
+                        <div class="iande-appointment__feedback-link" v-if="canEvaluate(group)">
                             <a :href="$iandeUrl(`group/feedback/?ID=${group.ID}`)">
                                 {{ __('Avaliar visita', 'iande') }}
                             </a>
@@ -267,6 +267,9 @@
         methods: {
             async cancelAppointment () {
                 this.$refs.cancelModal.open()
+            },
+            canEvaluate (group) {
+                return group.has_checkin === 'on' && group.checkin_showed === 'yes'
             },
             formatBinaryOption (option) {
                 return option === 'yes' ? __('Sim', 'iande') : __('Não', 'iande')

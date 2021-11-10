@@ -716,7 +716,11 @@ class Appointment extends Controller
                 'name'            => $group->name,
                 'num_people'      => $group->num_people,
                 'num_responsible' => $group->num_responsible,
-                'scholarity'      => $group->scholarity
+                'scholarity'      => $group->scholarity,
+                'has_checkin'     => $group->has_checkin,
+                'checkin_showed'  => $group->checkin_showed,
+                'has_feedback'    => $group->has_feedback,
+                'has_report'      => $group->has_report,
             ];
 
         }
