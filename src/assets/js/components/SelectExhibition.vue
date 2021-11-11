@@ -16,7 +16,7 @@
             <Label for="name" :side="__('(opcional)', 'iande')">{{ __('Dê um nome à visita', 'iande') }}</Label>
             <Input id="name" type="text" :placeholder="__('Ex: Nome da instituição', 'iande')" v-model="name" :v="$v.name"/>
         </div>
-        <div v-if="exhibitions.length > 1">
+        <div>
             <Label for="exhibitionId">{{ __('Qual exposição será visitada?', 'iande') }}</Label>
             <Select id="exhibitionId" v-model="exhibitionId" :v="$v.exhibitionId" :options="exhibitionOptions"/>
             <p class="iande-exhibition-description" v-if="exhibition && exhibition.description">
