@@ -48,7 +48,7 @@
         async created () {
             try {
                 const [exhibitions, appointments, groups, educators] = await Promise.all([
-                    api.get('exhibition/list'),
+                    api.get('exhibition/list?show_private=1'),
                     api.get('appointment/list_published'),
                     api.get('group/list_agenda'),
                     api.get('user/list?cap=checkin'),
