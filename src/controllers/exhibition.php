@@ -49,9 +49,24 @@ class Exhibition extends Controller
     function endpoint_list(array $params = [])
     {
         $post_statuses = ['publish'];
+        $meta_query = [];
 
         if (!empty($params['show_private']) && $params['show_private'] == '1') {
             $post_statuses[] = 'private';
+        } else {
+            $meta_query = [
+                'relation' => 'OR',
+                [
+                    'key'     => 'date_to',
+                    'compare' => 'NOT EXISTS',
+                ],
+                [
+                    'key'     => 'date_to',
+                    'value'   => \date('Y-m-d'),
+                    'compare' => '>=',
+                    'type'    => 'DATE',
+                ],
+            ];
         }
 
         $args = array(
@@ -60,6 +75,7 @@ class Exhibition extends Controller
             'posts_per_page' => -1,
             'order'          => 'ASC',
             'orderby'        => 'ID',
+            'meta_query'     => $meta_query,
         );
 
         $exhibitions = get_posts($args);
