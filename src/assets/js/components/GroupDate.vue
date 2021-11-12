@@ -13,6 +13,9 @@
             <div v-if="date">
                 <Label :for="`${id}_hour`">{{ __('Horário', 'iande') }}</Label>
                 <SlotPicker :id="`${id}_hour`" ref="slots" :day="date" v-model="hour" :v="v.hour"/>
+                <div class="iande-form-message" :class="{ '-error': availability.visitors === 0 }" v-if="availability">
+                    {{ sprintf(__('Vagas disponíveis: %s', 'iande'), availability.visitors) }}
+                </div>
             </div>
         </template>
     </section>
@@ -26,7 +29,7 @@
     import Label from '@components/Label.vue'
     import SlotPicker from '@components/SlotPicker.vue'
     import CustomField from '@mixins/CustomField'
-    import { subModel } from '@utils'
+    import { api, subModel } from '@utils'
 
     export default {
         name: 'GroupDate',
@@ -37,6 +40,11 @@
             SlotPicker,
         },
         mixins: [CustomField],
+        data () {
+            return {
+                availability: null,
+            }
+        },
         computed: {
             date: subModel('date'),
             exhibition: get('appointments/exhibition'),
@@ -48,12 +56,30 @@
         },
         watch: {
             date () {
+                this.checkAvailability()
                 this.$nextTick(() => {
                     if (this.$refs.slots && !this.$refs.slots.hours.includes(this.hour)) {
                         this.hour = ''
                     }
                 })
-            }
-        }
+            },
+            async hour () {
+                this.checkAvailability()
+            },
+        },
+        async beforeMount () {
+            await this.checkAvailability()
+        },
+        methods: {
+            async checkAvailability () {
+                const { date, exhibition, hour } = this
+                if (date && hour) {
+                    const availability = await api.post('exhibition/check_availability', { date, hour, ID: exhibition.ID })
+                    this.availability = availability
+                } else {
+                    this.availability = null
+                }
+            },
+        },
     }
 </script>

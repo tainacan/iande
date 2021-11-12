@@ -94,7 +94,18 @@
     .iande-field {
         .iande-form-error {
             font-size: 0.875em;
+            margin: 0.25em var(--iande-border-radius) 0;
             text-align: start;
+        }
+    }
+
+    .iande-form-message {
+        color: var(--iande-success-color);
+        font-size: 0.875em;
+        margin: 5px var(--iande-border-radius) 0;
+
+        &.-error {
+            color: var(--iande-error-color);
         }
     }
 

@@ -8,10 +8,78 @@ class Exhibition extends Controller
 {
 
     /**
-     * Retorna uma exposição pelo id
+     * Retorna a disponibilidade de grupos e pessoas em determinada data e horário.
      *
      * @param array $params
+     * @return void
+     */
+    function endpoint_check_availability (array $params = []) {
+        if (empty($params['ID'])) {
+            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
+        }
+
+        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
+            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
+        }
+
+        if (get_post_type($params['ID']) != 'exhibition') {
+            $this->error(__('O ID informado não é uma exposição válida', 'iande'));
+        }
+
+        $exhibition = $this->get_parsed_exhibition($params['ID']);
+
+        if (empty($exhibition)) {
+            return; // 404
+        }
+
+        if (empty($params['date'])) {
+            $this->error(__('A data é obrigatória', 'iande'));
+        }
+
+
+        if (empty($params['hour'])) {
+            $this->error(__('A hora é obrigatória', 'iande'));
+        }
+
+        $args = [
+            'post_type'   => 'group',
+            'post_status' => ['publish', 'pending'],
+            'meta_query'  => [
+                [
+                    'key'   => 'exhibition_id',
+                    'value' => $params['ID'],
+                ],
+                [
+                    'key'   => 'date',
+                    'value' => $params['date'],
+                ],
+                [
+                    'key'   => 'hour',
+                    'value' => $params['hour'],
+                ],
+            ],
+        ];
+
+        $groups = get_posts($args);
+
+        $size = get_post_meta($params['ID'], 'group_size', true);
+        $size = empty($size) ? 100 : intval($size);
+
+        $slot = get_post_meta($params['ID'], 'group_slot', true);
+        $slot = intval($slot);
+
+        $count = count($groups);
+
+        $this->success([
+            'groups' => $slot - $count,
+            'visitors' => ($slot - $count) * $size,
+        ]);
+    }
+
+    /**
+     * Retorna uma exposição pelo ID
      *
+     * @param array $params
      * @return void
      */
     function endpoint_get(array $params = [])
