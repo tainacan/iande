@@ -30,4 +30,7 @@ $title-font: 'Quicksand', 'Open Sans', sans-serif;
 
     --iande-text-font: #{$text-font};
     --iande-title-font: #{$title-font};
+
+    // Aliases
+    --iande-accent-color: var(--iande-secondary-color);
 }
