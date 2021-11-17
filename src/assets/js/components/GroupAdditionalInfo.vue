@@ -103,7 +103,7 @@
                 return this.exhibition?.group_size ? Number(this.exhibition.group_size) : 100
             },
             minPeople () {
-                return this.exhibition?.min_group_size ? Number(this.exhibition.mingroup_size) : 5
+                return this.exhibition?.min_group_size ? Number(this.exhibition.min_group_size) : 5
             },
             n () {
                 return Number(this.id.split('_').pop()) + 1
