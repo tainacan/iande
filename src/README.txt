@@ -4,7 +4,7 @@ Tags: Reservation system, scheduling, schedule, group visits, virtual group tour
 Requires at least: 5.5.3
 Tested up to: 5.8
 Requires PHP: 7.2
-Stable tag: 0.11.0
+Stable tag: 0.12.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,16 @@ Features:
 
 
 == Changelog ==
+
+= 0.12.0 =
+* Exibe número de vagas disponíveis durante agendamento
+* Exibe descrição da exposição mesmo se apenas uma descrição está disponível
+* Adiciona ao logo do Iandé link para página de boas-vindas
+* Adiciona ao menu do front-end botão para voltar ao admin do WordPress
+* Adiciona link para feedback do usuário na listagem de agendamentos
+* Correção de bug: grupos que não compareceram não devem ser avaliados
+* Correção de bug: agendamentos passados devem ser exibidos
+* Correção de bug: tamanho mínimo para grupos é exibido corretamente
 
 = 0.11.0 =
 * Adiciona novo role "Educador do Iandé", renomeia "Administrador do Iandé" para "Coordenador do Iandé"
