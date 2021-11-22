@@ -3,15 +3,17 @@
         <ChangeViewBanner v-model="viewMode" v-if="userIsAdmin"/>
         <header class="iande-navbar">
             <div class="iande-container iande-navbar__row">
-                <div class="iande-navbar__site-name" v-if="tainacanBranded">
-                    <img :src="`${$iande.iandePath}assets/img/iande-logo_short.png`" alt="Iandé" title="Iandé">
-                    & <img :src="`${$iande.iandePath}assets/img/tainacan-logo_short.png`" alt="Tainacan" title="Tainacan">
-                    + {{ __($iande.siteName, 'iande') }}
-                </div>
-                <div class="iande-navbar__site-name" v-else>
-                    <img :src="`${$iande.iandePath}assets/img/iande-logo.png`" alt="Iandé">
-                    + {{ __($iande.siteName, 'iande') }}
-                </div>
+                <a class="iande-navbar__site-name" :href="$iandeUrl('user/welcome')">
+                    <template v-if="tainacanBranded">
+                        <img :src="`${$iande.iandePath}assets/img/iande-logo_short.png`" alt="Iandé" title="Iandé">
+                        & <img :src="`${$iande.iandePath}assets/img/tainacan-logo_short.png`" alt="Tainacan" title="Tainacan">
+                        + {{ __($iande.siteName, 'iande') }}
+                    </template>
+                    <template v-else>
+                        <img :src="`${$iande.iandePath}assets/img/iande-logo.png`" alt="Iandé">
+                        + {{ __($iande.siteName, 'iande') }}
+                    </template>
+                </a>
                 <a v-if="isLoggedIn" class="iande-navbar__toggle" href="javascript:void(0)" role="button" tabindex="0" :aria-label="showMenu ? __('Ocultar menu', 'iande') : __('Exibir menu', 'iande')" @click="toggleMenu">
                     <Icon icon="bars"/>
                 </a>
