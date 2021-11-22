@@ -60,17 +60,18 @@
                 { label: __('Próximas', 'iande'), value: 'next' },
                 { label: __('Antigas', 'iande'), value: 'previous' },
             ]),
+            exhibitions: sync('exhibitions/list'),
             institutions: sync('institutions/list'),
         },
         async created () {
-            if (this.appointments.length === 0) {
-                const appointments = await api.get('appointment/list')
-                this.appointments = appointments
-            }
-            if (this.institutions.length === 0) {
-                const institutions = await api.get('institution/list_published')
-                this.institutions = institutions
-            }
+            const [appointments, exhibitions, institutions] = await Promise.all([
+                api.get('appointment/list'),
+                api.get('exhibition/list/?show_private=1'),
+                api.get('institution/list_published'),
+            ])
+            this.appointments = appointments
+            this.exhibitions = exhibitions
+            this.institutions = institutions
         }
     }
 </script>
