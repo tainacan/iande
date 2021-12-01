@@ -51,7 +51,7 @@ Features:
 
 = 0.12.0 =
 * Exibe número de vagas disponíveis durante agendamento
-* Exibe descrição da exposição mesmo se apenas uma descrição está disponível
+* Exibe descrição da exposição mesmo se apenas uma exposição está disponível
 * Adiciona ao logo do Iandé link para página de boas-vindas
 * Adiciona ao menu do front-end botão para voltar ao admin do WordPress
 * Adiciona link para feedback do usuário na listagem de agendamentos
