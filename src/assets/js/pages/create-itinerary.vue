@@ -96,7 +96,7 @@
             return {
                 form: {
                     collection: { required: requiredIf(() => this.source === 'collection') },
-                    description: { },
+                    description: { required },
                     exhibition: { required: requiredIf(() => this.source === 'exhibition') },
                     name: { required },
                     source: { required },
