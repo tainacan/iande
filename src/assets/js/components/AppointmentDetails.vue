@@ -201,7 +201,7 @@
         },
         computed: {
             cancelable () {
-                return this.appointment.post_status !== 'canceled'
+                return this.appointment.post_status !== 'canceled' && !(this.appointment.groups || []).some(group => group.has_checkin)
             },
             city () {
                 if (!this.institution) {
