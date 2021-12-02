@@ -521,7 +521,7 @@ function get_exhibition_metadata_definition() {
                 return true;
             },
             'metabox' => (object) [
-                'name'          => __('Exceções', 'iande'),
+                'name'          => __('Horários especiais', 'iande'),
                 'type'          => 'post_ajax_search',
                 'show_on_cb'    => 'has_exception',
                 'multiple_item' => true,

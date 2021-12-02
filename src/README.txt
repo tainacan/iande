@@ -37,7 +37,7 @@ Features:
 
 == Screenshots ==
 
-1. Iandé expõe cinco post types para o usuário: Agendamentos, Instituições, Exposições, Grupos e Exceções. Em destaque, a tela de edição e aprovação de agendamento
+1. Iandé expõe cinco post types para o usuário: Agendamentos, Instituições, Exposições, Grupos e Horários Especiais. Em destaque, a tela de edição e aprovação de agendamento
 2. Tela de edição de exposição, com calendário de horários disponível e agendamentos
 3. Tela de edição de exceções de horários
 4. Tela de configuração de vocabulários dos agendamentos

@@ -506,7 +506,7 @@ function use_exemption() {
 }
 
 /**
- * Verifica se existem Exceções cadastradas
+ * Verifica se existem horários especiais cadastrados
  *
  * @return boolean
  */

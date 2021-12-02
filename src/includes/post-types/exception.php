@@ -4,6 +4,7 @@ namespace IandePlugin;
 
 add_action('init', 'IandePlugin\\register_post_type_exception');
 add_action('cmb2_admin_init', 'IandePlugin\\register_metabox_exception');
+add_action('edit_form_after_title', 'IandePlugin\\add_exception_explainer');
 
 /**
  * Registra o Post Type Exception
@@ -12,20 +13,20 @@ function register_post_type_exception()
 {
 
     $exception_labels = [
-        'name'               => _x('Exceções', 'post type general name', 'iande'),
-        'singular_name'      => _x('Exceção', 'post type singular name', 'iande'),
-        'menu_name'          => _x('Exceções', 'admin menu', 'iande'),
-        'name_admin_bar'     => _x('Exceção', 'add new on admin bar', 'iande'),
-        'add_new'            => _x('Adicionar nova', 'exceção', 'iande'),
-        'add_new_item'       => __('Adicionar Nova Exceção', 'iande'),
-        'new_item'           => __('Novo Exceção', 'iande'),
-        'edit_item'          => __('Editar Exceção', 'iande'),
-        'view_item'          => __('Ver Exceção', 'iande'),
-        'all_items'          => _x('Exceções', 'all items', 'iande'),
-        'search_items'       => __('Buscar Exceções', 'iande'),
-        'parent_item_colon'  => __('Exceções Pais:', 'iande'),
-        'not_found'          => __('Nenhuma exceção encontrada.', 'iande'),
-        'not_found_in_trash' => __('Nenhuma exceção encontrada na lixeira.', 'iande')
+        'name'               => _x('Horários especiais', 'post type general name', 'iande'),
+        'singular_name'      => _x('Horário especial', 'post type singular name', 'iande'),
+        'menu_name'          => _x('Horários especiais', 'admin menu', 'iande'),
+        'name_admin_bar'     => _x('Horário especial', 'add new on admin bar', 'iande'),
+        'add_new'            => _x('Adicionar novo', 'horário especial', 'iande'),
+        'add_new_item'       => __('Adicionar Novo Horário Especial', 'iande'),
+        'new_item'           => __('Novo Horário Especial', 'iande'),
+        'edit_item'          => __('Editar Horário Especial', 'iande'),
+        'view_item'          => __('Ver Horário Especial', 'iande'),
+        'all_items'          => _x('Horários Especiais', 'all items', 'iande'),
+        'search_items'       => __('Buscar Horários Especiais', 'iande'),
+        'parent_item_colon'  => __('Horários Pais:', 'iande'),
+        'not_found'          => __('Nenhum horário especial encontrado.', 'iande'),
+        'not_found_in_trash' => __('Nenhum horário especial encontrado na lixeira.', 'iande')
     ];
 
     $exception_args = [
@@ -76,7 +77,7 @@ function register_metabox_exception() {
     /* Cria o metabox */
     $exception_metabox = \new_cmb2_box([
         'id'            => 'exception',
-        'title'         => __('Informações da Exceção', 'iande'),
+        'title'         => __('Informações do Horário Especial', 'iande'),
         'object_types'  => ['exception'],
         'context'       => 'normal',
         'priority'      => 'high',
@@ -290,7 +291,7 @@ function get_exception_metadata_definition()
                 return true;
             },
             'metabox' => (object) [
-                'name'    => __('Horários de Exceção', 'iande'),
+                'name'    => __('Horários Especiais', 'iande'),
                 'type'    => 'group',
                 'options' => [
                     'group_title'   => __('Horário {#}', 'iande'),
@@ -318,4 +319,21 @@ function get_exception_metadata_definition()
 
     return $metadata_definition;
 
+}
+
+/**
+ * Adicionar texto de tutorial ao editor de horários especiais
+ */
+function add_exception_explainer () {
+    global $post;
+
+    if (!empty($post) && $post->post_type === 'exception') { ?>
+        <div class="notice notice-info inline">
+            <ul>
+                <li><?= __('Horários vazios fecham o museu nas datas selecionadas.', 'iande') ?></li>
+                <li><?= __('Horários preenchidos substituem os horários padrões nas datas selecionadas.', 'iande') ?></li>
+                <li><?= __('Os horários especiais devem ser adicionados manualmente nas <a href="edit.php?post_type=exhibition">exposições</a>.', 'iande') ?></li>
+            </ul>
+        </div><?php
+    }
 }
