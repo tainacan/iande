@@ -31,6 +31,9 @@
                 formError: '',
             }
         },
+        mounted () {
+            this.disableNativePublishButton()
+        },
         methods: {
             async cancelPost () {
                 this.formError = ''
@@ -42,6 +45,14 @@
                     window.location.reload()
                 } catch (err) {
                     this.formError = err
+                }
+            },
+            disableNativePublishButton () {
+                const publishButton = document.querySelector('input[name=publish]')
+                if (publishButton) {
+                    publishButton.disabled = true
+                    publishButton.classList.add('button-disabled')
+                    publishButton.classList.remove('button-primary')
                 }
             },
             async publish () {
