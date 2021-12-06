@@ -7,6 +7,7 @@ if (!\wp_next_scheduled('iande.cron_daily')) {
 }
 
 \add_action('iande.cron_daily', 'IandePlugin\auto_checkin');
+\add_action('iande.cron_daily', 'IandePlugin\auto_expiry_abandoned_appointments');
 
 /**
  * Faz check-in automaticamente se museu não o fez 10 dias depois da visita.
@@ -60,5 +61,44 @@ function auto_checkin () {
             'ID'         => $group->ID,
             'meta_input' => $metaInput,
         ]);
+    }
+}
+
+/**
+ * Expira automaticamente rascunhos abandonados há mais de 10 dias.
+ */
+function auto_expiry_abandoned_appointments () {
+    $appointments = \get_posts([
+        'numberposts' => -1,
+        'post_status' => ['draft'],
+        'post_type' => 'appointment',
+        'date_query' => [
+            [
+                'column' => 'post_date',
+                'before' => '10 days ago',
+            ],
+        ],
+    ]);
+
+    foreach ($appointments as $appointment) {
+        \wp_update_post([
+            'ID'          => $appointment->ID,
+            'post_status' => 'trash',
+            'meta_input'  => [
+                '_auto_expiry' => '1',
+            ],
+        ]);
+
+        $groups = \get_post_meta($appointment->ID, 'groups', true) ?: [];
+
+        foreach ($groups as $group) {
+            \wp_update_post([
+                'ID'          => $group,
+                'post_status' => 'trash',
+                'meta_input'  => [
+                    '_auto_expiry' => '1',
+                ],
+            ]);
+        }
     }
 }
