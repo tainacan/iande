@@ -115,8 +115,14 @@
 
                         <div v-if="form.checkin_institutional === 'yes'">
                             <Label for="institution">{{ __('Tipo / perfil da instituição', 'iande') }}</Label>
-                            <div class="iande-hint" v-if="institution && appointment.group_nature === 'institutional'" v-html="sprintf(__('O agendamendo prevê <b>%s</b>. Infome se o grupo presente condiz com informações do agendamento.', 'iande'), institution.profile)"/>
-                            <RadioGroup id="institution" v-model="form.checkin_institution" :v="$v.form.checkin_institution" :options="binaryOptions"/>
+                            <template v-if="institution && appointment.group_nature === 'institutional'">
+                                <div class="iande-hint" v-html="sprintf(__('O agendamendo prevê <b>%s</b>. Infome se o grupo presente condiz com informações do agendamento.', 'iande'), institution.profile)"/>
+                                <RadioGroup id="institution" v-model="form.checkin_institution" :v="$v.form.checkin_institution" :options="binaryOptions"/>
+                            </template>
+                            <template v-else>
+                                <label for="institution-actual" class="iande-hint">{{ __('Qual o perfil da instituição?', 'iande') }}</label>
+                                <Select id="institution-actual" v-model="form.checkin_institution_actual" :v="$v.form.checkin_institution_actual" :options="$iande.profiles"/>
+                            </template>
                         </div>
                         <div v-if="form.checkin_institution === 'no'">
                             <label for="institution-actual" class="iande-hint">{{ __('Qual o perfil da instituição efetivamente?', 'iande') }}</label>
