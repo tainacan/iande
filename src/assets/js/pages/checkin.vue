@@ -4,49 +4,49 @@
             <h1>Check-in</h1>
             <form class="iande-form iande-stack stack-lg" @submit.prevent="checkin">
                 <template v-if="submitted">
-                    <p class="text-center">Check-in realizado com sucesso!</p>
+                    <p class="text-center">{{ __('Check-in realizado com sucesso!', 'iande') }}</p>
                 </template>
 
                 <template v-else>
                     <div>
-                        <Label for="showed">O grupo apareceu para a visita?</Label>
+                        <Label for="showed">{{ __('O grupo apareceu para a visita?', 'iande') }}</Label>
                         <RadioGroup id="showed" v-model="form.checkin_showed" :v="$v.form.checkin_showed" :options="binaryOptions"/>
                     </div>
 
                     <template v-if="showedYes">
                         <div>
-                            <Label for="hour">Horário efetivo de início da visita</Label>
-                            <div class="iande-hint">A visita foi agendada para ocorrer entre <b>{{ group.hour }} - {{ endHour }}</b>. Informe se o grupo iniciou a visita no horário previsto.</div>
+                            <Label for="hour">{{ __('Horário efetivo de início da visita', 'iande') }}</Label>
+                            <div class="iande-hint" v-html="sprintf(__('A visita foi agendada para ocorrer entre <b>%s - %s</b>. Informe se o grupo iniciou a visita no horário previsto.', 'iande'), group.hour, endHour)"/>
                             <RadioGroup id="hour" v-model="form.checkin_hour" :v="$v.form.checkin_hour" :options="binaryOptions"/>
                         </div>
 
                         <div>
-                            <Label for="num-people">Quantidade efetiva de integrantes do grupo</Label>
-                            <div class="iande-hint">O agendamendo considera a previsão de <b>{{ group.num_people }} pessoas</b> no total. Infome se o grupo presente condiz com informações agendadas.</div>
+                            <Label for="num-people">{{ __('Quantidade efetiva de integrantes do grupo', 'iande') }}</Label>
+                            <div class="iande-hint" v-html="sprintf(__('O agendamendo considera a previsão de <b>%s pessoas</b> no total. Infome se o grupo presente condiz com informações agendadas.', 'iande'), group.num_people)"/>
                             <RadioGroup id="num-people" v-model="form.checkin_num_people" :v="$v.form.checkin_num_people" :options="binaryOptions"/>
                         </div>
                         <div v-if="form.checkin_num_people === 'no'">
-                            <label for="num-people-actual" class="iande-hint">Quantas pessoas compareceram efetivamente?</label>
+                            <label for="num-people-actual" class="iande-hint">{{ __('Quantas pessoas compareceram efetivamente?', 'iande') }}</label>
                             <Input id="num-people-actual" type="number" v-model.number="form.checkin_num_people_actual" :v="$v.form.checkin_num_people_actual"/>
                         </div>
 
                         <div>
-                            <Label for="num-responsible">Quantidade efetiva de responsáveis</Label>
-                            <div class="iande-hint">O agendamendo considera a previsão de <b>{{ group.num_responsible }} responsáveis</b>. Infome se o grupo presente condiz com informações agendadas.</div>
+                            <Label for="num-responsible">{{ __('Quantidade efetiva de responsáveis', 'iande') }}</Label>
+                            <div class="iande-hint" v-html="sprintf(__('O agendamendo considera a previsão de <b>%s responsáveis</b>. Infome se o grupo presente condiz com informações agendadas', 'iande'), group.num_responsible)"/>
                             <RadioGroup id="num-responsible" v-model="form.checkin_num_responsible" :v="$v.form.checkin_num_responsible" :options="binaryOptions"/>
                         </div>
                         <div v-if="form.checkin_num_responsible === 'no'">
-                            <label for="num-responsible-actual" class="iande-hint">Quantos responsáveis compareceram efetivamente?</label>
+                            <label for="num-responsible-actual" class="iande-hint">{{ __('Quantos responsáveis compareceram efetivamente?', 'iande') }}</label>
                             <Input id="num-responsible-actual" type="number" v-model.number="form.checkin_num_responsible_actual" :v="$v.form.checkin_num_responsible_actual"/>
                         </div>
 
                         <div>
-                            <Label for="disabilities">Quantidade efetiva de pessoas com cada tipo de deficiência</Label>
-                            <div class="iande-hint">O agendamendo prevê <span v-html="disabilities"/>. Infome se o grupo presente condiz com informações do agendamento.</div>
+                            <Label for="disabilities">{{ __('Quantidade efetiva de pessoas com cada tipo de deficiência', 'iande') }}</Label>
+                            <div class="iande-hint" v-html="sprintf(__('O agendamendo prevê %s. Infome se o grupo presente condiz com informações do agendamento.', 'iande'), disabilities)"/>
                             <RadioGroup id="disabilities" v-model="form.checkin_disabilities" :v="$v.form.checkin_disabilities" :options="binaryOptions"/>
                         </div>
                         <div v-if="form.checkin_disabilities === 'no'">
-                            <label for="disabilities-actual" class="iande-hint">Quantas pessoas com deficiência apareceram efetivamente?</label>
+                            <label for="disabilities-actual" class="iande-hint">{{ __('Quantas pessoas com deficiência apareceram efetivamente?', 'iande') }}</label>
                             <div class="iande-complex-field">
                                 <Repeater id="disabilities-actual" v-model="form.checkin_disabilities_actual" :factory="newDisability" :v="$v.form.checkin_disabilities_actual">
                                     <template #item="{ id, onUpdate, v, value }">
@@ -57,7 +57,7 @@
                                     <template #addItem="{ action }">
                                         <div class="iande-add-item" role="button" tabindex="0" @click="action">
                                             <span><Icon icon="plus-circle"/></span>
-                                            <div class="iande-label">Adicionar deficiência</div>
+                                            <div class="iande-label">{{ __('Adicionar deficiência', 'iande') }}</div>
                                         </div>
                                     </template>
                                 </Repeater>
@@ -65,12 +65,12 @@
                         </div>
 
                         <div>
-                            <Label for="languages">Quantidade efetiva de pessoas falando outros idiomas diferentes de português</Label>
-                            <div class="iande-hint">O agendamendo prevê <span v-html="languages"/>. Infome se o grupo presente condiz com informações do agendamento.</div>
+                            <Label for="languages">{{ __('Quantidade efetiva de pessoas falando outros idiomas diferentes de português', 'iande') }}</Label>
+                            <div class="iande-hint" v-html="sprintf(__('O agendamendo prevê %s. Infome se o grupo presente condiz com informações do agendamento.', 'iande'), languages)"/>
                             <RadioGroup id="languages" v-model="form.checkin_languages" :v="$v.form.checkin_languages" :options="binaryOptions"/>
                         </div>
                         <div v-if="form.checkin_languages === 'no'">
-                            <label for="languages-actual" class="iande-hint">Quais os idiomas falados pelo grupo efetivamente?</label>
+                            <label for="languages-actual" class="iande-hint">{{ __('Quais os idiomas falados pelo grupo efetivamente?', 'iande') }}</label>
                             <div class="iande-complex-field">
                                 <Repeater id="languages-actual" v-model="form.checkin_languages_actual" :factory="newLanguage" :v="$v.form.checkin_languages_actual">
                                     <template #item="{ id, onUpdate, v, value }">
@@ -81,7 +81,7 @@
                                     <template #addItem="{ action }">
                                         <div class="iande-add-item" role="button" tabindex="0" @click="action">
                                             <span><Icon icon="plus-circle"/></span>
-                                            <div class="iande-label">Adicionar idioma</div>
+                                            <div class="iande-label">{{ __('Adicionar idioma', 'iande') }}</div>
                                         </div>
                                     </template>
                                 </Repeater>
@@ -89,52 +89,52 @@
                         </div>
 
                         <div>
-                            <Label for="scholarity">Confirmação de escolaridade</Label>
-                            <div class="iande-hint">O agendamendo prevê <b>{{ group.scholarity }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
+                            <Label for="scholarity">{{ __('Confirmação de escolaridade', 'iande') }}</Label>
+                            <div class="iande-hint" v-html="sprintf(__('O agendamendo prevê <b>%s</b>. Infome se o grupo presente condiz com informações do agendamento.', 'iande'), group.scholarity)"/>
                             <RadioGroup id="scholarity" v-model="form.checkin_scholarity" :v="$v.form.checkin_scholarity" :options="binaryOptions"/>
                         </div>
                         <div v-if="form.checkin_scholarity === 'no'">
-                            <label for="scholarity-actual" class="iande-hint">Qual a escolaridade do grupo efetivamente?</label>
+                            <label for="scholarity-actual" class="iande-hint">{{ __('Qual a escolaridade do grupo efetivamente?', 'iande') }}</label>
                             <Select id="scholarity-actual" v-model="form.checkin_scholarity_actual" :v="$v.form.checkin_scholarity_actual" :options="$iande.scholarity"/>
                         </div>
 
                         <div>
-                            <Label for="age-range">Confirmação de faixa etária</Label>
-                            <div class="iande-hint">O agendamendo prevê <b>{{ group.age_range.toLocaleLowerCase() }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
+                            <Label for="age-range">{{ __('Confirmação de faixa etária', 'iande') }}</Label>
+                            <div class="iande-hint" v-html="sprintf(__('O agendamendo prevê <b>%s</b>. Infome se o grupo presente condiz com informações do agendamento.', 'iande'), group.age_range.toLocaleLowerCase())"/>
                             <RadioGroup id="age-range" v-model="form.checkin_age_range" :v="$v.form.checkin_age_range" :options="binaryOptions"/>
                         </div>
                         <div v-if="form.checkin_age_range === 'no'">
-                            <label for="age-actual-actual" class="iande-hint">Qual a faixa etária efetivamente?</label>
+                            <label for="age-actual-actual" class="iande-hint">{{ __('Qual a faixa etária efetivamente?', 'iande') }}</label>
                             <Select id="age-range-actual" v-model="form.checkin_age_range_actual" :v="$v.form.checkin_age_range_actual" :options="$iande.ageRanges"/>
                         </div>
 
                         <div>
-                            <Label for="institutional">O grupo é institucional?</Label>
+                            <Label for="institutional">{{ __('O grupo é institucional?', 'iande') }}</Label>
                             <RadioGroup id="institutional" v-model="form.checkin_institutional" :v="$v.form.checkin_institutional" :options="binaryOptions"/>
                         </div>
 
                         <div v-if="form.checkin_institutional === 'yes'">
-                            <Label for="institution">Tipo / perfil da instituição</Label>
-                            <div class="iande-hint" v-if="institution && appointment.group_nature === 'institutional'">O agendamendo prevê <b>{{ institution.profile }}</b>. Infome se o grupo presente condiz com informações do agendamento.</div>
+                            <Label for="institution">{{ __('Tipo / perfil da instituição', 'iande') }}</Label>
+                            <div class="iande-hint" v-if="institution && appointment.group_nature === 'institutional'" v-html="sprintf(__('O agendamendo prevê <b>%s</b>. Infome se o grupo presente condiz com informações do agendamento.', 'iande'), institution.profile)"/>
                             <RadioGroup id="institution" v-model="form.checkin_institution" :v="$v.form.checkin_institution" :options="binaryOptions"/>
                         </div>
                         <div v-if="form.checkin_institution === 'no'">
-                            <label for="institution-actual" class="iande-hint">Qual o perfil da instituição efetivamente?</label>
+                            <label for="institution-actual" class="iande-hint">{{ __('Qual o perfil da instituição efetivamente?', 'iande') }}</label>
                             <Select id="institution-actual" v-model="form.checkin_institution_actual" :v="$v.form.checkin_institution_actual" :options="$iande.profiles"/>
                         </div>
                     </template>
 
                     <template v-else-if="showedNo">
                         <div>
-                            <Label for="noshow-type">A visita não foi realizada devido a</Label>
+                            <Label for="noshow-type">{{ __('A visita não foi realizada devido a', 'iande') }}</Label>
                             <RadioGroup id="noshow-type" v-model="form.checkin_noshow_type" :v="$v.form.checkin_noshow_type" :options="noshowTypeOptions"/>
                         </div>
 
                         <div v-if="form.checkin_noshow_type">
-                            <Label for="noshow-reason">Qual desafio impossibilitou a visita?</Label>
+                            <Label for="noshow-reason">{{ __('Qual desafio impossibilitou a visita?', 'iande') }}</Label>
                             <RadioGroup id="noshow-reason" columns v-model="form.checkin_noshow_reason" :v="$v.form.checkin_noshow_reason" :options="noshowReasonOptions"/>
                             <template v-if="isOther(form.checkin_noshow_reason)">
-                                <Label for="noshow-reason-other">Qual?</Label>
+                                <Label for="noshow-reason-other">{{ __('Qual?', 'iande') }}</Label>
                                 <TextArea id="noshow-reason-other" columns v-model="form.checkin_noshow_reason_other" :v="$v.form.checkin_noshow_reason_other"/>
                             </template>
                         </div>
@@ -142,10 +142,10 @@
 
                     <div class="iande-stack stack-md">
                         <div class="iande-form-error" v-if="formError">
-                            <span>{{ formError }}</span>
+                            <span>{{ __(formError, 'iande') }}</span>
                         </div>
                         <button class="iande-button primary" type="submit">
-                            Enviar
+                            {{ __('Enviar', 'iande') }}
                             <Icon icon="angle-right"/>
                         </button>
                     </div>
@@ -167,6 +167,7 @@
     import Repeater from '@components/Repeater.vue'
     import Select from '@components/Select.vue'
     import TextArea from '@components/TextArea.vue'
+    import { __, _n, _x } from '@plugins/wp-i18n'
     import { api, constant, isOther, joinMany, qs } from '@utils'
 
     export default {
@@ -215,11 +216,14 @@
             }
         },
         computed: {
-            binaryOptions: constant({ 'Não': 'no', 'Sim': 'yes' }),
+            binaryOptions: constant({
+                [__('Não', 'iande')]: 'no',
+                [__('Sim', 'iande')]: 'yes',
+            }),
             disabilities () {
                 const disabilities = this.group.disabilities
                 if (!disabilities || disabilities.length === 0) {
-                    return '<b>nenhuma</b> pessoa com deficiência'
+                    return __('<b>nenhuma</b> pessoa com deficiência', 'iande')
                 } else {
                     return joinMany(disabilities.map(disability => {
                         let dis = '<b>'
@@ -228,19 +232,19 @@
                         } else {
                             dis += disability.disabilities_type
                         }
-                        dis += `</b> (<b>${disability.disabilities_count}</b> pessoa${disability.disabilities_count ? 's' : ''})`
+                        dis += `</b> (<b>${disability.disabilities_count}</b> ${_n('pessoa', 'pessoas', disability.disabilities_count, 'iande')})`
                         return dis
                     }))
                 }
             },
             endHour () {
                 const delta = { minutes: Number(this.exhibition?.duration ?? 30) }
-                return DateTime.fromFormat(this.group.hour, 'HH:mm').plus(delta).toFormat('HH:mm')
+                return DateTime.fromFormat(this.group.hour, 'HH:mm').plus(delta).toFormat(__('HH:mm', 'iande'))
             },
             languages () {
                 const languages = this.group.languages
                 if (!languages || languages.length === 0) {
-                    return '<b>apenas português</b>'
+                    return _x('<b>apenas português</b>', 'main language', 'iande')
                 } else {
                     return joinMany(languages.map(language => {
                         if (isOther(language.languages_name) && language.languages_other) {
@@ -256,22 +260,25 @@
                     return []
                 } else if (this.form.checkin_noshow_type === 'internal') {
                     return [
-                        'Exposição fechada por problemas de infraestrutura ou queda de energia',
-                        'Não havia educador disponível para realizar a visita',
-                        'A exposição estava com excesso de grupos',
+                        __('Exposição fechada por problemas de infraestrutura ou queda de energia', 'iande'),
+                        __('Não havia educador disponível para realizar a visita', 'iande'),
+                        __('A exposição estava com excesso de grupos', 'iande'),
                     ]
                 } else {
                     return [
-                        'Problemas de deslocamento até a exposição/museu (trânsito, endereço errado, atraso do ônibus, atraso de alunos responsáveis)',
-                        'O grupo preferiu visitar a exposição sem a presença do educador',
-                        'O grupo optou por realizar outra atividade na instituição',
-                        'A visita foi cancelada no mesmo dia',
-                        'Não sei',
-                        'Outro'
+                        __('Problemas de deslocamento até a exposição/museu (trânsito, endereço errado, atraso do ônibus, atraso de alunos responsáveis)', 'iande'),
+                        __('O grupo preferiu visitar a exposição sem a presença do educador', 'iande'),
+                        __('O grupo optou por realizar outra atividade na instituição', 'iande'),
+                        __('A visita foi cancelada no mesmo dia', 'iande'),
+                        __('Não sei', 'iande'),
+                        _x('Outro', 'motivo', 'iande'),
                     ]
                 }
             },
-            noshowTypeOptions: constant({ 'Problemas internos': 'internal', 'Problemas da instituição visitante': 'visitor' }),
+            noshowTypeOptions: constant({
+                [__('Problemas internos', 'iande')]: 'internal',
+                [__('Problemas da instituição visitante', 'iande')]: 'visitor',
+            }),
             showedNo () {
                 return this.form.checkin_showed === 'no'
             },
@@ -350,9 +357,7 @@
                     }
                 }
             },
-            isOther (term) {
-                return String(term).toLowerCase().startsWith('outr')
-            },
+            isOther,
             mergeCheckins () {
                 for (const key of Object.keys(this.form)) {
                     if (this.group[key]) {

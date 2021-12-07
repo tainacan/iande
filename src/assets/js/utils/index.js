@@ -1,6 +1,8 @@
 import api, { searchParams } from '@utils/api'
 import qs from '@utils/qs'
 
+const { __, _x } = window.wp.i18n
+
 export function arrayToMap (array, key = 'ID') {
     const entries = toArray(array).map(item => [item[key], item])
     return Object.fromEntries(entries)
@@ -31,10 +33,10 @@ export function formatPhone (phone) {
 }
 
 export function isOther (term) {
-    return String(term).toLowerCase().includes('outr')
+    return String(term).toLowerCase().includes(_x('outr', 'prefix', 'iande'))
 }
 
-export function joinMany (items, separator = ', ', lastSeparator = ' e ') {
+export function joinMany (items, separator = __(', ', 'iande'), lastSeparator = __(' e ', 'iande')) {
     if (items.length <= 1) {
         return items[0]
     } else {
