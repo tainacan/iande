@@ -43,4 +43,5 @@ require 'includes/templates.php';
 require 'includes/routes.php';
 require 'includes/reports.php';
 require 'includes/csv.php';
+require 'includes/cron.php';
 require 'includes/email-reminder.php';
