@@ -370,6 +370,29 @@ function get_exhibition_metadata_definition() {
                 ],
             ]
         ],
+        'max_num_responsible' => (object) [
+            'type'       => 'integer',
+            'required'   => false,
+            'validation' => function ($value) {
+                if (is_numeric($value)) {
+                    if (intval($value) <= 1) {
+                        return __('O valor informado é muito pequeno', 'iande');
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return __('O valor informado não é um número válido', 'iande');
+                }
+            },
+            'metabox' => (object) [
+                'name' => __('Número máximo de responsáveis', 'iande'),
+                'type'       => 'text',
+                'attributes' => [
+                    'type' => 'number',
+                    'min'  => '1',
+                ],
+            ]
+        ],
         'group_size' => (object) [
             'type'       => 'integer',
             'required'   => false,

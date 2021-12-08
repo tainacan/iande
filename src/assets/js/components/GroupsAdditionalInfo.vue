@@ -32,6 +32,7 @@
         },
         validations () {
             const maxPeople = this.exhibition?.group_size ? Number(this.exhibition.group_size) : 100
+            const maxResponsible = this.exhibition?.max_num_responsible ? Number(this.exhibition.max_num_responsible) : 2
             return {
                 groups: {
                     minGroups: minLength(1),
@@ -51,7 +52,7 @@
                             },
                         },
                         num_people: { integer, maxValue: maxValue(maxPeople), required },
-                        num_responsible: { integer, required },
+                        num_responsible: { integer, maxValue: maxValue(maxResponsible), required },
                         scholarity: { required },
                     },
                 },

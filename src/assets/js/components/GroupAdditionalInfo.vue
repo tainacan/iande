@@ -15,7 +15,7 @@
         </div>
         <div>
             <Label :for="`${id}_numResponsible`">{{ __('Quantidade prevista de responsáveis', 'iande') }}</Label>
-            <Input :id="`${id}_numResponsible`" type="number" min="1" max="2" :placeholder="__('Mínimo de 1 e máximo de 2 pessoas', 'iande')" v-model.number="numResponsible" :v="v.num_responsible"/>
+            <Input :id="`${id}_numResponsible`" type="number" min="1" :max="maxResponsible" :placeholder="sprintf(__('Mínimo de 1 e máximo de %s pessoas', 'iande'), maxResponsible)" v-model.number="numResponsible" :v="v.num_responsible"/>
         </div>
         <div>
             <Label :for="`${id}_otherLanguages`">{{ __('O grupo fala algum idioma diferente de português?', 'iande') }}</Label>
@@ -101,6 +101,9 @@
             languages: subModel('languages'),
             maxPeople () {
                 return this.exhibition?.group_size ? Number(this.exhibition.group_size) : 100
+            },
+            maxResponsible () {
+                return this.exhibition?.max_num_responsible ? Number(this.exhibition.max_num_responsible) : 2
             },
             minPeople () {
                 return this.exhibition?.min_group_size ? Number(this.exhibition.min_group_size) : 5
