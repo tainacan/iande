@@ -6,8 +6,6 @@
 </template>
 
 <script>
-    import { DateTime } from 'luxon'
-
     import { __ } from '@plugins/wp-i18n'
 
     export default {
@@ -20,7 +18,7 @@
                 return Object.keys(this.visitorsByDate).sort()
             },
             labels () {
-                return this.dates.map(date => DateTime.fromISO(date).toLocaleString(DateTime.DATE_SHORT))
+                return this.dates
             },
             options () {
                 return {
