@@ -2,9 +2,9 @@
 Contributors: percebeeduca
 Tags: Reservation system, scheduling, schedule, group visits, virtual group tours, museums, Tainacan
 Requires at least: 5.5.3
-Tested up to: 5.8
+Tested up to: 5.8.2
 Requires PHP: 7.2
-Stable tag: 0.12.1
+Stable tag: 0.13.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,17 @@ Features:
 
 
 == Changelog ==
+
+= 0.13.0 =
+* Renomeia "exceções" para "horários especiais"
+* Auto-realização de check-in para visitas com mais de 10 dias
+* Auto-expiração de rascunhos com mais de 10 dias
+* Desabilita botão de publicação nativo do WordPress para grupos pendentes
+* Adiciona customização do número máximo de responsáveis ao nível de exposição
+* Balanceia o número inicial de visitantes entre os grupos
+* Correção de bug: formatação de datas nos relatórios
+* Correção de bug: texto faltante no formulário de check-in
+* Correção de bug: cancelamento de visitas com check-in
 
 = 0.12.1 =
 * Correção de bug: contagem de itens no roteiro
