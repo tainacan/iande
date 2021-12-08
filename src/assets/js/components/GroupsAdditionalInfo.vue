@@ -27,6 +27,7 @@
             Repeater,
         },
         computed: {
+            appointment: get('appointments/current'),
             exhibition: get('appointments/exhibition'),
             groups: sync('appointments/current@groups'),
         },
@@ -58,7 +59,37 @@
                 },
             }
         },
+        watch: {
+            groups: {
+                handler () {
+                    this.balanceGroups()
+                },
+                immediate: true,
+            },
+        },
         methods: {
+            balanceGroups () {
+                if (this.groups.length > 0) {
+                    const hasSize = this.groups.some(group => {
+                        const numPeople = Number(group.num_people)
+                        return numPeople && numPeople !== 5
+                    })
+
+                    if (!hasSize) {
+                        const numPeople = Number(this.appointment.num_people)
+                        const average = Math.floor(numPeople / this.groups.length)
+                        const remainder = numPeople % this.groups.length
+
+                        for (let i = 0; i < this.groups.length; i++) {
+                            if (i < remainder) {
+                                this.$set(this.groups[i], 'num_people', average + 1)
+                            } else {
+                                this.$set(this.groups[i], 'num_people', average)
+                            }
+                        }
+                    }
+                }
+            },
             newGroup () {
                 return {
                     age_range: '',
