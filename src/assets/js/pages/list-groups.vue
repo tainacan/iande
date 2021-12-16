@@ -18,7 +18,7 @@
             <GroupsAgenda :educators="educators" v-if="viewMode === 'calendar'"/>
             <template v-else>
                 <AppointmentsFilter id="time" :label="__('Exibindo', 'iande')" :options="timeOptions" v-model="time"/>
-                <GroupDetails v-for="group of filteredGroups" :key="group.ID" boxed :educators="educators" :group="group"/>
+                <EducatorGroupDetails v-for="group of filteredGroups" :key="group.ID" boxed :educators="educators" :group="group"/>
             </template>
         </div>
     </article>
@@ -28,8 +28,8 @@
     import { sync } from 'vuex-pathify'
 
     import AppointmentsFilter from '@components/AppointmentsFilter.vue'
+    import EducatorGroupDetails from '@components/EducatorGroupDetails.vue'
     import GroupsAgenda from '@components/GroupsCalendar.vue'
-    import GroupDetails from '@components/GroupDetails.vue'
     import { __ } from '@plugins/wp-i18n'
     import { api, constant, sortBy, today } from '@utils'
 
@@ -37,8 +37,8 @@
         name: 'ListGroupsPage',
         components: {
             AppointmentsFilter,
+            EducatorGroupDetails,
             GroupsAgenda,
-            GroupDetails,
         },
         data () {
             return {

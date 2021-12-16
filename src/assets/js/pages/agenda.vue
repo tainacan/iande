@@ -3,7 +3,7 @@
         <div class="iande-container iande-stack stack-lg">
             <h1>{{ __('Minha agenda', 'iande') }}</h1>
             <AppointmentsFilter id="time" :label="__('Exibindo', 'iande')" :options="timeOptions" v-model="time"/>
-            <GroupDetails v-for="group of filteredGroups" :key="group.ID" boxed :educators="educators" :group="group"/>
+            <EducatorGroupDetails v-for="group of filteredGroups" :key="group.ID" boxed :educators="educators" :group="group"/>
         </div>
     </article>
 </template>
@@ -12,7 +12,7 @@
     import { sync } from 'vuex-pathify'
 
     import AppointmentsFilter from '@components/AppointmentsFilter.vue'
-    import GroupDetails from '@components/GroupDetails.vue'
+    import EducatorGroupDetails from '@components/EducatorGroupDetails.vue'
     import { __ } from '@plugins/wp-i18n'
     import { api, constant, sortBy, today } from '@utils'
 
@@ -20,7 +20,7 @@
         name: 'GroupsAgendaPage',
         components: {
             AppointmentsFilter,
-            GroupDetails,
+            EducatorGroupDetails,
         },
         data () {
             return {
