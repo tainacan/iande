@@ -20,18 +20,6 @@ class Appointment extends Controller
     }
 
     /**
-     * Renderiza a página de confirmação de agendamento
-     *
-     * @param array $params
-     * @return void
-     */
-    function view_confirm(array $params = [])
-    {
-        $this->require_authentication();
-        $this->render_vue(__('Confirmação de agendamento', 'iande'), 'confirm-appointment');
-    }
-
-    /**
      * Renderiza a página de edição de agendamento
      *
      * @param array $params
@@ -83,8 +71,6 @@ class Appointment extends Controller
         $appointment_id = \wp_insert_post($args);
 
         $this->set_appointment_metadata($appointment_id, $params);
-
-        \update_post_meta($appointment_id, 'step', 1);
 
         $this->set_appointment_title($appointment_id);
 
@@ -273,14 +259,6 @@ class Appointment extends Controller
             'post_type'      => 'appointment',
             'post_status'    => ['publish', 'pending', 'canceled', 'draft'],
             'posts_per_page' => -1,
-            'meta_query'     => [
-                [
-                    'key'     => 'step',
-                    'value'   => 2,
-                    'compare' => '>=',
-                    'type'    => 'NUMERIC'
-                ]
-            ]
         );
 
         $appointments = get_posts($args);

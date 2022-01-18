@@ -138,7 +138,6 @@ function get_group_metadata_definition()
         'appointment_id' => (object) [
             'type'          => 'integer',
             'required'      => __('O agendamento é obrigatório', 'iande'),
-            'required_step' => 1,
             'validation'    => function ($value) use ($appointments) {
                 if (is_numeric($value) && intval($value) == $value) {
                     if (array_post_exists($value, $appointments)) {
@@ -159,7 +158,6 @@ function get_group_metadata_definition()
         'exhibition_id' => (object) [
             'type'          => 'integer',
             'required'      => __('A exposição é obrigatória', 'iande'),
-            'required_step' => 1,
             'validation'    => function ($value) use ($exhibitions) {
                 if (is_numeric($value) && intval($value) == $value) {
                     if (array_post_exists($value, $exhibitions)) {
@@ -180,7 +178,6 @@ function get_group_metadata_definition()
         'name' => (object) [
             'type'          => 'string',
             'required'      => __('O nome do grupo é obrigatório', 'iande'),
-            'required_step' => 1,
             'validation'    => function ($value) {
                 return true;
             },

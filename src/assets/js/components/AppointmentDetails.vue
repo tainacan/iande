@@ -130,7 +130,7 @@
                     {{ __('Cancelar reserva', 'iande') }}
                     <Icon icon="times"/>
                 </button>
-                <a class="iande-button primary" :href="$iandeUrl(`appointment/confirm?ID=${appointment.ID}`)" v-if="editable && appointment.step == 2">
+                <a class="iande-button primary" :href="$iandeUrl(`appointment/create?ID=${appointment.ID}`)" v-if="editable && appointment.step == 2">
                     {{ __('Confirmar reserva', 'iande') }}
                     <Icon icon="check"/>
                 </a>

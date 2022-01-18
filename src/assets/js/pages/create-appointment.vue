@@ -1,7 +1,5 @@
 <template>
     <article>
-        <StepsIndicator :step="1"/>
-
         <div class="iande-container narrow iande-stack stack-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
                 <component :is="route.component" ref="form" @add-institution="setScreen(4)"/>
@@ -27,32 +25,35 @@
 
         <AppointmentWelcomeModal ref="welcomeModal"/>
 
-        <Modal ref="successModal" :label="__('Sucesso!', 'iande')" narrow @close="listAppointments">
+        <Modal ref="firstModal" :label="__('Sucesso!', 'iande')" narrow @close="listAppointments">
             <div class="iande-stack iande-form">
-                <h1>{{ __('Reserva enviada com sucesso!', 'iande') }}</h1>
-                <p>{{ __('Uma reserva de data e horário foi enviada ao museu, mas para garantir o agendamento é necessário completar formulário com mais informações.', 'iande') }}</p>
+                <h1>{{ __('Preenchimento finalizado', 'iande') }}</h1>
+                <p>{{ __('Agradecemos pelo seu tempo em completar todas as etapas do agendamento. Você pode revisar o agendamento ou já enviar a solicitação para o museu.', 'iande') }}</p>
                 <div class="iande-form-grid">
                     <a class="iande-button solid" :href="$iandeUrl('appointment/list')">
-                        {{ __('Ver agendamentos', 'iande') }}
+                        {{ __('Revisar informações', 'iande') }}
                     </a>
-                    <a class="iande-button primary" :href="$iandeUrl(`appointment/confirm?ID=${appointmentId}`)">
-                        {{ __('Completar reserva', 'iande') }}
-                    </a>
+                    <button class="iande-button primary" @click="finishAppointment">
+                        {{ __('Finalizar', 'iande') }}
+                    </button>
                 </div>
             </div>
         </Modal>
+        <AppointmentSuccessModal ref="secondModal"/>
     </article>
 </template>
 
 <script>
     import { call, get, sync } from 'vuex-pathify'
 
+    import AppointmentSuccessModal from '@components/AppointmentSuccessModal.vue'
     import AppointmentWelcomeModal from '@components/AppointmentWelcomeModal.vue'
     import Modal from '@components/Modal.vue'
-    import StepsIndicator from '@components/StepsIndicator.vue'
     import { api, qs } from '@utils'
 
+    const AdditionalData = () => import(/* webpackChunkName: 'additional-data-step' */ '@components/AdditionalData.vue')
     const CreateInstitution = () => import(/* webpackChunkName: 'create-institution-step' */ '@components/CreateInstitution.vue')
+    const GroupsAdditionalInfo = () => import(/* webpackChunkName: 'groups-additional-info-step' */ '@components/GroupsAdditionalInfo.vue')
     const GroupsDate = () => import(/* webpackChunkName: 'groups-date-step' */ '@components/GroupsDate.vue')
     const SelectInstitution = () => import(/* webpackChunkName: 'select-institution-step' */ '@components/SelectInstitution.vue')
     const SelectExhibition = () => import(/* webpackChunkName: 'select-exhibition-step' */ '@components/SelectExhibition.vue')
@@ -72,8 +73,9 @@
         },
         3: {
             component: SelectInstitution,
-            action: 'submitAppointment',
+            action: 'saveAppointment',
             previous: 2,
+            next: 5,
             validatePrevious: true,
         },
         4: {
@@ -83,14 +85,27 @@
             next: 3,
             validatePrevious: false,
         },
+        5: {
+            component: GroupsAdditionalInfo,
+            action: 'saveAppointment',
+            previous: 3,
+            next: 6,
+            validatePrevious: true,
+        },
+        6: {
+            component: AdditionalData,
+            action: 'confirmAppointment',
+            previous: 5,
+            validatePrevious: true,
+        },
     }
 
     export default {
         name: 'CreateAppointmentPage',
         components: {
+            AppointmentSuccessModal,
             AppointmentWelcomeModal,
             Modal,
-            StepsIndicator,
         },
         data () {
             return {
@@ -110,6 +125,9 @@
             },
         },
         async beforeMount () {
+            if (qs.has('screen')) {
+                this.screen = Number(qs.get('screen'))
+            }
             if (qs.has('ID')) {
                 try {
                     const appointment = await api.get('appointment/get', {
@@ -135,6 +153,23 @@
             }
         },
         methods: {
+            async confirmAppointment () {
+                try {
+                    const appointment = await api.post('appointment/update', this.fields)
+                    this.appointment = { ...this.appointment, ...appointment }
+                    await api.post('appointment/advance_step', { ID: this.fields.ID })
+                    this.$refs.firstModal.open()
+                    return true
+                } catch (err) {
+                    this.formError = err
+                    return false
+                }
+            },
+            async finishAppointment () {
+                this.$refs.firstModal.close(false)
+                await api.post('appointment/set_status', { ID: this.appointment.ID, post_status: 'pending' })
+                this.$refs.secondModal.open()
+            },
             isFormValid () {
                 const formComponent = this.$refs.form
                 formComponent.$v.$touch()
@@ -184,20 +219,6 @@
             },
             setScreen (num) {
                 this.screen = num
-            },
-            async submitAppointment () {
-                try {
-                    const appointment = await api.post('appointment/update', this.fields)
-                    this.appointment = { ...this.appointment, ...appointment }
-                    await api.post('appointment/advance_step', { ID: this.appointmentId })
-                    this.$refs.form.$v.$reset()
-                    await this.resetInstitution()
-                    this.$refs.successModal.open()
-                    return true
-                } catch (err) {
-                    this.formError = err
-                    return false
-                }
             },
         }
     }

@@ -22,7 +22,6 @@ function newAppointment() {
         responsible_phone: '',
         responsible_role: '',
         responsible_role_other: '',
-        step: 1
     }
 }
 

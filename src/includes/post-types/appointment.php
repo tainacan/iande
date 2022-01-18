@@ -227,17 +227,9 @@ function get_appointment_metadata_definition() {
     ]);
 
     $metadata_definition = [
-        'step' => (object) [
-            'type'       => 'integer',
-            'validation' => function ($value) {
-                // TODO
-                return true;
-            }
-        ],
         'exhibition_id' => (object) [
             'type'          => 'integer',
             'required'      => __('A exposição é obrigatória', 'iande'),
-            'required_step' => 1,
             'validation'    => function ($value) use ($exhibitions) {
                 if (is_numeric($value) && intval($value) == $value) {
                     if (array_post_exists($value, $exhibitions)) {
@@ -258,7 +250,6 @@ function get_appointment_metadata_definition() {
         'purpose' => (object) [
             'type'          => 'string',
             'required'      => __('O objetivo é obrigatório', 'iande'),
-            'required_step' => 1,
             'validation'    => function ($value) use ($purpose_options) {
                 if (in_array($value, $purpose_options) && !empty($value)) {
                     return true;
@@ -301,7 +292,6 @@ function get_appointment_metadata_definition() {
         'responsible_first_name' => (object) [
             'type'          => 'string',
             'required'      => __('O nome do responsável é obrigatório', 'iande'),
-            'required_step' => 1,
             'validation' => function ($value) {
                 if (strlen(trim($value)) >= 2) {
                     return true;
@@ -317,7 +307,6 @@ function get_appointment_metadata_definition() {
         'responsible_last_name' => (object) [
             'type'          => 'string',
             'required'      => __('O sobrenome do responsável é obrigatório', 'iande'),
-            'required_step' => 1,
             'validation'    => function ($value) {
                 if (strlen(trim($value)) >= 2) {
                     return true;
@@ -333,7 +322,6 @@ function get_appointment_metadata_definition() {
         'responsible_email' => (object) [
             'type'          => 'string',
             'required'      => __('O e-mail do responsável é obrigatório', 'iande'),
-            'required_step' => 1,
             'validation'    => function ($value) {
                 if (empty(filter_var($value, FILTER_VALIDATE_EMAIL))) {
                     return __('Formato de e-mail do responsável inválido', 'iande');
@@ -349,7 +337,6 @@ function get_appointment_metadata_definition() {
         'responsible_phone' => (object) [
             'type'          => 'string',
             'required'      => __('O telefone do responsável é obrigatório', 'iande'),
-            'required_step' => 1,
             'validation'    => function ($value) {
                 if (empty(preg_match('/^\d{10,11}$/', $value))) {
                     return __('Formato de telefone do responsável inválido', 'iande');
@@ -398,7 +385,6 @@ function get_appointment_metadata_definition() {
         'group_nature' => (object) [
             'type'          => 'string',
             'required'      => __('A natureza do grupo é obrigatória', 'iande'),
-            'required_step' => 1,
             'validation'    => function ($value) use ($nature_options) {
                 if (in_array($value, $nature_options)) {
                     return true;
@@ -445,7 +431,6 @@ function get_appointment_metadata_definition() {
         'requested_exemption' => (object) [
             'type'          => 'string',
             'required'      => false,
-            'required_step' => 1,
             'validation'    => function ($value) {
                 if ($value == 'yes' || $value == 'no') {
                     return true;
@@ -467,7 +452,6 @@ function get_appointment_metadata_definition() {
         'has_visited_previously' => (object) [
             'type'          => 'string',
             'required'      => __('Precisamos saber se você já visitou esse museu', 'iande'),
-            'required_step' => 2,
             'validation'    => function ($value) {
                 if ($value == 'yes' || $value == 'no') {
                     return true;
@@ -487,7 +471,6 @@ function get_appointment_metadata_definition() {
         'has_prepared_visit' => (object) [
             'type'          => 'string',
             'required'      => __('Precisamos saber se você preparou seu grupo para a visita', 'iande'),
-            'required_step' => 2,
             'validation'    => function ($value) {
                 if ($value == 'yes' || $value == 'no') {
                     return true;
@@ -560,7 +543,6 @@ function get_appointment_metadata_definition() {
         'num_people' => (object) [
             'type'          => 'integer',
             'required'      => __('A quantidade prevista de pessoas é obrigatório', 'iande'),
-            'required_step' => 1,
             'validation'    => function ($value) {
                 if (is_numeric($value)) {
                     return true;
