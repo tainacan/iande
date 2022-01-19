@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div>
-                        <!-- <StepsIndicator inline/> -->
+                        <!-- <StatusIndicator inline/> -->
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
     import { DateTime } from 'luxon'
     import { get } from 'vuex-pathify'
 
-    import StepsIndicator from '@components/StepsIndicator.vue'
+    import StatusIndicator from '@components/StatusIndicator.vue'
     import { __, _x, sprintf } from '@plugins/wp-i18n'
 
     const months = [
@@ -54,7 +54,7 @@
     export default {
         name: 'VisitorGroupDetails',
         components: {
-            StepsIndicator,
+            StatusIndicator,
         },
         props: {
             boxed: { type: Boolean, default: false },

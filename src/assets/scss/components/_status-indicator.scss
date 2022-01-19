@@ -1,0 +1,27 @@
+.iande-status {
+    background-color: var(--iande-light-color);
+    color: var(--iande-secondary-color);
+    display: inline-block;
+    border-radius: var(--iande-border-radius);
+    font-weight: bold;
+    padding: 5px 10px;
+
+    & > svg[data-icon] {
+        color: var(--iande-text-color);
+        margin-right: 1ch;
+    }
+
+    &.canceled {
+
+        & > svg[data-icon] {
+            color: var(--iande-error-color);
+        }
+    }
+
+    &.publish {
+
+        & > svg[data-icon] {
+            color: var(--iande-success-color);
+        }
+    }
+}

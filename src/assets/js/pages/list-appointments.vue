@@ -48,11 +48,11 @@
                 }
                 if (this.filter === 'next') {
                     return this.appointments
-                        .filter(appointment => appointment.groups.some(group => group.date >= today))
+                        .filter(appointment => appointment.groups?.some(group => group.date >= today))
                         .sort(sortBy(hourFn, true))
                 } else {
                     return this.appointments
-                        .filter(appointment => appointment.groups.every(group => group.date < today))
+                        .filter(appointment => appointment.groups?.every(group => group.date < today))
                         .sort(sortBy(hourFn, false))
                 }
             },

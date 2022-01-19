@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div>
-                        <StepsIndicator inline :step="Number(appointment.step)" :status="appointment.post_status" :reason="appointment.reason_cancel"/>
+                        <StatusIndicator :status="appointment.post_status" :reason="appointment.reason_cancel"/>
                         <div class="iande-appointment__toggle" :aria-label="showDetails ? __('Ocultar detalhes', 'iande') : __('Exibir detalhes', 'iande')" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
                             <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
                         </div>
@@ -155,7 +155,7 @@
 
     import AppointmentCancelModal from '@components/AppointmentCancelModal.vue'
     import AppointmentSuccessModal from '@components/AppointmentSuccessModal.vue'
-    import StepsIndicator from '@components/StepsIndicator.vue'
+    import StatusIndicator from '@components/StatusIndicator.vue'
     import { __, _x, sprintf } from '@plugins/wp-i18n'
     import { api, formatCep, formatPhone, isOther, sortBy } from '@utils'
     import { getInterval } from '@utils/agenda'
@@ -181,7 +181,7 @@
         components: {
             AppointmentCancelModal,
             AppointmentSuccessModal,
-            StepsIndicator,
+            StatusIndicator,
         },
         props: {
             appointment: { type: Object, required: true },
