@@ -1,0 +1,15 @@
+.iande-progress {
+    display: flex;
+    flex-wrap: nowrap;
+
+    & > * {
+        background-color: var(--iande-lighter-color);
+        border: 1px solid var(--iande-background-color);
+        flex: 1;
+        height: 1em;
+    }
+
+    & > .active {
+        background-color: var(--iande-primary-color);
+    }
+}

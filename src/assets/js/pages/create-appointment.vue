@@ -1,6 +1,10 @@
 <template>
     <article class="mt-lg">
-        <div class="iande-container narrow iande-stack stack-lg">
+        <div class="iande-container narrow mt-lg">
+            <Progress :title="sprintf(__('Página %s de %s', 'iande'), page, 5)" :value="page" :max="5"/>
+        </div>
+
+        <div class="iande-container narrow iande-stack stack-lg mt-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
                 <component :is="route.component" ref="form" @add-institution="setScreen(4)"/>
 
@@ -46,6 +50,7 @@
 
     import AppointmentSuccessModal from '@components/AppointmentSuccessModal.vue'
     import Modal from '@components/Modal.vue'
+    import Progress from '@components/Progress.vue'
     import { api, qs } from '@utils'
 
     const AdditionalData = () => import(/* webpackChunkName: 'additional-data-step' */ '@components/AdditionalData.vue')
@@ -102,6 +107,7 @@
         components: {
             AppointmentSuccessModal,
             Modal,
+            Progress,
         },
         data () {
             return {
@@ -116,6 +122,13 @@
             fields: get('appointments/filteredFields'),
             institution: sync('institutions/current'),
             institutions: sync('institutions/list'),
+            page () {
+                if (this.screen < 4) {
+                    return this.screen
+                } else {
+                    return this.screen - 1
+                }
+            },
             route () {
                 return routes[this.screen]
             },
