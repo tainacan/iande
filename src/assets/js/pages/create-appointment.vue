@@ -138,11 +138,12 @@
         methods: {
             async confirmAppointment () {
                 try {
-                    const appointment = await api.post('appointment/update', this.fields)
-                    this.appointment = { ...this.appointment, ...appointment }
-                    await api.post('appointment/advance_step', { ID: this.fields.ID })
-                    this.$refs.firstModal.open()
-                    return true
+                    if (await this.updateAppointment()) {
+                        this.$refs.firstModal.open()
+                        return true
+                    } else {
+                        return false
+                    }
                 } catch (err) {
                     this.formError = err
                     return false

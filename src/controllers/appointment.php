@@ -334,67 +334,6 @@ class Appointment extends Controller
     }
 
     /**
-     * Muda o step do agendamento quando todos os campos estão válidos
-     *
-     * @return void
-     */
-    function endpoint_advance_step(array $params = []) {
-
-        $this->require_authentication();
-
-        if (empty($params['ID'])) {
-            $this->error(__('O parâmetro ID é obrigatório', 'iande'));
-        }
-
-        if (!is_numeric($params['ID']) || intval($params['ID']) != $params['ID']) {
-            $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
-        }
-
-        if (get_post_type($params['ID']) != 'appointment') {
-            $this->error(__('O ID informado não é um agendamento válido', 'iande'));
-        }
-        $step = get_post_meta($params['ID'], 'step', true);
-
-        if ($this->validate_step($params['ID']) && $step == 1) {
-
-            \update_post_meta($params['ID'], 'step', 2, $step);
-
-            $requested_exemption = get_post_meta($params['ID'], 'requested_exemption', true);
-
-            if ($requested_exemption == 'yes' && use_exemption()) {
-                $email_template = 'email_pre_scheduling_exemption';
-            } else {
-                $email_template = 'email_pre_scheduling';
-            }
-
-            $groups = \get_post_meta($params['ID'], 'groups', true);
-
-            // envia o e-mail de pré-agendamento para o responsavel do agendamento
-            $email_params = [
-                'email' => \get_post_meta($params['ID'], 'responsible_email', true),
-                'cc'    => $this->get_author_email($params['ID']),
-                'interpolations' => [
-                    'nome'       => \get_post_meta($params['ID'], 'responsible_first_name', true),
-                    'exposicao'  => \get_the_title(\get_post_meta($params['ID'], 'exhibition_id', true)),
-                    'grupos'     => $groups,
-                    'link'       => \home_url('/iande/appointment/confirm?ID=' . $params['ID'])
-                ]
-            ];
-            $this->email($email_template, $email_params);
-
-            $this->success(__('O agendamento passou para o próximo passo', 'iande'));
-
-        } elseif($this->validate_step($params['ID']) && $step == 2) {
-
-            \update_post_meta($params['ID'], 'step', 3, $step);
-            $this->success(__('O agendamento passou para o próximo passo e está aguardando confirmação', 'iande'));
-
-        }
-
-    }
-
-
-    /**
      * Altera o status do agendamento
      *
      * @param integer   $params['ID']
