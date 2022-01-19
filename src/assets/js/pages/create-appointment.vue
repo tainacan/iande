@@ -1,5 +1,5 @@
 <template>
-    <article>
+    <article class="mt-lg">
         <div class="iande-container narrow iande-stack stack-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
                 <component :is="route.component" ref="form" @add-institution="setScreen(4)"/>
