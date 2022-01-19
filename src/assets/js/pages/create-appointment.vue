@@ -23,8 +23,6 @@
             </form>
         </div>
 
-        <AppointmentWelcomeModal ref="welcomeModal"/>
-
         <Modal ref="firstModal" :label="__('Sucesso!', 'iande')" narrow @close="listAppointments">
             <div class="iande-stack iande-form">
                 <h1>{{ __('Preenchimento finalizado', 'iande') }}</h1>
@@ -47,7 +45,6 @@
     import { call, get, sync } from 'vuex-pathify'
 
     import AppointmentSuccessModal from '@components/AppointmentSuccessModal.vue'
-    import AppointmentWelcomeModal from '@components/AppointmentWelcomeModal.vue'
     import Modal from '@components/Modal.vue'
     import { api, qs } from '@utils'
 
@@ -104,7 +101,6 @@
         name: 'CreateAppointmentPage',
         components: {
             AppointmentSuccessModal,
-            AppointmentWelcomeModal,
             Modal,
         },
         data () {
@@ -137,19 +133,6 @@
                 } catch (err) {
                     this.formError = err
                 }
-            }
-        },
-        mounted () {
-            try {
-                const modalShown = window.localStorage.getItem('iande.appointmentWelcome')
-                if (!modalShown) {
-                    this.$nextTick(() => {
-                        this.$refs.welcomeModal.open()
-                        window.localStorage.setItem('iande.appointmentWelcome', 'shown')
-                    })
-                }
-            } catch (err) {
-                console.error(err)
             }
         },
         methods: {
