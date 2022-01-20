@@ -222,6 +222,11 @@
             },
             user: get('users/current'),
         },
+        created () {
+            if (this.group.educator_id == 0) {
+                this.group.educator_id = null
+            }
+        },
         watch: {
             'group.educator_id': {
                 async handler () {
