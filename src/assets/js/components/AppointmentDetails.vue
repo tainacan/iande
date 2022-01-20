@@ -89,7 +89,7 @@
                     </div>
                 </div>
 
-                <template v-if="appointment.step > 2">
+                <template v-if="appointment.groups">
                     <div class="iande-appointment__box" v-for="(group, i) of appointment.groups" :key="group.id">
                         <div class="iande-appointment__box-title">
                             <h3><Icon icon="users"/>{{ sprintf(__('Grupo %s: %s', 'iande'), i + 1, group.name) }}</h3>
@@ -130,11 +130,7 @@
                     {{ __('Cancelar reserva', 'iande') }}
                     <Icon icon="times"/>
                 </button>
-                <a class="iande-button primary" :href="$iandeUrl(`appointment/create?ID=${appointment.ID}`)" v-if="editable && appointment.step == 2">
-                    {{ __('Confirmar reserva', 'iande') }}
-                    <Icon icon="check"/>
-                </a>
-                <button class="iande-button primary" v-else-if="editable && appointment.step == 3" @click="sendConfirmation">
+                <button class="iande-button primary" v-if="editable" @click="sendConfirmation">
                     {{ __('Finalizar reserva', 'iande') }}
                     <Icon icon="check"/>
                 </button>
