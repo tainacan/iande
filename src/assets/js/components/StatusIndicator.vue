@@ -1,10 +1,6 @@
 <template>
     <div class="iande-status" :class="status">
-        <template v-if="status === 'draft'">
-            <Icon class="pencil-alt"/>
-            <span>{{ _x('Rascunho', 'group', 'iande') }}</span>
-        </template>
-        <template v-else-if="status === 'pending'">
+        <template v-if="status === 'pending'">
             <Icon icon="spinner" spin/>
             <span>{{ _x('Aguardando confirmação', 'group', 'iande') }}</span>
         </template>

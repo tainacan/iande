@@ -257,7 +257,7 @@ class Appointment extends Controller
         $args = array(
             'author'         =>  $user_id,
             'post_type'      => 'appointment',
-            'post_status'    => ['publish', 'pending', 'canceled', 'draft'],
+            'post_status'    => ['publish', 'pending', 'canceled'],
             'posts_per_page' => -1,
         );
 
