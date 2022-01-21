@@ -57,7 +57,7 @@ class Appointment extends Controller
     function endpoint_create(array $params = []) {
 
         $this->require_authentication();
-        $this->validate($params, true, true);
+        $this->validate_params($params, true, true);
 
         \do_action('iande.before_create_appointment', $params);
 
@@ -107,7 +107,7 @@ class Appointment extends Controller
             $this->error(__('O parâmetro ID deve ser um número inteiro', 'iande'));
         }
 
-        $this->validate($params, true, true);
+        $this->validate_params($params, true, true);
 
         $appointment = get_post($params['ID']);
 
@@ -391,7 +391,7 @@ class Appointment extends Controller
 
             if ($current_post_status == 'pending' && $new_post_status == 'publish') {
 
-                if ($this->validate_step($params['ID']) && !$confirmation_sent) {
+                if ($this->validate($params['ID']) && !$confirmation_sent) {
 
                     // envia o e-mail de confirmação para o responsavel do agendamento
                     $email_params = [
@@ -465,8 +465,7 @@ class Appointment extends Controller
      * @param boolean $force Defina como true para conseguir validar campos não obrigatórios
      * @return void
      */
-    function validate(array $params = [], $validate_missing_requirements = false, $force = false)
-    {
+    function validate_params (array $params = [], $validate_missing_requirements = false, $force = false) {
         $metadata_definition = get_appointment_metadata_definition();
 
         foreach ($metadata_definition as $key => $definition) {
@@ -493,41 +492,27 @@ class Appointment extends Controller
     }
 
     /**
-     * Verifica o step do agendamento de acordo com o metadata required_step
+     * Verifica se o agendamento está devidamente validado
      *
      * @param integer $appointment_id
-     * @return integer $step
+     * @return boolean
      */
-    function validate_step(int $appointment_id) {
+    function validate (int $appointment_id) {
+        $metadata_definition = get_appointment_metadata_definition();
 
-        $step = get_post_meta($appointment_id, 'step', true);
+        foreach ($metadata_definition as $key => $definition) {
 
-        if ($step) {
+            if (isset($definition->required) && !empty($definition->required)) {
+                $metadata = \get_post_meta($appointment_id, $key, true);
 
-            $metadata_definition = get_appointment_metadata_definition();
-
-            foreach ($metadata_definition as $key => $definition) {
-
-                if (isset($definition->required_step) && !empty($definition->required_step)) {
-
-                    if ($definition->required_step <= $step) {
-
-                        $metadata = get_post_meta($appointment_id, $key, true);
-
-                        if (empty($metadata)) {
-                            $this->error(__('Faltam alguns campos obrigatórios, revise e tente novamente', 'iande'));
-                        }
-
-                    }
-
+                if (empty($metadata)) {
+                    $this->error($definition->required);
                 }
-
             }
-
-            return true;
 
         }
 
+        return true;
     }
 
     /**
