@@ -10,7 +10,7 @@
         </template>
         <template v-else-if="status === 'publish'">
             <Icon icon="check-circle"/>
-            <span>{{ _x('Reservado', 'group', 'iande') }}</span>
+            <span>{{ _x('Confirmado', 'group', 'iande') }}</span>
         </template>
     </div>
 </template>
