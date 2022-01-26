@@ -48,7 +48,7 @@
                         disabledDates.to = minAdvance
                     }
                     if (this.exhibition.date_to) {
-                        const endDate = DateTime.fromISO(this.exhibition.date_to).toJSDate()
+                        const endDate = DateTime.fromISO(this.exhibition.date_to).endOf('day').toJSDate()
                         disabledDates.from = endDate
                     }
                 }
