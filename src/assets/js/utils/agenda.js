@@ -3,7 +3,7 @@ import { DateTime, Interval } from 'luxon'
 import { toArray } from '@utils/index'
 
 const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday',
-'friday', 'saturday']
+'friday', 'saturday', 'sunday']
 
 function isValidInterval (interval) {
     return interval && interval.from && interval.to && interval.from < interval.to
@@ -38,8 +38,12 @@ export function getWorkingHours (exhibition, date) {
             return intervals.filter(isValidInterval)
         }
     }
-    const intervals = toArray(exhibition[weekDays[dt.weekday]]) || []
-    return intervals.filter(isValidInterval)
+    if (dateString >= exhibition.date_from && (!exhibition.date_to || dateString <= exhibition.date_to)) {
+        const intervals = toArray(exhibition[weekDays[dt.weekday]]) || []
+        return intervals.filter(isValidInterval)
+    } else {
+        return []
+    }
 }
 
 export function getInterval (exhibition, time) {

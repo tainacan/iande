@@ -46,6 +46,11 @@
                     <ItineraryItems :formError="formError" :itemsCache="itemsCache" :itinerary="itinerary" :v="$v" @update="update" v-else-if="view === 'items'"/>
                 </div>
             </main>
+            <Modal ref="modal" :label="__('Sucesso!', 'iande')" narrow>
+                <div class="iande-stack">
+                    <p>{{ __('Roteiro atualizado com sucesso!', 'iande') }}</p>
+                </div>
+            </Modal>
         </article>
     </div>
 </template>
@@ -55,6 +60,7 @@
 
     import ItineraryDetails from '@components/ItineraryDetails.vue'
     import ItineraryItems from '@components/ItineraryItems.vue'
+    import Modal from '@components/Modal.vue'
     import { api, qs } from '@utils'
 
     export default {
@@ -62,6 +68,7 @@
         components: {
             ItineraryDetails,
             ItineraryItems,
+            Modal,
         },
         data () {
             return {
@@ -136,6 +143,7 @@
                 this.formError = ''
                 try {
                     await api.post('itinerary/update', this.itinerary)
+                    this.$refs.modal.open()
                 } catch (err) {
                     this.formError = err
                 }

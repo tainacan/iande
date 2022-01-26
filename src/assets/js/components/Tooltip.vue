@@ -10,11 +10,11 @@
     export default {
         name: 'Tooltip',
         directives: {
-            tooltip: VTooltip
+            tooltip: VTooltip,
         },
         props: {
             placement: { type: String, default: 'auto' },
-            text: { type: String, required: true }
-        }
+            text: { type: String, required: true },
+        },
     }
 </script>
