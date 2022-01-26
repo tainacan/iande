@@ -3,7 +3,7 @@ import { DateTime, Interval } from 'luxon'
 import { toArray } from '@utils/index'
 
 const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday',
-'friday', 'saturday']
+'friday', 'saturday', 'sunday']
 
 function isValidInterval (interval) {
     return interval && interval.from && interval.to && interval.from < interval.to
