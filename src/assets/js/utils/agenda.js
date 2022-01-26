@@ -38,8 +38,12 @@ export function getWorkingHours (exhibition, date) {
             return intervals.filter(isValidInterval)
         }
     }
-    const intervals = toArray(exhibition[weekDays[dt.weekday]]) || []
-    return intervals.filter(isValidInterval)
+    if (dateString >= exhibition.date_from && (!exhibition.date_to || dateString <= exhibition.date_to)) {
+        const intervals = toArray(exhibition[weekDays[dt.weekday]]) || []
+        return intervals.filter(isValidInterval)
+    } else {
+        return []
+    }
 }
 
 export function getInterval (exhibition, time) {
