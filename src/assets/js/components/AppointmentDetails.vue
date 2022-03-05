@@ -13,8 +13,8 @@
                 <div class="iande-appointment__summary-row">
                     <div>
                         <div class="iande-appointment__info">
-                            <Icon icon="location-dot"/>
-                            <span>{{ $iande.siteName }}</span>
+                            <Icon :icon="['far', 'image']"/>
+                            <span>{{ exhibition.title }}</span>
                         </div>
                         <div class="iande-appointment__info">
                             <Icon :icon="['far', 'clock']"/>

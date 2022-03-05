@@ -10,7 +10,7 @@
                 </a>
             </div>
             <div class="iande-groups-legend" aria-hidden="true">
-                <div class="iande-groups-legend__label"><Icon icon="circle-question"/> {{ __('Legenda da mediação:', 'iande') }}</div>
+                <div class="iande-groups-legend__label"><Icon icon="circle-info"/> {{ __('Legenda da mediação:', 'iande') }}</div>
                 <div class="iande-groups-legend__entry assigned-other">{{ __('Com mediação atribuída', 'iande') }}</div>
                 <div class="iande-groups-legend__entry unassigned">{{ __('Sem mediação atribuída', 'iande') }}</div>
                 <div class="iande-groups-legend__entry assigned-self">{{ __('Mediação atribuída a você', 'iande') }}</div>
