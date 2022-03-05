@@ -4,7 +4,7 @@
         <div class="iande-modal" role="dialog" aria-modal="true" :aria-label="__('Ficha da obra', 'iande')" tabindex="-1">
             <div class="iande-modal__header">
                 <div class="iande-modal__close" role="button" tabindex="0" ref="button" :aria-label="__('Fechar', 'iande')" @click="close" @keypress.enter="close">
-                    <Icon icon="times"/>
+                    <Icon icon="xmark"/>
                 </div>
             </div>
             <div class="iande-modal__body">

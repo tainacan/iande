@@ -2,7 +2,7 @@
     <div class="iande-field iande-stack stack-lg">
         <div class="iande-repetition" :class="fieldClass" v-for="(item, i) of value" :key="i">
             <div class="iande-repetition__remove" v-if="resizable && value.length > 1" :aria-label="__('Remover item', 'iande')" role="button" tabindex="0" @click="removeItem(i)">
-                <Icon icon="times"/>
+                <Icon icon="xmark"/>
             </div>
             <slot name="item" :id="`${id}_${i}`" :onUpdate="updateItem(i)" :value="item" :v="v.$each[i]"/>
         </div>

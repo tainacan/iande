@@ -10,7 +10,7 @@
                 </a>
             </div>
             <div class="iande-groups-legend" aria-hidden="true">
-                <div class="iande-groups-legend__label"><Icon icon="question-circle"/> {{ __('Legenda da mediação:', 'iande') }}</div>
+                <div class="iande-groups-legend__label"><Icon icon="circle-info"/> {{ __('Legenda da mediação:', 'iande') }}</div>
                 <div class="iande-groups-legend__entry assigned-other">{{ __('Com mediação atribuída', 'iande') }}</div>
                 <div class="iande-groups-legend__entry unassigned">{{ __('Sem mediação atribuída', 'iande') }}</div>
                 <div class="iande-groups-legend__entry assigned-self">{{ __('Mediação atribuída a você', 'iande') }}</div>
@@ -65,7 +65,7 @@
             ]),
             viewModeOptions: constant([
                 { label: __('Calendário', 'iande'), icon: ['far', 'calendar'], value: 'calendar' },
-                { label: __('Lista', 'iande'), icon: 'list', value: 'list' },
+                { label: __('Lista', 'iande'), icon: 'list-ul', value: 'list' },
             ]),
         },
         async created () {

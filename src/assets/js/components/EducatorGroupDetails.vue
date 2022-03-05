@@ -34,7 +34,7 @@
                                             {{ educator.display_name }}
                                         </option>
                                     </select>
-                                    <Icon icon="pencil-alt"/>
+                                    <Icon icon="pen"/>
                                 </label>
                             </div>
                             <div class="iande-group__step">
@@ -50,7 +50,7 @@
                                 {{ __('Avaliação', 'iande') }}
                             </div>
                             <div class="iande-appointment__toggle" :aria-label="showDetails ? __('Ocultar detalhes', 'iande') : __('Exibir detalhes', 'iande')" role="button" tabindex="0" v-if="boxed" @click="toggleDetails" @keypress.enter="toggleDetails">
-                                <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
+                                <Icon :icon="showDetails ? 'circle-minus' : 'circle-plus'"/>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
             <div class="iande-appointment__boxes">
                 <div class="iande-appointment__box">
                     <div class="iande-appointment__box-title">
-                        <h3><Icon icon="users"/> {{ name }}</h3>
+                        <h3><Icon icon="user-group"/> {{ name }}</h3>
                     </div>
                     <div>{{ group.age_range }}</div>
                     <div>{{ sprintf(__('previsão de %s visitantes', 'iande'), group.num_people) }}</div>
@@ -73,7 +73,7 @@
 
                 <div class="iande-appointment__box">
                     <div class="iande-appointment__box-title">
-                        <h3><Icon icon="user"/>{{ __('Responsável pela visita', 'iande') }}</h3>
+                        <h3><Icon icon="user-large"/>{{ __('Responsável pela visita', 'iande') }}</h3>
                     </div>
                     <div>
                         <div>{{ appointment.responsible_first_name }} {{ appointment.responsible_last_name }}</div>

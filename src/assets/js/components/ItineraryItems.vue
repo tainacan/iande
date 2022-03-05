@@ -23,7 +23,7 @@
                 </a>
 
                 <a class="iande-button solid" :href="$iandeUrl(`itinerary/edit/?ID=${itinerary.ID}`)">
-                    <Icon icon="plus-circle"/>
+                    <Icon icon="circle-plus"/>
                     {{ __('Adicionar itens', 'iande') }}
                 </a>
 

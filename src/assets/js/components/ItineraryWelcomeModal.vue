@@ -6,13 +6,13 @@
             <p>
                 {{ __('Para selecionar um item, clique no botão', 'iande') }}
                 <button type="button" class="iande-button iande-tainacan-check-button" :aria-label="__('Adicionar', 'iande')" disabled>
-                    <Icon icon="plus-circle"/>
+                    <Icon icon="circle-plus"/>
                 </button>.
             </p>
             <p>
                 {{ __('Quando selecionado, o item mostrará o indicador', 'iande') }}
                 <button type="button" class="iande-button iande-tainacan-check-button selected" :aria-label="__('Remover', 'iande')" disabled>
-                    <Icon icon="check-circle"/>
+                    <Icon icon="circle-check"/>
                 </button>
                 {{ __('e, para desselecionar, clique no botão novamente.', 'iande') }}
             </p>

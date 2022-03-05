@@ -3,16 +3,16 @@
         <div class="iande-institution__summary" :class="showDetails || 'collapsed'">
             <h2>{{ institution.name }}</h2>
             <div class="iande-institution__toggle" :aria-label="showDetails ? __('Ocultar detalhes', 'iande') : __('Exibir detalhes', 'iande')" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
-                <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
+                <Icon :icon="showDetails ? 'circle-minus' : 'circle-plus'"/>
             </div>
         </div>
         <div class="iande-institution__details" v-if="showDetails">
             <div class="iande-institution__box">
                 <div class="iande-institution__box-title">
-                    <h3><Icon icon="university"/>{{ __('Instituição', 'iande') }}</h3>
+                    <h3><Icon icon="landmark"/>{{ __('Instituição', 'iande') }}</h3>
                     <div class="iande-institution__edit">
                         <a class="iande-institution__edit-link" :href="$iandeUrl(`institution/edit?ID=${institution.ID}`)">{{ __('Editar', 'iande') }}</a>
-                        <Icon icon="pencil-alt"/>
+                        <Icon icon="pen"/>
                     </div>
                 </div>
                 <div>

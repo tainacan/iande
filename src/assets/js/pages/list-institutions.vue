@@ -7,7 +7,7 @@
             </div>
             <div class="iande-container narrow">
                 <a class="iande-button outline" :href="$iandeUrl('institution/create')">
-                    <Icon icon="plus-circle"/>
+                    <Icon icon="circle-plus"/>
                     {{ __('Cadastrar nova instituição', 'iande') }}
                 </a>
             </div>

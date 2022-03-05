@@ -37,7 +37,7 @@
                 <Select id="institution" v-model="institution" :v="$v.institution" :options="institutionOptions"/>
             </div>
             <div class="iande-add-item" v-if="canAddInstitution" role="button" tabindex="0" @click="addInstitution">
-                <span><Icon icon="plus-circle"/></span>
+                <span><Icon icon="circle-plus"/></span>
                 <div class="iande-label">{{ __('Adicionar uma instituição', 'iande') }}</div>
             </div>
         </template>

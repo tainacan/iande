@@ -9,11 +9,11 @@
                         <span>{{ menuCollapsed ? __('Exibir menu', 'iande') : __('Ocultar menu', 'iande') }}</span>
                     </button>
                     <button type="button" class="iande-button small" :class="view === 'settings' ? 'secondary' : 'solid'" @click="view = 'settings'">
-                        <Icon icon="cog"/>
+                        <Icon icon="gear"/>
                         <span>{{ __('Configurações do roteiro', 'iande') }}</span>
                     </button>
                     <button type="button" class="iande-button small" :class="view === 'items' ? 'secondary' : 'solid'" @click="view = 'items'">
-                        <Icon icon="check-circle"/>
+                        <Icon icon="circle-check"/>
                         <span>{{ __('Itens selecionados', 'iande') }}</span>
                     </button>
                 </div>

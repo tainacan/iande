@@ -1,9 +1,9 @@
 __webpack_public_path__ = window.IandeSettings.iandePath
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faFacebookF, faTwitter, faWhatsapp, faWordpress } from '@fortawesome/free-brands-svg-icons'
-import { faAddressCard, faCalendar, faClock, faEye, faImage, faSave, faStar as farStar, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
-import { faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faArrowLeft, faBars, faCaretDown, faCheck, faCheckCircle, faCog, faGripVertical, faInfoCircle, faList, faMapMarkerAlt, faMinus, faMinusCircle, faPencilAlt, faPlusCircle, faPrint, faQuestionCircle, faShareAlt, faSpinner, faStar, faTimes, faTimesCircle, faUniversity, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { faFacebook, faTelegram, faTwitter, faWhatsapp, faWordpress } from '@fortawesome/free-brands-svg-icons'
+import { faAddressCard, faCalendar, faClock, faImage, faSave, faStar as farStar, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
+import { faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faArrowLeft, faBars, faCaretDown, faCheck, faCircleCheck, faCircleInfo, faCircleMinus, faCirclePlus, faCircleQuestion, faEye, faGear, faGripVertical, faLandmark, faListUl, faMinus, faPen, faPrint, faShareNodes, faSpinner, faStar, faUserGroup, faUserLarge, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Vue from 'vue'
 import VueAsyncComputed from 'vue-async-computed'
@@ -16,9 +16,9 @@ import IandePlugin from '@plugins/iande'
 import WpI18n from '@plugins/wp-i18n'
 import createStore from '@store'
 
-library.add(faFacebookF, faTwitter, faWhatsapp, faWordpress)
-library.add(faAddressCard, faCalendar, faClock, faEye, faImage, faSave, farStar, faTrashAlt)
-library.add(faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faArrowLeft, faBars, faCaretDown, faCheck, faCheckCircle, faCog, faGripVertical, faInfoCircle, faList, faMapMarkerAlt, faMinus, faMinusCircle, faPencilAlt, faPlusCircle, faPrint, faQuestionCircle, faShareAlt, faSpinner, faStar, faTimes, faTimesCircle, faUniversity, faUser, faUsers)
+library.add(faFacebook, faTelegram, faTwitter, faWhatsapp, faWordpress)
+library.add(faAddressCard, faCalendar, faClock, faImage, faSave, farStar, faTrashAlt)
+library.add(faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faArrowLeft, faBars, faCaretDown, faCheck, faCircleCheck, faCircleInfo, faCircleMinus, faCirclePlus, faCircleQuestion, faEye, faGear, faGripVertical, faLandmark, faListUl, faMinus, faPen, faPrint, faShareNodes, faSpinner, faStar, faUserGroup, faUserLarge, faXmark)
 
 const EditItineraryPage = () => import(/* webpackChunkName: 'edit-itinerary-page' */ '@pages/edit-itinerary.vue')
 const LoginPage = () => import(/* webpackChunkName: 'login-page' */ '@pages/login.vue')
