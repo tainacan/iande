@@ -61,7 +61,7 @@
             <div class="iande-appointment__boxes">
                 <div class="iande-appointment__box">
                     <div class="iande-appointment__box-title">
-                        <h3><Icon icon="user-group"/> {{ name }}</h3>
+                        <h3><Icon icon="bus"/> {{ name }}</h3>
                     </div>
                     <div>{{ group.age_range }}</div>
                     <div>{{ sprintf(__('previsão de %s visitantes', 'iande'), group.num_people) }}</div>
