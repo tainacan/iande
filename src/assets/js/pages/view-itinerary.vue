@@ -16,6 +16,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a :href="telegramLink" target="_blank" aria-label="Telegram">
+                                        <Icon :icon="['fab', 'telegram-plane']"/>
+                                    </a>
+                                </li>
+                                <li>
                                     <a :href="twitterLink" target="_blank" aria-label="Twitter">
                                         <Icon :icon="['fab', 'twitter']"/>
                                     </a>
@@ -136,6 +141,9 @@
             shareText () {
                 return `${this.itinerary.title}\n\n${this.itinerary.description}`
             },
+            telegramLink () {
+                return `https://t.me/share/url?text=${window.encodeURIComponent(this.shareText)}&url=${window.encodeURIComponent(window.location.href)}`
+            },
             twitterLink () {
                 return `https://twitter.com/intent/tweet?text=${window.encodeURIComponent(this.shareText)}&url=${window.location.href}`
             },
@@ -217,11 +225,14 @@
                 }
             },
             share () {
-                window.navigator.share({
+                const shareObject = {
                     text: this.itinerary.description,
                     title: this.itinerary.title,
                     url: window.location.href,
-                })
+                }
+                if (window.navigator.canShare(shareObject)) {
+                    window.navigator.share(shareObject)
+                }
             },
         },
     }
