@@ -4,35 +4,35 @@
             <div class="iande-chart-box__title">{{ __('Visitantes', 'iande') }}</div>
             <div class="iande-chart-box__content">
                 <span>{{ formatNumber(visitors) }}</span>
-                <Icon icon="chart-bar"/>
+                <Icon icon="chart-column"/>
             </div>
         </div>
         <div class="iande-chart-box">
             <div class="iande-chart-box__title">{{ __('Grupos agendados', 'iande') }}</div>
             <div class="iande-chart-box__content">
                 <span>{{ formatNumber(groupsByStatus.publish.length) }}</span>
-                <Icon icon="chart-bar"/>
+                <Icon icon="chart-column"/>
             </div>
         </div>
         <div class="iande-chart-box">
             <div class="iande-chart-box__title">{{ __('Exposições', 'iande') }}</div>
             <div class="iande-chart-box__content">
                 <span>{{ formatNumber(exhibitions) }}</span>
-                <Icon icon="chart-bar"/>
+                <Icon icon="chart-column"/>
             </div>
         </div>
         <div class="iande-chart-box">
             <div class="iande-chart-box__title">{{ __('Instituições', 'iande') }}</div>
             <div class="iande-chart-box__content">
                 <span>{{ formatNumber(institutions) }}</span>
-                <Icon icon="chart-bar"/>
+                <Icon icon="chart-column"/>
             </div>
         </div>
         <div class="iande-chart-box">
             <div class="iande-chart-box__title">{{ __('Grupos cancelados', 'iande') }}</div>
             <div class="iande-chart-box__content">
                 <span>{{ formatNumber(groupsByStatus.canceled.length) }}</span>
-                <Icon icon="chart-bar"/>
+                <Icon icon="chart-column"/>
             </div>
         </div>
     </div>

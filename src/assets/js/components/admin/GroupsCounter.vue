@@ -1,11 +1,11 @@
 <template>
     <div class="iande-admin-agenda__counters">
         <div class="iande-admin-agenda__counter publish" :title="sprintf(_n('%s grupo confirmado', '%s grupos confirmados', confirmedGroups, 'iande'), confirmedGroups)" v-if="confirmedGroups > 0">
-            <Icon icon="check-circle"/>
+            <Icon icon="circle-check"/>
             {{ confirmedGroups }}
         </div>
         <div class="iande-admin-agenda__counter pending" :title="sprintf(_n('%s grupo pendente', '%s grupos pendentes', pendingGroups, 'iande'), pendingGroups)" v-if="pendingGroups > 0">
-            <Icon icon="exclamation-circle"/>
+            <Icon icon="circle-exclamation"/>
             {{ pendingGroups }}
         </div>
     </div>

@@ -30,7 +30,7 @@
                 </template>
                 <template #addItem="{ action }">
                     <div class="iande-add-item" role="button" tabindex="0" @click="action">
-                        <span><Icon icon="plus-circle"/></span>
+                        <span><Icon icon="circle-plus"/></span>
                         <div class="iande-label">{{ __('Adicionar idioma', 'iande') }}</div>
                     </div>
                 </template>
@@ -49,7 +49,7 @@
                 </template>
                 <template #addItem="{ action }">
                     <div class="iande-add-item" role="button" tabindex="0" @click="action">
-                        <span><Icon icon="plus-circle"/></span>
+                        <span><Icon icon="circle-plus"/></span>
                         <div class="iande-label">{{ __('Adicionar deficiência', 'iande') }}</div>
                     </div>
                 </template>

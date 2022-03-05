@@ -45,7 +45,7 @@
                         </template>
                         <li class="iande-navbar__dropdown">
                             <a href="javascript:void(0)" role="button" tabindex="0" :aria-label="__('Usuário', 'iande')">
-                                <Icon icon="user"/>
+                                <Icon icon="user-large"/>
                             </a>
                             <ul>
                                 <li><a :href="$iandeUrl('user/edit')">{{ __('Editar usuário', 'iande') }}</a></li>

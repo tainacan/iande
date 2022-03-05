@@ -6,7 +6,7 @@
             <div class="iande-appointments-toolbar">
                 <AppointmentsFilter id="status" :label="__('Visualizando', 'iande')" :options="statusOptions" v-model="filter"/>
                 <a class="iande-button small outline" :href="$iandeUrl('itinerary/create')">
-                    <Icon icon="plus-circle"/>
+                    <Icon icon="circle-plus"/>
                     {{ __('Criar novo roteiro', 'iande') }}
                 </a>
             </div>
@@ -32,7 +32,7 @@
 
             <div class="iande-container narrow" v-if="totalAppointments > 0">
                 <a class="iande-button outline" :href="$iandeUrl('itinerary/create')">
-                    <Icon icon="plus-circle"/>
+                    <Icon icon="circle-plus"/>
                     {{ __('Criar novo roteiro', 'iande') }}
                 </a>
             </div>

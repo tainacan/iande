@@ -12,12 +12,12 @@
                             <ul>
                                 <li>
                                     <a :href="facebookLink" target="_blank" aria-label="Facebook">
-                                        <Icon :icon="['fab', 'facebook-f']"/>
+                                        <Icon :icon="['fab', 'facebook']"/>
                                     </a>
                                 </li>
                                 <li>
                                     <a :href="telegramLink" target="_blank" aria-label="Telegram">
-                                        <Icon :icon="['fab', 'telegram-plane']"/>
+                                        <Icon :icon="['fab', 'telegram']"/>
                                     </a>
                                 </li>
                                 <li>
@@ -32,7 +32,7 @@
                                 </li>
                                 <li v-if="shareAvailable">
                                     <a href="javascript:void(0)" role="button" tabindex="0" :aria-label="__('Compartilhar', 'iande')" @click="share" @keypress.enter="share">
-                                        <Icon icon="share-alt"/>
+                                        <Icon icon="circle-nodes"/>
                                     </a>
                                 </li>
                             </ul>
@@ -67,7 +67,7 @@
                         <div>
                             <a :href="$iandeUrl('itinerary/list')">
                                 {{ __('Fechar', 'iande') }}
-                                <Icon icon="times"/>
+                                <Icon icon="xmark"/>
                             </a>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                             <p class="iande-itinerary-page__description">{{ formatText(currentItem.items_description || currentMeta.description) }}</p>
                         </div>
                         <button class="iande-button primary" @click="openModal">
-                            <Icon icon="info-circle"/>
+                            <Icon icon="circle-info"/>
                             {{ __('Ver ficha completa da obra', 'iande') }}
                         </button>
                     </div>

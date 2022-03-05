@@ -3,7 +3,7 @@
         <div class="iande-itinerary-preview__cover">
             <img :src="cover" alt="">
             <a :href="$iandeUrl(`itinerary/edit/?ID=${itinerary.ID}`)" :aria-label="__('Editar', 'iande')" v-if="editable">
-                <Icon icon="pencil-alt"/>
+                <Icon icon="pen"/>
             </a>
         </div>
         <div class="iande-itinerary-preview__content">
@@ -12,7 +12,7 @@
                 <span>{{ sprintf(_n('%s item', '%s itens', numItems, 'iande'), numItems) }}</span>
                 <span>
                     <span :aria-label="__('Visualizações', 'iande')" :title="__('Visualizações', 'iande')">
-                        <Icon :icon="['far', 'eye']"/>
+                        <Icon icon="eye"/>
                     </span>
                     <span>{{ itinerary.views || 0 }}</span>
                 </span>

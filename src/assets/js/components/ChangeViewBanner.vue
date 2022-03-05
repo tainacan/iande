@@ -15,7 +15,7 @@
                     </a>
                 </div>
                 <a :aria-label="__('Fechar', 'iande')" role="button" href="javascript:void(0)" @click="dismiss" @keypress.enter="dismiss">
-                    <Icon icon="times"/>
+                    <Icon icon="xmark"/>
                 </a>
             </div>
         </div>

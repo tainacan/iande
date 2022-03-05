@@ -13,7 +13,7 @@
                 <div class="iande-appointment__summary-row">
                     <div>
                         <div class="iande-appointment__info">
-                            <Icon icon="map-marker-alt"/>
+                            <Icon icon="location-dot"/>
                             <span>{{ $iande.siteName }}</span>
                         </div>
                         <div class="iande-appointment__info">
@@ -24,7 +24,7 @@
                     <div>
                         <StepsIndicator inline :step="Number(appointment.step)" :status="appointment.post_status" :reason="appointment.reason_cancel"/>
                         <div class="iande-appointment__toggle" :aria-label="showDetails ? __('Ocultar detalhes', 'iande') : __('Exibir detalhes', 'iande')" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
-                            <Icon :icon="showDetails ? 'minus-circle' : 'plus-circle'"/>
+                            <Icon :icon="showDetails ? 'circle-minus' : 'circle-plus'"/>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                         <h3><Icon :icon="['far', 'calendar']"/>{{ __('Evento', 'iande') }}</h3>
                         <div class="iande-appointment__edit" v-if="editable">
                             <a class="iande-appointment__edit-link" :href="gotoScreen(2)">{{ __('Editar', 'iande') }}</a>
-                            <Icon icon="pencil-alt"/>
+                            <Icon icon="pen"/>
                         </div>
                     </div>
                     <div>{{ __(exhibition.title, 'iande') }}</div>
@@ -50,10 +50,10 @@
 
                 <div class="iande-appointment__box">
                     <div class="iande-appointment__box-title">
-                        <h3><Icon icon="user"/>{{ __('Responsável pela visita', 'iande') }}</h3>
+                        <h3><Icon icon="user-large"/>{{ __('Responsável pela visita', 'iande') }}</h3>
                         <div class="iande-appointment__edit" v-if="editable">
                             <a class="iande-appointment__edit-link" :href="gotoScreen(3)">{{ __('Editar', 'iande') }}</a>
-                            <Icon icon="pencil-alt"/>
+                            <Icon icon="pen"/>
                         </div>
                     </div>
                     <div>
@@ -68,10 +68,10 @@
 
                 <div class="iande-appointment__box" v-if="institution">
                     <div class="iande-appointment__box-title">
-                        <h3><Icon icon="university"/>{{ __('Instituição', 'iande') }}</h3>
+                        <h3><Icon icon="landmark"/>{{ __('Instituição', 'iande') }}</h3>
                         <div class="iande-appointment__edit" v-if="editable">
                             <a class="iande-appointment__edit-link" :href="gotoScreen(3)">{{ __('Editar', 'iande') }}</a>
-                            <Icon icon="pencil-alt"/>
+                            <Icon icon="pen"/>
                         </div>
                     </div>
                     <div>
@@ -92,10 +92,10 @@
                 <template v-if="appointment.step > 2">
                     <div class="iande-appointment__box" v-for="(group, i) of appointment.groups" :key="group.id">
                         <div class="iande-appointment__box-title">
-                            <h3><Icon icon="users"/>{{ sprintf(__('Grupo %s: %s', 'iande'), i + 1, group.name) }}</h3>
+                            <h3><Icon icon="user-group"/>{{ sprintf(__('Grupo %s: %s', 'iande'), i + 1, group.name) }}</h3>
                             <div class="iande-appointment__edit" v-if="editable">
                                 <a class="iande-appointment__edit-link" :href="gotoScreen(5)">{{ __('Editar', 'iande') }}</a>
-                                <Icon icon="pencil-alt"/>
+                                <Icon icon="pen"/>
                             </div>
                         </div>
                         <div>{{ __(group.age_range, 'iande') }}</div>
@@ -116,7 +116,7 @@
                             <h3><Icon :icon="['far', 'address-card']"/>{{ __('Dados adicionais', 'iande') }}</h3>
                             <div class="iande-appointment__edit" v-if="editable">
                                 <a class="iande-appointment__edit-link" :href="gotoScreen(6)">{{ __('Editar', 'iande') }}</a>
-                                <Icon icon="pencil-alt"/>
+                                <Icon icon="pen"/>
                             </div>
                         </div>
                         <div>{{ __('Você já visitou o museu antes', 'iande') }}: {{ formatBinaryOption(appointment.has_visited_previously) }}</div>
@@ -128,7 +128,7 @@
             <div class="iande-appointment__buttons">
                 <button class="iande-button solid" @click="cancelAppointment" v-if="cancelable">
                     {{ __('Cancelar reserva', 'iande') }}
-                    <Icon icon="times"/>
+                    <Icon icon="xmark"/>
                 </button>
                 <a class="iande-button primary" :href="$iandeUrl(`appointment/confirm?ID=${appointment.ID}`)" v-if="editable && appointment.step == 2">
                     {{ __('Confirmar reserva', 'iande') }}

@@ -7,7 +7,7 @@
                         <Icon icon="check"/>
                     </span>
                     <span v-else-if="step === i && status === 'canceled'" :aria-label="sprintf(__('%s, cancelado', 'iande'), i)">
-                        <Icon icon="times"/>
+                        <Icon icon="xmark"/>
                     </span>
                     <span v-else>{{ i }}</span>
                 </div>
@@ -22,7 +22,7 @@
                         <Icon icon="check"/>
                     </span>
                     <span v-else-if="step === 3 && status === 'canceled'" :aria-label="__('3, cancelado', 'iande')">
-                        <Icon icon="times"/>
+                        <Icon icon="xmark"/>
                     </span>
                     <span v-else-if="step === 3 && status === 'pending'" :aria-label="__('3, aguardando confirmação', 'iande')">3</span>
                     <span v-else>3</span>
