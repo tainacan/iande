@@ -5,11 +5,11 @@
             <span>{{ _x('Aguardando confirmação', 'group', 'iande') }}</span>
         </template>
         <template v-else-if="status === 'canceled'">
-            <Icon icon="times-circle"/>
+            <Icon icon="circle-xmark"/>
             <span>{{ _x('Cancelado', 'group', 'iande') }} <Tooltip v-if="reason" :text="reasonText"/></span>
         </template>
         <template v-else-if="status === 'publish'">
-            <Icon icon="check-circle"/>
+            <Icon icon="circle-check"/>
             <span>{{ _x('Confirmado', 'group', 'iande') }}</span>
         </template>
     </div>
