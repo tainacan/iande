@@ -1,6 +1,6 @@
 <template>
     <div class="iande-admin-agenda">
-        <Calendar activeView="month" :disableViews="['years', 'year']" :events="events" locale="pt-br" startWeekOnSunday :timeStep="timeStep">
+        <Calendar activeView="month" :disableViews="disabledViews" :events="events" locale="pt-br" startWeekOnSunday :timeStep="timeStep">
             <template #cell-content="{ cell, view }">
                 <template v-if="view.id === 'month'">
                     <div class="iande-admin-agenda__month">{{ cell.content }}</div>
@@ -53,6 +53,7 @@
         data () {
             return {
                 appointments: [],
+                disabledViews: ['years', 'year'],
                 exhibition: null,
             }
         },
@@ -107,6 +108,11 @@
                 this.appointments = appointments
             } catch (err) {
                 console.error(err)
+            }
+        },
+        beforeMount () {
+            if (window.matchMedia?.('(max-width: 800px)').matches) {
+                this.disabledViews = [...this.disabledViews, 'week']
             }
         },
         methods: {
