@@ -9,7 +9,7 @@
             </div>
             <div>
                 <button type="button" class="iande-button small solid" @click="removeImage">
-                    <Icon :icon="['far', 'trash-alt']"/>
+                    <Icon :icon="['far', 'trash-can']"/>
                     {{ __('Excluir imagem', 'iande') }}
                 </button>
                 <button type="button" class="iande-button small primary" @click="openDialog">

@@ -2,7 +2,7 @@
     <tr>
         <td class="iande-itinerary-table__controls iande-tainacan-table__controls">
             <div role="button" tabindex="0" :aria-role="__('Remover', 'iande')" @click="$emit('remove', item.items_id)">
-                <Icon :icon="['far', 'trash-alt']"/>
+                <Icon :icon="['far', 'trash-can']"/>
             </div>
             <div class="-handle" aria-hidden="true">
                 <Icon icon="grip-vertical"/>
