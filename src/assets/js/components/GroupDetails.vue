@@ -153,7 +153,7 @@
     ]
 
     export default {
-        name: 'EducatorGroupDetails',
+        name: 'GroupDetails',
         props: {
             boxed: { type: Boolean, default: false },
             educators: { type: Array, default: () => [] },

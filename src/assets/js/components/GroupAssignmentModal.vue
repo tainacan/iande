@@ -1,17 +1,17 @@
 <template>
     <Modal class="iande-group-modal" ref="modal" :label="__('Detalhes do grupo', 'iande')" @close="close">
-        <EducatorGroupDetails :educators="educators" :group="group" v-if="group"/>
+        <GroupDetails :educators="educators" :group="group" v-if="group"/>
     </Modal>
 </template>
 
 <script>
-    import EducatorGroupDetails from '@components/EducatorGroupDetails.vue'
+    import GroupDetails from '@components/GroupDetails.vue'
     import Modal from '@components/Modal.vue'
 
     export default {
         name: 'GroupAssignmentModal',
         components: {
-            EducatorGroupDetails,
+            GroupDetails,
             Modal,
         },
         props: {
