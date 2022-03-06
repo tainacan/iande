@@ -1,7 +1,7 @@
 __webpack_public_path__ = window.IandeSettings.iandePath
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faFacebook, faTelegram, faTwitter, faWhatsapp, faWordpress } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook, faTelegram, faTwitter, faWhatsapp, faWordpressSimple } from '@fortawesome/free-brands-svg-icons'
 import { faAddressCard, faCalendar, faClock, faFloppyDisk, faImage, faStar as farStar, faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faArrowLeft, faBars, faBus, faCaretDown, faCheck, faCircleCheck, faCircleInfo, faCircleMinus, faCirclePlus, faCircleQuestion, faEye, faGear, faGripVertical, faLandmark, faListUl, faMinus, faPen, faPrint, faShareNodes, faSpinner, faStar, faUserLarge, faUsers, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -16,7 +16,7 @@ import IandePlugin from '@plugins/iande'
 import WpI18n from '@plugins/wp-i18n'
 import createStore from '@store'
 
-library.add(faFacebook, faTelegram, faTwitter, faWhatsapp, faWordpress)
+library.add(faFacebook, faTelegram, faTwitter, faWhatsapp, faWordpressSimple)
 library.add(faAddressCard, faCalendar, faClock, faFloppyDisk, faImage, farStar, faTrashCan)
 library.add(faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight, faArrowLeft, faBars, faBus, faCaretDown, faCheck, faCircleCheck, faCircleInfo, faCircleMinus, faCirclePlus, faCircleQuestion, faEye, faGear, faGripVertical, faLandmark, faListUl, faMinus, faPen, faPrint, faShareNodes, faSpinner, faStar, faUserLarge, faUsers, faXmark)
 
