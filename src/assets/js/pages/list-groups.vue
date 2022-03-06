@@ -59,6 +59,7 @@
                 }
             },
             groups: sync('groups/list'),
+            institutions: sync('institutions/list'),
             timeOptions: constant([
                 { label: __('Próximas', 'iande'), value: 'next' },
                 { label: __('Antigas', 'iande'), value: 'previous' },
@@ -70,16 +71,18 @@
         },
         async created () {
             try {
-                const [exhibitions, appointments, groups, educators] = await Promise.all([
-                    api.get('exhibition/list/?show_private=1'),
+                const [appointments, exhibitions, groups, institutions, educators] = await Promise.all([
                     api.get('appointment/list_published'),
+                    api.get('exhibition/list/?show_private=1'),
                     api.get('group/list'),
+                    api.get('institution/list_published'),
                     api.get('user/list/?cap=checkin'),
                 ])
-                this.exhibitions = exhibitions
                 this.appointments = appointments
-                this.groups = groups
                 this.educators = educators
+                this.exhibitions = exhibitions
+                this.groups = groups
+                this.institutions = institutions
             } catch (err) {
                 console.error(err)
             }

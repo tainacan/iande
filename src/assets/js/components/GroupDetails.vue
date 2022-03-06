@@ -85,6 +85,25 @@
                     </div>
                 </div>
 
+                <div class="iande-appointment__box" v-if="institution">
+                    <div class="iande-appointment__box-title">
+                        <h3><Icon icon="landmark"/>{{ __('Instituição', 'iande') }}</h3>
+                    </div>
+                    <div>
+                        <div>{{ institution.name }}</div>
+                        <div>{{ formatPhone(institution.phone) }}</div>
+                    </div>
+                    <div>
+                        <div>
+                            {{ institution.address }}, {{ institution.address_number }}
+                            <template v-if="institution.complement">{{ institution.complement }}</template>
+                            - {{ institution.district }}
+                        </div>
+                        <div>{{ city }} - {{ institution.state }}</div>
+                        <div>{{ __('CEP', 'iande') }} {{ formatCep(institution.zip_code) }}</div>
+                    </div>
+                </div>
+
                 <div class="iande-appointment__box">
                     <div class="iande-appointment__box-title">
                         <h3><Icon :icon="['far', 'address-card']"/>{{ __('Dados adicionais', 'iande') }}</h3>
@@ -114,9 +133,10 @@
     import { get } from 'vuex-pathify'
 
     import { __, _x, sprintf } from '@plugins/wp-i18n'
-    import { api, formatPhone, isOther, today } from '@utils'
+    import { api, formatCep, formatPhone, isOther, today } from '@utils'
     import { assignmentStatus } from '@utils/groups'
 
+    const cities = import(/* webpackChunkName: 'estados-municipios' */ '../../json/municipios.json')
     const months = [
         _x('Jan', 'month', 'iande'),
         _x('Fev', 'month', 'iande'),
@@ -144,6 +164,14 @@
                 showDetails: false,
             }
         },
+        asyncComputed: {
+            cities: {
+                get () {
+                    return cities
+                },
+                default: {},
+            },
+        },
         computed: {
             appointment () {
                 return this.appointments.find(appointment => appointment.ID == this.group.appointment_id)
@@ -158,6 +186,13 @@
             },
             canEvaluate () {
                 return this.isEducator && this.group.has_checkin && this.group.checkin_showed === 'yes' && !this.group.has_report && this.group.date <= today
+            },
+            city () {
+                if (!this.institution) {
+                    return null
+                }
+                const cityId = this.institution.city
+                return Object.entries(this.cities).find(([key]) => key === cityId)[1]
             },
             collapsed () {
                 return this.boxed && !this.showDetails
@@ -186,6 +221,13 @@
                 return this.exhibitions.find(exhibition => exhibition.ID == this.group.exhibition_id)
             },
             exhibitions: get('exhibitions/list'),
+            institution () {
+                if (this.appointment.group_nature !== 'institutional') {
+                    return null
+                }
+                return this.institutions.find(institution => institution.ID == this.appointment.institution_id)
+            },
+            institutions: get('institutions/list'),
             isEducator () {
                 return this.status === 'assigned-self'
             },
@@ -238,6 +280,7 @@
             formatBinaryOption (option) {
                 return option === 'yes' ? __('Sim', 'iande') : __('Não', 'iande')
             },
+            formatCep,
             formatPhone,
             toggleDetails () {
                 this.showDetails = !this.showDetails
