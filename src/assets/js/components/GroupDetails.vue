@@ -24,7 +24,7 @@
                         <div class="iande-group__steps">
                             <div class="iande-group__step">
                                 <div class="iande-group__step-icon active">
-                                    <Icon icon="check"/>
+                                    <Icon icon="circle-check"/>
                                 </div>
                                 <label>
                                     <span>{{ __('Mediação:', 'iande') }}</span>
@@ -38,14 +38,14 @@
                                 </label>
                             </div>
                             <div class="iande-group__step">
-                                <div class="iande-group__step-icon" :class="{ active: !!group.has_checkin }">
-                                    <Icon :icon="group.has_checkin ? 'check' : 'minus'"/>
+                                <div class="iande-group__step-icon">
+                                    <Icon :icon="group.has_checkin ? 'circle-check' : 'circle-minus'"/>
                                 </div>
                                 {{ __('Check-in', 'iande') }}
                             </div>
                             <div class="iande-group__step">
-                                <div class="iande-group__step-icon" :class="{ active: !!group.has_report }">
-                                    <Icon :icon="group.has_report ? 'check' : 'minus'"/>
+                                <div class="iande-group__step-icon">
+                                    <Icon :icon="group.has_report ? 'circle-check' : 'circle-minus'"/>
                                 </div>
                                 {{ __('Avaliação', 'iande') }}
                             </div>
@@ -122,7 +122,7 @@
                 </a>
             </div>
         </div>
-        <div class="iande-group__toggle-button" role="button" tabindex="0" v-if="boxed" @click="toggleDetails" @keypress.enter="toggleDetails">
+        <div class="iande-appointment__toggle-button" role="button" tabindex="0" v-if="boxed" @click="toggleDetails" @keypress.enter="toggleDetails">
             {{ collapsed ? __('Exibir detalhes', 'iande') : __('Ocultar detalhes', 'iande') }}
         </div>
     </section>
