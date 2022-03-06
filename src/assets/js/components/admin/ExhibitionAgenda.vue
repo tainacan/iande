@@ -19,7 +19,7 @@
                             {{ event.group.name }}
                         </span>
                         <span :title="sprintf(__('%s pessoas', 'iande'), event.group.num_people)">
-                            <Icon icon="user-group"/>
+                            <Icon icon="users"/>
                             {{ event.group.num_people }}
                         </span>
                     </a>

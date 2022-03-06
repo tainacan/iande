@@ -92,7 +92,7 @@
                 <template v-if="appointment.groups">
                     <div class="iande-appointment__box" v-for="(group, i) of appointment.groups" :key="group.id">
                         <div class="iande-appointment__box-title">
-                            <h3><Icon icon="user-group"/>{{ sprintf(__('Grupo %s: %s', 'iande'), i + 1, group.name) }}</h3>
+                            <h3><Icon icon="bus"/>{{ sprintf(__('Grupo %s: %s', 'iande'), i + 1, group.name) }}</h3>
                             <div class="iande-appointment__edit" v-if="editable">
                                 <a class="iande-appointment__edit-link" :href="gotoScreen(5)">{{ __('Editar', 'iande') }}</a>
                                 <Icon icon="pen"/>

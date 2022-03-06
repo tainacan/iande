@@ -32,7 +32,7 @@
                                 </li>
                                 <li v-if="shareAvailable">
                                     <a href="javascript:void(0)" role="button" tabindex="0" :aria-label="__('Compartilhar', 'iande')" @click="share" @keypress.enter="share">
-                                        <Icon icon="circle-nodes"/>
+                                        <Icon icon="share-nodes"/>
                                     </a>
                                 </li>
                             </ul>
