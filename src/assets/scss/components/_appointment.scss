@@ -139,6 +139,7 @@
 
     &__details {
         background-color: var(--iande-lighter-color);
+        padding: 20px;
 
         @media screen and (min-width: 601px) {
             border-radius: 0 0 var(--iande-border-radius) var(--iande-border-radius);
