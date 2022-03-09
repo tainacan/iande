@@ -151,7 +151,7 @@
         methods: {
             async confirmAppointment () {
                 try {
-                    if (await this.updateAppointment()) {
+                    if (await this.saveAppointment()) {
                         this.$refs.firstModal.open()
                         return true
                     } else {
