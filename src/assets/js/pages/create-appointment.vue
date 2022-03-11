@@ -123,7 +123,7 @@
             institution: sync('institutions/current'),
             institutions: sync('institutions/list'),
             page () {
-                if (this.screen < 4) {
+                if (this.screen < 5) {
                     return this.screen
                 } else {
                     return this.screen - 1
