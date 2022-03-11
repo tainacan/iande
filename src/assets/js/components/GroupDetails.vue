@@ -23,8 +23,8 @@
                     <div>
                         <div class="iande-group__steps">
                             <div class="iande-group__step">
-                                <div class="iande-group__step-icon active">
-                                    <Icon icon="circle-check"/>
+                                <div class="iande-group__step-icon" :class="{ active: group.educator_id }">
+                                    <Icon :icon="group.educator_id ? 'circle-check' : 'circle-minus'"/>
                                 </div>
                                 <label>
                                     <span>{{ __('Mediação:', 'iande') }}</span>
@@ -38,13 +38,13 @@
                                 </label>
                             </div>
                             <div class="iande-group__step">
-                                <div class="iande-group__step-icon">
+                                <div class="iande-group__step-icon" :class="{ active: group.has_checkin }">
                                     <Icon :icon="group.has_checkin ? 'circle-check' : 'circle-minus'"/>
                                 </div>
                                 {{ __('Check-in', 'iande') }}
                             </div>
                             <div class="iande-group__step">
-                                <div class="iande-group__step-icon">
+                                <div class="iande-group__step-icon" :class="{ active: group.has_report }">
                                     <Icon :icon="group.has_report ? 'circle-check' : 'circle-minus'"/>
                                 </div>
                                 {{ __('Avaliação', 'iande') }}
