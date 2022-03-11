@@ -214,7 +214,7 @@
                 return parts[2]
             },
             editable () {
-                return this.appointment.post_status === 'draft'
+                return this.appointment.post_status === 'draft' || this.appointment.post_status === 'pending'
             },
             exhibition () {
                 return this.exhibitions.find(exhibition => exhibition.ID == this.appointment.exhibition_id)
