@@ -160,12 +160,11 @@
         font-size: 0.875em;
 
         & > * {
-            border-bottom: 1px solid var(--iande-light-color);
             padding: 10px;
         }
 
-        & > :last-child {
-            border-bottom: none;
+        & > * + * {
+            border-top: 1px solid var(--iande-light-color);
         }
 
         &-title {
@@ -198,14 +197,17 @@
     }
 
     &__feedback-link {
-        padding-top: 0;
+        border-top: none;
+        padding: 0;
 
         a {
             background-color: var(--iande-primary-color);
+            border-radius: var(--iande-border-radius);
             color: var(--iande-secondary-color);
             display: block;
             font-weight: bold;
-            padding: 5px;
+            line-height: 1;
+            padding: 10px;
             text-align: center;
             text-decoration: none;
         }
