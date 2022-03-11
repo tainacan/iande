@@ -4,8 +4,8 @@
             <form class="iande-form iande-stack stack-lg" @submit.prevent="updateAppointment">
                 <SelectExhibition ref="form" v-if="screen === 1"/>
                 <GroupsDate ref="form" v-else-if="screen === 2"/>
-                <SelectInstitution ref="form" v-else-if="screen === 3" :canAddInstitution="false"/>
-                <GroupsAdditionalInfo ref="form" v-else-if="screen === 5"/>
+                <GroupsAdditionalInfo ref="form" v-else-if="screen === 3"/>
+                <SelectInstitution ref="form" v-else-if="screen === 4" :canAddInstitution="false"/>
                 <AdditionalData ref="form" v-else-if="screen === 6"/>
 
                 <div class="iande-form-error" v-if="formError">

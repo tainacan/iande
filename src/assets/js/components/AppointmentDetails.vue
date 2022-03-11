@@ -52,7 +52,7 @@
                     <div class="iande-appointment__box-title">
                         <h3><Icon icon="user-large"/>{{ __('Responsável pela visita', 'iande') }}</h3>
                         <div class="iande-appointment__edit" v-if="editable">
-                            <a class="iande-appointment__edit-link" :href="gotoScreen(3)">{{ __('Editar', 'iande') }}</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(4)">{{ __('Editar', 'iande') }}</a>
                             <Icon icon="pen"/>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                     <div class="iande-appointment__box-title">
                         <h3><Icon icon="landmark"/>{{ __('Instituição', 'iande') }}</h3>
                         <div class="iande-appointment__edit" v-if="editable">
-                            <a class="iande-appointment__edit-link" :href="gotoScreen(3)">{{ __('Editar', 'iande') }}</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(4)">{{ __('Editar', 'iande') }}</a>
                             <Icon icon="pen"/>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                     <div class="iande-appointment__box-title">
                         <h3><Icon icon="bus"/>{{ sprintf(__('Grupo %s: %s', 'iande'), i + 1, group.name) }}</h3>
                         <div class="iande-appointment__edit" v-if="editable">
-                            <a class="iande-appointment__edit-link" :href="gotoScreen(5)">{{ __('Editar', 'iande') }}</a>
+                            <a class="iande-appointment__edit-link" :href="gotoScreen(3)">{{ __('Editar', 'iande') }}</a>
                             <Icon icon="pen"/>
                         </div>
                     </div>
