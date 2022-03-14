@@ -32,7 +32,7 @@
                             </li>
                             <li><a :href="$iandeUrl('itinerary/list')" v-if="$iande.tainacanActive">{{ __('Roteiros', 'iande') }}</a></li>
                             <li class="iande-navbar__icon-link">
-                                <a :href="$iande.adminUrl">
+                                <a :href="$iande.adminUrl" target="_blank">
                                     <Icon :icon="['fab', 'wordpress-simple']"/>
                                     <span>{{ __('Voltar ao admin', 'iande') }}</span>
                                 </a>
