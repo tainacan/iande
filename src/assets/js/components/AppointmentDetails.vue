@@ -128,7 +128,7 @@
                     {{ __('Cancelar reserva', 'iande') }}
                     <Icon icon="xmark"/>
                 </button>
-                <button class="iande-button primary" v-if="editable" @click="sendConfirmation">
+                <button class="iande-button primary" v-if="appointment.post_status === 'draft'" @click="sendConfirmation">
                     {{ __('Finalizar reserva', 'iande') }}
                     <Icon icon="check"/>
                 </button>
