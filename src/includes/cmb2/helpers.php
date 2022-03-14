@@ -271,50 +271,21 @@ function iande_cmb2_settings_init() {
     }
 
     /**
-     * E-mail 1.1 - Pré-agendamento
+     * E-mail 1.1 - Solicitação de isenção
      */
-    if (empty($emails_settings['email_pre_scheduling_title'])) {
-        $title = "Confirmação de reserva da visita";
-        cmb2_update_option('iande_emails_settings', 'email_pre_scheduling_title', $title);
+    if (empty($emails_settings['email_exemption_title'])) {
+        $title = "Formulário de isenção";
+        cmb2_update_option('iande_emails_settings', 'email_exemption_title', $title);
     }
 
-    if (empty($emails_settings['email_pre_scheduling'])) {
+    if (empty($emails_settings['email_exemption'])) {
 
         $message = "Olá %nome%,
-
-Aqui estão os dados da sua reserva para visitar o Museu <b>" . get_bloginfo('name') . "</b>.
-
-<b>Exposição:</b> %exposicao%
-<b>Grupo(s): </b> %grupos%
-
-Para finalizar seu agendamento, preencha os demais dados do(s) seu(s) grupo(s) <a href='%link%'>clicando aqui</a>.
-
-Caso tenha alguma dúvida, entre em contato com o Museu nos dados abaixo.";
-
-        cmb2_update_option('iande_emails_settings', 'email_pre_scheduling', $message);
-
-    }
-
-    /**
-     * E-mail 1.2 - Pré-agendamento + isenção
-     */
-    if (empty($emails_settings['email_pre_scheduling_exemption_title'])) {
-        $title = "Confirmação de reserva da visita";
-        cmb2_update_option('iande_emails_settings', 'email_pre_scheduling_exemption_title', $title);
-    }
-
-    if (empty($emails_settings['email_pre_scheduling_exemption'])) {
-
-        $message = "Olá %nome%,
-
-Aqui estão os dados da sua reserva para visitar o Museu <b>" . get_bloginfo('name') . "</b>.
-
-<b>Exposição:</b> %exposicao%
-<b>Grupo(s): </b> %grupos%
-
-Para finalizar seu agendamento, preencha os demais dados do(s) seu(s) grupo(s) <a href='%link%'>clicando aqui</a>.
 
 Você solicitou a isenção do pagamento dos ingressos na sua visita ao Museu <b>" . get_bloginfo('name') . "</b>.
+
+<b>Exposição:</b> %exposicao%
+<b>Grupo(s): </b> %grupos%
 
 Lembramos que a gratuidade se aplica aos seguintes casos:
 
@@ -329,12 +300,12 @@ Anexado a este e-mail você encontrará um modelo de pedido de isenção que dev
 
 Caso você tenha dúvidas se está apto a solicitar a isenção do ingresso, entre em contato.";
 
-        cmb2_update_option('iande_emails_settings', 'email_pre_scheduling_exemption', $message);
+        cmb2_update_option('iande_emails_settings', 'email_exemption', $message);
 
     }
 
     /**
-     * E-mail 1.3 - Lembrete
+     * E-mail 1.2 - Lembrete
      */
     if (empty($emails_settings['email_reminder_title'])) {
         $title = "Lembrete de visita";
@@ -354,7 +325,7 @@ Estamos aguardando sua visita.";
     }
 
     /**
-     * E-mail 1.4 - Agendamento confirmado
+     * E-mail 1.3 - Agendamento confirmado
      */
     if (empty($emails_settings['email_confirmed_title'])) {
         $title = "Visita confirmada";
@@ -379,7 +350,7 @@ Nos vemos em breve!";
     }
 
     /**
-     * E-mail 1.5 - Agendamento cancelado
+     * E-mail 1.4 - Agendamento cancelado
      */
     if (empty($emails_settings['email_canceled_title'])) {
         $title = "Visita cancelada";
@@ -405,7 +376,7 @@ Caso queira fazer um novo agendamento, <a href='%link%'>clique aqui</a>.";
     }
 
     /**
-     * E-mail 1.6 - Pós-visita
+     * E-mail 1.5 - Pós-visita
      */
     if (empty($emails_settings['email_after_visiting_title'])) {
         $title = "Agradecemos sua visita";

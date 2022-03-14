@@ -58,51 +58,29 @@ function iande_settings_emails() {
         'options'     => $options
     ]);
 
-    // E-mail 1.1 - Pré-agendamento
+    // E-mail 1.1 - Solicitação de isenção
     $iande_emails_options->add_field([
-        'name'       => __('Pré-agendamento', 'iande'),
-        'id'         => 'email_pre_scheduling_heading',
+        'name'       => __('Solicitação de isenção', 'iande'),
+        'id'         => 'email_exemption_heading',
         'type'       => 'title'
     ]);
     $iande_emails_options->add_field([
-        'id'         => 'email_pre_scheduling_title',
+        'id'         => 'email_exemption_title',
         'show_names' => false,
         'type'       => 'text',
         'attributes' => [
-            'placeholder' => __('Título do pré-agendamento', 'iande')
+            'placeholder' => __('Título da solicitação de isenção', 'iande')
         ]
     ]);
     $iande_emails_options->add_field([
-        'id'          => 'email_pre_scheduling',
-        'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%exposicao%</b>, <b>%grupos%</b>, <b>%link%</b>.', 'iande'),
-        'type'        => 'wysiwyg',
-        'show_names'  => false,
-        'options'     => $options
-    ]);
-
-    // E-mail 1.2 - Pré-agendamento + isenção
-    $iande_emails_options->add_field([
-        'name'       => __('Pré-agendamento + isenção', 'iande'),
-        'id'         => 'email_pre_scheduling_exemption_heading',
-        'type'       => 'title'
-    ]);
-    $iande_emails_options->add_field([
-        'id'         => 'email_pre_scheduling_exemption_title',
-        'show_names' => false,
-        'type'       => 'text',
-        'attributes' => [
-            'placeholder' => __('Título do pré-agendamento + isenção', 'iande')
-        ]
-    ]);
-    $iande_emails_options->add_field([
-        'id'          => 'email_pre_scheduling_exemption',
+        'id'          => 'email_exemption',
         'description' => __('<b>Tags especiais</b> quando usadas, serão substituídas automaticamente ao enviar o e-mail: <b>%nome%</b>, <b>%exposicao%</b>, <b>%grupos%</b>, <b>%email_museu%</b>.', 'iande'),
         'type'        => 'wysiwyg',
         'show_names'  => false,
         'options'     => $options
     ]);
     $iande_emails_options->add_field([
-        'id'         => 'email_pre_scheduling_exemption_attachment',
+        'id'         => 'email_exemption_attachment',
         'type'       => 'file',
         'show_names' => false,
         'options' => [
@@ -124,7 +102,7 @@ function iande_settings_emails() {
         ]
     ]);
 
-    // E-mail 1.3 - Lembrete
+    // E-mail 1.2 - Lembrete
     $iande_emails_options->add_field([
         'name'       => __('Lembrete', 'iande'),
         'id'         => 'email_reminder_heading',
@@ -146,7 +124,7 @@ function iande_settings_emails() {
         'options'     => $options
     ]);
 
-    // E-mail 1.4 - Agendamento confirmado
+    // E-mail 1.3 - Agendamento confirmado
     $iande_emails_options->add_field([
         'name'       => __('Agendamento confirmado', 'iande'),
         'id'         => 'email_confirmed_heading',
@@ -168,7 +146,7 @@ function iande_settings_emails() {
         'options'     => $options
     ]);
 
-    // E-mail 1.5 - Agendamento cancelado
+    // E-mail 1.4 - Agendamento cancelado
     $iande_emails_options->add_field([
         'name'       => __('Agendamento cancelado', 'iande'),
         'id'         => 'email_canceled_heading',
@@ -190,7 +168,7 @@ function iande_settings_emails() {
         'options'     => $options
     ]);
 
-    // E-mail 1.6 - Pós-visita
+    // E-mail 1.5 - Pós-visita
     $iande_emails_options->add_field([
         'name'       => __('Pós-visita', 'iande'),
         'id'         => 'email_after_visiting_heading',

@@ -389,11 +389,32 @@ class Appointment extends Controller
                 }
             }
 
-            if ($current_post_status == 'pending' && $new_post_status == 'publish') {
+            if ($current_post_status == 'draft' && $new_post_status == 'pending') {
+
+                $requested_exemption = \get_post_meta($params['ID'], 'requested_exemption', true);
+
+                if ($requested_exemption == 'yes' && use_exemption()) {
+
+                    // envia o e-mail de solicitação de isenção para o responsável do agendamento
+                    $email_params = [
+                        'email' => \get_post_meta($params['ID'], 'responsible_email', true),
+                        'cc'    => $this->get_author_email($params['ID']),
+                        'interpolations' => [
+                            'nome'        => \get_post_meta($params['ID'], 'responsible_first_name', true),
+                            'exposicao'   => \get_the_title(\get_post_meta($params['ID'], 'exhibition_id', true)),
+                            'grupos'      => $groups,
+                            'email_museu' => \cmb2_get_option('iande_emails_settings', 'email_contact'),
+                        ]
+                    ];
+                    $this->email('email_exemption', $email_params);
+
+                }
+
+            } elseif ($current_post_status == 'pending' && $new_post_status == 'publish') {
 
                 if ($this->validate($params['ID']) && !$confirmation_sent) {
 
-                    // envia o e-mail de confirmação para o responsavel do agendamento
+                    // envia o e-mail de confirmação para o responsável do agendamento
                     $email_params = [
                         'email' => \get_post_meta($params['ID'], 'responsible_email', true),
                         'cc'    => $this->get_author_email($params['ID']),
