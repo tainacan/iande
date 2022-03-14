@@ -37,8 +37,8 @@
         name: 'ListGroupsPage',
         components: {
             AppointmentsFilter,
-            GroupDetails,
             GroupsAgenda,
+            GroupDetails,
         },
         data () {
             return {
