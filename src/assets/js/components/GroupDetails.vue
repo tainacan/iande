@@ -271,9 +271,11 @@
         },
         watch: {
             'group.educator_id': {
-                async handler () {
+                async handler (newVal, oldVal) {
                     const { educator_id, ID } = this.group
-                    if (educator_id) {
+                    if (oldVal == 0 && !newVal) {
+                        return
+                    } else if (educator_id) {
                         await api.post('group/assign_educator', { educator_id, ID })
                     } else {
                         await api.post('group/unassign_educator', { ID })
