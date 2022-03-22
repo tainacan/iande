@@ -2,9 +2,9 @@
 Contributors: percebeeduca
 Tags: Reservation system, scheduling, schedule, group visits, virtual group tours, museums, Tainacan
 Requires at least: 5.5.3
-Tested up to: 5.8.2
+Tested up to: 5.9.2
 Requires PHP: 7.2
-Stable tag: 0.13.3
+Stable tag: 0.14.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,14 @@ Features:
 
 
 == Changelog ==
+
+= 0.14.0 =
+* Unifica as duas etapas do agendamento, removendo a abstração de "rascunho" para o visitante
+* Permite editar agendamentos pendentes
+* Versão imprimível da lista exibe grupos com mais de duas semanas de antecedência
+* Adiciona link para a página da política de privacidade, se disponível
+* Adiciona botão de voltar às páginas de check-in e avaliação
+* Exibe dados de avaliações anteriores
 
 = 0.13.2 =
 * Adiciona mensagem de sucesso após atualização de roteiro
