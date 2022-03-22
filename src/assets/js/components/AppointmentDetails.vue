@@ -139,7 +139,7 @@
             </div>
         </div>
         <div class="iande-appointment__toggle-button" role="button" tabindex="0" @click="toggleDetails" @keypress.enter="toggleDetails">
-            {{ collapsed ? __('Exibir detalhes', 'iande') : __('Ocultar detalhes', 'iande') }}
+            {{ showDetails ? __('Exibir detalhes', 'iande') : __('Ocultar detalhes', 'iande') }}
         </div>
         <AppointmentCancelModal :appointment="appointment" ref="cancelModal"/>
         <AppointmentSuccessModal ref="successModal"/>
