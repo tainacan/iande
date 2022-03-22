@@ -21,6 +21,9 @@
                     </div>
                     <button class="iande-button primary" type="submit">{{ __('Criar login', 'iande') }}</button>
                     <a class="iande-button outline" :href="$iandeUrl('user/login')">{{ __('Já tenho login', 'iande') }}</a>
+                    <p class="iande-privacy-policy" v-if="$iande.privacyPolicy">
+                        <a :href="$iande.privacyPolicy">{{ __('Política de Privacidade', 'iande') }}</a>
+                    </p>
                 </div>
             </form>
         </div>

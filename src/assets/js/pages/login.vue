@@ -20,6 +20,9 @@
                     </div>
                     <button class="iande-button primary" type="submit">{{ __('Fazer login', 'iande') }}</button>
                     <a class="iande-button outline" :href="$iandeUrl('user/create')">{{ __('Criar login', 'iande') }}</a>
+                    <p class="iande-privacy-policy" v-if="$iande.privacyPolicy">
+                        <a :href="$iande.privacyPolicy">{{ __('Política de Privacidade', 'iande') }}</a>
+                    </p>
                 </div>
             </form>
         </div>
