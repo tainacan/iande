@@ -37,9 +37,7 @@
                 exhibitions: [],
                 groups: [],
                 institutions: [],
-                nextMonday: null,
-                thisMonday: null,
-                twoWeeks: null,
+                monday: null,
             }
         },
         computed: {
@@ -53,12 +51,11 @@
                 return arrayToMap(this.institutions, 'ID')
             },
             sortedGroups () {
-                const { thisMonday, twoWeeks } = this
-                if (!thisMonday) {
+                if (!this.monday) {
                     return []
                 }
                 const filteredGroups = this.groups.filter(group => {
-                    return group.date >= thisMonday && group.date < twoWeeks
+                    return group.date >= this.monday
                 })
                 return filteredGroups.sort(sortBy(group => group.date))
             },
@@ -90,9 +87,7 @@
         methods: {
             computeDates () {
                 const thisMonday = DateTime.now().startOf('week')
-                this.thisMonday = thisMonday.toISODate()
-                this.nextMonday = thisMonday.plus({ week: 1 }).toISODate()
-                this.twoWeeks = thisMonday.plus({ week: 2 }).toISODate()
+                this.monday = thisMonday.toISODate()
             },
         }
     }
