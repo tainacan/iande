@@ -88,8 +88,7 @@
         },
         data () {
             return {
-                formError: '',
-                group: {
+                form: {
                     has_report: 'on',
                     report_difficulty_other: '',
                     report_difficulty: [],
@@ -101,6 +100,8 @@
                     report_summary: '',
                     report_type: [],
                 },
+                formError: '',
+                group: null,
                 submitted: false,
             }
         },
@@ -152,7 +153,7 @@
             ]),
         },
         validations: {
-            group: {
+            form: {
                 report_difficulty: { maxLength: maxLength(2), required },
                 report_difficulty_other: { },
                 report_interaction: { maxLength: maxLength(2), required },
@@ -183,7 +184,7 @@
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
                     try {
-                        await api.post('group/report_update', this.gr)
+                        await api.post('group/report_update', { ID: this.group.ID, ...this.form })
                         this.submitted = true
                     } catch (err) {
                         this.formError = err
