@@ -128,10 +128,6 @@
                     {{ __('Cancelar reserva', 'iande') }}
                     <Icon icon="xmark"/>
                 </button>
-                <button class="iande-button primary" v-if="appointment.post_status === 'draft'" @click="sendConfirmation">
-                    {{ __('Finalizar reserva', 'iande') }}
-                    <Icon icon="check"/>
-                </button>
                 <button class="iande-button disabled" v-if="appointment.post_status === 'pending'" disabled>
                     {{ __('Aguardando confirmação', 'iande') }}
                     <Icon icon="spinner" spin/>
@@ -142,7 +138,6 @@
             {{ showDetails ? __('Exibir detalhes', 'iande') : __('Ocultar detalhes', 'iande') }}
         </div>
         <AppointmentCancelModal :appointment="appointment" ref="cancelModal"/>
-        <AppointmentSuccessModal ref="successModal"/>
     </section>
 </template>
 
@@ -151,7 +146,6 @@
     import { get } from 'vuex-pathify'
 
     import AppointmentCancelModal from '@components/AppointmentCancelModal.vue'
-    import AppointmentSuccessModal from '@components/AppointmentSuccessModal.vue'
     import StatusIndicator from '@components/StatusIndicator.vue'
     import { __, _x, sprintf } from '@plugins/wp-i18n'
     import { api, formatCep, formatPhone, isOther, sortBy } from '@utils'
@@ -177,7 +171,6 @@
         name: 'AppointmentDetails',
         components: {
             AppointmentCancelModal,
-            AppointmentSuccessModal,
             StatusIndicator,
         },
         props: {
@@ -308,10 +301,6 @@
                         }
                     })
                     .join(', ')
-            },
-            async sendConfirmation () {
-                await api.post('appointment/set_status', { ID: this.appointment.ID, post_status: 'pending' })
-                this.$refs.successModal.open()
             },
             toggleDetails () {
                 this.showDetails = !this.showDetails

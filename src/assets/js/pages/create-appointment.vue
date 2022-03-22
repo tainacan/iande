@@ -27,21 +27,7 @@
             </form>
         </div>
 
-        <Modal ref="firstModal" :label="__('Sucesso!', 'iande')" narrow @close="listAppointments">
-            <div class="iande-stack iande-form">
-                <h1>{{ __('Preenchimento finalizado', 'iande') }}</h1>
-                <p>{{ __('Agradecemos pelo seu tempo em completar todas as etapas do agendamento. Você pode revisar o agendamento ou já enviar a solicitação para o museu.', 'iande') }}</p>
-                <div class="iande-form-grid">
-                    <a class="iande-button solid" :href="$iandeUrl('appointment/list')">
-                        {{ __('Revisar informações', 'iande') }}
-                    </a>
-                    <button class="iande-button primary" @click="finishAppointment">
-                        {{ __('Finalizar', 'iande') }}
-                    </button>
-                </div>
-            </div>
-        </Modal>
-        <AppointmentSuccessModal ref="secondModal"/>
+        <AppointmentSuccessModal ref="modal"/>
     </article>
 </template>
 
@@ -49,7 +35,6 @@
     import { call, get, sync } from 'vuex-pathify'
 
     import AppointmentSuccessModal from '@components/AppointmentSuccessModal.vue'
-    import Modal from '@components/Modal.vue'
     import Progress from '@components/Progress.vue'
     import { api, qs } from '@utils'
 
@@ -106,7 +91,6 @@
         name: 'CreateAppointmentPage',
         components: {
             AppointmentSuccessModal,
-            Modal,
             Progress,
         },
         data () {
@@ -152,7 +136,7 @@
             async confirmAppointment () {
                 try {
                     if (await this.saveAppointment()) {
-                        this.$refs.firstModal.open()
+                        await this.finishAppointment()
                         return true
                     } else {
                         return false
@@ -163,17 +147,13 @@
                 }
             },
             async finishAppointment () {
-                this.$refs.firstModal.close(false)
                 await api.post('appointment/set_status', { ID: this.appointment.ID, post_status: 'pending' })
-                this.$refs.secondModal.open()
+                this.$refs.modal.open()
             },
             isFormValid () {
                 const formComponent = this.$refs.form
                 formComponent.$v.$touch()
                 return !formComponent.$v.$invalid
-            },
-            listAppointments () {
-                window.location.assign(this.$iandeUrl('appointment/list'))
             },
             async nextStep () {
                 this.formError = ''

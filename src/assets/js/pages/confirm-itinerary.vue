@@ -27,7 +27,7 @@
                         <span>{{ __('Apagar roteiro', 'iande') }}</span>
                     </button>
                     <button type="button" class="iande-button small primary" v-if="itinerary.post_status === 'draft'" @click="publish">
-                        <Icon icon="check"/>
+                        <Icon icon="circle-check"/>
                         <span>{{ __('Publicar roteiro', 'iande') }}</span>
                     </button>
                     <button type="button" class="iande-button small primary" v-else @click="publish">

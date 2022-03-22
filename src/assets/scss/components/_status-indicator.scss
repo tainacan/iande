@@ -1,5 +1,5 @@
 .iande-status {
-    background-color: var(--iande-light-color);
+    background-color: var(--iande-background-color);
     color: var(--iande-secondary-color);
     display: inline-block;
     border-radius: var(--iande-border-radius);
@@ -12,7 +12,7 @@
     }
 
     & > svg[data-icon] {
-        color: var(--iande-text-color);
+        color: var(--iande-medium-color);
         margin-right: 5px;
     }
 
