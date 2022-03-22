@@ -5,6 +5,7 @@
             <form class="iande-form iande-stack stack-lg" @submit.prevent="sendReport">
                 <template v-if="submitted">
                     <p class="text-center">{{ __('Avaliação realizada com sucesso!', 'iande') }}</p>
+                    <a class="iande-button primary" :href="$iandeUrl('group/list')">{{ __('Voltar', 'iande') }}</a>
                 </template>
 
                 <template v-else>
@@ -87,7 +88,8 @@
         },
         data () {
             return {
-                form: {
+                formError: '',
+                group: {
                     has_report: 'on',
                     report_difficulty_other: '',
                     report_difficulty: [],
@@ -99,8 +101,6 @@
                     report_summary: '',
                     report_type: [],
                 },
-                formError: '',
-                group: null,
                 submitted: false,
             }
         },
@@ -152,7 +152,7 @@
             ]),
         },
         validations: {
-            form: {
+            group: {
                 report_difficulty: { maxLength: maxLength(2), required },
                 report_difficulty_other: { },
                 report_interaction: { maxLength: maxLength(2), required },
@@ -183,7 +183,7 @@
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
                     try {
-                        await api.post('group/report_update', { ID: this.group.ID, ...this.form })
+                        await api.post('group/report_update', this.gr)
                         this.submitted = true
                     } catch (err) {
                         this.formError = err

@@ -5,6 +5,7 @@
             <form class="iande-form iande-stack stack-lg" @submit.prevent="checkin">
                 <template v-if="submitted">
                     <p class="text-center">{{ __('Check-in realizado com sucesso!', 'iande') }}</p>
+                    <a class="iande-button primary" :href="$iandeUrl('group/list')">{{ __('Voltar', 'iande') }}</a>
                 </template>
 
                 <template v-else>
