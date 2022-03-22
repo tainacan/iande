@@ -170,6 +170,9 @@
                 try {
                     const group = await api.get('group/get', { ID: Number(qs.get('ID')) })
                     this.group = group
+                    if (group.has_report === 'on') {
+                        this.mergeReports()
+                    }
                 } catch (err) {
                     this.formError = err
                 }
@@ -178,6 +181,13 @@
         methods: {
             hasOther (arr) {
                 return arr.some(item => isOther(item))
+            },
+            mergeReports () {
+                for (const key of Object.keys(this.form)) {
+                    if (this.group[key]) {
+                        this.form[key] = this.group[key]
+                    }
+                }
             },
             async sendReport () {
                 this.formError = ''

@@ -153,6 +153,9 @@
                 try {
                     const group = await api.get('group/get', { ID: Number(qs.get('ID')) })
                     this.group = group
+                    if (group.has_feedback === 'on') {
+                        this.mergeFeedbacks()
+                    }
                 } catch (err) {
                     this.formError = err
                 }
@@ -160,6 +163,13 @@
         },
         methods: {
             isOther,
+            mergeFeedbacks () {
+                for (const key of Object.keys(this.form)) {
+                    if (this.group[key]) {
+                        this.form[key] = this.group[key]
+                    }
+                }
+            },
             async sendFeedback () {
                 this.formError = ''
                 this.$v.$touch()
