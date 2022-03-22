@@ -6,7 +6,7 @@
 
         <div class="iande-container narrow iande-stack stack-lg mt-lg">
             <form class="iande-form iande-stack stack-lg" @submit.prevent="nextStep">
-                <component :is="route.component" ref="form" @add-institution="setScreen(4)"/>
+                <component :is="route.component" ref="form" @add-institution="setScreen(5)"/>
 
                 <div class="iande-form-error" v-if="formError">
                     <span>{{ __(formError, 'iande') }}</span>
