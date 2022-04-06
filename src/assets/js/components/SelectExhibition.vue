@@ -26,7 +26,10 @@
         <div>
             <Label for="numPeople">{{ __('Quantidade prevista de pessoas', 'iande') }}</Label>
             <Input id="numPeople" type="number" :min="minPeople" :placeholder="sprintf(__('Mínimo de %s pessoas', 'iande'), minPeople)" :disabled="groupsCreated" v-model.number="numPeople" :v="$v.numPeople"/>
-            <p class="text-sm">{{ __('Caso seu grupo seja maior do que a capacidade de atendimento do museu, mais grupos serão criados automaticamente', 'iande') }}</p>
+            <template v-if="exhibition">
+                <p class="text-sm" v-if="groupSlot > 1">{{ sprintf(__('A exposição atende até %s grupos com %s visitantes cada por horário', 'iande'), groupSlot, maxPeople) }}</p>
+                <p class="text-sm" v-else>{{ sprintf(__('A exposição atende até %s visitantes por horário', 'iande'), maxPeople) }}</p>
+            </template>
         </div>
     </div>
 </template>
@@ -65,6 +68,12 @@
             groups: get('appointments/current@groups'),
             groupsCreated () {
                 return this.groups.length > 0
+            },
+            groupSlot () {
+                return this.exhibition?.group_slot ? Number(this.exhibition.group_slot) : 1
+            },
+            maxPeople () {
+                return this.exhibition?.group_size ? Number(this.exhibition.group_size) : 100
             },
             minPeople () {
                 return this.exhibition?.min_group_size ? Number(this.exhibition.min_group_size) : 5
