@@ -14,7 +14,7 @@
                 <Label :for="`${id}_hour`">{{ __('Horário', 'iande') }}</Label>
                 <SlotPicker :id="`${id}_hour`" ref="slots" :day="date" v-model="hour" :v="v.hour"/>
                 <div class="iande-form-message" :class="{ '-error': availability.visitors === 0 }" v-if="availability">
-                    {{ sprintf(__('Vagas disponíveis: %s', 'iande'), availability.visitors) }}
+                    {{ sprintf(__('Total de vagas disponíveis: %s', 'iande'), availability.visitors) }}
                 </div>
             </div>
         </template>
