@@ -109,7 +109,7 @@ function get_group_metadata_definition()
 
     $appointments = \get_posts([
         'post_type'      => 'appointment',
-        'post_status'    => ['draft', 'pending', 'publish'],
+        'post_status'    => ['draft', 'canceled', 'pending', 'publish'],
         'posts_per_page' => -1,
         'order'          => 'DESC',
         'orderby'        => 'ID',
