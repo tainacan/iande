@@ -276,7 +276,7 @@ function get_appointment_metadata_definition() {
         ],
         'name' => (object) [
             'type'       => 'string',
-            'required'   => false,
+            'required'   => true,
             'validation' => function ($value) {
                 if (strlen(trim($value)) >= 2) {
                     return true;

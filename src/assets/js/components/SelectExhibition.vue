@@ -13,7 +13,7 @@
             <Input id="purposeOther" type="text" v-model="purposeOther" :v="$v.purposeOther"/>
         </div>
         <div>
-            <Label for="name" :side="__('(opcional)', 'iande')">{{ __('Dê um nome à visita', 'iande') }}</Label>
+            <Label for="name">{{ __('Dê um nome à visita', 'iande') }}</Label>
             <Input id="name" type="text" :placeholder="__('Ex: Nome da instituição', 'iande')" v-model="name" :v="$v.name"/>
         </div>
         <div>
@@ -90,7 +90,7 @@
         validations () {
             return {
                 exhibitionId: { required },
-                name: { },
+                name: { required },
                 numPeople: { integer, minValue: minValue(this.minPeople), required },
                 purpose: { required },
                 purposeOther: { },
