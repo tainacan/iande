@@ -51,7 +51,6 @@ Features:
 
 = 0.15.1 =
 * Melhoria na mensagem de sucesso de agendamento
-*
 
 = 0.15.0 =
 * Torna nome da visita campo obrigatório
