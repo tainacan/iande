@@ -69,7 +69,7 @@
         },
         methods: {
             balanceGroups () {
-                if (this.groups.length > 0) {
+                if (this.groups && this.groups.length > 0) {
                     const hasSize = this.groups.some(group => {
                         const numPeople = Number(group.num_people)
                         return numPeople && numPeople !== 5

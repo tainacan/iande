@@ -277,7 +277,7 @@
                 return this.$iandeUrl(`appointment/edit?ID=${this.appointment.ID}&screen=${screen}`)
             },
             groupDisabilities (disabilities) {
-                if (disabilities.length === 0) {
+                if (!disabilities || disabilities.length === 0) {
                     return __('Não', 'iande')
                 } else {
                     return disabilities

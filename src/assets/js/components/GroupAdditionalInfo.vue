@@ -123,7 +123,7 @@
         watch: {
             disabilities: {
                 handler () {
-                    if (this.disabilities.length > 0) {
+                    if (!this.disabilities || this.disabilities.length > 0) {
                         this.haveDisabilities = true
                     }
                 },
@@ -131,7 +131,7 @@
             },
             languages: {
                 handler () {
-                    if (this.languages.length > 0) {
+                    if (!this.languages || this.languages.length > 0) {
                         this.otherLanguages = true
                     }
                 },
