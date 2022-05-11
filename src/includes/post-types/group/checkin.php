@@ -46,7 +46,7 @@ function get_group_checkin_metadata_definition()
     ];
 
     $checkin_noshow_reason = [
-        __('Problemas de deslocamento até a exposição/museu (trânsito, endereço errado, atraso do ônibus, atraso de alunos responsáveis)', 'iande'),
+        __('Problemas de deslocamento até a exposição/museu (trânsito, endereço errado, atraso do ônibus, atraso de responsáveis)', 'iande'),
         __('O grupo preferiu visitar a exposição sem a presença do educador', 'iande'),
         __('O grupo optou por realizar outra atividade na instituição', 'iande'),
         __('A visita foi cancelada no mesmo dia', 'iande'),

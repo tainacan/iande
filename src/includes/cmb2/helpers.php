@@ -294,7 +294,7 @@ Lembramos que a gratuidade se aplica aos seguintes casos:
 <li>Idosos acima de 60 anos</li>
 <li>Crianças até 6 anos</li>
 <li>Pessoas com deficiência</li>
-<li>Alunos da rede pública</li>
+<li>Estudantes da rede pública</li>
 <li>Acompanhantes de grupos com visitas agendadas</li>
 <li>Membros do ICOM, mediante apresentação de comprovante</li>
 

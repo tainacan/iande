@@ -10,7 +10,7 @@
                 </WelcomeOption>
 
                 <WelcomeOption :title="__('Agendar uma Visita Presencial', 'iande')" :href="$iandeUrl('appointment/create')">
-                    <p>{{ __('Agende uma visita presencial para você, seus amigos, seus alunos, sua família ou quem você quiser.', 'iande') }}</p>
+                    <p>{{ __('Agende uma visita presencial para você, seus amigos, seus estudantes, sua família ou quem você quiser.', 'iande') }}</p>
                 </WelcomeOption>
             </div>
         </article>

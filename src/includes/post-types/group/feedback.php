@@ -77,7 +77,7 @@ function get_group_feedback_metadata_definition()
         __('Do acervo exposto', 'iande'),
         __('Dos textos da exposição', 'iande'),
         __('Da atuação do educador/visita educativa', 'iande'),
-        __('Do comportamento dos alunos', 'iande'),
+        __('Do comportamento dos estudantes', 'iande'),
         __('Dos materiais educativos', 'iande'),
         __('Outros', 'iande')
     ];
